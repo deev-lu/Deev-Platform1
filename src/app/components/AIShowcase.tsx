@@ -1,0 +1,153 @@
+import { useState } from "react";
+import { motion } from "motion/react";
+import { MessageSquare, Users, Bot, Workflow, Sparkles } from "lucide-react";
+import AIFeatures3D from "./AIFeatures3D";
+
+const useCases = [
+  {
+    icon: MessageSquare,
+    title: "Intelligent Lead Qualification",
+    description:
+      "Enterprise-grade AI agents that engage prospects in real-time, qualifying high-value leads and seamlessly routing them to your closing team.",
+    features: ["Natural language understanding", "CRM integration", "24/7 engagement"],
+  },
+  {
+    icon: Workflow,
+    title: "Autonomous Workflows",
+    description:
+      "End-to-end operational automation. We connect your entire tech stack to eliminate manual data entry and accelerate project delivery.",
+    features: ["Cross-platform sync", "Custom logic rules", "Real-time updates"],
+  },
+  {
+    icon: Users,
+    title: "Hyper-Personalization",
+    description:
+      "Deploy AI models trained on your proprietary data to deliver tailored experiences that drive massive conversion rates for premium offerings.",
+    features: ["Predictive analytics", "Dynamic content", "User behavior tracking"],
+  },
+  {
+    icon: Bot,
+    title: "Internal Co-Pilots",
+    description:
+      "Custom AI assistants built exclusively for your team, securely analyzing your internal documents to provide instant, accurate insights.",
+    features: ["Secure data handling", "Document processing", "Instant retrieval"],
+  },
+];
+
+export default function AIShowcase() {
+  const [activeCard, setActiveCard] = useState(0);
+
+  return (
+    <section className="relative py-20 md:py-32 bg-black overflow-hidden border-t border-white/5">
+      {/* Premium Background decoration */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00C6FF]/50 to-transparent" />
+      <div className="absolute -top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00C6FF]/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-[#0022FF]/10 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-10"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8"
+          >
+            <span className="w-1 h-1 rounded-full bg-[#00C6FF] animate-pulse" />
+            Next-Gen Intelligence
+          </motion.div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight">
+            AI that drives{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C6FF] via-[#0022FF] to-[#00C6FF] animate-gradient-x">
+              Enterprise Growth
+            </span>
+          </h2>
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
+            We build sophisticated AI systems for high-ticket businesses. 
+            Automate your operations, scale your output, and deliver unparalleled client experiences.
+          </p>
+        </motion.div>
+
+        {/* The new impressive 3D AI Features visualization */}
+        <AIFeatures3D />
+
+        {/* Use Cases Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 relative z-20 mt-20">
+          {useCases.map((useCase, index) => {
+            const Icon = useCase.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                onMouseEnter={() => setActiveCard(index)}
+                className="group relative cursor-pointer"
+              >
+                <div
+                  className={`relative p-8 md:p-10 rounded-3xl border transition-all duration-700 h-full ${
+                    activeCard === index
+                      ? "bg-gradient-to-br from-[#0022FF]/40 to-black border-[#00C6FF]/50 shadow-[0_0_50px_rgba(0,198,255,0.15)]"
+                      : "bg-white/[0.04] border-white/[0.10] hover:border-white/25"
+                  }`}
+                >
+                  {/* Icon */}
+                  <div
+                    className={`w-16 h-16 rounded-2xl mb-8 flex items-center justify-center transition-all duration-500 ${
+                      activeCard === index
+                        ? "bg-[#00C6FF] shadow-[0_0_30px_rgba(0,198,255,0.4)]"
+                        : "bg-white/5 group-hover:bg-white/10"
+                    }`}
+                  >
+                    <Icon
+                      className={`w-8 h-8 transition-colors duration-300 ${
+                        activeCard === index ? "text-white" : "text-gray-400"
+                      }`}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">
+                    {useCase.title}
+                  </h3>
+                  <p className="text-slate-400 text-base mb-8 leading-relaxed">
+                    {useCase.description}
+                  </p>
+
+                  {/* Features */}
+                  <ul className="space-y-4 mt-auto">
+                    {useCase.features.map((feature, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center gap-3 text-base text-gray-200 font-medium"
+                      >
+                        <div className={`w-1.5 h-1.5 rounded-full ${
+                          activeCard === index ? "bg-[#00C6FF]" : "bg-gray-600"
+                        } transition-colors duration-300`} />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Animated border glow effect */}
+                  <div
+                    className={`absolute inset-0 rounded-3xl bg-gradient-to-br from-[#00C6FF]/10 via-transparent to-transparent opacity-0 transition-opacity duration-700 pointer-events-none ${
+                      activeCard === index ? "opacity-100" : ""
+                    }`}
+                  />
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+  );
+}

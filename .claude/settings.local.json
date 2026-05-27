@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.deev.lu)",
+      "Bash(pnpm dev *)",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(npm install *)",
+      "Bash(npx vite *)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "Bash(npm run *)",
+      "Bash(ls \"/Users/fabiofalchero/Downloads/\" | grep -i \"\\\\.png\\\\|\\\\.svg\\\\|\\\\.jpg\" | grep -v pdf | head -30 *)",
+      "Bash(# Create src/assets folder and copy the logo *)",
+      "WebFetch(domain:unsplash.com)",
+      "Bash(curl -sL \"https://images.unsplash.com/photo-1588336899284-950764f07147?auto=format&fit=crop&w=1080&q=80\" -o luxembourg.jpg)",
+      "Bash(grep -iE \"\\\\.\\(png|svg|avif|webp\\)$\")",
+      "Bash(sips -s format png \"/Users/fabiofalchero/Downloads/Deev .png\" --out \"/Users/fabiofalchero/Downloads/Deev New/src/assets/logo.png\")",
+      "Bash(sips -s format png \"/Users/fabiofalchero/Downloads/logo picadilly.avif\" --out \"/Users/fabiofalchero/Downloads/Deev New/src/assets/clients/picadilly_avif.png\")",
+      "Bash(sips -s format png \"/Users/fabiofalchero/Downloads/N1lmDecAgn4nyC32CBWDsW0cs6g.avif\" --out \"/Users/fabiofalchero/Downloads/Deev New/src/assets/clients/n1lm.png\")",
+      "Bash(sips -s format png \"/Users/fabiofalchero/Downloads/Primary_logo.avif\" --out \"/Users/fabiofalchero/Downloads/Deev New/src/assets/clients/primary.png\")",
+      "Bash(sips -s format png \"/Users/fabiofalchero/Downloads/8e638a_b1842921b0ad44c3a9df944cd2acb670~mv2.avif\" --out \"/Users/fabiofalchero/Downloads/Deev New/src/assets/clients/logo_8e638a.png\")",
+      "Bash(sips -Z 600 \"/Users/fabiofalchero/Downloads/Deev New/src/assets/clients/alphagest.png\")",
+      "Bash(python3)",
+      "Bash(pip3 install *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
