@@ -1,6 +1,7 @@
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
 import { supabase, supabaseReady } from "../../lib/supabase";
+import NoiseOverlay from "./NoiseOverlay";
 import {
   ArrowRight,
   ArrowLeft,
@@ -68,7 +69,7 @@ function calcSmeGrant(rawMin: number, rawMax: number) {
   return { subsidyMin, subsidyMax, netMin: Math.max(0, netMin), netMax: Math.max(0, netMax) };
 }
 
-type CoreSystem = "webapp" | "ai-agent" | "website" | "ecommerce" | null;
+type CoreSystem = "webapp" | "ai-agent" | "website" | "ecommerce" | "marketing" | null;
 type ScaleLevel = "mvp" | "growth" | "enterprise" | null;
 type Capability = string;
 
@@ -98,20 +99,26 @@ const CORE_SYSTEMS = [
     icon: Brain,
     description: "Custom AI agents, chatbots & smart workflows.",
   },
+  {
+    id: "marketing" as const,
+    label: "Lead Campaigns & Marketing",
+    icon: Megaphone,
+    description: "Paid ads, SEO & funnels that generate qualified leads.",
+  },
 ];
 
 // ── Scale tiers ────────────────────────────────────────────────────────────────
 const SCALE_LEVELS = [
   {
     id: "mvp" as const,
-    label: "Starter / MVP",
+    label: "Starter",
     description: "Core features, fast launch, validate your idea.",
     badge: "Best to start",
     multiplier: 1,
   },
   {
     id: "growth" as const,
-    label: "Growth / Pro",
+    label: "Professional",
     description: "Scalable architecture, premium design & integrations.",
     badge: "Most popular",
     multiplier: 2,
@@ -121,48 +128,57 @@ const SCALE_LEVELS = [
     label: "Enterprise",
     description: "Custom security, compliance, SLA & dedicated support.",
     badge: "Full power",
-    multiplier: 3.8,
+    multiplier: 3.5,
   },
 ];
 
-// ── Per-capability add-on pricing ─────────────────────────────────────────────
+// ── Per-capability add-on pricing (from Deev Services PDF 2026) ───────────────
 const CAP_PRICE: Record<string, { min: number; max: number }> = {
-  // Website
-  animations:    { min: 800,  max: 1500 },
-  blog:          { min: 1200, max: 2000 },
-  i18n:          { min: 1000, max: 1800 },
-  lead_forms:    { min: 600,  max: 1200 },
-  seo:           { min: 800,  max: 1400 },
-  gdpr:          { min: 500,  max: 900  },
-  live_chat:     { min: 500,  max: 800  },
-  analytics:     { min: 600,  max: 1000 },
-  // E-Commerce
-  payments:      { min: 1500, max: 2500 },
-  catalog:       { min: 1000, max: 1800 },
-  accounts:      { min: 800,  max: 1400 },
-  inventory:     { min: 1200, max: 2000 },
-  order_mgmt:    { min: 1000, max: 1800 },
-  discounts:     { min: 600,  max: 1200 },
-  cart_recovery: { min: 800,  max: 1500 },
-  multicurrency: { min: 1200, max: 2200 },
-  // Web App
-  auth:          { min: 1200, max: 2000 },
-  dashboard:     { min: 1500, max: 2800 },
-  realtime:      { min: 1500, max: 2500 },
-  file_upload:   { min: 800,  max: 1400 },
-  email_notif:   { min: 600,  max: 1000 },
-  api_integr:    { min: 1200, max: 2200 },
-  cron_jobs:     { min: 800,  max: 1400 },
-  billing:       { min: 1800, max: 3000 },
-  // AI
-  chatbot:       { min: 2000, max: 3500 },
-  rag:           { min: 2500, max: 4000 },
-  lead_bot:      { min: 1800, max: 3000 },
-  email_seq:     { min: 1200, max: 2200 },
-  scraping:      { min: 1500, max: 2500 },
-  crm_integr:    { min: 1000, max: 1800 },
-  voice:         { min: 2000, max: 3500 },
-  finetune:      { min: 3000, max: 5000 },
+  // Website add-ons
+  animations:    { min: 800,  max: 1200 },
+  blog:          { min: 450,  max: 750  },
+  i18n:          { min: 400,  max: 650  },
+  lead_forms:    { min: 350,  max: 550  },
+  seo:           { min: 900,  max: 1400 },
+  gdpr:          { min: 500,  max: 750  },
+  live_chat:     { min: 400,  max: 600  },
+  analytics:     { min: 350,  max: 550  },
+  // E-Commerce add-ons
+  payments:      { min: 1200, max: 1700 },
+  catalog:       { min: 900,  max: 1350 },
+  accounts:      { min: 700,  max: 1050 },
+  inventory:     { min: 1000, max: 1450 },
+  order_mgmt:    { min: 900,  max: 1300 },
+  discounts:     { min: 500,  max: 750  },
+  cart_recovery: { min: 700,  max: 1000 },
+  multicurrency: { min: 1000, max: 1450 },
+  // Web App add-ons
+  auth:          { min: 1000, max: 1450 },
+  dashboard:     { min: 1200, max: 1800 },
+  realtime:      { min: 1200, max: 1700 },
+  file_upload:   { min: 700,  max: 1000 },
+  email_notif:   { min: 500,  max: 750  },
+  api_integr:    { min: 1000, max: 1500 },
+  cron_jobs:     { min: 700,  max: 1000 },
+  billing:       { min: 1500, max: 2100 },
+  // AI & Automation add-ons
+  chatbot:       { min: 1800, max: 2600 },
+  rag:           { min: 2500, max: 3600 },
+  lead_bot:      { min: 1800, max: 2500 },
+  email_seq:     { min: 1200, max: 1700 },
+  scraping:      { min: 1500, max: 2100 },
+  crm_integr:    { min: 1000, max: 1500 },
+  voice:         { min: 2000, max: 2800 },
+  finetune:      { min: 3000, max: 4200 },
+  // Lead Campaigns & Marketing add-ons (campaign build / setup fees, ad spend separate)
+  google_ads:      { min: 800,  max: 1200 },
+  meta_ads:        { min: 700,  max: 1100 },
+  seo_campaign:    { min: 900,  max: 1400 },
+  content:         { min: 600,  max: 950  },
+  email_marketing: { min: 500,  max: 800  },
+  social_mgmt:     { min: 800,  max: 1200 },
+  funnel:          { min: 700,  max: 1100 },
+  cro:             { min: 900,  max: 1350 },
 };
 
 // ── Capabilities per system ───────────────────────────────────────────────────
@@ -209,14 +225,26 @@ const CAPABILITIES: Record<NonNullable<CoreSystem>, CapItem[]> = {
     { id: "voice",      label: "Voice Assistant",          sublabel: "ElevenLabs + Whisper speech I/O",           icon: Mic },
     { id: "finetune",   label: "Custom LLM Fine-tuning",   sublabel: "Domain-specific model training",            icon: Cpu },
   ],
+  marketing: [
+    { id: "google_ads",      label: "Google Ads (Search/PPC)",  sublabel: "Campaign setup, keywords & bidding",       icon: Search },
+    { id: "meta_ads",        label: "Meta Ads (FB / Instagram)", sublabel: "Creative, audiences & retargeting",       icon: Megaphone },
+    { id: "seo_campaign",    label: "SEO Campaign",             sublabel: "Technical SEO, content & backlinks",       icon: BarChart3 },
+    { id: "content",         label: "Content & Copywriting",    sublabel: "Landing copy, blogs, ad creatives",        icon: FileText },
+    { id: "email_marketing", label: "Email & Newsletters",      sublabel: "Sequences, automation, Brevo/Mailchimp",   icon: Mail },
+    { id: "social_mgmt",     label: "Social Media Management",  sublabel: "Content calendar, posting & community",    icon: MessageSquare },
+    { id: "funnel",          label: "Landing Pages & Funnels",  sublabel: "High-converting pages + tracking",         icon: Globe },
+    { id: "cro",             label: "CRO & A/B Testing",        sublabel: "Optimise conversion rate, test variants",  icon: Zap },
+  ],
 };
 
-// ── Base pricing per system ───────────────────────────────────────────────────
+// ── Base pricing per system (Deev Services PDF 2026) ─────────────────────────
+// Starter Landing: 1500€ / Professional Website: 3000€ / scale multiplier applied
 const BASE: Record<NonNullable<CoreSystem>, { min: number; max: number; weeks: string }> = {
-  website:    { min: 3500,  max: 7000,  weeks: "3–5"  },
-  ecommerce:  { min: 6000,  max: 10000, weeks: "5–7"  },
-  webapp:     { min: 8000,  max: 15000, weeks: "7–10" },
-  "ai-agent": { min: 5500,  max: 12000, weeks: "5–9"  },
+  website:    { min: 1800,  max: 2900,  weeks: "2–5"  },
+  ecommerce:  { min: 4500,  max: 6500,  weeks: "4–8"  },
+  webapp:     { min: 7000,  max: 10000, weeks: "6–12" },
+  "ai-agent": { min: 2200,  max: 3800,  weeks: "3–8"  },
+  marketing:  { min: 1800,  max: 3000,  weeks: "2–6"  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -232,6 +260,17 @@ function UsersIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+// Rolling odometer-style number — counts smoothly to its target value
+function AnimatedNumber({ value }: { value: number }) {
+  const mv = useMotionValue(value);
+  const display = useTransform(mv, (v) => Math.round(v).toLocaleString("de-DE"));
+  useEffect(() => {
+    const controls = animate(mv, value, { duration: 0.9, ease: [0.16, 1, 0.3, 1] });
+    return controls.stop;
+  }, [value]);
+  return <motion.span>{display}</motion.span>;
+}
+
 export default function ProjectBuilder() {
   const [step, setStep] = useState(1);
   const [system, setSystem] = useState<CoreSystem>(null);
@@ -239,9 +278,27 @@ export default function ProjectBuilder() {
   const [capabilities, setCapabilities] = useState<Set<Capability>>(new Set());
 
   const [showLeadCapture, setShowLeadCapture] = useState(false);
-  const [leadForm, setLeadForm] = useState({ name: "", email: "" });
+  const [leadForm, setLeadForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    website: "",
+    timeline: "",
+    goals: "",
+  });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Cursor-tracking spotlight over the configurator stage
+  const stageRef = useRef<HTMLDivElement>(null);
+  const glowX = useMotionValue(-600);
+  const glowY = useMotionValue(-600);
+  const handleStageMove = (e: React.MouseEvent) => {
+    const rect = stageRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    glowX.set(e.clientX - rect.left);
+    glowY.set(e.clientY - rect.top);
+  };
 
   const toggleCapability = (id: Capability) => {
     const next = new Set(capabilities);
@@ -254,7 +311,8 @@ export default function ProjectBuilder() {
   const activeCaps: CapItem[] = system ? CAPABILITIES[system] : [];
 
   const estimate = useMemo(() => {
-    if (!system) return { min: "0", max: "0", weeks: "—", rawMin: 0, rawMax: 0 };
+    if (!system)
+      return { min: "0", max: "0", weeks: "—", rawMin: 0, rawMax: 0, hasGrant: false, netMin: 0, netMax: 0 };
 
     const base = BASE[system];
     const mult = SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1;
@@ -269,14 +327,24 @@ export default function ProjectBuilder() {
     const rawMin = Math.round(base.min * mult + addMin);
     const rawMax = Math.round(base.max * mult + addMax);
 
+    // Net price after the 70% SME grant (not for standalone marketing)
+    const grant = system !== "marketing" ? calcSmeGrant(rawMin, rawMax) : null;
+
     return {
       min: rawMin.toLocaleString("de-DE"),
       max: rawMax.toLocaleString("de-DE"),
       weeks: base.weeks,
       rawMin,
       rawMax,
+      hasGrant: !!grant,
+      netMin: grant?.netMin ?? rawMin,
+      netMax: grant?.netMax ?? rawMax,
     };
   }, [system, scale, capabilities]);
+
+  // Live "build progress" for the stage bar
+  const configuredCount = (system ? 1 : 0) + (scale ? 1 : 0) + (step >= 3 ? 1 : 0);
+  const buildPct = Math.round((configuredCount / 3) * 100);
 
   const handleNext = () => {
     if (step === 3) setShowLeadCapture(true);
@@ -294,139 +362,299 @@ export default function ProjectBuilder() {
 
   return (
     <section
+      ref={stageRef}
+      onMouseMove={handleStageMove}
       id="project-builder"
-      className="relative bg-slate-50 dark:bg-[#08080c] py-24 min-h-screen flex flex-col justify-center"
+      className="relative py-20 sm:py-28 md:py-32 flex flex-col justify-center overflow-hidden bg-slate-50 dark:bg-[#050509] transition-colors duration-300"
     >
-      <div className="max-w-7xl mx-auto px-6 w-full">
+      {/* Dark studio gradient — dark only */}
+      <div
+        className="hidden dark:block absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(130% 80% at 50% -10%, #0c0c1a 0%, #08080f 45%, #050509 100%)",
+        }}
+      />
+      {/* ── Studio stage decorations ─────────────────────────────────── */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00C6FF]/50 to-transparent" />
+      {/* Overhead spotlight */}
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-[#0022FF]/[0.06] dark:bg-[#0022FF]/12 rounded-full blur-[170px] pointer-events-none" />
+      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#00C6FF]/[0.05] dark:bg-[#00C6FF]/[0.07] rounded-full blur-[150px] pointer-events-none" />
+      {/* Reflective floor wash */}
+      <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#0022FF]/[0.04] dark:from-[#0022FF]/[0.06] to-transparent pointer-events-none" />
+      {/* Fine grid — dark dots in light, white dots in dark */}
+      <div
+        className="absolute inset-0 opacity-[0.04] dark:hidden pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #0f172a 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-[0.025] hidden dark:block pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      {/* Premium film grain — dark only */}
+      <NoiseOverlay className="hidden dark:block" opacity={0.03} />
+      {/* Cursor-tracking spotlight (desktop) */}
+      <motion.div
+        className="hidden lg:block absolute w-[500px] h-[500px] rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 z-0"
+        style={{
+          left: glowX,
+          top: glowY,
+          background:
+            "radial-gradient(circle, rgba(0,198,255,0.10) 0%, rgba(0,34,255,0.05) 40%, transparent 70%)",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
         {/* Header */}
         <div className="mb-12 md:mb-16 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
-            <span className="w-1 h-1 rounded-full bg-[#0022FF]" />
-            Instant Estimate
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.12] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00C6FF] animate-pulse" />
+            Live Project Simulator
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
-            Configure Your{" "}
-            <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
-              Project
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
+            Build &amp; price your project,{" "}
+            <span className="bg-gradient-to-r from-[#00C6FF] via-[#3b82f6] to-[#0022FF] bg-clip-text text-transparent animate-gradient-x">
+              live.
             </span>
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            Pick your product, choose a scale, add the features you need — get an instant estimate tailored to you.
+            Spec your build like a high-performance machine and watch your price —
+            and your <span className="text-emerald-400 font-semibold">net cost after the 70% SME grant</span> —
+            update in real time. Then start it in one click.
           </p>
+          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-sm font-semibold">
+            <BadgeEuro className="w-4 h-4" />
+            🇱🇺 Luxembourg SMEs: up to 70% funded by the state SME grant
+          </div>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
+            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#00C6FF]" /> Takes ~30 seconds</span>
+            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:block" />
+            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-[#00C6FF]" /> Instant estimate</span>
+            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:block" />
+            <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#00C6FF]" /> No commitment</span>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          {/* ── Left panel: live preview card ─────────────────────────────── */}
-          <div className="lg:col-span-5 lg:sticky top-32 order-last lg:order-first">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* ── Left panel: cinematic build stage — the live preview leads ── */}
+          <div className="hidden lg:block lg:col-span-6 lg:sticky top-24">
             <motion.div
               layout
-              className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-square rounded-3xl bg-white dark:bg-[#0e0e16] border border-slate-200 dark:border-white/[0.10] shadow-2xl overflow-hidden flex flex-col items-center justify-center p-8"
+              className="relative w-full rounded-[28px] bg-gradient-to-b from-[#13131f] to-[#0b0b14] border border-white/[0.10] shadow-[0_40px_120px_rgba(0,0,0,0.6)] dark:shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden"
             >
-              {/* Background glows */}
+              {/* Stage glows */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#0022FF]/10 rounded-full blur-[100px] opacity-50" />
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00C6FF]/10 rounded-full blur-[100px] opacity-50" />
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-[#0022FF]/20 rounded-full blur-[110px] opacity-60" />
+                <div className="absolute bottom-0 left-0 w-[360px] h-[360px] bg-[#00C6FF]/12 rounded-full blur-[100px] opacity-50" />
+              </div>
+              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00C6FF]/40 to-transparent" />
+
+              {/* Build progress */}
+              <div className="relative z-10 px-8 pt-7">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                    Build progress
+                  </span>
+                  <span className="text-[11px] font-bold text-[#00C6FF] tabular-nums">{buildPct}%</span>
+                </div>
+                <div className="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-[#00C6FF] to-[#0022FF]"
+                    animate={{ width: `${buildPct}%` }}
+                    transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+                  />
+                </div>
               </div>
 
-              <AnimatePresence mode="popLayout">
-                {!system ? (
-                  <motion.div
-                    key="empty"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className="text-center"
-                  >
-                    <Layers className="w-16 h-16 text-slate-300 dark:text-slate-700 mx-auto mb-4" />
-                    <p className="text-slate-500 font-medium">Select a product type to begin</p>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="system"
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="relative z-10 w-full h-full flex flex-col items-center justify-center"
-                  >
-                    {/* Animated chassis icon */}
-                    <div className="relative w-44 h-44 md:w-52 md:h-52 mb-8">
-                      <motion.div
-                        className="w-full h-full rounded-2xl bg-gradient-to-tr from-[#0022FF]/20 to-[#00C6FF]/20 border border-[#0022FF]/30 flex items-center justify-center shadow-[0_0_50px_rgba(0,34,255,0.2)] relative"
-                        animate={{ rotateY: [0, 5, -5, 0], rotateX: [0, -5, 5, 0] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        {system === "ai-agent"  && <Brain       className="w-20 h-20 text-[#0022FF]" />}
-                        {system === "webapp"     && <Code        className="w-20 h-20 text-[#0022FF]" />}
-                        {system === "website"    && <Globe       className="w-20 h-20 text-[#0022FF]" />}
-                        {system === "ecommerce"  && <ShoppingCart className="w-20 h-20 text-[#0022FF]" />}
-
-                        {/* Capability nodes orbiting the icon */}
-                        <AnimatePresence>
-                          {Array.from(capabilities).map((capId, index) => {
-                            const total = capabilities.size;
-                            const angle = (index / total) * Math.PI * 2;
-                            const radius = 105;
-                            const x = Math.cos(angle) * radius;
-                            const y = Math.sin(angle) * radius;
-                            const CapIcon =
-                              activeCaps.find((c) => c.id === capId)?.icon ?? Zap;
-                            return (
-                              <motion.div
-                                key={capId}
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1, x, y }}
-                                exit={{ opacity: 0, scale: 0 }}
-                                className="absolute w-10 h-10 bg-white dark:bg-slate-900 rounded-full shadow-lg border border-[#00C6FF]/30 flex items-center justify-center top-1/2 left-1/2 -mt-5 -ml-5"
-                              >
-                                <CapIcon className="w-4 h-4 text-[#00C6FF]" />
-                              </motion.div>
-                            );
-                          })}
-                        </AnimatePresence>
-                      </motion.div>
-                    </div>
-
-                    <div className="text-center w-full">
-                      <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 mb-3 uppercase tracking-widest">
-                        {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "Choose scale →"}
-                      </div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {CORE_SYSTEMS.find((s) => s.id === system)?.label}
-                      </h3>
-
-                      {/* Live estimate preview */}
-                      {scale && (
+              <div className="relative z-10 px-8 pt-8 pb-8 min-h-[320px] flex flex-col items-center justify-center">
+                <AnimatePresence mode="popLayout">
+                  {!system ? (
+                    <motion.div
+                      key="empty"
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.85 }}
+                      className="text-center"
+                    >
+                      <Layers className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                      <p className="text-slate-400 font-medium">Select a platform to begin your build</p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="system"
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="relative z-10 w-full flex flex-col items-center justify-center"
+                    >
+                      {/* Chassis + orbiting capabilities */}
+                      <div className="relative w-52 h-52 mb-6">
                         <motion.div
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-4 px-6 py-3 rounded-2xl bg-[#0022FF]/8 dark:bg-[#0022FF]/15 border border-[#0022FF]/20"
+                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#0022FF]/25 to-[#00C6FF]/20 border border-[#00C6FF]/30 flex items-center justify-center relative"
+                          style={{
+                            boxShadow: `0 0 ${30 + (SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1) * 18}px rgba(0,198,255,0.28)`,
+                          }}
+                          animate={{ rotateY: [0, 6, -6, 0], rotateX: [0, -6, 6, 0] }}
+                          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                         >
-                          <div className="text-xs text-[#0022FF] dark:text-[#00C6FF] uppercase tracking-widest mb-1 font-semibold">
-                            Live estimate
-                          </div>
-                          <div className="text-xl font-extrabold text-slate-900 dark:text-white">
-                            €{estimate.min}
-                            <span className="text-base font-normal text-slate-400 mx-1">–</span>
-                            €{estimate.max}
-                          </div>
-                        </motion.div>
-                      )}
+                          {system === "ai-agent"  && <Brain        className="w-20 h-20 text-[#00C6FF]" />}
+                          {system === "webapp"     && <Code         className="w-20 h-20 text-[#00C6FF]" />}
+                          {system === "website"    && <Globe        className="w-20 h-20 text-[#00C6FF]" />}
+                          {system === "ecommerce"  && <ShoppingCart className="w-20 h-20 text-[#00C6FF]" />}
+                          {system === "marketing"  && <Megaphone    className="w-20 h-20 text-[#00C6FF]" />}
 
-                      <div className="mt-4 flex items-center justify-center gap-4 text-sm font-medium text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-white/10 pt-4">
-                        <span>{capabilities.size} add-ons</span>
-                        <span className="w-1 h-1 bg-slate-300 dark:bg-slate-600 rounded-full" />
-                        <span>~{BASE[system].weeks} weeks</span>
+                          {/* Capability nodes orbiting the icon */}
+                          <AnimatePresence>
+                            {Array.from(capabilities).map((capId, index) => {
+                              const total = capabilities.size;
+                              const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
+                              const radius = 112;
+                              const x = Math.cos(angle) * radius;
+                              const y = Math.sin(angle) * radius;
+                              const CapIcon =
+                                activeCaps.find((c) => c.id === capId)?.icon ?? Zap;
+                              return (
+                                <motion.div
+                                  key={capId}
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1, x, y }}
+                                  exit={{ opacity: 0, scale: 0 }}
+                                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                                  className="absolute w-11 h-11 bg-[#0a0a14] rounded-full shadow-[0_0_20px_rgba(0,198,255,0.3)] border border-[#00C6FF]/40 flex items-center justify-center top-1/2 left-1/2 -mt-[22px] -ml-[22px]"
+                                >
+                                  <CapIcon className="w-4 h-4 text-[#00C6FF]" />
+                                </motion.div>
+                              );
+                            })}
+                          </AnimatePresence>
+                        </motion.div>
+
+                        {/* Reflective floor pool */}
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-44 h-8 bg-[#00C6FF]/25 rounded-[100%] blur-2xl" />
                       </div>
+
+                      {/* Spec readout */}
+                      <div className="text-center w-full mt-2">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.10] text-[11px] font-bold text-[#00C6FF] mb-3 uppercase tracking-widest">
+                          {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "Choose your trim →"}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white tracking-tight">
+                          {CORE_SYSTEMS.find((s) => s.id === system)?.label}
+                        </h3>
+                        <div className="mt-3 flex items-center justify-center gap-4 text-sm font-medium text-slate-400">
+                          <span>{capabilities.size} feature{capabilities.size === 1 ? "" : "s"}</span>
+                          <span className="w-1 h-1 bg-slate-600 rounded-full" />
+                          <span>~{BASE[system].weeks} weeks</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Persistent live price — the hero of the stage */}
+              {system && scale && (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="relative z-10 border-t border-white/10 bg-black/30 px-8 py-7"
+                >
+                  {estimate.hasGrant ? (
+                    <>
+                      <div className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-2 flex items-center gap-1.5">
+                        <BadgeEuro className="w-3.5 h-3.5" /> Your price after 70% grant
+                      </div>
+                      <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
+                        €<AnimatedNumber value={estimate.netMin} />
+                        <span className="text-white/30 mx-2 font-light">–</span>
+                        €<AnimatedNumber value={estimate.netMax} />
+                      </div>
+                      <div className="mt-3 flex flex-wrap items-center gap-2.5">
+                        <span className="text-sm text-slate-500 line-through tabular-nums">
+                          €{estimate.min} – €{estimate.max}
+                        </span>
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold tabular-nums">
+                          <TrendingDown className="w-3 h-3" />
+                          save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")}–{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-[11px] font-bold uppercase tracking-widest text-[#00C6FF] mb-2">
+                        Your build
+                      </div>
+                      <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
+                        €<AnimatedNumber value={estimate.rawMin} />
+                        <span className="text-white/30 mx-2 font-light">–</span>
+                        €<AnimatedNumber value={estimate.rawMax} />
+                      </div>
+                    </>
+                  )}
+
+                  {/* Spec row */}
+                  <div className="mt-5 pt-5 border-t border-white/10 flex items-center gap-6 text-sm">
+                    <div className="flex items-center gap-2 text-slate-300">
+                      <Clock className="w-4 h-4 text-[#00C6FF]" />
+                      <span className="font-semibold">{estimate.weeks}</span>
+                      <span className="text-slate-500">weeks</span>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <span className="w-px h-4 bg-white/15" />
+                    <div className="flex items-center gap-2 text-slate-300">
+                      <Layers className="w-4 h-4 text-[#00C6FF]" />
+                      <span className="font-semibold">{capabilities.size}</span>
+                      <span className="text-slate-500">feature{capabilities.size === 1 ? "" : "s"}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </motion.div>
           </div>
 
           {/* ── Right panel: steps ────────────────────────────────────────── */}
-          <div className="lg:col-span-7 flex flex-col justify-center min-h-[500px]">
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            {/* Mobile-only: compact rolling price bar */}
+            {system && scale && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="lg:hidden mb-5 px-4 py-3.5 rounded-2xl bg-white dark:bg-white/[0.05] border border-[#00C6FF]/30 shadow-sm dark:shadow-[0_0_30px_rgba(0,198,255,0.08)] flex items-center justify-between"
+              >
+                <div>
+                  {estimate.hasGrant ? (
+                    <>
+                      <div className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-0.5 flex items-center gap-1">
+                        <BadgeEuro className="w-3 h-3" /> After 70% grant
+                      </div>
+                      <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
+                        €<AnimatedNumber value={estimate.netMin} /> – €<AnimatedNumber value={estimate.netMax} />
+                      </div>
+                      <div className="text-[10px] text-slate-400 dark:text-slate-500 line-through tabular-nums">
+                        €{estimate.min} – €{estimate.max}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-[10px] font-bold text-[#0022FF] dark:text-[#00C6FF] uppercase tracking-widest mb-0.5">Your build</div>
+                      <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
+                        €<AnimatedNumber value={estimate.rawMin} /> – €<AnimatedNumber value={estimate.rawMax} />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5">Timeline</div>
+                  <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{estimate.weeks} weeks</div>
+                </div>
+              </motion.div>
+            )}
             {/* Step indicators */}
-            <div className="flex items-center gap-2 mb-10 overflow-x-auto pb-2">
+            <div className="flex items-center gap-1 sm:gap-2 mb-8 sm:mb-10">
               {["Product", "Scale", "Features", "Estimate"].map((label, idx) => {
                 const s = idx + 1;
                 const isActive = s === step;
@@ -434,7 +662,7 @@ export default function ProjectBuilder() {
                 return (
                   <div key={s} className="flex items-center shrink-0">
                     <div
-                      className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold transition-colors ${
+                      className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-bold transition-colors ${
                         isActive
                           ? "bg-[#0022FF] text-white shadow-lg shadow-[#0022FF]/30"
                           : isPast
@@ -442,10 +670,10 @@ export default function ProjectBuilder() {
                           : "bg-slate-200 dark:bg-white/5 text-slate-400 dark:text-slate-500"
                       }`}
                     >
-                      {isPast ? <Check className="w-4 h-4" /> : s}
+                      {isPast ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : s}
                     </div>
                     <span
-                      className={`ml-3 mr-4 text-sm font-semibold tracking-wide ${
+                      className={`ml-1.5 sm:ml-3 mr-2 sm:mr-4 text-xs sm:text-sm font-semibold tracking-wide hidden xs:inline sm:inline ${
                         isActive
                           ? "text-slate-900 dark:text-white"
                           : "text-slate-400 dark:text-slate-500"
@@ -455,7 +683,7 @@ export default function ProjectBuilder() {
                     </span>
                     {s !== 4 && (
                       <div
-                        className={`w-8 h-px mr-4 ${
+                        className={`w-4 sm:w-8 h-px mr-1 sm:mr-4 ${
                           isPast ? "bg-[#0022FF]/50" : "bg-slate-200 dark:bg-white/10"
                         }`}
                       />
@@ -491,14 +719,14 @@ export default function ProjectBuilder() {
                             // Reset capabilities when system changes
                             setCapabilities(new Set());
                           }}
-                          className={`w-full flex items-center p-5 rounded-2xl border-2 text-left transition-all duration-200 ${
+                          className={`group w-full flex items-center p-5 rounded-2xl border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                             isSelected
-                              ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-md"
-                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/50 dark:hover:border-white/20"
+                              ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-lg shadow-[#0022FF]/10"
+                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,198,255,0.07)]"
                           }`}
                         >
                           <div
-                            className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-5 ${
+                            className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-5 transition-transform duration-300 group-hover:scale-110 ${
                               isSelected
                                 ? "bg-[#0022FF] text-white"
                                 : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white"
@@ -553,10 +781,10 @@ export default function ProjectBuilder() {
                         <button
                           key={lvl.id}
                           onClick={() => setScale(lvl.id)}
-                          className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 text-left transition-all duration-200 ${
+                          className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                             isSelected
-                              ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-md"
-                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/50 dark:hover:border-white/20"
+                              ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-lg shadow-[#0022FF]/10"
+                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,198,255,0.07)]"
                           }`}
                         >
                           <div>
@@ -610,7 +838,7 @@ export default function ProjectBuilder() {
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
                       Which features do you need? (optional)
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
                       {activeCaps.map((cap) => {
                         const Icon = cap.icon;
                         const isSelected = capabilities.has(cap.id);
@@ -619,14 +847,14 @@ export default function ProjectBuilder() {
                           <button
                             key={cap.id}
                             onClick={() => toggleCapability(cap.id)}
-                            className={`flex items-start p-4 rounded-xl border-2 text-left transition-all duration-200 ${
+                            className={`group flex items-start p-4 rounded-xl border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                               isSelected
-                                ? "border-[#00C6FF] bg-[#00C6FF]/5 dark:bg-[#00C6FF]/10 shadow-sm"
-                                : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#0022FF]/30 dark:hover:border-white/20"
+                                ? "border-[#00C6FF] bg-[#00C6FF]/5 dark:bg-[#00C6FF]/10 shadow-md shadow-[#00C6FF]/10"
+                                : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#0022FF]/40 dark:hover:border-white/25 hover:shadow-md dark:hover:shadow-[0_6px_24px_rgba(0,198,255,0.06)]"
                             }`}
                           >
                             <div
-                              className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mr-3 mt-0.5 ${
+                              className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mr-3 mt-0.5 transition-transform duration-300 group-hover:scale-110 ${
                                 isSelected
                                   ? "bg-[#00C6FF] text-white"
                                   : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white"
@@ -693,44 +921,141 @@ export default function ProjectBuilder() {
                         : "no extra features."}
                     </p>
 
-                    {/* Price card */}
-                    <div className="mb-8 p-7 rounded-3xl bg-[#0022FF] text-white shadow-xl shadow-[#0022FF]/30 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[50px] -mr-20 -mt-20 pointer-events-none" />
-                      <div className="text-xs font-semibold text-[#00C6FF] uppercase tracking-widest mb-2">
-                        Total Range
-                      </div>
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-1 tracking-tight">
-                        €{estimate.min}
-                        <span className="text-2xl text-white/50 font-normal mx-2">–</span>
-                        €{estimate.max}
-                      </div>
-                      <p className="text-white/60 text-sm mb-6">All prices ex. VAT</p>
+                    {/* Price result card — gross → grant → net */}
+                    <div className="mb-8 rounded-3xl bg-gradient-to-br from-[#11111f] to-[#0b0b16] border border-white/10 shadow-2xl shadow-black/40 relative overflow-hidden">
+                      <div className="absolute -top-16 right-0 w-72 h-72 bg-[#0022FF]/25 rounded-full blur-[80px] pointer-events-none" />
+                      {estimate.hasGrant && (
+                        <div className="absolute -bottom-16 -left-10 w-64 h-64 bg-emerald-500/15 rounded-full blur-[80px] pointer-events-none" />
+                      )}
 
-                      <div className="flex flex-wrap items-center gap-6 border-t border-white/20 pt-5">
-                        <div>
-                          <div className="text-xs text-white/60 uppercase tracking-wider mb-1">Timeline</div>
-                          <div className="font-bold text-lg">{estimate.weeks} Weeks</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-white/60 uppercase tracking-wider mb-1">Add-ons</div>
-                          <div className="font-bold text-lg">{capabilities.size} features</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-white/60 uppercase tracking-wider mb-1">Quality</div>
-                          <div className="font-bold text-lg flex items-center gap-1">
-                            <Sparkles className="w-4 h-4" /> Top Tier
+                      <div className="relative z-10 p-7 sm:p-8">
+                        {estimate.hasGrant ? (
+                          <>
+                            {/* Header */}
+                            <div className="flex items-center justify-between mb-5">
+                              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                                Your investment
+                              </span>
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-[11px] font-bold uppercase tracking-wider">
+                                🇱🇺 SME grant applied
+                              </span>
+                            </div>
+
+                            {/* Waterfall */}
+                            <div className="space-y-2.5 mb-5">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-slate-400">Project total</span>
+                                <span className="text-base font-semibold text-slate-400 tabular-nums line-through decoration-slate-600">
+                                  €{estimate.min} – €{estimate.max}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between text-emerald-400">
+                                <span className="text-sm font-medium flex items-center gap-1.5">
+                                  <TrendingDown className="w-4 h-4" /> SME grant (−70%)
+                                </span>
+                                <span className="text-base font-semibold tabular-nums">
+                                  −€{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")} to −€{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Net — hero number */}
+                            <div className="border-t border-white/10 pt-6">
+                              <div className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5">
+                                You pay after grant
+                              </div>
+                              <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white tracking-tight tabular-nums leading-none">
+                                €<AnimatedNumber value={estimate.netMin} />
+                                <span className="text-white/30 mx-2 font-light">–</span>
+                                €<AnimatedNumber value={estimate.netMax} />
+                              </div>
+                              <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-bold">
+                                <Sparkles className="w-4 h-4" />
+                                You save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")} – €{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
+                              </div>
+                              <p className="text-white/40 text-xs mt-3.5">
+                                Ex. VAT · final grant amount confirmed on application
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="text-xs font-semibold text-[#00C6FF] uppercase tracking-widest mb-2">
+                              Estimated investment
+                            </div>
+                            <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white mb-2 tracking-tight tabular-nums leading-none">
+                              €<AnimatedNumber value={estimate.rawMin} />
+                              <span className="text-white/30 mx-2 font-light">–</span>
+                              €<AnimatedNumber value={estimate.rawMax} />
+                            </div>
+                            <p className="text-white/50 text-xs">Ex. VAT</p>
+                          </>
+                        )}
+
+                        {/* Meta row */}
+                        <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/10 mt-6 pt-5">
+                          <div>
+                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Timeline</div>
+                            <div className="font-bold text-lg text-white">{estimate.weeks} weeks</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Add-ons</div>
+                            <div className="font-bold text-lg text-white">{capabilities.size} features</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Quality</div>
+                            <div className="font-bold text-lg text-white flex items-center gap-1">
+                              <Sparkles className="w-4 h-4 text-[#00C6FF]" /> Top tier
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* ── SME Grant callout ─────────────────────────────── */}
+                    {/* ── Marketing: bundling note (not independently 70%-funded) ── */}
+                    {system === "marketing" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 }}
+                        className="mb-8 p-6 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border-2 border-sky-400/50 dark:border-sky-500/40 relative overflow-hidden"
+                      >
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-sky-400/10 rounded-full blur-[60px] -mr-10 -mt-10 pointer-events-none" />
+                        <div className="flex items-start gap-4 relative z-10">
+                          <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-sky-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                            <BadgeEuro className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                              <span className="text-sm font-extrabold text-sky-700 dark:text-sky-400 uppercase tracking-widest">
+                                🇱🇺 Bundle into SME Digital Package
+                              </span>
+                            </div>
+                            <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
+                              Marketing isn't separately state-funded, but it can be{" "}
+                              <strong>co-funded inside an SME Digital Package</strong> when
+                              paired with a website or web-app project — up to{" "}
+                              <strong>15% marketing services</strong> and{" "}
+                              <strong>15% ad spend</strong> of the eligible investment, at the
+                              same <strong>70%</strong> subsidy rate.
+                            </p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                              Tell us about your wider project and we'll structure it to
+                              maximise your grant.
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* ── SME Grant callout (Digital / AI) ──────────────── */}
                     {(() => {
-                      if (!system) return null;
+                      if (!system || system === "marketing") return null;
                       const grant = calcSmeGrant(estimate.rawMin, estimate.rawMax);
                       if (!grant) return null;
                       const pkgName = getSmePackage(system);
                       const isPartial = estimate.rawMin > SME_GRANT_MAX;
+                      const isDigital = system !== "ai-agent";
                       return (
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
@@ -756,7 +1081,7 @@ export default function ProjectBuilder() {
                               </div>
                               <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
                                 Your project qualifies for the{" "}
-                                <strong>{pkgName}</strong>. The Luxembourg government
+                                <strong>{pkgName}</strong> — the Luxembourg government
                                 covers <strong>70%</strong> of your eligible investment
                                 (up to €25,000).{" "}
                                 {isPartial
@@ -764,39 +1089,45 @@ export default function ProjectBuilder() {
                                   : "Your full investment may be eligible."}
                               </p>
 
-                              {/* Grant breakdown */}
-                              <div className="grid grid-cols-3 gap-3 mb-4">
-                                <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-emerald-200 dark:border-emerald-800/50">
-                                  <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Total cost</div>
-                                  <div className="text-sm font-bold text-slate-800 dark:text-white">
-                                    €{estimate.min} – €{estimate.max}
-                                  </div>
-                                </div>
-                                <div className="p-3 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-600/50">
-                                  <div className="text-xs text-emerald-700 dark:text-emerald-400 mb-1">Gov. grant (–70%)</div>
-                                  <div className="text-sm font-bold text-emerald-700 dark:text-emerald-400">
-                                    –€{grant.subsidyMin.toLocaleString("de-DE")} to –€{grant.subsidyMax.toLocaleString("de-DE")}
-                                  </div>
-                                </div>
-                                <div className="p-3 rounded-xl bg-white dark:bg-white/5 border-2 border-emerald-400 dark:border-emerald-500/60">
-                                  <div className="text-xs text-emerald-700 dark:text-emerald-400 mb-1 font-semibold flex items-center gap-1">
-                                    <TrendingDown className="w-3 h-3" /> You pay
-                                  </div>
-                                  <div className="text-sm font-extrabold text-slate-900 dark:text-white">
-                                    €{grant.netMin.toLocaleString("de-DE")} – €{grant.netMax.toLocaleString("de-DE")}
-                                  </div>
-                                </div>
-                              </div>
+                              {isDigital && (
+                                <p className="text-xs text-emerald-700/90 dark:text-emerald-300/80 mb-3 leading-relaxed">
+                                  💡 You can also bundle up to <strong>15% marketing</strong>{" "}
+                                  and <strong>15% ad spend</strong> into this package — funded
+                                  at the same 70% rate.
+                                </p>
+                              )}
 
-                              <a
-                                href="https://guichet.public.lu/en/entreprises/soutien-financement/aides-pme/cheques-numeriques.html"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
-                              >
-                                Learn about the programme
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
+                              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">
+                                We prepare and submit the grant application for you — you
+                                just sign. ✍️
+                              </p>
+
+                              <div className="flex flex-wrap items-center gap-4">
+                                <a
+                                  href={`mailto:contact@deev.lu?subject=${encodeURIComponent(
+                                    `SME grant application — ${pkgName}`
+                                  )}&body=${encodeURIComponent(
+                                    `Hi Deev team,\n\nI'd like to apply for the ${pkgName} and start my project.\n\nProject: ${
+                                      CORE_SYSTEMS.find((s) => s.id === system)?.label ?? ""
+                                    }\nEstimated net (after 70% grant): €${grant.netMin.toLocaleString(
+                                      "de-DE"
+                                    )} – €${grant.netMax.toLocaleString("de-DE")}\n\n`
+                                  )}`}
+                                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]"
+                                >
+                                  Apply for my 70% grant
+                                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                </a>
+                                <a
+                                  href="https://guichet.public.lu/en/entreprises/soutien-financement/aides-pme/cheques-numeriques.html"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
+                                >
+                                  Learn about the programme
+                                  <ExternalLink className="w-3 h-3" />
+                                </a>
+                              </div>
                             </div>
                           </div>
                         </motion.div>
@@ -829,10 +1160,10 @@ export default function ProjectBuilder() {
 
                     <div className="flex flex-col sm:flex-row gap-3">
                       <a
-                        href="mailto:contact@deev.lu?subject=Project%20Proposal%20Request"
-                        className="flex-1 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold text-base hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2"
+                        href="mailto:contact@deev.lu?subject=Start%20my%20project%20%E2%80%94%20Deev%20simulator&body=Hi%20Deev%20team%2C%0D%0A%0D%0AI%27ve%20configured%20my%20project%20in%20the%20simulator%20and%20I%27d%20like%20to%20start.%0D%0A"
+                        className="flex-1 py-4 bg-gradient-to-r from-[#0022FF] to-[#00C6FF] text-white rounded-xl font-bold text-base shadow-lg shadow-[#0022FF]/30 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(0,198,255,0.4)] transition-all active:translate-y-0 flex items-center justify-center gap-2"
                       >
-                        Get a Detailed Proposal <ArrowRight className="w-5 h-5" />
+                        Start my project <ArrowRight className="w-5 h-5" />
                       </a>
                       <button
                         onClick={reset}
@@ -848,30 +1179,33 @@ export default function ProjectBuilder() {
 
             {/* Navigation footer */}
             {step < 4 && (
-              <div className="mt-10 flex justify-between items-center border-t border-slate-200 dark:border-white/10 pt-6">
-                <button
-                  onClick={() => setStep(step - 1)}
-                  disabled={step === 1}
-                  className={`flex items-center gap-2 font-bold px-4 py-2 rounded-lg transition-colors ${
-                    step === 1
-                      ? "opacity-0 pointer-events-none"
-                      : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5"
-                  }`}
-                >
-                  <ArrowLeft className="w-5 h-5" /> Back
-                </button>
-                <button
-                  onClick={handleNext}
-                  disabled={(step === 1 && !system) || (step === 2 && !scale)}
-                  className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white transition-all ${
-                    (step === 1 && !system) || (step === 2 && !scale)
-                      ? "bg-slate-300 dark:bg-slate-800 cursor-not-allowed"
-                      : "bg-[#0022FF] hover:bg-[#0022FF]/90 shadow-lg shadow-[#0022FF]/30"
-                  }`}
-                >
-                  {step === 3 ? "Calculate Estimate" : "Next"}{" "}
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+              <div className="mt-8 sm:mt-10 border-t border-slate-200 dark:border-white/10 pt-5 sm:pt-6">
+                {/* Mobile: stacked; Desktop: side by side */}
+                <div className="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-3">
+                  <button
+                    onClick={() => setStep(step - 1)}
+                    disabled={step === 1}
+                    className={`flex items-center justify-center gap-2 font-semibold px-5 py-3 rounded-xl transition-colors text-sm ${
+                      step === 1
+                        ? "opacity-0 pointer-events-none"
+                        : "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10"
+                    }`}
+                  >
+                    <ArrowLeft className="w-4 h-4" /> Back
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    disabled={(step === 1 && !system) || (step === 2 && !scale)}
+                    className={`flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-white text-sm transition-all ${
+                      (step === 1 && !system) || (step === 2 && !scale)
+                        ? "bg-slate-300 dark:bg-slate-700 cursor-not-allowed"
+                        : "bg-[#0022FF] hover:bg-[#0022FF]/90 shadow-lg shadow-[#0022FF]/30 active:scale-[0.98]"
+                    }`}
+                  >
+                    {step === 3 ? "Calculate Estimate" : "Continue"}{" "}
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -903,7 +1237,8 @@ export default function ProjectBuilder() {
                       One last step
                     </h3>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
-                      Tell us where to send your full estimate and project blueprint.
+                      A few details so we can send an accurate estimate and project
+                      blueprint — the more you share, the better we scope it.
                     </p>
                   </div>
                   <form
@@ -912,6 +1247,26 @@ export default function ProjectBuilder() {
                       setSubmitting(true);
                       try {
                         if (supabaseReady) {
+                          const featureLabels = Array.from(capabilities)
+                            .map((id) => activeCaps.find((c) => c.id === id)?.label)
+                            .filter(Boolean)
+                            .join(", ");
+                          const smeNote = system
+                            ? system === "marketing"
+                              ? "Bundle into SME Digital Package"
+                              : getSmePackage(system)
+                            : "";
+                          const notes = [
+                            leadForm.company && `Company: ${leadForm.company}`,
+                            leadForm.website && `Website: ${leadForm.website}`,
+                            leadForm.timeline && `Timeline preference: ${leadForm.timeline}`,
+                            leadForm.goals && `Goals: ${leadForm.goals}`,
+                            featureLabels && `Features: ${featureLabels}`,
+                            smeNote && `SME grant: ${smeNote}`,
+                          ]
+                            .filter(Boolean)
+                            .join("\n");
+
                           await supabase.from("client_leads").insert({
                             name: leadForm.name,
                             email: leadForm.email,
@@ -925,6 +1280,7 @@ export default function ProjectBuilder() {
                               estimate.max.replace(/\./g, "").replace(/,/g, "")
                             ),
                             timeline_weeks: estimate.weeks,
+                            notes,
                           });
                         }
                       } catch {
@@ -952,6 +1308,42 @@ export default function ProjectBuilder() {
                       placeholder="Work email"
                       required
                       className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        value={leadForm.company}
+                        onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
+                        placeholder="Company (optional)"
+                        className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                      />
+                      <input
+                        type="text"
+                        value={leadForm.website}
+                        onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
+                        placeholder="Current website (optional)"
+                        className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                      />
+                    </div>
+                    <select
+                      value={leadForm.timeline}
+                      onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
+                      className={`w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] ${
+                        leadForm.timeline ? "text-slate-900 dark:text-white" : "text-slate-400"
+                      }`}
+                    >
+                      <option value="">When do you want to start?</option>
+                      <option value="ASAP">As soon as possible</option>
+                      <option value="1-3 months">In 1–3 months</option>
+                      <option value="3-6 months">In 3–6 months</option>
+                      <option value="Just exploring">Just exploring</option>
+                    </select>
+                    <textarea
+                      value={leadForm.goals}
+                      onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
+                      placeholder="What does success look like? Goals, must-haves, links… (optional)"
+                      rows={3}
+                      className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] resize-none"
                     />
                     <button
                       type="submit"

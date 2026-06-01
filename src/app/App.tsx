@@ -1,17 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
-import Hero from "./components/Hero";
-import ValueProposition from "./components/ValueProposition";
-import ProjectBuilder from "./components/ProjectBuilder";
-import DigitalMarketing from "./components/DigitalMarketing";
-import Portfolio from "./components/Portfolio";
-import AIShowcase from "./components/AIShowcase";
-import Process from "./components/Process";
-import FinalCTA from "./components/FinalCTA";
-import Footer from "./components/Footer";
+
+// Critical above-the-fold — eager loaded
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 import ClientLogos from "./components/ClientLogos";
-import Legal from "./components/Legal";
+import SmeGrantBanner from "./components/SmeGrantBanner";
+import Footer from "./components/Footer";
+import CookieBanner from "./components/CookieBanner";
+
+// Below-the-fold — lazy loaded for faster initial paint
+const ValueProposition  = lazy(() => import("./components/ValueProposition"));
+const ProjectBuilder    = lazy(() => import("./components/ProjectBuilder"));
+const Portfolio         = lazy(() => import("./components/Portfolio"));
+const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
+const FinalCTA          = lazy(() => import("./components/FinalCTA"));
+const Legal             = lazy(() => import("./components/Legal"));
+const Contact           = lazy(() => import("./components/Contact"));
+
+// Minimal section skeleton while lazy chunks load
+function SectionSkeleton() {
+  return (
+    <div className="w-full py-24 flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-[#0022FF]/30 border-t-[#0022FF] rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme: () => void }) {
   return (
@@ -19,13 +33,14 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Hero />
       <ClientLogos />
-      <div id="value-proposition"><ValueProposition /></div>
-      <div id="ai-showcase"><AIShowcase /></div>
-      <ProjectBuilder />
-      <div id="portfolio"><Portfolio /></div>
-      <DigitalMarketing />
-      <div id="process"><Process /></div>
-      <FinalCTA />
+      <SmeGrantBanner />
+      <Suspense fallback={<SectionSkeleton />}>
+        <div id="services"><ValueProposition /></div>
+        <div id="portfolio"><Portfolio /></div>
+        <ProjectBuilder />
+        <div id="why-deev"><EnterpriseTrust /></div>
+        <FinalCTA />
+      </Suspense>
       <Footer />
     </div>
   );
@@ -35,31 +50,33 @@ export default function App() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
+    const saved = localStorage.getItem("theme") as "light" | "dark" | null;
+    if (saved) setTheme(saved);
   }, []);
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+  const toggleTheme = () => setTheme(p => p === "dark" ? "light" : "dark");
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
-        <Route path="/legal" element={<Legal />} />
+        <Route path="/legal" element={
+          <Suspense fallback={<SectionSkeleton />}>
+            <Legal />
+          </Suspense>
+        } />
+        <Route path="/contact" element={
+          <Suspense fallback={<SectionSkeleton />}>
+            <Contact />
+          </Suspense>
+        } />
       </Routes>
+      <CookieBanner />
     </BrowserRouter>
   );
 }

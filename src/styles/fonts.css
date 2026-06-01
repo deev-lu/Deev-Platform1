@@ -1,0 +1,123 @@
+/* Inter is loaded via <link> in index.html for fastest paint.
+   Global font + premium rendering defaults are applied here. */
+
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  /* Premium OpenType: contextual alternates + tabular-friendly defaults */
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+  letter-spacing: -0.011em;
+}
+
+/* Tighter optical tracking on large display headings */
+h1,
+h2,
+.display {
+  letter-spacing: -0.025em;
+}
+
+/* Premium typographic detail: avoid orphans / awkward wraps */
+p,
+li {
+  text-wrap: pretty;
+}
+
+/* Refined, on-brand keyboard focus ring */
+:focus-visible {
+  outline: 2px solid rgba(0, 198, 255, 0.65);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Premium brand text selection */
+::selection {
+  background: rgba(0, 34, 255, 0.22);
+  color: inherit;
+}
+
+/* Refined, subtle scrollbar */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 140, 0.28);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 34, 255, 0.45);
+  background-clip: content-box;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  background-clip: content-box;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 198, 255, 0.55);
+  background-clip: content-box;
+}
+
+/* ---- Premium motion utilities ---- */
+
+/* Animated gradient text (used on hero/section headlines) */
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
+
+/* Seamless logo marquee — pauses on hover for readability */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee-scroll var(--marquee-duration, 32s) linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-gradient-x,
+  .animate-marquee {
+    animation: none;
+  }
+}
+

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
@@ -9,11 +10,11 @@ interface NavbarProps {
 }
 
 const NAV_LINKS = [
-  { label: "Services",  href: "#value-proposition" },
-  { label: "AI",        href: "#ai-showcase" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Process",   href: "#process" },
+  { label: "Services",  href: "#services" },
+  { label: "Work",      href: "#portfolio" },
   { label: "Pricing",   href: "#project-builder" },
+  { label: "Why Deev",  href: "#why-deev" },
+  { label: "Contact",   href: "/contact" },
 ];
 
 function ThemePillToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggle: () => void }) {
@@ -54,6 +55,7 @@ function ThemePillToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggl
 export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -63,6 +65,12 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
+    // Route links (e.g. "/contact") navigate via the router
+    if (href.startsWith("/")) {
+      navigate(href);
+      window.scrollTo({ top: 0 });
+      return;
+    }
     const id = href.replace("#", "");
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -92,7 +100,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <span className={`text-[1.35rem] font-extrabold tracking-tight leading-none transition-colors duration-300 ${
-              scrolled ? "text-slate-900 dark:text-white" : "text-white"
+              scrolled ? "text-slate-900 dark:text-white" : "text-slate-900 dark:text-white"
             }`}>
               Deev
             </span>
@@ -107,7 +115,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   scrolled
                     ? "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06]"
-                    : "text-white/75 hover:text-white hover:bg-white/[0.08]"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 dark:text-white/75 dark:hover:text-white dark:hover:bg-white/[0.08]"
                 }`}
               >
                 {link.label}
@@ -137,7 +145,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               className={`md:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${
                 scrolled
                   ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
-                  : "text-white/80 hover:bg-white/[0.08]"
+                  : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]"
               }`}
               aria-label="Toggle menu"
             >

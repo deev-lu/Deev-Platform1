@@ -1,6 +1,7 @@
 import { Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router";
 import logo from "../../assets/logo.png";
+import MadeInLuxembourg from "./MadeInLuxembourg";
 
 const navigation = {
   services: [
@@ -10,10 +11,11 @@ const navigation = {
     { name: "Marketing Websites", href: "#" },
   ],
   company: [
-    { name: "About", href: "#" },
-    { name: "Portfolio", href: "#" },
-    { name: "Configurator", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Services", href: "/#services" },
+    { name: "Portfolio", href: "/#portfolio" },
+    { name: "Pricing", href: "/#project-builder" },
+    { name: "Why Deev", href: "/#why-deev" },
+    { name: "Contact", href: "/contact" },
   ],
   legal: [
     { name: "Terms & Legal", href: "/legal" },
@@ -88,6 +90,15 @@ export default function Footer() {
                 );
               })}
             </div>
+
+            {/* Made in Luxembourg — certified label */}
+            <div className="mt-8 flex items-center gap-3">
+              <MadeInLuxembourg className="h-16 w-20 text-slate-800 dark:text-white/90 shrink-0" />
+              <div className="text-xs leading-relaxed text-slate-500 dark:text-slate-500">
+                <div className="font-semibold text-slate-700 dark:text-slate-300">Certified label</div>
+                Proudly designed &amp; engineered in Luxembourg.
+              </div>
+            </div>
           </div>
 
           {/* Services */}
@@ -111,16 +122,24 @@ export default function Footer() {
           <div>
             <h3 className="text-slate-900 dark:text-white font-bold mb-6">Company</h3>
             <ul className="space-y-3">
-              {navigation.company.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#00C6FF] dark:hover:text-[#00C6FF] font-medium transition-colors duration-200"
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+              {navigation.company.map((item) => {
+                const isRoute = item.href.startsWith("/") && !item.href.includes("#");
+                const cls =
+                  "text-slate-600 dark:text-slate-400 hover:text-[#00C6FF] dark:hover:text-[#00C6FF] font-medium transition-colors duration-200";
+                return (
+                  <li key={item.name}>
+                    {isRoute ? (
+                      <Link to={item.href} className={cls}>
+                        {item.name}
+                      </Link>
+                    ) : (
+                      <a href={item.href} className={cls}>
+                        {item.name}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

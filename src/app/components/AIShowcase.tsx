@@ -38,11 +38,26 @@ export default function AIShowcase() {
   const [activeCard, setActiveCard] = useState(0);
 
   return (
-    <section className="relative py-20 md:py-32 bg-black overflow-hidden border-t border-white/5">
+    <section
+      className="relative py-16 sm:py-24 md:py-32 overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(120% 90% at 50% 0%, #0b0b16 0%, #07070d 45%, #050509 100%)",
+      }}
+    >
       {/* Premium Background decoration */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00C6FF]/50 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
       <div className="absolute -top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00C6FF]/10 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-[#0022FF]/10 rounded-full blur-[150px] pointer-events-none" />
+      {/* Subtle dot grid for depth */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+          backgroundSize: "36px 36px",
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.div
@@ -77,7 +92,7 @@ export default function AIShowcase() {
         <AIFeatures3D />
 
         {/* Use Cases Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 relative z-20 mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 sm:mb-20 relative z-20 mt-10 sm:mt-20">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon;
             return (
@@ -91,7 +106,7 @@ export default function AIShowcase() {
                 className="group relative cursor-pointer"
               >
                 <div
-                  className={`relative p-8 md:p-10 rounded-3xl border transition-all duration-700 h-full ${
+                  className={`relative p-6 md:p-10 rounded-3xl border transition-all duration-700 h-full ${
                     activeCard === index
                       ? "bg-gradient-to-br from-[#0022FF]/40 to-black border-[#00C6FF]/50 shadow-[0_0_50px_rgba(0,198,255,0.15)]"
                       : "bg-white/[0.04] border-white/[0.10] hover:border-white/25"
@@ -99,24 +114,24 @@ export default function AIShowcase() {
                 >
                   {/* Icon */}
                   <div
-                    className={`w-16 h-16 rounded-2xl mb-8 flex items-center justify-center transition-all duration-500 ${
+                    className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl mb-5 md:mb-8 flex items-center justify-center transition-all duration-500 ${
                       activeCard === index
                         ? "bg-[#00C6FF] shadow-[0_0_30px_rgba(0,198,255,0.4)]"
                         : "bg-white/5 group-hover:bg-white/10"
                     }`}
                   >
                     <Icon
-                      className={`w-8 h-8 transition-colors duration-300 ${
+                      className={`w-6 h-6 md:w-8 md:h-8 transition-colors duration-300 ${
                         activeCard === index ? "text-white" : "text-gray-400"
                       }`}
                     />
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 tracking-tight">
                     {useCase.title}
                   </h3>
-                  <p className="text-slate-400 text-base mb-8 leading-relaxed">
+                  <p className="text-slate-400 text-sm md:text-base mb-5 md:mb-8 leading-relaxed">
                     {useCase.description}
                   </p>
 

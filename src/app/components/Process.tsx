@@ -30,7 +30,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="relative py-24 md:py-36 bg-slate-50 dark:bg-[#06060a] overflow-hidden transition-colors duration-300">
+    <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#06060a] overflow-hidden transition-colors duration-300">
       {/* Background glows — dark only */}
       <div className="hidden dark:block absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#00C6FF]/[0.05] rounded-full blur-[130px] pointer-events-none" />
       <div className="hidden dark:block absolute right-0 top-1/3 w-[400px] h-[400px] bg-[#0022FF]/[0.05] rounded-full blur-[110px] pointer-events-none" />
@@ -42,7 +42,7 @@ export default function Process() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#0022FF]" />

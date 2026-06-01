@@ -6,24 +6,60 @@ import mellys      from "../../assets/clients/mellys.png";
 import netclean    from "../../assets/clients/netclean.png";
 import picadilly   from "../../assets/clients/picadilly.png";
 import stoffel     from "../../assets/clients/stoffel.png";
+import alphagest   from "../../assets/clients/alphagest.png";
+import foyer       from "../../assets/clients/foyer.png";
+import oscarsbar   from "../../assets/clients/oscarsbar.png";
 
 const clients = [
   { name: "Bureau Immobilier Feltes", src: feltes,    invert: true  },
+  { name: "Foyer",                    src: foyer,     invert: false },
   { name: "Melly's",                  src: mellys,    invert: false },
   { name: "Net & Clean",              src: netclean,  invert: false },
+  { name: "Alpha Gest",               src: alphagest, invert: false },
   { name: "Picadilly",                src: picadilly, invert: true  },
+  { name: "Oscar's Bar",              src: oscarsbar, invert: true  },
   { name: "Stoffel Immobilier",       src: stoffel,   invert: false },
 ];
 
-// Duplicate for seamless loop
-const loopClients = [...clients, ...clients];
+function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
+  return (
+    <div
+      className="flex gap-12 sm:gap-16 items-center shrink-0 pr-12 sm:pr-16"
+      aria-hidden={ariaHidden}
+    >
+      {clients.map((client) => (
+        <div
+          key={client.name}
+          className="flex-shrink-0 flex items-center justify-center h-10 px-2"
+          title={client.name}
+        >
+          <img
+            src={client.src}
+            alt={client.name}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            className={`h-7 sm:h-9 w-auto max-w-[120px] sm:max-w-[140px] object-contain transition-all duration-300
+              ${client.invert
+                /* White logos: black silhouette in light, show as white in dark */
+                ? "brightness-0 opacity-45 dark:brightness-100 dark:opacity-70 hover:opacity-75 dark:hover:opacity-100"
+                /* Colored logos: gray in light → invert to bright silhouette in dark */
+                : "grayscale opacity-50 dark:invert dark:opacity-70 hover:grayscale-0 hover:opacity-90 dark:hover:invert-0 dark:hover:opacity-100"
+              }
+            `}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function ClientLogos() {
   return (
     <section className="relative py-14 bg-white dark:bg-[#06060a] border-y border-slate-100 dark:border-white/[0.06] overflow-hidden">
       {/* Fade masks left & right */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white dark:from-[#06060a] to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white dark:from-[#06060a] to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 z-10 bg-gradient-to-r from-white dark:from-[#06060a] to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 z-10 bg-gradient-to-l from-white dark:from-[#06060a] to-transparent pointer-events-none" />
 
       {/* Label */}
       <motion.p
@@ -32,41 +68,15 @@ export default function ClientLogos() {
         viewport={{ once: true }}
         className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-400 mb-10"
       >
-        Trusted by businesses in Luxembourg
+        Trusted by leading businesses in Luxembourg &amp; beyond
       </motion.p>
 
-      {/* Infinite marquee */}
-      <div className="flex overflow-hidden select-none">
-        <motion.div
-          className="flex gap-14 items-center shrink-0"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            duration: 30,
-            ease: "linear",
-            repeat: Infinity,
-          }}
-        >
-          {loopClients.map((client, i) => (
-            <div
-              key={`${client.name}-${i}`}
-              className="flex-shrink-0 flex items-center justify-center h-10 px-2"
-              title={client.name}
-            >
-              <img
-                src={client.src}
-                alt={client.name}
-                className={`h-8 sm:h-10 w-auto max-w-[130px] object-contain transition-all duration-300
-                  ${client.invert
-                    /* White logos: black silhouette in light, show as white in dark */
-                    ? "brightness-0 opacity-45 dark:brightness-100 dark:opacity-70 hover:opacity-75 dark:hover:opacity-100"
-                    /* Colored logos: gray in light → invert to bright silhouette in dark */
-                    : "grayscale opacity-50 dark:invert dark:opacity-70 hover:grayscale-0 hover:opacity-90 dark:hover:invert-0 dark:hover:opacity-100"
-                  }
-                `}
-              />
-            </div>
-          ))}
-        </motion.div>
+      {/* Infinite marquee — CSS-driven, pauses on hover, two equal groups for a perfect seam */}
+      <div className="marquee-track flex overflow-hidden select-none">
+        <div className="animate-marquee flex shrink-0">
+          <LogoGroup />
+          <LogoGroup ariaHidden />
+        </div>
       </div>
     </section>
   );

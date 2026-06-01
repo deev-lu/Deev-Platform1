@@ -32,7 +32,7 @@ const services = [
 
 export default function DigitalMarketing() {
   return (
-    <section className="relative py-32 bg-white dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
+    <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
       {/* 3D Floating Elements */}
       <FloatingTech3D />
 
@@ -48,7 +48,7 @@ export default function DigitalMarketing() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#0022FF]" />
@@ -68,12 +68,12 @@ export default function DigitalMarketing() {
         </motion.div>
 
         {/* Growing Metrics */}
-        <div className="mb-20">
+        <div className="mb-12 sm:mb-20">
           <GrowingMetrics />
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 sm:mb-20">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (

@@ -3,19 +3,19 @@ import { Globe, Brain, Zap, TrendingUp } from "lucide-react";
 
 const values = [
   {
-    icon: Globe,
-    title: "Websites that convert",
-    description: "High-performance websites built to turn visitors into paying customers — fast, beautiful, and engineered to rank.",
-  },
-  {
     icon: Brain,
-    title: "AI that works",
-    description: "Custom AI agents and automations that solve real business problems, trained on your data, deployed in days.",
+    title: "AI-native products",
+    description: "Custom AI agents, copilots, and automations trained on your data — engineered to cut cost and unlock new revenue, not gimmicks.",
   },
   {
     icon: Zap,
-    title: "Systems that scale",
-    description: "Robust web applications and SaaS platforms built on modern infrastructure — designed to grow with you.",
+    title: "Platforms that scale",
+    description: "Robust web apps and SaaS platforms built on modern, production-grade infrastructure — architected to grow from launch to enterprise.",
+  },
+  {
+    icon: Globe,
+    title: "Websites that convert",
+    description: "High-performance websites built to turn visitors into paying customers — fast, beautiful, and engineered to rank.",
   },
   {
     icon: TrendingUp,
@@ -24,9 +24,16 @@ const values = [
   },
 ];
 
+const steps = [
+  { number: "01", title: "Understand", description: "We map your business, goals, and market to architect the right solution." },
+  { number: "02", title: "Build", description: "Senior engineers ship your product with modern, production-grade tech." },
+  { number: "03", title: "Launch", description: "Tested, monitored, and ready to handle real traffic from day one." },
+  { number: "04", title: "Scale", description: "Continuous optimisation and support to keep you ahead of the market." },
+];
+
 export default function ValueProposition() {
   return (
-    <section className="relative py-24 md:py-36 bg-slate-50 dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
+    <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
       {/* Background glow — dark only */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] dark:bg-[#0022FF]/[0.05] bg-transparent blur-[120px] pointer-events-none" />
 
@@ -48,6 +55,10 @@ export default function ValueProposition() {
             <br className="hidden md:block" />
             <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"> to dominate online.</span>
           </h2>
+          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mt-5">
+            One senior team across AI, product, web, and growth — so your whole
+            digital system is built to work together.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -85,6 +96,40 @@ export default function ValueProposition() {
             );
           })}
         </div>
+
+        {/* Process strip — how we deliver, kept compact */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="mt-16 sm:mt-20"
+        >
+          <div className="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-8">
+            How we deliver
+          </div>
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden border border-slate-200 dark:border-white/[0.09] bg-slate-200 dark:bg-white/[0.06]">
+            {steps.map((step) => (
+              <div
+                key={step.number}
+                className="bg-white dark:bg-[#0b0b14] p-7 transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.03]"
+              >
+                <div className="flex items-center gap-2.5 mb-3">
+                  <span className="text-sm font-extrabold bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent tracking-tight">
+                    {step.number}
+                  </span>
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#0022FF]/30 to-transparent" />
+                </div>
+                <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1.5">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

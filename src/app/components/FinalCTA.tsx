@@ -1,9 +1,17 @@
 import { motion } from "motion/react";
+import { Link } from "react-router";
 import { ArrowRight, Sparkles } from "lucide-react";
+import LuxShade from "./LuxShade";
+import NoiseOverlay from "./NoiseOverlay";
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-32 md:py-44 bg-slate-50 dark:bg-[#06060a] overflow-hidden transition-colors duration-300">
+    <section className="relative py-16 sm:py-28 md:py-36 bg-slate-50 dark:bg-[#06060a] overflow-hidden transition-colors duration-300">
+      {/* Luxembourg brand shade */}
+      <LuxShade className="absolute right-[4%] top-1/2 -translate-y-1/2 w-[260px] sm:w-[360px] aspect-square opacity-[0.04] dark:opacity-[0.05]" />
+      {/* Premium film grain — dark only */}
+      <NoiseOverlay className="hidden dark:block" opacity={0.04} />
+
       {/* Background — dark only */}
       <div className="hidden dark:block absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -81,12 +89,12 @@ export default function FinalCTA() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#0033ff] to-[#00d4ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </button>
 
-          <a
-            href="mailto:contact@deev.lu"
+          <Link
+            to="/contact"
             className="px-10 py-4 rounded-2xl font-semibold text-lg text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF] dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300"
           >
             Say hello →
-          </a>
+          </Link>
         </motion.div>
 
       </div>
