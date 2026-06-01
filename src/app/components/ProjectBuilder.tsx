@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
 import { supabase, supabaseReady } from "../../lib/supabase";
+import { sendLeadEmail } from "../../lib/leadEmail";
 import NoiseOverlay from "./NoiseOverlay";
 import {
   ArrowRight,
@@ -1245,28 +1246,51 @@ export default function ProjectBuilder() {
                     onSubmit={async (e) => {
                       e.preventDefault();
                       setSubmitting(true);
+
+                      const featureLabels = Array.from(capabilities)
+                        .map((id) => activeCaps.find((c) => c.id === id)?.label)
+                        .filter(Boolean)
+                        .join(", ");
+                      const smeNote = system
+                        ? system === "marketing"
+                          ? "Bundle into SME Digital Package"
+                          : getSmePackage(system)
+                        : "";
+                      const systemLabel =
+                        CORE_SYSTEMS.find((s) => s.id === system)?.label ?? "—";
+                      const scaleLabel =
+                        SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "—";
+                      const notes = [
+                        leadForm.company && `Company: ${leadForm.company}`,
+                        leadForm.website && `Website: ${leadForm.website}`,
+                        leadForm.timeline && `Timeline preference: ${leadForm.timeline}`,
+                        leadForm.goals && `Goals: ${leadForm.goals}`,
+                        featureLabels && `Features: ${featureLabels}`,
+                        smeNote && `SME grant: ${smeNote}`,
+                      ]
+                        .filter(Boolean)
+                        .join("\n");
+
+                      // 1) Email the configured project to contact@deev.lu
+                      await sendLeadEmail({
+                        subject: `New project from simulator — ${systemLabel} (${scaleLabel})`,
+                        from_name: leadForm.name || "Project simulator",
+                        replyto: leadForm.email,
+                        name: leadForm.name,
+                        email: leadForm.email,
+                        product: systemLabel,
+                        scale: scaleLabel,
+                        estimate: `€${estimate.min} – €${estimate.max} (gross)`,
+                        net_after_grant: estimate.hasGrant
+                          ? `€${estimate.netMin.toLocaleString("de-DE")} – €${estimate.netMax.toLocaleString("de-DE")}`
+                          : "n/a",
+                        timeline: `${estimate.weeks} weeks`,
+                        details: notes || "—",
+                      });
+
+                      // 2) Best-effort store in Supabase
                       try {
                         if (supabaseReady) {
-                          const featureLabels = Array.from(capabilities)
-                            .map((id) => activeCaps.find((c) => c.id === id)?.label)
-                            .filter(Boolean)
-                            .join(", ");
-                          const smeNote = system
-                            ? system === "marketing"
-                              ? "Bundle into SME Digital Package"
-                              : getSmePackage(system)
-                            : "";
-                          const notes = [
-                            leadForm.company && `Company: ${leadForm.company}`,
-                            leadForm.website && `Website: ${leadForm.website}`,
-                            leadForm.timeline && `Timeline preference: ${leadForm.timeline}`,
-                            leadForm.goals && `Goals: ${leadForm.goals}`,
-                            featureLabels && `Features: ${featureLabels}`,
-                            smeNote && `SME grant: ${smeNote}`,
-                          ]
-                            .filter(Boolean)
-                            .join("\n");
-
                           await supabase.from("client_leads").insert({
                             name: leadForm.name,
                             email: leadForm.email,

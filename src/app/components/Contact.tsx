@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { supabase, supabaseReady } from "../../lib/supabase";
+import { sendLeadEmail } from "../../lib/leadEmail";
 
 const INTERESTS = [
   "General enquiry",
@@ -72,18 +73,40 @@ export default function Contact() {
       return;
     }
     setStatus("submitting");
+
+    // 1) Email the submission to contact@deev.lu (primary delivery)
+    const emailed = await sendLeadEmail({
+      subject: `New contact enquiry — ${form.interest}`,
+      from_name: form.name || "Website contact form",
+      replyto: form.email,
+      name: form.name,
+      email: form.email,
+      company: form.company || "—",
+      phone: form.phone || "—",
+      interest: form.interest,
+      message: form.message,
+    });
+
+    // 2) Best-effort store in Supabase as well
+    let stored = false;
     try {
-      if (!supabaseReady) throw new Error("not-configured");
-      const { error } = await supabase.from("client_leads").insert({
-        name: form.name,
-        email: form.email,
-        project_type: form.interest,
-        notes: buildNotes(),
-      });
-      if (error) throw error;
-      setStatus("success");
+      if (supabaseReady) {
+        const { error } = await supabase.from("client_leads").insert({
+          name: form.name,
+          email: form.email,
+          project_type: form.interest,
+          notes: buildNotes(),
+        });
+        stored = !error;
+      }
     } catch {
-      // Couldn't store the lead — fall back to email so it's never lost.
+      stored = false;
+    }
+
+    if (emailed || stored) {
+      setStatus("success");
+    } else {
+      // Nothing worked — offer the mailto fallback so the lead is never lost.
       setStatus("error");
     }
   };
