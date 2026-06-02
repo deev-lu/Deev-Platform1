@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import CountUp from "./CountUp";
 import HeroDashboard from "./HeroDashboard";
@@ -10,9 +11,6 @@ const stats = [
   { value: "100%", label: "Client satisfaction" },
   { value: "LU 🇱🇺", label: "Based in Luxembourg" },
 ];
-
-const ENTERPRISE_EMAIL =
-  "mailto:contact@deev.lu?subject=Strategy%20call%20%E2%80%94%20new%20project&body=Hi%20Deev%20team%2C%0D%0A%0D%0AWe%27re%20planning%20a%20project%20and%20would%20like%20to%20book%20a%20strategy%20call.%0D%0A%0D%0ACompany%3A%0D%0AProject%20scope%3A%0D%0ATimeline%3A%0D%0ABudget%20range%3A%0D%0A";
 
 export default function Hero() {
   return (
@@ -124,12 +122,12 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] to-[#0033ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </button>
 
-          <a
-            href={ENTERPRISE_EMAIL}
+          <Link
+            to="/contact"
             className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF]/50 dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
           >
             Book a strategy call
-          </a>
+          </Link>
         </motion.div>
 
         {/* Availability signal */}
