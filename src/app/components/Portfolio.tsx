@@ -29,21 +29,21 @@ interface PortfolioItem {
 }
 
 const portfolioItems: PortfolioItem[] = [
-  { title: "Bureau Immobilier Feltes", year: 2024, category: "Real Estate Web-App", filter: "Web App",    icon: Building2,       link: "https://www.feltes-immobilier.lu/" },
+  { title: "Bureau Immobilier Feltes", year: 2024, category: "Real Estate Web-App", filter: "Web App",    icon: Building2,       link: "https://www.feltes.lu/" },
   { title: "Flenting",                 year: 2026, category: "Finance Website",      filter: "Website",   icon: LineChart,       link: "https://flenting.framer.website/" },
   { title: "Oscar's Bar",              year: 2025, category: "Bar & Nightlife",       filter: "Website",   icon: Martini,         link: "https://oscarsbar.lu/" },
   { title: "Melly's",                  year: 2025, category: "Candy E-commerce",      filter: "E-commerce",icon: Candy,           link: "https://www.mellys.lu" },
   { title: "Aurora Experience",        year: 2025, category: "Luxury Travel",         filter: "Website",   icon: Plane,           link: "https://www.auroraexp.eu" },
-  { title: "Bach Vereenegung Lëtzebuerg", year: 2025, category: "Musical Arts",      filter: "Website",   icon: Music },
+  { title: "Bach Vereenegung Lëtzebuerg", year: 2025, category: "Musical Arts",      filter: "Website",   icon: Music,           link: "https://bachvereenegung.lu/" },
   { title: "Net & Clean",              year: 2025, category: "Cleaning Services",     filter: "Website",   icon: Sparkles,        link: "https://www.net-clean.lu/" },
-  { title: "Feine Jong",               year: 2025, category: "Pet Care",              filter: "Website",   icon: PawPrint },
-  { title: "Supa Saya Gin",            year: 2025, category: "Spirits Brand",         filter: "Website",   icon: Wine },
+  { title: "Feine Jong",               year: 2025, category: "Pet Care",              filter: "Website",   icon: PawPrint,        link: "https://www.feinejong.com/" },
+  { title: "Supa Saya Gin",            year: 2025, category: "Spirits Brand",         filter: "Website",   icon: Wine,            link: "https://supasayagin.lu/" },
   { title: "Geoplus 3D",              year: 2025, category: "3D Scanning Tech",      filter: "Website",   icon: Box,             link: "https://geoplus3d.lu/" },
   { title: "Vino Amore",              year: 2025, category: "Wine E-commerce",        filter: "E-commerce",icon: Grape,           link: "https://vinoamoreandmore.de/" },
-  { title: "ëGen Pro",                year: 2025, category: "Water Filter Brand",     filter: "Website",   icon: Droplet },
-  { title: "Angolodoro",              year: 2024, category: "Restaurant",             filter: "Website",   icon: UtensilsCrossed },
-  { title: "AMD Cars",                year: 2024, category: "Car Rental",             filter: "Website",   icon: Car },
-  { title: "Florian Blencke",         year: 2023, category: "Personal Brand",         filter: "Website",   icon: UserRound },
+  { title: "ëGen Pro",                year: 2025, category: "Water Filter Brand",     filter: "Website",   icon: Droplet,         link: "https://egenpro.eu/" },
+  { title: "Angolodoro",              year: 2024, category: "Restaurant",             filter: "Website",   icon: UtensilsCrossed, link: "https://www.langolodoro.lu/" },
+  { title: "AMD Cars",                year: 2024, category: "Car Rental",             filter: "Website",   icon: Car,             link: "https://www.amdcars.lu/" },
+  { title: "Florian Blencke",         year: 2023, category: "Personal Brand",         filter: "Website",   icon: UserRound,       link: "https://www.florianblencke.com/" },
 ];
 
 const filters = ["All", "Website", "E-commerce", "Web App"];
