@@ -6,16 +6,12 @@ import mellys      from "../../assets/clients/mellys.png";
 import netclean    from "../../assets/clients/netclean.png";
 import picadilly   from "../../assets/clients/picadilly.png";
 import stoffel     from "../../assets/clients/stoffel.png";
-import alphagest   from "../../assets/clients/alphagest.png";
-import foyer       from "../../assets/clients/foyer.png";
 import oscarsbar   from "../../assets/clients/oscarsbar.png";
 
 const clients = [
   { name: "Bureau Immobilier Feltes", src: feltes,    invert: true  },
-  { name: "Foyer",                    src: foyer,     invert: false },
   { name: "Melly's",                  src: mellys,    invert: false },
   { name: "Net & Clean",              src: netclean,  invert: false },
-  { name: "Alpha Gest",               src: alphagest, invert: false },
   { name: "Picadilly",                src: picadilly, invert: true  },
   { name: "Oscar's Bar",              src: oscarsbar, invert: true  },
   { name: "Stoffel Immobilier",       src: stoffel,   invert: false },
