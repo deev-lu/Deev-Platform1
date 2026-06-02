@@ -1,47 +1,55 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Building2,
+  LineChart,
+  Wine,
+  Candy,
+  Plane,
+  Music,
+  Sparkles,
+  PawPrint,
+  Martini,
+  Box,
+  Grape,
+  Droplet,
+  UtensilsCrossed,
+  Car,
+  UserRound,
+} from "lucide-react";
 
 interface PortfolioItem {
   title: string;
   year: number;
   category: string;
   filter: string;
+  icon: React.ElementType;
   link?: string;
 }
 
 const portfolioItems: PortfolioItem[] = [
-  { title: "Bureau Immobilier Feltes", year: 2024, category: "Real Estate Web-App", filter: "Web App",    link: "https://www.feltes-immobilier.lu/" },
-  { title: "Flenting",                 year: 2026, category: "Finance Website",      filter: "Website",   link: "https://flenting.framer.website/" },
-  { title: "Oscar's Bar",              year: 2025, category: "Bar & Nightlife",       filter: "Website",   link: "https://oscarsbar.lu/" },
-  { title: "Melly's",                  year: 2025, category: "Candy E-commerce",      filter: "E-commerce",link: "https://www.mellys.lu" },
-  { title: "Aurora Experience",        year: 2025, category: "Luxury Travel",         filter: "Website",   link: "https://www.auroraexp.eu" },
-  { title: "Bach Vereenegung Lëtzebuerg", year: 2025, category: "Musical Arts",      filter: "Website" },
-  { title: "Net & Clean",              year: 2025, category: "Cleaning Services",     filter: "Website",   link: "https://www.net-clean.lu/" },
-  { title: "Feine Jong",               year: 2025, category: "Pet Care",              filter: "Website" },
-  { title: "Supa Saya Gin",            year: 2025, category: "Spirits Brand",         filter: "Website" },
-  { title: "Geoplus 3D",              year: 2025, category: "3D Scanning Tech",      filter: "Website",   link: "https://geoplus3d.lu/" },
-  { title: "Vino Amore",              year: 2025, category: "Wine E-commerce",        filter: "E-commerce",link: "https://vinoamoreandmore.de/" },
-  { title: "ëGen Pro",                year: 2025, category: "Water Filter Brand",     filter: "Website" },
-  { title: "Angolodoro",              year: 2024, category: "Restaurant",             filter: "Website" },
-  { title: "AMD Cars",                year: 2024, category: "Car Rental",             filter: "Website" },
-  { title: "Florian Blencke",         year: 2023, category: "Personal Brand",         filter: "Website" },
+  { title: "Bureau Immobilier Feltes", year: 2024, category: "Real Estate Web-App", filter: "Web App",    icon: Building2,       link: "https://www.feltes-immobilier.lu/" },
+  { title: "Flenting",                 year: 2026, category: "Finance Website",      filter: "Website",   icon: LineChart,       link: "https://flenting.framer.website/" },
+  { title: "Oscar's Bar",              year: 2025, category: "Bar & Nightlife",       filter: "Website",   icon: Martini,         link: "https://oscarsbar.lu/" },
+  { title: "Melly's",                  year: 2025, category: "Candy E-commerce",      filter: "E-commerce",icon: Candy,           link: "https://www.mellys.lu" },
+  { title: "Aurora Experience",        year: 2025, category: "Luxury Travel",         filter: "Website",   icon: Plane,           link: "https://www.auroraexp.eu" },
+  { title: "Bach Vereenegung Lëtzebuerg", year: 2025, category: "Musical Arts",      filter: "Website",   icon: Music },
+  { title: "Net & Clean",              year: 2025, category: "Cleaning Services",     filter: "Website",   icon: Sparkles,        link: "https://www.net-clean.lu/" },
+  { title: "Feine Jong",               year: 2025, category: "Pet Care",              filter: "Website",   icon: PawPrint },
+  { title: "Supa Saya Gin",            year: 2025, category: "Spirits Brand",         filter: "Website",   icon: Wine },
+  { title: "Geoplus 3D",              year: 2025, category: "3D Scanning Tech",      filter: "Website",   icon: Box,             link: "https://geoplus3d.lu/" },
+  { title: "Vino Amore",              year: 2025, category: "Wine E-commerce",        filter: "E-commerce",icon: Grape,           link: "https://vinoamoreandmore.de/" },
+  { title: "ëGen Pro",                year: 2025, category: "Water Filter Brand",     filter: "Website",   icon: Droplet },
+  { title: "Angolodoro",              year: 2024, category: "Restaurant",             filter: "Website",   icon: UtensilsCrossed },
+  { title: "AMD Cars",                year: 2024, category: "Car Rental",             filter: "Website",   icon: Car },
+  { title: "Florian Blencke",         year: 2023, category: "Personal Brand",         filter: "Website",   icon: UserRound },
 ];
 
 const filters = ["All", "Website", "E-commerce", "Web App"];
 
 const countFor = (f: string) =>
   f === "All" ? portfolioItems.length : portfolioItems.filter((i) => i.filter === f).length;
-
-// Two-letter monogram from the project name
-const monogram = (title: string) =>
-  title
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -120,6 +128,7 @@ export default function Portfolio() {
           <AnimatePresence mode="popLayout">
             {filtered.map((item, index) => {
               const Card = item.link ? "a" : "div";
+              const Icon = item.icon;
               const linkProps = item.link
                 ? { href: item.link, target: "_blank", rel: "noopener noreferrer" }
                 : {};
@@ -140,9 +149,11 @@ export default function Portfolio() {
                         : "border-slate-200/70 dark:border-white/[0.06] shadow-sm dark:shadow-none"
                     }`}
                   >
-                    {/* Monogram tile */}
-                    <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center text-white font-extrabold text-base sm:text-lg tracking-tight shadow-[0_6px_20px_rgba(0,34,255,0.25)] transition-transform duration-300 group-hover:scale-105">
-                      {monogram(item.title)}
+                    {/* Icon tile */}
+                    <div className="relative shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center shadow-[0_6px_20px_rgba(0,34,255,0.25)] transition-transform duration-300 group-hover:scale-105 overflow-hidden">
+                      {/* subtle sheen */}
+                      <div className="absolute -top-4 -left-2 w-10 h-10 bg-white/25 rounded-full blur-lg" />
+                      <Icon className="relative w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2} />
                     </div>
 
                     {/* Text */}
@@ -163,7 +174,7 @@ export default function Portfolio() {
                       </div>
                     </div>
 
-                    {/* Arrow / live tag */}
+                    {/* Arrow / case-study tag */}
                     {item.link ? (
                       <span className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-slate-100 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#00C6FF] group-hover:text-white transition-all duration-300">
                         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
