@@ -196,7 +196,7 @@ export default function Portfolio() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-12 pt-8 border-t border-slate-100 dark:border-white/10"
+          className="flex items-center justify-center gap-6 mt-12 pt-8 border-t border-slate-100 dark:border-white/10"
         >
           <p className="text-sm text-slate-400 dark:text-slate-500">
             <span className="font-bold text-slate-700 dark:text-white text-lg">
@@ -204,15 +204,6 @@ export default function Portfolio() {
             </span>{" "}
             projects delivered across Europe
           </p>
-          <a
-            href="https://www.deev.lu/website-projects"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#00C6FF] text-[#00C6FF] font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-[#00C6FF] hover:text-white hover:shadow-[0_0_30px_rgba(0,198,255,0.35)]"
-          >
-            See Full Portfolio
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
         </motion.div>
       </div>
     </section>
