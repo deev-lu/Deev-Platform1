@@ -30,6 +30,19 @@ const portfolioItems: PortfolioItem[] = [
 
 const filters = ["All", "Website", "E-commerce", "Web App"];
 
+const countFor = (f: string) =>
+  f === "All" ? portfolioItems.length : portfolioItems.filter((i) => i.filter === f).length;
+
+// Two-letter monogram from the project name
+const monogram = (title: string) =>
+  title
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -43,7 +56,7 @@ export default function Portfolio() {
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#00C6FF]/8 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#0022FF]/5 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -67,91 +80,100 @@ export default function Portfolio() {
           </p>
         </motion.div>
 
-        {/* Filter Tabs */}
+        {/* Filter Tabs (with counts) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-10"
         >
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              style={activeFilter === filter ? { background: "linear-gradient(135deg, #00C6FF, #0044ff)" } : {}}
-            className={`px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
-                activeFilter === filter
-                  ? "text-white shadow-[0_0_30px_rgba(0,198,255,0.35)]"
-                  : "border border-slate-200 dark:border-white/[0.12] text-slate-500 dark:text-slate-400 hover:border-[#0022FF] hover:text-[#0022FF] dark:hover:border-white/25 dark:hover:text-white bg-transparent"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
+          {filters.map((filter) => {
+            const active = activeFilter === filter;
+            return (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                style={active ? { background: "linear-gradient(135deg, #00C6FF, #0044ff)" } : {}}
+                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
+                  active
+                    ? "text-white shadow-[0_0_30px_rgba(0,198,255,0.35)]"
+                    : "border border-slate-200 dark:border-white/[0.12] text-slate-500 dark:text-slate-400 hover:border-[#0022FF] hover:text-[#0022FF] dark:hover:border-white/25 dark:hover:text-white bg-transparent"
+                }`}
+              >
+                {filter}
+                <span
+                  className={`text-[11px] font-bold tabular-nums px-1.5 py-0.5 rounded-full ${
+                    active
+                      ? "bg-white/25 text-white"
+                      : "bg-slate-100 dark:bg-white/[0.08] text-slate-400 dark:text-slate-500"
+                  }`}
+                >
+                  {countFor(filter)}
+                </span>
+              </button>
+            );
+          })}
         </motion.div>
 
-        {/* Client roster list */}
-        <motion.div layout className="relative">
-          {/* Top border */}
-          <div className="h-px bg-slate-200 dark:bg-white/10 mb-0" />
-
+        {/* Project cards */}
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <AnimatePresence mode="popLayout">
             {filtered.map((item, index) => {
-              const Row = item.link ? "a" : "div";
+              const Card = item.link ? "a" : "div";
               const linkProps = item.link
                 ? { href: item.link, target: "_blank", rel: "noopener noreferrer" }
                 : {};
-
               return (
                 <motion.div
                   key={item.title}
                   layout
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3, delay: index * 0.04 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.35, delay: index * 0.03 }}
                 >
-                  <Row
-                    {...(linkProps as any)}
-                    className={`group flex items-center justify-between gap-4 py-5 border-b border-slate-100 dark:border-white/8 transition-all duration-300 ${
+                  <Card
+                    {...(linkProps as Record<string, string>)}
+                    className={`group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl border bg-white dark:bg-white/[0.03] transition-all duration-300 ${
                       item.link
-                        ? "cursor-pointer hover:bg-slate-50 dark:hover:bg-white/[0.03] -mx-4 px-4 rounded-xl"
-                        : "-mx-4 px-4"
+                        ? "border-slate-200 dark:border-white/[0.09] hover:border-[#0022FF]/30 dark:hover:border-white/20 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.07)] cursor-pointer shadow-sm dark:shadow-none"
+                        : "border-slate-200/70 dark:border-white/[0.06] shadow-sm dark:shadow-none"
                     }`}
                   >
-                    {/* Index + name */}
-                    <div className="flex items-center gap-5 min-w-0">
-                      <span className="hidden sm:block text-xs font-mono text-slate-300 dark:text-white/25 w-6 shrink-0 tabular-nums font-bold">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
+                    {/* Monogram tile */}
+                    <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center text-white font-extrabold text-base sm:text-lg tracking-tight shadow-[0_6px_20px_rgba(0,34,255,0.25)] transition-transform duration-300 group-hover:scale-105">
+                      {monogram(item.title)}
+                    </div>
+
+                    {/* Text */}
+                    <div className="flex-1 min-w-0">
                       <h3
-                        className={`text-lg sm:text-xl font-bold tracking-tight truncate transition-colors duration-300 ${
+                        className={`text-base sm:text-lg font-bold tracking-tight leading-snug transition-colors duration-300 ${
                           item.link
-                            ? "text-slate-900 dark:text-white group-hover:text-[#00C6FF]"
+                            ? "text-slate-900 dark:text-white group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF]"
                             : "text-slate-900 dark:text-white"
                         }`}
                       >
                         {item.title}
                       </h3>
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                        <span>{item.category}</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0" />
+                        <span className="font-mono tabular-nums shrink-0">{item.year}</span>
+                      </div>
                     </div>
 
-                    {/* Right side: category + year + arrow */}
-                    <div className="flex items-center gap-3 sm:gap-5 shrink-0">
-                      <span className="hidden md:inline-block text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-white/[0.08] text-slate-500 dark:text-slate-300 uppercase tracking-wider border border-slate-200 dark:border-white/[0.14]">
-                        {item.category}
+                    {/* Arrow / live tag */}
+                    {item.link ? (
+                      <span className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-slate-100 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#00C6FF] group-hover:text-white transition-all duration-300">
+                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
-                      <span className="text-sm text-slate-400 dark:text-slate-500 font-mono tabular-nums">
-                        {item.year}
+                    ) : (
+                      <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-600 px-2.5 py-1 rounded-full border border-slate-200 dark:border-white/10">
+                        Case study
                       </span>
-                      {item.link ? (
-                        <span className="w-8 h-8 rounded-full flex items-center justify-center bg-slate-100 dark:bg-white/8 text-slate-400 dark:text-slate-500 group-hover:bg-[#00C6FF] group-hover:text-white transition-all duration-300 shrink-0">
-                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </span>
-                      ) : (
-                        <span className="w-8 h-8 shrink-0" />
-                      )}
-                    </div>
-                  </Row>
+                    )}
+                  </Card>
                 </motion.div>
               );
             })}
