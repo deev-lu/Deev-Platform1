@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
+import { useNavigate } from "react-router";
 import { supabase, supabaseReady } from "../../lib/supabase";
 import { sendLeadEmail } from "../../lib/leadEmail";
 import NoiseOverlay from "./NoiseOverlay";
@@ -347,7 +348,15 @@ export default function ProjectBuilder() {
   const configuredCount = (system ? 1 : 0) + (scale ? 1 : 0) + (step >= 3 ? 1 : 0);
   const buildPct = Math.round((configuredCount / 3) * 100);
 
+  const navigate = useNavigate();
+
   const handleNext = () => {
+    // Marketing isn't priced here — scope it personally on the contact form
+    if (step === 1 && system === "marketing") {
+      navigate("/contact");
+      window.scrollTo({ top: 0 });
+      return;
+    }
     if (step === 3) setShowLeadCapture(true);
     else setStep((s) => s + 1);
   };
@@ -1203,7 +1212,11 @@ export default function ProjectBuilder() {
                         : "bg-[#0022FF] hover:bg-[#0022FF]/90 shadow-lg shadow-[#0022FF]/30 active:scale-[0.98]"
                     }`}
                   >
-                    {step === 3 ? "Calculate Estimate" : "Continue"}{" "}
+                    {step === 1 && system === "marketing"
+                      ? "Continue on contact form"
+                      : step === 3
+                      ? "Calculate Estimate"
+                      : "Continue"}{" "}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
