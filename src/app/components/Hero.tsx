@@ -5,6 +5,7 @@ import CountUp from "./CountUp";
 import HeroDashboard from "./HeroDashboard";
 import HeroShapes from "./HeroShapes";
 import NoiseOverlay from "./NoiseOverlay";
+import { useIsMobile } from "../../lib/useIsMobile";
 
 const stats = [
   { value: "50+", label: "Projects delivered" },
@@ -13,6 +14,7 @@ const stats = [
 ];
 
 export default function Hero() {
+  const isMobile = useIsMobile();
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-20 transition-colors duration-300">
 
@@ -25,17 +27,17 @@ export default function Hero() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[#0022FF]/[0.14] blur-[150px]"
-          animate={{ opacity: [0.5, 0.8, 0.5] }}
+          animate={isMobile ? undefined : { opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute top-[10%] -left-[10%] w-[600px] h-[600px] rounded-full bg-[#00C6FF]/[0.10] blur-[140px]"
-          animate={{ opacity: [0.3, 0.55, 0.3] }}
+          animate={isMobile ? undefined : { opacity: [0.3, 0.55, 0.3] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
         />
         <motion.div
           className="absolute top-[20%] -right-[10%] w-[560px] h-[560px] rounded-full bg-[#0022FF]/[0.10] blur-[140px]"
-          animate={{ opacity: [0.25, 0.5, 0.25] }}
+          animate={isMobile ? undefined : { opacity: [0.25, 0.5, 0.25] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
         />
         {/* Subtle dot-grid overlay — dark dots in light, white dots in dark */}

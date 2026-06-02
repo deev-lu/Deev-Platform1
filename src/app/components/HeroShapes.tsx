@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "motion/react";
 import LuxShade from "./LuxShade";
+import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
  * Subtle decorative background shades for the Hero:
@@ -8,7 +9,7 @@ import LuxShade from "./LuxShade";
  * Both are very low-opacity "shades" — quiet, not busy. pointer-events-none.
  */
 export default function HeroShapes() {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotion() || useIsMobile();
   // Animate scale only — animating opacity here would override the low base opacity set via class.
   const breathe = reduce
     ? {}
