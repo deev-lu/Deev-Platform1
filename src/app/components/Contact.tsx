@@ -15,7 +15,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import logo from "../../assets/logo.png";
-import { supabase, supabaseReady } from "../../lib/supabase";
 import { sendLeadEmail } from "../../lib/leadEmail";
 
 const INTERESTS = [
@@ -47,11 +46,6 @@ export default function Contact() {
 
   const update = (key: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [key]: value }));
-
-  const buildNotes = () =>
-    `Source: Contact page\nCompany: ${form.company || "—"}\nPhone: ${
-      form.phone || "—"
-    }\n\nMessage:\n${form.message}`;
 
   const mailtoFallback = () => {
     const subject = encodeURIComponent(`Contact — ${form.interest}`);
@@ -87,26 +81,10 @@ export default function Contact() {
       message: form.message,
     });
 
-    // 2) Best-effort store in Supabase as well
-    let stored = false;
-    try {
-      if (supabaseReady) {
-        const { error } = await supabase.from("client_leads").insert({
-          name: form.name,
-          email: form.email,
-          project_type: form.interest,
-          notes: buildNotes(),
-        });
-        stored = !error;
-      }
-    } catch {
-      stored = false;
-    }
-
-    if (emailed || stored) {
+    if (emailed) {
       setStatus("success");
     } else {
-      // Nothing worked — offer the mailto fallback so the lead is never lost.
+      // Email failed — offer the mailto fallback so the lead is never lost.
       setStatus("error");
     }
   };

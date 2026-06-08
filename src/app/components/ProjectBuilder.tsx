@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
 import { useNavigate } from "react-router";
-import { supabase, supabaseReady } from "../../lib/supabase";
 import { sendLeadEmail } from "../../lib/leadEmail";
 import NoiseOverlay from "./NoiseOverlay";
 import {
@@ -1301,30 +1300,7 @@ export default function ProjectBuilder() {
                         details: notes || "—",
                       });
 
-                      // 2) Best-effort store in Supabase
-                      try {
-                        if (supabaseReady) {
-                          await supabase.from("client_leads").insert({
-                            name: leadForm.name,
-                            email: leadForm.email,
-                            project_type: system,
-                            scale: scale,
-                            capabilities: Array.from(capabilities),
-                            estimated_min: parseInt(
-                              estimate.min.replace(/\./g, "").replace(/,/g, "")
-                            ),
-                            estimated_max: parseInt(
-                              estimate.max.replace(/\./g, "").replace(/,/g, "")
-                            ),
-                            timeline_weeks: estimate.weeks,
-                            notes,
-                          });
-                        }
-                      } catch {
-                        // silent fail – still proceed
-                      } finally {
-                        setSubmitting(false);
-                      }
+                      setSubmitting(false);
                       setStep(4);
                       setShowLeadCapture(false);
                     }}
