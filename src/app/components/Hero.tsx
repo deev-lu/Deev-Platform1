@@ -68,20 +68,19 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="inline-flex items-center justify-center mb-7"
         >
-          <div
-            className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-semibold tracking-wide text-[#0022FF] dark:text-[#00C6FF] border-[#0022FF]/25 dark:border-[#00C6FF]/25"
-            style={{
-              background: "linear-gradient(135deg, rgba(0,198,255,0.08), rgba(0,34,255,0.08))",
-            }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0022FF] dark:bg-[#00C6FF] animate-pulse" />
-            <span>AI-Native Digital Engineering</span>
+          <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-600 dark:text-slate-400">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#00C6FF]/70" />
+            <span className="flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0022FF] dark:bg-[#00C6FF] animate-pulse" />
+              AI-native digital engineering — Luxembourg
+            </span>
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
           </div>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          className="text-4xl sm:text-6xl md:text-7xl xl:text-[5rem] font-semibold text-slate-900 dark:text-white leading-[1.05] mb-7 tracking-tight"
+          className="text-4xl sm:text-6xl md:text-7xl xl:text-[5.25rem] font-bold text-slate-900 dark:text-white leading-[1.02] mb-7 tracking-[-0.03em]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}

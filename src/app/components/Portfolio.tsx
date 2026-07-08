@@ -19,6 +19,14 @@ import {
   UserRound,
 } from "lucide-react";
 
+// Real screenshots of shipped client work
+import shotFeltes from "../../assets/work/feltes.jpg";
+import shotOscars from "../../assets/work/oscarsbar.jpg";
+import shotMellys from "../../assets/work/mellys.jpg";
+import shotAurora from "../../assets/work/aurora.jpg";
+import shotGeoplus from "../../assets/work/geoplus.jpg";
+import shotVino from "../../assets/work/vinoamore.jpg";
+
 interface PortfolioItem {
   title: string;
   year: number;
@@ -26,20 +34,21 @@ interface PortfolioItem {
   filter: string;
   icon: React.ElementType;
   link?: string;
+  image?: string;
 }
 
 const portfolioItems: PortfolioItem[] = [
-  { title: "Bureau Immobilier Feltes", year: 2024, category: "Real Estate Web-App", filter: "Web App",    icon: Building2,       link: "https://www.feltes.lu/" },
+  { title: "Bureau Immobilier Feltes", year: 2024, category: "Real Estate Web-App", filter: "Web App",    icon: Building2,       link: "https://www.feltes.lu/",            image: shotFeltes },
+  { title: "Aurora Experience",        year: 2025, category: "Luxury Travel",         filter: "Website",   icon: Plane,           link: "https://www.auroraexp.eu",          image: shotAurora },
+  { title: "Oscar's Bar",              year: 2025, category: "Bar & Nightlife",       filter: "Website",   icon: Martini,         link: "https://oscarsbar.lu/",             image: shotOscars },
+  { title: "Melly's",                  year: 2025, category: "Candy E-commerce",      filter: "E-commerce",icon: Candy,           link: "https://www.mellys.lu",             image: shotMellys },
+  { title: "Geoplus 3D",              year: 2025, category: "3D Scanning Tech",      filter: "Website",   icon: Box,             link: "https://geoplus3d.lu/",             image: shotGeoplus },
+  { title: "Vino Amore",              year: 2025, category: "Wine E-commerce",        filter: "E-commerce",icon: Grape,           link: "https://vinoamoreandmore.de/",      image: shotVino },
   { title: "Flenting",                 year: 2026, category: "Finance Website",      filter: "Website",   icon: LineChart,       link: "https://flenting.framer.website/" },
-  { title: "Oscar's Bar",              year: 2025, category: "Bar & Nightlife",       filter: "Website",   icon: Martini,         link: "https://oscarsbar.lu/" },
-  { title: "Melly's",                  year: 2025, category: "Candy E-commerce",      filter: "E-commerce",icon: Candy,           link: "https://www.mellys.lu" },
-  { title: "Aurora Experience",        year: 2025, category: "Luxury Travel",         filter: "Website",   icon: Plane,           link: "https://www.auroraexp.eu" },
   { title: "Bach Vereenegung Lëtzebuerg", year: 2025, category: "Musical Arts",      filter: "Website",   icon: Music,           link: "https://bachvereenegung.lu/" },
   { title: "Net & Clean",              year: 2025, category: "Cleaning Services",     filter: "Website",   icon: Sparkles,        link: "https://www.net-clean.lu/" },
   { title: "Feine Jong",               year: 2025, category: "Pet Care",              filter: "Website",   icon: PawPrint,        link: "https://www.feinejong.com/" },
   { title: "Supa Saya Gin",            year: 2025, category: "Spirits Brand",         filter: "Website",   icon: Wine,            link: "https://supasayagin.lu/" },
-  { title: "Geoplus 3D",              year: 2025, category: "3D Scanning Tech",      filter: "Website",   icon: Box,             link: "https://geoplus3d.lu/" },
-  { title: "Vino Amore",              year: 2025, category: "Wine E-commerce",        filter: "E-commerce",icon: Grape,           link: "https://vinoamoreandmore.de/" },
   { title: "ëGen Pro",                year: 2025, category: "Water Filter Brand",     filter: "Website",   icon: Droplet,         link: "https://egenpro.eu/" },
   { title: "Angolodoro",              year: 2024, category: "Restaurant",             filter: "Website",   icon: UtensilsCrossed, link: "https://www.langolodoro.lu/" },
   { title: "AMD Cars",                year: 2024, category: "Car Rental",             filter: "Website",   icon: Car,             link: "https://www.amdcars.lu/" },
@@ -58,6 +67,9 @@ export default function Portfolio() {
     activeFilter === "All"
       ? portfolioItems
       : portfolioItems.filter((item) => item.filter === activeFilter);
+
+  const featured = filtered.filter((i) => i.image);
+  const rest = filtered.filter((i) => !i.image);
 
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#050509] overflow-hidden border-t border-slate-100 dark:border-white/5">
@@ -125,75 +137,109 @@ export default function Portfolio() {
           })}
         </motion.div>
 
-        {/* Project cards */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        {/* Featured — real screenshots of shipped work */}
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           <AnimatePresence mode="popLayout">
-            {filtered.map((item, index) => {
-              const Card = item.link ? "a" : "div";
+            {featured.map((item, index) => {
               const Icon = item.icon;
-              const linkProps = item.link
-                ? { href: item.link, target: "_blank", rel: "noopener noreferrer" }
-                : {};
               return (
                 <motion.div
                   key={item.title}
                   layout
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.35, delay: index * 0.03 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
-                  <Card
-                    {...(linkProps as Record<string, string>)}
-                    className={`glass glass-edge glass-sheen group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl transition-all duration-300 ${
-                      item.link
-                        ? "hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,34,255,0.14)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.10)] cursor-pointer"
-                        : ""
-                    }`}
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass glass-edge glass-sheen group relative block rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,34,255,0.16)] dark:hover:shadow-[0_20px_60px_rgba(0,198,255,0.12)]"
                   >
-                    {/* Icon tile */}
-                    <div className="relative shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center shadow-[0_6px_20px_rgba(0,34,255,0.25)] transition-transform duration-300 group-hover:scale-105 overflow-hidden">
-                      {/* subtle sheen */}
-                      <div className="absolute -top-4 -left-2 w-10 h-10 bg-white/25 rounded-full blur-lg" />
-                      <Icon className="relative w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2} />
+                    {/* Live site screenshot */}
+                    <div className="relative m-2 mb-0 rounded-xl overflow-hidden aspect-[16/10]">
+                      <img
+                        src={item.image}
+                        alt={`${item.title} — live website`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.045]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity duration-500" />
                     </div>
 
-                    {/* Text */}
-                    <div className="flex-1 min-w-0">
-                      <h3
-                        className={`text-base sm:text-lg font-bold tracking-tight leading-snug transition-colors duration-300 ${
-                          item.link
-                            ? "text-slate-900 dark:text-white group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF]"
-                            : "text-slate-900 dark:text-white"
-                        }`}
-                      >
-                        {item.title}
-                      </h3>
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                        <span>{item.category}</span>
-                        <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0" />
-                        <span className="font-mono tabular-nums shrink-0">{item.year}</span>
+                    {/* Meta */}
+                    <div className="flex items-center gap-3 p-4">
+                      <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center text-white shadow-[0_4px_14px_rgba(0,34,255,0.25)]">
+                        <Icon className="w-4 h-4" strokeWidth={2} />
                       </div>
-                    </div>
-
-                    {/* Arrow / case-study tag */}
-                    {item.link ? (
-                      <span className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-slate-100 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#00C6FF] group-hover:text-white transition-all duration-300">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF] transition-colors duration-300 truncate">
+                          {item.title}
+                        </h3>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                          {item.category} · {item.year}
+                        </div>
+                      </div>
+                      <span className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-slate-100/70 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#00C6FF] group-hover:text-white transition-all duration-300">
                         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
-                    ) : (
-                      <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-600 px-2.5 py-1 rounded-full border border-slate-200 dark:border-white/10">
-                        Case study
-                      </span>
-                    )}
-                  </Card>
+                    </div>
+                  </a>
                 </motion.div>
               );
             })}
           </AnimatePresence>
         </motion.div>
 
-        {/* Count + CTA */}
+        {/* More work — compact rows */}
+        {rest.length > 0 && (
+          <>
+            <div className="eyebrow-mono text-[11px] font-semibold uppercase text-slate-400 dark:text-slate-500 mb-4">
+              More work
+            </div>
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <AnimatePresence mode="popLayout">
+                {rest.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={item.title}
+                      layout
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 0.3, delay: index * 0.03 }}
+                    >
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="glass glass-edge glass-sheen group relative flex items-center gap-3.5 p-4 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,34,255,0.14)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.10)]"
+                      >
+                        <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center text-white shadow-[0_4px_14px_rgba(0,34,255,0.22)] transition-transform duration-300 group-hover:scale-105">
+                          <Icon className="w-[18px] h-[18px]" strokeWidth={2} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-bold tracking-tight leading-snug text-slate-900 dark:text-white group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF] transition-colors duration-300">
+                            {item.title}
+                          </h3>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                            {item.category} · {item.year}
+                          </div>
+                        </div>
+                        <ArrowUpRight className="shrink-0 w-4 h-4 text-slate-400 dark:text-slate-500 transition-all duration-300 group-hover:text-[#00C6FF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </a>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.div>
+          </>
+        )}
+
+        {/* Count */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
