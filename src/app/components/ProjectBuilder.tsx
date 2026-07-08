@@ -422,9 +422,13 @@ export default function ProjectBuilder() {
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
         {/* Header */}
         <div className="mb-12 md:mb-16 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.12] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00C6FF] animate-pulse" />
-            Live Project Simulator
+          <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#00C6FF]/70" />
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00C6FF] animate-pulse" />
+              04 / Live simulator
+            </span>
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
             Build &amp; price your project,{" "}

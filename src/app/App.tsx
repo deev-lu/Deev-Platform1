@@ -11,6 +11,8 @@ import CookieBanner from "./components/CookieBanner";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const ValueProposition  = lazy(() => import("./components/ValueProposition"));
+const SystemStack       = lazy(() => import("./components/SystemStack"));
+const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const ProjectBuilder    = lazy(() => import("./components/ProjectBuilder"));
 const Portfolio         = lazy(() => import("./components/Portfolio"));
 const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
@@ -36,9 +38,11 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
       <SmeGrantBanner />
       <Suspense fallback={<SectionSkeleton />}>
         <div id="services"><ValueProposition /></div>
+        <SystemStack />
         <div id="portfolio"><Portfolio /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
+        <LuxembourgStrip />
         <FinalCTA />
       </Suspense>
       <Footer />

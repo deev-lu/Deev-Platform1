@@ -73,9 +73,10 @@ export default function Portfolio() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.10] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
-            <span className="w-1 h-1 rounded-full bg-[#00C6FF]" />
-            Our Work
+          <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#00C6FF]/70" />
+            03 / Selected work
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
             Projects we're{" "}
