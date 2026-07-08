@@ -52,9 +52,9 @@ const stack = [
 export default function EnterpriseTrust() {
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#08080c] overflow-hidden transition-colors duration-300 border-t border-slate-100 dark:border-white/5">
-      {/* Background glows — dark only */}
-      <div className="hidden dark:block absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#0022FF]/[0.05] rounded-full blur-[130px] pointer-events-none" />
-      <div className="hidden dark:block absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#00C6FF]/[0.05] rounded-full blur-[120px] pointer-events-none" />
+      {/* Ambient aurora — both themes, so the clear glass has colour to refract */}
+      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#0022FF]/[0.07] dark:bg-[#0022FF]/[0.05] rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#00C6FF]/[0.09] dark:bg-[#00C6FF]/[0.05] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Header */}
@@ -114,7 +114,7 @@ export default function EnterpriseTrust() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="glass glass-edge group relative rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.08)] hover:-translate-y-1"
+                className="glass glass-edge glass-sheen group relative rounded-3xl transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.08)] hover:-translate-y-1"
               >
                 <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
                 <div className="p-7 flex items-start gap-5">

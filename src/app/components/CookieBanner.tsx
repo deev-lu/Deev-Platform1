@@ -49,7 +49,7 @@ export default function CookieBanner() {
           aria-live="polite"
           className="fixed z-[60] bottom-4 left-4 right-4 sm:right-auto sm:max-w-md"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/[0.10] bg-white/95 dark:bg-[#0e0e18]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+          <div className="glass-edge relative overflow-hidden rounded-2xl border border-white/60 dark:border-white/[0.12] bg-white/60 dark:bg-[#0e0e18]/70 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_20px_60px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
             <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
             <div className="p-5 sm:p-6">
               <div className="flex items-start gap-3.5 mb-4">

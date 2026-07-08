@@ -34,8 +34,10 @@ const steps = [
 export default function ValueProposition() {
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
-      {/* Background glow — dark only */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] dark:bg-[#0022FF]/[0.05] bg-transparent blur-[120px] pointer-events-none" />
+      {/* Ambient aurora — gives the clear glass colour to refract */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#0022FF]/[0.07] dark:bg-[#0022FF]/[0.05] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 -left-40 w-[500px] h-[500px] bg-[#00C6FF]/[0.09] dark:bg-[#00C6FF]/[0.04] rounded-full blur-[110px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-[#7c3aed]/[0.06] dark:bg-[#7c3aed]/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -73,7 +75,7 @@ export default function ValueProposition() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative"
               >
-                <div className="glass glass-edge relative rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.12)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.10)] hover:-translate-y-1 cursor-pointer h-full">
+                <div className="glass glass-edge glass-sheen relative rounded-3xl transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.12)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.10)] hover:-translate-y-1 cursor-pointer h-full">
 
                   {/* Gradient top accent — Deev brand */}
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />

@@ -61,8 +61,9 @@ export default function Portfolio() {
 
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#050509] overflow-hidden border-t border-slate-100 dark:border-white/5">
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#00C6FF]/8 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#0022FF]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#00C6FF]/[0.10] dark:bg-[#00C6FF]/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#0022FF]/[0.08] dark:bg-[#0022FF]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#7c3aed]/[0.05] dark:bg-[#7c3aed]/[0.03] rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
@@ -143,7 +144,7 @@ export default function Portfolio() {
                 >
                   <Card
                     {...(linkProps as Record<string, string>)}
-                    className={`glass glass-edge group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl transition-all duration-300 ${
+                    className={`glass glass-edge glass-sheen group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl transition-all duration-300 ${
                       item.link
                         ? "hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,34,255,0.14)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.10)] cursor-pointer"
                         : ""
