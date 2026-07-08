@@ -102,7 +102,7 @@ export default function Hero() {
         >
           We design and build AI-powered platforms, web apps, and digital
           systems engineered to convert, automate, and scale — for ambitious
-          companies that refuse to blend in.
+          companies across Europe that refuse to blend in.
         </motion.p>
 
         {/* CTAs */}

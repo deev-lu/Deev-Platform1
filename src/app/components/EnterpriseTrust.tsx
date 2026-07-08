@@ -91,7 +91,7 @@ export default function EnterpriseTrust() {
           {credentials.map((c) => (
             <div
               key={c.label}
-              className="text-center rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] py-6 px-4 shadow-sm dark:shadow-none"
+              className="glass glass-edge text-center rounded-2xl py-6 px-4"
             >
               <div className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent tracking-tight">
                 <CountUp value={c.value} />
@@ -114,7 +114,7 @@ export default function EnterpriseTrust() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="group relative rounded-3xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(0,34,255,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none"
+                className="glass glass-edge group relative rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.08)] hover:-translate-y-1"
               >
                 <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
                 <div className="p-7 flex items-start gap-5">

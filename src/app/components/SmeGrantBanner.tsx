@@ -12,7 +12,7 @@ export default function SmeGrantBanner() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="group relative overflow-hidden rounded-3xl border border-emerald-300/60 dark:border-emerald-500/30 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/40 dark:to-[#08080c] p-6 sm:p-8 md:p-10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)] dark:hover:shadow-[0_20px_60px_rgba(16,185,129,0.10)]"
+          className="glass-edge group relative overflow-hidden rounded-3xl border border-emerald-300/60 dark:border-emerald-500/30 bg-gradient-to-br from-emerald-50/80 to-white/60 dark:from-emerald-950/40 dark:to-[#08080c]/80 backdrop-blur-xl backdrop-saturate-150 p-6 sm:p-8 md:p-10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(16,185,129,0.14)] dark:hover:shadow-[0_20px_60px_rgba(16,185,129,0.10)]"
         >
           {/* Soft glow */}
           <div className="absolute -top-16 -right-10 w-64 h-64 bg-emerald-400/15 dark:bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none" />

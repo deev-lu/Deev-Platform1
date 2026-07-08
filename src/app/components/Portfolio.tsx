@@ -143,10 +143,10 @@ export default function Portfolio() {
                 >
                   <Card
                     {...(linkProps as Record<string, string>)}
-                    className={`group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl border bg-white dark:bg-white/[0.03] transition-all duration-300 ${
+                    className={`glass glass-edge group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl transition-all duration-300 ${
                       item.link
-                        ? "border-slate-200 dark:border-white/[0.09] hover:border-[#0022FF]/30 dark:hover:border-white/20 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.07)] cursor-pointer shadow-sm dark:shadow-none"
-                        : "border-slate-200/70 dark:border-white/[0.06] shadow-sm dark:shadow-none"
+                        ? "hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,34,255,0.14)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.10)] cursor-pointer"
+                        : ""
                     }`}
                   >
                     {/* Icon tile */}

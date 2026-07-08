@@ -83,7 +83,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-white/85 dark:bg-[#06060a]/92 backdrop-blur-2xl border-b border-slate-200/70 dark:border-white/[0.07]"
+            ? "bg-white/60 dark:bg-[#06060a]/75 backdrop-blur-2xl backdrop-saturate-[1.7] border-b border-white/50 dark:border-white/[0.09] shadow-[0_8px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
             : "bg-transparent"
         }`}
       >

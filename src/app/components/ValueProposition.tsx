@@ -73,7 +73,7 @@ export default function ValueProposition() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative"
               >
-                <div className="relative rounded-3xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/30 dark:hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(0,34,255,0.08)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.06)] hover:-translate-y-1 cursor-pointer h-full shadow-sm dark:shadow-none">
+                <div className="glass glass-edge relative rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.12)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.10)] hover:-translate-y-1 cursor-pointer h-full">
 
                   {/* Gradient top accent — Deev brand */}
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
@@ -108,11 +108,11 @@ export default function ValueProposition() {
           <div className="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-8">
             How we deliver
           </div>
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden border border-slate-200 dark:border-white/[0.09] bg-slate-200 dark:bg-white/[0.06]">
+          <div className="glass glass-edge relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden">
             {steps.map((step) => (
               <div
                 key={step.number}
-                className="bg-white dark:bg-[#0b0b14] p-7 transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.03]"
+                className="p-7 transition-colors duration-300 hover:bg-white/40 dark:hover:bg-white/[0.04]"
               >
                 <div className="flex items-center gap-2.5 mb-3">
                   <span className="text-sm font-extrabold bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent tracking-tight">

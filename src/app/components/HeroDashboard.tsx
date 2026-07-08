@@ -83,7 +83,7 @@ export default function HeroDashboard() {
       {/* Glow under the panel */}
       <div className="absolute -inset-x-10 -bottom-10 top-10 bg-[#0022FF]/20 blur-[90px] rounded-full pointer-events-none" />
 
-      <div className="relative rounded-2xl sm:rounded-[20px] border border-white/[0.12] bg-[#0b0b14]/90 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden">
+      <div className="glass-edge relative rounded-2xl sm:rounded-[20px] border border-white/[0.14] bg-[#0b0b14]/85 backdrop-blur-xl backdrop-saturate-150 shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden">
         {/* Window top bar */}
         <div className="flex items-center gap-2 px-4 sm:px-5 h-11 border-b border-white/[0.08] bg-white/[0.02]">
           <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
