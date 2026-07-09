@@ -64,14 +64,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <img src={logo} alt="Deev" className="h-9 w-auto object-contain" />
-              <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
-                Deev
+              <img src={logo} alt="DEEV" className="h-9 w-auto object-contain" />
+              <span className="text-xl font-extrabold tracking-[0.14em] bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
+                DEEV
               </span>
             </div>
             <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-sm">
-              Digital systems that make your business impossible to ignore. Based
-              in Luxembourg.
+              An independent, founder-led studio in Luxembourg. We build digital
+              systems that make your business impossible to ignore.
             </p>
             <div className="flex gap-4">
               {socials.map((social) => {

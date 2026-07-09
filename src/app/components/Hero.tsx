@@ -57,7 +57,7 @@ function RotatingPhrase() {
 export default function Hero() {
   const isMobile = useIsMobile();
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-20 transition-colors duration-300">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-16 transition-colors duration-300">
 
       {/* Decorative shades: AI workflow + Luxembourg silhouette */}
       <HeroShapes />
@@ -67,7 +67,7 @@ export default function Hero() {
       {/* Soft layered background glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[#0022FF]/[0.14] blur-[150px]"
+          className="absolute -top-[15%] left-1/3 w-[900px] h-[700px] rounded-full bg-[#0022FF]/[0.14] blur-[150px]"
           animate={isMobile ? undefined : { opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -77,7 +77,7 @@ export default function Hero() {
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
         />
         <motion.div
-          className="absolute top-[20%] -right-[10%] w-[560px] h-[560px] rounded-full bg-[#0022FF]/[0.10] blur-[140px]"
+          className="absolute top-[30%] -right-[10%] w-[560px] h-[560px] rounded-full bg-[#0022FF]/[0.10] blur-[140px]"
           animate={isMobile ? undefined : { opacity: [0.25, 0.5, 0.25] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
         />
@@ -102,118 +102,118 @@ export default function Hero() {
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-slate-50 dark:from-[#06060a] to-transparent" />
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.02fr_0.98fr] gap-14 lg:gap-12 items-center">
 
-        {/* Premium badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center justify-center mb-7"
-        >
-          <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-600 dark:text-slate-400">
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#00C6FF]/70" />
+        {/* ── Left: editorial content ─────────────────────────────── */}
+        <div className="text-left">
+          {/* Mono eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-600 dark:text-slate-400 mb-8"
+          >
             <span className="flex items-center gap-2.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0022FF] dark:bg-[#00C6FF] animate-pulse" />
               AI-native digital engineering — Luxembourg
             </span>
-            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
-          </div>
-        </motion.div>
+            <span className="h-px w-12 bg-gradient-to-r from-[#00C6FF]/70 to-transparent" />
+          </motion.div>
 
-        {/* Headline */}
-        <motion.h1
-          className="text-4xl sm:text-6xl md:text-7xl xl:text-[5.25rem] font-bold text-slate-900 dark:text-white leading-[1.02] mb-7 tracking-[-0.03em]"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          We engineer
-          <br />
-          <RotatingPhrase />
-          <br />
-          impossible to ignore.
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-normal"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-        >
-          We design and build AI-powered platforms, web apps, and digital
-          systems engineered to convert, automate, and scale — for ambitious
-          companies across Europe that refuse to blend in.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 items-center justify-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-        >
-          <button
-            onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-            className="group relative w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.45)] hover:-translate-y-1 active:translate-y-0"
-            style={{ background: "linear-gradient(135deg, #00C6FF 0%, #0055ff 100%)" }}
+          {/* Kinetic headline */}
+          <motion.h1
+            className="text-[2.6rem] sm:text-6xl lg:text-[3.4rem] xl:text-[4rem] 2xl:text-[4.4rem] font-bold text-slate-900 dark:text-white leading-[1.04] mb-7 tracking-[-0.03em]"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="relative z-10 flex items-center justify-center gap-2.5">
-              Configure your project
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            We engineer
+            <br />
+            <RotatingPhrase />
+            <br />
+            impossible to ignore.
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-9 max-w-lg leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            AI-powered platforms, web apps and digital systems engineered to
+            convert, automate and scale — built in Luxembourg for ambitious
+            companies across Europe.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          >
+            <button
+              onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
+              className="group relative w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.45)] hover:-translate-y-1 active:translate-y-0"
+              style={{ background: "linear-gradient(135deg, #00C6FF 0%, #0055ff 100%)" }}
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2.5">
+                Configure your project
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] to-[#0033ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </button>
+
+            <Link
+              to="/contact"
+              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF]/50 dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+            >
+              Book a strategy call
+            </Link>
+          </motion.div>
+
+          {/* Terminal status */}
+          <motion.div
+            className="flex items-center gap-2.5 mt-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] to-[#0033ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </button>
+            <span className="eyebrow-mono text-[11px] sm:text-xs uppercase text-slate-600 dark:text-slate-400">
+              systems online — accepting projects for 2026
+              <span className="caret-blink text-[#00C6FF]">&nbsp;▌</span>
+            </span>
+          </motion.div>
 
-          <Link
-            to="/contact"
-            className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF]/50 dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+          {/* Stats strip */}
+          <motion.div
+            className="flex items-center mt-9 pt-8 border-t border-slate-200 dark:border-white/[0.08]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
           >
-            Book a strategy call
-          </Link>
-        </motion.div>
+            {stats.map((stat, i) => (
+              <div key={stat.label} className="flex items-center">
+                {i > 0 && <span className="w-px h-9 bg-slate-300 dark:bg-white/[0.10] mx-5 sm:mx-7" />}
+                <div>
+                  <CountUp value={stat.value} className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight" />
+                  <div className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 font-medium uppercase tracking-wider">{stat.label}</div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
 
-        {/* Availability signal */}
-        <motion.div
-          className="flex items-center justify-center gap-2.5 mt-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-          </span>
-          <span className="eyebrow-mono text-[11px] sm:text-xs uppercase text-slate-600 dark:text-slate-400">
-            systems online — accepting projects for 2026
-            <span className="caret-blink text-[#00C6FF]">&nbsp;▌</span>
-          </span>
-        </motion.div>
+        {/* ── Right: live AI dashboard ────────────────────────────── */}
+        <div className="relative lg:pl-2">
+          <HeroDashboard />
+        </div>
       </div>
-
-      {/* Animated AI dashboard mockup */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 mt-14 sm:mt-16">
-        <HeroDashboard />
-      </div>
-
-      {/* Stats strip */}
-      <motion.div
-        className="relative z-10 flex items-center justify-center mt-12 sm:mt-14"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-      >
-        {stats.map((stat, i) => (
-          <div key={stat.label} className="flex items-center">
-            {i > 0 && <span className="w-px h-9 bg-slate-300 dark:bg-white/[0.10] mx-5 sm:mx-8" />}
-            <div className="text-center">
-              <CountUp value={stat.value} className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight" />
-              <div className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 font-medium uppercase tracking-wider">{stat.label}</div>
-            </div>
-          </div>
-        ))}
-      </motion.div>
     </section>
   );
 }

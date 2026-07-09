@@ -14,10 +14,10 @@ export default function Legal() {
             className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#0022FF] dark:hover:text-[#00C6FF] transition-colors duration-200 font-medium text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Deev
+            Back to DEEV
           </Link>
           <div className="flex items-center gap-2 ml-auto">
-            <img src={logo} alt="Deev" className="h-7 w-auto object-contain" />
+            <img src={logo} alt="DEEV" className="h-7 w-auto object-contain" />
             <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
               Deev
             </span>
@@ -199,7 +199,7 @@ export default function Legal() {
               style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Deev
+              Back to DEEV
             </Link>
           </div>
         </motion.div>

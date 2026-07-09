@@ -96,13 +96,13 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           >
             <img
               src={logo}
-              alt="Deev"
+              alt="DEEV"
               className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <span className={`text-[1.35rem] font-extrabold tracking-tight leading-none transition-colors duration-300 ${
+            <span className={`text-[1.2rem] font-extrabold tracking-[0.14em] leading-none transition-colors duration-300 ${
               scrolled ? "text-slate-900 dark:text-white" : "text-slate-900 dark:text-white"
             }`}>
-              Deev
+              DEEV
             </span>
           </button>
 

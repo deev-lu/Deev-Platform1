@@ -66,7 +66,9 @@ export default function FinalCTA() {
           transition={{ delay: 0.2 }}
           className="text-lg text-slate-500 dark:text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed"
         >
-          Partner with Deev to engineer AI experiences and high-end web systems designed to dominate your market.
+          No sales layer, no account managers. When you write to DEEV, you talk
+          directly to the people who design, build and ship your project — from
+          the first call to launch day.
         </motion.p>
 
         {/* CTAs */}
@@ -95,6 +97,17 @@ export default function FinalCTA() {
           >
             Say hello →
           </Link>
+        </motion.div>
+
+        {/* Personal sign-off */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="eyebrow-mono mt-14 text-[11px] uppercase text-slate-400 dark:text-slate-500"
+        >
+          — the DEEV founding team · Luxembourg
         </motion.div>
 
       </div>
