@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import CountUp from "./CountUp";
@@ -12,6 +13,46 @@ const stats = [
   { value: "100%", label: "Client satisfaction" },
   { value: "LU 🇱🇺", label: "Based in Luxembourg" },
 ];
+
+// Rotating headline phrases — the four service lines
+const PHRASES = [
+  "AI-native web systems",
+  "autonomous AI agents",
+  "e-commerce platforms",
+  "lead-gen campaigns",
+];
+
+function RotatingPhrase() {
+  const reduce = useReducedMotion();
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const t = setInterval(() => setI((v) => (v + 1) % PHRASES.length), 2800);
+    return () => clearInterval(t);
+  }, [reduce]);
+
+  return (
+    <span className="relative inline-grid overflow-visible align-baseline">
+      {/* Reserve the width of the longest phrase to avoid reflow */}
+      <span className="invisible col-start-1 row-start-1 whitespace-nowrap">
+        AI-native web systems
+      </span>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={PHRASES[i]}
+          initial={{ opacity: 0, y: "0.6em", filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: "-0.6em", filter: "blur(6px)" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="col-start-1 row-start-1 whitespace-nowrap bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"
+        >
+          {PHRASES[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 export default function Hero() {
   const isMobile = useIsMobile();
@@ -55,6 +96,8 @@ export default function Hero() {
             backgroundSize: "34px 34px",
           }}
         />
+        {/* Perspective data-grid floor (desktop) */}
+        <div className="hero-grid-floor hidden md:block opacity-50 dark:opacity-100" />
         {/* Fade to page bottom */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-slate-50 dark:from-[#06060a] to-transparent" />
       </div>
@@ -85,11 +128,11 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
-          We engineer AI-native web systems
-          <br className="hidden sm:block" /> that are{" "}
-          <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
-            impossible to ignore.
-          </span>
+          We engineer
+          <br />
+          <RotatingPhrase />
+          <br />
+          impossible to ignore.
         </motion.h1>
 
         {/* Subtitle */}
@@ -142,8 +185,9 @@ export default function Hero() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
           </span>
-          <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-            Currently accepting new projects for 2026
+          <span className="eyebrow-mono text-[11px] sm:text-xs uppercase text-slate-600 dark:text-slate-400">
+            systems online — accepting projects for 2026
+            <span className="caret-blink text-[#00C6FF]">&nbsp;▌</span>
           </span>
         </motion.div>
       </div>

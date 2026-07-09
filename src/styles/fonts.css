@@ -208,6 +208,49 @@ li {
   letter-spacing: 0.28em;
 }
 
+/* ---- Hero: perspective data-grid floor ---- */
+
+.hero-grid-floor {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: -6%;
+  height: 46%;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(0, 198, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 198, 255, 0.16) 1px, transparent 1px);
+  background-size: 46px 46px;
+  transform: perspective(650px) rotateX(63deg);
+  transform-origin: center top;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 85%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 85%);
+  animation: grid-scroll 3s linear infinite;
+  will-change: background-position;
+}
+@keyframes grid-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 46px;
+  }
+}
+
+/* Terminal caret blink */
+.caret-blink {
+  animation: caret-blink 1.1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+
 /* ---- CSS 3D system stack ---- */
 
 .stack-scene {
@@ -237,7 +280,9 @@ li {
   }
   .animate-gradient-x,
   .animate-marquee,
-  .stack-object {
+  .stack-object,
+  .hero-grid-floor,
+  .caret-blink {
     animation: none;
   }
 }
