@@ -14,12 +14,12 @@ const stats = [
   { value: "LU 🇱🇺", label: "Based in Luxembourg" },
 ];
 
-// Rotating headline phrases — the four service lines
+// Rotating headline phrases — kept short so they always stay on one line
 const PHRASES = [
-  "AI-native web systems",
-  "autonomous AI agents",
-  "e-commerce platforms",
-  "lead-gen campaigns",
+  "AI systems",
+  "web platforms",
+  "online stores",
+  "lead engines",
 ];
 
 function RotatingPhrase() {
@@ -33,7 +33,7 @@ function RotatingPhrase() {
   }, [reduce]);
 
   return (
-    <span className="relative block min-h-[2.2em] sm:min-h-[1.15em]">
+    <span className="relative block min-h-[1.18em]">
       <AnimatePresence initial={false}>
         <motion.span
           key={PHRASES[i]}
@@ -41,7 +41,7 @@ function RotatingPhrase() {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: "-0.5em", filter: "blur(6px)" }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-x-0 top-0 bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"
+          className="absolute inset-x-0 top-0 whitespace-nowrap bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"
         >
           {PHRASES[i]}
         </motion.span>
