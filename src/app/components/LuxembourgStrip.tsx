@@ -37,7 +37,7 @@ export default function LuxembourgStrip() {
             <span className="h-px w-8 bg-gradient-to-r from-[#00C6FF]/70 to-transparent" />
             49.6117° N — 6.1300° E
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight leading-[1.1] mb-5">
             Engineered in Luxembourg.
             <br />
             <span className="text-white/60">Trusted across Europe.</span>

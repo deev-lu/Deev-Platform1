@@ -118,11 +118,11 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-12 md:mb-16 max-w-2xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#0022FF]" />
             Get in touch
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Let's talk about
             <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
@@ -144,11 +144,11 @@ export default function Contact() {
             className="lg:col-span-2 space-y-4"
           >
             {/* SME grant card */}
-            <div className="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/40 dark:to-[#08080c] border border-emerald-300/60 dark:border-emerald-500/30">
+            <div className="relative overflow-hidden rounded-lg p-5 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/40 dark:to-[#08080c] border border-emerald-300/60 dark:border-emerald-500/30">
               <div className="absolute -top-10 -right-8 w-40 h-40 bg-emerald-400/15 dark:bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-2.5">
-                  <div className="shrink-0 w-11 h-11 rounded-xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                  <div className="shrink-0 w-11 h-11 rounded-md bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                     <BadgeEuro className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider leading-tight">
@@ -197,12 +197,12 @@ export default function Contact() {
             ].map((item) => {
               const Icon = item.icon;
               const inner = (
-                <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] shadow-sm dark:shadow-none transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15]">
-                  <div className="shrink-0 w-11 h-11 rounded-xl bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] flex items-center justify-center">
+                <div className="flex items-start gap-4 p-5 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] shadow-sm dark:shadow-none transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15]">
+                  <div className="shrink-0 w-11 h-11 rounded-md bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] flex items-center justify-center">
                     <Icon className="w-5 h-5 text-[#0022FF] dark:text-[#00C6FF]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
+                    <div className="text-xs font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
                       {item.label}
                     </div>
                     <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 break-words">
@@ -234,15 +234,15 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="relative rounded-3xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden shadow-sm dark:shadow-none">
+            <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden shadow-sm dark:shadow-none">
               <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
 
               {status === "success" ? (
                 <div className="p-10 md:p-14 text-center">
-                  <div className="inline-flex w-16 h-16 rounded-2xl bg-emerald-500/10 items-center justify-center mb-6">
+                  <div className="inline-flex w-16 h-16 rounded-lg bg-emerald-500/10 items-center justify-center mb-6">
                     <CheckCircle2 className="w-8 h-8 text-emerald-500" />
                   </div>
-                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+                  <h2 className="text-2xl font-medium text-slate-900 dark:text-white mb-3">
                     Message received.
                   </h2>
                   <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-8">
@@ -252,7 +252,7 @@ export default function Contact() {
                   </p>
                   <Link
                     to="/"
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-md font-semibold text-sm text-white transition-all duration-300 hover:-translate-y-0.5"
                     style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
                   >
                     Back to homepage
@@ -338,7 +338,7 @@ export default function Contact() {
                   </Field>
 
                   {status === "error" && (
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-sm text-amber-700 dark:text-amber-300">
+                    <div className="flex items-start gap-3 p-4 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm text-amber-700 dark:text-amber-300">
                       <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                       <div>
                         We couldn't submit the form right now.{" "}
@@ -357,7 +357,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,198,255,0.35)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,198,255,0.35)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                     style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
                   >
                     {status === "submitting" ? (
@@ -388,7 +388,7 @@ export default function Contact() {
 }
 
 const inputCls =
-  "w-full px-5 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] transition-shadow";
+  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] transition-shadow";
 
 function Field({
   label,

@@ -56,7 +56,7 @@ export default function SystemStack() {
             {PLANES.map((p, i) => (
               <div
                 key={i}
-                className="stack-plane absolute inset-0 rounded-[22px]"
+                className="stack-plane absolute inset-0 rounded-lg"
                 style={{
                   transform: `translateZ(${p.z}px)`,
                   opacity: p.opacity,
@@ -113,7 +113,7 @@ export default function SystemStack() {
               <span className="h-px w-8 bg-gradient-to-r from-[#00C6FF]/60 to-transparent" />
               02 / How it runs
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-5">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight mb-5">
               One system.
               <br />
               Every layer engineered.

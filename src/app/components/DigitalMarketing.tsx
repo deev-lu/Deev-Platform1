@@ -50,12 +50,12 @@ export default function DigitalMarketing() {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#0022FF]" />
             Digital Growth
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-6 tracking-tight">
             Drive Real Results with{" "}
             <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
               Data-Driven Marketing
@@ -85,18 +85,18 @@ export default function DigitalMarketing() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative"
               >
-                <div className="relative rounded-3xl bg-white dark:bg-white/[0.04] backdrop-blur-sm border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:bg-slate-50 dark:hover:bg-white/[0.07] hover:border-[#0022FF]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(0,34,255,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none">
+                <div className="relative rounded-lg bg-white dark:bg-white/[0.04] backdrop-blur-sm border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:bg-slate-50 dark:hover:bg-white/[0.07] hover:border-[#0022FF]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(0,34,255,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none">
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
                   <div className="p-8">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0022FF]/[0.08] to-[#00C6FF]/[0.05] flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+                    <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#0022FF]/[0.08] to-[#00C6FF]/[0.05] flex items-center justify-center transition-all duration-500 group-hover:scale-110">
                       <Icon className="w-7 h-7 text-[#0022FF] dark:text-[#00C6FF]" />
                     </div>
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-300 group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF]">
+                  <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-3 transition-colors duration-300 group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF]">
                     {service.title}
                   </h3>
                   <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
@@ -128,7 +128,7 @@ export default function DigitalMarketing() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative text-center p-10 md:p-16 rounded-3xl overflow-hidden border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-transparent"
+          className="relative text-center p-10 md:p-16 rounded-lg overflow-hidden border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-transparent"
           style={{ background: undefined }}
         >
           {/* Glow */}
@@ -142,7 +142,7 @@ export default function DigitalMarketing() {
             </p>
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative inline-flex items-center gap-2 px-9 py-4 rounded-2xl font-bold text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.4)] hover:-translate-y-1"
+              className="group relative inline-flex items-center gap-2 px-9 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.4)] hover:-translate-y-1"
               style={{ background: "linear-gradient(135deg, #00C6FF 0%, #0044ff 100%)" }}
             >
               Get Free Marketing Audit

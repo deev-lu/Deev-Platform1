@@ -53,7 +53,7 @@ export default function ValueProposition() {
             01 / What we build
             <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white tracking-tight">
             Everything your business needs
             <br className="hidden md:block" />
             <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"> to dominate online.</span>
@@ -76,14 +76,14 @@ export default function ValueProposition() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative"
               >
-                <div className="glass glass-edge glass-sheen relative rounded-3xl transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.12)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.10)] hover:-translate-y-1 cursor-pointer h-full">
+                <div className="glass glass-edge glass-sheen relative rounded-lg transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.12)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.10)] hover:-translate-y-1 cursor-pointer h-full">
 
                   {/* Gradient top accent — Deev brand */}
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
 
                   <div className="p-7">
                     {/* Icon */}
-                    <div className="w-11 h-11 rounded-xl mb-6 flex items-center justify-center bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] transition-all duration-300 group-hover:scale-110">
+                    <div className="w-11 h-11 rounded-md mb-6 flex items-center justify-center bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] transition-all duration-300 group-hover:scale-110">
                       <Icon className="w-5 h-5 text-[#0022FF] dark:text-[#00C6FF]" />
                     </div>
 
@@ -108,10 +108,10 @@ export default function ValueProposition() {
           transition={{ duration: 0.6 }}
           className="mt-16 sm:mt-20"
         >
-          <div className="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-8">
+          <div className="text-center text-xs font-medium uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-8">
             How we deliver
           </div>
-          <div className="glass glass-edge relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden">
+          <div className="glass glass-edge relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-lg overflow-hidden">
             {steps.map((step) => (
               <div
                 key={step.number}

@@ -70,7 +70,7 @@ export default function AIShowcase() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-xs font-medium uppercase tracking-[0.2em] text-slate-400 mb-8"
           >
             <span className="w-1 h-1 rounded-full bg-[#00C6FF] animate-pulse" />
             Next-Gen Intelligence
@@ -106,7 +106,7 @@ export default function AIShowcase() {
                 className="group relative cursor-pointer"
               >
                 <div
-                  className={`relative p-6 md:p-10 rounded-3xl border transition-all duration-700 h-full ${
+                  className={`relative p-6 md:p-10 rounded-lg border transition-all duration-700 h-full ${
                     activeCard === index
                       ? "bg-gradient-to-br from-[#0022FF]/40 to-black border-[#00C6FF]/50 shadow-[0_0_50px_rgba(0,198,255,0.15)]"
                       : "bg-white/[0.04] border-white/[0.10] hover:border-white/25"
@@ -114,7 +114,7 @@ export default function AIShowcase() {
                 >
                   {/* Icon */}
                   <div
-                    className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl mb-5 md:mb-8 flex items-center justify-center transition-all duration-500 ${
+                    className={`w-12 h-12 md:w-16 md:h-16 rounded-lg mb-5 md:mb-8 flex items-center justify-center transition-all duration-500 ${
                       activeCard === index
                         ? "bg-[#00C6FF] shadow-[0_0_30px_rgba(0,198,255,0.4)]"
                         : "bg-white/5 group-hover:bg-white/10"
@@ -128,7 +128,7 @@ export default function AIShowcase() {
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 tracking-tight">
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3 md:mb-4 tracking-tight">
                     {useCase.title}
                   </h3>
                   <p className="text-slate-400 text-sm md:text-base mb-5 md:mb-8 leading-relaxed">
@@ -152,7 +152,7 @@ export default function AIShowcase() {
 
                   {/* Animated border glow effect */}
                   <div
-                    className={`absolute inset-0 rounded-3xl bg-gradient-to-br from-[#00C6FF]/10 via-transparent to-transparent opacity-0 transition-opacity duration-700 pointer-events-none ${
+                    className={`absolute inset-0 rounded-lg bg-gradient-to-br from-[#00C6FF]/10 via-transparent to-transparent opacity-0 transition-opacity duration-700 pointer-events-none ${
                       activeCard === index ? "opacity-100" : ""
                     }`}
                   />

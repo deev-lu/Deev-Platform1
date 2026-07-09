@@ -83,7 +83,7 @@ export default function HeroDashboard() {
       {/* Glow under the panel */}
       <div className="absolute -inset-x-10 -bottom-10 top-10 bg-[#0022FF]/20 blur-[90px] rounded-full pointer-events-none" />
 
-      <div className="glass-edge relative rounded-2xl sm:rounded-[20px] border border-white/[0.14] bg-[#0b0b14]/85 backdrop-blur-xl backdrop-saturate-150 shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden">
+      <div className="glass-edge relative rounded-lg sm:rounded-lg border border-white/[0.14] bg-[#0b0b14]/85 backdrop-blur-xl backdrop-saturate-150 shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden">
         {/* Window top bar */}
         <div className="flex items-center gap-2 px-4 sm:px-5 h-11 border-b border-white/[0.08] bg-white/[0.02]">
           <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
@@ -110,7 +110,7 @@ export default function HeroDashboard() {
           <div className="md:col-span-3 p-5 sm:p-6 border-b md:border-b-0 md:border-r border-white/[0.07] min-h-[230px] text-left">
             {/* User prompt */}
             <div className="flex justify-end mb-4">
-              <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-white/[0.06] border border-white/[0.08] px-3.5 py-2.5">
+              <div className="max-w-[80%] rounded-lg rounded-tr-sm bg-white/[0.06] border border-white/[0.08] px-3.5 py-2.5">
                 <p className="text-[13px] text-slate-200 leading-snug">{PROMPTS[idx]}</p>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function HeroDashboard() {
               <div className="shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#00C6FF] to-[#0022FF] flex items-center justify-center mt-0.5">
                 <Sparkles className="w-3.5 h-3.5 text-white" />
               </div>
-              <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-gradient-to-br from-[#0022FF]/15 to-[#00C6FF]/[0.06] border border-[#00C6FF]/20 px-3.5 py-2.5">
+              <div className="max-w-[85%] rounded-lg rounded-tl-sm bg-gradient-to-br from-[#0022FF]/15 to-[#00C6FF]/[0.06] border border-[#00C6FF]/20 px-3.5 py-2.5">
                 <p className="text-[13px] text-slate-100 leading-relaxed min-h-[2.6em]">
                   {text}
                   {!done && (
@@ -133,30 +133,30 @@ export default function HeroDashboard() {
           {/* Right — live metrics */}
           <div className="md:col-span-2 p-5 sm:p-6 flex flex-col gap-4 bg-white/[0.015]">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-500">
+              <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500">
                 Live performance
               </span>
               <TrendingUp className="w-4 h-4 text-[#00C6FF]" />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-3">
+              <div className="rounded-md bg-white/[0.03] border border-white/[0.07] p-3">
                 <div className="text-[10px] text-slate-500 font-medium mb-1">Conversions</div>
                 <div className="flex items-end gap-1">
                   <CountUp value="38%" className="text-lg font-extrabold text-white" />
                   <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400 mb-1" />
                 </div>
               </div>
-              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-3">
+              <div className="rounded-md bg-white/[0.03] border border-white/[0.07] p-3">
                 <div className="text-[10px] text-slate-500 font-medium mb-1">Leads / mo</div>
                 <CountUp value="1.2k" className="text-lg font-extrabold text-white" />
               </div>
             </div>
 
-            <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-3">
+            <div className="rounded-md bg-white/[0.03] border border-white/[0.07] p-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] text-slate-500 font-medium">Pipeline value</span>
-                <CountUp value="100%" className="text-xs font-bold text-[#00C6FF]" />
+                <CountUp value="100%" className="text-xs font-medium text-[#00C6FF]" />
               </div>
               <MetricBars reduce={reduce} />
             </div>

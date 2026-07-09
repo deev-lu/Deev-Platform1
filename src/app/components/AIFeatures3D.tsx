@@ -30,7 +30,7 @@ export default function AIFeatures3D() {
 
       {/* ─── MOBILE LAYOUT (hidden on md+) ─── */}
       <div className="md:hidden">
-        <div className="relative rounded-3xl bg-[#050508]/90 border border-white/10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,198,255,0.1)] overflow-hidden mx-4">
+        <div className="relative rounded-lg bg-[#050508]/90 border border-white/10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,198,255,0.1)] overflow-hidden mx-4">
           {/* Top bar */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
             <div className="flex items-center gap-2">
@@ -43,7 +43,7 @@ export default function AIFeatures3D() {
                 DEEV_AI_CORE_V2.0
               </div>
             </div>
-            <div className="flex items-center gap-1.5 text-green-400 bg-green-400/10 px-2 py-1 rounded-full border border-green-400/20 text-[10px] font-bold uppercase tracking-wider">
+            <div className="flex items-center gap-1.5 text-green-400 bg-green-400/10 px-2 py-1 rounded-full border border-green-400/20 text-[10px] font-medium uppercase tracking-wider">
               <Activity className="w-3 h-3" /> Live
             </div>
           </div>
@@ -60,8 +60,8 @@ export default function AIFeatures3D() {
                   <div className="absolute inset-0 rounded-full bg-[#00C6FF]/20 animate-ping opacity-20" />
                   <Brain className="w-11 h-11 text-white" />
                 </div>
-                <div className="mt-3 text-center bg-[#050508]/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white/5">
-                  <div className="text-white font-bold text-sm">AI Core Engine</div>
+                <div className="mt-3 text-center bg-[#050508]/80 backdrop-blur-md px-4 py-2 rounded-md border border-white/5">
+                  <div className="text-white font-medium text-sm">AI Core Engine</div>
                   <div className="text-[#00C6FF] font-mono text-[10px] mt-0.5">Python • ML Models</div>
                 </div>
               </motion.div>
@@ -81,10 +81,10 @@ export default function AIFeatures3D() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className={`flex flex-col items-center p-3 rounded-2xl ${node.bg} border ${node.color} backdrop-blur-md`}
+                    className={`flex flex-col items-center p-3 rounded-lg ${node.bg} border ${node.color} backdrop-blur-md`}
                   >
                     <Icon className={`w-6 h-6 ${node.iconColor} mb-2`} />
-                    <div className="text-white font-bold text-xs text-center leading-tight">{node.label}</div>
+                    <div className="text-white font-medium text-xs text-center leading-tight">{node.label}</div>
                     <div className={`${node.iconColor} font-mono text-[9px] mt-0.5 text-center opacity-80`}>{node.sub}</div>
                   </motion.div>
                 );
@@ -105,10 +105,10 @@ export default function AIFeatures3D() {
               {stats.map((stat, i) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={i} className="flex items-center gap-2 bg-white/5 rounded-xl px-3 py-2">
+                  <div key={i} className="flex items-center gap-2 bg-white/5 rounded-md px-3 py-2">
                     <Icon className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span className="text-slate-400 text-xs">{stat.label}:</span>
-                    <span className={`${stat.valueColor} text-xs font-bold`}>{stat.value}</span>
+                    <span className={`${stat.valueColor} text-xs font-medium`}>{stat.value}</span>
                   </div>
                 );
               })}
@@ -144,7 +144,7 @@ export default function AIFeatures3D() {
                     DEEV_AI_CORE_V2.0
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-green-400 bg-green-400/10 px-3 py-1 rounded-full border border-green-400/20 text-xs font-bold uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-green-400 bg-green-400/10 px-3 py-1 rounded-full border border-green-400/20 text-xs font-medium uppercase tracking-wider">
                   <Activity className="w-4 h-4" /> Live Architecture
                 </div>
               </div>
@@ -167,59 +167,59 @@ export default function AIFeatures3D() {
                     <div className="absolute inset-0 rounded-full bg-[#00C6FF]/30 animate-ping opacity-20" />
                     <Brain className="w-14 h-14 lg:w-16 lg:h-16 text-white" />
                   </div>
-                  <div className="mt-4 text-center bg-[#050508]/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white/5 shadow-xl">
-                    <div className="text-white font-bold text-base">AI Core Engine</div>
+                  <div className="mt-4 text-center bg-[#050508]/80 backdrop-blur-md px-4 py-2 rounded-md border border-white/5 shadow-xl">
+                    <div className="text-white font-medium text-base">AI Core Engine</div>
                     <div className="text-[#00C6FF] font-mono text-xs mt-1">Python • ML Models</div>
                   </div>
                 </motion.div>
 
                 {/* Left: Web App */}
                 <motion.div className="absolute left-[5%] top-1/2 -translate-y-1/2 z-20 flex flex-col items-center" initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
-                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-2xl bg-slate-900/80 border border-slate-700/50 backdrop-blur-md flex items-center justify-center shadow-xl">
+                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-lg bg-slate-900/80 border border-slate-700/50 backdrop-blur-md flex items-center justify-center shadow-xl">
                     <Globe className="w-8 h-8 lg:w-10 lg:h-10 text-slate-300" />
                   </div>
                   <div className="mt-3 text-center bg-[#050508]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/5">
-                    <div className="text-white font-bold text-sm">Web App</div>
+                    <div className="text-white font-medium text-sm">Web App</div>
                     <div className="text-slate-400 font-mono text-[10px] mt-0.5">Next.js • React</div>
                   </div>
                 </motion.div>
 
                 {/* Right: Cloud Infra */}
                 <motion.div className="absolute right-[5%] top-1/2 -translate-y-1/2 z-20 flex flex-col items-center" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>
-                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-2xl bg-orange-900/30 border border-orange-500/50 backdrop-blur-md flex items-center justify-center shadow-xl">
+                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-lg bg-orange-900/30 border border-orange-500/50 backdrop-blur-md flex items-center justify-center shadow-xl">
                     <Server className="w-8 h-8 lg:w-10 lg:h-10 text-orange-400" />
                   </div>
                   <div className="mt-3 text-center bg-[#050508]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/5">
-                    <div className="text-white font-bold text-sm">Cloud Infra</div>
+                    <div className="text-white font-medium text-sm">Cloud Infra</div>
                     <div className="text-orange-400 font-mono text-[10px] mt-0.5">AWS • Scaling</div>
                   </div>
                 </motion.div>
 
                 {/* Top: Workflows */}
                 <motion.div className="absolute top-[5%] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center" initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }}>
-                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-2xl bg-[#00C6FF]/10 border border-[#00C6FF]/50 backdrop-blur-md flex items-center justify-center shadow-xl">
+                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-lg bg-[#00C6FF]/10 border border-[#00C6FF]/50 backdrop-blur-md flex items-center justify-center shadow-xl">
                     <Workflow className="w-8 h-8 lg:w-10 lg:h-10 text-[#00C6FF]" />
                   </div>
                   <div className="mt-3 text-center bg-[#050508]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/5 order-first mb-3">
-                    <div className="text-white font-bold text-sm">Workflows</div>
+                    <div className="text-white font-medium text-sm">Workflows</div>
                     <div className="text-[#00C6FF] font-mono text-[10px] mt-0.5">Logic • APIs</div>
                   </div>
                 </motion.div>
 
                 {/* Bottom: Knowledge Base */}
                 <motion.div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.9 }}>
-                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-2xl bg-[#0022FF]/20 border border-[#0022FF]/50 backdrop-blur-md flex items-center justify-center shadow-xl">
+                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-lg bg-[#0022FF]/20 border border-[#0022FF]/50 backdrop-blur-md flex items-center justify-center shadow-xl">
                     <Database className="w-8 h-8 lg:w-10 lg:h-10 text-[#0022FF]" />
                   </div>
                   <div className="mt-3 text-center bg-[#050508]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/5">
-                    <div className="text-white font-bold text-sm">Knowledge Base</div>
+                    <div className="text-white font-medium text-sm">Knowledge Base</div>
                     <div className="text-[#0022FF] font-mono text-[10px] mt-0.5">Vector DB • Retrieval</div>
                   </div>
                 </motion.div>
               </div>
 
               {/* Stats row */}
-              <div className="mt-auto pt-6 border-t border-white/5 flex flex-wrap justify-between items-center gap-4 text-sm font-mono z-30 bg-[#050508]/80 backdrop-blur-xl p-4 rounded-2xl pointer-events-auto shadow-2xl border border-white/5">
+              <div className="mt-auto pt-6 border-t border-white/5 flex flex-wrap justify-between items-center gap-4 text-sm font-mono z-30 bg-[#050508]/80 backdrop-blur-xl p-4 rounded-lg pointer-events-auto shadow-2xl border border-white/5">
                 <div className="flex items-center gap-2 text-slate-400"><Cpu className="w-4 h-4" /> CPU Load: <span className="text-white font-semibold">12%</span></div>
                 <div className="flex items-center gap-2 text-slate-400"><Activity className="w-4 h-4" /> Inference Time: <span className="text-white font-semibold">45ms</span></div>
                 <div className="flex items-center gap-2 text-slate-400"><Globe className="w-4 h-4" /> Global CDN: <span className="text-green-400 font-semibold">Active</span></div>

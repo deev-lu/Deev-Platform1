@@ -60,7 +60,7 @@ function MetricCard({
       viewport={{ once: true }}
       onViewportEnter={() => setIsVisible(true)}
       transition={{ duration: 0.6, delay }}
-      className="group relative rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_30px_rgba(0,34,255,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none"
+      className="group relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_30px_rgba(0,34,255,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none"
     >
       <div className="h-[2px] w-full bg-gradient-to-r from-[#00C6FF] to-[#0022FF]" />
       <div className="p-6">

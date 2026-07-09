@@ -33,19 +33,15 @@ function RotatingPhrase() {
   }, [reduce]);
 
   return (
-    <span className="relative inline-grid overflow-visible align-baseline">
-      {/* Reserve the width of the longest phrase to avoid reflow */}
-      <span className="invisible col-start-1 row-start-1 whitespace-nowrap">
-        AI-native web systems
-      </span>
-      <AnimatePresence mode="popLayout" initial={false}>
+    <span className="relative block min-h-[2.2em] sm:min-h-[1.15em]">
+      <AnimatePresence initial={false}>
         <motion.span
           key={PHRASES[i]}
-          initial={{ opacity: 0, y: "0.6em", filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: "0.5em", filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: "-0.6em", filter: "blur(6px)" }}
+          exit={{ opacity: 0, y: "-0.5em", filter: "blur(6px)" }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="col-start-1 row-start-1 whitespace-nowrap bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"
+          className="absolute inset-x-0 top-0 bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"
         >
           {PHRASES[i]}
         </motion.span>
@@ -122,16 +118,14 @@ export default function Hero() {
 
           {/* Kinetic headline */}
           <motion.h1
-            className="text-[2.6rem] sm:text-6xl lg:text-[3.4rem] xl:text-[4rem] 2xl:text-[4.4rem] font-bold text-slate-900 dark:text-white leading-[1.04] mb-7 tracking-[-0.03em]"
+            className="text-[2.5rem] sm:text-6xl lg:text-[3.4rem] xl:text-[3.9rem] 2xl:text-[4.3rem] font-light text-slate-900 dark:text-white leading-[1.08] mb-8 tracking-[-0.02em]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            We engineer
-            <br />
+            <span className="block">We engineer</span>
             <RotatingPhrase />
-            <br />
-            impossible to ignore.
+            <span className="block">impossible to ignore.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -155,7 +149,7 @@ export default function Hero() {
           >
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.45)] hover:-translate-y-1 active:translate-y-0"
+              className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.45)] hover:-translate-y-1 active:translate-y-0"
               style={{ background: "linear-gradient(135deg, #00C6FF 0%, #0055ff 100%)" }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2.5">
@@ -167,7 +161,7 @@ export default function Hero() {
 
             <Link
               to="/contact"
-              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF]/50 dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-lg font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF]/50 dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
             >
               Book a strategy call
             </Link>

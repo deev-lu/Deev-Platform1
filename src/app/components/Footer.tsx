@@ -82,7 +82,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-all duration-300 hover:bg-[#0022FF] hover:border-[#0022FF] hover:text-white hover:shadow-lg hover:shadow-[#0022FF]/30"
+                    className="w-10 h-10 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-all duration-300 hover:bg-[#0022FF] hover:border-[#0022FF] hover:text-white hover:shadow-lg hover:shadow-[#0022FF]/30"
                     aria-label={social.name}
                   >
                     <Icon className="w-5 h-5" />
@@ -103,7 +103,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-slate-900 dark:text-white font-bold mb-6">Services</h3>
+            <h3 className="text-slate-900 dark:text-white font-medium mb-6">Services</h3>
             <ul className="space-y-3">
               {navigation.services.map((item) => (
                 <li key={item.name}>
@@ -120,7 +120,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-slate-900 dark:text-white font-bold mb-6">Company</h3>
+            <h3 className="text-slate-900 dark:text-white font-medium mb-6">Company</h3>
             <ul className="space-y-3">
               {navigation.company.map((item) => {
                 const isRoute = item.href.startsWith("/") && !item.href.includes("#");
@@ -145,7 +145,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-slate-900 dark:text-white font-bold mb-6">Legal</h3>
+            <h3 className="text-slate-900 dark:text-white font-medium mb-6">Legal</h3>
             <ul className="space-y-3">
               {navigation.legal.map((item) => (
                 <li key={item.name}>

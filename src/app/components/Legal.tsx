@@ -33,10 +33,10 @@ export default function Legal() {
         >
           {/* Header */}
           <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
               Legal Information
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-medium text-slate-900 dark:text-white mb-4 tracking-tight">
               Terms &amp;{" "}
               <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
                 Legal Notice
@@ -48,10 +48,10 @@ export default function Legal() {
           </div>
 
           {/* Company Info Card */}
-          <div className="rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 shadow-sm dark:shadow-none">
+          <div className="rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 shadow-sm dark:shadow-none">
             <div className="h-[2px] w-full bg-gradient-to-r from-[#00C6FF] to-[#0022FF]" />
             <div className="p-8">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Company Information</h2>
+              <h2 className="text-xl font-medium text-slate-900 dark:text-white mb-6">Company Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 {[
                   { label: "Trade Name", value: "Deev" },
@@ -195,7 +195,7 @@ export default function Legal() {
           <div className="mt-16 pt-8 border-t border-slate-200 dark:border-white/[0.07]">
             <Link
               to="/"
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,198,255,0.35)] hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,198,255,0.35)] hover:-translate-y-0.5"
               style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
             >
               <ArrowLeft className="w-4 h-4" />
@@ -210,8 +210,8 @@ export default function Legal() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.07] p-8 shadow-sm dark:shadow-none">
-      <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 tracking-tight">{title}</h2>
+    <div className="rounded-lg bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.07] p-8 shadow-sm dark:shadow-none">
+      <h2 className="text-lg font-medium text-slate-900 dark:text-white mb-4 tracking-tight">{title}</h2>
       <div className="text-slate-600 dark:text-slate-400 leading-relaxed text-[0.95rem]">{children}</div>
     </div>
   );

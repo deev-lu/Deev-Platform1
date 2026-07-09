@@ -430,7 +430,7 @@ export default function ProjectBuilder() {
             </span>
             <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Build &amp; price your project,{" "}
             <span className="bg-gradient-to-r from-[#00C6FF] via-[#3b82f6] to-[#0022FF] bg-clip-text text-transparent animate-gradient-x">
               live.
@@ -459,7 +459,7 @@ export default function ProjectBuilder() {
           <div className="hidden lg:block lg:col-span-6 lg:sticky top-24">
             <motion.div
               layout
-              className="relative w-full rounded-[28px] bg-gradient-to-b from-[#13131f] to-[#0b0b14] border border-white/[0.10] shadow-[0_40px_120px_rgba(0,0,0,0.6)] dark:shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden"
+              className="relative w-full rounded-lg bg-gradient-to-b from-[#13131f] to-[#0b0b14] border border-white/[0.10] shadow-[0_40px_120px_rgba(0,0,0,0.6)] dark:shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden"
             >
               {/* Stage glows */}
               <div className="absolute inset-0 pointer-events-none">
@@ -471,10 +471,10 @@ export default function ProjectBuilder() {
               {/* Build progress */}
               <div className="relative z-10 px-8 pt-7">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                  <span className="text-[11px] font-medium uppercase tracking-widest text-slate-400">
                     Build progress
                   </span>
-                  <span className="text-[11px] font-bold text-[#00C6FF] tabular-nums">{buildPct}%</span>
+                  <span className="text-[11px] font-medium text-[#00C6FF] tabular-nums">{buildPct}%</span>
                 </div>
                 <div className="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
                   <motion.div
@@ -553,10 +553,10 @@ export default function ProjectBuilder() {
 
                       {/* Spec readout */}
                       <div className="text-center w-full mt-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.10] text-[11px] font-bold text-[#00C6FF] mb-3 uppercase tracking-widest">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.10] text-[11px] font-medium text-[#00C6FF] mb-3 uppercase tracking-widest">
                           {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "Choose your trim →"}
                         </div>
-                        <h3 className="text-2xl font-bold text-white tracking-tight">
+                        <h3 className="text-2xl font-medium text-white tracking-tight">
                           {CORE_SYSTEMS.find((s) => s.id === system)?.label}
                         </h3>
                         <div className="mt-3 flex items-center justify-center gap-4 text-sm font-medium text-slate-400">
@@ -579,7 +579,7 @@ export default function ProjectBuilder() {
                 >
                   {estimate.hasGrant ? (
                     <>
-                      <div className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-2 flex items-center gap-1.5">
+                      <div className="text-[11px] font-medium uppercase tracking-widest text-emerald-400 mb-2 flex items-center gap-1.5">
                         <BadgeEuro className="w-3.5 h-3.5" /> Your price after 70% grant
                       </div>
                       <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
@@ -591,7 +591,7 @@ export default function ProjectBuilder() {
                         <span className="text-sm text-slate-500 line-through tabular-nums">
                           €{estimate.min} – €{estimate.max}
                         </span>
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold tabular-nums">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-medium tabular-nums">
                           <TrendingDown className="w-3 h-3" />
                           save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")}–{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
                         </span>
@@ -599,7 +599,7 @@ export default function ProjectBuilder() {
                     </>
                   ) : (
                     <>
-                      <div className="text-[11px] font-bold uppercase tracking-widest text-[#00C6FF] mb-2">
+                      <div className="text-[11px] font-medium uppercase tracking-widest text-[#00C6FF] mb-2">
                         Your build
                       </div>
                       <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
@@ -636,12 +636,12 @@ export default function ProjectBuilder() {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="lg:hidden mb-5 px-4 py-3.5 rounded-2xl bg-white dark:bg-white/[0.05] border border-[#00C6FF]/30 shadow-sm dark:shadow-[0_0_30px_rgba(0,198,255,0.08)] flex items-center justify-between"
+                className="lg:hidden mb-5 px-4 py-3.5 rounded-lg bg-white dark:bg-white/[0.05] border border-[#00C6FF]/30 shadow-sm dark:shadow-[0_0_30px_rgba(0,198,255,0.08)] flex items-center justify-between"
               >
                 <div>
                   {estimate.hasGrant ? (
                     <>
-                      <div className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-0.5 flex items-center gap-1">
+                      <div className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-0.5 flex items-center gap-1">
                         <BadgeEuro className="w-3 h-3" /> After 70% grant
                       </div>
                       <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
@@ -653,7 +653,7 @@ export default function ProjectBuilder() {
                     </>
                   ) : (
                     <>
-                      <div className="text-[10px] font-bold text-[#0022FF] dark:text-[#00C6FF] uppercase tracking-widest mb-0.5">Your build</div>
+                      <div className="text-[10px] font-medium text-[#0022FF] dark:text-[#00C6FF] uppercase tracking-widest mb-0.5">Your build</div>
                       <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
                         €<AnimatedNumber value={estimate.rawMin} /> – €<AnimatedNumber value={estimate.rawMax} />
                       </div>
@@ -662,7 +662,7 @@ export default function ProjectBuilder() {
                 </div>
                 <div className="text-right">
                   <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5">Timeline</div>
-                  <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{estimate.weeks} weeks</div>
+                  <div className="text-sm font-medium text-slate-700 dark:text-slate-200">{estimate.weeks} weeks</div>
                 </div>
               </motion.div>
             )}
@@ -675,7 +675,7 @@ export default function ProjectBuilder() {
                 return (
                   <div key={s} className="flex items-center shrink-0">
                     <div
-                      className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-bold transition-colors ${
+                      className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                         isActive
                           ? "bg-[#0022FF] text-white shadow-lg shadow-[#0022FF]/30"
                           : isPast
@@ -732,14 +732,14 @@ export default function ProjectBuilder() {
                             // Reset capabilities when system changes
                             setCapabilities(new Set());
                           }}
-                          className={`group w-full flex items-center p-5 rounded-2xl border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
+                          className={`group w-full flex items-center p-5 rounded-lg border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                             isSelected
                               ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-lg shadow-[#0022FF]/10"
                               : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,198,255,0.07)]"
                           }`}
                         >
                           <div
-                            className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-5 transition-transform duration-300 group-hover:scale-110 ${
+                            className={`flex-shrink-0 w-12 h-12 rounded-md flex items-center justify-center mr-5 transition-transform duration-300 group-hover:scale-110 ${
                               isSelected
                                 ? "bg-[#0022FF] text-white"
                                 : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white"
@@ -749,7 +749,7 @@ export default function ProjectBuilder() {
                           </div>
                           <div className="flex-1">
                             <h4
-                              className={`text-lg font-bold ${
+                              className={`text-lg font-medium ${
                                 isSelected
                                   ? "text-[#0022FF] dark:text-[#00C6FF]"
                                   : "text-slate-900 dark:text-white"
@@ -794,7 +794,7 @@ export default function ProjectBuilder() {
                         <button
                           key={lvl.id}
                           onClick={() => setScale(lvl.id)}
-                          className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
+                          className={`w-full flex items-center justify-between p-5 rounded-lg border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                             isSelected
                               ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-lg shadow-[#0022FF]/10"
                               : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,198,255,0.07)]"
@@ -803,7 +803,7 @@ export default function ProjectBuilder() {
                           <div>
                             <div className="flex items-center gap-3 mb-1">
                               <h4
-                                className={`text-lg font-bold ${
+                                className={`text-lg font-medium ${
                                   isSelected
                                     ? "text-[#0022FF] dark:text-[#00C6FF]"
                                     : "text-slate-900 dark:text-white"
@@ -860,7 +860,7 @@ export default function ProjectBuilder() {
                           <button
                             key={cap.id}
                             onClick={() => toggleCapability(cap.id)}
-                            className={`group flex items-start p-4 rounded-xl border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
+                            className={`group flex items-start p-4 rounded-md border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                               isSelected
                                 ? "border-[#00C6FF] bg-[#00C6FF]/5 dark:bg-[#00C6FF]/10 shadow-md shadow-[#00C6FF]/10"
                                 : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#0022FF]/40 dark:hover:border-white/25 hover:shadow-md dark:hover:shadow-[0_6px_24px_rgba(0,198,255,0.06)]"
@@ -878,7 +878,7 @@ export default function ProjectBuilder() {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-2">
                                 <h4
-                                  className={`text-sm font-bold leading-tight ${
+                                  className={`text-sm font-medium leading-tight ${
                                     isSelected
                                       ? "text-[#0022FF] dark:text-[#00C6FF]"
                                       : "text-slate-900 dark:text-white"
@@ -935,7 +935,7 @@ export default function ProjectBuilder() {
                     </p>
 
                     {/* Price result card — gross → grant → net */}
-                    <div className="mb-8 rounded-3xl bg-gradient-to-br from-[#11111f] to-[#0b0b16] border border-white/10 shadow-2xl shadow-black/40 relative overflow-hidden">
+                    <div className="mb-8 rounded-lg bg-gradient-to-br from-[#11111f] to-[#0b0b16] border border-white/10 shadow-2xl shadow-black/40 relative overflow-hidden">
                       <div className="absolute -top-16 right-0 w-72 h-72 bg-[#0022FF]/25 rounded-full blur-[80px] pointer-events-none" />
                       {estimate.hasGrant && (
                         <div className="absolute -bottom-16 -left-10 w-64 h-64 bg-emerald-500/15 rounded-full blur-[80px] pointer-events-none" />
@@ -949,7 +949,7 @@ export default function ProjectBuilder() {
                               <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
                                 Your investment
                               </span>
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-[11px] font-bold uppercase tracking-wider">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-[11px] font-medium uppercase tracking-wider">
                                 🇱🇺 SME grant applied
                               </span>
                             </div>
@@ -974,7 +974,7 @@ export default function ProjectBuilder() {
 
                             {/* Net — hero number */}
                             <div className="border-t border-white/10 pt-6">
-                              <div className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5">
+                              <div className="text-xs font-medium text-emerald-400 uppercase tracking-widest mb-2.5">
                                 You pay after grant
                               </div>
                               <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white tracking-tight tabular-nums leading-none">
@@ -982,7 +982,7 @@ export default function ProjectBuilder() {
                                 <span className="text-white/30 mx-2 font-light">–</span>
                                 €<AnimatedNumber value={estimate.netMax} />
                               </div>
-                              <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-bold">
+                              <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-medium">
                                 <Sparkles className="w-4 h-4" />
                                 You save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")} – €{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
                               </div>
@@ -1009,15 +1009,15 @@ export default function ProjectBuilder() {
                         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/10 mt-6 pt-5">
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Timeline</div>
-                            <div className="font-bold text-lg text-white">{estimate.weeks} weeks</div>
+                            <div className="font-medium text-lg text-white">{estimate.weeks} weeks</div>
                           </div>
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Add-ons</div>
-                            <div className="font-bold text-lg text-white">{capabilities.size} features</div>
+                            <div className="font-medium text-lg text-white">{capabilities.size} features</div>
                           </div>
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Quality</div>
-                            <div className="font-bold text-lg text-white flex items-center gap-1">
+                            <div className="font-medium text-lg text-white flex items-center gap-1">
                               <Sparkles className="w-4 h-4 text-[#00C6FF]" /> Top tier
                             </div>
                           </div>
@@ -1031,11 +1031,11 @@ export default function ProjectBuilder() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="mb-8 p-6 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border-2 border-sky-400/50 dark:border-sky-500/40 relative overflow-hidden"
+                        className="mb-8 p-6 rounded-lg bg-sky-50 dark:bg-sky-950/40 border-2 border-sky-400/50 dark:border-sky-500/40 relative overflow-hidden"
                       >
                         <div className="absolute top-0 right-0 w-48 h-48 bg-sky-400/10 rounded-full blur-[60px] -mr-10 -mt-10 pointer-events-none" />
                         <div className="flex items-start gap-4 relative z-10">
-                          <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-sky-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                          <div className="flex-shrink-0 w-11 h-11 rounded-md bg-sky-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
                             <BadgeEuro className="w-6 h-6 text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -1074,13 +1074,13 @@ export default function ProjectBuilder() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 }}
-                          className="mb-8 p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-400/60 dark:border-emerald-500/40 relative overflow-hidden"
+                          className="mb-8 p-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-400/60 dark:border-emerald-500/40 relative overflow-hidden"
                         >
                           {/* Background shimmer */}
                           <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-400/10 rounded-full blur-[60px] -mr-10 -mt-10 pointer-events-none" />
 
                           <div className="flex items-start gap-4 relative z-10">
-                            <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                            <div className="flex-shrink-0 w-11 h-11 rounded-md bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                               <BadgeEuro className="w-6 h-6 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -1088,7 +1088,7 @@ export default function ProjectBuilder() {
                                 <span className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest">
                                   🇱🇺 {pkgName}
                                 </span>
-                                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-white">
+                                <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-500 text-white">
                                   Gouvernement luxembourgeois
                                 </span>
                               </div>
@@ -1126,7 +1126,7 @@ export default function ProjectBuilder() {
                                       "de-DE"
                                     )} – €${grant.netMax.toLocaleString("de-DE")}\n\n`
                                   )}`}
-                                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]"
+                                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-md font-medium text-sm text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]"
                                 >
                                   Apply for my 70% grant
                                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -1149,7 +1149,7 @@ export default function ProjectBuilder() {
 
                     {/* Selected features breakdown */}
                     {capabilities.size > 0 && (
-                      <div className="mb-8 p-5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                      <div className="mb-8 p-5 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                         <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">
                           Included features
                         </p>
@@ -1174,13 +1174,13 @@ export default function ProjectBuilder() {
                     <div className="flex flex-col sm:flex-row gap-3">
                       <a
                         href="mailto:contact@deev.lu?subject=Start%20my%20project%20%E2%80%94%20Deev%20simulator&body=Hi%20Deev%20team%2C%0D%0A%0D%0AI%27ve%20configured%20my%20project%20in%20the%20simulator%20and%20I%27d%20like%20to%20start.%0D%0A"
-                        className="flex-1 py-4 bg-gradient-to-r from-[#0022FF] to-[#00C6FF] text-white rounded-xl font-bold text-base shadow-lg shadow-[#0022FF]/30 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(0,198,255,0.4)] transition-all active:translate-y-0 flex items-center justify-center gap-2"
+                        className="flex-1 py-4 bg-gradient-to-r from-[#0022FF] to-[#00C6FF] text-white rounded-md font-medium text-base shadow-lg shadow-[#0022FF]/30 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(0,198,255,0.4)] transition-all active:translate-y-0 flex items-center justify-center gap-2"
                       >
                         Start my project <ArrowRight className="w-5 h-5" />
                       </a>
                       <button
                         onClick={reset}
-                        className="px-7 py-4 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-xl font-bold text-base hover:bg-slate-300 dark:hover:bg-white/20 transition-colors"
+                        className="px-7 py-4 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-md font-medium text-base hover:bg-slate-300 dark:hover:bg-white/20 transition-colors"
                       >
                         Reconfigure
                       </button>
@@ -1198,7 +1198,7 @@ export default function ProjectBuilder() {
                   <button
                     onClick={() => setStep(step - 1)}
                     disabled={step === 1}
-                    className={`flex items-center justify-center gap-2 font-semibold px-5 py-3 rounded-xl transition-colors text-sm ${
+                    className={`flex items-center justify-center gap-2 font-semibold px-5 py-3 rounded-md transition-colors text-sm ${
                       step === 1
                         ? "opacity-0 pointer-events-none"
                         : "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10"
@@ -1209,7 +1209,7 @@ export default function ProjectBuilder() {
                   <button
                     onClick={handleNext}
                     disabled={(step === 1 && !system) || (step === 2 && !scale)}
-                    className={`flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-white text-sm transition-all ${
+                    className={`flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-md font-medium text-white text-sm transition-all ${
                       (step === 1 && !system) || (step === 2 && !scale)
                         ? "bg-slate-300 dark:bg-slate-700 cursor-not-allowed"
                         : "bg-[#0022FF] hover:bg-[#0022FF]/90 shadow-lg shadow-[#0022FF]/30 active:scale-[0.98]"
@@ -1242,7 +1242,7 @@ export default function ProjectBuilder() {
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="w-full max-w-md p-8 rounded-3xl bg-white dark:bg-[#0a0a0f] shadow-2xl border border-slate-200 dark:border-white/10"
+              className="w-full max-w-md p-8 rounded-lg bg-white dark:bg-[#0a0a0f] shadow-2xl border border-slate-200 dark:border-white/10"
             >
               {!submitted ? (
                 <>
@@ -1250,7 +1250,7 @@ export default function ProjectBuilder() {
                     <div className="w-14 h-14 bg-[#00C6FF]/10 dark:bg-[#00C6FF]/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Sparkles className="w-7 h-7 text-[#00C6FF]" />
                     </div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                       One last step
                     </h3>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
@@ -1316,7 +1316,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                       placeholder="Your name"
                       required
-                      className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
                     />
                     <input
                       type="email"
@@ -1324,7 +1324,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                       placeholder="Work email"
                       required
-                      className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
@@ -1332,20 +1332,20 @@ export default function ProjectBuilder() {
                         value={leadForm.company}
                         onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
                         placeholder="Company (optional)"
-                        className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
                       />
                       <input
                         type="text"
                         value={leadForm.website}
                         onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
                         placeholder="Current website (optional)"
-                        className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
                       />
                     </div>
                     <select
                       value={leadForm.timeline}
                       onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
-                      className={`w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] ${
+                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] ${
                         leadForm.timeline ? "text-slate-900 dark:text-white" : "text-slate-400"
                       }`}
                     >
@@ -1360,12 +1360,12 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
                       placeholder="What does success look like? Goals, must-haves, links… (optional)"
                       rows={3}
-                      className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] resize-none"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] resize-none"
                     />
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full py-4 bg-[#0022FF] hover:bg-[#0022FF]/90 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#0022FF]/30 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full py-4 bg-[#0022FF] hover:bg-[#0022FF]/90 text-white rounded-md font-medium transition-all shadow-lg shadow-[#0022FF]/30 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {submitting ? "Sending…" : "Reveal My Estimate →"}
                     </button>
@@ -1383,7 +1383,7 @@ export default function ProjectBuilder() {
                   <div className="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-7 h-7 text-green-500" />
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                     You're all set!
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400 text-sm">

@@ -44,11 +44,11 @@ export default function Process() {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#0022FF]" />
             How we work
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Our Process
           </h2>
           <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
@@ -78,12 +78,12 @@ export default function Process() {
                     <div className="relative w-[104px] h-[104px] rounded-full p-[2px] bg-gradient-to-br from-[#0022FF] to-[#00C6FF] mb-8 z-10">
                       <div className="w-full h-full rounded-full bg-slate-100 dark:bg-[#0a0a12] flex flex-col items-center justify-center transition-all duration-500 group-hover:bg-white dark:group-hover:bg-[#0e0e18]">
                         <Icon className="w-6 h-6 text-[#0022FF] dark:text-[#00C6FF] mb-1" />
-                        <span className="text-xs font-bold text-slate-400 dark:text-white/30 tracking-wider">{step.number}</span>
+                        <span className="text-xs font-medium text-slate-400 dark:text-white/30 tracking-wider">{step.number}</span>
                       </div>
                     </div>
 
                     {/* Card */}
-                    <div className="relative w-full rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:border-[#0022FF]/25 dark:hover:border-white/[0.15] hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(0,34,255,0.08)] dark:hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] shadow-sm dark:shadow-none">
+                    <div className="relative w-full rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:border-[#0022FF]/25 dark:hover:border-white/[0.15] hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(0,34,255,0.08)] dark:hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] shadow-sm dark:shadow-none">
                       <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
                       <div className="p-6 text-center">
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF] transition-colors duration-300">
@@ -114,7 +114,7 @@ export default function Process() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="relative rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/25 dark:hover:border-white/[0.15] shadow-sm dark:shadow-none">
+                <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/25 dark:hover:border-white/[0.15] shadow-sm dark:shadow-none">
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
                   <div className="p-6 flex items-start gap-5">
                     <div className="shrink-0 w-14 h-14 rounded-full p-[2px] bg-gradient-to-br from-[#0022FF] to-[#00C6FF]">
@@ -123,7 +123,7 @@ export default function Process() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-slate-300 dark:text-white/25 tracking-widest uppercase mb-1">{step.number}</div>
+                      <div className="text-xs font-medium text-slate-300 dark:text-white/25 tracking-widest uppercase mb-1">{step.number}</div>
                       <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF] transition-colors duration-300">
                         {step.title}
                       </h3>

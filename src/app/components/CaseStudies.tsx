@@ -50,7 +50,7 @@ export default function CaseStudies() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-5xl md:text-6xl font-medium text-white mb-6">
             Case Studies
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
@@ -69,7 +69,7 @@ export default function CaseStudies() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 transition-all duration-500 hover:border-[#00C6FF]/50 hover:shadow-[0_0_50px_rgba(0,198,255,0.2)] cursor-pointer">
+              <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 transition-all duration-500 hover:border-[#00C6FF]/50 hover:shadow-[0_0_50px_rgba(0,198,255,0.2)] cursor-pointer">
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
                   <img
@@ -96,7 +96,7 @@ export default function CaseStudies() {
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-2 transition-colors duration-300 group-hover:text-[#00C6FF]">
+                      <h3 className="text-2xl font-medium text-white mb-2 transition-colors duration-300 group-hover:text-[#00C6FF]">
                         {item.title}
                       </h3>
                       <p className="text-gray-400">{item.client}</p>
@@ -128,7 +128,7 @@ export default function CaseStudies() {
                 </div>
 
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#00C6FF]/0 via-[#00C6FF]/0 to-[#00C6FF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#00C6FF]/0 via-[#00C6FF]/0 to-[#00C6FF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             </motion.div>
           ))}

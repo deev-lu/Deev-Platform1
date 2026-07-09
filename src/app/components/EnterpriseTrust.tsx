@@ -69,7 +69,7 @@ export default function EnterpriseTrust() {
             05 / Why Deev
             <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Engineered to be trusted
             <br className="hidden md:block" />
             <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
@@ -92,7 +92,7 @@ export default function EnterpriseTrust() {
           {credentials.map((c) => (
             <div
               key={c.label}
-              className="glass glass-edge text-center rounded-2xl py-6 px-4"
+              className="glass glass-edge text-center rounded-lg py-6 px-4"
             >
               <div className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent tracking-tight">
                 <CountUp value={c.value} />
@@ -115,11 +115,11 @@ export default function EnterpriseTrust() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="glass glass-edge glass-sheen group relative rounded-3xl transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.08)] hover:-translate-y-1"
+                className="glass glass-edge glass-sheen group relative rounded-lg transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,34,255,0.10)] dark:hover:shadow-[0_0_40px_rgba(0,198,255,0.08)] hover:-translate-y-1"
               >
                 <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
                 <div className="p-7 flex items-start gap-5">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                  <div className="shrink-0 w-12 h-12 rounded-lg bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] flex items-center justify-center transition-all duration-300 group-hover:scale-110">
                     <Icon className="w-6 h-6 text-[#0022FF] dark:text-[#00C6FF]" />
                   </div>
                   <div>
@@ -143,7 +143,7 @@ export default function EnterpriseTrust() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-5">
+          <div className="text-xs font-medium uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-5">
             Our production stack
           </div>
           <div className="flex flex-wrap justify-center gap-2.5">

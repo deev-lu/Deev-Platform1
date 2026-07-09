@@ -92,12 +92,12 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-3 shrink-0 group"
+            className="flex items-center gap-1.5 shrink-0 group -ml-1"
           >
             <img
               src={logo}
               alt="DEEV"
-              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <span className="text-[1.3rem] font-extrabold tracking-[0.07em] leading-none text-[#0a0f2e] dark:text-white">
               DEEV
@@ -131,7 +131,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             {/* CTA */}
             <button
               onClick={() => scrollTo("#project-builder")}
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(0,34,255,0.45)]"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(0,34,255,0.45)]"
               style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
             >
               Get a quote
@@ -168,7 +168,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className="text-left px-4 py-3.5 rounded-xl text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all"
+                  className="text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all"
                 >
                   {link.label}
                 </button>
@@ -176,7 +176,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
               {/* Mobile theme toggle row */}
               {toggleTheme && (
-                <div className="flex items-center justify-between px-4 py-3.5 rounded-xl">
+                <div className="flex items-center justify-between px-4 py-3.5 rounded-md">
                   <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
                     {theme === "dark" ? "Dark mode" : "Light mode"}
                   </span>
@@ -186,7 +186,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
               <button
                 onClick={() => scrollTo("#project-builder")}
-                className="mt-2 w-full py-3.5 text-white font-bold rounded-xl text-sm transition-all hover:opacity-90"
+                className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90"
                 style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
               >
                 Get a quote →
