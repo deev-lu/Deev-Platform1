@@ -99,9 +99,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               alt="DEEV"
               className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <span className={`text-[1.2rem] font-extrabold tracking-[0.14em] leading-none transition-colors duration-300 ${
-              scrolled ? "text-slate-900 dark:text-white" : "text-slate-900 dark:text-white"
-            }`}>
+            <span className="text-[1.3rem] font-extrabold tracking-[0.07em] leading-none text-[#0a0f2e] dark:text-white">
               DEEV
             </span>
           </button>

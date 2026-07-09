@@ -103,7 +103,7 @@ export default function Contact() {
           </Link>
           <div className="flex items-center gap-2 ml-auto">
             <img src={logo} alt="DEEV" className="h-7 w-auto object-contain" />
-            <span className="text-base font-extrabold tracking-[0.14em] bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
+            <span className="text-base font-extrabold tracking-[0.07em] text-[#0a0f2e] dark:text-white">
               DEEV
             </span>
           </div>
