@@ -191,11 +191,31 @@ li {
   opacity: 0.35;
 }
 
-/* Cheaper blur on mobile GPUs */
+/* backdrop-filter is very expensive on mobile Safari/Chrome (slow paint +
+   scroll jank). On phones we drop it entirely and use solid surfaces instead. */
 @media (max-width: 767px) {
+  .glass,
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
   .glass {
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
-    backdrop-filter: blur(10px) saturate(150%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 255, 255, 0.82)
+    ) !important;
+  }
+  .dark .glass {
+    background: linear-gradient(
+      135deg,
+      rgba(24, 24, 34, 0.94),
+      rgba(15, 15, 23, 0.92)
+    ) !important;
+  }
+  /* Cap the big decorative glow blurs — huge blur radii are costly to raster */
+  [class*="blur-["] {
+    filter: blur(50px) !important;
   }
 }
 
