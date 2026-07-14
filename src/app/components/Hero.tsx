@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import CountUp from "./CountUp";
-import HeroDashboard from "./HeroDashboard";
 import HeroShapes from "./HeroShapes";
 import NoiseOverlay from "./NoiseOverlay";
 import { useIsMobile } from "../../lib/useIsMobile";
+
+// Heavy, animation-rich — deferred so the hero text paints first
+const HeroDashboard = lazy(() => import("./HeroDashboard"));
 
 const stats = [
   { value: "50+", label: "Projects delivered" },
@@ -203,9 +205,11 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Right: live AI dashboard ────────────────────────────── */}
+        {/* ── Right: live AI dashboard (deferred) ─────────────────── */}
         <div className="relative lg:pl-2">
-          <HeroDashboard />
+          <Suspense fallback={<div className="min-h-[340px]" />}>
+            <HeroDashboard />
+          </Suspense>
         </div>
       </div>
     </section>

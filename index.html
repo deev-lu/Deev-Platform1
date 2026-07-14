@@ -78,13 +78,21 @@
       }
     </script>
 
-    <!-- Premium typography: Inter variable -->
+    <!-- Premium typography: Inter variable — loaded async so it never blocks paint -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&display=swap"
+      />
+    </noscript>
 
     <style>
       html,
@@ -102,6 +110,50 @@
       html.dark {
         background: #06060a;
       }
+      /* Instant branded paint while the app JS loads */
+      #app-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 22px;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      #app-loader .wm {
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        font-size: 22px;
+        color: #0a0f2e;
+      }
+      html.dark #app-loader .wm {
+        color: #fff;
+      }
+      #app-loader .bar {
+        width: 120px;
+        height: 2px;
+        border-radius: 2px;
+        background: rgba(120, 130, 160, 0.18);
+        overflow: hidden;
+      }
+      #app-loader .bar::after {
+        content: "";
+        display: block;
+        width: 40%;
+        height: 100%;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #00c6ff, #0022ff);
+        animation: loaderslide 1s ease-in-out infinite;
+      }
+      @keyframes loaderslide {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(320%);
+        }
+      }
     </style>
 
     <!-- Apply saved theme before paint (defaults to dark) -->
@@ -118,7 +170,12 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="app-loader" aria-hidden="true">
+        <div class="wm">DEEV</div>
+        <div class="bar"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
