@@ -15,6 +15,7 @@ const SystemStack       = lazy(() => import("./components/SystemStack"));
 const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const ProjectBuilder    = lazy(() => import("./components/ProjectBuilder"));
 const Portfolio         = lazy(() => import("./components/Portfolio"));
+const BillovioFeature   = lazy(() => import("./components/BillovioFeature"));
 const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
@@ -40,6 +41,7 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
         <div id="services"><ValueProposition /></div>
         <SystemStack />
         <div id="portfolio"><Portfolio /></div>
+        <div id="billovio"><BillovioFeature /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
         <LuxembourgStrip />
