@@ -15,6 +15,15 @@
   font-display: swap;
 }
 
+/* JetBrains Mono — the DEEV technical/label typeface (subset, self-hosted) */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Brand wordmark lockup */
 .font-brand {
   font-family: "Typold", var(--font-sans);
@@ -36,11 +45,12 @@ body {
   letter-spacing: -0.011em;
 }
 
-/* Tighter optical tracking on large display headings */
+/* Display headings use Typold Bold — the brand display typeface */
 h1,
 h2,
 .display {
-  letter-spacing: -0.025em;
+  font-family: "Typold", var(--font-sans);
+  letter-spacing: -0.02em;
 }
 
 /* Premium typographic detail: avoid orphans / awkward wraps */
@@ -238,9 +248,9 @@ li {
 
 /* Numbered mono eyebrow labels (Palantir-style section markers) */
 .eyebrow-mono {
-  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
-    monospace;
-  letter-spacing: 0.28em;
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo,
+    Consolas, monospace;
+  letter-spacing: 0.22em;
 }
 
 /* ---- Hero: perspective data-grid floor ---- */
