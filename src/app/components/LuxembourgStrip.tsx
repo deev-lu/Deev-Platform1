@@ -20,7 +20,7 @@ export default function LuxembourgStrip() {
       {/* Cinematic grade */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#04040c]/95 via-[#04040c]/60 to-[#04040c]/30" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#04040c]/80 via-transparent to-[#04040c]/40" />
-      <div className="absolute inset-0 bg-[#0022FF]/[0.08] mix-blend-overlay" />
+      <div className="absolute inset-0 bg-[#2563F6]/[0.08] mix-blend-overlay" />
       {/* Hairlines */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
@@ -34,7 +34,7 @@ export default function LuxembourgStrip() {
           className="max-w-2xl"
         >
           <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-white/50 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-[#00C6FF]/70 to-transparent" />
+            <span className="h-px w-8 bg-gradient-to-r from-[#3CE7FC]/70 to-transparent" />
             49.6117° N — 6.1300° E
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight leading-[1.1] mb-5">

@@ -50,11 +50,11 @@ export default function CookieBanner() {
           className="fixed z-[60] bottom-4 left-4 right-4 sm:right-auto sm:max-w-md"
         >
           <div className="glass-edge relative overflow-hidden rounded-lg border border-white/60 dark:border-white/[0.12] bg-white/60 dark:bg-[#0e0e18]/70 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_20px_60px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-            <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
             <div className="p-5 sm:p-6">
               <div className="flex items-start gap-3.5 mb-4">
-                <div className="shrink-0 w-10 h-10 rounded-md bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] flex items-center justify-center">
-                  <Cookie className="w-5 h-5 text-[#0022FF] dark:text-[#00C6FF]" />
+                <div className="shrink-0 w-10 h-10 rounded-md bg-[#2563F6]/[0.07] dark:bg-[#3CE7FC]/[0.10] flex items-center justify-center">
+                  <Cookie className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
                 </div>
                 <div className="min-w-0">
                   <h3 className="text-sm font-medium text-slate-900 dark:text-white mb-1">
@@ -66,7 +66,7 @@ export default function CookieBanner() {
                     our{" "}
                     <Link
                       to="/legal"
-                      className="font-semibold text-[#0022FF] dark:text-[#00C6FF] hover:underline"
+                      className="font-semibold text-[#2563F6] dark:text-[#3CE7FC] hover:underline"
                     >
                       cookie &amp; privacy policy
                     </Link>
@@ -84,8 +84,8 @@ export default function CookieBanner() {
                 </button>
                 <button
                   onClick={() => choose("accepted")}
-                  className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(0,34,255,0.4)]"
-                  style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
+                  className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(37,99,246,0.4)]"
+                  style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
                 >
                   Accept all
                 </button>

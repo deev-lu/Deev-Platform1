@@ -11,7 +11,7 @@ export default function LuxShade({ className = "" }: { className?: string }) {
       aria-hidden="true"
       className={`pointer-events-none ${className}`}
       style={{
-        background: "linear-gradient(135deg, #00C6FF 0%, #0022FF 100%)",
+        background: "linear-gradient(135deg, #3CE7FC 0%, #2563F6 100%)",
         WebkitMaskImage: `url(${luxMap})`,
         maskImage: `url(${luxMap})`,
         WebkitMaskRepeat: "no-repeat",

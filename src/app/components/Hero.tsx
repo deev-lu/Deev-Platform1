@@ -41,7 +41,7 @@ function RotatingPhrase() {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: "-0.5em", filter: "blur(6px)" }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-x-0 top-0 whitespace-nowrap bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent"
+          className="absolute inset-x-0 top-0 whitespace-nowrap bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent"
         >
           {PHRASES[i]}
         </motion.span>
@@ -62,13 +62,13 @@ export default function Hero() {
       {/* Soft layered background glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute -top-[15%] left-1/3 w-[900px] h-[700px] rounded-full bg-[#0022FF]/[0.14] blur-[70px] md:blur-[150px]"
+          className="absolute -top-[15%] left-1/3 w-[900px] h-[700px] rounded-full bg-[#2563F6]/[0.14] blur-[70px] md:blur-[150px]"
         />
         <div
-          className="absolute top-[10%] -left-[10%] w-[600px] h-[600px] rounded-full bg-[#00C6FF]/[0.10] blur-[70px] md:blur-[140px]"
+          className="absolute top-[10%] -left-[10%] w-[600px] h-[600px] rounded-full bg-[#3CE7FC]/[0.10] blur-[70px] md:blur-[140px]"
         />
         <div
-          className="absolute top-[30%] -right-[10%] w-[560px] h-[560px] rounded-full bg-[#0022FF]/[0.10] blur-[70px] md:blur-[140px]"
+          className="absolute top-[30%] -right-[10%] w-[560px] h-[560px] rounded-full bg-[#2563F6]/[0.10] blur-[70px] md:blur-[140px]"
         />
         {/* Subtle dot-grid overlay — dark dots in light, white dots in dark */}
         <div
@@ -103,10 +103,10 @@ export default function Hero() {
             className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-600 dark:text-slate-400 mb-8"
           >
             <span className="flex items-center gap-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0022FF] dark:bg-[#00C6FF] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563F6] dark:bg-[#3CE7FC] animate-pulse" />
               AI-native digital engineering — Luxembourg
             </span>
-            <span className="h-px w-12 bg-gradient-to-r from-[#00C6FF]/70 to-transparent" />
+            <span className="h-px w-12 bg-gradient-to-r from-[#3CE7FC]/70 to-transparent" />
           </motion.div>
 
           {/* Kinetic headline */}
@@ -142,19 +142,19 @@ export default function Hero() {
           >
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,198,255,0.45)] hover:-translate-y-1 active:translate-y-0"
-              style={{ background: "linear-gradient(135deg, #00C6FF 0%, #0055ff 100%)" }}
+              className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(60,231,252,0.45)] hover:-translate-y-1 active:translate-y-0"
+              style={{ background: "linear-gradient(135deg, #3CE7FC 0%, #2563F6 100%)" }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2.5">
                 Configure your project
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] to-[#0033ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
 
             <Link
               to="/contact"
-              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-lg font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#0022FF]/50 dark:hover:border-white/25 hover:text-[#0022FF] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-lg font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#2563F6]/50 dark:hover:border-white/25 hover:text-[#2563F6] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
             >
               Book a strategy call
             </Link>
@@ -173,7 +173,7 @@ export default function Hero() {
             </span>
             <span className="eyebrow-mono text-[11px] sm:text-xs uppercase text-slate-600 dark:text-slate-400">
               systems online — accepting projects for 2026
-              <span className="caret-blink text-[#00C6FF]">&nbsp;▌</span>
+              <span className="caret-blink text-[#3CE7FC]">&nbsp;▌</span>
             </span>
           </motion.div>
 

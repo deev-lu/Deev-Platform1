@@ -73,8 +73,8 @@ export default function Portfolio() {
 
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#050509] overflow-hidden border-t border-slate-100 dark:border-white/5">
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#00C6FF]/[0.10] dark:bg-[#00C6FF]/8 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#0022FF]/[0.08] dark:bg-[#0022FF]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#3CE7FC]/[0.10] dark:bg-[#3CE7FC]/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#2563F6]/[0.08] dark:bg-[#2563F6]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#7c3aed]/[0.05] dark:bg-[#7c3aed]/[0.03] rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -86,13 +86,13 @@ export default function Portfolio() {
           className="text-center mb-14"
         >
           <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#00C6FF]/70" />
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
             03 / Selected work
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Projects we're{" "}
-            <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
               proud of.
             </span>
           </h2>
@@ -115,11 +115,11 @@ export default function Portfolio() {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                style={active ? { background: "linear-gradient(135deg, #00C6FF, #0044ff)" } : {}}
+                style={active ? { background: "linear-gradient(135deg, #3CE7FC, #2563F6)" } : {}}
                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium uppercase tracking-wider transition-all duration-300 ${
                   active
-                    ? "text-white shadow-[0_0_30px_rgba(0,198,255,0.35)]"
-                    : "border border-slate-200 dark:border-white/[0.12] text-slate-500 dark:text-slate-400 hover:border-[#0022FF] hover:text-[#0022FF] dark:hover:border-white/25 dark:hover:text-white bg-transparent"
+                    ? "text-white shadow-[0_0_30px_rgba(60,231,252,0.35)]"
+                    : "border border-slate-200 dark:border-white/[0.12] text-slate-500 dark:text-slate-400 hover:border-[#2563F6] hover:text-[#2563F6] dark:hover:border-white/25 dark:hover:text-white bg-transparent"
                 }`}
               >
                 {filter}
@@ -155,7 +155,7 @@ export default function Portfolio() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="glass glass-edge glass-sheen group relative block rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,34,255,0.16)] dark:hover:shadow-[0_20px_60px_rgba(0,198,255,0.12)]"
+                    className="glass glass-edge glass-sheen group relative block rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(37,99,246,0.16)] dark:hover:shadow-[0_20px_60px_rgba(60,231,252,0.12)]"
                   >
                     {/* Live site screenshot */}
                     <div className="relative m-2 mb-0 rounded-md overflow-hidden aspect-[16/10]">
@@ -171,18 +171,18 @@ export default function Portfolio() {
 
                     {/* Meta */}
                     <div className="flex items-center gap-3 p-4">
-                      <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center text-white shadow-[0_4px_14px_rgba(0,34,255,0.25)]">
+                      <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] flex items-center justify-center text-white shadow-[0_4px_14px_rgba(37,99,246,0.25)]">
                         <Icon className="w-4 h-4" strokeWidth={2} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm sm:text-base font-medium tracking-tight text-slate-900 dark:text-white group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF] transition-colors duration-300 truncate">
+                        <h3 className="text-sm sm:text-base font-medium tracking-tight text-slate-900 dark:text-white group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300 truncate">
                           {item.title}
                         </h3>
                         <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
                           {item.category} · {item.year}
                         </div>
                       </div>
-                      <span className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-slate-100/70 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#00C6FF] group-hover:text-white transition-all duration-300">
+                      <span className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-slate-100/70 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#3CE7FC] group-hover:text-white transition-all duration-300">
                         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
                     </div>
@@ -216,20 +216,20 @@ export default function Portfolio() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass glass-edge glass-sheen group relative flex items-center gap-3.5 p-4 rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,34,255,0.14)] dark:hover:shadow-[0_12px_40px_rgba(0,198,255,0.10)]"
+                        className="glass glass-edge glass-sheen group relative flex items-center gap-3.5 p-4 rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(37,99,246,0.14)] dark:hover:shadow-[0_12px_40px_rgba(60,231,252,0.10)]"
                       >
-                        <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[#0022FF] to-[#00C6FF] flex items-center justify-center text-white shadow-[0_4px_14px_rgba(0,34,255,0.22)] transition-transform duration-300 group-hover:scale-105">
+                        <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] flex items-center justify-center text-white shadow-[0_4px_14px_rgba(37,99,246,0.22)] transition-transform duration-300 group-hover:scale-105">
                           <Icon className="w-[18px] h-[18px]" strokeWidth={2} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-medium tracking-tight leading-snug text-slate-900 dark:text-white group-hover:text-[#0022FF] dark:group-hover:text-[#00C6FF] transition-colors duration-300">
+                          <h3 className="text-sm font-medium tracking-tight leading-snug text-slate-900 dark:text-white group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300">
                             {item.title}
                           </h3>
                           <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
                             {item.category} · {item.year}
                           </div>
                         </div>
-                        <ArrowUpRight className="shrink-0 w-4 h-4 text-slate-400 dark:text-slate-500 transition-all duration-300 group-hover:text-[#00C6FF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <ArrowUpRight className="shrink-0 w-4 h-4 text-slate-400 dark:text-slate-500 transition-all duration-300 group-hover:text-[#3CE7FC] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </a>
                     </motion.div>
                   );

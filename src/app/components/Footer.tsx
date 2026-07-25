@@ -65,7 +65,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
               <img src={logo} alt="DEEV" className="h-9 w-auto object-contain" />
-              <span className="text-xl font-extrabold tracking-[0.07em] text-[#0a0f2e] dark:text-white">
+              <span className="text-xl font-brand tracking-[0.015em] text-[#0a0f2e] dark:text-white">
                 DEEV
               </span>
             </div>
@@ -82,7 +82,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-all duration-300 hover:bg-[#0022FF] hover:border-[#0022FF] hover:text-white hover:shadow-lg hover:shadow-[#0022FF]/30"
+                    className="w-10 h-10 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-all duration-300 hover:bg-[#2563F6] hover:border-[#2563F6] hover:text-white hover:shadow-lg hover:shadow-[#2563F6]/30"
                     aria-label={social.name}
                   >
                     <Icon className="w-5 h-5" />
@@ -109,7 +109,7 @@ export default function Footer() {
                 <li key={item.name}>
                   <a
                     href={item.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#00C6FF] dark:hover:text-[#00C6FF] font-medium transition-colors duration-200"
+                    className="text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200"
                   >
                     {item.name}
                   </a>
@@ -125,7 +125,7 @@ export default function Footer() {
               {navigation.company.map((item) => {
                 const isRoute = item.href.startsWith("/") && !item.href.includes("#");
                 const cls =
-                  "text-slate-600 dark:text-slate-400 hover:text-[#00C6FF] dark:hover:text-[#00C6FF] font-medium transition-colors duration-200";
+                  "text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200";
                 return (
                   <li key={item.name}>
                     {isRoute ? (
@@ -152,7 +152,7 @@ export default function Footer() {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#00C6FF] dark:hover:text-[#00C6FF] font-medium transition-colors duration-200"
+                    className="text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200"
                   >
                     {item.name}
                   </Link>

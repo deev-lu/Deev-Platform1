@@ -60,15 +60,15 @@ function MetricCard({
       viewport={{ once: true }}
       onViewportEnter={() => setIsVisible(true)}
       transition={{ duration: 0.6, delay }}
-      className="group relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_30px_rgba(0,34,255,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none"
+      className="group relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_30px_rgba(37,99,246,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none"
     >
-      <div className="h-[2px] w-full bg-gradient-to-r from-[#00C6FF] to-[#0022FF]" />
+      <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
       <div className="p-6">
       <div className="mb-4">
         <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
           {title}
         </div>
-        <div className="text-4xl font-extrabold bg-gradient-to-r from-[#00C6FF] to-[#60a5ff] bg-clip-text text-transparent tracking-tight">
+        <div className="text-4xl font-extrabold bg-gradient-to-r from-[#3CE7FC] to-[#60a5ff] bg-clip-text text-transparent tracking-tight">
           {displayValue}
         </div>
         <div className="text-xs text-emerald-400 mt-1.5 font-semibold">{growth}</div>
@@ -80,8 +80,8 @@ function MetricCard({
             <AreaChart data={chartData}>
               <defs>
                 <linearGradient id={`gradient-${title}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00C6FF" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#00C6FF" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#3CE7FC" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#3CE7FC" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="name" hide />
@@ -89,7 +89,7 @@ function MetricCard({
               <Area
                 type="monotone"
                 dataKey="value"
-                stroke="#00C6FF"
+                stroke="#3CE7FC"
                 strokeWidth={2}
                 fill={`url(#gradient-${title})`}
                 animationDuration={2000}
@@ -102,7 +102,7 @@ function MetricCard({
               <YAxis hide />
               <Bar
                 dataKey="value"
-                fill="#00C6FF"
+                fill="#3CE7FC"
                 radius={[4, 4, 0, 0]}
                 animationDuration={2000}
                 animationBegin={delay * 1000}

@@ -69,7 +69,7 @@ export default function CaseStudies() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 transition-all duration-500 hover:border-[#00C6FF]/50 hover:shadow-[0_0_50px_rgba(0,198,255,0.2)] cursor-pointer">
+              <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 transition-all duration-500 hover:border-[#3CE7FC]/50 hover:shadow-[0_0_50px_rgba(60,231,252,0.2)] cursor-pointer">
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
                   <img
@@ -84,7 +84,7 @@ export default function CaseStudies() {
                     {item.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 rounded-full text-xs font-medium bg-[#00C6FF]/20 backdrop-blur-sm border border-[#00C6FF]/30 text-[#00C6FF]"
+                        className="px-3 py-1 rounded-full text-xs font-medium bg-[#3CE7FC]/20 backdrop-blur-sm border border-[#3CE7FC]/30 text-[#3CE7FC]"
                       >
                         {tag}
                       </span>
@@ -96,30 +96,30 @@ export default function CaseStudies() {
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-2xl font-medium text-white mb-2 transition-colors duration-300 group-hover:text-[#00C6FF]">
+                      <h3 className="text-2xl font-medium text-white mb-2 transition-colors duration-300 group-hover:text-[#3CE7FC]">
                         {item.title}
                       </h3>
                       <p className="text-gray-400">{item.client}</p>
                     </div>
-                    <ExternalLink className="w-5 h-5 text-gray-500 transition-all duration-300 group-hover:text-[#00C6FF] group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ExternalLink className="w-5 h-5 text-gray-500 transition-all duration-300 group-hover:text-[#3CE7FC] group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </div>
 
                   {/* Details - shown on hover */}
                   <div className="space-y-4 max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-96 group-hover:opacity-100">
                     <div>
-                      <div className="text-sm font-semibold text-[#00C6FF] mb-1">
+                      <div className="text-sm font-semibold text-[#3CE7FC] mb-1">
                         Challenge
                       </div>
                       <p className="text-sm text-gray-400">{item.challenge}</p>
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-[#00C6FF] mb-1">
+                      <div className="text-sm font-semibold text-[#3CE7FC] mb-1">
                         Solution
                       </div>
                       <p className="text-sm text-gray-400">{item.solution}</p>
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-[#00C6FF] mb-1">
+                      <div className="text-sm font-semibold text-[#3CE7FC] mb-1">
                         Result
                       </div>
                       <p className="text-sm text-white font-medium">{item.result}</p>
@@ -128,7 +128,7 @@ export default function CaseStudies() {
                 </div>
 
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#00C6FF]/0 via-[#00C6FF]/0 to-[#00C6FF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#3CE7FC]/0 via-[#3CE7FC]/0 to-[#3CE7FC]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             </motion.div>
           ))}

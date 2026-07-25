@@ -11,14 +11,14 @@ export default function Legal() {
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-4">
           <Link
             to="/"
-            className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#0022FF] dark:hover:text-[#00C6FF] transition-colors duration-200 font-medium text-sm"
+            className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#2563F6] dark:hover:text-[#3CE7FC] transition-colors duration-200 font-medium text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to DEEV
           </Link>
           <div className="flex items-center gap-2 ml-auto">
             <img src={logo} alt="DEEV" className="h-7 w-auto object-contain" />
-            <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
+            <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
               Deev
             </span>
           </div>
@@ -38,7 +38,7 @@ export default function Legal() {
             </div>
             <h1 className="text-4xl md:text-5xl font-medium text-slate-900 dark:text-white mb-4 tracking-tight">
               Terms &amp;{" "}
-              <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
                 Legal Notice
               </span>
             </h1>
@@ -49,7 +49,7 @@ export default function Legal() {
 
           {/* Company Info Card */}
           <div className="rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 shadow-sm dark:shadow-none">
-            <div className="h-[2px] w-full bg-gradient-to-r from-[#00C6FF] to-[#0022FF]" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
             <div className="p-8">
               <h2 className="text-xl font-medium text-slate-900 dark:text-white mb-6">Company Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -149,7 +149,7 @@ export default function Legal() {
               <p className="mt-3">
                 You have the right to access, correct, or request deletion of your personal data. To exercise these
                 rights, contact us at{" "}
-                <a href="mailto:contact@deev.lu" className="text-[#0022FF] dark:text-[#00C6FF] hover:underline font-medium">
+                <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] hover:underline font-medium">
                   contact@deev.lu
                 </a>
                 . Data is retained only for as long as necessary to fulfill the purposes for which it was collected
@@ -176,12 +176,12 @@ export default function Legal() {
 
             <Section title="11. Contact">
               <p>For any questions regarding these terms, please contact:</p>
-              <div className="mt-3 pl-4 border-l-2 border-[#00C6FF]/50 text-slate-700 dark:text-slate-300 space-y-1">
+              <div className="mt-3 pl-4 border-l-2 border-[#3CE7FC]/50 text-slate-700 dark:text-slate-300 space-y-1">
                 <p className="font-semibold">Lux VR States Sàrl-s. (Deev)</p>
                 <p>17, rue de Sélange, L-4965 Clemency</p>
                 <p>Grand Duchy of Luxembourg</p>
                 <p>
-                  <a href="mailto:contact@deev.lu" className="text-[#0022FF] dark:text-[#00C6FF] hover:underline font-medium">
+                  <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] hover:underline font-medium">
                     contact@deev.lu
                   </a>
                 </p>
@@ -195,8 +195,8 @@ export default function Legal() {
           <div className="mt-16 pt-8 border-t border-slate-200 dark:border-white/[0.07]">
             <Link
               to="/"
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,198,255,0.35)] hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,231,252,0.35)] hover:-translate-y-0.5"
+              style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
             >
               <ArrowLeft className="w-4 h-4" />
               Back to DEEV

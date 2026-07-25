@@ -96,14 +96,14 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
           <Link
             to="/"
-            className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#0022FF] dark:hover:text-[#00C6FF] transition-colors duration-200 font-medium text-sm"
+            className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#2563F6] dark:hover:text-[#3CE7FC] transition-colors duration-200 font-medium text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to DEEV
           </Link>
           <div className="flex items-center gap-2 ml-auto">
             <img src={logo} alt="DEEV" className="h-7 w-auto object-contain" />
-            <span className="text-base font-extrabold tracking-[0.07em] text-[#0a0f2e] dark:text-white">
+            <span className="text-base font-brand tracking-[0.015em] text-[#0a0f2e] dark:text-white">
               DEEV
             </span>
           </div>
@@ -119,13 +119,13 @@ export default function Contact() {
           className="mb-12 md:mb-16 max-w-2xl"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
-            <span className="w-1 h-1 rounded-full bg-[#0022FF]" />
+            <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             Get in touch
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Let's talk about
             <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-[#00C6FF] to-[#0022FF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
               {" "}your project.
             </span>
           </h1>
@@ -197,9 +197,9 @@ export default function Contact() {
             ].map((item) => {
               const Icon = item.icon;
               const inner = (
-                <div className="flex items-start gap-4 p-5 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] shadow-sm dark:shadow-none transition-all duration-300 hover:border-[#0022FF]/20 dark:hover:border-white/[0.15]">
-                  <div className="shrink-0 w-11 h-11 rounded-md bg-[#0022FF]/[0.07] dark:bg-[#00C6FF]/[0.10] flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-[#0022FF] dark:text-[#00C6FF]" />
+                <div className="flex items-start gap-4 p-5 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] shadow-sm dark:shadow-none transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15]">
+                  <div className="shrink-0 w-11 h-11 rounded-md bg-[#2563F6]/[0.07] dark:bg-[#3CE7FC]/[0.10] flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
@@ -235,7 +235,7 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden shadow-sm dark:shadow-none">
-              <div className="h-[2px] w-full bg-gradient-to-r from-[#0022FF] to-[#00C6FF]" />
+              <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
 
               {status === "success" ? (
                 <div className="p-10 md:p-14 text-center">
@@ -253,7 +253,7 @@ export default function Contact() {
                   <Link
                     to="/"
                     className="inline-flex items-center gap-2 px-7 py-3 rounded-md font-semibold text-sm text-white transition-all duration-300 hover:-translate-y-0.5"
-                    style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
+                    style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
                   >
                     Back to homepage
                   </Link>
@@ -357,8 +357,8 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,198,255,0.35)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                    style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
+                    className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,231,252,0.35)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
                   >
                     {status === "submitting" ? (
                       <>
@@ -388,7 +388,7 @@ export default function Contact() {
 }
 
 const inputCls =
-  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] transition-shadow";
+  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] transition-shadow";
 
 function Field({
   label,
@@ -403,7 +403,7 @@ function Field({
     <label className="block">
       <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
         {label}
-        {required && <span className="text-[#0022FF] dark:text-[#00C6FF]"> *</span>}
+        {required && <span className="text-[#2563F6] dark:text-[#3CE7FC]"> *</span>}
       </span>
       {children}
     </label>

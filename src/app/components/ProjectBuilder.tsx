@@ -385,12 +385,12 @@ export default function ProjectBuilder() {
         }}
       />
       {/* ── Studio stage decorations ─────────────────────────────────── */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00C6FF]/50 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3CE7FC]/50 to-transparent" />
       {/* Overhead spotlight */}
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-[#0022FF]/[0.06] dark:bg-[#0022FF]/12 rounded-full blur-[170px] pointer-events-none" />
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#00C6FF]/[0.05] dark:bg-[#00C6FF]/[0.07] rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-[#2563F6]/[0.06] dark:bg-[#2563F6]/12 rounded-full blur-[170px] pointer-events-none" />
+      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#3CE7FC]/[0.05] dark:bg-[#3CE7FC]/[0.07] rounded-full blur-[150px] pointer-events-none" />
       {/* Reflective floor wash */}
-      <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#0022FF]/[0.04] dark:from-[#0022FF]/[0.06] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#2563F6]/[0.04] dark:from-[#2563F6]/[0.06] to-transparent pointer-events-none" />
       {/* Fine grid — dark dots in light, white dots in dark */}
       <div
         className="absolute inset-0 opacity-[0.04] dark:hidden pointer-events-none"
@@ -415,7 +415,7 @@ export default function ProjectBuilder() {
           left: glowX,
           top: glowY,
           background:
-            "radial-gradient(circle, rgba(0,198,255,0.10) 0%, rgba(0,34,255,0.05) 40%, transparent 70%)",
+            "radial-gradient(circle, rgba(60,231,252,0.10) 0%, rgba(37,99,246,0.05) 40%, transparent 70%)",
         }}
       />
 
@@ -423,16 +423,16 @@ export default function ProjectBuilder() {
         {/* Header */}
         <div className="mb-12 md:mb-16 text-center max-w-3xl mx-auto">
           <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#00C6FF]/70" />
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
             <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00C6FF] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3CE7FC] animate-pulse" />
               04 / Live simulator
             </span>
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00C6FF]/70" />
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Build &amp; price your project,{" "}
-            <span className="bg-gradient-to-r from-[#00C6FF] via-[#3b82f6] to-[#0022FF] bg-clip-text text-transparent animate-gradient-x">
+            <span className="bg-gradient-to-r from-[#3CE7FC] via-[#2563F6] to-[#2563F6] bg-clip-text text-transparent animate-gradient-x">
               live.
             </span>
           </h2>
@@ -446,11 +446,11 @@ export default function ProjectBuilder() {
             🇱🇺 Luxembourg SMEs: up to 70% funded by the state SME grant
           </div>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
-            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#00C6FF]" /> Takes ~30 seconds</span>
+            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#3CE7FC]" /> Takes ~30 seconds</span>
             <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:block" />
-            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-[#00C6FF]" /> Instant estimate</span>
+            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-[#3CE7FC]" /> Instant estimate</span>
             <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:block" />
-            <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#00C6FF]" /> No commitment</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#3CE7FC]" /> No commitment</span>
           </div>
         </div>
 
@@ -463,10 +463,10 @@ export default function ProjectBuilder() {
             >
               {/* Stage glows */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-[#0022FF]/20 rounded-full blur-[110px] opacity-60" />
-                <div className="absolute bottom-0 left-0 w-[360px] h-[360px] bg-[#00C6FF]/12 rounded-full blur-[100px] opacity-50" />
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-[#2563F6]/20 rounded-full blur-[110px] opacity-60" />
+                <div className="absolute bottom-0 left-0 w-[360px] h-[360px] bg-[#3CE7FC]/12 rounded-full blur-[100px] opacity-50" />
               </div>
-              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00C6FF]/40 to-transparent" />
+              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3CE7FC]/40 to-transparent" />
 
               {/* Build progress */}
               <div className="relative z-10 px-8 pt-7">
@@ -474,11 +474,11 @@ export default function ProjectBuilder() {
                   <span className="text-[11px] font-medium uppercase tracking-widest text-slate-400">
                     Build progress
                   </span>
-                  <span className="text-[11px] font-medium text-[#00C6FF] tabular-nums">{buildPct}%</span>
+                  <span className="text-[11px] font-medium text-[#3CE7FC] tabular-nums">{buildPct}%</span>
                 </div>
                 <div className="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
                   <motion.div
-                    className="h-full rounded-full bg-gradient-to-r from-[#00C6FF] to-[#0022FF]"
+                    className="h-full rounded-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]"
                     animate={{ width: `${buildPct}%` }}
                     transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
                   />
@@ -508,18 +508,18 @@ export default function ProjectBuilder() {
                       {/* Chassis + orbiting capabilities */}
                       <div className="relative w-52 h-52 mb-6">
                         <motion.div
-                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#0022FF]/25 to-[#00C6FF]/20 border border-[#00C6FF]/30 flex items-center justify-center relative"
+                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#2563F6]/25 to-[#3CE7FC]/20 border border-[#3CE7FC]/30 flex items-center justify-center relative"
                           style={{
-                            boxShadow: `0 0 ${30 + (SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1) * 18}px rgba(0,198,255,0.28)`,
+                            boxShadow: `0 0 ${30 + (SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1) * 18}px rgba(60,231,252,0.28)`,
                           }}
                           animate={{ rotateY: [0, 6, -6, 0], rotateX: [0, -6, 6, 0] }}
                           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                         >
-                          {system === "ai-agent"  && <Brain        className="w-20 h-20 text-[#00C6FF]" />}
-                          {system === "webapp"     && <Code         className="w-20 h-20 text-[#00C6FF]" />}
-                          {system === "website"    && <Globe        className="w-20 h-20 text-[#00C6FF]" />}
-                          {system === "ecommerce"  && <ShoppingCart className="w-20 h-20 text-[#00C6FF]" />}
-                          {system === "marketing"  && <Megaphone    className="w-20 h-20 text-[#00C6FF]" />}
+                          {system === "ai-agent"  && <Brain        className="w-20 h-20 text-[#3CE7FC]" />}
+                          {system === "webapp"     && <Code         className="w-20 h-20 text-[#3CE7FC]" />}
+                          {system === "website"    && <Globe        className="w-20 h-20 text-[#3CE7FC]" />}
+                          {system === "ecommerce"  && <ShoppingCart className="w-20 h-20 text-[#3CE7FC]" />}
+                          {system === "marketing"  && <Megaphone    className="w-20 h-20 text-[#3CE7FC]" />}
 
                           {/* Capability nodes orbiting the icon */}
                           <AnimatePresence>
@@ -538,9 +538,9 @@ export default function ProjectBuilder() {
                                   animate={{ opacity: 1, scale: 1, x, y }}
                                   exit={{ opacity: 0, scale: 0 }}
                                   transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                                  className="absolute w-11 h-11 bg-[#0a0a14] rounded-full shadow-[0_0_20px_rgba(0,198,255,0.3)] border border-[#00C6FF]/40 flex items-center justify-center top-1/2 left-1/2 -mt-[22px] -ml-[22px]"
+                                  className="absolute w-11 h-11 bg-[#0a0a14] rounded-full shadow-[0_0_20px_rgba(60,231,252,0.3)] border border-[#3CE7FC]/40 flex items-center justify-center top-1/2 left-1/2 -mt-[22px] -ml-[22px]"
                                 >
-                                  <CapIcon className="w-4 h-4 text-[#00C6FF]" />
+                                  <CapIcon className="w-4 h-4 text-[#3CE7FC]" />
                                 </motion.div>
                               );
                             })}
@@ -548,12 +548,12 @@ export default function ProjectBuilder() {
                         </motion.div>
 
                         {/* Reflective floor pool */}
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-44 h-8 bg-[#00C6FF]/25 rounded-[100%] blur-2xl" />
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-44 h-8 bg-[#3CE7FC]/25 rounded-[100%] blur-2xl" />
                       </div>
 
                       {/* Spec readout */}
                       <div className="text-center w-full mt-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.10] text-[11px] font-medium text-[#00C6FF] mb-3 uppercase tracking-widest">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.10] text-[11px] font-medium text-[#3CE7FC] mb-3 uppercase tracking-widest">
                           {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "Choose your trim →"}
                         </div>
                         <h3 className="text-2xl font-medium text-white tracking-tight">
@@ -599,7 +599,7 @@ export default function ProjectBuilder() {
                     </>
                   ) : (
                     <>
-                      <div className="text-[11px] font-medium uppercase tracking-widest text-[#00C6FF] mb-2">
+                      <div className="text-[11px] font-medium uppercase tracking-widest text-[#3CE7FC] mb-2">
                         Your build
                       </div>
                       <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
@@ -613,13 +613,13 @@ export default function ProjectBuilder() {
                   {/* Spec row */}
                   <div className="mt-5 pt-5 border-t border-white/10 flex items-center gap-6 text-sm">
                     <div className="flex items-center gap-2 text-slate-300">
-                      <Clock className="w-4 h-4 text-[#00C6FF]" />
+                      <Clock className="w-4 h-4 text-[#3CE7FC]" />
                       <span className="font-semibold">{estimate.weeks}</span>
                       <span className="text-slate-500">weeks</span>
                     </div>
                     <span className="w-px h-4 bg-white/15" />
                     <div className="flex items-center gap-2 text-slate-300">
-                      <Layers className="w-4 h-4 text-[#00C6FF]" />
+                      <Layers className="w-4 h-4 text-[#3CE7FC]" />
                       <span className="font-semibold">{capabilities.size}</span>
                       <span className="text-slate-500">feature{capabilities.size === 1 ? "" : "s"}</span>
                     </div>
@@ -636,7 +636,7 @@ export default function ProjectBuilder() {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="lg:hidden mb-5 px-4 py-3.5 rounded-lg bg-white dark:bg-white/[0.05] border border-[#00C6FF]/30 shadow-sm dark:shadow-[0_0_30px_rgba(0,198,255,0.08)] flex items-center justify-between"
+                className="lg:hidden mb-5 px-4 py-3.5 rounded-lg bg-white dark:bg-white/[0.05] border border-[#3CE7FC]/30 shadow-sm dark:shadow-[0_0_30px_rgba(60,231,252,0.08)] flex items-center justify-between"
               >
                 <div>
                   {estimate.hasGrant ? (
@@ -653,7 +653,7 @@ export default function ProjectBuilder() {
                     </>
                   ) : (
                     <>
-                      <div className="text-[10px] font-medium text-[#0022FF] dark:text-[#00C6FF] uppercase tracking-widest mb-0.5">Your build</div>
+                      <div className="text-[10px] font-medium text-[#2563F6] dark:text-[#3CE7FC] uppercase tracking-widest mb-0.5">Your build</div>
                       <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
                         €<AnimatedNumber value={estimate.rawMin} /> – €<AnimatedNumber value={estimate.rawMax} />
                       </div>
@@ -677,9 +677,9 @@ export default function ProjectBuilder() {
                     <div
                       className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                         isActive
-                          ? "bg-[#0022FF] text-white shadow-lg shadow-[#0022FF]/30"
+                          ? "bg-[#2563F6] text-white shadow-lg shadow-[#2563F6]/30"
                           : isPast
-                          ? "bg-[#0022FF]/10 dark:bg-[#0022FF]/20 text-[#0022FF]"
+                          ? "bg-[#2563F6]/10 dark:bg-[#2563F6]/20 text-[#2563F6]"
                           : "bg-slate-200 dark:bg-white/5 text-slate-400 dark:text-slate-500"
                       }`}
                     >
@@ -697,7 +697,7 @@ export default function ProjectBuilder() {
                     {s !== 4 && (
                       <div
                         className={`w-4 sm:w-8 h-px mr-1 sm:mr-4 ${
-                          isPast ? "bg-[#0022FF]/50" : "bg-slate-200 dark:bg-white/10"
+                          isPast ? "bg-[#2563F6]/50" : "bg-slate-200 dark:bg-white/10"
                         }`}
                       />
                     )}
@@ -734,14 +734,14 @@ export default function ProjectBuilder() {
                           }}
                           className={`group w-full flex items-center p-5 rounded-lg border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                             isSelected
-                              ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-lg shadow-[#0022FF]/10"
-                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,198,255,0.07)]"
+                              ? "border-[#2563F6] bg-[#2563F6]/5 dark:bg-[#2563F6]/10 shadow-lg shadow-[#2563F6]/10"
+                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#3CE7FC]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(60,231,252,0.07)]"
                           }`}
                         >
                           <div
                             className={`flex-shrink-0 w-12 h-12 rounded-md flex items-center justify-center mr-5 transition-transform duration-300 group-hover:scale-110 ${
                               isSelected
-                                ? "bg-[#0022FF] text-white"
+                                ? "bg-[#2563F6] text-white"
                                 : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white"
                             }`}
                           >
@@ -751,7 +751,7 @@ export default function ProjectBuilder() {
                             <h4
                               className={`text-lg font-medium ${
                                 isSelected
-                                  ? "text-[#0022FF] dark:text-[#00C6FF]"
+                                  ? "text-[#2563F6] dark:text-[#3CE7FC]"
                                   : "text-slate-900 dark:text-white"
                               }`}
                             >
@@ -760,7 +760,7 @@ export default function ProjectBuilder() {
                             <p
                               className={`mt-0.5 text-sm ${
                                 isSelected
-                                  ? "text-[#0022FF]/80 dark:text-[#00C6FF]/80"
+                                  ? "text-[#2563F6]/80 dark:text-[#3CE7FC]/80"
                                   : "text-slate-500 dark:text-slate-400"
                               }`}
                             >
@@ -768,7 +768,7 @@ export default function ProjectBuilder() {
                             </p>
                           </div>
                           {isSelected && (
-                            <Check className="w-5 h-5 text-[#0022FF] dark:text-[#00C6FF] ml-4 flex-shrink-0" />
+                            <Check className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC] ml-4 flex-shrink-0" />
                           )}
                         </button>
                       );
@@ -796,8 +796,8 @@ export default function ProjectBuilder() {
                           onClick={() => setScale(lvl.id)}
                           className={`w-full flex items-center justify-between p-5 rounded-lg border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                             isSelected
-                              ? "border-[#0022FF] bg-[#0022FF]/5 dark:bg-[#0022FF]/10 shadow-lg shadow-[#0022FF]/10"
-                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#00C6FF]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,198,255,0.07)]"
+                              ? "border-[#2563F6] bg-[#2563F6]/5 dark:bg-[#2563F6]/10 shadow-lg shadow-[#2563F6]/10"
+                              : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#3CE7FC]/60 dark:hover:border-white/25 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(60,231,252,0.07)]"
                           }`}
                         >
                           <div>
@@ -805,7 +805,7 @@ export default function ProjectBuilder() {
                               <h4
                                 className={`text-lg font-medium ${
                                   isSelected
-                                    ? "text-[#0022FF] dark:text-[#00C6FF]"
+                                    ? "text-[#2563F6] dark:text-[#3CE7FC]"
                                     : "text-slate-900 dark:text-white"
                                 }`}
                               >
@@ -814,7 +814,7 @@ export default function ProjectBuilder() {
                               <span
                                 className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                                   isSelected
-                                    ? "bg-[#0022FF]/10 text-[#0022FF] dark:bg-[#00C6FF]/10 dark:text-[#00C6FF]"
+                                    ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[#3CE7FC]/10 dark:text-[#3CE7FC]"
                                     : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400"
                                 }`}
                               >
@@ -824,7 +824,7 @@ export default function ProjectBuilder() {
                             <p
                               className={`text-sm ${
                                 isSelected
-                                  ? "text-[#0022FF]/80 dark:text-[#00C6FF]/80"
+                                  ? "text-[#2563F6]/80 dark:text-[#3CE7FC]/80"
                                   : "text-slate-500 dark:text-slate-400"
                               }`}
                             >
@@ -832,7 +832,7 @@ export default function ProjectBuilder() {
                             </p>
                           </div>
                           {isSelected && (
-                            <Check className="w-5 h-5 text-[#0022FF] dark:text-[#00C6FF] ml-4 flex-shrink-0" />
+                            <Check className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC] ml-4 flex-shrink-0" />
                           )}
                         </button>
                       );
@@ -862,14 +862,14 @@ export default function ProjectBuilder() {
                             onClick={() => toggleCapability(cap.id)}
                             className={`group flex items-start p-4 rounded-md border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
                               isSelected
-                                ? "border-[#00C6FF] bg-[#00C6FF]/5 dark:bg-[#00C6FF]/10 shadow-md shadow-[#00C6FF]/10"
-                                : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#0022FF]/40 dark:hover:border-white/25 hover:shadow-md dark:hover:shadow-[0_6px_24px_rgba(0,198,255,0.06)]"
+                                ? "border-[#3CE7FC] bg-[#3CE7FC]/5 dark:bg-[#3CE7FC]/10 shadow-md shadow-[#3CE7FC]/10"
+                                : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#2563F6]/40 dark:hover:border-white/25 hover:shadow-md dark:hover:shadow-[0_6px_24px_rgba(60,231,252,0.06)]"
                             }`}
                           >
                             <div
                               className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mr-3 mt-0.5 transition-transform duration-300 group-hover:scale-110 ${
                                 isSelected
-                                  ? "bg-[#00C6FF] text-white"
+                                  ? "bg-[#3CE7FC] text-white"
                                   : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white"
                               }`}
                             >
@@ -880,14 +880,14 @@ export default function ProjectBuilder() {
                                 <h4
                                   className={`text-sm font-medium leading-tight ${
                                     isSelected
-                                      ? "text-[#0022FF] dark:text-[#00C6FF]"
+                                      ? "text-[#2563F6] dark:text-[#3CE7FC]"
                                       : "text-slate-900 dark:text-white"
                                   }`}
                                 >
                                   {cap.label}
                                 </h4>
                                 {isSelected && (
-                                  <Check className="w-4 h-4 text-[#00C6FF] flex-shrink-0" />
+                                  <Check className="w-4 h-4 text-[#3CE7FC] flex-shrink-0" />
                                 )}
                               </div>
                               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
@@ -897,7 +897,7 @@ export default function ProjectBuilder() {
                                 <p
                                   className={`text-xs font-semibold mt-1 ${
                                     isSelected
-                                      ? "text-[#00C6FF]"
+                                      ? "text-[#3CE7FC]"
                                       : "text-slate-400 dark:text-slate-500"
                                   }`}
                                 >
@@ -936,7 +936,7 @@ export default function ProjectBuilder() {
 
                     {/* Price result card — gross → grant → net */}
                     <div className="mb-8 rounded-lg bg-gradient-to-br from-[#11111f] to-[#0b0b16] border border-white/10 shadow-2xl shadow-black/40 relative overflow-hidden">
-                      <div className="absolute -top-16 right-0 w-72 h-72 bg-[#0022FF]/25 rounded-full blur-[80px] pointer-events-none" />
+                      <div className="absolute -top-16 right-0 w-72 h-72 bg-[#2563F6]/25 rounded-full blur-[80px] pointer-events-none" />
                       {estimate.hasGrant && (
                         <div className="absolute -bottom-16 -left-10 w-64 h-64 bg-emerald-500/15 rounded-full blur-[80px] pointer-events-none" />
                       )}
@@ -993,7 +993,7 @@ export default function ProjectBuilder() {
                           </>
                         ) : (
                           <>
-                            <div className="text-xs font-semibold text-[#00C6FF] uppercase tracking-widest mb-2">
+                            <div className="text-xs font-semibold text-[#3CE7FC] uppercase tracking-widest mb-2">
                               Estimated investment
                             </div>
                             <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white mb-2 tracking-tight tabular-nums leading-none">
@@ -1018,7 +1018,7 @@ export default function ProjectBuilder() {
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Quality</div>
                             <div className="font-medium text-lg text-white flex items-center gap-1">
-                              <Sparkles className="w-4 h-4 text-[#00C6FF]" /> Top tier
+                              <Sparkles className="w-4 h-4 text-[#3CE7FC]" /> Top tier
                             </div>
                           </div>
                         </div>
@@ -1174,7 +1174,7 @@ export default function ProjectBuilder() {
                     <div className="flex flex-col sm:flex-row gap-3">
                       <a
                         href="mailto:contact@deev.lu?subject=Start%20my%20project%20%E2%80%94%20Deev%20simulator&body=Hi%20Deev%20team%2C%0D%0A%0D%0AI%27ve%20configured%20my%20project%20in%20the%20simulator%20and%20I%27d%20like%20to%20start.%0D%0A"
-                        className="flex-1 py-4 bg-gradient-to-r from-[#0022FF] to-[#00C6FF] text-white rounded-md font-medium text-base shadow-lg shadow-[#0022FF]/30 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(0,198,255,0.4)] transition-all active:translate-y-0 flex items-center justify-center gap-2"
+                        className="flex-1 py-4 bg-gradient-to-r from-[#2563F6] to-[#3CE7FC] text-white rounded-md font-medium text-base shadow-lg shadow-[#2563F6]/30 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(60,231,252,0.4)] transition-all active:translate-y-0 flex items-center justify-center gap-2"
                       >
                         Start my project <ArrowRight className="w-5 h-5" />
                       </a>
@@ -1212,7 +1212,7 @@ export default function ProjectBuilder() {
                     className={`flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-md font-medium text-white text-sm transition-all ${
                       (step === 1 && !system) || (step === 2 && !scale)
                         ? "bg-slate-300 dark:bg-slate-700 cursor-not-allowed"
-                        : "bg-[#0022FF] hover:bg-[#0022FF]/90 shadow-lg shadow-[#0022FF]/30 active:scale-[0.98]"
+                        : "bg-[#2563F6] hover:bg-[#2563F6]/90 shadow-lg shadow-[#2563F6]/30 active:scale-[0.98]"
                     }`}
                   >
                     {step === 1 && system === "marketing"
@@ -1247,8 +1247,8 @@ export default function ProjectBuilder() {
               {!submitted ? (
                 <>
                   <div className="text-center mb-6">
-                    <div className="w-14 h-14 bg-[#00C6FF]/10 dark:bg-[#00C6FF]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Sparkles className="w-7 h-7 text-[#00C6FF]" />
+                    <div className="w-14 h-14 bg-[#3CE7FC]/10 dark:bg-[#3CE7FC]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Sparkles className="w-7 h-7 text-[#3CE7FC]" />
                     </div>
                     <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                       One last step
@@ -1316,7 +1316,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                       placeholder="Your name"
                       required
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                     />
                     <input
                       type="email"
@@ -1324,7 +1324,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                       placeholder="Work email"
                       required
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
@@ -1332,20 +1332,20 @@ export default function ProjectBuilder() {
                         value={leadForm.company}
                         onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
                         placeholder="Company (optional)"
-                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                       />
                       <input
                         type="text"
                         value={leadForm.website}
                         onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
                         placeholder="Current website (optional)"
-                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF]"
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                       />
                     </div>
                     <select
                       value={leadForm.timeline}
                       onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
-                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] ${
+                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] ${
                         leadForm.timeline ? "text-slate-900 dark:text-white" : "text-slate-400"
                       }`}
                     >
@@ -1360,12 +1360,12 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
                       placeholder="What does success look like? Goals, must-haves, links… (optional)"
                       rows={3}
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00C6FF] resize-none"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] resize-none"
                     />
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full py-4 bg-[#0022FF] hover:bg-[#0022FF]/90 text-white rounded-md font-medium transition-all shadow-lg shadow-[#0022FF]/30 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full py-4 bg-[#2563F6] hover:bg-[#2563F6]/90 text-white rounded-md font-medium transition-all shadow-lg shadow-[#2563F6]/30 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {submitting ? "Sending…" : "Reveal My Estimate →"}
                     </button>

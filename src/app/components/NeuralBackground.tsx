@@ -31,12 +31,12 @@ export default function NeuralBackground() {
     >
       <defs>
         <linearGradient id="neural-line" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#00C6FF" />
-          <stop offset="100%" stopColor="#0022FF" />
+          <stop offset="0%" stopColor="#3CE7FC" />
+          <stop offset="100%" stopColor="#2563F6" />
         </linearGradient>
         <radialGradient id="neural-node" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00C6FF" />
-          <stop offset="100%" stopColor="#0022FF" />
+          <stop offset="0%" stopColor="#3CE7FC" />
+          <stop offset="100%" stopColor="#2563F6" />
         </radialGradient>
       </defs>
 
@@ -60,7 +60,7 @@ export default function NeuralBackground() {
           <motion.circle
             key={`p-${i}`}
             r="0.55"
-            fill="#00C6FF"
+            fill="#3CE7FC"
             initial={{ cx: nodes[a].x, cy: nodes[a].y, opacity: 0 }}
             animate={{
               cx: [nodes[a].x, nodes[b].x],

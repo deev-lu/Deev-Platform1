@@ -57,7 +57,7 @@ function MetricBars({ reduce }: { reduce: boolean }) {
       {heights.map((h, i) => (
         <motion.div
           key={i}
-          className="flex-1 rounded-sm bg-gradient-to-t from-[#0022FF] to-[#00C6FF]"
+          className="flex-1 rounded-sm bg-gradient-to-t from-[#2563F6] to-[#3CE7FC]"
           initial={{ height: reduce ? `${h}%` : "8%", opacity: 0.5 }}
           whileInView={{ height: `${h}%`, opacity: 1 }}
           viewport={{ once: true }}
@@ -81,7 +81,7 @@ export default function HeroDashboard() {
       className="relative w-full"
     >
       {/* Glow under the panel */}
-      <div className="absolute -inset-x-10 -bottom-10 top-10 bg-[#0022FF]/20 blur-[90px] rounded-full pointer-events-none" />
+      <div className="absolute -inset-x-10 -bottom-10 top-10 bg-[#2563F6]/20 blur-[90px] rounded-full pointer-events-none" />
 
       <div className="glass-edge relative rounded-lg sm:rounded-lg border border-white/[0.14] bg-[#0b0b14]/85 backdrop-blur-xl backdrop-saturate-150 shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden">
         {/* Window top bar */}
@@ -91,7 +91,7 @@ export default function HeroDashboard() {
           <span className="w-3 h-3 rounded-full bg-[#28c840]" />
           <div className="flex-1 flex justify-center">
             <span className="text-xs font-medium text-slate-400 flex items-center gap-1.5">
-              <Bot className="w-3.5 h-3.5 text-[#00C6FF]" />
+              <Bot className="w-3.5 h-3.5 text-[#3CE7FC]" />
               deev · ai engine
             </span>
           </div>
@@ -116,14 +116,14 @@ export default function HeroDashboard() {
             </div>
             {/* AI response */}
             <div className="flex items-start gap-2.5">
-              <div className="shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#00C6FF] to-[#0022FF] flex items-center justify-center mt-0.5">
+              <div className="shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#3CE7FC] to-[#2563F6] flex items-center justify-center mt-0.5">
                 <Sparkles className="w-3.5 h-3.5 text-white" />
               </div>
-              <div className="max-w-[85%] rounded-lg rounded-tl-sm bg-gradient-to-br from-[#0022FF]/15 to-[#00C6FF]/[0.06] border border-[#00C6FF]/20 px-3.5 py-2.5">
+              <div className="max-w-[85%] rounded-lg rounded-tl-sm bg-gradient-to-br from-[#2563F6]/15 to-[#3CE7FC]/[0.06] border border-[#3CE7FC]/20 px-3.5 py-2.5">
                 <p className="text-[13px] text-slate-100 leading-relaxed min-h-[2.6em]">
                   {text}
                   {!done && (
-                    <span className="inline-block w-[2px] h-[1em] -mb-[2px] ml-0.5 bg-[#00C6FF] animate-pulse" />
+                    <span className="inline-block w-[2px] h-[1em] -mb-[2px] ml-0.5 bg-[#3CE7FC] animate-pulse" />
                   )}
                 </p>
               </div>
@@ -136,7 +136,7 @@ export default function HeroDashboard() {
               <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500">
                 Live performance
               </span>
-              <TrendingUp className="w-4 h-4 text-[#00C6FF]" />
+              <TrendingUp className="w-4 h-4 text-[#3CE7FC]" />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -156,7 +156,7 @@ export default function HeroDashboard() {
             <div className="rounded-md bg-white/[0.03] border border-white/[0.07] p-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] text-slate-500 font-medium">Pipeline value</span>
-                <CountUp value="100%" className="text-xs font-medium text-[#00C6FF]" />
+                <CountUp value="100%" className="text-xs font-medium text-[#3CE7FC]" />
               </div>
               <MetricBars reduce={reduce} />
             </div>

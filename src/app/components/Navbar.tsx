@@ -23,7 +23,7 @@ function ThemePillToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggl
     <button
       onClick={onToggle}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={`relative flex items-center w-[68px] h-[32px] rounded-full p-[3px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0022FF] ${
+      className={`relative flex items-center w-[68px] h-[32px] rounded-full p-[3px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563F6] ${
         isDark
           ? "bg-[#1a1a2e] border border-white/[0.12] shadow-inner"
           : "bg-slate-100 border border-slate-200 shadow-inner"
@@ -35,7 +35,7 @@ function ThemePillToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggl
         transition={{ type: "spring", stiffness: 500, damping: 35 }}
         className={`absolute w-[26px] h-[26px] rounded-full flex items-center justify-center shadow-md ${
           isDark
-            ? "right-[3px] bg-[#0022FF]"
+            ? "right-[3px] bg-[#2563F6]"
             : "left-[3px] bg-white shadow-slate-200"
         }`}
       >
@@ -99,7 +99,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               alt="DEEV"
               className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="text-[1.3rem] font-extrabold tracking-[0.07em] leading-none text-[#0a0f2e] dark:text-white">
+            <span className="text-[1.3rem] font-brand tracking-[0.015em] leading-none text-[#0a0f2e] dark:text-white">
               DEEV
             </span>
           </button>
@@ -131,8 +131,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             {/* CTA */}
             <button
               onClick={() => scrollTo("#project-builder")}
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(0,34,255,0.45)]"
-              style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(37,99,246,0.45)]"
+              style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
             >
               Get a quote
             </button>
@@ -187,7 +187,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               <button
                 onClick={() => scrollTo("#project-builder")}
                 className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, #0022FF 0%, #00C6FF 100%)" }}
+                style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
               >
                 Get a quote →
               </button>

@@ -78,6 +78,14 @@
       }
     </script>
 
+    <!-- Brand logo font: Typold Bold (self-hosted, preloaded) -->
+    <link
+      rel="preload"
+      href="/fonts/typold-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <!-- Premium typography: Inter variable — loaded async so it never blocks paint -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -110,6 +118,14 @@
       html.dark {
         background: #06060a;
       }
+      /* Brand font available to the instant loader too */
+      @font-face {
+        font-family: "Typold";
+        src: url("/fonts/typold-bold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
       /* Instant branded paint while the app JS loads */
       #app-loader {
         position: fixed;
@@ -119,12 +135,12 @@
         justify-content: center;
         flex-direction: column;
         gap: 22px;
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
       }
       #app-loader .wm {
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        font-size: 22px;
+        font-family: "Typold", -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        font-size: 26px;
         color: #0a0f2e;
       }
       html.dark #app-loader .wm {
@@ -143,7 +159,7 @@
         width: 40%;
         height: 100%;
         border-radius: 2px;
-        background: linear-gradient(90deg, #00c6ff, #0022ff);
+        background: linear-gradient(90deg, #3CE7FC, #2563F6);
         animation: loaderslide 1s ease-in-out infinite;
       }
       @keyframes loaderslide {

@@ -27,17 +27,17 @@ const LAYERS = [
 
 // Plane visual order: bottom → top
 const PLANES = [
-  { z: 0, opacity: 0.95, tone: "rgba(0,34,255,0.16)", border: "rgba(0,34,255,0.55)" },
+  { z: 0, opacity: 0.95, tone: "rgba(37,99,246,0.16)", border: "rgba(37,99,246,0.55)" },
   { z: 74, opacity: 0.95, tone: "rgba(0,120,255,0.14)", border: "rgba(0,140,255,0.55)" },
-  { z: 148, opacity: 1, tone: "rgba(0,198,255,0.14)", border: "rgba(0,198,255,0.65)" },
+  { z: 148, opacity: 1, tone: "rgba(60,231,252,0.14)", border: "rgba(60,231,252,0.65)" },
 ];
 
 export default function SystemStack() {
   return (
     <section className="relative overflow-hidden bg-[#050509] py-20 sm:py-28 md:py-32">
       {/* Ambient */}
-      <div className="absolute -top-32 left-1/4 w-[600px] h-[500px] bg-[#0022FF]/[0.10] rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-[#00C6FF]/[0.06] rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute -top-32 left-1/4 w-[600px] h-[500px] bg-[#2563F6]/[0.10] rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-[#3CE7FC]/[0.06] rounded-full blur-[130px] pointer-events-none" />
       <NoiseOverlay opacity={0.035} />
       {/* Hairline frame */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
@@ -90,7 +90,7 @@ export default function SystemStack() {
               style={{
                 height: "150px",
                 background:
-                  "linear-gradient(to top, rgba(0,34,255,0.7), rgba(0,198,255,0.9))",
+                  "linear-gradient(to top, rgba(37,99,246,0.7), rgba(60,231,252,0.9))",
                 transform: "translate(-50%, -50%) rotateX(-90deg) translateZ(0px) translateY(-75px)",
                 transformStyle: "preserve-3d",
               }}
@@ -98,7 +98,7 @@ export default function SystemStack() {
           </div>
 
           {/* Floor glow */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-64 h-10 bg-[#0022FF]/25 rounded-[100%] blur-2xl pointer-events-none" />
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-64 h-10 bg-[#2563F6]/25 rounded-[100%] blur-2xl pointer-events-none" />
         </motion.div>
 
         {/* ── Copy ─────────────────────────────────────────────── */}
@@ -110,7 +110,7 @@ export default function SystemStack() {
             className="mb-10"
           >
             <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-500 mb-6">
-              <span className="h-px w-8 bg-gradient-to-r from-[#00C6FF]/60 to-transparent" />
+              <span className="h-px w-8 bg-gradient-to-r from-[#3CE7FC]/60 to-transparent" />
               02 / How it runs
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight mb-5">
@@ -135,11 +135,11 @@ export default function SystemStack() {
                 transition={{ delay: i * 0.1 }}
                 className="group grid grid-cols-[3rem_1fr] gap-4 py-6 border-b border-white/[0.08] transition-colors duration-300 hover:bg-white/[0.02]"
               >
-                <span className="eyebrow-mono text-xs text-[#00C6FF]/70 pt-1">
+                <span className="eyebrow-mono text-xs text-[#3CE7FC]/70 pt-1">
                   {layer.n}
                 </span>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-1.5 group-hover:text-[#00C6FF] transition-colors duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-1.5 group-hover:text-[#3CE7FC] transition-colors duration-300">
                     {layer.name}
                   </h3>
                   <p className="text-sm text-slate-400 leading-relaxed max-w-md">
