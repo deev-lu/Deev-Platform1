@@ -91,7 +91,7 @@ export default function Hero() {
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-slate-50 dark:from-[#06060a] to-transparent" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.02fr_0.98fr] gap-14 lg:gap-12 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-10 items-center">
 
         {/* ── Left: editorial content ─────────────────────────────── */}
         <div className="text-left">
@@ -111,7 +111,7 @@ export default function Hero() {
 
           {/* Kinetic headline */}
           <motion.h1
-            className="text-[2.5rem] sm:text-6xl lg:text-[3.4rem] xl:text-[3.9rem] 2xl:text-[4.3rem] font-light text-slate-900 dark:text-white leading-[1.08] mb-8 tracking-[-0.02em]"
+            className="text-[2.45rem] sm:text-[3.4rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-[3.9rem] font-medium text-slate-900 dark:text-white leading-[1.06] mb-8 tracking-[-0.03em]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}

@@ -16,7 +16,9 @@ interface CountUpProps {
  */
 export default function CountUp({ value, duration = 1600, className }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  // Grow the root by 120px on all sides so elements sitting at the viewport
+  // edge (e.g. hero stats) still trigger their count-up on load.
+  const inView = useInView(ref, { once: true, margin: "120px" });
   const reduce = useReducedMotion();
   const [display, setDisplay] = useState<string>(value);
 
