@@ -33,7 +33,7 @@ function RotatingPhrase() {
   }, [reduce]);
 
   return (
-    <span className="relative block min-h-[1.18em]">
+    <span className="relative block h-[1.06em]">
       <AnimatePresence initial={false}>
         <motion.span
           key={PHRASES[i]}

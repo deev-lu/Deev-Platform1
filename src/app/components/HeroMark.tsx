@@ -8,9 +8,9 @@ import logo from "../../assets/logo.png";
  */
 
 const RINGS = [
-  { size: 100, dur: 46, dots: [0], opacity: 0.20 },
-  { size: 74,  dur: 34, dots: [140, 300], opacity: 0.30 },
-  { size: 48,  dur: 24, dots: [220], opacity: 0.42 },
+  { size: 100, dur: 46, dots: [0], opacity: 0.32 },
+  { size: 76,  dur: 34, dots: [140, 300], opacity: 0.45 },
+  { size: 54,  dur: 24, dots: [220], opacity: 0.6 },
 ];
 
 export default function HeroMark() {
@@ -21,11 +21,14 @@ export default function HeroMark() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full aspect-square max-w-[440px] mx-auto"
+      className="relative w-full aspect-square max-w-[520px] mx-auto"
       aria-hidden="true"
     >
       {/* Ambient bloom */}
-      <div className="absolute inset-[18%] rounded-full bg-[#2563F6]/25 blur-[70px] pointer-events-none" />
+      <div className="absolute inset-[16%] rounded-full bg-[#2563F6]/30 blur-[80px] pointer-events-none" />
+
+      {/* Grounding glass disc behind the mark */}
+      <div className="absolute inset-[36%] rounded-full bg-gradient-to-br from-white/[0.10] to-white/[0.02] dark:from-white/[0.08] dark:to-white/[0.01] border border-slate-300/50 dark:border-white/[0.10] backdrop-blur-sm pointer-events-none" />
 
       {/* Orbit rings */}
       {RINGS.map((ring) => (
@@ -96,7 +99,7 @@ export default function HeroMark() {
         <img
           src={logo}
           alt=""
-          className="w-[26%] h-auto object-contain drop-shadow-[0_10px_40px_rgba(37,99,246,0.45)]"
+          className="w-[34%] h-auto object-contain drop-shadow-[0_12px_48px_rgba(37,99,246,0.55)]"
         />
       </motion.div>
     </motion.div>
