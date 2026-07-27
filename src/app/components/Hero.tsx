@@ -6,7 +6,7 @@ import CountUp from "./CountUp";
 import HeroShapes from "./HeroShapes";
 import NoiseOverlay from "./NoiseOverlay";
 // Heavy, animation-rich — deferred so the hero text paints first
-const HeroDashboard = lazy(() => import("./HeroDashboard"));
+const HeroShowcase = lazy(() => import("./HeroShowcase"));
 
 const stats = [
   { value: "50+", label: "Projects delivered" },
@@ -196,10 +196,10 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Right: live AI dashboard (deferred) ─────────────────── */}
+        {/* ── Right: real shipped work (deferred) ─────────────────── */}
         <div className="relative lg:pl-2">
           <Suspense fallback={<div className="min-h-[340px]" />}>
-            <HeroDashboard />
+            <HeroShowcase />
           </Suspense>
         </div>
       </div>
