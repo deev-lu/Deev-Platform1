@@ -6,7 +6,7 @@ import CountUp from "./CountUp";
 import HeroShapes from "./HeroShapes";
 import NoiseOverlay from "./NoiseOverlay";
 // Heavy, animation-rich — deferred so the hero text paints first
-const HeroShowcase = lazy(() => import("./HeroShowcase"));
+const HeroMark = lazy(() => import("./HeroMark"));
 
 const stats = [
   { value: "50+", label: "Projects delivered" },
@@ -196,10 +196,10 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Right: real shipped work (deferred) ─────────────────── */}
+        {/* ── Right: abstract brand mark (deferred) ───────────────── */}
         <div className="relative lg:pl-2">
           <Suspense fallback={<div className="min-h-[340px]" />}>
-            <HeroShowcase />
+            <HeroMark />
           </Suspense>
         </div>
       </div>
