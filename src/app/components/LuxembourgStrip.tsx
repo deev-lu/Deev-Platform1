@@ -15,7 +15,7 @@ export default function LuxembourgStrip() {
         alt="Luxembourg City — the Grund and the Alzette valley"
         loading="lazy"
         decoding="async"
-        className="absolute inset-0 w-full h-full object-cover grayscale-[0.45] contrast-[1.05] brightness-[0.85]"
+        className="animate-drift absolute inset-0 w-full h-full object-cover grayscale-[0.45] contrast-[1.05] brightness-[0.85]"
       />
       {/* Cinematic grade */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#04040c]/95 via-[#04040c]/60 to-[#04040c]/30" />
