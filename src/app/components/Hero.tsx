@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import CountUp from "./CountUp";
 import HeroShapes from "./HeroShapes";
+import HeroVideo from "./HeroVideo";
 import NoiseOverlay from "./NoiseOverlay";
 // Heavy, animation-rich — deferred so the hero text paints first
 const HeroMark = lazy(() => import("./HeroMark"));
@@ -54,6 +55,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-16 transition-colors duration-300">
 
+      {/* Cinematic background footage (desktop) */}
+      <HeroVideo />
       {/* Decorative shades: AI workflow + Luxembourg silhouette */}
       <HeroShapes />
       {/* Premium film grain — dark only */}
