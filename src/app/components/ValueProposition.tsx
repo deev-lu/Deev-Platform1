@@ -5,30 +5,30 @@ const values = [
   {
     icon: Brain,
     title: "AI-native products",
-    description: "Custom AI agents, copilots, and automations trained on your data — engineered to cut cost and unlock new revenue, not gimmicks.",
+    description: "AI agents and assistants that actually know your business — answering customers, qualifying leads and handling the busywork your team shouldn't be stuck with.",
   },
   {
     icon: Zap,
     title: "Platforms that scale",
-    description: "Robust web apps and SaaS platforms built on modern, production-grade infrastructure — architected to grow from launch to enterprise.",
+    description: "Web apps and platforms that handle real customers from day one — and keep working just as well when you're ten times busier.",
   },
   {
     icon: Globe,
     title: "Websites that convert",
-    description: "High-performance websites built to turn visitors into paying customers — fast, beautiful, and engineered to rank.",
+    description: "Fast, beautiful websites that turn visitors into customers — and that Google actually rewards.",
   },
   {
     icon: TrendingUp,
     title: "Growth that performs",
-    description: "Data-driven marketing systems, paid ads and SEO strategies that compound your results month over month.",
+    description: "Ads, SEO and campaigns that bring you qualified leads — measured properly, so you always know what's working.",
   },
 ];
 
 const steps = [
-  { number: "01", title: "Understand", description: "We map your business, goals, and market to architect the right solution." },
-  { number: "02", title: "Build", description: "Senior engineers ship your product with modern, production-grade tech." },
-  { number: "03", title: "Launch", description: "Tested, monitored, and ready to handle real traffic from day one." },
-  { number: "04", title: "Scale", description: "Continuous optimisation and support to keep you ahead of the market." },
+  { number: "01", title: "Understand", description: "We start by understanding your business, your goals and what you're up against." },
+  { number: "02", title: "Build", description: "We build it ourselves. No handoffs, no outsourcing, no juniors learning on your budget." },
+  { number: "03", title: "Launch", description: "Tested and monitored, ready for real customers from the first day it's live." },
+  { number: "04", title: "Scale", description: "We stick around — improving, supporting and keeping you ahead." },
 ];
 
 export default function ValueProposition() {
