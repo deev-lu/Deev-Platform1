@@ -355,3 +355,18 @@ li {
     transform: scale(1.06);
   }
 }
+
+/* ---- Outlined display numerals (big hollow stats) ---- */
+.stat-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px #2563F6;
+  paint-order: stroke fill;
+}
+.dark .stat-outline {
+  -webkit-text-stroke-color: #3CE7FC;
+}
+@media (max-width: 640px) {
+  .stat-outline {
+    -webkit-text-stroke-width: 1.5px;
+  }
+}

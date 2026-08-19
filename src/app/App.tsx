@@ -53,7 +53,7 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
 }
 
 export default function App() {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;

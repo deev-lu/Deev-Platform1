@@ -146,13 +146,13 @@ export default function Hero() {
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
               className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(60,231,252,0.45)] hover:-translate-y-1 active:translate-y-0"
-              style={{ background: "linear-gradient(135deg, #3CE7FC 0%, #2563F6 100%)" }}
+              style={{ background: "linear-gradient(135deg, #2563F6 0%, #1747C4 100%)" }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2.5">
                 Configure your project
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2F6FF8] to-[#1747C4] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
 
             <Link
@@ -191,7 +191,7 @@ export default function Hero() {
               <div key={stat.label} className="flex items-center">
                 {i > 0 && <span className="w-px h-9 bg-slate-300 dark:bg-white/[0.10] mx-5 sm:mx-7" />}
                 <div>
-                  <CountUp value={stat.value} className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight" />
+                  <CountUp value={stat.value} className="stat-outline text-3xl sm:text-4xl font-brand tracking-tight" />
                   <div className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 font-medium uppercase tracking-wider">{stat.label}</div>
                 </div>
               </div>
