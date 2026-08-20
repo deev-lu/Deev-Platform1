@@ -8,6 +8,7 @@ import ClientLogos from "./components/ClientLogos";
 import SmeGrantBanner from "./components/SmeGrantBanner";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
+import { initAnalytics } from "../lib/analytics";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const ValueProposition  = lazy(() => import("./components/ValueProposition"));
@@ -64,6 +65,9 @@ export default function App() {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  // Google Analytics — only after the cookie banner is accepted
+  useEffect(() => initAnalytics(), []);
 
   const toggleTheme = () => setTheme(p => p === "dark" ? "light" : "dark");
 

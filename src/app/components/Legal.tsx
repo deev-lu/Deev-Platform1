@@ -137,6 +137,13 @@ export default function Legal() {
                 consent to our use of essential cookies. You may control optional cookies through your browser
                 settings or our cookie preferences panel.
               </p>
+              <p className="mt-3">
+                For analytics we use Google Analytics 4 (Google Ireland Limited), which sets cookies to measure
+                page views and how visitors navigate the site. It is loaded only after you accept analytics
+                cookies in our consent banner &mdash; if you decline, no Google Analytics script is requested and
+                no analytics cookies are set. You can withdraw your consent at any time by clearing this
+                site&rsquo;s data in your browser, which will show the consent banner again.
+              </p>
             </Section>
 
             <Section title="8. Data Protection &amp; GDPR">
