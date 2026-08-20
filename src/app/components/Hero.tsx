@@ -4,15 +4,14 @@ import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import CountUp from "./CountUp";
 import HeroShapes from "./HeroShapes";
-import HeroVideo from "./HeroVideo";
 import NoiseOverlay from "./NoiseOverlay";
 // Heavy, animation-rich — deferred so the hero text paints first
 const HeroMark = lazy(() => import("./HeroMark"));
 
-const stats = [
+const stats: { value: string; label: string; flag?: boolean }[] = [
   { value: "50+", label: "Projects delivered" },
   { value: "100%", label: "Client satisfaction" },
-  { value: "LU 🇱🇺", label: "Based in Luxembourg" },
+  { value: "LU", label: "Based in Luxembourg", flag: true },
 ];
 
 // Rotating headline phrases — kept short so they always stay on one line
@@ -55,8 +54,6 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-16 transition-colors duration-300">
 
-      {/* Cinematic background footage (desktop) */}
-      <HeroVideo />
       {/* Decorative shades: AI workflow + Luxembourg silhouette */}
       <HeroShapes />
       {/* Premium film grain — dark only */}
@@ -64,14 +61,12 @@ export default function Hero() {
 
       {/* Soft layered background glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Two committed light sources beat five apologetic ones */}
         <div
-          className="absolute -top-[15%] left-1/3 w-[900px] h-[700px] rounded-full bg-[#2563F6]/[0.14] blur-[70px] md:blur-[150px]"
+          className="absolute -top-[18%] left-[38%] w-[1000px] h-[760px] rounded-full bg-[#2563F6]/[0.22] dark:bg-[#2563F6]/[0.20] blur-[50px] md:blur-[160px]"
         />
         <div
-          className="absolute top-[10%] -left-[10%] w-[600px] h-[600px] rounded-full bg-[#3CE7FC]/[0.10] blur-[70px] md:blur-[140px]"
-        />
-        <div
-          className="absolute top-[30%] -right-[10%] w-[560px] h-[560px] rounded-full bg-[#2563F6]/[0.10] blur-[70px] md:blur-[140px]"
+          className="absolute top-[26%] -right-[6%] w-[620px] h-[620px] rounded-full bg-[#3CE7FC]/[0.20] dark:bg-[#3CE7FC]/[0.14] blur-[50px] md:blur-[150px]"
         />
         {/* Subtle dot-grid overlay — dark dots in light, white dots in dark */}
         <div
@@ -94,7 +89,7 @@ export default function Hero() {
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-slate-50 dark:from-[#06060a] to-transparent" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-10 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-14 lg:gap-8 items-center">
 
         {/* ── Left: editorial content ─────────────────────────────── */}
         <div className="text-left">
@@ -114,7 +109,7 @@ export default function Hero() {
 
           {/* Kinetic headline */}
           <motion.h1
-            className="text-[2.45rem] sm:text-[3.4rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-[3.9rem] font-medium text-slate-900 dark:text-white leading-[1.06] mb-8 tracking-[-0.03em]"
+            className="text-[2.45rem] sm:text-[3.4rem] lg:text-[3.45rem] xl:text-[4.05rem] 2xl:text-[4.5rem] font-medium text-slate-900 dark:text-white leading-[1.03] mb-8 tracking-[-0.035em]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -191,7 +186,19 @@ export default function Hero() {
               <div key={stat.label} className="flex items-center">
                 {i > 0 && <span className="w-px h-9 bg-slate-300 dark:bg-white/[0.10] mx-5 sm:mx-7" />}
                 <div>
-                  <CountUp value={stat.value} className="stat-outline text-3xl sm:text-4xl font-brand tracking-tight" />
+                  <span className="flex items-center gap-2.5">
+                    <CountUp value={stat.value} className="stat-outline text-3xl sm:text-4xl font-brand tracking-tight" />
+                    {stat.flag && (
+                      <span
+                        className="inline-block w-7 h-[18px] rounded-[2px] overflow-hidden shrink-0 ring-1 ring-slate-300/70 dark:ring-white/15"
+                        aria-hidden="true"
+                      >
+                        <span className="block h-1/3 bg-[#ED2939]" />
+                        <span className="block h-1/3 bg-white" />
+                        <span className="block h-1/3 bg-[#00A1DE]" />
+                      </span>
+                    )}
+                  </span>
                   <div className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 font-medium uppercase tracking-wider">{stat.label}</div>
                 </div>
               </div>
