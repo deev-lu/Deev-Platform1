@@ -8,6 +8,7 @@ import ClientLogos from "./components/ClientLogos";
 import SmeGrantBanner from "./components/SmeGrantBanner";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
+import RouteMeta from "./components/RouteMeta";
 import { initAnalytics } from "../lib/analytics";
 
 // Below-the-fold — lazy loaded for faster initial paint
@@ -103,6 +104,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <RouteMeta />
       <Routes>
         <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
         <Route path="/legal" element={
