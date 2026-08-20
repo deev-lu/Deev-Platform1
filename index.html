@@ -184,9 +184,9 @@
       (function () {
         try {
           var t = localStorage.getItem("theme");
-          document.documentElement.classList.toggle("dark", t === "dark");
+          document.documentElement.classList.toggle("dark", t !== "light");
         } catch (e) {
-          document.documentElement.classList.remove("dark");
+          document.documentElement.classList.add("dark");
         }
       })();
     </script>

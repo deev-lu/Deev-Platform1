@@ -9,6 +9,7 @@ import SmeGrantBanner from "./components/SmeGrantBanner";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
+import BenefitsPanel from "./components/BenefitsPanel";
 import { initAnalytics } from "../lib/analytics";
 
 // Below-the-fold — lazy loaded for faster initial paint
@@ -39,6 +40,7 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
       <Hero />
       <ClientLogos />
       <SmeGrantBanner />
+      <BenefitsPanel />
       <Suspense fallback={<SectionSkeleton />}>
         <div id="services"><ValueProposition /></div>
 
@@ -74,7 +76,7 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
 }
 
 export default function App() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   // localStorage throws outright in Safari with cookies blocked and inside
   // sandboxed embeds. The pre-paint script in index.html already guards for

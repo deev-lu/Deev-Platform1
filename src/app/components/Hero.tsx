@@ -1,54 +1,20 @@
-import { useEffect, useState, lazy, Suspense } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { lazy, Suspense } from "react";
+import { motion } from "motion/react";
 import { Link } from "react-router";
-import { ArrowRight } from "lucide-react";
-import CountUp from "./CountUp";
+import { ArrowRight, Check } from "lucide-react";
 import HeroShapes from "./HeroShapes";
 import NoiseOverlay from "./NoiseOverlay";
 // Heavy, animation-rich — deferred so the hero text paints first
 const HeroMark = lazy(() => import("./HeroMark"));
 
-const stats: { value: string; label: string; flag?: boolean }[] = [
-  { value: "50+", label: "Projects delivered" },
-  { value: "100%", label: "Client satisfaction" },
-  { value: "LU", label: "Based in Luxembourg", flag: true },
+
+// Stated plainly under the headline. Every line here is something the site
+// already claims elsewhere — nothing new is asserted.
+const CLAIMS = [
+  "AI-native web platforms, web apps and online stores",
+  "Lead engines engineered to convert, not just to look good",
+  "Up to 70% funded by the Luxembourg SME state grant",
 ];
-
-// Rotating headline phrases — kept short so they always stay on one line
-const PHRASES = [
-  "AI systems",
-  "web platforms",
-  "online stores",
-  "lead engines",
-];
-
-function RotatingPhrase() {
-  const reduce = useReducedMotion();
-  const [i, setI] = useState(0);
-
-  useEffect(() => {
-    if (reduce) return;
-    const t = setInterval(() => setI((v) => (v + 1) % PHRASES.length), 2800);
-    return () => clearInterval(t);
-  }, [reduce]);
-
-  return (
-    <span className="relative block h-[1.06em]">
-      <AnimatePresence initial={false}>
-        <motion.span
-          key={PHRASES[i]}
-          initial={{ opacity: 0, y: "0.5em", filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: "-0.5em", filter: "blur(6px)" }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-x-0 top-0 whitespace-nowrap bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent"
-        >
-          {PHRASES[i]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
 
 export default function Hero() {
   return (
@@ -114,9 +80,13 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="block">We engineer</span>
-            <RotatingPhrase />
-            <span className="block">impossible to ignore.</span>
+            <span className="block bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+              Platforms that convert.
+            </span>
+            <span className="block bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+              Systems that scale.
+            </span>
+            <span className="block">Built in Luxembourg.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -131,12 +101,27 @@ export default function Hero() {
             companies across Europe.
           </motion.p>
 
+          {/* Three concrete claims, stated plainly */}
+          <motion.ul
+            className="mb-9 space-y-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          >
+            {CLAIMS.map((claim) => (
+              <li key={claim} className="flex items-start gap-3">
+                <Check className="w-[18px] h-[18px] mt-[3px] shrink-0 text-[#2563F6] dark:text-[#3CE7FC]" />
+                <span className="text-[15px] text-slate-600 dark:text-slate-300">{claim}</span>
+              </li>
+            ))}
+          </motion.ul>
+
           {/* CTAs */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.42, ease: "easeOut" }}
           >
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
@@ -158,52 +143,6 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Terminal status */}
-          <motion.div
-            className="flex items-center gap-2.5 mt-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="eyebrow-mono text-[11px] sm:text-xs uppercase text-slate-600 dark:text-slate-400">
-              systems online — accepting projects for 2026
-              <span className="caret-blink text-[#3CE7FC]">&nbsp;▌</span>
-            </span>
-          </motion.div>
-
-          {/* Stats strip */}
-          <motion.div
-            className="flex items-center mt-9 pt-8 border-t border-slate-200 dark:border-white/[0.08]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
-          >
-            {stats.map((stat, i) => (
-              <div key={stat.label} className="flex items-center">
-                {i > 0 && <span className="w-px h-9 bg-slate-300 dark:bg-white/[0.10] mx-5 sm:mx-7" />}
-                <div>
-                  <span className="flex items-center gap-2.5">
-                    <CountUp value={stat.value} className="stat-outline text-3xl sm:text-4xl font-brand tracking-tight" />
-                    {stat.flag && (
-                      <span
-                        className="inline-block w-7 h-[18px] rounded-[2px] overflow-hidden shrink-0 ring-1 ring-slate-300/70 dark:ring-white/15"
-                        aria-hidden="true"
-                      >
-                        <span className="block h-1/3 bg-[#ED2939]" />
-                        <span className="block h-1/3 bg-white" />
-                        <span className="block h-1/3 bg-[#00A1DE]" />
-                      </span>
-                    )}
-                  </span>
-                  <div className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 font-medium uppercase tracking-wider">{stat.label}</div>
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         {/* ── Right: abstract brand mark (deferred) ───────────────── */}
