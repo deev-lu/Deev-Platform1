@@ -1,11 +1,30 @@
+# DEEV — deev.lu
 
-  # Deev New
+Marketing website for DEEV, an AI-native digital agency in Luxembourg.
 
-  This is a code bundle for Deev New. The original project is available at https://www.figma.com/design/yCHHgQkNlI4Pd8qP9ZD6ti/Deev-New.
+## Getting started
 
-  ## Running the code
+```bash
+npm install
+npm run dev
+```
 
-  Run `npm i` to install the dependencies.
+Open http://localhost:5173
 
-  Run `npm run dev` to start the development server.
-  
+## Build
+
+```bash
+npm run build
+```
+
+## Deploy
+
+```bash
+npx vercel --prod --archive=tgz --yes
+```
+
+## Notes
+
+See [CLAUDE.md](./CLAUDE.md) for architecture, brand rules, performance
+constraints and deployment gotchas. Read it before making changes — it
+documents decisions that are easy to accidentally undo.
