@@ -73,7 +73,7 @@ export default function Portfolio() {
     <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#050509] overflow-hidden border-t border-slate-100 dark:border-white/5">
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#3CE7FC]/[0.10] dark:bg-[#3CE7FC]/8 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#2563F6]/[0.08] dark:bg-[#2563F6]/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#7c3aed]/[0.05] dark:bg-[#7c3aed]/[0.03] rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#3CE7FC]/[0.06] dark:bg-[#3CE7FC]/[0.04] rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}

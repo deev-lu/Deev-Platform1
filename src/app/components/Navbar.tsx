@@ -54,13 +54,32 @@ function ThemePillToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggl
 
 export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [overDark, setOverDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 20);
+      // The page alternates light and dark acts, so a bar styled for light
+      // surfaces ends up floating over black. Ask what is actually under the
+      // bar and follow it. Hit-tested per animation frame, not per event.
+      const under = document.elementFromPoint(window.innerWidth / 2, 76);
+      setOverDark(Boolean(under?.closest('[data-surface="dark"]')));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   const scrollTo = (href: string) => {
@@ -82,8 +101,12 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          overDark ? "dark " : ""
+        }${
           scrolled
-            ? "bg-white/90 md:bg-white/60 dark:bg-[#06060a]/90 md:dark:bg-[#06060a]/75 backdrop-blur-2xl backdrop-saturate-[1.7] border-b border-white/50 dark:border-white/[0.09] shadow-[0_8px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
+            ? overDark
+              ? "bg-[#06060a]/90 md:bg-[#06060a]/75 backdrop-blur-2xl backdrop-saturate-[1.7] border-b border-white/[0.09] shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
+              : "bg-white/90 md:bg-white/60 dark:bg-[#06060a]/90 md:dark:bg-[#06060a]/75 backdrop-blur-2xl backdrop-saturate-[1.7] border-b border-white/50 dark:border-white/[0.09] shadow-[0_8px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
             : "bg-transparent"
         }`}
       >

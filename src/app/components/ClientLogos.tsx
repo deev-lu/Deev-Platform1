@@ -26,7 +26,7 @@ function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
       {clients.map((client) => (
         <div
           key={client.name}
-          className="flex-shrink-0 flex items-center justify-center h-10 px-2"
+          className="flex-shrink-0 flex items-center justify-center h-12 px-2"
           title={client.name}
         >
           <img
@@ -35,12 +35,12 @@ function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
             loading="lazy"
             decoding="async"
             draggable={false}
-            className={`h-7 sm:h-9 w-auto max-w-[120px] sm:max-w-[140px] object-contain transition-all duration-300
+            className={`h-8 sm:h-11 w-auto max-w-[130px] sm:max-w-[160px] object-contain transition-all duration-300
               ${client.invert
                 /* White logos: black silhouette in light, show as white in dark */
-                ? "brightness-0 opacity-45 dark:brightness-100 dark:opacity-70 hover:opacity-75 dark:hover:opacity-100"
+                ? "brightness-0 opacity-65 dark:brightness-100 dark:opacity-85 hover:opacity-100 dark:hover:opacity-100"
                 /* Colored logos: gray in light → invert to bright silhouette in dark */
-                : "grayscale opacity-50 dark:invert dark:opacity-70 hover:grayscale-0 hover:opacity-90 dark:hover:invert-0 dark:hover:opacity-100"
+                : "grayscale opacity-70 dark:invert dark:opacity-85 hover:grayscale-0 hover:opacity-100 dark:hover:invert-0 dark:hover:opacity-100"
               }
             `}
           />
@@ -62,7 +62,7 @@ export default function ClientLogos() {
         initial={{ opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-400 mb-10"
+        className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-10"
       >
         Trusted by leading businesses in Luxembourg &amp; beyond
       </motion.p>

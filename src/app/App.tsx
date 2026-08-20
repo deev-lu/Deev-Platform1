@@ -40,15 +40,34 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
       <SmeGrantBanner />
       <Suspense fallback={<SectionSkeleton />}>
         <div id="services"><ValueProposition /></div>
-        <SystemStack />
-        <div id="portfolio"><Portfolio /></div>
+
+        {/* ── Dark act I: the system, then the work ──────────────────
+            `dark` is scoped per-section (@custom-variant dark = .dark *),
+            so these render in their dark treatment in both themes. The
+            page is meant to breathe light → dark → light → dark rather
+            than run eight near-identical pale sections in a row. */}
+        <div data-surface="dark">
+          <SystemStack />
+        </div>
+        <div data-surface="dark" className="dark bg-[#050509]">
+          <div id="portfolio"><Portfolio /></div>
+        </div>
+
         <div id="billovio"><BillovioFeature /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
-        <LuxembourgStrip />
-        <FinalCTA />
+
+        {/* ── Dark act II: close on Luxembourg, the ask, the footer ── */}
+        <div data-surface="dark">
+          <LuxembourgStrip />
+        </div>
+        <div data-surface="dark" className="dark bg-[#06060a]">
+          <FinalCTA />
+        </div>
       </Suspense>
-      <Footer />
+      <div data-surface="dark" className="dark bg-[#06060a]">
+        <Footer />
+      </div>
     </div>
   );
 }
@@ -56,14 +75,25 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
 export default function App() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
+  // localStorage throws outright in Safari with cookies blocked and inside
+  // sandboxed embeds. The pre-paint script in index.html already guards for
+  // this; an unguarded read here would throw during mount and blank the page.
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as "light" | "dark" | null;
-    if (saved) setTheme(saved);
+    try {
+      const saved = localStorage.getItem("theme") as "light" | "dark" | null;
+      if (saved) setTheme(saved);
+    } catch {
+      /* keep the default theme */
+    }
   }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      /* preference just won't persist */
+    }
   }, [theme]);
 
   // Google Analytics — only after the cookie banner is accepted

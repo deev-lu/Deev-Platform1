@@ -37,7 +37,7 @@ export default function ValueProposition() {
       {/* Ambient aurora — gives the clear glass colour to refract */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#2563F6]/[0.07] dark:bg-[#2563F6]/[0.05] blur-[120px] pointer-events-none" />
       <div className="absolute top-1/3 -left-40 w-[500px] h-[500px] bg-[#3CE7FC]/[0.09] dark:bg-[#3CE7FC]/[0.04] rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-[#7c3aed]/[0.06] dark:bg-[#7c3aed]/[0.04] rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-[#2563F6]/[0.07] dark:bg-[#2563F6]/[0.05] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
