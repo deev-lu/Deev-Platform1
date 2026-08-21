@@ -28,12 +28,6 @@ export default function Hero() {
       {/* Soft layered background glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Two committed light sources beat five apologetic ones */}
-        <div
-          className="absolute -top-[18%] left-[38%] w-[1000px] h-[760px] rounded-full bg-[#2563F6]/[0.22] dark:bg-[#2563F6]/[0.20] blur-[50px] md:blur-[160px]"
-        />
-        <div
-          className="absolute top-[26%] -right-[6%] w-[620px] h-[620px] rounded-full bg-[#3CE7FC]/[0.20] dark:bg-[#3CE7FC]/[0.14] blur-[50px] md:blur-[150px]"
-        />
         {/* Subtle dot-grid overlay — dark dots in light, white dots in dark */}
         <div
           className="absolute inset-0 opacity-[0.04] dark:hidden"
@@ -80,12 +74,10 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="block bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
-              Platforms that convert.
+            <span className="block">
+              Platforms that <span className="text-[var(--signal-text)]">convert</span>.
             </span>
-            <span className="block bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
-              Systems that scale.
-            </span>
+            <span className="block">Systems that scale.</span>
             <span className="block">Built in Luxembourg.</span>
           </motion.h1>
 
@@ -125,8 +117,8 @@ export default function Hero() {
           >
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(60,231,252,0.45)] hover:-translate-y-1 active:translate-y-0"
-              style={{ background: "linear-gradient(135deg, #2563F6 0%, #1747C4 100%)" }}
+              className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+              style={{ background: "var(--signal)" }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2.5">
                 Configure your project

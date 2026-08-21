@@ -44,9 +44,8 @@ export default function HeroShowcase() {
       className="relative w-full"
     >
       {/* Ambient glow behind the frame */}
-      <div className="absolute -inset-x-8 -bottom-8 top-8 bg-[#2563F6]/20 blur-[80px] rounded-full pointer-events-none" />
 
-      <div className="relative rounded-lg border border-white/[0.12] bg-[#0b0b14]/90 shadow-[0_40px_120px_rgba(0,0,0,0.55)] overflow-hidden">
+      <div className="relative rounded-lg border border-white/[0.12] bg-[#0b0b14]/90 overflow-hidden">
         {/* Browser chrome */}
         <div className="flex items-center gap-2 px-4 h-10 border-b border-white/[0.08] bg-white/[0.03]">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
@@ -86,9 +85,7 @@ export default function HeroShowcase() {
                 alt={`${w.name} — built by DEEV`}
                 loading={idx === 0 ? "eager" : "lazy"}
                 decoding="async"
-                className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-700 ease-out ${
-                  idx === i ? "opacity-100" : "opacity-0"
-                }`}
+                className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-700 ease-out ${ idx === i ? "opacity-100" : "opacity-0" }`}
               />
             ) : null
           )}
@@ -119,11 +116,7 @@ export default function HeroShowcase() {
                 key={w.domain}
                 onClick={() => setI(idx)}
                 aria-label={`Show ${w.name}`}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  idx === i
-                    ? "w-5 bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]"
-                    : "w-1 bg-white/20 hover:bg-white/40"
-                }`}
+                className={`h-1 rounded-full transition-all duration-500 ${ idx === i ? "w-5 bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" : "w-1 bg-white/20 hover:bg-white/40" }`}
               />
             ))}
           </div>

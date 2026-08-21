@@ -60,7 +60,7 @@ function MetricCard({
       viewport={{ once: true }}
       onViewportEnter={() => setIsVisible(true)}
       transition={{ duration: 0.6, delay }}
-      className="group relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_30px_rgba(37,99,246,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none"
+      className="group relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15] dark:hover:shadow-none hover:-translate-y-1 dark:shadow-none"
     >
       <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
       <div className="p-6">
@@ -68,7 +68,7 @@ function MetricCard({
         <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
           {title}
         </div>
-        <div className="text-4xl font-extrabold bg-gradient-to-r from-[#3CE7FC] to-[#60a5ff] bg-clip-text text-transparent tracking-tight">
+        <div className="text-4xl font-extrabold text-[var(--signal)] tracking-tight">
           {displayValue}
         </div>
         <div className="text-xs text-emerald-400 mt-1.5 font-semibold">{growth}</div>

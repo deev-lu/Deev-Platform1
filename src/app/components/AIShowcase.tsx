@@ -48,8 +48,6 @@ export default function AIShowcase() {
       {/* Premium Background decoration */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3CE7FC]/50 to-transparent" />
       <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-      <div className="absolute -top-1/4 left-1/4 w-[500px] h-[500px] bg-[#3CE7FC]/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-[#2563F6]/10 rounded-full blur-[150px] pointer-events-none" />
       {/* Subtle dot grid for depth */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none"
@@ -70,7 +68,7 @@ export default function AIShowcase() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-xs font-medium uppercase tracking-[0.2em] text-slate-400 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-white/[0.06] border border-white/[0.12] text-xs font-medium uppercase tracking-[0.2em] text-slate-400 mb-8"
           >
             <span className="w-1 h-1 rounded-full bg-[#3CE7FC] animate-pulse" />
             Next-Gen Intelligence
@@ -78,7 +76,7 @@ export default function AIShowcase() {
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight">
             AI that drives{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3CE7FC] via-[#2563F6] to-[#3CE7FC] animate-gradient-x">
+            <span className="text-[var(--signal)] animate-gradient-x">
               Enterprise Growth
             </span>
           </h2>
@@ -106,24 +104,14 @@ export default function AIShowcase() {
                 className="group relative cursor-pointer"
               >
                 <div
-                  className={`relative p-6 md:p-10 rounded-lg border transition-all duration-700 h-full ${
-                    activeCard === index
-                      ? "bg-gradient-to-br from-[#2563F6]/40 to-black border-[#3CE7FC]/50 shadow-[0_0_50px_rgba(60,231,252,0.15)]"
-                      : "bg-white/[0.04] border-white/[0.10] hover:border-white/25"
-                  }`}
+                  className={`relative p-6 md:p-10 rounded-lg border transition-all duration-700 h-full ${ activeCard === index ? "bg-gradient-to-br from-[#2563F6]/40 to-black border-[#3CE7FC]/50 " : "bg-white/[0.04] border-white/[0.10] hover:border-white/25" }`}
                 >
                   {/* Icon */}
                   <div
-                    className={`w-12 h-12 md:w-16 md:h-16 rounded-lg mb-5 md:mb-8 flex items-center justify-center transition-all duration-500 ${
-                      activeCard === index
-                        ? "bg-[#3CE7FC] shadow-[0_0_30px_rgba(60,231,252,0.4)]"
-                        : "bg-white/5 group-hover:bg-white/10"
-                    }`}
+                    className={`w-12 h-12 md:w-16 md:h-16 rounded-lg mb-5 md:mb-8 flex items-center justify-center transition-all duration-500 ${ activeCard === index ? "bg-[#3CE7FC] " : "bg-white/5 group-hover:bg-white/10" }`}
                   >
                     <Icon
-                      className={`w-6 h-6 md:w-8 md:h-8 transition-colors duration-300 ${
-                        activeCard === index ? "text-white" : "text-gray-400"
-                      }`}
+                      className={`w-6 h-6 md:w-8 md:h-8 transition-colors duration-300 ${ activeCard === index ? "text-white" : "text-gray-400" }`}
                     />
                   </div>
 
@@ -142,9 +130,7 @@ export default function AIShowcase() {
                         key={i}
                         className="flex items-center gap-3 text-base text-gray-200 font-medium"
                       >
-                        <div className={`w-1.5 h-1.5 rounded-full ${
-                          activeCard === index ? "bg-[#3CE7FC]" : "bg-gray-600"
-                        } transition-colors duration-300`} />
+                        <div className={`w-1.5 h-1.5 rounded-full ${ activeCard === index ? "bg-[#3CE7FC]" : "bg-gray-600" } transition-colors duration-300`} />
                         {feature}
                       </li>
                     ))}
@@ -152,9 +138,7 @@ export default function AIShowcase() {
 
                   {/* Animated border glow effect */}
                   <div
-                    className={`absolute inset-0 rounded-lg bg-gradient-to-br from-[#3CE7FC]/10 via-transparent to-transparent opacity-0 transition-opacity duration-700 pointer-events-none ${
-                      activeCard === index ? "opacity-100" : ""
-                    }`}
+                    className={`absolute inset-0 rounded-lg bg-gradient-to-br from-[#3CE7FC]/10 via-transparent to-transparent opacity-0 transition-opacity duration-700 pointer-events-none ${ activeCard === index ? "opacity-100" : "" }`}
                   />
                 </div>
               </motion.div>

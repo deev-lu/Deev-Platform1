@@ -49,7 +49,7 @@ export default function CookieBanner() {
           aria-live="polite"
           className="fixed z-[60] bottom-4 left-4 right-4 sm:right-auto sm:max-w-md"
         >
-          <div className="glass-edge relative overflow-hidden rounded-lg border border-white/60 dark:border-white/[0.12] bg-white/60 dark:bg-[#0e0e18]/70 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_20px_60px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+          <div className="glass-edge relative overflow-hidden rounded-lg border border-white/60 dark:border-white/[0.12] bg-white/60 dark:bg-[#0e0e18]/70 ">
             <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
             <div className="p-5 sm:p-6">
               <div className="flex items-start gap-3.5 mb-4">
@@ -84,8 +84,8 @@ export default function CookieBanner() {
                 </button>
                 <button
                   onClick={() => choose("accepted")}
-                  className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(37,99,246,0.4)]"
-                  style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+                  className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium text-white transition-all duration-200 hover:-translate-y-px "
+                  style={{ background: "var(--signal)" }}
                 >
                   Accept all
                 </button>

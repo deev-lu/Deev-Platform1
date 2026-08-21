@@ -35,14 +35,7 @@ function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
             loading="lazy"
             decoding="async"
             draggable={false}
-            className={`h-8 sm:h-11 w-auto max-w-[130px] sm:max-w-[160px] object-contain transition-all duration-300
-              ${client.invert
-                /* White logos: black silhouette in light, show as white in dark */
-                ? "brightness-0 opacity-65 dark:brightness-100 dark:opacity-85 hover:opacity-100 dark:hover:opacity-100"
-                /* Colored logos: gray in light → invert to bright silhouette in dark */
-                : "grayscale opacity-70 dark:invert dark:opacity-85 hover:grayscale-0 hover:opacity-100 dark:hover:invert-0 dark:hover:opacity-100"
-              }
-            `}
+            className={`h-8 sm:h-11 w-auto max-w-[130px] sm:max-w-[160px] object-contain transition-all duration-300 ${client.invert /* White logos: black silhouette in light, show as white in dark */ ? "brightness-0 opacity-65 dark:brightness-100 dark:opacity-85 hover:opacity-100 dark:hover:opacity-100" /* Colored logos: gray in light → invert to bright silhouette in dark */ : "grayscale opacity-70 dark:invert dark:opacity-85 hover:grayscale-0 hover:opacity-100 dark:hover:invert-0 dark:hover:opacity-100" } `}
           />
         </div>
       ))}

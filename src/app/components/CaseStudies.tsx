@@ -69,7 +69,7 @@ export default function CaseStudies() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 transition-all duration-500 hover:border-[#3CE7FC]/50 hover:shadow-[0_0_50px_rgba(60,231,252,0.2)] cursor-pointer">
+              <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 transition-all duration-500 hover:border-[#3CE7FC]/50 cursor-pointer">
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
                   <img
@@ -84,7 +84,7 @@ export default function CaseStudies() {
                     {item.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 rounded-full text-xs font-medium bg-[#3CE7FC]/20 backdrop-blur-sm border border-[#3CE7FC]/30 text-[#3CE7FC]"
+                        className="px-3 py-1 rounded-[2px] text-xs font-medium bg-[#3CE7FC]/20 border border-[#3CE7FC]/30 text-[#3CE7FC]"
                       >
                         {tag}
                       </span>

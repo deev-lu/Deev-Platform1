@@ -38,8 +38,6 @@ export default function DigitalMarketing() {
 
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#3CE7FC]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#2563F6]/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -50,14 +48,14 @@ export default function DigitalMarketing() {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             Digital Growth
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-6 tracking-tight">
             Drive Real Results with{" "}
-            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+            <span className=" text-[var(--signal)]">
               Data-Driven Marketing
             </span>
           </h2>
@@ -85,7 +83,7 @@ export default function DigitalMarketing() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative"
               >
-                <div className="relative rounded-lg bg-white dark:bg-white/[0.04] backdrop-blur-sm border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:bg-slate-50 dark:hover:bg-white/[0.07] hover:border-[#2563F6]/20 dark:hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(37,99,246,0.07)] dark:hover:shadow-none hover:-translate-y-1 shadow-sm dark:shadow-none">
+                <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:bg-slate-50 dark:hover:bg-white/[0.07] hover:border-[#2563F6]/20 dark:hover:border-white/[0.15] dark:hover:shadow-none hover:-translate-y-1 dark:shadow-none">
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
                   <div className="p-8">
                   {/* Icon */}
@@ -132,7 +130,6 @@ export default function DigitalMarketing() {
           style={{ background: undefined }}
         >
           {/* Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#3CE7FC]/[0.08] blur-[80px] pointer-events-none" />
           <div className="relative z-10">
             <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
               Ready to scale your growth?
@@ -142,8 +139,8 @@ export default function DigitalMarketing() {
             </p>
             <button
               onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative inline-flex items-center gap-2 px-9 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(60,231,252,0.4)] hover:-translate-y-1"
-              style={{ background: "linear-gradient(135deg, #3CE7FC 0%, #2563F6 100%)" }}
+              className="group relative inline-flex items-center gap-2 px-9 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-1"
+              style={{ background: "var(--signal)" }}
             >
               Get Free Marketing Audit
               <span className="transition-transform group-hover:translate-x-0.5">→</span>

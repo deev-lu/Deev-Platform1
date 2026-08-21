@@ -25,10 +25,9 @@ export default function HeroMark() {
       aria-hidden="true"
     >
       {/* Ambient bloom */}
-      <div className="absolute inset-[16%] rounded-full bg-[#2563F6]/30 blur-[80px] pointer-events-none" />
 
       {/* Grounding glass disc behind the mark */}
-      <div className="absolute inset-[36%] rounded-full bg-gradient-to-br from-white/[0.10] to-white/[0.02] dark:from-white/[0.08] dark:to-white/[0.01] border border-slate-300/50 dark:border-white/[0.10] backdrop-blur-sm pointer-events-none" />
+      <div className="absolute inset-[36%] rounded-full bg-gradient-to-br from-white/[0.10] to-white/[0.02] dark:from-white/[0.08] dark:to-white/[0.01] border border-slate-300/50 dark:border-white/[0.10] pointer-events-none" />
 
       {/* Orbit rings */}
       {RINGS.map((ring) => (
@@ -99,7 +98,7 @@ export default function HeroMark() {
         <img
           src={logo}
           alt=""
-          className="w-[34%] h-auto object-contain drop-shadow-[0_12px_48px_rgba(37,99,246,0.55)]"
+          className="w-[34%] h-auto object-contain drop-"
         />
       </motion.div>
     </motion.div>

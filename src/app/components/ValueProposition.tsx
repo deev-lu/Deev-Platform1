@@ -35,9 +35,6 @@ export default function ValueProposition() {
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
       {/* Ambient aurora — gives the clear glass colour to refract */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#2563F6]/[0.07] dark:bg-[#2563F6]/[0.05] blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 -left-40 w-[500px] h-[500px] bg-[#3CE7FC]/[0.09] dark:bg-[#3CE7FC]/[0.04] rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-[#2563F6]/[0.07] dark:bg-[#2563F6]/[0.05] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -56,7 +53,7 @@ export default function ValueProposition() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white tracking-tight">
             Everything your business needs
             <br className="hidden md:block" />
-            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent"> to dominate online.</span>
+            <span className=" text-[var(--signal)]"> to dominate online.</span>
           </h2>
           <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mt-5">
             One senior team across AI, product, web, and growth — so your whole
@@ -76,7 +73,7 @@ export default function ValueProposition() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative"
               >
-                <div className="glass glass-edge glass-sheen relative rounded-lg transition-all duration-300 hover:shadow-[0_16px_48px_rgba(37,99,246,0.12)] dark:hover:shadow-[0_0_40px_rgba(60,231,252,0.10)] hover:-translate-y-1 cursor-pointer h-full">
+                <div className="glass glass-edge glass-sheen relative rounded-lg transition-all duration-300 dark: hover:-translate-y-1 cursor-pointer h-full">
 
                   {/* Gradient top accent — Deev brand */}
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
@@ -118,7 +115,7 @@ export default function ValueProposition() {
                 className="p-7 transition-colors duration-300 hover:bg-white/40 dark:hover:bg-white/[0.04]"
               >
                 <div className="flex items-center gap-2.5 mb-3">
-                  <span className="text-sm font-extrabold bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent tracking-tight">
+                  <span className="text-sm font-extrabold text-[var(--signal)] tracking-tight">
                     {step.number}
                   </span>
                   <span className="h-px flex-1 bg-gradient-to-r from-[#2563F6]/30 to-transparent" />

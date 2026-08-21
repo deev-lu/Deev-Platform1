@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
-const techIcons = ["⚡", "🚀", "🤖", "💎", "⚙️", "📊", "🎯", "✨"];
+const techIcons = ["", "", "", "", "", "", "", ""];
 
 export default function FloatingTech3D() {
   const [mounted, setMounted] = useState(false);

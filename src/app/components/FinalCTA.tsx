@@ -15,7 +15,7 @@ export default function FinalCTA() {
       {/* Background — dark only */}
       <div className="hidden dark:block absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-[2px]"
           style={{ background: "radial-gradient(circle, rgba(60,231,252,0.10) 0%, rgba(37,99,246,0.06) 50%, transparent 70%)" }}
           animate={{ scale: [1, 1.12, 1], opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
@@ -37,7 +37,7 @@ export default function FinalCTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-[#2563F6] dark:text-[#3CE7FC] mb-10"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-[#2563F6] dark:text-[#3CE7FC] mb-10"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span className="text-xs font-medium tracking-widest uppercase">Ready to scale?</span>
@@ -53,7 +53,7 @@ export default function FinalCTA() {
         >
           Let's build something
           <br />
-          <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+          <span className=" text-[var(--signal)]">
             extraordinary.
           </span>
         </motion.h2>
@@ -81,8 +81,8 @@ export default function FinalCTA() {
         >
           <button
             onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
-            className="group relative px-10 py-4 rounded-lg font-semibold text-lg text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_rgba(37,99,246,0.3)] hover:-translate-y-1"
-            style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+            className="group relative px-10 py-4 rounded-lg font-semibold text-lg text-white overflow-hidden transition-all duration-300 hover:-translate-y-1"
+            style={{ background: "var(--signal)" }}
           >
             <span className="relative z-10 flex items-center gap-2.5">
               Start your project

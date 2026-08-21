@@ -12,8 +12,6 @@ export default function BillovioFeature() {
   return (
     <section className="relative overflow-hidden bg-white dark:bg-[#050509] py-16 sm:py-24 md:py-32 border-t border-slate-100 dark:border-white/5">
       {/* Ambient */}
-      <div className="absolute top-1/4 -right-40 w-[520px] h-[520px] bg-[#2563F6]/[0.08] dark:bg-[#2563F6]/[0.05] rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] bg-[#3CE7FC]/[0.07] dark:bg-[#3CE7FC]/[0.04] rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* ── Header ───────────────────────────────────────── */}
@@ -31,7 +29,7 @@ export default function BillovioFeature() {
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 dark:text-white tracking-tight mb-4">
             We don't just build AI.{" "}
-            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+            <span className=" text-[var(--signal)]">
               We ship it.
             </span>
           </h2>
@@ -77,9 +75,8 @@ export default function BillovioFeature() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          <div className="absolute -inset-6 bg-[#2563F6]/12 blur-[70px] rounded-full pointer-events-none" />
 
-          <div className="relative rounded-lg overflow-hidden ring-1 ring-slate-200 dark:ring-white/[0.10] shadow-[0_30px_80px_-20px_rgba(15,23,42,0.22)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] bg-white dark:bg-[#0b0b14]">
+          <div className="relative rounded-lg overflow-hidden ring-1 ring-slate-200 dark:ring-white/[0.10] bg-white dark:bg-[#0b0b14]">
             <iframe
               src="https://www.billovio.com/try"
               title="Billovio — generate a proposal"
@@ -100,8 +97,8 @@ export default function BillovioFeature() {
             href="https://www.billovio.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(37,99,246,0.4)]"
-            style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+            className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white transition-all duration-300 hover:-translate-y-0.5 "
+            style={{ background: "var(--signal)" }}
           >
             Start free on Billovio
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

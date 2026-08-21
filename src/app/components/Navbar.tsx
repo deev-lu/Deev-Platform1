@@ -4,10 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
 
-interface NavbarProps {
-  theme?: "light" | "dark";
-  toggleTheme?: () => void;
-}
+interface NavbarProps {}
 
 const NAV_LINKS = [
   { label: "Services",  href: "#services" },
@@ -17,42 +14,7 @@ const NAV_LINKS = [
   { label: "Contact",   href: "/contact" },
 ];
 
-function ThemePillToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggle: () => void }) {
-  const isDark = theme === "dark";
-  return (
-    <button
-      onClick={onToggle}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={`relative flex items-center w-[68px] h-[32px] rounded-full p-[3px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563F6] ${
-        isDark
-          ? "bg-[#1a1a2e] border border-white/[0.12] shadow-inner"
-          : "bg-slate-100 border border-slate-200 shadow-inner"
-      }`}
-    >
-      {/* Sliding knob */}
-      <motion.div
-        layout
-        transition={{ type: "spring", stiffness: 500, damping: 35 }}
-        className={`absolute w-[26px] h-[26px] rounded-full flex items-center justify-center shadow-md ${
-          isDark
-            ? "right-[3px] bg-[#2563F6]"
-            : "left-[3px] bg-white shadow-slate-200"
-        }`}
-      >
-        {isDark
-          ? <Moon className="w-3.5 h-3.5 text-white" />
-          : <Sun className="w-3.5 h-3.5 text-yellow-500" />
-        }
-      </motion.div>
-
-      {/* Background icons (stationary) */}
-      <Sun className={`absolute left-[7px] w-3 h-3 transition-opacity duration-200 ${isDark ? "opacity-30 text-slate-400" : "opacity-0"}`} />
-      <Moon className={`absolute right-[7px] w-3 h-3 transition-opacity duration-200 ${isDark ? "opacity-0" : "opacity-30 text-slate-500"}`} />
-    </button>
-  );
-}
-
-export default function Navbar({ theme, toggleTheme }: NavbarProps) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [overDark, setOverDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -100,15 +62,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          overDark ? "dark " : ""
-        }${
-          scrolled
-            ? overDark
-              ? "bg-[#06060a]/90 md:bg-[#06060a]/75 backdrop-blur-2xl backdrop-saturate-[1.7] border-b border-white/[0.09] shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
-              : "bg-white/90 md:bg-white/60 dark:bg-[#06060a]/90 md:dark:bg-[#06060a]/75 backdrop-blur-2xl backdrop-saturate-[1.7] border-b border-white/50 dark:border-white/[0.09] shadow-[0_8px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
-            : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${ overDark ? "dark " : "" }${ scrolled ? overDark ? "bg-[#06060a]/90 md:bg-[#06060a]/75 border-b border-white/[0.09] " : "bg-white/90 md:bg-white/60 dark:bg-[#06060a]/90 md:dark:bg-[#06060a]/75 border-b border-white/50 dark:border-white/[0.09] " : "bg-transparent" }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
 
@@ -133,29 +87,25 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  scrolled
-                    ? "border border-slate-200 dark:border-white/[0.12] text-slate-600 dark:text-slate-300 hover:border-[#2563F6] hover:text-[#2563F6] dark:hover:border-white/30 dark:hover:text-white"
-                    : "border border-slate-300/70 dark:border-white/[0.14] text-slate-700 dark:text-white/80 hover:border-[#2563F6] hover:text-[#2563F6] dark:hover:border-white/30 dark:hover:text-white"
-                }`}
+                className="group relative px-1 py-2 text-sm font-medium text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
               >
                 {link.label}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-0 bottom-1 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-x-100"
+                />
               </button>
             ))}
           </nav>
 
-          {/* Right side: theme toggle + CTA + burger */}
+          {/* Right side: CTA + burger */}
           <div className="flex items-center gap-3">
-            {/* Premium pill theme toggle */}
-            {toggleTheme && (
-              <ThemePillToggle theme={theme ?? "dark"} onToggle={toggleTheme} />
-            )}
 
             {/* CTA */}
             <button
               onClick={() => scrollTo("#project-builder")}
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:shadow-[0_0_24px_rgba(37,99,246,0.45)]"
-              style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px "
+              style={{ background: "var(--signal)" }}
             >
               Get a quote
             </button>
@@ -163,11 +113,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             {/* Mobile burger */}
             <button
               onClick={() => setMenuOpen((v) => !v)}
-              className={`md:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${
-                scrolled
-                  ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
-                  : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]"
-              }`}
+              className={`md:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${ scrolled ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]" : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]" }`}
               aria-label="Toggle menu"
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -184,7 +130,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[68px] left-0 right-0 z-30 bg-white/97 dark:bg-[#08080c]/97 backdrop-blur-2xl border-b border-slate-200 dark:border-white/[0.08] md:hidden shadow-2xl"
+            className="fixed top-[68px] left-0 right-0 z-30 bg-white/97 dark:bg-[#08080c]/97 border-b border-slate-200 dark:border-white/[0.08] md:hidden "
           >
             <nav className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
@@ -197,20 +143,10 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 </button>
               ))}
 
-              {/* Mobile theme toggle row */}
-              {toggleTheme && (
-                <div className="flex items-center justify-between px-4 py-3.5 rounded-md">
-                  <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-                    {theme === "dark" ? "Dark mode" : "Light mode"}
-                  </span>
-                  <ThemePillToggle theme={theme ?? "dark"} onToggle={toggleTheme} />
-                </div>
-              )}
-
               <button
                 onClick={() => scrollTo("#project-builder")}
                 className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+                style={{ background: "var(--signal)" }}
               >
                 Get a quote →
               </button>

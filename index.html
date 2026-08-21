@@ -120,10 +120,7 @@
       }
       /* Pre-paint background per theme to avoid a flash of the wrong mode */
       html {
-        background: #f8fafc;
-      }
-      html.dark {
-        background: #06060a;
+        background: #08090b;
       }
       /* Brand font available to the instant loader too */
       @font-face {
@@ -148,10 +145,7 @@
         font-weight: 700;
         letter-spacing: 0.02em;
         font-size: 26px;
-        color: #0a0f2e;
-      }
-      html.dark #app-loader .wm {
-        color: #fff;
+        color: #f2f4f6;
       }
       #app-loader .bar {
         width: 120px;
@@ -179,16 +173,9 @@
       }
     </style>
 
-    <!-- Apply saved theme before paint (defaults to dark) -->
+    <!-- Dark only (brief §3.1). No toggle, no stored preference to read. -->
     <script>
-      (function () {
-        try {
-          var t = localStorage.getItem("theme");
-          document.documentElement.classList.toggle("dark", t !== "light");
-        } catch (e) {
-          document.documentElement.classList.add("dark");
-        }
-      })();
+      document.documentElement.classList.add("dark");
     </script>
   </head>
 

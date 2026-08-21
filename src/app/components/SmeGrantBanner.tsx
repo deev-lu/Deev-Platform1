@@ -12,23 +12,22 @@ export default function SmeGrantBanner() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-edge glass-sheen group relative rounded-lg border border-emerald-300/60 dark:border-emerald-500/30 bg-gradient-to-br from-emerald-50/60 to-white/30 dark:from-emerald-950/40 dark:to-[#08080c]/60 backdrop-blur-2xl backdrop-saturate-150 p-6 sm:p-8 md:p-10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(16,185,129,0.14)] dark:hover:shadow-[0_20px_60px_rgba(16,185,129,0.10)]"
+          className="glass-edge glass-sheen group relative rounded-lg border border-emerald-300/60 dark:border-emerald-500/30 bg-gradient-to-br from-emerald-50/60 to-white/30 dark:from-emerald-950/40 dark:to-[#08080c]/60 p-6 sm:p-8 md:p-10 transition-all duration-300 hover:-translate-y-0.5 dark:"
         >
           {/* Soft glow */}
-          <div className="absolute -top-16 -right-10 w-64 h-64 bg-emerald-400/15 dark:bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
             {/* Icon + flag */}
             <div className="flex items-center gap-4 shrink-0">
-              <div className="w-14 h-14 rounded-lg bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+              <div className="w-14 h-14 rounded-lg bg-emerald-500 flex items-center justify-center shadow-emerald-500/30">
                 <BadgeEuro className="w-7 h-7 text-white" />
               </div>
-              <span className="text-4xl" aria-hidden>🇱🇺</span>
+              <span className="text-4xl" aria-hidden></span>
             </div>
 
             {/* Copy */}
             <div className="flex-1 min-w-0">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-xs font-medium uppercase tracking-widest mb-2.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-xs font-medium uppercase tracking-widest mb-2.5">
                 Government-backed funding
               </div>
               <h3 className="text-xl sm:text-2xl md:text-[1.7rem] font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight">
@@ -47,7 +46,7 @@ export default function SmeGrantBanner() {
             {/* CTA */}
             <button
               onClick={scrollToBuilder}
-              className="group shrink-0 inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg font-medium text-base text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(16,185,129,0.4)]"
+              className="group shrink-0 inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg font-medium text-base text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 "
             >
               See your net price
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

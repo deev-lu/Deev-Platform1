@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 // Critical above-the-fold — eager loaded
@@ -28,15 +28,15 @@ const Contact           = lazy(() => import("./components/Contact"));
 function SectionSkeleton() {
   return (
     <div className="w-full py-24 flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-[#2563F6]/30 border-t-[#2563F6] rounded-full animate-spin" />
+      <div className="w-8 h-8 border-2 border-[#2563F6]/30 border-t-[#2563F6] rounded-[2px] animate-spin" />
     </div>
   );
 }
 
-function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme: () => void }) {
+function HomePage() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] overflow-x-hidden transition-colors duration-300">
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar />
       <Hero />
       <ClientLogos />
       <SmeGrantBanner />
@@ -76,39 +76,17 @@ function HomePage({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme
 }
 
 export default function App() {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
-  // localStorage throws outright in Safari with cookies blocked and inside
-  // sandboxed embeds. The pre-paint script in index.html already guards for
-  // this; an unguarded read here would throw during mount and blank the page.
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("theme") as "light" | "dark" | null;
-      if (saved) setTheme(saved);
-    } catch {
-      /* keep the default theme */
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    try {
-      localStorage.setItem("theme", theme);
-    } catch {
-      /* preference just won't persist */
-    }
-  }, [theme]);
 
   // Google Analytics — only after the cookie banner is accepted
   useEffect(() => initAnalytics(), []);
 
-  const toggleTheme = () => setTheme(p => p === "dark" ? "light" : "dark");
 
   return (
     <BrowserRouter>
       <RouteMeta />
       <Routes>
-        <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/legal" element={
           <Suspense fallback={<SectionSkeleton />}>
             <Legal />

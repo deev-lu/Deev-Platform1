@@ -16,8 +16,6 @@ const FOUNDERS = [
 export default function FoundersNote() {
   return (
     <section className="relative overflow-hidden bg-slate-50 dark:bg-[#08080c] py-16 sm:py-24 md:py-28 border-t border-slate-100 dark:border-white/5">
-      <div className="absolute top-0 -left-40 w-[520px] h-[520px] bg-[#2563F6]/[0.07] dark:bg-[#2563F6]/[0.05] rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-40 w-[460px] h-[460px] bg-[#3CE7FC]/[0.06] dark:bg-[#3CE7FC]/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)] gap-12 lg:gap-16 items-center">
         {/* ── The note ─────────────────────────────────────── */}
@@ -63,13 +61,12 @@ export default function FoundersNote() {
               transition={{ duration: 0.8, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              <div className="absolute -inset-3 bg-[#2563F6]/12 blur-[40px] rounded-full pointer-events-none" />
               <img
                 src={f.photo}
                 alt={`${f.name}, ${f.role} at DEEV`}
                 loading="lazy"
                 decoding="async"
-                className="relative w-full aspect-[4/5] object-cover rounded-lg ring-1 ring-slate-200 dark:ring-white/10 shadow-[0_20px_50px_-18px_rgba(15,23,42,0.35)] dark:shadow-[0_24px_60px_-18px_rgba(0,0,0,0.6)]"
+                className="relative w-full aspect-[4/5] object-cover rounded-lg ring-1 ring-slate-200 dark:ring-white/10 "
               />
               <div className="relative mt-3.5">
                 <div className="text-sm font-medium text-slate-900 dark:text-white">

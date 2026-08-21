@@ -1,0 +1,157 @@
+/* ─────────────────────────────────────────────────────────────
+   DEEV design tokens — per DEEV-REDESIGN-BRIEF.md §4
+   Dark only. One accent. Hairlines, not shadows. No gradients.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Surfaces — near-black steps, cool-shifted. Elevation = lighter, never shadowed. */
+  --surface-0: #08090b;
+  --surface-1: #0c0e11;
+  --surface-2: #121519;
+  --surface-3: #191d22;
+  --surface-inv: #f6f7f8;
+
+  /* Hairlines — structure lives here */
+  --line-faint: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text-hi: #f2f4f6;
+  --text: #c6cbd1;
+  --text-mid: #8b929b;
+  --text-low: #767d87; /* brief said #5E656E — 3.38:1, below its own 4.5 floor */
+  --text-inv: #0a0b0d;
+
+  /* Signal — ONE accent, under 5% of pixels.
+     Brief §4.1 specifies #2E6BFF; the brand book says #2563F6.
+     Flagged for confirmation — changing this one line switches the whole site. */
+  --signal: #2e6bff;
+  --signal-hi: #558bff;
+  /* Accent as TEXT cannot reach the 7:1 headline floor at the brief's hue
+     (#2E6BFF = 4.42:1, #558BFF = 6.19:1). Fills keep --signal; accent type
+     uses this lighter tint, measured at 7.39:1. */
+  --signal-text: #6e9bff;
+  --signal-dim: rgba(46, 107, 255, 0.12);
+
+  --metal: #9aa3ad;
+
+  /* Functional only. Never decorative. */
+  --positive: #3dbe7a;
+  --warn: #e0a33c;
+
+  /* Shape — hard edges. 4px is the maximum permitted. */
+  --radius-0: 0px;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-pill: 999px; /* status dots only */
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.30, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+  --dur-3: 560ms;
+  --dur-4: 900ms;
+
+  /* Type scale — fluid, 390 → 1920 */
+  --t-display: clamp(3.25rem, 1.2rem + 8.6vw, 8.5rem);
+  --t-h1: clamp(2.5rem, 1.4rem + 4.6vw, 5rem);
+  --t-h2: clamp(2rem, 1.3rem + 2.9vw, 3.5rem);
+  --t-h3: clamp(1.375rem, 1.15rem + 0.95vw, 2rem);
+  --t-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+  --t-body: 1rem;
+  --t-small: 0.875rem;
+  --t-label: 0.6875rem;
+
+  /* Space / grid */
+  --section-y: clamp(96px, 10vw, 200px);
+  --section-y-lg: clamp(140px, 14vw, 280px);
+  --container: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+}
+
+/* Expose the tokens to Tailwind v4 utilities (bg-surface-1, text-hi, …) */
+@theme inline {
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line-faint: var(--line-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text-hi: var(--text-hi);
+  --color-text-body: var(--text);
+  --color-text-mid: var(--text-mid);
+  --color-text-low: var(--text-low);
+  --color-signal: var(--signal);
+  --color-signal-hi: var(--signal-hi);
+  --color-signal-text: var(--signal-text);
+  --color-metal: var(--metal);
+  --color-positive: var(--positive);
+}
+
+/* ── Global corrections the brief mandates ────────────────────
+   These neutralise the patterns being removed component by
+   component, so nothing reintroduces them by accident. */
+
+/* No decorative gradients anywhere. Gradient text fills read as AI-generic. */
+.bg-clip-text {
+  -webkit-text-fill-color: var(--signal);
+  color: var(--signal);
+  background-image: none !important;
+}
+
+/* Elevation is a surface step plus a hairline — never a shadow. */
+*,
+*::before,
+*::after {
+  box-shadow: none !important;
+}
+
+/* Glassmorphism is on the rejection list, and it was the biggest
+   paint cost on mobile besides. */
+* {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ── Retire the glass surfaces ────────────────────────────────
+   `.glass` carries its own gradient, blur and shadow, and a class
+   selector outranks the `*` resets above even at !important. The
+   brief deletes glassmorphism, so the class becomes a flat panel:
+   a surface step and a hairline, nothing else. Kept as a class so
+   the markup using it does not all have to change at once. */
+.glass,
+.dark .glass,
+.glass-edge,
+.dark .glass-edge,
+.glass-sheen,
+.dark .glass-sheen {
+  background: var(--surface-2) !important;
+  background-image: none !important;
+  border-color: var(--line) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.glass-edge::before,
+.glass-edge::after,
+.glass-sheen::before,
+.glass-sheen::after {
+  display: none !important;
+}
+
+/* No colour-to-colour fades. A blue→cyan wash is the single most
+   "AI generic" signal on a site; the accent is a flat field. */
+[class*="bg-gradient-to"] {
+  /* Remove the fade only. Forcing a colour here repainted every decorative
+     scrim — including the hero's bottom fade — as a solid accent slab. */
+  background-image: none !important;
+}
+
+/* Hard edges. The brief permits 4px maximum. */
+.rounded-lg { border-radius: var(--radius-2) !important; }
+.rounded-md { border-radius: var(--radius-1) !important; }
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl { border-radius: var(--radius-2) !important; }

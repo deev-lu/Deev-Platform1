@@ -81,9 +81,8 @@ export default function HeroDashboard() {
       className="relative w-full"
     >
       {/* Glow under the panel */}
-      <div className="absolute -inset-x-10 -bottom-10 top-10 bg-[#2563F6]/20 blur-[90px] rounded-full pointer-events-none" />
 
-      <div className="glass-edge relative rounded-lg sm:rounded-lg border border-white/[0.14] bg-[#0b0b14]/85 backdrop-blur-xl backdrop-saturate-150 shadow-[0_40px_120px_rgba(0,0,0,0.6)] overflow-hidden">
+      <div className="glass-edge relative rounded-lg sm:rounded-lg border border-white/[0.14] bg-[#0b0b14]/85 overflow-hidden">
         {/* Window top bar */}
         <div className="flex items-center gap-2 px-4 sm:px-5 h-11 border-b border-white/[0.08] bg-white/[0.02]">
           <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
@@ -97,7 +96,7 @@ export default function HeroDashboard() {
           </div>
           <span className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-400">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+              <span className="absolute inline-flex h-full w-full rounded-[2px] bg-emerald-400 opacity-75 animate-ping" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
             </span>
             LIVE

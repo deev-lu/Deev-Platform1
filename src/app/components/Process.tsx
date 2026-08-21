@@ -32,8 +32,6 @@ export default function Process() {
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#06060a] overflow-hidden transition-colors duration-300">
       {/* Background glows — dark only */}
-      <div className="hidden dark:block absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#3CE7FC]/[0.05] rounded-full blur-[130px] pointer-events-none" />
-      <div className="hidden dark:block absolute right-0 top-1/3 w-[400px] h-[400px] bg-[#2563F6]/[0.05] rounded-full blur-[110px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
 
@@ -44,7 +42,7 @@ export default function Process() {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             How we work
           </div>
@@ -75,15 +73,15 @@ export default function Process() {
                     className="group relative flex flex-col items-center"
                   >
                     {/* Gradient ring badge — Deev brand */}
-                    <div className="relative w-[104px] h-[104px] rounded-full p-[2px] bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] mb-8 z-10">
-                      <div className="w-full h-full rounded-full bg-slate-100 dark:bg-[#0a0a12] flex flex-col items-center justify-center transition-all duration-500 group-hover:bg-white dark:group-hover:bg-[#0e0e18]">
+                    <div className="relative w-[104px] h-[104px] rounded-[2px] p-[2px] bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] mb-8 z-10">
+                      <div className="w-full h-full rounded-[2px] bg-slate-100 dark:bg-[#0a0a12] flex flex-col items-center justify-center transition-all duration-500 group-hover:bg-white dark:group-hover:bg-[#0e0e18]">
                         <Icon className="w-6 h-6 text-[#2563F6] dark:text-[#3CE7FC] mb-1" />
                         <span className="text-xs font-medium text-slate-400 dark:text-white/30 tracking-wider">{step.number}</span>
                       </div>
                     </div>
 
                     {/* Card */}
-                    <div className="relative w-full rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:border-[#2563F6]/25 dark:hover:border-white/[0.15] hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(37,99,246,0.08)] dark:hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] shadow-sm dark:shadow-none">
+                    <div className="relative w-full rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-500 hover:border-[#2563F6]/25 dark:hover:border-white/[0.15] hover:-translate-y-1 dark: dark:shadow-none">
                       <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
                       <div className="p-6 text-center">
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300">
@@ -114,11 +112,11 @@ export default function Process() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#2563F6]/25 dark:hover:border-white/[0.15] shadow-sm dark:shadow-none">
+                <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden transition-all duration-300 hover:border-[#2563F6]/25 dark:hover:border-white/[0.15] dark:shadow-none">
                   <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
                   <div className="p-6 flex items-start gap-5">
-                    <div className="shrink-0 w-14 h-14 rounded-full p-[2px] bg-gradient-to-br from-[#2563F6] to-[#3CE7FC]">
-                      <div className="w-full h-full rounded-full bg-slate-100 dark:bg-[#0a0a12] flex items-center justify-center">
+                    <div className="shrink-0 w-14 h-14 rounded-[2px] p-[2px] bg-gradient-to-br from-[#2563F6] to-[#3CE7FC]">
+                      <div className="w-full h-full rounded-[2px] bg-slate-100 dark:bg-[#0a0a12] flex items-center justify-center">
                         <Icon className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
                       </div>
                     </div>

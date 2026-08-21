@@ -7,7 +7,7 @@ export default function Legal() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300">
       {/* Simple top nav */}
-      <div className="sticky top-0 z-50 border-b border-slate-200 dark:border-white/[0.07] bg-white/90 dark:bg-[#06060a]/90 backdrop-blur-xl">
+      <div className="sticky top-0 z-50 border-b border-slate-200 dark:border-white/[0.07] bg-white/90 dark:bg-[#06060a]/90 ">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-4">
           <Link
             to="/"
@@ -18,7 +18,7 @@ export default function Legal() {
           </Link>
           <div className="flex items-center gap-2 ml-auto">
             <img src={logo} alt="DEEV" className="h-7 w-auto object-contain" />
-            <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+            <span className="text-lg font-extrabold tracking-tight text-[var(--signal)]">
               Deev
             </span>
           </div>
@@ -33,12 +33,12 @@ export default function Legal() {
         >
           {/* Header */}
           <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
               Legal Information
             </div>
             <h1 className="text-4xl md:text-5xl font-medium text-slate-900 dark:text-white mb-4 tracking-tight">
               Terms &amp;{" "}
-              <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+              <span className=" text-[var(--signal)]">
                 Legal Notice
               </span>
             </h1>
@@ -48,7 +48,7 @@ export default function Legal() {
           </div>
 
           {/* Company Info Card */}
-          <div className="rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 shadow-sm dark:shadow-none">
+          <div className="rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 dark:shadow-none">
             <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
             <div className="p-8">
               <h2 className="text-xl font-medium text-slate-900 dark:text-white mb-6">Company Information</h2>
@@ -202,8 +202,8 @@ export default function Legal() {
           <div className="mt-16 pt-8 border-t border-slate-200 dark:border-white/[0.07]">
             <Link
               to="/"
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,231,252,0.35)] hover:-translate-y-0.5"
-              style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
+              style={{ background: "var(--signal)" }}
             >
               <ArrowLeft className="w-4 h-4" />
               Back to DEEV
@@ -217,7 +217,7 @@ export default function Legal() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.07] p-8 shadow-sm dark:shadow-none">
+    <div className="rounded-lg bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.07] p-8 dark:shadow-none">
       <h2 className="text-lg font-medium text-slate-900 dark:text-white mb-4 tracking-tight">{title}</h2>
       <div className="text-slate-600 dark:text-slate-400 leading-relaxed text-[0.95rem]">{children}</div>
     </div>

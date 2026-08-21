@@ -92,7 +92,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300">
       {/* Simple top nav */}
-      <div className="sticky top-0 z-50 border-b border-slate-200 dark:border-white/[0.07] bg-white/90 dark:bg-[#06060a]/90 backdrop-blur-xl">
+      <div className="sticky top-0 z-50 border-b border-slate-200 dark:border-white/[0.07] bg-white/90 dark:bg-[#06060a]/90 ">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
           <Link
             to="/"
@@ -118,14 +118,14 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-12 md:mb-16 max-w-2xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             Get in touch
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Let's talk about
             <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+            <span className=" text-[var(--signal)]">
               {" "}your project.
             </span>
           </h1>
@@ -145,14 +145,13 @@ export default function Contact() {
           >
             {/* SME grant card */}
             <div className="relative overflow-hidden rounded-lg p-5 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/40 dark:to-[#08080c] border border-emerald-300/60 dark:border-emerald-500/30">
-              <div className="absolute -top-10 -right-8 w-40 h-40 bg-emerald-400/15 dark:bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-2.5">
-                  <div className="shrink-0 w-11 h-11 rounded-md bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                  <div className="shrink-0 w-11 h-11 rounded-md bg-emerald-500 flex items-center justify-center shadow-emerald-500/30">
                     <BadgeEuro className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider leading-tight">
-                    🇱🇺 Up to 70% funded
+                    Up to 70% funded
                   </div>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
@@ -197,7 +196,7 @@ export default function Contact() {
             ].map((item) => {
               const Icon = item.icon;
               const inner = (
-                <div className="flex items-start gap-4 p-5 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] shadow-sm dark:shadow-none transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15]">
+                <div className="flex items-start gap-4 p-5 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] dark:shadow-none transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15]">
                   <div className="shrink-0 w-11 h-11 rounded-md bg-[#2563F6]/[0.07] dark:bg-[#3CE7FC]/[0.10] flex items-center justify-center">
                     <Icon className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
                   </div>
@@ -234,7 +233,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden shadow-sm dark:shadow-none">
+            <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden dark:shadow-none">
               <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
 
               {status === "success" ? (
@@ -253,7 +252,7 @@ export default function Contact() {
                   <Link
                     to="/"
                     className="inline-flex items-center gap-2 px-7 py-3 rounded-md font-semibold text-sm text-white transition-all duration-300 hover:-translate-y-0.5"
-                    style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+                    style={{ background: "var(--signal)" }}
                   >
                     Back to homepage
                   </Link>
@@ -357,8 +356,8 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,231,252,0.35)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                    style={{ background: "linear-gradient(135deg, #2563F6 0%, #3CE7FC 100%)" }}
+                    className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    style={{ background: "var(--signal)" }}
                   >
                     {status === "submitting" ? (
                       <>

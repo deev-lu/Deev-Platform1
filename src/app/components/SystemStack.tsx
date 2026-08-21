@@ -36,8 +36,6 @@ export default function SystemStack() {
   return (
     <section className="relative overflow-hidden bg-[#050509] py-20 sm:py-28 md:py-32">
       {/* Ambient */}
-      <div className="absolute -top-32 left-1/4 w-[600px] h-[500px] bg-[#2563F6]/[0.10] rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-[#3CE7FC]/[0.06] rounded-full blur-[130px] pointer-events-none" />
       <NoiseOverlay opacity={0.035} />
       {/* Hairline frame */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
@@ -60,10 +58,10 @@ export default function SystemStack() {
                 style={{
                   transform: `translateZ(${p.z}px)`,
                   opacity: p.opacity,
-                  background: `linear-gradient(135deg, ${p.tone}, rgba(255,255,255,0.02))`,
+                  background: p.tone,
                   border: `1px solid ${p.border}`,
                   boxShadow: `0 0 40px ${p.tone}`,
-                  backgroundImage: `linear-gradient(135deg, ${p.tone}, rgba(255,255,255,0.02)),
+                  backgroundImage: `linear-gradient(${p.tone}, ${p.tone}),
                     linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
                   backgroundSize: "auto, 36px 36px, 36px 36px",
@@ -90,7 +88,7 @@ export default function SystemStack() {
               style={{
                 height: "150px",
                 background:
-                  "linear-gradient(to top, rgba(37,99,246,0.7), rgba(60,231,252,0.9))",
+                  "var(--signal)",
                 transform: "translate(-50%, -50%) rotateX(-90deg) translateZ(0px) translateY(-75px)",
                 transformStyle: "preserve-3d",
               }}

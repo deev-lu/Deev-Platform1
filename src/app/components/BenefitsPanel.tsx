@@ -62,7 +62,7 @@ export default function BenefitsPanel() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="p-9 sm:p-12"
-            style={{ background: "linear-gradient(150deg, #2563F6 0%, #1B4FD8 100%)" }}
+            style={{ background: "var(--signal)" }}
           >
             <h3 className="text-[1.35rem] sm:text-[1.6rem] font-medium text-white mb-8 tracking-[-0.01em]">
               &ldquo;Your advantages at a glance&rdquo;
@@ -71,7 +71,7 @@ export default function BenefitsPanel() {
             <ul className="space-y-6">
               {BENEFITS.map(({ icon: Icon, title, copy }) => (
                 <li key={title} className="flex items-start gap-4">
-                  <span className="shrink-0 w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                  <span className="shrink-0 w-9 h-9 rounded-[2px] bg-white/15 flex items-center justify-center">
                     <Icon className="w-[18px] h-[18px] text-white" />
                   </span>
                   <div>

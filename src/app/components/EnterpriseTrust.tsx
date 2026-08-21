@@ -5,7 +5,7 @@ import CountUp from "./CountUp";
 const credentials = [
   { value: "50+", label: "Projects delivered" },
   { value: "100%", label: "On-time delivery" },
-  { value: "EU 🇪🇺", label: "Based in Luxembourg" },
+  { value: "EU ", label: "Based in Luxembourg" },
   { value: "Senior", label: "Only engineering" },
 ];
 
@@ -53,8 +53,6 @@ export default function EnterpriseTrust() {
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#08080c] overflow-hidden transition-colors duration-300 border-t border-slate-100 dark:border-white/5">
       {/* Ambient aurora — both themes, so the clear glass has colour to refract */}
-      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#2563F6]/[0.07] dark:bg-[#2563F6]/[0.05] rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#3CE7FC]/[0.09] dark:bg-[#3CE7FC]/[0.05] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Header */}
@@ -72,7 +70,7 @@ export default function EnterpriseTrust() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Engineered to be trusted
             <br className="hidden md:block" />
-            <span className="bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent">
+            <span className=" text-[var(--signal)]">
               {" "}with what matters.
             </span>
           </h2>
@@ -94,7 +92,7 @@ export default function EnterpriseTrust() {
               key={c.label}
               className="glass glass-edge text-center rounded-lg py-6 px-4"
             >
-              <div className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-[#3CE7FC] to-[#2563F6] bg-clip-text text-transparent tracking-tight">
+              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--signal)] tracking-tight">
                 <CountUp value={c.value} />
               </div>
               <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 font-semibold uppercase tracking-wider">
@@ -115,7 +113,7 @@ export default function EnterpriseTrust() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="glass glass-edge glass-sheen group relative rounded-lg transition-all duration-300 hover:shadow-[0_16px_48px_rgba(37,99,246,0.10)] dark:hover:shadow-[0_0_40px_rgba(60,231,252,0.08)] hover:-translate-y-1"
+                className="glass glass-edge glass-sheen group relative rounded-lg transition-all duration-300 dark: hover:-translate-y-1"
               >
                 <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
                 <div className="p-7 flex items-start gap-5">
@@ -150,7 +148,7 @@ export default function EnterpriseTrust() {
             {stack.map((tech) => (
               <span
                 key={tech}
-                className="px-4 py-2 rounded-full text-sm font-semibold bg-slate-50 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.10] text-slate-600 dark:text-slate-300"
+                className="px-4 py-2 rounded-[2px] text-sm font-semibold bg-slate-50 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.10] text-slate-600 dark:text-slate-300"
               >
                 {tech}
               </span>
