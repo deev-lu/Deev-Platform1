@@ -13,17 +13,20 @@ import { PROJECTS } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
- * The work at full scale, one project at a time, rotating every ten seconds.
+ * §04 — Selected work.
  *
- * The first version bled the screenshot edge to edge with the title over it.
- * That does not work: a screenshot carries its own typography, so the client's
- * centred headline sat directly behind ours and printed the project name
- * twice. Recropping only moved the collision. A screenshot is a screenshot:
- * it belongs in a frame, with our type beside it rather than on top.
+ * This section replaced the tiled portfolio grid. One project at a time, at
+ * full scale, rotating every ten seconds through every project we have a real
+ * screenshot of.
+ *
+ * The screenshot sits in a frame with our type beside it rather than under it:
+ * a screenshot carries the client's own typography, so a title laid over it
+ * prints the project name twice.
  *
  * Rotation rules:
- *   - Only projects we actually have a screenshot for are in the cycle. The
- *     other eight would rotate an empty frame into view.
+ *   - Only projects with a screenshot are in the cycle. The rest would rotate
+ *     an empty frame into view; they are listed in the index underneath, so
+ *     every case-study page is still linked from the homepage.
  *   - The timer runs only while the section is on screen and the tab is
  *     visible, so a page left open in a background tab is not repainting a
  *     600px image every ten seconds.
@@ -47,13 +50,10 @@ const FEATURED = PROJECTS.filter((p) => p.image);
  *  room for the title, so the link and the ticks below it never move when a
  *  three-line name is replaced by a one-line name. */
 const LONGEST_TITLE = FEATURED.reduce((a, p) => (p.title.length > a.length ? p.title : a), "");
-const LONGEST_META = FEATURED.reduce(
-  (a, p) => {
-    const m = `${p.category} / ${p.year}`;
-    return m.length > a.length ? m : a;
-  },
-  "",
-);
+const LONGEST_META = FEATURED.reduce((a, p) => {
+  const m = `${p.category} / ${p.year}`;
+  return m.length > a.length ? m : a;
+}, "");
 
 const domainOf = (link?: string) =>
   link ? link.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "") : "";
@@ -130,175 +130,245 @@ export default function WorkMoment() {
       />
 
       <div
-        className="relative mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14 items-center"
+        className="relative mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={fade}
-          className="lg:col-span-4"
+          className="mb-16"
         >
-          <div className="flex items-center gap-4 mb-9">
+          <div className="flex items-center gap-4 mb-10">
             <span className="h-px w-10 bg-[var(--line-strong)]" />
             <span
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              In focus
+              <span className="text-[var(--metal)]">04</span> / Selected work
             </span>
           </div>
-
-          {/* Title and meta swap with the image. mode="wait" keeps two titles
-              from overlapping at different lengths mid-fade, and the invisible
-              sizer holds the tallest of them open so nothing below jumps. */}
-          <div className="relative">
-            {/* A div, not an h2: this is a spacer, and the page should have
-                exactly one heading here. */}
-            <div aria-hidden="true" className="invisible pointer-events-none">
-              <div
-                className="font-medium mb-5"
-                style={{ fontSize: "var(--t-h2)", lineHeight: 1.05, letterSpacing: "-0.025em" }}
-              >
-                {LONGEST_TITLE}
-              </div>
-              <div className="eyebrow-mono uppercase" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
-                {LONGEST_META}
-              </div>
-            </div>
-
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={project.slug}
-                className="absolute inset-0"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <h2
-                  className="text-[var(--text-hi)] font-medium mb-5"
-                  style={{ fontSize: "var(--t-h2)", lineHeight: 1.05, letterSpacing: "-0.025em" }}
-                >
-                  {project.title}
-                </h2>
-                <p
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {project.category} / {project.year}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <Link
-            to={`/work/${project.slug}`}
-            className="group inline-flex items-center gap-3 mt-10 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
-            style={{ fontSize: "var(--t-small)" }}
+          <h2
+            className="text-[var(--text-hi)] font-medium"
+            style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "18ch" }}
           >
-            See the project
-            <span
-              className="w-9 h-9 flex items-center justify-center border border-[var(--line)] group-hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
-              style={{ borderRadius: "var(--radius-1)" }}
-            >
-              <ArrowUpRight
-                className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                strokeWidth={1.5}
-              />
-            </span>
-          </Link>
-
-          {/* One tick per project: where we are, and a way to steer. */}
-          <div className="flex items-center gap-2 mt-12">
-            {FEATURED.map((p, i) => (
-              <button
-                key={p.slug}
-                type="button"
-                onClick={() => select(i)}
-                aria-label={`Show ${p.title}`}
-                aria-current={i === index}
-                className="group py-3 cursor-pointer"
-              >
-                <span className="block relative h-px w-8 sm:w-10 bg-[var(--line-strong)] group-hover:bg-[var(--text-low)] transition-colors duration-[var(--dur-1)]">
-                  {i === index && (
-                    <motion.span
-                      key={`${cycle}-${running && !isMobile}`}
-                      className="absolute inset-0 origin-left bg-[var(--signal)]"
-                      initial={{ scaleX: running && !isMobile ? 0 : 1 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{
-                        duration: running && !isMobile ? ROTATION_MS / 1000 : 0.24,
-                        ease: "linear",
-                      }}
-                    />
-                  )}
-                </span>
-              </button>
-            ))}
-            <span
-              className="eyebrow-mono text-[var(--text-low)] ml-3 tabular-nums"
-              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-            >
-              {pad(index + 1)} / {pad(FEATURED.length)}
-            </span>
-          </div>
+            Projects we&rsquo;re proud of.
+          </h2>
+          <p
+            className="text-[var(--text-mid)] mt-6"
+            style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
+          >
+            From luxury travel to artisan spirits, every project is built with
+            the same commitment to craft, performance, and results.
+          </p>
         </motion.div>
 
-        {/* The work, framed and large. */}
-        <motion.div
-          className="lg:col-span-8"
-          style={reduce ? undefined : { y }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ ...fade, delay: 0.08 }}
-        >
-          <Link to={`/work/${project.slug}`} tabIndex={-1} aria-hidden="true" className="block">
-            <div className="border border-[var(--line)] bg-[var(--surface-2)] overflow-hidden">
-              <div className="flex items-center gap-3 px-4 h-10 border-b border-[var(--line)] bg-[var(--surface-1)]">
-                <span className="flex gap-1.5 shrink-0" aria-hidden="true">
-                  <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
-                  <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
-                  <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
-                </span>
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={project.slug}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="eyebrow-mono lowercase text-[var(--text-low)] truncate"
-                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.08em" }}
-                  >
-                    {domainOf(project.link)}
-                  </motion.span>
-                </AnimatePresence>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={fade}
+            className="lg:col-span-4 lg:pt-14"
+          >
+            {/* Title and meta swap with the image. mode="wait" keeps two titles
+                from overlapping at different lengths mid-fade, and the invisible
+                sizer holds the tallest of them open so nothing below jumps. */}
+            <div className="relative">
+              {/* A div, not a heading: this is a spacer. */}
+              <div aria-hidden="true" className="invisible pointer-events-none">
+                <div
+                  className="font-medium mb-4"
+                  style={{ fontSize: "var(--t-h3)", lineHeight: 1.15, letterSpacing: "-0.015em" }}
+                >
+                  {LONGEST_TITLE}
+                </div>
+                <div className="eyebrow-mono uppercase" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+                  {LONGEST_META}
+                </div>
               </div>
 
-              {/* Fixed ratio: the frame must not resize under the crossfade. */}
-              <div className="relative w-full" style={{ aspectRatio: FRAME_RATIO }}>
-                <AnimatePresence initial={false}>
-                  <motion.img
-                    key={project.slug}
-                    src={project.image}
-                    alt={`${project.title}, ${project.category}`}
-                    loading="lazy"
-                    decoding="async"
-                    width={1000}
-                    height={583}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={fade}
-                  />
-                </AnimatePresence>
-              </div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={project.slug}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <h3
+                    className="text-[var(--text-hi)] font-medium mb-4"
+                    style={{ fontSize: "var(--t-h3)", lineHeight: 1.15, letterSpacing: "-0.015em" }}
+                  >
+                    {project.title}
+                  </h3>
+                  <p
+                    className="eyebrow-mono uppercase text-[var(--text-low)]"
+                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                  >
+                    {project.category} / {project.year}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </Link>
+
+            <Link
+              to={`/work/${project.slug}`}
+              className="group inline-flex items-center gap-3 mt-9 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
+              style={{ fontSize: "var(--t-small)" }}
+            >
+              See the project
+              <span
+                className="w-9 h-9 flex items-center justify-center border border-[var(--line)] group-hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
+                style={{ borderRadius: "var(--radius-1)" }}
+              >
+                <ArrowUpRight
+                  className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  strokeWidth={1.5}
+                />
+              </span>
+            </Link>
+
+            {/* One tick per project: where we are, and a way to steer. */}
+            <div className="flex items-center gap-2 mt-10">
+              {FEATURED.map((p, i) => (
+                <button
+                  key={p.slug}
+                  type="button"
+                  onClick={() => select(i)}
+                  aria-label={`Show ${p.title}`}
+                  aria-current={i === index}
+                  className="group py-3 cursor-pointer"
+                >
+                  <span className="block relative h-px w-8 sm:w-10 bg-[var(--line-strong)] group-hover:bg-[var(--text-low)] transition-colors duration-[var(--dur-1)]">
+                    {i === index && (
+                      <motion.span
+                        key={`${cycle}-${running && !isMobile}`}
+                        className="absolute inset-0 origin-left bg-[var(--signal)]"
+                        initial={{ scaleX: running && !isMobile ? 0 : 1 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{
+                          duration: running && !isMobile ? ROTATION_MS / 1000 : 0.24,
+                          ease: "linear",
+                        }}
+                      />
+                    )}
+                  </span>
+                </button>
+              ))}
+              <span
+                className="eyebrow-mono text-[var(--text-low)] ml-3 tabular-nums"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+              >
+                {pad(index + 1)} / {pad(FEATURED.length)}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* The work, framed and large. */}
+          <motion.div
+            className="lg:col-span-8"
+            style={reduce ? undefined : { y }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ ...fade, delay: 0.08 }}
+          >
+            <Link to={`/work/${project.slug}`} tabIndex={-1} aria-hidden="true" className="block">
+              <div className="border border-[var(--line)] bg-[var(--surface-2)] overflow-hidden">
+                <div className="flex items-center gap-3 px-4 h-10 border-b border-[var(--line)] bg-[var(--surface-1)]">
+                  <span className="flex gap-1.5 shrink-0" aria-hidden="true">
+                    <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
+                    <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
+                    <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
+                  </span>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={project.slug}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="eyebrow-mono lowercase text-[var(--text-low)] truncate"
+                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.08em" }}
+                    >
+                      {domainOf(project.link)}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+
+                {/* Fixed ratio: the frame must not resize under the crossfade. */}
+                <div className="relative w-full" style={{ aspectRatio: FRAME_RATIO }}>
+                  <AnimatePresence initial={false}>
+                    <motion.img
+                      key={project.slug}
+                      src={project.image}
+                      alt={`${project.title}, ${project.category}`}
+                      loading="lazy"
+                      decoding="async"
+                      width={1000}
+                      height={583}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={fade}
+                    />
+                  </AnimatePresence>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Every project, including the ones without a screenshot. Without this
+            their case-study pages would have no link from the homepage at all,
+            and Google drops pages nothing points at. */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={fade}
+          className="mt-20 pt-10 border-t border-[var(--line)]"
+        >
+          <div
+            className="eyebrow-mono uppercase text-[var(--text-low)] mb-6"
+            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+          >
+            All projects
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
+            {PROJECTS.map((p) => (
+              <li key={p.slug} className="border-b border-[var(--line)]">
+                <Link
+                  to={`/work/${p.slug}`}
+                  className="group flex items-baseline gap-4 py-4 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+                >
+                  <span className="flex-1 min-w-0 truncate" style={{ fontSize: "var(--t-small)" }}>
+                    {p.title}
+                  </span>
+                  <span
+                    className="eyebrow-mono uppercase text-[var(--text-low)] shrink-0"
+                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                  >
+                    {p.year}
+                  </span>
+                  <ArrowUpRight
+                    className="w-3.5 h-3.5 shrink-0 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    strokeWidth={1.5}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p
+            className="eyebrow-mono uppercase text-[var(--text-low)] mt-8"
+            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+          >
+            <span className="text-[var(--text-hi)]">{PROJECTS.length}+</span> projects delivered across Europe
+          </p>
         </motion.div>
       </div>
     </section>
