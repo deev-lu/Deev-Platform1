@@ -291,17 +291,6 @@ export default function ProjectBuilder() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Cursor-tracking spotlight over the configurator stage
-  const stageRef = useRef<HTMLDivElement>(null);
-  const glowX = useMotionValue(-600);
-  const glowY = useMotionValue(-600);
-  const handleStageMove = (e: React.MouseEvent) => {
-    const rect = stageRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    glowX.set(e.clientX - rect.left);
-    glowY.set(e.clientY - rect.top);
-  };
-
   const toggleCapability = (id: Capability) => {
     const next = new Set(capabilities);
     if (next.has(id)) next.delete(id);
@@ -372,94 +361,85 @@ export default function ProjectBuilder() {
 
   return (
     <section
-      ref={stageRef}
-      onMouseMove={handleStageMove}
       id="project-builder"
-      className="relative py-20 sm:py-28 md:py-32 flex flex-col justify-center overflow-hidden bg-slate-50 dark:bg-[#050509] transition-colors duration-300"
+      className="relative overflow-hidden bg-[var(--surface-0)] border-y border-[var(--line)]"
+      style={{ paddingBlock: "var(--section-y)" }}
     >
-      {/* Dark studio gradient, dark only */}
+      {/* One quiet texture, dark only. The studio radial, the cyan hairlines,
+          the floor wash and the cursor-tracking spotlight that used to sit
+          here were all colour fades: half of them stopped painting when the
+          redesign killed gradient utilities, and the rest are the look we
+          deliberately left behind. */}
       <div
-        className="hidden dark:block absolute inset-0 pointer-events-none"
+        className="absolute inset-0 opacity-[0.04] dark:opacity-[0.025] pointer-events-none"
         style={{
-          background:
-            "radial-gradient(130% 80% at 50% -10%, #0c0c1a 0%, #08080f 45%, #050509 100%)",
-        }}
-      />
-      {/* ── Studio stage decorations ─────────────────────────────────── */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3CE7FC]/50 to-transparent" />
-      {/* Overhead spotlight */}
-      {/* Reflective floor wash */}
-      <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#2563F6]/[0.04] dark:from-[#2563F6]/[0.06] to-transparent pointer-events-none" />
-      {/* Fine grid, dark dots in light, white dots in dark */}
-      <div
-        className="absolute inset-0 opacity-[0.04] dark:hidden pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, #0f172a 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
           backgroundSize: "40px 40px",
+          color: "var(--text-low)",
         }}
       />
-      <div
-        className="absolute inset-0 opacity-[0.025] hidden dark:block pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-      {/* Premium film grain, dark only */}
       <NoiseOverlay className="hidden dark:block" opacity={0.03} />
-      {/* Cursor-tracking spotlight (desktop) */}
-      <motion.div
-        className="hidden lg:block absolute w-[500px] h-[500px] rounded-[2px] pointer-events-none -translate-x-1/2 -translate-y-1/2 z-0"
-        style={{
-          left: glowX,
-          top: glowY,
-          background:
-            "radial-gradient(circle, rgba(60,231,252,0.10) 0%, rgba(37,99,246,0.05) 40%, transparent 70%)",
-        }}
-      />
 
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-        {/* Header */}
-        <div className="mb-12 md:mb-16 max-w-3xl">
-          <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3CE7FC] animate-pulse" />
-              08 / Live simulator
+      <div
+        className="relative z-10 mx-auto w-full"
+        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
+      >
+        {/* Header — same left edge, same type scale as every other section. */}
+        <div className="mb-14 md:mb-16">
+          <div className="flex items-center gap-4 mb-10">
+            <span className="h-px w-10 bg-[var(--line-strong)]" />
+            <span
+              className="eyebrow-mono uppercase text-[var(--text-low)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            >
+              <span className="text-[var(--metal)]">08</span> / Live simulator
             </span>
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
+
+          <h2
+            className="text-[var(--text-hi)] font-medium"
+            style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "18ch" }}
+          >
             Build &amp; price your project,{" "}
-            <span className=" text-[var(--signal)] animate-gradient-x">
-              live.
-            </span>
+            <span className="text-[var(--signal-text)]">live.</span>
           </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+
+          <p
+            className="text-[var(--text-mid)] mt-6"
+            style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "52ch" }}
+          >
             Spec your build like a high-performance machine and watch your price,
             and your{" "}
-            <span className="text-emerald-400 font-semibold">net cost after the 70% SME grant</span>,
+            <span className="text-[var(--positive)]">net cost after the 70% SME grant</span>,
             update in real time. Then start it in one click.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-[2px] bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-sm font-semibold">
-            <BadgeEuro className="w-4 h-4" />
-            Luxembourg SMEs: up to 70% funded by the state SME grant
-          </div>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
-            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#3CE7FC]" /> Takes ~30 seconds</span>
-            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:block" />
-            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-[#3CE7FC]" /> Instant estimate</span>
-            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:block" />
-            <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#3CE7FC]" /> No commitment</span>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <span
+              className="inline-flex items-center gap-2 px-4 h-9 border border-[var(--positive)]/35 text-[var(--positive)]"
+              style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+            >
+              <BadgeEuro className="w-4 h-4" />
+              Luxembourg SMEs: up to 70% funded by the state SME grant
+            </span>
+            <div
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 eyebrow-mono uppercase text-[var(--text-low)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            >
+              <span className="flex items-center gap-2"><Clock className="w-3.5 h-3.5" /> Takes ~30 seconds</span>
+              <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5" /> Instant estimate</span>
+              <span className="flex items-center gap-2"><Check className="w-3.5 h-3.5" /> No commitment</span>
+            </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* ── Left panel: cinematic build stage — the live preview leads ── */}
-          <div className="hidden lg:block lg:col-span-6 lg:sticky top-24">
+          <div className="hidden lg:block lg:col-span-5 lg:order-2 lg:sticky top-28">
             <motion.div
               layout
-              className="relative w-full rounded-lg bg-gradient-to-b from-[#13131f] to-[#0b0b14] border border-white/[0.10] overflow-hidden"
+              className="relative w-full bg-[var(--surface-1)] border border-[var(--line)] overflow-hidden"
+              style={{ borderRadius: "var(--radius-1)" }}
             >
               {/* Stage glows */}
               <div className="absolute inset-0 pointer-events-none">
@@ -469,14 +449,14 @@ export default function ProjectBuilder() {
               {/* Build progress */}
               <div className="relative z-10 px-8 pt-7">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-medium uppercase tracking-widest text-slate-400">
+                  <span className="eyebrow-mono uppercase tracking-widest text-[var(--text-low)] text-[11px]">
                     Build progress
                   </span>
-                  <span className="text-[11px] font-medium text-[#3CE7FC] tabular-nums">{buildPct}%</span>
+                  <span className="eyebrow-mono text-[var(--signal-text)] tabular-nums text-[11px]">{buildPct}%</span>
                 </div>
-                <div className="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                <div className="h-px bg-[var(--line)] overflow-hidden">
                   <motion.div
-                    className="h-full rounded-[2px] bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]"
+                    className="h-full bg-[var(--signal)]"
                     animate={{ width: `${buildPct}%` }}
                     transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
                   />
@@ -493,8 +473,8 @@ export default function ProjectBuilder() {
                       exit={{ opacity: 0, scale: 0.85 }}
                       className="text-center"
                     >
-                      <Layers className="w-16 h-16 text-slate-700 mx-auto mb-4" />
-                      <p className="text-slate-400 font-medium">Select a platform to begin your build</p>
+                      <Layers className="w-12 h-12 text-[var(--line-strong)] mx-auto mb-5" strokeWidth={1.25} />
+                      <p className="text-[var(--text-low)]" style={{ fontSize: "var(--t-small)" }}>Select a platform to begin your build</p>
                     </motion.div>
                   ) : (
                     <motion.div
@@ -506,18 +486,18 @@ export default function ProjectBuilder() {
                       {/* Chassis + orbiting capabilities */}
                       <div className="relative w-52 h-52 mb-6">
                         <motion.div
-                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#2563F6]/25 to-[#3CE7FC]/20 border border-[#3CE7FC]/30 flex items-center justify-center relative"
+                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#2563F6]/25 to-[#3CE7FC]/20 border border-[var(--signal)]/35 flex items-center justify-center relative"
                           style={{
                             boxShadow: `0 0 ${30 + (SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1) * 18}px rgba(60,231,252,0.28)`,
                           }}
                           animate={{ rotateY: [0, 6, -6, 0], rotateX: [0, -6, 6, 0] }}
                           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                         >
-                          {system === "ai-agent"  && <Brain        className="w-20 h-20 text-[#3CE7FC]" />}
-                          {system === "webapp"     && <Code         className="w-20 h-20 text-[#3CE7FC]" />}
-                          {system === "website"    && <Globe        className="w-20 h-20 text-[#3CE7FC]" />}
-                          {system === "ecommerce"  && <ShoppingCart className="w-20 h-20 text-[#3CE7FC]" />}
-                          {system === "marketing"  && <Megaphone    className="w-20 h-20 text-[#3CE7FC]" />}
+                          {system === "ai-agent"  && <Brain        className="w-20 h-20 text-[var(--signal-text)]" />}
+                          {system === "webapp"     && <Code         className="w-20 h-20 text-[var(--signal-text)]" />}
+                          {system === "website"    && <Globe        className="w-20 h-20 text-[var(--signal-text)]" />}
+                          {system === "ecommerce"  && <ShoppingCart className="w-20 h-20 text-[var(--signal-text)]" />}
+                          {system === "marketing"  && <Megaphone    className="w-20 h-20 text-[var(--signal-text)]" />}
 
                           {/* Capability nodes orbiting the icon */}
                           <AnimatePresence>
@@ -538,7 +518,7 @@ export default function ProjectBuilder() {
                                   transition={{ type: "spring", stiffness: 260, damping: 20 }}
                                   className="absolute w-11 h-11 bg-[#0a0a14] rounded-[2px] border border-[#3CE7FC]/40 flex items-center justify-center top-1/2 left-1/2 -mt-[22px] -ml-[22px]"
                                 >
-                                  <CapIcon className="w-4 h-4 text-[#3CE7FC]" />
+                                  <CapIcon className="w-4 h-4 text-[var(--signal-text)]" />
                                 </motion.div>
                               );
                             })}
@@ -546,20 +526,23 @@ export default function ProjectBuilder() {
                         </motion.div>
 
                         {/* Reflective floor pool */}
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-44 h-8 bg-[#3CE7FC]/25 rounded-[100%] blur-2xl" />
+                        {/* One hairline under the chassis, in place of the
+                            cyan light pool that used to sit here. */}
+                        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-32 h-px bg-[var(--line-strong)]" />
                       </div>
 
                       {/* Spec readout */}
                       <div className="text-center w-full mt-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[2px] bg-white/[0.06] border border-white/[0.10] text-[11px] font-medium text-[#3CE7FC] mb-3 uppercase tracking-widest">
+                        <div className="eyebrow-mono inline-flex items-center gap-1.5 px-3 py-1 bg-[var(--surface-2)] border border-[var(--line)] text-[11px] text-[var(--signal-text)] mb-3 uppercase"
+                          style={{ borderRadius: "var(--radius-1)", letterSpacing: "0.16em" }}>
                           {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "Choose your trim →"}
                         </div>
-                        <h3 className="text-2xl font-medium text-white tracking-tight">
+                        <h3 className="text-2xl font-medium text-[var(--text-hi)] tracking-tight">
                           {CORE_SYSTEMS.find((s) => s.id === system)?.label}
                         </h3>
-                        <div className="mt-3 flex items-center justify-center gap-4 text-sm font-medium text-slate-400">
+                        <div className="mt-3 flex items-center justify-center gap-4 text-sm font-medium text-[var(--text-low)]">
                           <span>{capabilities.size} feature{capabilities.size === 1 ? "" : "s"}</span>
-                          <span className="w-1 h-1 bg-slate-600 rounded-full" />
+                          <span className="w-1 h-1 bg-[var(--line-strong)] rounded-full" />
                           <span>~{BASE[system].weeks} weeks</span>
                         </div>
                       </div>
@@ -573,20 +556,20 @@ export default function ProjectBuilder() {
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="relative z-10 border-t border-white/10 bg-black/30 px-8 py-7"
+                  className="relative z-10 border-t border-[var(--line)] bg-black/30 px-8 py-7"
                 >
                   {estimate.hasGrant ? (
                     <>
                       <div className="text-[11px] font-medium uppercase tracking-widest text-emerald-400 mb-2 flex items-center gap-1.5">
                         <BadgeEuro className="w-3.5 h-3.5" /> Your price after 70% grant
                       </div>
-                      <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
+                      <div className="text-4xl xl:text-5xl leading-none font-medium text-[var(--text-hi)] tracking-tight tabular-nums">
                         €<AnimatedNumber value={estimate.netMin} />
-                        <span className="text-white/30 mx-2 font-light">–</span>
+                        <span className="text-[var(--text-low)] mx-2 font-light">–</span>
                         €<AnimatedNumber value={estimate.netMax} />
                       </div>
                       <div className="mt-3 flex flex-wrap items-center gap-2.5">
-                        <span className="text-sm text-slate-500 line-through tabular-nums">
+                        <span className="text-sm text-[var(--text-low)] line-through tabular-nums">
                           €{estimate.min} – €{estimate.max}
                         </span>
                         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[2px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-medium tabular-nums">
@@ -597,29 +580,29 @@ export default function ProjectBuilder() {
                     </>
                   ) : (
                     <>
-                      <div className="text-[11px] font-medium uppercase tracking-widest text-[#3CE7FC] mb-2">
+                      <div className="text-[11px] font-medium uppercase tracking-widest text-[var(--signal-text)] mb-2">
                         Your build
                       </div>
-                      <div className="text-4xl xl:text-5xl leading-none font-extrabold text-white tracking-tight tabular-nums">
+                      <div className="text-4xl xl:text-5xl leading-none font-medium text-[var(--text-hi)] tracking-tight tabular-nums">
                         €<AnimatedNumber value={estimate.rawMin} />
-                        <span className="text-white/30 mx-2 font-light">–</span>
+                        <span className="text-[var(--text-low)] mx-2 font-light">–</span>
                         €<AnimatedNumber value={estimate.rawMax} />
                       </div>
                     </>
                   )}
 
                   {/* Spec row */}
-                  <div className="mt-5 pt-5 border-t border-white/10 flex items-center gap-6 text-sm">
-                    <div className="flex items-center gap-2 text-slate-300">
-                      <Clock className="w-4 h-4 text-[#3CE7FC]" />
+                  <div className="mt-5 pt-5 border-t border-[var(--line)] flex items-center gap-6 text-sm">
+                    <div className="flex items-center gap-2 text-[var(--text-mid)]">
+                      <Clock className="w-4 h-4 text-[var(--signal-text)]" />
                       <span className="font-semibold">{estimate.weeks}</span>
-                      <span className="text-slate-500">weeks</span>
+                      <span className="text-[var(--text-low)]">weeks</span>
                     </div>
                     <span className="w-px h-4 bg-white/15" />
-                    <div className="flex items-center gap-2 text-slate-300">
-                      <Layers className="w-4 h-4 text-[#3CE7FC]" />
+                    <div className="flex items-center gap-2 text-[var(--text-mid)]">
+                      <Layers className="w-4 h-4 text-[var(--signal-text)]" />
                       <span className="font-semibold">{capabilities.size}</span>
-                      <span className="text-slate-500">feature{capabilities.size === 1 ? "" : "s"}</span>
+                      <span className="text-[var(--text-low)]">feature{capabilities.size === 1 ? "" : "s"}</span>
                     </div>
                   </div>
                 </motion.div>
@@ -628,7 +611,7 @@ export default function ProjectBuilder() {
           </div>
 
           {/* ── Right panel: steps ────────────────────────────────────────── */}
-          <div className="lg:col-span-6 flex flex-col justify-center">
+          <div className="lg:col-span-7 lg:order-1 flex flex-col justify-center min-w-0">
             {/* Mobile-only: compact rolling price bar */}
             {system && scale && (
               <motion.div
@@ -664,27 +647,41 @@ export default function ProjectBuilder() {
                 </div>
               </motion.div>
             )}
-            {/* Step indicators */}
-            <div className="flex items-center gap-1 sm:gap-2 mb-8 sm:mb-10">
+            {/* Step indicators. The old row was a fixed 626px inside a 592px
+                column, so "4 Estimate" was cut off at the exact width most
+                laptops use. This one wraps and the rules flex. */}
+            <div className="flex flex-wrap items-center gap-y-3 mb-8 sm:mb-10">
               {["Product", "Scale", "Features", "Estimate"].map((label, idx) => {
                 const s = idx + 1;
                 const isActive = s === step;
                 const isPast = s < step;
                 return (
-                  <div key={s} className="flex items-center shrink-0">
-                    <div
-                      className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-[2px] text-xs sm:text-sm font-medium transition-colors ${ isActive ? "bg-[#2563F6] text-white /30" : isPast ? "bg-[#2563F6]/10 dark:bg-[#2563F6]/20 text-[#2563F6]" : "bg-slate-200 dark:bg-white/5 text-slate-400 dark:text-slate-500" }`}
-                    >
-                      {isPast ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : s}
-                    </div>
+                  <div key={s} className="flex items-center min-w-0">
                     <span
-                      className={`ml-1.5 sm:ml-3 mr-2 sm:mr-4 text-xs sm:text-sm font-semibold tracking-wide hidden xs:inline sm:inline ${ isActive ? "text-[var(--text-hi)]" : "text-slate-400 dark:text-slate-500" }`}
+                      className={`flex items-center justify-center w-7 h-7 shrink-0 eyebrow-mono transition-colors ${
+                        isActive
+                          ? "bg-[var(--signal)] text-white"
+                          : isPast
+                          ? "border border-[var(--signal)]/45 text-[var(--signal-text)]"
+                          : "border border-[var(--line)] text-[var(--text-low)]"
+                      }`}
+                      style={{ fontSize: "var(--t-label)", borderRadius: "var(--radius-1)" }}
+                    >
+                      {isPast ? <Check className="w-3.5 h-3.5" /> : s}
+                    </span>
+                    <span
+                      className={`eyebrow-mono uppercase ml-3 truncate ${
+                        isActive ? "text-[var(--text-hi)]" : "text-[var(--text-low)]"
+                      }`}
+                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                     >
                       {label}
                     </span>
                     {s !== 4 && (
-                      <div
-                        className={`w-4 sm:w-8 h-px mr-1 sm:mr-4 ${ isPast ? "bg-[#2563F6]/50" : "bg-slate-200 dark:bg-white/10" }`}
+                      <span
+                        className={`h-px w-6 lg:w-10 mx-3 shrink ${
+                          isPast ? "bg-[var(--signal)]/50" : "bg-[var(--line)]"
+                        }`}
                       />
                     )}
                   </div>
