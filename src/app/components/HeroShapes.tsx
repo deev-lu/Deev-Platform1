@@ -1,12 +1,14 @@
 import { motion, useReducedMotion } from "motion/react";
 import LuxShade from "./LuxShade";
+import HeroReach from "./HeroReach";
 import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
  * Subtle decorative background shades for the Hero:
+ *  - arcs leaving Luxembourg for the rest of the map (HeroReach)
  *  - a faint AI-workflow / flow diagram on the left
  *  - the silhouette of Luxembourg on the right
- * Both are very low-opacity "shades" — quiet, not busy. pointer-events-none.
+ * All very low-opacity "shades" — quiet, not busy. pointer-events-none.
  */
 export default function HeroShapes() {
   const reduce = useReducedMotion() || useIsMobile();
@@ -17,6 +19,9 @@ export default function HeroShapes() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      {/* ── The work leaving Luxembourg ──────────────────────────── */}
+      <HeroReach />
+
       {/* ── AI workflow shade (left) ─────────────────────────────── */}
       <motion.svg
         viewBox="0 0 220 180"
