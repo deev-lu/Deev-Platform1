@@ -5,8 +5,12 @@ import billovioShot from "../../assets/work/billovio.jpg";
 /**
  * §07 — Billovio.
  *
- * The only inverted room on the site: our own product, so it should feel like
- * walking through a door. It earns that by scale rather than by decoration —
+ * Its own room on the site: our own product, so it should feel like walking
+ * through a door. The room used to be a straight inversion of the page, which
+ * meant full black in one theme and full white in the other. It now has its
+ * own tone, --surface-product: a deep blue-slate in dark, a cool light grey
+ * in light. Different space, same theme. It earns the moment by scale rather
+ * than by decoration —
  * the product name at display size, the statement under it, and the product
  * itself framed and running off the right edge of the screen.
  *
@@ -35,7 +39,7 @@ export default function BillovioFeature() {
   const y = useTransform(scrollYProgress, [0, 1], ["4%", "-4%"]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-[var(--surface-inv)]">
+    <section ref={ref} className="relative overflow-hidden bg-[var(--surface-product)] border-y border-[var(--line)]">
       <div
         className="mx-auto"
         style={{
@@ -45,9 +49,9 @@ export default function BillovioFeature() {
         }}
       >
         <div className="flex items-center gap-4 mb-12">
-          <span className="h-px w-10 bg-[var(--text-inv)]/25" />
+          <span className="h-px w-10 bg-[var(--line-strong)]" />
           <span
-            className="eyebrow-mono uppercase text-[var(--text-inv)]/50"
+            className="eyebrow-mono uppercase text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
             07 / Our own product
@@ -63,13 +67,13 @@ export default function BillovioFeature() {
           className="flex flex-wrap items-baseline gap-x-8 gap-y-3"
         >
           <h2
-            className="font-brand text-[var(--text-inv)]"
+            className="font-brand text-[var(--text-hi)]"
             style={{ fontSize: "var(--t-display)", lineHeight: 0.92, letterSpacing: "-0.04em" }}
           >
             Billovio
           </h2>
           <span
-            className="eyebrow-mono uppercase text-[var(--text-inv)]/50"
+            className="eyebrow-mono uppercase text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
             by DEEV
@@ -83,14 +87,14 @@ export default function BillovioFeature() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.56, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[var(--text-inv)] font-medium"
+              className="text-[var(--text-hi)] font-medium"
               style={{ fontSize: "var(--t-h3)", lineHeight: 1.15, letterSpacing: "-0.015em" }}
             >
               We don&rsquo;t just build AI. We ship it.
             </motion.p>
 
             <p
-              className="text-[var(--text-inv)]/65 mt-6"
+              className="text-[var(--text)] mt-6"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "42ch" }}
             >
               Describe a job in one sentence and Billovio writes the scope, prices
@@ -105,16 +109,16 @@ export default function BillovioFeature() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                  className="grid grid-cols-[auto_1fr] gap-x-6 py-5 border-t border-[var(--text-inv)]/12 last:border-b"
+                  className="grid grid-cols-[auto_1fr] gap-x-6 py-5 border-t border-[var(--line)] last:border-b"
                 >
                   <span
-                    className="eyebrow-mono text-[var(--text-inv)]/35 tabular-nums"
+                    className="eyebrow-mono text-[var(--text-mid)] tabular-nums"
                     style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span
-                    className="text-[var(--text-inv)]/80"
+                    className="text-[var(--text)]"
                     style={{ fontSize: "var(--t-small)", lineHeight: 1.5 }}
                   >
                     {f}
@@ -127,7 +131,7 @@ export default function BillovioFeature() {
               href="https://www.billovio.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 mt-12 h-12 px-7 bg-[var(--text-inv)] text-[var(--surface-inv)] hover:opacity-85 transition-opacity duration-[var(--dur-1)]"
+              className="group inline-flex items-center gap-3 mt-12 h-12 px-7 bg-[var(--text-hi)] text-[var(--surface-product)] hover:opacity-85 transition-opacity duration-[var(--dur-1)]"
               style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
             >
               Open billovio.com
@@ -146,7 +150,7 @@ export default function BillovioFeature() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.56, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="border border-[var(--text-inv)]/12 bg-white overflow-hidden">
+            <div className="border border-[var(--line-strong)] bg-white overflow-hidden">
               <div className="flex items-center gap-3 px-4 h-10 border-b border-black/10 bg-white">
                 <span className="flex gap-1.5 shrink-0" aria-hidden="true">
                   <span className="w-[6px] h-[6px] rounded-full bg-black/20" />

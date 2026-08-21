@@ -13,6 +13,10 @@
   --surface-2: #edeef1;
   --surface-3: #e4e6ea;
   --surface-inv: #08090b;
+  /* The Billovio room. Its own tone rather than another step of the page's
+     greys: cool and a shade deeper than paper, so the section reads as a
+     different space without going to full black or full white. */
+  --surface-product: #e7ecf3;
 
   /* Hairlines */
   --line-faint: rgba(0, 0, 0, 0.06);
@@ -75,6 +79,9 @@
   --surface-2: #121519;
   --surface-3: #191d22;
   --surface-inv: #f6f7f8;
+  /* Deep blue-slate: darker than the page's raised surfaces, clearly not
+     black, and carrying a hint of the brand blue rather than a neutral grey. */
+  --surface-product: #0d1421;
 
   --line-faint: rgba(255, 255, 255, 0.06);
   --line: rgba(255, 255, 255, 0.10);
