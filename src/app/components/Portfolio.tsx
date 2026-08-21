@@ -8,6 +8,12 @@ import { PROJECTS } from "../../lib/projects";
 // can never drift apart.
 const portfolioItems = PROJECTS;
 
+/** feltes.lu from https://www.feltes.lu/ — the address bar, not the full URL. */
+const domainOf = (link?: string) => {
+  if (!link) return "";
+  return link.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "");
+};
+
 const filters = ["All", "Website", "E-commerce", "Web App"];
 
 const countFor = (f: string) =>
@@ -109,12 +115,31 @@ export default function Portfolio() {
                 >
                   <Link
                     to={`/work/${item.slug}`}
-                    className="group relative block overflow-hidden bg-[var(--surface-2)]"
+                    className="group relative flex flex-col overflow-hidden border border-[var(--line)] hover:border-[var(--line-strong)] transition-colors duration-[240ms] bg-[var(--surface-2)] h-[clamp(280px,30vw,440px)]"
                   >
-                    {/* One tile: the screenshot fills it and the label sits on
-                        the image, so rows keep a single silhouette instead of
-                        a picture with a separate white bar bolted underneath. */}
-                    <div className="relative w-full h-[clamp(280px,30vw,440px)]">
+                    {/* A browser bar, so the client's own navigation inside the
+                        screenshot reads as part of a website rather than as a
+                        stray strip across the top of a photograph. The domain
+                        doubles as proof the site is real and live. */}
+                    <div className="flex items-center gap-3 px-4 h-9 shrink-0 border-b border-[var(--line)] bg-[var(--surface-1)]">
+                      <span className="flex gap-1.5 shrink-0" aria-hidden="true">
+                        <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
+                        <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
+                        <span className="w-[6px] h-[6px] rounded-full bg-[var(--line-strong)]" />
+                      </span>
+                      <span
+                        className="eyebrow-mono lowercase text-[var(--text-low)] truncate"
+                        style={{ fontSize: "var(--t-label)", letterSpacing: "0.08em" }}
+                      >
+                        {domainOf(item.link)}
+                      </span>
+                      <ArrowUpRight
+                        className="ml-auto shrink-0 w-3.5 h-3.5 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+
+                    <div className="relative flex-1 overflow-hidden">
                       <img
                         src={item.image}
                         alt={`${item.title} — live website`}
@@ -123,37 +148,27 @@ export default function Portfolio() {
                         className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[640ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-[1.03]"
                       />
 
-                      {/* Scrim: dark enough under the label to hold white type
-                          on any screenshot, invisible across the rest. */}
                       <div
                         className="absolute inset-0 transition-opacity duration-[var(--dur-2)] opacity-90 group-hover:opacity-100"
                         style={{
                           background:
-                            "linear-gradient(to top, rgba(6,7,9,0.92) 0%, rgba(6,7,9,0.78) 22%, rgba(6,7,9,0.35) 52%, rgba(6,7,9,0.05) 78%)",
+                            "linear-gradient(to top, rgba(6,7,9,0.92) 0%, rgba(6,7,9,0.72) 24%, rgba(6,7,9,0.28) 54%, rgba(6,7,9,0) 78%)",
                         }}
                       />
 
-                      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 flex items-end justify-between gap-5">
-                        <div className="min-w-0">
-                          <div
-                            className="eyebrow-mono uppercase text-white/60 truncate mb-2"
-                            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                          >
-                            {item.category} · {item.year}
-                          </div>
-                          <h3
-                            className="text-white font-medium truncate"
-                            style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.01em", lineHeight: 1.15 }}
-                          >
-                            {item.title}
-                          </h3>
-                        </div>
-                        <span
-                          className="shrink-0 w-10 h-10 flex items-center justify-center border border-white/25 text-white translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[var(--dur-2)] ease-[cubic-bezier(0.16,1,0.30,1)]"
-                          style={{ borderRadius: "var(--radius-1)" }}
+                      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+                        <div
+                          className="eyebrow-mono uppercase text-white/60 truncate mb-2"
+                          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                         >
-                          <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
-                        </span>
+                          {item.category} · {item.year}
+                        </div>
+                        <h3
+                          className="text-white font-medium truncate"
+                          style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.01em", lineHeight: 1.15 }}
+                        >
+                          {item.title}
+                        </h3>
                       </div>
                     </div>
                   </Link>
