@@ -5,7 +5,7 @@ import CountUp from "./CountUp";
 const credentials = [
   { value: "50+", label: "Projects delivered" },
   { value: "100%", label: "On-time delivery" },
-  { value: "EU ", label: "Based in Luxembourg" },
+  { value: "EU", label: "Based in Luxembourg" },
   { value: "Senior", label: "Only engineering" },
 ];
 
@@ -51,30 +51,36 @@ const stack = [
 
 export default function EnterpriseTrust() {
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#08080c] overflow-hidden transition-colors duration-300 border-t border-slate-100 dark:border-white/5">
+    <section className="relative bg-[var(--surface-1)] border-t border-[var(--line)]" style={{ paddingBlock: "var(--section-y)" }}>
       {/* Ambient aurora — both themes, so the clear glass has colour to refract */}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="mb-20"
         >
-          <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
-            05 / Why Deev
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
-            Engineered to be trusted
-            <br className="hidden md:block" />
-            <span className=" text-[var(--signal)]">
-              {" "}with what matters.
+          <div className="flex items-center gap-4 mb-10">
+            <span className="h-px w-10 bg-[var(--line-strong)]" />
+            <span
+              className="eyebrow-mono uppercase text-[var(--text-low)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            >
+              <span className="text-[var(--metal)]">05</span> / Why Deev
             </span>
+          </div>
+          <h2
+            className="text-[var(--text-hi)] font-medium"
+            style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "20ch" }}
+          >
+            Engineered to be trusted with what matters.
           </h2>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+          <p
+            className="text-[var(--text-mid)] mt-6"
+            style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
+          >
             High-stakes projects need more than good design. They need a partner
             who reduces your risk at every step.
           </p>
@@ -85,54 +91,61 @@ export default function EnterpriseTrust() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12 sm:mb-16"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 mb-20"
         >
           {credentials.map((c) => (
             <div
               key={c.label}
-              className="glass glass-edge text-center rounded-lg py-6 px-4"
+              className="border-t border-[var(--line)] pt-6"
             >
-              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--signal)] tracking-tight">
+              <div
+                className="eyebrow-mono text-[var(--text-hi)]"
+                style={{ fontSize: "var(--t-h2)", lineHeight: 1, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.02em" }}
+              >
                 <CountUp value={c.value} />
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 font-semibold uppercase tracking-wider">
+              <div
+                className="eyebrow-mono uppercase text-[var(--text-low)] mt-4"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+              >
                 {c.label}
               </div>
             </div>
           ))}
         </motion.div>
 
-        {/* Trust pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-12 sm:mb-16">
+        {/* Trust pillars — hairline rows, same treatment as the advantages */}
+        <ul className="border-t border-[var(--line)] mb-16">
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon;
             return (
-              <motion.div
+              <motion.li
                 key={pillar.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="glass glass-edge glass-sheen group relative rounded-lg transition-all duration-300 dark: hover:-translate-y-1"
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.56, delay: Math.min(index, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                className="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 py-8 border-b border-[var(--line)]"
               >
-                <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
-                <div className="p-7 flex items-start gap-5">
-                  <div className="shrink-0 w-12 h-12 rounded-lg bg-[#2563F6]/[0.07] dark:bg-[#3CE7FC]/[0.10] flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <Icon className="w-6 h-6 text-[#2563F6] dark:text-[#3CE7FC]" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                      {pillar.description}
-                    </p>
-                  </div>
+                <Icon className="w-5 h-5 mt-1 text-[var(--metal)]" strokeWidth={1} />
+                <div>
+                  <h3
+                    className="text-[var(--text-hi)] font-medium mb-2"
+                    style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                  >
+                    {pillar.title}
+                  </h3>
+                  <p
+                    className="text-[var(--text-mid)]"
+                    style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "62ch" }}
+                  >
+                    {pillar.description}
+                  </p>
                 </div>
-              </motion.div>
+              </motion.li>
             );
           })}
-        </div>
+        </ul>
 
         {/* Tech stack badges */}
         <motion.div

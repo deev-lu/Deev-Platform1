@@ -1,10 +1,19 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import NoiseOverlay from "./NoiseOverlay";
 
 /**
- * "The System" — editorial dark band with a pure-CSS 3D layered stack.
- * Three planes (Interface / Intelligence / Infrastructure) rotate slowly;
- * copy rows on the right map to each layer. No WebGL, compositor-only.
+ * §6F — System layers. Full-bleed moment #2.
+ *
+ * The section pins for ~200vh. Three isometric hairline planes sit on the
+ * left; as the visitor scrolls, each plane in turn illuminates and rises 12px
+ * while its text block on the right becomes active and the other two fall
+ * back to --text-low. No other content on screen.
+ *
+ * prefers-reduced-motion: no pin, no transforms — a static three-row layout
+ * with every layer active, which still reads as designed.
+ *
+ * Copy unchanged.
  */
 
 const LAYERS = [
@@ -25,130 +34,178 @@ const LAYERS = [
   },
 ];
 
-// Plane visual order: bottom → top
-const PLANES = [
-  { z: 0, opacity: 0.95, tone: "rgba(37,99,246,0.16)", border: "rgba(37,99,246,0.55)" },
-  { z: 74, opacity: 0.95, tone: "rgba(0,120,255,0.14)", border: "rgba(0,140,255,0.55)" },
-  { z: 148, opacity: 1, tone: "rgba(60,231,252,0.14)", border: "rgba(60,231,252,0.65)" },
-];
-
 export default function SystemStack() {
-  return (
-    <section className="relative overflow-hidden bg-[#050509] py-20 sm:py-28 md:py-32">
-      {/* Ambient */}
-      <NoiseOverlay opacity={0.035} />
-      {/* Hairline frame */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+  // 0 → 1 across the pin maps to layer 0, 1, 2
+  const activeIndex = useTransform(scrollYProgress, (p) =>
+    p < 0.34 ? 0 : p < 0.67 ? 1 : 2
+  );
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-8 items-center">
-        {/* ── 3D stack ─────────────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="stack-scene relative h-[340px] sm:h-[420px] flex items-center justify-center"
+  // Reduced motion: a plain three-row layout, everything active.
+  if (reduce) {
+    return (
+      <section className="relative bg-[var(--surface-0)] border-y border-[var(--line)]">
+        <NoiseOverlay opacity={0.035} />
+        <div
+          className="relative mx-auto"
+          style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
         >
-          <div className="stack-object relative w-[230px] h-[230px] sm:w-[290px] sm:h-[290px]">
-            {PLANES.map((p, i) => (
-              <div
-                key={i}
-                className="stack-plane absolute inset-0 rounded-lg"
-                style={{
-                  transform: `translateZ(${p.z}px)`,
-                  opacity: p.opacity,
-                  background: p.tone,
-                  border: `1px solid ${p.border}`,
-                  boxShadow: `0 0 40px ${p.tone}`,
-                  backgroundImage: `linear-gradient(${p.tone}, ${p.tone}),
-                    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-                  backgroundSize: "auto, 36px 36px, 36px 36px",
-                }}
-              >
-                {/* corner nodes */}
-                {[
-                  "top-2.5 left-2.5",
-                  "top-2.5 right-2.5",
-                  "bottom-2.5 left-2.5",
-                  "bottom-2.5 right-2.5",
-                ].map((pos) => (
-                  <span
-                    key={pos}
-                    className={`absolute ${pos} w-1.5 h-1.5 rounded-full`}
-                    style={{ background: p.border }}
-                  />
-                ))}
-              </div>
-            ))}
-            {/* central axis beam */}
-            <div
-              className="absolute left-1/2 top-1/2 w-px"
-              style={{
-                height: "150px",
-                background:
-                  "var(--signal)",
-                transform: "translate(-50%, -50%) rotateX(-90deg) translateZ(0px) translateY(-75px)",
-                transformStyle: "preserve-3d",
-              }}
-            />
-          </div>
-
-          {/* Floor glow */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-64 h-10 bg-[#2563F6]/25 rounded-[100%] blur-2xl pointer-events-none" />
-        </motion.div>
-
-        {/* ── Copy ─────────────────────────────────────────────── */}
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-10"
-          >
-            <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-500 mb-6">
-              <span className="h-px w-8 bg-gradient-to-r from-[#3CE7FC]/60 to-transparent" />
-              02 / How it runs
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight mb-5">
-              One system.
-              <br />
-              Every layer engineered.
-            </h2>
-            <p className="text-lg text-slate-400 max-w-md">
-              We don't ship disconnected deliverables. Everything we build runs
-              as one coherent system — from the pixel to the model to the
-              server.
-            </p>
-          </motion.div>
-
-          <div className="space-y-0 border-t border-white/[0.08]">
-            {LAYERS.map((layer, i) => (
-              <motion.div
-                key={layer.n}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group grid grid-cols-[3rem_1fr] gap-4 py-6 border-b border-white/[0.08] transition-colors duration-300 hover:bg-white/[0.02]"
-              >
-                <span className="eyebrow-mono text-xs text-[#3CE7FC]/70 pt-1">
-                  {layer.n}
+          <Header />
+          <ul className="mt-16 border-t border-[var(--line)]">
+            {LAYERS.map((l) => (
+              <li key={l.n} className="grid grid-cols-[auto_1fr] gap-x-8 py-8 border-b border-[var(--line)]">
+                <span className="eyebrow-mono text-[var(--metal)] pt-1" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+                  {l.n}
                 </span>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-1.5 group-hover:text-[#3CE7FC] transition-colors duration-300">
-                    {layer.name}
+                  <h3 className="text-[var(--text-hi)] font-medium mb-2" style={{ fontSize: "var(--t-h3)" }}>
+                    {l.name}
                   </h3>
-                  <p className="text-sm text-slate-400 leading-relaxed max-w-md">
-                    {layer.desc}
+                  <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "56ch" }}>
+                    {l.desc}
                   </p>
                 </div>
-              </motion.div>
+              </li>
             ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section ref={ref} className="relative bg-[var(--surface-0)] border-y border-[var(--line)]" style={{ height: "300vh" }}>
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center">
+        <NoiseOverlay opacity={0.035} />
+        <div
+          className="relative w-full mx-auto"
+          style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Planes */}
+            <div className="relative h-[420px] hidden lg:block" style={{ perspective: 1200 }}>
+              {LAYERS.map((_, i) => (
+                <ActivePlane key={i} i={i} activeIndex={activeIndex} reduce={reduce} />
+              ))}
+            </div>
+
+            {/* Copy */}
+            <div>
+              <Header />
+              <ul className="mt-12">
+                {LAYERS.map((l, i) => (
+                  <ActiveRow key={l.n} layer={l} i={i} activeIndex={activeIndex} />
+                ))}
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Header() {
+  return (
+    <>
+      <div className="flex items-center gap-4 mb-10">
+        <span className="h-px w-10 bg-[var(--line-strong)]" />
+        <span
+          className="eyebrow-mono uppercase text-[var(--text-low)]"
+          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+        >
+          <span className="text-[var(--metal)]">02</span> / How it runs
+        </span>
+      </div>
+      <h2
+        className="text-[var(--text-hi)] font-medium"
+        style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "16ch" }}
+      >
+        One system. Every layer engineered.
+      </h2>
+    </>
+  );
+}
+
+/** Subscribes to the pinned scroll position without re-rendering the section. */
+function ActivePlane({
+  i,
+  activeIndex,
+  reduce,
+}: {
+  i: number;
+  activeIndex: ReturnType<typeof useTransform<number, number>>;
+  reduce: boolean | null;
+}) {
+  const isActive = useTransform(activeIndex, (v) => (v === i ? 1 : 0));
+  const opacity = useTransform(isActive, [0, 1], [0.45, 1]);
+  const y = useTransform(isActive, [0, 1], [0, -12]);
+  const borderColor = useTransform(isActive, [0, 1], ["rgba(255,255,255,0.18)", "#2e6bff"]);
+  const background = useTransform(isActive, [0, 1], ["rgba(255,255,255,0.015)", "rgba(46,107,255,0.10)"]);
+
+  return (
+    <motion.div
+      className="absolute left-1/2 top-1/2"
+      style={{
+        width: 300,
+        height: 300,
+        marginLeft: -150,
+        marginTop: -150 + (1 - i) * 84,
+        // These must be motion values, not a raw `transform` string: motion
+        // composes transform from its own style keys and would overwrite it,
+        // flattening the isometric planes into stacked rectangles.
+        rotateX: 58,
+        rotateZ: 45,
+        opacity: reduce ? 1 : opacity,
+        y: reduce ? 0 : y,
+      }}
+    >
+      <motion.div className="w-full h-full border" style={{ borderColor, background }} />
+    </motion.div>
+  );
+}
+
+function ActiveRow({
+  layer,
+  i,
+  activeIndex,
+}: {
+  layer: (typeof LAYERS)[number];
+  i: number;
+  activeIndex: ReturnType<typeof useTransform<number, number>>;
+}) {
+  const isActive = useTransform(activeIndex, (v) => (v === i ? 1 : 0));
+  const titleColor = useTransform(isActive, [0, 1], ["#5e656e", "#f2f4f6"]);
+  const bodyColor = useTransform(isActive, [0, 1], ["#3a4048", "#8b929b"]);
+  const ruleColor = useTransform(isActive, [0, 1], ["rgba(255,255,255,0.10)", "#2e6bff"]);
+
+  return (
+    <li className="relative grid grid-cols-[auto_1fr] gap-x-8 py-7 border-t border-[var(--line)]">
+      <motion.span className="absolute left-0 top-0 h-px w-16" style={{ background: ruleColor }} />
+      <span
+        className="eyebrow-mono text-[var(--metal)] pt-1"
+        style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+      >
+        {layer.n}
+      </span>
+      <div>
+        <motion.h3
+          className="font-medium mb-2"
+          style={{ fontSize: "var(--t-h3)", color: titleColor, letterSpacing: "-0.01em" }}
+        >
+          {layer.name}
+        </motion.h3>
+        <motion.p style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "48ch", color: bodyColor }}>
+          {layer.desc}
+        </motion.p>
+      </div>
+    </li>
   );
 }

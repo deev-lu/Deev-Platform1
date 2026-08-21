@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 
 interface CountUpProps {
-  /** The full display value, e.g. "50+", "100%", "LU 🇱🇺", "Senior" */
+  /** The full display value, e.g. "50+", "100%", "Senior" */
   value: string;
   /** Animation duration in ms */
   duration?: number;
@@ -11,7 +11,7 @@ interface CountUpProps {
 
 /**
  * Animates the leading number of a value upward when it scrolls into view.
- * If the value has no leading number (e.g. "LU 🇱🇺", "Senior") it renders as-is.
+ * If the value has no leading number (e.g. "Senior") it renders as-is.
  * Preserves any prefix/suffix around the number (e.g. "+", "%", "k").
  */
 export default function CountUp({ value, duration = 1600, className }: CountUpProps) {
@@ -20,7 +20,7 @@ export default function CountUp({ value, duration = 1600, className }: CountUpPr
   // edge (e.g. hero stats) still trigger their count-up on load.
   const inView = useInView(ref, { once: true, margin: "120px" });
   const reduce = useReducedMotion();
-  const [display, setDisplay] = useState<string>(value);
+  const [display, setDisplay] = useState<string>(value); // final value from first paint
 
   // Parse "  prefix  NUMBER  suffix " → keep surrounding text intact
   const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
@@ -35,10 +35,16 @@ export default function CountUp({ value, duration = 1600, className }: CountUpPr
       setDisplay(value);
       return;
     }
+    // Never render zero. The final value is what ships in the markup and what
+    // a visitor sees if the animation never runs; the count is a short settle
+    // from close to the target, not a climb from nothing. A stat block reading
+    // "0+ PROJECTS DELIVERED" costs more credibility than the animation buys.
     if (!inView) {
-      setDisplay(`${prefix}0${suffix}`);
+      setDisplay(value);
       return;
     }
+
+    const FROM = 0.88; // start within sight of the target
 
     let raf = 0;
     const start = performance.now();
@@ -46,7 +52,8 @@ export default function CountUp({ value, duration = 1600, className }: CountUpPr
       const t = Math.min((now - start) / duration, 1);
       // easeOutExpo for a punchy settle
       const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-      const current = (target * eased).toFixed(decimals);
+      const from = target * FROM;
+      const current = (from + (target - from) * eased).toFixed(decimals);
       setDisplay(`${prefix}${current}${suffix}`);
       if (t < 1) raf = requestAnimationFrame(tick);
     };

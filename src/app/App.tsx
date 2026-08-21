@@ -35,7 +35,7 @@ function SectionSkeleton() {
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] overflow-x-clip transition-colors duration-300">
       <Navbar />
       <Hero />
       <ClientLogos />

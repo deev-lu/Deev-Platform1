@@ -70,28 +70,35 @@ export default function Portfolio() {
   const rest = filtered.filter((i) => !i.image);
 
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-white dark:bg-[#050509] overflow-hidden border-t border-slate-100 dark:border-white/5">
+    <section className="relative bg-[var(--surface-0)] border-t border-[var(--line)]" style={{ paddingBlock: "var(--section-y)" }}>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="relative z-10 mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="mb-14"
         >
-          <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
-            03 / Selected work
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
-            Projects we're{" "}
-            <span className=" text-[var(--signal)]">
-              proud of.
+          <div className="flex items-center gap-4 mb-10">
+            <span className="h-px w-10 bg-[var(--line-strong)]" />
+            <span
+              className="eyebrow-mono uppercase text-[var(--text-low)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            >
+              <span className="text-[var(--metal)]">03</span> / Selected work
             </span>
+          </div>
+          <h2
+            className="text-[var(--text-hi)] font-medium"
+            style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "18ch" }}
+          >
+            Projects we&rsquo;re proud of.
           </h2>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+          <p
+            className="text-[var(--text-mid)] mt-6"
+            style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
+          >
             From luxury travel to artisan spirits — every project is built with
             the same commitment to craft, performance, and results.
           </p>
@@ -102,7 +109,7 @@ export default function Portfolio() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-10"
+          className="flex flex-wrap gap-3 mb-12"
         >
           {filters.map((filter) => {
             const active = activeFilter === filter;
@@ -110,15 +117,22 @@ export default function Portfolio() {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                style={active ? { background: "var(--signal)" } : {}}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-[2px] text-sm font-medium uppercase tracking-wider transition-all duration-300 ${ active ? "text-white " : "border border-slate-200 dark:border-white/[0.12] text-slate-500 dark:text-slate-400 hover:border-[#2563F6] hover:text-[#2563F6] dark:hover:border-white/25 dark:hover:text-white bg-transparent" }`}
+                className={`eyebrow-mono inline-flex items-center gap-1.5 px-4 h-9 uppercase border transition-colors duration-[var(--dur-1)] ${
+                  active
+                    ? "text-white"
+                    : "border-[var(--line)] text-[var(--text-mid)] hover:border-[var(--line-strong)] hover:text-[var(--text-hi)]"
+                }`}
+                style={active
+                  ? { background: "var(--signal)", borderColor: "var(--signal)", fontSize: "var(--t-label)", letterSpacing: "0.16em" }
+                  : { fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
                 {filter}
-                <span
-                  className={`text-[11px] font-medium tabular-nums px-1.5 py-0.5 rounded-[2px] ${ active ? "bg-white/25 text-white" : "bg-slate-100 dark:bg-white/[0.08] text-slate-400 dark:text-slate-500" }`}
+                <sup
+                  className={`tabular-nums ${active ? "text-white/70" : "text-[var(--text-low)]"}`}
+                  style={{ fontSize: "0.625em" }}
                 >
                   {countFor(filter)}
-                </span>
+                </sup>
               </button>
             );
           })}
@@ -142,36 +156,40 @@ export default function Portfolio() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="glass glass-edge glass-sheen group relative block rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-1 dark:"
+                    className="group relative block cursor-pointer border border-[var(--line)] hover:border-[var(--line-strong)] transition-colors duration-[240ms] bg-[var(--surface-1)]"
                   >
                     {/* Live site screenshot */}
-                    <div className="relative m-2 mb-0 rounded-md overflow-hidden aspect-[16/10]">
+                    <div className="relative overflow-hidden aspect-[4/3]">
                       <img
                         src={item.image}
                         alt={`${item.title} — live website`}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.045]"
+                        className="w-full h-full object-cover object-top transition-transform duration-[640ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-[1.03]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity duration-500" />
                     </div>
 
                     {/* Meta */}
-                    <div className="flex items-center gap-3 p-4">
-                      <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] flex items-center justify-center text-white ">
-                        <Icon className="w-4 h-4" strokeWidth={2} />
-                      </div>
+                    <div className="flex items-center gap-4 px-5 py-5 border-t border-[var(--line)]">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm sm:text-base font-medium tracking-tight text-slate-900 dark:text-white group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300 truncate">
+                        <h3
+                          className="text-[var(--text-hi)] font-medium truncate"
+                          style={{ fontSize: "var(--t-body)", letterSpacing: "-0.01em" }}
+                        >
                           {item.title}
                         </h3>
-                        <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                        <div
+                          className="eyebrow-mono uppercase text-[var(--text-low)] truncate mt-1.5"
+                          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                        >
                           {item.category} · {item.year}
                         </div>
                       </div>
-                      <span className="shrink-0 w-8 h-8 rounded-[2px] flex items-center justify-center bg-slate-100/70 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 group-hover:bg-[#3CE7FC] group-hover:text-white transition-all duration-300">
-                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </span>
+                      <ArrowUpRight
+                        className="shrink-0 w-4 h-4 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-all duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        strokeWidth={1.25}
+                      />
                     </div>
                   </a>
                 </motion.div>
