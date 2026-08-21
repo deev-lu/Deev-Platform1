@@ -1,26 +1,41 @@
 import { motion } from "motion/react";
-import { Globe, Brain, Zap, TrendingUp } from "lucide-react";
+import { Section, SectionTitle, Eyebrow } from "./Section";
+
+/**
+ * §6D — What we build. A 2×2 of full hairline-bordered panels. On hover the
+ * panel lifts one surface step and the hairline strengthens. No shadow, no
+ * scale, no colour change.
+ *
+ * §6E — Process. One horizontal rule with four numbered nodes hung beneath it,
+ * a diagram rather than four more cards. Vertical on mobile.
+ *
+ * Copy is unchanged from the previous implementation.
+ */
 
 const values = [
   {
-    icon: Brain,
+    index: "01",
     title: "AI-native products",
-    description: "AI agents and assistants that actually know your business — answering customers, qualifying leads and handling the busywork your team shouldn't be stuck with.",
+    description:
+      "AI agents and assistants that actually know your business — answering customers, qualifying leads and handling the busywork your team shouldn't be stuck with.",
   },
   {
-    icon: Zap,
+    index: "02",
     title: "Platforms that scale",
-    description: "Web apps and platforms that handle real customers from day one — and keep working just as well when you're ten times busier.",
+    description:
+      "Web apps and platforms that handle real customers from day one — and keep working just as well when you're ten times busier.",
   },
   {
-    icon: Globe,
+    index: "03",
     title: "Websites that convert",
-    description: "Fast, beautiful websites that turn visitors into customers — and that Google actually rewards.",
+    description:
+      "Fast, beautiful websites that turn visitors into customers — and that Google actually rewards.",
   },
   {
-    icon: TrendingUp,
+    index: "04",
     title: "Growth that performs",
-    description: "Ads, SEO and campaigns that bring you qualified leads — measured properly, so you always know what's working.",
+    description:
+      "Ads, SEO and campaigns that bring you qualified leads — measured properly, so you always know what's working.",
   },
 ];
 
@@ -33,104 +48,107 @@ const steps = [
 
 export default function ValueProposition() {
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#08080c] overflow-hidden transition-colors duration-300">
-      {/* Ambient aurora — gives the clear glass colour to refract */}
+    <Section index="01" eyebrow="What we build" tone={0}>
+      <div className="max-w-[760px] mb-16">
+        <SectionTitle>Everything your business needs to compete online</SectionTitle>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      {/* ── §6D — four panels ─────────────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-[var(--line)]">
+        {values.map((v, i) => (
+          <motion.div
+            key={v.index}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative border-r border-b border-[var(--line)] bg-[var(--surface-1)]
+                       hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]
+                       transition-colors duration-[240ms] p-9 sm:p-12 flex flex-col
+                       min-h-[280px] lg:min-h-[320px]"
+          >
+            <span
+              className="eyebrow-mono text-[var(--metal)] mb-8"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            >
+              {v.index}
+            </span>
+            <h3
+              className="text-[var(--text-hi)] font-medium mb-4 mt-auto"
+              style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+            >
+              {v.title}
+            </h3>
+            <p
+              className="text-[var(--text-mid)]"
+              style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
+            >
+              {v.description}
+            </p>
+          </motion.div>
+        ))}
+      </div>
 
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
-            01 / What we build
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
+      {/* ── §6E — process as a diagram ────────────────────────── */}
+      <div className="mt-28">
+        <Eyebrow index="01.1">How we work</Eyebrow>
+
+        {/* desktop: nodes hung from one rule */}
+        <div className="hidden md:block">
+          <div className="relative border-t border-[var(--line)]">
+            <div className="grid grid-cols-4">
+              {steps.map((s, i) => (
+                <motion.div
+                  key={s.number}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative pr-10 pt-10"
+                >
+                  <span className="absolute -top-[3px] left-0 w-[5px] h-[5px] rounded-full bg-[var(--signal)]" />
+                  <span
+                    className="eyebrow-mono text-[var(--metal)] block mb-4"
+                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                  >
+                    {s.number}
+                  </span>
+                  <h3 className="text-[var(--text-hi)] font-medium mb-3" style={{ fontSize: "1.25rem" }}>
+                    {s.title}
+                  </h3>
+                  <p
+                    className="text-[var(--text-mid)]"
+                    style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}
+                  >
+                    {s.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white tracking-tight">
-            Everything your business needs
-            <br className="hidden md:block" />
-            <span className=" text-[var(--signal)]"> to dominate online.</span>
-          </h2>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mt-5">
-            One senior team across AI, product, web, and growth — so your whole
-            digital system is built to work together.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {values.map((value, index) => {
-            const Icon = value.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative"
-              >
-                <div className="glass glass-edge glass-sheen relative rounded-lg transition-all duration-300 dark: hover:-translate-y-1 cursor-pointer h-full">
-
-                  {/* Gradient top accent — Deev brand */}
-                  <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
-
-                  <div className="p-7">
-                    {/* Icon */}
-                    <div className="w-11 h-11 rounded-md mb-6 flex items-center justify-center bg-[#2563F6]/[0.07] dark:bg-[#3CE7FC]/[0.10] transition-all duration-300 group-hover:scale-110">
-                      <Icon className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
-                    </div>
-
-                    <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2.5 transition-colors duration-300 group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] leading-snug">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                      {value.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
         </div>
 
-        {/* Process strip — how we deliver, kept compact */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
-          className="mt-16 sm:mt-20"
-        >
-          <div className="text-center text-xs font-medium uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-8">
-            How we deliver
-          </div>
-          <div className="glass glass-edge relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-lg overflow-hidden">
-            {steps.map((step) => (
-              <div
-                key={step.number}
-                className="p-7 transition-colors duration-300 hover:bg-white/40 dark:hover:bg-white/[0.04]"
+        {/* mobile: the same rule, vertical */}
+        <div className="md:hidden border-l border-[var(--line)] pl-7">
+          {steps.map((s) => (
+            <div key={s.number} className="relative pb-10 last:pb-0">
+              <span className="absolute -left-[30px] top-[7px] w-[5px] h-[5px] rounded-full bg-[var(--signal)]" />
+              <span
+                className="eyebrow-mono text-[var(--metal)] block mb-2"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                <div className="flex items-center gap-2.5 mb-3">
-                  <span className="text-sm font-extrabold text-[var(--signal)] tracking-tight">
-                    {step.number}
-                  </span>
-                  <span className="h-px flex-1 bg-gradient-to-r from-[#2563F6]/30 to-transparent" />
-                </div>
-                <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1.5">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+                {s.number}
+              </span>
+              <h3 className="text-[var(--text-hi)] font-medium mb-2" style={{ fontSize: "1.125rem" }}>
+                {s.title}
+              </h3>
+              <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}>
+                {s.description}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

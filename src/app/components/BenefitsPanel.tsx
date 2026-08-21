@@ -1,30 +1,30 @@
 import { motion } from "motion/react";
-import { Target, LineChart, BrainCircuit, Eye } from "lucide-react";
+import { Section, SectionTitle } from "./Section";
 
 /**
- * Two-panel value block: a quiet statement on the left, a solid accent panel
- * of concrete benefits on the right. Deliberately square-cornered and
- * high-contrast — the accent carries a whole surface rather than a detail.
+ * §6C — Positioning + advantages.
+ * Asymmetric 5/7. The statement is sticky through the scroll of the list.
+ * Advantages are hairline-separated rows, not cards: mono index, title, copy.
  */
 
-const BENEFITS = [
+const ADVANTAGES = [
   {
-    icon: Target,
+    index: "01",
     title: "Predictable enquiries",
     copy: "Traffic is directed at a single goal and the path to it is designed, so qualified enquiries arrive steadily instead of by chance.",
   },
   {
-    icon: LineChart,
+    index: "02",
     title: "Measurable outcomes",
     copy: "Every build ships with analytics wired in from day one, so you can see what the work returns rather than take it on faith.",
   },
   {
-    icon: BrainCircuit,
+    index: "03",
     title: "AI where it earns its place",
-    copy: "Automation and AI applied to the steps that actually cost you time — not bolted on because the word sells.",
+    copy: "Automation applied to the steps that actually cost you time — not bolted on because the word sells.",
   },
   {
-    icon: Eye,
+    index: "04",
     title: "Full transparency",
     copy: "You talk to the people who design and build your project, and you always know what is being worked on and why.",
   },
@@ -32,59 +32,69 @@ const BENEFITS = [
 
 export default function BenefitsPanel() {
   return (
-    <section className="relative bg-white dark:bg-[#06060a] py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr]">
+    <Section index="02" eyebrow="Why it works" tone={1}>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
-          {/* Left — the statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-slate-100 dark:bg-[#111119] p-9 sm:p-12 flex flex-col justify-center"
-          >
-            <h2 className="text-[1.75rem] sm:text-[2.1rem] font-medium leading-[1.15] tracking-[-0.02em] text-slate-900 dark:text-white mb-5">
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-32">
+            <SectionTitle>
               Digital systems engineered for sustainable growth
-            </h2>
-            <p className="text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">
+            </SectionTitle>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.56, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 text-[var(--text-mid)]"
+              style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
+            >
               We build the whole system, not a single piece of it — the site, the
-              product behind it, and the campaigns that feed it. The focus is on
-              clear structure, decisions grounded in data, and work whose
-              commercial effect can actually be measured.
-            </p>
-          </motion.div>
-
-          {/* Right — the accent panel */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="p-9 sm:p-12"
-            style={{ background: "var(--signal)" }}
-          >
-            <h3 className="text-[1.35rem] sm:text-[1.6rem] font-medium text-white mb-8 tracking-[-0.01em]">
-              &ldquo;Your advantages at a glance&rdquo;
-            </h3>
-
-            <ul className="space-y-6">
-              {BENEFITS.map(({ icon: Icon, title, copy }) => (
-                <li key={title} className="flex items-start gap-4">
-                  <span className="shrink-0 w-9 h-9 rounded-[2px] bg-white/15 flex items-center justify-center">
-                    <Icon className="w-[18px] h-[18px] text-white" />
-                  </span>
-                  <div>
-                    <div className="text-[15px] font-semibold text-white mb-1">{title}</div>
-                    <p className="text-[13.5px] leading-relaxed text-white/80">{copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
+              product behind it, and the campaigns that feed it. Clear structure,
+              decisions grounded in data, and work whose commercial effect can
+              actually be measured.
+            </motion.p>
+          </div>
         </div>
+
+        <ul className="lg:col-span-7 border-t border-[var(--line)]">
+          {ADVANTAGES.map((a, i) => (
+            <motion.li
+              key={a.index}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                duration: 0.56,
+                delay: Math.min(i, 4) * 0.06,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 py-8 border-b border-[var(--line)]"
+            >
+              <span
+                className="eyebrow-mono text-[var(--metal)] pt-1"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+              >
+                {a.index}
+              </span>
+              <div>
+                <h3
+                  className="text-[var(--text-hi)] font-medium mb-2"
+                  style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                >
+                  {a.title}
+                </h3>
+                <p
+                  className="text-[var(--text-mid)]"
+                  style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "56ch" }}
+                >
+                  {a.copy}
+                </p>
+              </div>
+            </motion.li>
+          ))}
+        </ul>
+
       </div>
-    </section>
+    </Section>
   );
 }
