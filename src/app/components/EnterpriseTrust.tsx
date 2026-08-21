@@ -68,7 +68,7 @@ export default function EnterpriseTrust() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">05</span> / Why Deev
+              <span className="text-[var(--metal)]">08</span> / Why Deev
             </span>
           </div>
           <h2

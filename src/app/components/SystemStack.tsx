@@ -121,7 +121,7 @@ function Header() {
           className="eyebrow-mono uppercase text-[var(--text-low)]"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
         >
-          <span className="text-[var(--metal)]">02</span> / How it runs
+          <span className="text-[var(--metal)]">03</span> / How it runs
         </span>
       </div>
       <h2

@@ -9,7 +9,7 @@
 // Each route now ships its own canonical, title and description. The body is
 // unchanged and still hydrates as the same SPA.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -18,6 +18,18 @@ const dist = join(root, "dist");
 const SITE = "https://www.deev.lu";
 
 const routes = JSON.parse(readFileSync(join(root, "src/lib/routeMeta.json"), "utf8"));
+
+// A document per case study, derived from the same data the app renders.
+// Every value here is a fact from projects.data.json — nothing is invented.
+const projects = JSON.parse(readFileSync(join(root, "src/lib/projects.data.json"), "utf8"));
+mkdirSync(join(dist, "work"), { recursive: true });
+for (const p of projects) {
+  routes[`/work/${p.slug}`] = {
+    file: `work/${p.slug}.html`,
+    title: `${p.title} — ${p.category} | DEEV`,
+    description: `${p.title}: a ${p.category.toLowerCase()} designed and built by DEEV, an AI-native digital engineering studio in Luxembourg. Shipped ${p.year}.`,
+  };
+}
 const template = readFileSync(join(dist, "index.html"), "utf8");
 
 const esc = (s) =>
@@ -67,3 +79,18 @@ for (const [routePath, route] of Object.entries(routes)) {
   console.log(`  ${route.file.padEnd(13)} ${url}`);
 }
 console.log(`prerender: ${written} route documents verified and written`);
+
+// The sitemap is generated, not hand-maintained, so a new project cannot be
+// shipped without it. Search Console showed the site down to 5 indexed pages;
+// every case study is a page worth indexing.
+const today = new Date().toISOString().slice(0, 10);
+const urls = Object.keys(routes).map((path) => {
+  const loc = path === "/" ? `${SITE}/` : `${SITE}${path}`;
+  const priority = path === "/" ? "1.0" : path.startsWith("/work/") ? "0.7" : "0.5";
+  return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
+});
+writeFileSync(
+  join(dist, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`
+);
+console.log(`prerender: sitemap.xml written with ${urls.length} URLs`);

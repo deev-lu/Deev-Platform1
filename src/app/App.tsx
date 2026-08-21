@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
 import BenefitsPanel from "./components/BenefitsPanel";
+const MarketingServices = lazy(() => import("./components/MarketingServices"));
 import { initAnalytics } from "../lib/analytics";
 
 // Below-the-fold — lazy loaded for faster initial paint
@@ -23,6 +24,7 @@ const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
+const WorkCase          = lazy(() => import("./components/WorkCase"));
 
 // Minimal section skeleton while lazy chunks load
 function SectionSkeleton() {
@@ -56,6 +58,7 @@ function HomePage() {
           <div id="portfolio"><Portfolio /></div>
         </div>
 
+        <div id="marketing"><MarketingServices /></div>
         <div id="billovio"><BillovioFeature /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
@@ -91,6 +94,17 @@ export default function App() {
           <Suspense fallback={<SectionSkeleton />}>
             <Legal />
           </Suspense>
+        } />
+        <Route path="/work/:slug" element={
+          <>
+            <Navbar />
+            <Suspense fallback={<SectionSkeleton />}>
+              <WorkCase />
+            </Suspense>
+            <div data-surface="dark" className="dark bg-[#06060a]">
+              <Footer />
+            </div>
+          </>
         } />
         <Route path="/contact" element={
           <Suspense fallback={<SectionSkeleton />}>

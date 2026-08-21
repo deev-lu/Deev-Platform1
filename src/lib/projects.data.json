@@ -1,0 +1,114 @@
+[
+  {
+    "slug": "bureau-immobilier-feltes",
+    "title": "Bureau Immobilier Feltes",
+    "year": 2024,
+    "category": "Real Estate Web-App",
+    "filter": "Web App",
+    "link": "https://www.feltes.lu/"
+  },
+  {
+    "slug": "aurora-experience",
+    "title": "Aurora Experience",
+    "year": 2025,
+    "category": "Luxury Travel",
+    "filter": "Website",
+    "link": "https://www.auroraexp.eu"
+  },
+  {
+    "slug": "oscars-bar",
+    "title": "Oscar's Bar",
+    "year": 2025,
+    "category": "Bar & Nightlife",
+    "filter": "Website",
+    "link": "https://oscarsbar.lu/"
+  },
+  {
+    "slug": "mellys",
+    "title": "Melly's",
+    "year": 2025,
+    "category": "Candy E-commerce",
+    "filter": "E-commerce",
+    "link": "https://www.mellys.lu"
+  },
+  {
+    "slug": "geoplus-3d",
+    "title": "Geoplus 3D",
+    "year": 2025,
+    "category": "3D Scanning Tech",
+    "filter": "Website",
+    "link": "https://geoplus3d.lu/"
+  },
+  {
+    "slug": "vino-amore",
+    "title": "Vino Amore",
+    "year": 2025,
+    "category": "Wine E-commerce",
+    "filter": "E-commerce",
+    "link": "https://vinoamoreandmore.de/"
+  },
+  {
+    "slug": "flenting",
+    "title": "Flenting",
+    "year": 2026,
+    "category": "Finance Website",
+    "filter": "Website",
+    "link": "https://flenting.framer.website/"
+  },
+  {
+    "slug": "bach-vereenegung",
+    "title": "Bach Vereenegung Lëtzebuerg",
+    "year": 2025,
+    "category": "Musical Arts",
+    "filter": "Website",
+    "link": "https://bachvereenegung.lu/"
+  },
+  {
+    "slug": "net-and-clean",
+    "title": "Net & Clean",
+    "year": 2025,
+    "category": "Cleaning Services",
+    "filter": "Website",
+    "link": "https://www.net-clean.lu/"
+  },
+  {
+    "slug": "feine-jong",
+    "title": "Feine Jong",
+    "year": 2025,
+    "category": "Pet Care",
+    "filter": "Website",
+    "link": "https://www.feinejong.com/"
+  },
+  {
+    "slug": "supa-saya-gin",
+    "title": "Supa Saya Gin",
+    "year": 2025,
+    "category": "Spirits Brand",
+    "filter": "Website",
+    "link": "https://supasayagin.lu/"
+  },
+  {
+    "slug": "angolodoro",
+    "title": "Angolodoro",
+    "year": 2024,
+    "category": "Restaurant",
+    "filter": "Website",
+    "link": "https://www.langolodoro.lu/"
+  },
+  {
+    "slug": "amd-cars",
+    "title": "AMD Cars",
+    "year": 2024,
+    "category": "Car Rental",
+    "filter": "Website",
+    "link": "https://www.amdcars.lu/"
+  },
+  {
+    "slug": "florian-blencke",
+    "title": "Florian Blencke",
+    "year": 2023,
+    "category": "Personal Brand",
+    "filter": "Website",
+    "link": "https://www.florianblencke.com/"
+  }
+]
