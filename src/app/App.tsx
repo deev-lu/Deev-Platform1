@@ -12,6 +12,7 @@ import RouteMeta from "./components/RouteMeta";
 import BenefitsPanel from "./components/BenefitsPanel";
 const MarketingServices = lazy(() => import("./components/MarketingServices"));
 const AiConcepts        = lazy(() => import("./components/AiConcepts"));
+const WorkMoment        = lazy(() => import("./components/WorkMoment"));
 import { initAnalytics } from "../lib/analytics";
 
 // Below-the-fold — lazy loaded for faster initial paint
@@ -57,6 +58,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         </div>
         <div id="portfolio"><Portfolio /></div>
 
+        <WorkMoment />
         <div id="marketing"><MarketingServices /></div>
         <div id="ai"><AiConcepts /></div>
         <div id="billovio"><BillovioFeature /></div>
