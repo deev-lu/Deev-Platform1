@@ -91,7 +91,7 @@ export default function Footer() {
               })}
             </div>
 
-            {/* Made in Luxembourg — certified label */}
+            {/* Made in Luxembourg, certified label */}
             <div className="mt-8 flex items-center gap-3">
               <MadeInLuxembourg className="h-16 w-20 text-slate-800 dark:text-white/90 shrink-0" />
               <div className="text-xs leading-relaxed text-slate-500 dark:text-slate-500">

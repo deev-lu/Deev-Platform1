@@ -63,7 +63,7 @@ export default function HeroMark() {
         </motion.div>
       ))}
 
-      {/* Sweeping arc — a single bright accent on the outer ring */}
+      {/* Sweeping arc, a single bright accent on the outer ring */}
       <motion.div
         className="absolute inset-0"
         animate={reduce ? undefined : { rotate: -360 }}

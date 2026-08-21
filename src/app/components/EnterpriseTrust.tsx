@@ -20,7 +20,7 @@ const pillars = [
     icon: Lock,
     title: "Security-first engineering",
     description:
-      "Secure-by-design architecture, dependency auditing, and least-privilege access on every project — not an afterthought bolted on later.",
+      "Secure-by-design architecture, dependency auditing, and least-privilege access on every project, not an afterthought bolted on later.",
   },
   {
     icon: Users,
@@ -32,7 +32,7 @@ const pillars = [
     icon: CalendarCheck,
     title: "Fixed scope, clear milestones",
     description:
-      "Defined deliverables, transparent timelines, and milestone-based delivery. You always know what's shipping next — no surprises, no scope drift.",
+      "Defined deliverables, transparent timelines, and milestone-based delivery. You always know what's shipping next: no surprises, no scope drift.",
   },
 ];
 
@@ -52,7 +52,7 @@ const stack = [
 export default function EnterpriseTrust() {
   return (
     <section className="relative bg-[var(--surface-1)] border-t border-[var(--line)]" style={{ paddingBlock: "var(--section-y)" }}>
-      {/* Ambient aurora — both themes, so the clear glass has colour to refract */}
+      {/* Ambient aurora, both themes, so the clear glass has colour to refract */}
 
       <div className="relative z-10 mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         {/* Header */}
@@ -114,7 +114,7 @@ export default function EnterpriseTrust() {
           ))}
         </motion.div>
 
-        {/* Trust pillars — hairline rows, same treatment as the advantages */}
+        {/* Trust pillars, hairline rows, same treatment as the advantages */}
         <ul className="border-t border-[var(--line)] mb-16">
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon;

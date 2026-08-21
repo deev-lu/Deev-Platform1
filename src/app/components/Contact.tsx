@@ -37,7 +37,7 @@ const initialForm = {
   phone: "",
   interest: INTERESTS[0],
   message: "",
-  website: "", // honeypot — humans never see this
+  website: "", // honeypot, humans never see this
 };
 
 export default function Contact() {
@@ -48,11 +48,11 @@ export default function Contact() {
     setForm((f) => ({ ...f, [key]: value }));
 
   const mailtoFallback = () => {
-    const subject = encodeURIComponent(`Contact — ${form.interest}`);
+    const subject = encodeURIComponent(`Contact, ${form.interest}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${
-        form.company || "—"
-      }\nPhone: ${form.phone || "—"}\nInterest: ${form.interest}\n\n${
+        form.company || "n/a"
+      }\nPhone: ${form.phone || "n/a"}\nInterest: ${form.interest}\n\n${
         form.message
       }`
     );
@@ -70,13 +70,13 @@ export default function Contact() {
 
     // 1) Email the submission to contact@deev.lu (primary delivery)
     const emailed = await sendLeadEmail({
-      subject: `New contact enquiry — ${form.interest}`,
+      subject: `New contact enquiry, ${form.interest}`,
       from_name: form.name || "Website contact form",
       replyto: form.email,
       name: form.name,
       email: form.email,
-      company: form.company || "—",
-      phone: form.phone || "—",
+      company: form.company || "n/a",
+      phone: form.phone || "n/a",
       interest: form.interest,
       message: form.message,
     });
@@ -131,7 +131,7 @@ export default function Contact() {
           </h1>
           <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
             Tell us what you're building. We read every message and reply
-            personally — usually within one business day.
+            personally, usually within one business day.
           </p>
         </motion.div>
 
@@ -259,7 +259,7 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="p-7 md:p-9 space-y-5">
-                  {/* Honeypot — hidden from users */}
+                  {/* Honeypot, hidden from users */}
                   <input
                     type="text"
                     tabIndex={-1}

@@ -6,7 +6,7 @@ const steps = [
     icon: Search,
     number: "01",
     title: "Understand",
-    description: "We deep-dive into your business, goals, and market to architect the perfect solution — no guesswork.",
+    description: "We deep-dive into your business, goals, and market to architect the perfect solution, no guesswork.",
   },
   {
     icon: Hammer,
@@ -18,7 +18,7 @@ const steps = [
     icon: Rocket,
     number: "03",
     title: "Launch",
-    description: "We deploy with zero drama — tested, monitored, and ready to handle real traffic from day one.",
+    description: "We deploy with zero drama: tested, monitored, and ready to handle real traffic from day one.",
   },
   {
     icon: TrendingUp,
@@ -31,7 +31,7 @@ const steps = [
 export default function Process() {
   return (
     <section className="relative py-16 sm:py-24 md:py-32 bg-slate-50 dark:bg-[#06060a] overflow-hidden transition-colors duration-300">
-      {/* Background glows — dark only */}
+      {/* Background glows, dark only */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
 
@@ -72,7 +72,7 @@ export default function Process() {
                     transition={{ duration: 0.6, delay: index * 0.12 }}
                     className="group relative flex flex-col items-center"
                   >
-                    {/* Gradient ring badge — Deev brand */}
+                    {/* Gradient ring badge, Deev brand */}
                     <div className="relative w-[104px] h-[104px] rounded-[2px] p-[2px] bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] mb-8 z-10">
                       <div className="w-full h-full rounded-[2px] bg-slate-100 dark:bg-[#0a0a12] flex flex-col items-center justify-center transition-all duration-500 group-hover:bg-white dark:group-hover:bg-[#0e0e18]">
                         <Icon className="w-6 h-6 text-[#2563F6] dark:text-[#3CE7FC] mb-1" />

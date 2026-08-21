@@ -20,12 +20,12 @@ const LAYERS = [
   {
     n: "01",
     name: "Interface",
-    desc: "The websites and products your customers touch — fast, precise, engineered to convert.",
+    desc: "The websites and products your customers touch: fast, precise, engineered to convert.",
   },
   {
     n: "02",
     name: "Intelligence",
-    desc: "AI agents and automations working inside your operations — qualifying, answering, executing.",
+    desc: "AI agents and automations working inside your operations: qualifying, answering, executing.",
   },
   {
     n: "03",

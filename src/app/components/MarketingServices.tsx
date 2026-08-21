@@ -13,7 +13,7 @@ const SERVICES = [
   {
     index: "01",
     title: "Paid advertising",
-    description: "Google Ads, Meta Ads and LinkedIn — optimised for return, not for impressions.",
+    description: "Google Ads, Meta Ads and LinkedIn: optimised for return, not for impressions.",
     detail: ["Campaign strategy", "A/B testing", "Conversion tracking"],
   },
   {

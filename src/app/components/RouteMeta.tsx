@@ -21,7 +21,7 @@ export default function RouteMeta() {
 
   useEffect(() => {
     const meta = ROUTES[pathname];
-    if (!meta) return; // unknown path — leave the document as served
+    if (!meta) return; // unknown path, leave the document as served
 
     document.title = meta.title;
 

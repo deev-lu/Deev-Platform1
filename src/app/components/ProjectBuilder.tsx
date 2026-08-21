@@ -137,49 +137,49 @@ const SCALE_LEVELS = [
 const CAP_PRICE: Record<string, { min: number; max: number }> = {
   // Website add-ons
   animations:    { min: 800,  max: 1200 },
-  blog:          { min: 450,  max: 750  },
-  i18n:          { min: 400,  max: 650  },
+  blog: { min: 450,  max: 750  },
+  i18n: { min: 400,  max: 650  },
   lead_forms:    { min: 350,  max: 550  },
-  seo:           { min: 900,  max: 1400 },
-  gdpr:          { min: 500,  max: 750  },
+  seo: { min: 900,  max: 1400 },
+  gdpr: { min: 500,  max: 750  },
   live_chat:     { min: 400,  max: 600  },
   analytics:     { min: 350,  max: 550  },
   // E-Commerce add-ons
-  payments:      { min: 1200, max: 1700 },
-  catalog:       { min: 900,  max: 1350 },
-  accounts:      { min: 700,  max: 1050 },
+  payments: { min: 1200, max: 1700 },
+  catalog: { min: 900,  max: 1350 },
+  accounts: { min: 700,  max: 1050 },
   inventory:     { min: 1000, max: 1450 },
   order_mgmt:    { min: 900,  max: 1300 },
   discounts:     { min: 500,  max: 750  },
   cart_recovery: { min: 700,  max: 1000 },
   multicurrency: { min: 1000, max: 1450 },
   // Web App add-ons
-  auth:          { min: 1000, max: 1450 },
+  auth: { min: 1000, max: 1450 },
   dashboard:     { min: 1200, max: 1800 },
-  realtime:      { min: 1200, max: 1700 },
+  realtime: { min: 1200, max: 1700 },
   file_upload:   { min: 700,  max: 1000 },
   email_notif:   { min: 500,  max: 750  },
   api_integr:    { min: 1000, max: 1500 },
   cron_jobs:     { min: 700,  max: 1000 },
-  billing:       { min: 1500, max: 2100 },
+  billing: { min: 1500, max: 2100 },
   // AI & Automation add-ons
-  chatbot:       { min: 1800, max: 2600 },
-  rag:           { min: 2500, max: 3600 },
-  lead_bot:      { min: 1800, max: 2500 },
+  chatbot: { min: 1800, max: 2600 },
+  rag: { min: 2500, max: 3600 },
+  lead_bot: { min: 1800, max: 2500 },
   email_seq:     { min: 1200, max: 1700 },
-  scraping:      { min: 1500, max: 2100 },
+  scraping: { min: 1500, max: 2100 },
   crm_integr:    { min: 1000, max: 1500 },
-  voice:         { min: 2000, max: 2800 },
-  finetune:      { min: 3000, max: 4200 },
+  voice: { min: 2000, max: 2800 },
+  finetune: { min: 3000, max: 4200 },
   // Lead Campaigns & Marketing add-ons (campaign build / setup fees, ad spend separate)
-  google_ads:      { min: 800,  max: 1200 },
-  meta_ads:        { min: 700,  max: 1100 },
+  google_ads: { min: 800,  max: 1200 },
+  meta_ads: { min: 700,  max: 1100 },
   seo_campaign:    { min: 900,  max: 1400 },
-  content:         { min: 600,  max: 950  },
+  content: { min: 600,  max: 950  },
   email_marketing: { min: 500,  max: 800  },
   social_mgmt:     { min: 800,  max: 1200 },
-  funnel:          { min: 700,  max: 1100 },
-  cro:             { min: 900,  max: 1350 },
+  funnel: { min: 700,  max: 1100 },
+  cro: { min: 900,  max: 1350 },
 };
 
 // ── Capabilities per system ───────────────────────────────────────────────────
@@ -187,54 +187,54 @@ type CapItem = { id: string; label: string; sublabel: string; icon: React.Elemen
 
 const CAPABILITIES: Record<NonNullable<CoreSystem>, CapItem[]> = {
   website: [
-    { id: "animations",  label: "Custom Animations",        sublabel: "Framer Motion / GSAP scroll effects",    icon: Sparkles },
-    { id: "blog",        label: "Blog / News CMS",          sublabel: "Sanity or Contentful headless CMS",       icon: BookOpen },
-    { id: "i18n",        label: "Multi-language (i18n)",    sublabel: "EN / FR / DE / LU support",              icon: Languages },
-    { id: "lead_forms",  label: "Lead Forms & CRM Sync",    sublabel: "HubSpot, Pipedrive or custom",            icon: Megaphone },
-    { id: "seo",         label: "Advanced SEO",             sublabel: "Schema.org, sitemap, Open Graph",         icon: Search },
-    { id: "gdpr",        label: "GDPR & Cookie Banner",     sublabel: "Cookiebot or custom consent layer",       icon: Cookie },
-    { id: "live_chat",   label: "Live Chat Integration",    sublabel: "Crisp, Intercom or Tawk",                 icon: MessageSquare },
-    { id: "analytics",   label: "Analytics & GTM Setup",   sublabel: "GA4, Plausible or Matomo",                icon: BarChart3 },
+    { id: "animations",  label: "Custom Animations", sublabel: "Framer Motion / GSAP scroll effects",    icon: Sparkles },
+    { id: "blog", label: "Blog / News CMS", sublabel: "Sanity or Contentful headless CMS", icon: BookOpen },
+    { id: "i18n", label: "Multi-language (i18n)",    sublabel: "EN / FR / DE / LU support", icon: Languages },
+    { id: "lead_forms",  label: "Lead Forms & CRM Sync",    sublabel: "HubSpot, Pipedrive or custom", icon: Megaphone },
+    { id: "seo", label: "Advanced SEO", sublabel: "Schema.org, sitemap, Open Graph", icon: Search },
+    { id: "gdpr", label: "GDPR & Cookie Banner",     sublabel: "Cookiebot or custom consent layer", icon: Cookie },
+    { id: "live_chat",   label: "Live Chat Integration",    sublabel: "Crisp, Intercom or Tawk", icon: MessageSquare },
+    { id: "analytics",   label: "Analytics & GTM Setup",   sublabel: "GA4, Plausible or Matomo", icon: BarChart3 },
   ],
   ecommerce: [
-    { id: "payments",      label: "Payment Gateway",          sublabel: "Stripe, Mollie or Payconiq",              icon: CreditCard },
-    { id: "catalog",       label: "Product Catalog & Search", sublabel: "Filters, faceted search, quick view",     icon: Package },
-    { id: "accounts",      label: "Customer Accounts",        sublabel: "Wishlist, order history, saved addresses", icon: ShieldCheck },
+    { id: "payments", label: "Payment Gateway", sublabel: "Stripe, Mollie or Payconiq", icon: CreditCard },
+    { id: "catalog", label: "Product Catalog & Search", sublabel: "Filters, faceted search, quick view",     icon: Package },
+    { id: "accounts", label: "Customer Accounts", sublabel: "Wishlist, order history, saved addresses", icon: ShieldCheck },
     { id: "inventory",     label: "Inventory Management",     sublabel: "Stock alerts, variants, SKU tracking",    icon: Database },
-    { id: "order_mgmt",    label: "Order Management",         sublabel: "Tracking, status updates, returns",        icon: RefreshCw },
-    { id: "discounts",     label: "Discount Codes & Promos",  sublabel: "Coupon engine, BOGO, flash sales",         icon: Tag },
-    { id: "cart_recovery", label: "Abandoned Cart Recovery",  sublabel: "Automated email reminders",               icon: Mail },
-    { id: "multicurrency", label: "Multi-currency & VAT",     sublabel: "EU VAT rules, dynamic rates",             icon: DollarSign },
+    { id: "order_mgmt",    label: "Order Management", sublabel: "Tracking, status updates, returns", icon: RefreshCw },
+    { id: "discounts",     label: "Discount Codes & Promos",  sublabel: "Coupon engine, BOGO, flash sales", icon: Tag },
+    { id: "cart_recovery", label: "Abandoned Cart Recovery",  sublabel: "Automated email reminders", icon: Mail },
+    { id: "multicurrency", label: "Multi-currency & VAT",     sublabel: "EU VAT rules, dynamic rates", icon: DollarSign },
   ],
   webapp: [
-    { id: "auth",        label: "Auth & Role Permissions",  sublabel: "Supabase, Clerk, SSO / OAuth",            icon: ShieldCheck },
-    { id: "dashboard",   label: "Admin Dashboard",          sublabel: "Charts, tables, export to CSV/PDF",        icon: LayoutDashboard },
-    { id: "realtime",    label: "Real-time Sync",           sublabel: "WebSockets, live cursors, notifications",  icon: Zap },
+    { id: "auth", label: "Auth & Role Permissions",  sublabel: "Supabase, Clerk, SSO / OAuth", icon: ShieldCheck },
+    { id: "dashboard",   label: "Admin Dashboard", sublabel: "Charts, tables, export to CSV/PDF", icon: LayoutDashboard },
+    { id: "realtime",    label: "Real-time Sync", sublabel: "WebSockets, live cursors, notifications",  icon: Zap },
     { id: "file_upload", label: "File Uploads & Storage",   sublabel: "S3 / Supabase Storage, preview & resize", icon: Upload },
-    { id: "email_notif", label: "Email Notifications",      sublabel: "Resend or SendGrid, templates",            icon: Mail },
-    { id: "api_integr",  label: "Third-party API Integrations", sublabel: "REST / GraphQL, webhooks",            icon: Link },
-    { id: "cron_jobs",   label: "Scheduled Jobs",           sublabel: "Background tasks, cron, queues",          icon: Clock },
-    { id: "billing",     label: "SaaS Billing",             sublabel: "Stripe Subscriptions, usage-based billing",icon: CreditCard },
+    { id: "email_notif", label: "Email Notifications", sublabel: "Resend or SendGrid, templates", icon: Mail },
+    { id: "api_integr",  label: "Third-party API Integrations", sublabel: "REST / GraphQL, webhooks", icon: Link },
+    { id: "cron_jobs",   label: "Scheduled Jobs", sublabel: "Background tasks, cron, queues", icon: Clock },
+    { id: "billing",     label: "SaaS Billing", sublabel: "Stripe Subscriptions, usage-based billing",icon: CreditCard },
   ],
   "ai-agent": [
-    { id: "chatbot",    label: "AI Chatbot (your data)",   sublabel: "Trained on your docs, website, FAQs",       icon: Bot },
-    { id: "rag",        label: "Document Q&A (RAG)",       sublabel: "Chat with PDFs, contracts, knowledge bases", icon: FileSearch },
-    { id: "lead_bot",   label: "Lead Qualification Bot",   sublabel: "Scores & routes leads automatically",        icon: UserCheck },
+    { id: "chatbot",    label: "AI Chatbot (your data)",   sublabel: "Trained on your docs, website, FAQs", icon: Bot },
+    { id: "rag", label: "Document Q&A (RAG)", sublabel: "Chat with PDFs, contracts, knowledge bases", icon: FileSearch },
+    { id: "lead_bot",   label: "Lead Qualification Bot",   sublabel: "Scores & routes leads automatically", icon: UserCheck },
     { id: "email_seq",  label: "Automated Email Sequences", sublabel: "n8n / Make workflows, smart triggers",     icon: Workflow },
-    { id: "scraping",   label: "Data Extraction",          sublabel: "Web scraping, parsing, structured outputs",  icon: Database },
+    { id: "scraping",   label: "Data Extraction", sublabel: "Web scraping, parsing, structured outputs",  icon: Database },
     { id: "crm_integr", label: "CRM / Slack / Notion Sync", sublabel: "HubSpot, Pipedrive, Airtable, Notion",    icon: Link },
-    { id: "voice",      label: "Voice Assistant",          sublabel: "ElevenLabs + Whisper speech I/O",           icon: Mic },
-    { id: "finetune",   label: "Custom LLM Fine-tuning",   sublabel: "Domain-specific model training",            icon: Cpu },
+    { id: "voice", label: "Voice Assistant", sublabel: "ElevenLabs + Whisper speech I/O", icon: Mic },
+    { id: "finetune",   label: "Custom LLM Fine-tuning",   sublabel: "Domain-specific model training", icon: Cpu },
   ],
   marketing: [
-    { id: "google_ads",      label: "Google Ads (Search/PPC)",  sublabel: "Campaign setup, keywords & bidding",       icon: Search },
-    { id: "meta_ads",        label: "Meta Ads (FB / Instagram)", sublabel: "Creative, audiences & retargeting",       icon: Megaphone },
-    { id: "seo_campaign",    label: "SEO Campaign",             sublabel: "Technical SEO, content & backlinks",       icon: BarChart3 },
-    { id: "content",         label: "Content & Copywriting",    sublabel: "Landing copy, blogs, ad creatives",        icon: FileText },
-    { id: "email_marketing", label: "Email & Newsletters",      sublabel: "Sequences, automation, Brevo/Mailchimp",   icon: Mail },
+    { id: "google_ads", label: "Google Ads (Search/PPC)",  sublabel: "Campaign setup, keywords & bidding", icon: Search },
+    { id: "meta_ads", label: "Meta Ads (FB / Instagram)", sublabel: "Creative, audiences & retargeting", icon: Megaphone },
+    { id: "seo_campaign",    label: "SEO Campaign", sublabel: "Technical SEO, content & backlinks", icon: BarChart3 },
+    { id: "content", label: "Content & Copywriting",    sublabel: "Landing copy, blogs, ad creatives", icon: FileText },
+    { id: "email_marketing", label: "Email & Newsletters", sublabel: "Sequences, automation, Brevo/Mailchimp",   icon: Mail },
     { id: "social_mgmt",     label: "Social Media Management",  sublabel: "Content calendar, posting & community",    icon: MessageSquare },
-    { id: "funnel",          label: "Landing Pages & Funnels",  sublabel: "High-converting pages + tracking",         icon: Globe },
-    { id: "cro",             label: "CRO & A/B Testing",        sublabel: "Optimise conversion rate, test variants",  icon: Zap },
+    { id: "funnel", label: "Landing Pages & Funnels",  sublabel: "High-converting pages + tracking", icon: Globe },
+    { id: "cro", label: "CRO & A/B Testing", sublabel: "Optimise conversion rate, test variants",  icon: Zap },
   ],
 };
 
@@ -313,7 +313,7 @@ export default function ProjectBuilder() {
 
   const estimate = useMemo(() => {
     if (!system)
-      return { min: "0", max: "0", weeks: "—", rawMin: 0, rawMax: 0, hasGrant: false, netMin: 0, netMax: 0 };
+      return { min: "0", max: "0", weeks: "n/a", rawMin: 0, rawMax: 0, hasGrant: false, netMin: 0, netMax: 0 };
 
     const base = BASE[system];
     const mult = SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1;
@@ -376,7 +376,7 @@ export default function ProjectBuilder() {
       id="project-builder"
       className="relative py-20 sm:py-28 md:py-32 flex flex-col justify-center overflow-hidden bg-slate-50 dark:bg-[#050509] transition-colors duration-300"
     >
-      {/* Dark studio gradient — dark only */}
+      {/* Dark studio gradient, dark only */}
       <div
         className="hidden dark:block absolute inset-0 pointer-events-none"
         style={{
@@ -389,7 +389,7 @@ export default function ProjectBuilder() {
       {/* Overhead spotlight */}
       {/* Reflective floor wash */}
       <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#2563F6]/[0.04] dark:from-[#2563F6]/[0.06] to-transparent pointer-events-none" />
-      {/* Fine grid — dark dots in light, white dots in dark */}
+      {/* Fine grid, dark dots in light, white dots in dark */}
       <div
         className="absolute inset-0 opacity-[0.04] dark:hidden pointer-events-none"
         style={{
@@ -404,7 +404,7 @@ export default function ProjectBuilder() {
           backgroundSize: "40px 40px",
         }}
       />
-      {/* Premium film grain — dark only */}
+      {/* Premium film grain, dark only */}
       <NoiseOverlay className="hidden dark:block" opacity={0.03} />
       {/* Cursor-tracking spotlight (desktop) */}
       <motion.div
@@ -435,8 +435,9 @@ export default function ProjectBuilder() {
             </span>
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            Spec your build like a high-performance machine and watch your price —
-            and your <span className="text-emerald-400 font-semibold">net cost after the 70% SME grant</span> —
+            Spec your build like a high-performance machine and watch your price,
+            and your{" "}
+            <span className="text-emerald-400 font-semibold">net cost after the 70% SME grant</span>,
             update in real time. Then start it in one click.
           </p>
           <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-[2px] bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-sm font-semibold">
@@ -566,7 +567,7 @@ export default function ProjectBuilder() {
                 </AnimatePresence>
               </div>
 
-              {/* Persistent live price — the hero of the stage */}
+              {/* Persistent live price, the hero of the stage */}
               {system && scale && (
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
@@ -870,7 +871,7 @@ export default function ProjectBuilder() {
                         : "no extra features."}
                     </p>
 
-                    {/* Price result card — gross → grant → net */}
+                    {/* Price result card, gross → grant → net */}
                     <div className="mb-8 rounded-lg bg-gradient-to-br from-[#11111f] to-[#0b0b16] border border-white/10 shadow-black/40 relative overflow-hidden">
 
                       <div className="relative z-10 p-7 sm:p-8">
@@ -904,7 +905,7 @@ export default function ProjectBuilder() {
                               </div>
                             </div>
 
-                            {/* Net — hero number */}
+                            {/* Net, hero number */}
                             <div className="border-t border-white/10 pt-6">
                               <div className="text-xs font-medium text-emerald-400 uppercase tracking-widest mb-2.5">
                                 You pay after grant
@@ -978,7 +979,7 @@ export default function ProjectBuilder() {
                             <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
                               Marketing isn't separately state-funded, but it can be{" "}
                               <strong>co-funded inside an SME Digital Package</strong> when
-                              paired with a website or web-app project — up to{" "}
+                              paired with a website or web-app project, up to{" "}
                               <strong>15% marketing services</strong> and{" "}
                               <strong>15% ad spend</strong> of the eligible investment, at the
                               same <strong>70%</strong> subsidy rate.
@@ -1024,7 +1025,7 @@ export default function ProjectBuilder() {
                               </div>
                               <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
                                 Your project qualifies for the{" "}
-                                <strong>{pkgName}</strong> — the Luxembourg government
+                                <strong>{pkgName}</strong>, the Luxembourg government
                                 covers <strong>70%</strong> of your eligible investment
                                 (up to €25,000).{" "}
                                 {isPartial
@@ -1035,20 +1036,20 @@ export default function ProjectBuilder() {
                               {isDigital && (
                                 <p className="text-xs text-emerald-700/90 dark:text-emerald-300/80 mb-3 leading-relaxed">
                                   You can also bundle up to <strong>15% marketing</strong>{" "}
-                                  and <strong>15% ad spend</strong> into this package — funded
+                                  and <strong>15% ad spend</strong> into this package, funded
                                   at the same 70% rate.
                                 </p>
                               )}
 
                               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">
-                                We prepare and submit the grant application for you — you
+                                We prepare and submit the grant application for you, you
                                 just sign. 
                               </p>
 
                               <div className="flex flex-wrap items-center gap-4">
                                 <a
                                   href={`mailto:contact@deev.lu?subject=${encodeURIComponent(
-                                    `SME grant application — ${pkgName}`
+                                    `SME grant application, ${pkgName}`
                                   )}&body=${encodeURIComponent(
                                     `Hi Deev team,\n\nI'd like to apply for the ${pkgName} and start my project.\n\nProject: ${
                                       CORE_SYSTEMS.find((s) => s.id === system)?.label ?? ""
@@ -1177,7 +1178,7 @@ export default function ProjectBuilder() {
                     </h3>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
                       A few details so we can send an accurate estimate and project
-                      blueprint — the more you share, the better we scope it.
+                      blueprint, the more you share, the better we scope it.
                     </p>
                   </div>
                   <form
@@ -1195,9 +1196,9 @@ export default function ProjectBuilder() {
                           : getSmePackage(system)
                         : "";
                       const systemLabel =
-                        CORE_SYSTEMS.find((s) => s.id === system)?.label ?? "—";
+                        CORE_SYSTEMS.find((s) => s.id === system)?.label ?? "n/a";
                       const scaleLabel =
-                        SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "—";
+                        SCALE_LEVELS.find((s) => s.id === scale)?.label ?? ", ";
                       const notes = [
                         leadForm.company && `Company: ${leadForm.company}`,
                         leadForm.website && `Website: ${leadForm.website}`,
@@ -1211,7 +1212,7 @@ export default function ProjectBuilder() {
 
                       // 1) Email the configured project to contact@deev.lu
                       await sendLeadEmail({
-                        subject: `New project from simulator — ${systemLabel} (${scaleLabel})`,
+                        subject: `New project from simulator, ${systemLabel} (${scaleLabel})`,
                         from_name: leadForm.name || "Project simulator",
                         replyto: leadForm.email,
                         name: leadForm.name,
@@ -1223,7 +1224,7 @@ export default function ProjectBuilder() {
                           ? `€${estimate.netMin.toLocaleString("de-DE")} – €${estimate.netMax.toLocaleString("de-DE")}`
                           : "n/a",
                         timeline: `${estimate.weeks} weeks`,
-                        details: notes || "—",
+                        details: notes || "n/a",
                       });
 
                       setSubmitting(false);

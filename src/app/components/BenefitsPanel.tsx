@@ -21,7 +21,7 @@ const ADVANTAGES = [
   {
     index: "03",
     title: "AI where it earns its place",
-    copy: "Automation applied to the steps that actually cost you time — not bolted on because the word sells.",
+    copy: "Automation applied to the steps that actually cost you time, not bolted on because the word sells.",
   },
   {
     index: "04",
@@ -48,7 +48,7 @@ export default function BenefitsPanel() {
               className="mt-6 text-[var(--text-mid)]"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
             >
-              We build the whole system, not a single piece of it — the site, the
+              We build the whole system, not a single piece of it: the site, the
               product behind it, and the campaigns that feed it. Clear structure,
               decisions grounded in data, and work whose commercial effect can
               actually be measured.

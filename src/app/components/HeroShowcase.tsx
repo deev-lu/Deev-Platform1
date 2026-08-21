@@ -12,10 +12,10 @@ import shotGeoplus from "../../assets/work/geoplus.jpg";
 /** Real, shipped client work — cycled in a browser frame. */
 const WORK = [
   { name: "Bureau Immobilier Feltes", domain: "feltes.lu",     category: "Real-estate web-app", year: 2024, href: "https://www.feltes.lu/",     image: shotFeltes },
-  { name: "Aurora Experience",        domain: "auroraexp.eu",  category: "Luxury travel",       year: 2025, href: "https://www.auroraexp.eu",  image: shotAurora },
-  { name: "Oscar's Bar",              domain: "oscarsbar.lu",  category: "Bar & nightlife",     year: 2025, href: "https://oscarsbar.lu/",     image: shotOscars },
-  { name: "Melly's",                  domain: "mellys.lu",     category: "Candy e-commerce",    year: 2025, href: "https://www.mellys.lu",     image: shotMellys },
-  { name: "Geoplus 3D",               domain: "geoplus3d.lu",  category: "3D scanning tech",    year: 2025, href: "https://geoplus3d.lu/",     image: shotGeoplus },
+  { name: "Aurora Experience", domain: "auroraexp.eu",  category: "Luxury travel", year: 2025, href: "https://www.auroraexp.eu",  image: shotAurora },
+  { name: "Oscar's Bar", domain: "oscarsbar.lu",  category: "Bar & nightlife",     year: 2025, href: "https://oscarsbar.lu/",     image: shotOscars },
+  { name: "Melly's", domain: "mellys.lu",     category: "Candy e-commerce",    year: 2025, href: "https://www.mellys.lu",     image: shotMellys },
+  { name: "Geoplus 3D", domain: "geoplus3d.lu",  category: "3D scanning tech",    year: 2025, href: "https://geoplus3d.lu/",     image: shotGeoplus },
 ];
 
 const INTERVAL = 4200;
@@ -75,14 +75,14 @@ export default function HeroShowcase() {
           rel="noopener noreferrer"
           className="group relative block aspect-[16/10] overflow-hidden bg-[#0b0b14]"
         >
-          {/* Stacked crossfade — only mounts frames that have been reached,
+          {/* Stacked crossfade, only mounts frames that have been reached,
               so later screenshots don't cost anything on first paint. */}
           {WORK.map((w, idx) =>
             idx <= maxSeen ? (
               <img
                 key={w.domain}
                 src={w.image}
-                alt={`${w.name} — built by DEEV`}
+                alt={`${w.name}, built by DEEV`}
                 loading={idx === 0 ? "eager" : "lazy"}
                 decoding="async"
                 className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-700 ease-out ${ idx === i ? "opacity-100" : "opacity-0" }`}

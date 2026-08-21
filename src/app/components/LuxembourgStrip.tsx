@@ -12,7 +12,7 @@ export default function LuxembourgStrip() {
       {/* Real photography, duotone-treated */}
       <img
         src={luxembourgImg}
-        alt="Luxembourg City — the Grund and the Alzette valley"
+        alt="Luxembourg City, the Grund and the Alzette valley"
         loading="lazy"
         decoding="async"
         className="animate-drift absolute inset-0 w-full h-full object-cover grayscale-[0.45] contrast-[1.05] brightness-[0.85]"
@@ -35,7 +35,7 @@ export default function LuxembourgStrip() {
         >
           <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-white/50 mb-6">
             <span className="h-px w-8 bg-gradient-to-r from-[#3CE7FC]/70 to-transparent" />
-            49.6117° N — 6.1300° E
+            49.6117° N, 6.1300° E
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight leading-[1.1] mb-5">
             Engineered in Luxembourg.
@@ -48,7 +48,7 @@ export default function LuxembourgStrip() {
           </p>
         </motion.div>
 
-        {/* Certification mark — bottom right */}
+        {/* Certification mark, bottom right */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

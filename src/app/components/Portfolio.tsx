@@ -60,7 +60,7 @@ export default function Portfolio() {
             className="text-[var(--text-mid)] mt-6"
             style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
           >
-            From luxury travel to artisan spirits — every project is built with
+            From luxury travel to artisan spirits, every project is built with
             the same commitment to craft, performance, and results.
           </p>
         </motion.div>
@@ -99,7 +99,7 @@ export default function Portfolio() {
           })}
         </motion.div>
 
-        {/* Featured — real screenshots of shipped work */}
+        {/* Featured, real screenshots of shipped work */}
         <motion.div layout className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
           <AnimatePresence mode="popLayout">
             {featured.map((item, index) => {
@@ -142,7 +142,7 @@ export default function Portfolio() {
                     <div className="relative flex-1 overflow-hidden">
                       <img
                         src={item.image}
-                        alt={`${item.title} — live website`}
+                        alt={`${item.title}, live website`}
                         loading="lazy"
                         decoding="async"
                         className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[640ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-[1.03]"
@@ -178,7 +178,7 @@ export default function Portfolio() {
           </AnimatePresence>
         </motion.div>
 
-        {/* More work — compact rows */}
+        {/* More work, compact rows */}
         {rest.length > 0 && (
           <>
             <div className="eyebrow-mono uppercase text-[var(--text-low)] mb-5 mt-14" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>

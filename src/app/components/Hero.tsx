@@ -22,13 +22,13 @@ export default function Hero() {
 
       {/* Decorative shades: AI workflow + Luxembourg silhouette */}
       <HeroShapes />
-      {/* Premium film grain — dark only */}
+      {/* Premium film grain, dark only */}
       <NoiseOverlay className="hidden dark:block" opacity={0.04} />
 
       {/* Soft layered background glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Two committed light sources beat five apologetic ones */}
-        {/* Subtle dot-grid overlay — dark dots in light, white dots in dark */}
+        {/* Subtle dot-grid overlay, dark dots in light, white dots in dark */}
         <div
           className="absolute inset-0 opacity-[0.04] dark:hidden"
           style={{
@@ -62,7 +62,7 @@ export default function Hero() {
           >
             <span className="flex items-center gap-2.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563F6] dark:bg-[#3CE7FC] animate-pulse" />
-              AI-native digital engineering — Luxembourg
+              AI-native digital engineering, Luxembourg
             </span>
             <span className="h-px w-12 bg-gradient-to-r from-[#3CE7FC]/70 to-transparent" />
           </motion.div>
@@ -89,7 +89,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
             AI-powered platforms, web apps and digital systems engineered to
-            convert, automate and scale — built in Luxembourg for ambitious
+            convert, automate and scale, built in Luxembourg for ambitious
             companies across Europe.
           </motion.p>
 

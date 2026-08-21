@@ -18,7 +18,7 @@ const METHOD = [
   {
     index: "01",
     title: "Discovery, on site",
-    copy: "A working session with the people who actually run the processes — not a management interview. We walk each workflow with the person who lives in it and record where it stalls.",
+    copy: "A working session with the people who actually run the processes, not a management interview. We walk each workflow with the person who lives in it and record where it stalls.",
   },
   {
     index: "02",

@@ -10,11 +10,11 @@ import oscarsbar   from "../../assets/clients/oscarsbar.png";
 
 const clients = [
   { name: "Bureau Immobilier Feltes", src: feltes,    invert: true  },
-  { name: "Melly's",                  src: mellys,    invert: false },
-  { name: "Net & Clean",              src: netclean,  invert: false },
-  { name: "Picadilly",                src: picadilly, invert: true  },
-  { name: "Oscar's Bar",              src: oscarsbar, invert: true  },
-  { name: "Stoffel Immobilier",       src: stoffel,   invert: false },
+  { name: "Melly's", src: mellys,    invert: false },
+  { name: "Net & Clean", src: netclean,  invert: false },
+  { name: "Picadilly", src: picadilly, invert: true  },
+  { name: "Oscar's Bar", src: oscarsbar, invert: true  },
+  { name: "Stoffel Immobilier", src: stoffel,   invert: false },
 ];
 
 function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
@@ -60,7 +60,7 @@ export default function ClientLogos() {
         Trusted by leading businesses in Luxembourg &amp; beyond
       </motion.p>
 
-      {/* Infinite marquee — CSS-driven, pauses on hover, two equal groups for a perfect seam */}
+      {/* Infinite marquee, CSS-driven, pauses on hover, two equal groups for a perfect seam */}
       <div className="marquee-track flex overflow-hidden select-none">
         <div className="animate-marquee flex shrink-0">
           <LogoGroup />

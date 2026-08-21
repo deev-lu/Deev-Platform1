@@ -8,7 +8,7 @@ interface NavbarProps {}
 
 const NAV_LINKS = [
   { label: "Services",  href: "#services" },
-  { label: "Work",      href: "#portfolio" },
+  { label: "Work", href: "#portfolio" },
   { label: "Pricing",   href: "#project-builder" },
   { label: "Why Deev",  href: "#why-deev" },
   { label: "Contact",   href: "/contact" },

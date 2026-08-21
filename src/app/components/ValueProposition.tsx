@@ -17,25 +17,25 @@ const values = [
     index: "01",
     title: "AI-native products",
     description:
-      "AI agents and assistants that actually know your business — answering customers, qualifying leads and handling the busywork your team shouldn't be stuck with.",
+      "AI agents and assistants that actually know your business: answering customers, qualifying leads and handling the busywork your team shouldn't be stuck with.",
   },
   {
     index: "02",
     title: "Platforms that scale",
     description:
-      "Web apps and platforms that handle real customers from day one — and keep working just as well when you're ten times busier.",
+      "Web apps and platforms that handle real customers from day one, and keep working just as well when you're ten times busier.",
   },
   {
     index: "03",
     title: "Websites that convert",
     description:
-      "Fast, beautiful websites that turn visitors into customers — and that Google actually rewards.",
+      "Fast, beautiful websites that turn visitors into customers, and that Google actually rewards.",
   },
   {
     index: "04",
     title: "Growth that performs",
     description:
-      "Ads, SEO and campaigns that bring you qualified leads — measured properly, so you always know what's working.",
+      "Ads, SEO and campaigns that bring you qualified leads, measured properly, so you always know what's working.",
   },
 ];
 
@@ -43,7 +43,7 @@ const steps = [
   { number: "01", title: "Understand", description: "We start by understanding your business, your goals and what you're up against." },
   { number: "02", title: "Build", description: "We build it ourselves. No handoffs, no outsourcing, no juniors learning on your budget." },
   { number: "03", title: "Launch", description: "Tested and monitored, ready for real customers from the first day it's live." },
-  { number: "04", title: "Scale", description: "We stick around — improving, supporting and keeping you ahead." },
+  { number: "04", title: "Scale", description: "We stick around: improving, supporting and keeping you ahead." },
 ];
 
 export default function ValueProposition() {

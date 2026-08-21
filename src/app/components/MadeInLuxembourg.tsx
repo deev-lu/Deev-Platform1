@@ -9,7 +9,7 @@ export default function MadeInLuxembourg({ className = "" }: { className?: strin
   return (
     <div
       role="img"
-      aria-label="Made in Luxembourg — certified label"
+      aria-label="Made in Luxembourg, certified label"
       className={className}
       style={{
         backgroundColor: "currentColor",

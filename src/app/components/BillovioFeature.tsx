@@ -111,7 +111,7 @@ export default function BillovioFeature() {
           >
             <img
               src={billovioShot}
-              alt="Billovio — a quote written, priced and sent from a single sentence"
+              alt="Billovio, a quote written, priced and sent from a single sentence"
               loading="lazy"
               decoding="async"
               className="w-full h-auto"

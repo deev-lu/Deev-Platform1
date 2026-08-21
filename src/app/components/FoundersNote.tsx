@@ -32,7 +32,7 @@ export default function FoundersNote() {
 
           <p className="text-xl sm:text-2xl md:text-[1.65rem] font-medium text-slate-900 dark:text-white leading-[1.4] tracking-tight mb-6">
             “There's no sales team here. When you write to DEEV, you reach the
-            two people who actually design and build your project — and you keep
+            two people who actually design and build your project, and you keep
             that line until launch day.”
           </p>
 

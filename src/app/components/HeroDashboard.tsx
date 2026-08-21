@@ -11,7 +11,7 @@ const PROMPTS = [
 ];
 
 const RESPONSES = [
-  "Lead scored 92/100 — high intent. Drafted a tailored reply and booked a follow-up call.",
+  "Lead scored 92/100, high intent. Drafted a tailored reply and booked a follow-up call.",
   "Conversions up 38% WoW. Top driver: paid search. Reallocating budget automatically.",
   "New variant shipped to 50% of traffic. Predicted +14% conversion from prior tests.",
 ];
@@ -105,7 +105,7 @@ export default function HeroDashboard() {
 
         {/* Body */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-0">
-          {/* Left — AI chat */}
+          {/* Left, AI chat */}
           <div className="md:col-span-3 p-5 sm:p-6 border-b md:border-b-0 md:border-r border-white/[0.07] min-h-[230px] text-left">
             {/* User prompt */}
             <div className="flex justify-end mb-4">
@@ -129,7 +129,7 @@ export default function HeroDashboard() {
             </div>
           </div>
 
-          {/* Right — live metrics */}
+          {/* Right, live metrics */}
           <div className="md:col-span-2 p-5 sm:p-6 flex flex-col gap-4 bg-white/[0.015]">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500">

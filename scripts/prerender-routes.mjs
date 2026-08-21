@@ -26,7 +26,7 @@ mkdirSync(join(dist, "work"), { recursive: true });
 for (const p of projects) {
   routes[`/work/${p.slug}`] = {
     file: `work/${p.slug}.html`,
-    title: `${p.title} — ${p.category} | DEEV`,
+    title: `${p.title} | ${p.category} | DEEV`,
     description: `${p.title}: a ${p.category.toLowerCase()} designed and built by DEEV, an AI-native digital engineering studio in Luxembourg. Shipped ${p.year}.`,
   };
 }

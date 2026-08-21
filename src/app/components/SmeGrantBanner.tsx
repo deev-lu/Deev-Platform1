@@ -37,8 +37,8 @@ export default function SmeGrantBanner() {
               </h3>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
                 Websites, web-apps and AI projects qualify for the{" "}
-                <strong className="text-slate-800 dark:text-slate-200">SME Digital &amp; SME AI packages</strong>{" "}
-                — 70% of investments from €3k–€25k (ex. VAT), with up to 15% marketing
+                <strong className="text-slate-800 dark:text-slate-200">SME Digital &amp; SME AI packages</strong>
+                : 70% of investments from €3k–€25k (ex. VAT), with up to 15% marketing
                 and 15% ad spend bundled in.
               </p>
             </div>

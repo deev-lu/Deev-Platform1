@@ -44,7 +44,7 @@ export default function WorkCase() {
           <div className="relative h-[62vh] min-h-[420px] overflow-hidden">
             <img
               src={project.image}
-              alt={`${project.title} — ${project.category}`}
+              alt={`${project.title}, ${project.category}`}
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--surface-0) 8%, rgba(8,9,11,0.45) 60%, rgba(8,9,11,0.25) 100%)" }} />
