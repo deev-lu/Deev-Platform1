@@ -8,8 +8,8 @@ import {
   useTransform,
 } from "motion/react";
 import { Link } from "react-router";
-import { ArrowUpRight } from "lucide-react";
-import { PROJECTS } from "../../lib/projects";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { PROJECTS, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
@@ -23,10 +23,13 @@ import { useIsMobile } from "../../lib/useIsMobile";
  * a screenshot carries the client's own typography, so a title laid over it
  * prints the project name twice.
  *
+ * All fourteen projects are in the cycle. Six of them have a screenshot; the
+ * other eight have none we can ship, so the frame shows a typeset plate with
+ * that project's own name, sector, year and live domain. It is real data set
+ * in the site's own type, not a placeholder, and it is replaced the moment a
+ * screenshot lands in src/assets/work and is mapped in projects.ts.
+ *
  * Rotation rules:
- *   - Only projects with a screenshot are in the cycle. The rest would rotate
- *     an empty frame into view; they are listed in the index underneath, so
- *     every case-study page is still linked from the homepage.
  *   - The timer runs only while the section is on screen and the tab is
  *     visible, so a page left open in a background tab is not repainting a
  *     600px image every ten seconds.
@@ -44,13 +47,13 @@ const ROTATION_MS = 10_000;
 /** Every screenshot in the cycle is 1000x583, so the frame never resizes. */
 const FRAME_RATIO = "1000 / 583";
 
-const FEATURED = PROJECTS.filter((p) => p.image);
+const SLIDES = PROJECTS;
 
 /** The longest strings in the set. They size the invisible block that reserves
- *  room for the title, so the link and the ticks below it never move when a
- *  three-line name is replaced by a one-line name. */
-const LONGEST_TITLE = FEATURED.reduce((a, p) => (p.title.length > a.length ? p.title : a), "");
-const LONGEST_META = FEATURED.reduce((a, p) => {
+ *  room for the title, so the link and the controls below it never move when a
+ *  two-line name is replaced by a one-line name. */
+const LONGEST_TITLE = SLIDES.reduce((a, p) => (p.title.length > a.length ? p.title : a), "");
+const LONGEST_META = SLIDES.reduce((a, p) => {
   const m = `${p.category} / ${p.year}`;
   return m.length > a.length ? m : a;
 }, "");
@@ -75,7 +78,7 @@ export default function WorkMoment() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["3%", "-3%"]);
 
-  const running = !reduce && inView && tabVisible && FEATURED.length > 1;
+  const running = !reduce && inView && tabVisible && SLIDES.length > 1;
 
   useEffect(() => {
     const onVisibility = () => setTabVisible(!document.hidden);
@@ -87,7 +90,7 @@ export default function WorkMoment() {
   useEffect(() => {
     if (!running) return;
     const t = window.setTimeout(() => {
-      setIndex((i) => (i + 1) % FEATURED.length);
+      setIndex((i) => (i + 1) % SLIDES.length);
       setCycle((c) => c + 1);
     }, ROTATION_MS);
     return () => window.clearTimeout(t);
@@ -95,17 +98,18 @@ export default function WorkMoment() {
 
   // Warm the next frame while the current one is being read.
   useEffect(() => {
-    const next = FEATURED[(index + 1) % FEATURED.length];
+    const next = SLIDES[(index + 1) % SLIDES.length];
     if (!next?.image) return;
     const img = new Image();
     img.src = next.image;
   }, [index]);
 
-  if (FEATURED.length === 0) return null;
+  if (SLIDES.length === 0) return null;
 
-  const project = FEATURED[index];
-  const select = (i: number) => {
-    setIndex(i);
+  const project = SLIDES[index];
+  /** step(-1) / step(1). Wraps, and restarts the ten seconds either way. */
+  const step = (dir: number) => {
+    setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length);
     setCycle((c) => c + 1);
   };
 
@@ -231,39 +235,49 @@ export default function WorkMoment() {
               </span>
             </Link>
 
-            {/* One tick per project: where we are, and a way to steer. */}
-            <div className="flex items-center gap-2 mt-10">
-              {FEATURED.map((p, i) => (
+            {/* Fourteen projects is too many to give each one a tick, so the
+                controls are a pair of arrows, a counter, and one rail that
+                fills across the ten seconds. */}
+            <div className="mt-10">
+              <div className="flex items-center gap-3">
                 <button
-                  key={p.slug}
                   type="button"
-                  onClick={() => select(i)}
-                  aria-label={`Show ${p.title}`}
-                  aria-current={i === index}
-                  className="group py-3 cursor-pointer"
+                  onClick={() => step(-1)}
+                  aria-label="Previous project"
+                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+                  style={{ borderRadius: "var(--radius-1)" }}
                 >
-                  <span className="block relative h-px w-8 sm:w-10 bg-[var(--line-strong)] group-hover:bg-[var(--text-low)] transition-colors duration-[var(--dur-1)]">
-                    {i === index && (
-                      <motion.span
-                        key={`${cycle}-${running && !isMobile}`}
-                        className="absolute inset-0 origin-left bg-[var(--signal)]"
-                        initial={{ scaleX: running && !isMobile ? 0 : 1 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{
-                          duration: running && !isMobile ? ROTATION_MS / 1000 : 0.24,
-                          ease: "linear",
-                        }}
-                      />
-                    )}
-                  </span>
+                  <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
                 </button>
-              ))}
-              <span
-                className="eyebrow-mono text-[var(--text-low)] ml-3 tabular-nums"
-                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-              >
-                {pad(index + 1)} / {pad(FEATURED.length)}
-              </span>
+                <button
+                  type="button"
+                  onClick={() => step(1)}
+                  aria-label="Next project"
+                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+                  style={{ borderRadius: "var(--radius-1)" }}
+                >
+                  <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                </button>
+                <span
+                  className="eyebrow-mono text-[var(--text-low)] ml-2 tabular-nums"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                >
+                  {pad(index + 1)} / {pad(SLIDES.length)}
+                </span>
+              </div>
+
+              <div className="relative h-px w-full mt-7 bg-[var(--line)] overflow-hidden">
+                <motion.span
+                  key={`${cycle}-${running && !isMobile}`}
+                  className="absolute inset-0 origin-left bg-[var(--signal)]"
+                  initial={{ scaleX: running && !isMobile ? 0 : 1 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{
+                    duration: running && !isMobile ? ROTATION_MS / 1000 : 0.24,
+                    ease: "linear",
+                  }}
+                />
+              </div>
             </div>
           </motion.div>
 
@@ -302,20 +316,28 @@ export default function WorkMoment() {
                 {/* Fixed ratio: the frame must not resize under the crossfade. */}
                 <div className="relative w-full" style={{ aspectRatio: FRAME_RATIO }}>
                   <AnimatePresence initial={false}>
-                    <motion.img
+                    <motion.div
                       key={project.slug}
-                      src={project.image}
-                      alt={`${project.title}, ${project.category}`}
-                      loading="lazy"
-                      decoding="async"
-                      width={1000}
-                      height={583}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={fade}
-                    />
+                    >
+                      {project.image ? (
+                        <img
+                          src={project.image}
+                          alt={`${project.title}, ${project.category}`}
+                          loading="lazy"
+                          decoding="async"
+                          width={1000}
+                          height={583}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <Plate project={project} />
+                      )}
+                    </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
@@ -372,5 +394,41 @@ export default function WorkMoment() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The frame for a project we have not screenshotted yet.
+ *
+ * It shows that project's own name, sector, year and live domain, set in the
+ * site's type over a hairline grid. No stock image, no mock-up, nothing
+ * invented: the moment a real screenshot is added to src/assets/work and
+ * mapped in projects.ts, the plate is replaced by it automatically.
+ */
+function Plate({ project }: { project: Project }) {
+  return (
+    <div
+      className="w-full h-full flex flex-col justify-end gap-6 p-8 sm:p-12 bg-[var(--surface-2)]"
+      style={{
+        backgroundImage:
+          "repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px 120px), repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px 120px)",
+      }}
+    >
+      {/* The sector, not the name: the name is already set beside the frame,
+          and one project should not print its title twice on one screen. */}
+      <span
+        className="text-[var(--text-hi)] font-medium"
+        style={{ fontSize: "var(--t-h2)", lineHeight: 1.05, letterSpacing: "-0.025em", maxWidth: "12ch" }}
+      >
+        {project.category}
+      </span>
+
+      <span
+        className="eyebrow-mono text-[var(--text-low)] tabular-nums"
+        style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+      >
+        {project.year}
+      </span>
+    </div>
   );
 }

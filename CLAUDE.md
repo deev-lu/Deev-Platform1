@@ -61,9 +61,10 @@ Mobile load was a real problem and these fixed it:
    `preload="none"`.
 
 ## Theme
-Light is the default; dark is available via the navbar toggle. The theme is
-applied before paint by an inline script in `index.html` to avoid a flash —
-if you change the default, change it in **both** `index.html` and `App.tsx`.
+Dark is the default since the redesign; light is available via the navbar
+toggle and the choice is stored in `localStorage` under `theme`. The theme is
+applied before paint by an inline script in `index.html` to avoid a flash.
+If you change the default, change it in **both** `index.html` and `App.tsx`.
 
 ## Content that needs real assets (do not invent)
 - `src/app/components/FoundersNote.tsx` is built but **not wired into App.tsx**
