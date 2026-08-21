@@ -98,7 +98,7 @@ export default function HeroMark() {
         <img
           src={logo}
           alt=""
-          className="w-[34%] h-auto object-contain drop-"
+          className="w-[34%] h-auto object-contain"
         />
       </motion.div>
     </motion.div>

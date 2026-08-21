@@ -1,4 +1,5 @@
-/* Inter is loaded via <link> in index.html for fastest paint.
+/* Inter is self-hosted: preloaded and declared in index.html, served from
+   our own origin rather than fonts.googleapis.com.
    Global font + premium rendering defaults are applied here. */
 
 :root {
