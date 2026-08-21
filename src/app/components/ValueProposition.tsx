@@ -48,7 +48,7 @@ const steps = [
 
 export default function ValueProposition() {
   return (
-    <Section index="02" eyebrow="What we build" tone={0}>
+    <Section index="03" eyebrow="What we build" tone={0}>
       <div className="max-w-[760px] mb-16">
         <SectionTitle>Everything your business needs to compete online</SectionTitle>
       </div>
@@ -91,7 +91,7 @@ export default function ValueProposition() {
 
       {/* ── §6E — process as a diagram ────────────────────────── */}
       <div className="mt-28">
-        <Eyebrow index="02.1">How we work</Eyebrow>
+        <Eyebrow index="03.1">How we work</Eyebrow>
 
         {/* desktop: nodes hung from one rule */}
         <div className="hidden md:block">

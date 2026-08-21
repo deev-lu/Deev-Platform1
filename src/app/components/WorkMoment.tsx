@@ -13,7 +13,7 @@ import { PROJECTS, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
- * §04 — Selected work.
+ * §01 — Selected work.
  *
  * This section replaced the tiled portfolio grid. One project at a time, at
  * full scale, rotating every ten seconds through every project we have a real
@@ -150,7 +150,7 @@ export default function WorkMoment() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">04</span> / Selected work
+              <span className="text-[var(--metal)]">01</span> / Selected work
             </span>
           </div>
           <h2

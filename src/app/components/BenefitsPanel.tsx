@@ -32,7 +32,7 @@ const ADVANTAGES = [
 
 export default function BenefitsPanel() {
   return (
-    <Section index="01" eyebrow="Why it works" tone={1}>
+    <Section index="02" eyebrow="Why it works" tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">

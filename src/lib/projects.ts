@@ -12,12 +12,6 @@
  * gets filled in simply adds a block.
  */
 
-import shotFeltes from "../assets/work/feltes.jpg";
-import shotOscars from "../assets/work/oscarsbar.jpg";
-import shotMellys from "../assets/work/mellys.jpg";
-import shotAurora from "../assets/work/aurora.jpg";
-import shotGeoplus from "../assets/work/geoplus.jpg";
-import shotVino from "../assets/work/vinoamore.jpg";
 import projectData from "./projects.data.json";
 
 export interface Project {
@@ -40,21 +34,43 @@ export interface Project {
   stack?: string[];
 }
 
-const IMAGES: Record<string, string> = {
-  "bureau-immobilier-feltes": shotFeltes,
-  "aurora-experience": shotAurora,
-  "oscars-bar": shotOscars,
-  "mellys": shotMellys,
-  "geoplus-3d": shotGeoplus,
-  "vino-amore": shotVino,
+/**
+ * Screenshots are discovered from src/assets/work by filename, so adding one
+ * is a one-step job: drop `<slug>.jpg` in that folder and it appears in the
+ * slider and on the case-study page. No import, no map entry, no rebuild of
+ * this file.
+ *
+ * The six shots taken before this convention existed keep their old names,
+ * which is what ALIASES is for. New ones should just be named after the slug.
+ */
+const FILES = import.meta.glob("../assets/work/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
+const ALIASES: Record<string, string> = {
+  "bureau-immobilier-feltes": "feltes",
+  "aurora-experience": "aurora",
+  "oscars-bar": "oscarsbar",
+  "geoplus-3d": "geoplus",
+  "vino-amore": "vinoamore",
 };
+
+const byBasename: Record<string, string> = {};
+for (const [path, url] of Object.entries(FILES)) {
+  const base = path.split("/").pop()!.replace(/\.[a-z]+$/i, "");
+  byBasename[base] = url;
+}
+
+const imageFor = (slug: string) => byBasename[slug] ?? byBasename[ALIASES[slug]];
 
 // Facts live in projects.data.json — scripts/prerender-routes.mjs reads the
 // same file to emit a document per case study, so the site and the sitemap
 // can never disagree about which projects exist.
 export const PROJECTS: Project[] = (projectData as Omit<Project, "image">[]).map((p) => ({
   ...p,
-  image: IMAGES[p.slug],
+  image: imageFor(p.slug),
 }));
 
 export const getProject = (slug?: string) => PROJECTS.find((p) => p.slug === slug);

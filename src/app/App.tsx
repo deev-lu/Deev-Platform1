@@ -43,11 +43,16 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Hero />
       <ClientLogos />
       <SmeGrantBanner />
-      <BenefitsPanel />
       <Suspense fallback={<SectionSkeleton />}>
+        {/* The work comes first among the numbered sections. Visitors arrive
+            to find out whether we can build their thing; the argument for how
+            we work lands better once they have seen that we do. */}
+        <div id="portfolio"><WorkMoment /></div>
+
+        <BenefitsPanel />
         <div id="services"><ValueProposition /></div>
 
-        {/* ── Dark act I: the system, then the work ──────────────────
+        {/* ── Dark act I: how the system is built ────────────────────
             `dark` is scoped per-section (@custom-variant dark = .dark *),
             so these render in their dark treatment in both themes. The
             page is meant to breathe light → dark → light → dark rather
@@ -55,7 +60,6 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <div data-surface="dark">
           <SystemStack />
         </div>
-        <div id="portfolio"><WorkMoment /></div>
         <div id="marketing"><MarketingServices /></div>
         <div id="ai"><AiConcepts /></div>
         <div id="billovio"><BillovioFeature /></div>
