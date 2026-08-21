@@ -2,7 +2,8 @@ import { lazy, Suspense } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import { ArrowRight, Check } from "lucide-react";
-import HeroShapes from "./HeroShapes";
+import HeroReach from "./HeroReach";
+import LuxShade from "./LuxShade";
 import NoiseOverlay from "./NoiseOverlay";
 import { scrollToId } from "../../lib/smoothScroll";
 // Heavy, animation-rich — deferred so the hero text paints first
@@ -21,8 +22,10 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-16 transition-colors duration-300">
 
-      {/* Decorative shades: AI workflow + Luxembourg silhouette */}
-      <HeroShapes />
+      {/* The work leaving Luxembourg. One background idea, not three: the
+          clipped AI-workflow diagram that used to sit against the left edge
+          competed with the arcs and read as stray UI. */}
+      <HeroReach />
       {/* Premium film grain, dark only */}
       <NoiseOverlay className="hidden dark:block" opacity={0.04} />
 
@@ -50,7 +53,12 @@ export default function Hero() {
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-slate-50 dark:from-[#06060a] to-transparent" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-14 lg:gap-8 items-center">
+      {/* Same container as every other section, so the hero copy starts on
+          the page's own left edge instead of 50px inside it. */}
+      <div
+        className="relative z-10 w-full mx-auto grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-14 lg:gap-8 items-center"
+        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
+      >
 
         {/* ── Left: editorial content ─────────────────────────────── */}
         <div className="text-left">
@@ -70,7 +78,12 @@ export default function Hero() {
 
           {/* Kinetic headline */}
           <motion.h1
-            className="text-[2.45rem] sm:text-[3.4rem] lg:text-[3.45rem] xl:text-[4.05rem] 2xl:text-[4.5rem] font-medium text-slate-900 dark:text-white leading-[1.03] mb-8 tracking-[-0.035em]"
+            /* One fluid size instead of five breakpoint steps: the old chain
+               grew the type faster than the column, so "Platforms that
+               convert." sat on one line at 1440 and broke with "convert."
+               orphaned at 1280 and again at 1920. Capped where the longest
+               line still fits the column. */
+            className="text-[clamp(2.15rem,4.6vw,4.05rem)] font-medium text-slate-900 dark:text-white leading-[1.03] mb-8 tracking-[-0.035em]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -138,8 +151,13 @@ export default function Hero() {
 
         </div>
 
-        {/* ── Right: abstract brand mark (deferred) ───────────────── */}
-        <div className="relative lg:pl-2">
+        {/* ── Right: abstract brand mark (deferred) ─────────────────
+            data-hero-anchor is what HeroReach measures, so the arcs leave
+            from the mark itself rather than from a fixed coordinate that
+            drifts away from it on wide screens. The silhouette lives here
+            too, so country, mark and arc origin share one centre. */}
+        <div className="relative lg:pl-2 flex items-center justify-center" data-hero-anchor>
+          <LuxShade className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] max-w-none aspect-square opacity-[0.07] pointer-events-none" />
           <Suspense fallback={<div className="min-h-[340px]" />}>
             <HeroMark />
           </Suspense>

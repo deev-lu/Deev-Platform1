@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { useIsMobile } from "../../lib/useIsMobile";
 
@@ -21,9 +21,11 @@ import { useIsMobile } from "../../lib/useIsMobile";
  *     the paint budget.
  */
 
-/** Origin, in viewBox units: inside the Luxembourg silhouette, under the
- *  brand mark, which is where the arcs should look like they leave from. */
-const O = { x: 1105, y: 470 };
+/** Fallback origin in viewBox units, used until the mark has been measured:
+ *  inside the Luxembourg silhouette, under the brand mark. */
+const O_FALLBACK = { x: 1105, y: 470 };
+
+const VB = { w: 1440, h: 900 };
 
 /** Where the work goes: off every edge of the frame. The left-bound pair is
  *  bowed hard over the top and under the bottom so that no arc, and no light
@@ -38,7 +40,7 @@ const DESTINATIONS = [
 ];
 
 /** Quadratic arc from the origin, bowed perpendicular to the straight line. */
-function arc(d: (typeof DESTINATIONS)[number]) {
+function arc(O: { x: number; y: number }, d: (typeof DESTINATIONS)[number]) {
   const mx = (O.x + d.x) / 2;
   const my = (O.y + d.y) / 2;
   const dx = d.x - O.x;
@@ -48,13 +50,46 @@ function arc(d: (typeof DESTINATIONS)[number]) {
 
 export default function HeroReach() {
   const still = useReducedMotion() || useIsMobile();
-  const paths = useMemo(() => DESTINATIONS.map((d) => ({ ...d, path: arc(d) })), []);
+  const ref = useRef<SVGSVGElement>(null);
+  const [origin, setOrigin] = useState(O_FALLBACK);
+
+  /* The arcs have to leave from the mark, not from a coordinate that happens
+     to sit under it at one window width. Measure where the mark actually is
+     and convert that to viewBox units; with preserveAspectRatio="none" the
+     two spaces map linearly, so the origin stays pinned at every width. */
+  useEffect(() => {
+    const section = ref.current?.closest("section");
+    const anchor = section?.querySelector("[data-hero-anchor]");
+    if (!section || !anchor) return;
+
+    const measure = () => {
+      const s = section.getBoundingClientRect();
+      const a = anchor.getBoundingClientRect();
+      if (!s.width || !s.height) return;
+      setOrigin({
+        x: ((a.left + a.width / 2 - s.left) / s.width) * VB.w,
+        y: ((a.top + a.height / 2 - s.top) / s.height) * VB.h,
+      });
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(section);
+    ro.observe(anchor);
+    return () => ro.disconnect();
+  }, []);
+
+  const paths = useMemo(
+    () => DESTINATIONS.map((d) => ({ ...d, path: arc(origin, d) })),
+    [origin],
+  );
 
   return (
     <svg
+      ref={ref}
       className="hidden md:block absolute inset-0 w-full h-full pointer-events-none text-[var(--signal)]"
       viewBox="0 0 1440 900"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="none"
       fill="none"
       aria-hidden="true"
     >
@@ -91,7 +126,7 @@ export default function HeroReach() {
 
       {/* Luxembourg: where it all leaves from. The mark sits on top of this
           point, so it stays a dot rather than a ring. */}
-      <circle cx={O.x} cy={O.y} r={3.5} fill="currentColor" className="opacity-40" />
+      <circle cx={origin.x} cy={origin.y} r={3.5} fill="currentColor" className="opacity-40" />
     </svg>
   );
 }
