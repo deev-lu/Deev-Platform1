@@ -419,7 +419,7 @@ export default function ProjectBuilder() {
 
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
         {/* Header */}
-        <div className="mb-12 md:mb-16 text-center max-w-3xl mx-auto">
+        <div className="mb-12 md:mb-16 max-w-3xl">
           <div className="eyebrow-mono flex items-center justify-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
             <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
             <span className="flex items-center gap-2">
@@ -676,7 +676,7 @@ export default function ProjectBuilder() {
                       {isPast ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : s}
                     </div>
                     <span
-                      className={`ml-1.5 sm:ml-3 mr-2 sm:mr-4 text-xs sm:text-sm font-semibold tracking-wide hidden xs:inline sm:inline ${ isActive ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-slate-500" }`}
+                      className={`ml-1.5 sm:ml-3 mr-2 sm:mr-4 text-xs sm:text-sm font-semibold tracking-wide hidden xs:inline sm:inline ${ isActive ? "text-[var(--text-hi)]" : "text-slate-400 dark:text-slate-500" }`}
                     >
                       {label}
                     </span>
@@ -716,21 +716,21 @@ export default function ProjectBuilder() {
                             // Reset capabilities when system changes
                             setCapabilities(new Set());
                           }}
-                          className={`group w-full flex items-center p-5 rounded-lg border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${ isSelected ? "border-[#2563F6] bg-[#2563F6]/5 dark:bg-[#2563F6]/10 /10" : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#3CE7FC]/60 dark:hover:border-white/25 dark:" }`}
+                          className={`group w-full flex items-center p-5 border text-left transition-all duration-300 ${ isSelected ? "border-[var(--line-strong)] border-l-2 border-l-[var(--signal)] bg-[var(--surface-2)]" : "border-[var(--line)] border-l-2 border-l-transparent bg-[var(--surface-1)] hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]" }`}
                         >
                           <div
-                            className={`flex-shrink-0 w-12 h-12 rounded-md flex items-center justify-center mr-5 transition-transform duration-300 group-hover:scale-110 ${ isSelected ? "bg-[#2563F6] text-white" : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white" }`}
+                            className={`flex-shrink-0 w-12 h-12 rounded-md flex items-center justify-center mr-5 transition-colors duration-[var(--dur-1)] ${ isSelected ? "text-[var(--signal-text)]" : "text-[var(--metal)]" }`}
                           >
                             <Icon className="w-6 h-6" />
                           </div>
                           <div className="flex-1">
                             <h4
-                              className={`text-lg font-medium ${ isSelected ? "text-[#2563F6] dark:text-[#3CE7FC]" : "text-slate-900 dark:text-white" }`}
+                              className={`text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                             >
                               {sys.label}
                             </h4>
                             <p
-                              className={`mt-0.5 text-sm ${ isSelected ? "text-[#2563F6]/80 dark:text-[#3CE7FC]/80" : "text-slate-500 dark:text-slate-400" }`}
+                              className={`mt-0.5 text-sm ${ isSelected ? "text-[var(--text-mid)]" : "text-[var(--text-mid)]" }`}
                             >
                               {sys.description}
                             </p>
@@ -762,12 +762,12 @@ export default function ProjectBuilder() {
                         <button
                           key={lvl.id}
                           onClick={() => setScale(lvl.id)}
-                          className={`w-full flex items-center justify-between p-5 rounded-lg border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${ isSelected ? "border-[#2563F6] bg-[#2563F6]/5 dark:bg-[#2563F6]/10 /10" : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#3CE7FC]/60 dark:hover:border-white/25 dark:" }`}
+                          className={`w-full flex items-center justify-between p-5 border text-left transition-all duration-300 ${ isSelected ? "border-[var(--line-strong)] border-l-2 border-l-[var(--signal)] bg-[var(--surface-2)]" : "border-[var(--line)] border-l-2 border-l-transparent bg-[var(--surface-1)] hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]" }`}
                         >
                           <div>
                             <div className="flex items-center gap-3 mb-1">
                               <h4
-                                className={`text-lg font-medium ${ isSelected ? "text-[#2563F6] dark:text-[#3CE7FC]" : "text-slate-900 dark:text-white" }`}
+                                className={`text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                               >
                                 {lvl.label}
                               </h4>
@@ -778,7 +778,7 @@ export default function ProjectBuilder() {
                               </span>
                             </div>
                             <p
-                              className={`text-sm ${ isSelected ? "text-[#2563F6]/80 dark:text-[#3CE7FC]/80" : "text-slate-500 dark:text-slate-400" }`}
+                              className={`text-sm ${ isSelected ? "text-[var(--text-mid)]" : "text-[var(--text-mid)]" }`}
                             >
                               {lvl.description}
                             </p>
@@ -812,17 +812,17 @@ export default function ProjectBuilder() {
                           <button
                             key={cap.id}
                             onClick={() => toggleCapability(cap.id)}
-                            className={`group flex items-start p-4 rounded-md border-2 text-left transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${ isSelected ? "border-[#3CE7FC] bg-[#3CE7FC]/5 dark:bg-[#3CE7FC]/10 /10" : "border-slate-200 dark:border-white/[0.10] bg-white dark:bg-white/5 hover:border-[#2563F6]/40 dark:hover:border-white/25 dark:" }`}
+                            className={`group flex items-start p-4 border text-left transition-all duration-300 ${ isSelected ? "border-[var(--line-strong)] border-l-2 border-l-[var(--signal)] bg-[var(--surface-2)]" : "border-[var(--line)] border-l-2 border-l-transparent bg-[var(--surface-1)] hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]" }`}
                           >
                             <div
-                              className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mr-3 mt-0.5 transition-transform duration-300 group-hover:scale-110 ${ isSelected ? "bg-[#3CE7FC] text-white" : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white" }`}
+                              className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mr-3 mt-0.5 transition-colors duration-[var(--dur-1)] ${ isSelected ? "text-[var(--signal-text)]" : "text-[var(--metal)]" }`}
                             >
                               <Icon className="w-4 h-4" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-2">
                                 <h4
-                                  className={`text-sm font-medium leading-tight ${ isSelected ? "text-[#2563F6] dark:text-[#3CE7FC]" : "text-slate-900 dark:text-white" }`}
+                                  className={`text-sm font-medium leading-tight ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                                 >
                                   {cap.label}
                                 </h4>
@@ -1104,7 +1104,7 @@ export default function ProjectBuilder() {
                     <div className="flex flex-col sm:flex-row gap-3">
                       <a
                         href="mailto:contact@deev.lu?subject=Start%20my%20project%20%E2%80%94%20Deev%20simulator&body=Hi%20Deev%20team%2C%0D%0A%0D%0AI%27ve%20configured%20my%20project%20in%20the%20simulator%20and%20I%27d%20like%20to%20start.%0D%0A"
-                        className="flex-1 py-4 bg-gradient-to-r from-[#2563F6] to-[#3CE7FC] text-white rounded-md font-medium text-base /30 hover:-translate-y-0.5 transition-all active:translate-y-0 flex items-center justify-center gap-2"
+                        className="flex-1 py-4 text-white font-medium text-base transition-colors duration-[var(--dur-1)] hover:bg-[var(--signal-hi)] flex items-center justify-center gap-2" style={{ background: "var(--signal)", borderRadius: "var(--radius-2)" }}
                       >
                         Start my project <ArrowRight className="w-5 h-5" />
                       </a>
@@ -1267,7 +1267,7 @@ export default function ProjectBuilder() {
                     <select
                       value={leadForm.timeline}
                       onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
-                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] ${ leadForm.timeline ? "text-slate-900 dark:text-white" : "text-slate-400" }`}
+                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] ${ leadForm.timeline ? "text-[var(--text-hi)]" : "text-slate-400" }`}
                     >
                       <option value="">When do you want to start?</option>
                       <option value="ASAP">As soon as possible</option>
