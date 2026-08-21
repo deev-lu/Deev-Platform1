@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
+import { scrollToId, scrollToTop } from "../../lib/smoothScroll";
 
 interface NavbarProps {}
 
@@ -54,11 +55,10 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     // Route links (e.g. "/contact") navigate via the router
     if (href.startsWith("/")) {
       navigate(href);
-      window.scrollTo({ top: 0 });
+      scrollToTop(true);
       return;
     }
-    const id = href.replace("#", "");
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    scrollToId(href);
   };
 
   return (
@@ -73,7 +73,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
           {/* Logo */}
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => scrollToTop()}
             className="flex items-center gap-1.5 shrink-0 group -ml-1"
           >
             <img

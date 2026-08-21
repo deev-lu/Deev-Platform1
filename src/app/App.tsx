@@ -14,6 +14,7 @@ const MarketingServices = lazy(() => import("./components/MarketingServices"));
 const AiConcepts        = lazy(() => import("./components/AiConcepts"));
 const WorkMoment        = lazy(() => import("./components/WorkMoment"));
 import { initAnalytics } from "../lib/analytics";
+import { initSmoothScroll } from "../lib/smoothScroll";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const ValueProposition  = lazy(() => import("./components/ValueProposition"));
@@ -87,6 +88,11 @@ export default function App() {
 
   // Google Analytics — only after the cookie banner is accepted
   useEffect(() => initAnalytics(), []);
+
+  // Weighted wheel scrolling. Pointer devices only, never under
+  // prefers-reduced-motion; the module decides and returns a no-op teardown
+  // when it declines to run.
+  useEffect(() => initSmoothScroll(), []);
 
 
   const [theme, setTheme] = useState<"light" | "dark">("dark");

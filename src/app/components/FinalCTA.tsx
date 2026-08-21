@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
+import { scrollToId } from "../../lib/smoothScroll";
 
 /**
  * §6K — Closing CTA. Near-empty: one headline at h1 scale, one paragraph,
@@ -54,7 +55,7 @@ export default function FinalCTA() {
         >
           <button
             onClick={() =>
-              document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })
+              scrollToId("project-builder")
             }
             className="h-11 px-7 text-white font-medium transition-colors duration-[var(--dur-1)] hover:bg-[var(--signal-hi)]"
             style={{

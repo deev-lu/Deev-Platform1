@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { TrendingUp, Target, Zap, BarChart3 } from "lucide-react";
 import GrowingMetrics from "./GrowingMetrics";
 import FloatingTech3D from "./FloatingTech3D";
+import { scrollToId } from "../../lib/smoothScroll";
 
 const services = [
   {
@@ -138,7 +139,7 @@ export default function DigitalMarketing() {
               Let's audit your current marketing and show you exactly where we can move the needle.
             </p>
             <button
-              onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToId("project-builder")}
               className="group relative inline-flex items-center gap-2 px-9 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-1"
               style={{ background: "var(--signal)" }}
             >

@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { ArrowRight, Check } from "lucide-react";
 import HeroShapes from "./HeroShapes";
 import NoiseOverlay from "./NoiseOverlay";
+import { scrollToId } from "../../lib/smoothScroll";
 // Heavy, animation-rich — deferred so the hero text paints first
 const HeroMark = lazy(() => import("./HeroMark"));
 
@@ -116,7 +117,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.42, ease: "easeOut" }}
           >
             <button
-              onClick={() => document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToId("project-builder")}
               className="group relative w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
               style={{ background: "var(--signal)" }}
             >

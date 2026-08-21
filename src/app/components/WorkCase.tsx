@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Link, useParams, useNavigate } from "react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getProject, nextProject } from "../../lib/projects";
+import { scrollToTop } from "../../lib/smoothScroll";
 
 /**
  * /work/:slug — a dedicated page per project.
@@ -18,7 +19,7 @@ export default function WorkCase() {
   const project = getProject(slug);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    scrollToTop(true);
   }, [slug]);
 
   useEffect(() => {

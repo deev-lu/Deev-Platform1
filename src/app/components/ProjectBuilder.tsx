@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "
 import { useNavigate } from "react-router";
 import { sendLeadEmail } from "../../lib/leadEmail";
 import NoiseOverlay from "./NoiseOverlay";
+import { scrollToTop } from "../../lib/smoothScroll";
 import {
   ArrowRight,
   ArrowLeft,
@@ -353,7 +354,7 @@ export default function ProjectBuilder() {
     // Marketing isn't priced here — scope it personally on the contact form
     if (step === 1 && system === "marketing") {
       navigate("/contact");
-      window.scrollTo({ top: 0 });
+      scrollToTop(true);
       return;
     }
     if (step === 3) setShowLeadCapture(true);

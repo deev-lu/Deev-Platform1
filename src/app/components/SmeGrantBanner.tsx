@@ -1,9 +1,10 @@
 import { motion } from "motion/react";
 import { BadgeEuro, ArrowRight } from "lucide-react";
+import { scrollToId } from "../../lib/smoothScroll";
 
 export default function SmeGrantBanner() {
   const scrollToBuilder = () =>
-    document.getElementById("project-builder")?.scrollIntoView({ behavior: "smooth" });
+    scrollToId("project-builder");
 
   return (
     <section className="relative bg-white dark:bg-[#06060a] py-10 sm:py-12 transition-colors duration-300">

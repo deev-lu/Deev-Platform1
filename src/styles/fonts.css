@@ -39,6 +39,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Lenis drives the scroll position itself, one small step per frame. Native
+   smooth scrolling would try to ease each of those steps as well, and the two
+   fight. Lenis adds .lenis to <html> only while it is actually running. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
 body {
   font-family: var(--font-sans);
   /* Premium OpenType: contextual alternates + tabular-friendly defaults */
