@@ -424,7 +424,7 @@ export default function ProjectBuilder() {
             <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#3CE7FC]/70" />
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#3CE7FC] animate-pulse" />
-              07 / Live simulator
+              08 / Live simulator
             </span>
             <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#3CE7FC]/70" />
           </div>

@@ -41,7 +41,7 @@ export default function BillovioFeature() {
                 className="eyebrow-mono uppercase text-black/45"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                06 / Our own product
+                07 / Our own product
               </span>
             </div>
 
