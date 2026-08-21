@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 // Critical above-the-fold — eager loaded
@@ -35,10 +35,10 @@ function SectionSkeleton() {
   );
 }
 
-function HomePage() {
+function HomePage({ theme, toggleTheme }: ThemeProps) {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] overflow-x-clip transition-colors duration-300">
-      <Navbar />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Hero />
       <ClientLogos />
       <SmeGrantBanner />
@@ -54,9 +54,7 @@ function HomePage() {
         <div data-surface="dark">
           <SystemStack />
         </div>
-        <div data-surface="dark" className="dark bg-[#050509]">
-          <div id="portfolio"><Portfolio /></div>
-        </div>
+        <div id="portfolio"><Portfolio /></div>
 
         <div id="marketing"><MarketingServices /></div>
         <div id="billovio"><BillovioFeature /></div>
@@ -67,15 +65,16 @@ function HomePage() {
         <div data-surface="dark">
           <LuxembourgStrip />
         </div>
-        <div data-surface="dark" className="dark bg-[#06060a]">
-          <FinalCTA />
-        </div>
+        <FinalCTA />
       </Suspense>
-      <div data-surface="dark" className="dark bg-[#06060a]">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
+}
+
+export interface ThemeProps {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
 }
 
 export default function App() {
@@ -85,11 +84,35 @@ export default function App() {
   useEffect(() => initAnalytics(), []);
 
 
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+
+  // localStorage throws outright in Safari with cookies blocked and inside
+  // sandboxed embeds; an unguarded read here would blank the page on mount.
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("theme") as "light" | "dark" | null;
+      if (saved) setTheme(saved);
+    } catch {
+      /* keep the default */
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      /* the preference just will not persist */
+    }
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((p) => (p === "dark" ? "light" : "dark"));
+
   return (
     <BrowserRouter>
       <RouteMeta />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
         <Route path="/legal" element={
           <Suspense fallback={<SectionSkeleton />}>
             <Legal />
@@ -97,13 +120,11 @@ export default function App() {
         } />
         <Route path="/work/:slug" element={
           <>
-            <Navbar />
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
             <Suspense fallback={<SectionSkeleton />}>
               <WorkCase />
             </Suspense>
-            <div data-surface="dark" className="dark bg-[#06060a]">
-              <Footer />
-            </div>
+            <Footer />
           </>
         } />
         <Route path="/contact" element={

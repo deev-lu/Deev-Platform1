@@ -10,20 +10,29 @@ const ratio = (a, b) => {
   return (x + 0.05) / (y + 0.05);
 };
 
-const S0 = "#08090b";
-// Each token is checked in the role it is actually used in: --signal is a
-// fill (text sits on it), --signal-text is type on the page ground.
+// Both themes, each token in the role it is actually used in.
+const DARK_0 = "#08090b", DARK_2 = "#121519";
+const LIGHT_0 = "#ffffff", LIGHT_1 = "#f4f5f7";
 const checks = [
-  ["--text-hi    on surface-0", "#f2f4f6", S0, 7],
-  ["--text       on surface-0", "#c6cbd1", S0, 4.5],
-  ["--text-mid   on surface-0", "#8b929b", S0, 4.5],
-  ["--text-low   on surface-0", "#767d87", S0, 4.5],
-  ["--signal-text on surface-0", "#6e9bff", S0, 7],
-  ["--positive   on surface-0", "#3dbe7a", S0, 4.5],
-  ["--metal      on surface-0", "#9aa3ad", S0, 4.5],
-  ["white on --signal fill", "#ffffff", "#2e6bff", 4.5],
-  ["--text-hi    on surface-2", "#f2f4f6", "#121519", 7],
-  ["--text-mid   on surface-2", "#8b929b", "#121519", 4.5],
+  // ── dark ──
+  ["dark  --text-hi     on surface-0", "#f2f4f6", DARK_0, 7],
+  ["dark  --text        on surface-0", "#c6cbd1", DARK_0, 4.5],
+  ["dark  --text-mid    on surface-0", "#8b929b", DARK_0, 4.5],
+  ["dark  --text-low    on surface-0", "#767d87", DARK_0, 4.5],
+  ["dark  --signal-text on surface-0", "#6e9bff", DARK_0, 7],
+  ["dark  --positive    on surface-0", "#3dbe7a", DARK_0, 4.5],
+  ["dark  --metal       on surface-0", "#9aa3ad", DARK_0, 4.5],
+  ["dark  --text-hi     on surface-2", "#f2f4f6", DARK_2, 7],
+  ["dark  white on --signal fill",     "#ffffff", "#2e6bff", 4.5],
+  // ── light ──
+  ["light --text-hi     on surface-0", "#0a0b0d", LIGHT_0, 7],
+  ["light --text        on surface-0", "#33383f", LIGHT_0, 4.5],
+  ["light --text-mid    on surface-0", "#565c64", LIGHT_0, 4.5],
+  ["light --text-low    on surface-1", "#6b7178", LIGHT_1, 4.5],
+  ["light --signal-text on surface-1", "#1747c4", LIGHT_1, 7],
+  ["light --positive    on surface-0", "#1f7a4d", LIGHT_0, 4.5],
+  ["light --metal       on surface-1", "#6b7178", LIGHT_1, 4.5],
+  ["light white on --signal fill",     "#ffffff", "#2563f6", 4.5],
 ];
 let fails = 0;
 for (const [label, fg, bg, floor] of checks) {

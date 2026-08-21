@@ -3,42 +3,39 @@
    Dark only. One accent. Hairlines, not shadows. No gradients.
    ───────────────────────────────────────────────────────────── */
 
+/* Light is the default; .dark on <html> swaps the palette. Every value below
+   is measured against the brief's floors by scripts/check-contrast.mjs —
+   7:1 for headline type, 4.5:1 for body and labels, in both themes. */
 :root {
-  /* Surfaces — near-black steps, cool-shifted. Elevation = lighter, never shadowed. */
-  --surface-0: #08090b;
-  --surface-1: #0c0e11;
-  --surface-2: #121519;
-  --surface-3: #191d22;
-  --surface-inv: #f6f7f8;
+  /* Surfaces — paper, with elevation as a darker step */
+  --surface-0: #ffffff;
+  --surface-1: #f4f5f7;
+  --surface-2: #edeef1;
+  --surface-3: #e4e6ea;
+  --surface-inv: #08090b;
 
-  /* Hairlines — structure lives here */
-  --line-faint: rgba(255, 255, 255, 0.06);
-  --line: rgba(255, 255, 255, 0.10);
-  --line-strong: rgba(255, 255, 255, 0.18);
+  /* Hairlines */
+  --line-faint: rgba(0, 0, 0, 0.06);
+  --line: rgba(0, 0, 0, 0.10);
+  --line-strong: rgba(0, 0, 0, 0.18);
 
   /* Text */
-  --text-hi: #f2f4f6;
-  --text: #c6cbd1;
-  --text-mid: #8b929b;
-  --text-low: #767d87; /* brief said #5E656E — 3.38:1, below its own 4.5 floor */
-  --text-inv: #0a0b0d;
+  --text-hi: #0a0b0d;
+  --text: #33383f;
+  --text-mid: #565c64;
+  --text-low: #6b7178;
+  --text-inv: #f2f4f6;
 
-  /* Signal — ONE accent, under 5% of pixels.
-     Brief §4.1 specifies #2E6BFF; the brand book says #2563F6.
-     Flagged for confirmation — changing this one line switches the whole site. */
-  --signal: #2e6bff;
-  --signal-hi: #558bff;
-  /* Accent as TEXT cannot reach the 7:1 headline floor at the brief's hue
-     (#2E6BFF = 4.42:1, #558BFF = 6.19:1). Fills keep --signal; accent type
-     uses this lighter tint, measured at 7.39:1. */
-  --signal-text: #6e9bff;
-  --signal-dim: rgba(46, 107, 255, 0.12);
+  /* Signal — the fill keeps the brand blue; accent type darkens to clear 7:1 */
+  --signal: #2563f6;
+  --signal-hi: #1747c4;
+  --signal-text: #1747c4;
+  --signal-dim: rgba(37, 99, 246, 0.10);
 
-  --metal: #9aa3ad;
+  --metal: #6b7178;
 
-  /* Functional only. Never decorative. */
-  --positive: #3dbe7a;
-  --warn: #e0a33c;
+  --positive: #1f7a4d;
+  --warn: #a1650f;
 
   /* Shape — hard edges. 4px is the maximum permitted. */
   --radius-0: 0px;
@@ -69,6 +66,37 @@
   --section-y-lg: clamp(140px, 14vw, 280px);
   --container: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
+}
+
+.dark {
+  /* Surfaces — near-black steps, cool-shifted. Elevation = lighter. */
+  --surface-0: #08090b;
+  --surface-1: #0c0e11;
+  --surface-2: #121519;
+  --surface-3: #191d22;
+  --surface-inv: #f6f7f8;
+
+  --line-faint: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  --text-hi: #f2f4f6;
+  --text: #c6cbd1;
+  --text-mid: #8b929b;
+  --text-low: #767d87;
+  --text-inv: #0a0b0d;
+
+  /* Brief §4.1 specifies #2E6BFF for the fill. Accent type cannot reach 7:1
+     at that hue (4.42:1), so --signal-text carries a lighter tint. */
+  --signal: #2e6bff;
+  --signal-hi: #558bff;
+  --signal-text: #6e9bff;
+  --signal-dim: rgba(46, 107, 255, 0.12);
+
+  --metal: #9aa3ad;
+
+  --positive: #3dbe7a;
+  --warn: #e0a33c;
 }
 
 /* Expose the tokens to Tailwind v4 utilities (bg-surface-1, text-hi, …) */

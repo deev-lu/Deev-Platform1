@@ -94,7 +94,7 @@ export default function Portfolio() {
         </motion.div>
 
         {/* Featured — real screenshots of shipped work */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <motion.div layout className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
           <AnimatePresence mode="popLayout">
             {featured.map((item, index) => {
               return (
@@ -104,14 +104,15 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  transition={{ duration: 0.4, delay: Math.min(index, 4) * 0.06 }}
+                  className={index % 3 === 0 ? "lg:col-span-7" : "lg:col-span-5"}
                 >
                   <Link
                     to={`/work/${item.slug}`}
                     className="group relative block cursor-pointer border border-[var(--line)] hover:border-[var(--line-strong)] transition-colors duration-[240ms] bg-[var(--surface-1)]"
                   >
                     {/* Live site screenshot */}
-                    <div className="relative overflow-hidden aspect-[4/3]">
+                    <div className={`relative overflow-hidden ${index % 3 === 0 ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
                       <img
                         src={item.image}
                         alt={`${item.title} — live website`}
@@ -153,10 +154,10 @@ export default function Portfolio() {
         {/* More work — compact rows */}
         {rest.length > 0 && (
           <>
-            <div className="eyebrow-mono text-[11px] font-semibold uppercase text-slate-400 dark:text-slate-500 mb-4">
+            <div className="eyebrow-mono uppercase text-[var(--text-low)] mb-5 mt-14" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
               More work
             </div>
-            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-[var(--line)]">
               <AnimatePresence mode="popLayout">
                 {rest.map((item, index) => {
                   return (
@@ -175,14 +176,14 @@ export default function Portfolio() {
                         <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[#2563F6] to-[#3CE7FC] flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-105">
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-medium tracking-tight leading-snug text-slate-900 dark:text-white group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300">
+                          <h3 className="text-[var(--text-hi)] font-medium leading-snug truncate" style={{ fontSize: "var(--t-small)" }}>
                             {item.title}
                           </h3>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                          <div className="eyebrow-mono uppercase text-[var(--text-low)] truncate mt-1" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
                             {item.category} · {item.year}
                           </div>
                         </div>
-                        <ArrowUpRight className="shrink-0 w-4 h-4 text-slate-400 dark:text-slate-500 transition-all duration-300 group-hover:text-[#3CE7FC] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <ArrowUpRight className="shrink-0 w-4 h-4 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-all duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.25} />
                       </Link>
                     </motion.div>
                   );
@@ -197,10 +198,10 @@ export default function Portfolio() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-center justify-center gap-6 mt-12 pt-8 border-t border-slate-100 dark:border-white/10"
+          className="flex items-center gap-6 mt-14 pt-8 border-t border-[var(--line)]"
         >
-          <p className="text-sm text-slate-400 dark:text-slate-500">
-            <span className="font-medium text-slate-700 dark:text-white text-lg">
+          <p className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+            <span className="text-[var(--text-hi)]">
               {portfolioItems.length}+
             </span>{" "}
             projects delivered across Europe

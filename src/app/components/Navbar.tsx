@@ -14,7 +14,12 @@ const NAV_LINKS = [
   { label: "Contact",   href: "/contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  theme?: "light" | "dark";
+  toggleTheme?: () => void;
+}
+
+export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [overDark, setOverDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -100,6 +105,21 @@ export default function Navbar() {
 
           {/* Right side: CTA + burger */}
           <div className="flex items-center gap-3">
+            {toggleTheme && (
+              <button
+                onClick={toggleTheme}
+                aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                title={theme === "dark" ? "Light mode" : "Dark mode"}
+                className="w-9 h-9 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
+                style={{ borderRadius: "var(--radius-1)" }}
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-4 h-4" strokeWidth={1.5} />
+                ) : (
+                  <Moon className="w-4 h-4" strokeWidth={1.5} />
+                )}
+              </button>
+            )}
 
             {/* CTA */}
             <button
