@@ -109,40 +109,52 @@ export default function Portfolio() {
                 >
                   <Link
                     to={`/work/${item.slug}`}
-                    className="group relative block cursor-pointer border border-[var(--line)] hover:border-[var(--line-strong)] transition-colors duration-[240ms] bg-[var(--surface-1)]"
+                    className="group relative block overflow-hidden bg-[var(--surface-2)]"
                   >
-                    {/* Live site screenshot */}
-                    <div className={`relative overflow-hidden ${index % 3 === 0 ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
+                    {/* One tile: the screenshot fills it and the label sits on
+                        the image, so rows keep a single silhouette instead of
+                        a picture with a separate white bar bolted underneath. */}
+                    <div className="relative w-full h-[clamp(280px,30vw,440px)]">
                       <img
                         src={item.image}
                         alt={`${item.title} — live website`}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover object-top transition-transform duration-[640ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-[1.03]"
+                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[640ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-[1.03]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity duration-500" />
-                    </div>
 
-                    {/* Meta */}
-                    <div className="flex items-center gap-4 px-5 py-5 border-t border-[var(--line)]">
-                      <div className="flex-1 min-w-0">
-                        <h3
-                          className="text-[var(--text-hi)] font-medium truncate"
-                          style={{ fontSize: "var(--t-body)", letterSpacing: "-0.01em" }}
-                        >
-                          {item.title}
-                        </h3>
-                        <div
-                          className="eyebrow-mono uppercase text-[var(--text-low)] truncate mt-1.5"
-                          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                        >
-                          {item.category} · {item.year}
-                        </div>
-                      </div>
-                      <ArrowUpRight
-                        className="shrink-0 w-4 h-4 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-all duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        strokeWidth={1.25}
+                      {/* Scrim: dark enough under the label to hold white type
+                          on any screenshot, invisible across the rest. */}
+                      <div
+                        className="absolute inset-0 transition-opacity duration-[var(--dur-2)] opacity-90 group-hover:opacity-100"
+                        style={{
+                          background:
+                            "linear-gradient(to top, rgba(6,7,9,0.92) 0%, rgba(6,7,9,0.78) 22%, rgba(6,7,9,0.35) 52%, rgba(6,7,9,0.05) 78%)",
+                        }}
                       />
+
+                      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 flex items-end justify-between gap-5">
+                        <div className="min-w-0">
+                          <div
+                            className="eyebrow-mono uppercase text-white/60 truncate mb-2"
+                            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                          >
+                            {item.category} · {item.year}
+                          </div>
+                          <h3
+                            className="text-white font-medium truncate"
+                            style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.01em", lineHeight: 1.15 }}
+                          >
+                            {item.title}
+                          </h3>
+                        </div>
+                        <span
+                          className="shrink-0 w-10 h-10 flex items-center justify-center border border-white/25 text-white translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[var(--dur-2)] ease-[cubic-bezier(0.16,1,0.30,1)]"
+                          style={{ borderRadius: "var(--radius-1)" }}
+                        >
+                          <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </motion.div>
