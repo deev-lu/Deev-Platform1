@@ -19,8 +19,9 @@ import LiteYouTube from "./LiteYouTube";
  *  video titles, and drop <id>.jpg into src/assets/marketing to give each one
  *  its own still frame. */
 const VIDEOS = [
-  { id: "LeAYeRih-_Y", title: "Deev marketing video, one of two" },
-  { id: "zURSJEqZO2E", title: "Deev marketing video, two of two" },
+  { id: "LeAYeRih-_Y", title: "Deev marketing video, one of three" },
+  { id: "zURSJEqZO2E", title: "Deev marketing video, two of three" },
+  { id: "j9zL-hiTnF4", title: "Deev marketing video, three of three" },
 ];
 
 const SERVICES = [
@@ -128,7 +129,7 @@ export default function MarketingServices() {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 sm:gap-6 max-w-[720px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 max-w-[1040px]">
           {VIDEOS.map((v, i) => (
             <motion.div
               key={v.id}
