@@ -414,16 +414,21 @@ export default function ProjectBuilder() {
             update in real time. Then start it in one click.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          {/* The grant chip was a fixed h-9. On a phone its sentence wraps to two
+              lines, so the text grew and the box did not: the second line sat on
+              the border. It is padded now and grows with whatever it holds,
+              with the icon aligned to the first line rather than to the middle
+              of a two-line block. */}
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-6">
             <span
-              className="inline-flex items-center gap-2 px-4 h-9 border border-[var(--positive)]/35 text-[var(--positive)]"
-              style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+              className="inline-flex items-start gap-2.5 px-4 py-2.5 border border-[var(--positive)]/35 text-[var(--positive)]"
+              style={{ fontSize: "var(--t-small)", lineHeight: 1.45, borderRadius: "var(--radius-1)" }}
             >
-              <BadgeEuro className="w-4 h-4" />
+              <BadgeEuro className="w-4 h-4 mt-[2px] shrink-0" />
               Luxembourg SMEs: up to 70% funded by the state SME grant
             </span>
             <div
-              className="flex flex-wrap items-center gap-x-6 gap-y-2 eyebrow-mono uppercase text-[var(--text-low)]"
+              className="flex flex-wrap items-center gap-x-6 gap-y-3 eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
               <span className="flex items-center gap-2"><Clock className="w-3.5 h-3.5" /> Takes ~30 seconds</span>

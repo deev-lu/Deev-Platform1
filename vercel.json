@@ -11,5 +11,12 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/deev-ai",
+      "destination": "/",
+      "permanent": true
+    }
   ]
 }
