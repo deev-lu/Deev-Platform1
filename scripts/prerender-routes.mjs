@@ -9,7 +9,7 @@
 // Each route now ships its own canonical, title and description. The body is
 // unchanged and still hydrates as the same SPA.
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -33,6 +33,23 @@ for (const p of projects) {
 }
 const template = readFileSync(join(dist, "index.html"), "utf8");
 
+// Screenshots are emitted with a content hash, and the six taken before the
+// filename convention kept their old names (same aliases as src/lib/projects.ts).
+// Matching them here lets a case study share its own picture instead of the
+// studio's default card.
+const ALIASES = {
+  "bureau-immobilier-feltes": "feltes",
+  "aurora-experience": "aurora",
+  "oscars-bar": "oscarsbar",
+  "geoplus-3d": "geoplus",
+  "vino-amore": "vinoamore",
+};
+const assets = readdirSync(join(dist, "assets"));
+const shotFor = (slug) => {
+  const base = ALIASES[slug] ?? slug;
+  return assets.find((f) => new RegExp(`^${base}-[A-Za-z0-9_-]+\\.jpe?g$`).test(f));
+};
+
 const esc = (s) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -49,6 +66,9 @@ for (const [routePath, route] of Object.entries(routes)) {
   const title = esc(route.title);
   const description = esc(route.description);
 
+  const shot = route.project ? shotFor(route.project.slug) : undefined;
+  const image = shot ? `${SITE}/assets/${shot}` : null;
+
   const edits = [
     { label: "title",               re: /(<title>)([\s\S]*?)(<\/title>)/,                    value: title },
     { label: "canonical",           re: /(<link\s+rel="canonical"\s+href=")([^"]*)(")/,      value: url },
@@ -58,6 +78,15 @@ for (const [routePath, route] of Object.entries(routes)) {
     { label: "og:description",      re: metaTag("property", "og:description"),               value: description },
     { label: "twitter:title",       re: metaTag("name", "twitter:title"),                    value: title },
     { label: "twitter:description", re: metaTag("name", "twitter:description"),              value: description },
+    ...(image
+      ? [
+          { label: "og:image",       re: metaTag("property", "og:image"),      value: image },
+          { label: "twitter:image",  re: metaTag("name", "twitter:image"),     value: image },
+          { label: "og:image:width", re: metaTag("property", "og:image:width"), value: "1000" },
+          { label: "og:image:height", re: metaTag("property", "og:image:height"), value: "583" },
+          { label: "og:image:alt",   re: metaTag("property", "og:image:alt"),  value: esc(`${route.project.title}, ${route.project.category}`) },
+        ]
+      : []),
   ];
 
   let html = template;
