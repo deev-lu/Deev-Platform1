@@ -4,6 +4,11 @@
     "title": "DEEV: AI-Native Digital Agency in Luxembourg",
     "description": "AI-native web systems, web apps and lead campaigns engineered in Luxembourg to convert, automate and scale. Up to 70% funded by the SME state grant."
   },
+  "/work": {
+    "file": "work.html",
+    "title": "Work: websites, online stores and web apps | DEEV",
+    "description": "Every project DEEV has shipped, by type: websites, online stores and web apps, built in Luxembourg for companies across Europe."
+  },
   "/contact": {
     "file": "contact.html",
     "title": "Contact DEEV: Let's talk about your project",

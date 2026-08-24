@@ -56,7 +56,7 @@ export default function WorkCase() {
           style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
         >
           <Link
-            to="/#portfolio"
+            to="/work"
             className="group inline-flex items-center gap-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] mb-10"
             style={{ fontSize: "var(--t-small)" }}
           >

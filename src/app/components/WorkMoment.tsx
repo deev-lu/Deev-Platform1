@@ -345,53 +345,36 @@ export default function WorkMoment() {
           </motion.div>
         </div>
 
-        {/* Every project, including the ones without a screenshot. Without this
-            their case-study pages would have no link from the homepage at all,
-            and Google drops pages nothing points at. */}
+        {/* The full list lives on /work now. One line here keeps every case
+            study two clicks from the homepage without printing sixteen rows
+            of text on a phone. */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={fade}
-          className="mt-20 pt-10 border-t border-[var(--line)]"
+          className="mt-16 pt-10 border-t border-[var(--line)] flex flex-wrap items-center justify-between gap-6"
         >
-          <div
-            className="eyebrow-mono uppercase text-[var(--text-low)] mb-6"
-            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-          >
-            All projects
-          </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
-            {PROJECTS.map((p) => (
-              <li key={p.slug} className="border-b border-[var(--line)]">
-                <Link
-                  to={`/work/${p.slug}`}
-                  className="group flex items-baseline gap-4 py-4 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-                >
-                  <span className="flex-1 min-w-0 truncate" style={{ fontSize: "var(--t-small)" }}>
-                    {p.title}
-                  </span>
-                  <span
-                    className="eyebrow-mono uppercase text-[var(--text-low)] shrink-0"
-                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                  >
-                    {p.year}
-                  </span>
-                  <ArrowUpRight
-                    className="w-3.5 h-3.5 shrink-0 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    strokeWidth={1.5}
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
           <p
-            className="eyebrow-mono uppercase text-[var(--text-low)] mt-8"
+            className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            <span className="text-[var(--text-hi)]">{PROJECTS.length}+</span> projects delivered across Europe
+            <span className="text-[var(--text-hi)]">{PROJECTS.length}</span> projects delivered across Europe
           </p>
+
+          <Link
+            to="/work"
+            className="group inline-flex items-center gap-3 h-12 px-7 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)]"
+            style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+          >
+            See all work
+            <ArrowUpRight
+              className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              strokeWidth={1.5}
+            />
+          </Link>
         </motion.div>
+
       </div>
     </section>
   );

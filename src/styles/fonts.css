@@ -378,3 +378,13 @@ li {
     -webkit-text-stroke-width: 1.5px;
   }
 }
+
+/* A horizontal rail should scroll with the thumb without a visible bar under
+   it. Used by the work filters. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

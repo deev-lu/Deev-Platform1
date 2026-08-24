@@ -15,7 +15,7 @@ const navigation = {
   ],
   company: [
     { name: "Services", href: "/#services" },
-    { name: "Portfolio", href: "/#portfolio" },
+    { name: "Portfolio", href: "/work" },
     { name: "Pricing", href: "/#project-builder" },
     { name: "Why Deev", href: "/#why-deev" },
     { name: "Contact", href: "/contact" },

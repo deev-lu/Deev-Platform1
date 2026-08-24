@@ -14,6 +14,7 @@ import BenefitsPanel from "./components/BenefitsPanel";
 // navbar and the footer, so every case study shifted its layout by 0.52 the
 // moment the real page arrived. 1.7KB gzipped is cheaper than that.
 import WorkCase from "./components/WorkCase";
+const WorkIndex         = lazy(() => import("./components/WorkIndex"));
 const MarketingServices = lazy(() => import("./components/MarketingServices"));
 const AiConcepts        = lazy(() => import("./components/AiConcepts"));
 const WorkMoment        = lazy(() => import("./components/WorkMoment"));
@@ -135,6 +136,15 @@ export default function App() {
             <Navbar theme={theme} toggleTheme={toggleTheme} />
             <Suspense fallback={<SectionSkeleton />}>
               <Legal />
+            </Suspense>
+            <Footer />
+          </>
+        } />
+        <Route path="/work" element={
+          <>
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
+            <Suspense fallback={<SectionSkeleton />}>
+              <WorkIndex />
             </Suspense>
             <Footer />
           </>
