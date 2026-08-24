@@ -40,6 +40,14 @@ export const site: typeof En = {
     madeIn: "Conçu avec précision au Luxembourg",
   },
 
+  /** The certification mark's accessible name. */
+  madeInLabel: "Made in Luxembourg, label certifié",
+
+  deck: {
+    prev: (label: string) => `${label} : précédent`,
+    next: (label: string) => `${label} : suivant`,
+  },
+
   notFound: {
     eyebrow: "404 / Page introuvable",
     title: "Cette page n'existe pas.",

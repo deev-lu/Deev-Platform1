@@ -1,9 +1,14 @@
 import { motion } from "motion/react";
-import { Link } from "react-router";
 import { ArrowLeft, Cookie } from "lucide-react";
+import L from "./L";
 import { openCookieSettings } from "../../lib/consent";
+import { useT, useLocale } from "../../lib/useT";
 
 export default function Legal() {
+  const t = useT();
+  const g = t.legal;
+  const locale = useLocale();
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300 pt-[68px]">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24">
@@ -15,16 +20,16 @@ export default function Legal() {
           {/* Header */}
           <div className="mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
-              Legal Information
+              {g.badge}
             </div>
             <h1 className="text-4xl md:text-5xl font-medium text-slate-900 dark:text-white mb-4 tracking-tight">
-              Terms &amp;{" "}
+              {g.title}{" "}
               <span className=" text-[var(--signal)]">
-                Legal Notice
+                {g.titleAccent}
               </span>
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-lg">
-              Last updated: May 2025
+              {g.updated}
             </p>
           </div>
 
@@ -32,17 +37,17 @@ export default function Legal() {
           <div className="rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 dark:shadow-none">
             <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
             <div className="p-8">
-              <h2 className="text-xl font-medium text-slate-900 dark:text-white mb-6">Company Information</h2>
+              <h2 className="text-xl font-medium text-slate-900 dark:text-white mb-6">{g.company.heading}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 {[
-                  { label: "Trade Name", value: "Deev" },
-                  { label: "Legal Entity", value: "Lux VR States Sàrl-s." },
-                  { label: "Directors", value: "FALCHERO Fabio & KETTEL Sven" },
-                  { label: "Address", value: "17, rue de Sélange, L-4965 Clemency, Luxembourg" },
-                  { label: "Email", value: "contact@deev.lu" },
-                  { label: "Phone", value: "+352 691 786 002 / +352 691 388 887" },
-                  { label: "VAT Number", value: "LU33936811" },
-                  { label: "Trade Register", value: "B266033" },
+                  { label: g.company.tradeName, value: "Deev" },
+                  { label: g.company.legalEntity, value: "Lux VR States Sàrl-s." },
+                  { label: g.company.directors, value: "FALCHERO Fabio & KETTEL Sven" },
+                  { label: g.company.address, value: "17, rue de Sélange, L-4965 Clemency, Luxembourg" },
+                  { label: g.company.email, value: "contact@deev.lu" },
+                  { label: g.company.phone, value: "+352 691 786 002 / +352 691 388 887" },
+                  { label: g.company.vat, value: "LU33936811" },
+                  { label: g.company.register, value: "B266033" },
                 ].map((item) => (
                   <div key={item.label} className="flex flex-col gap-1">
                     <span className="text-xs font-semibold uppercase tracking-widest text-[var(--text-mid)]">
@@ -58,131 +63,62 @@ export default function Legal() {
           {/* Legal Content */}
           <div className="prose prose-slate dark:prose-invert max-w-none space-y-8">
 
-            <Section title="1. Services">
-              <p>
-                Deev (Lux VR States Sàrl-s.) provides digital agency services including but not limited to: web design
-                and development, AI integration, digital marketing, e-commerce solutions, and related consulting.
-                All services are subject to a separate service agreement between Deev and the client.
-              </p>
+            <Section title={g.s1.title}>
+              <p>{g.s1.body}</p>
             </Section>
 
-            <Section title="2. Eligibility">
-              <p>
-                By engaging our services, you confirm that you are at least 18 years of age and have the legal capacity
-                to enter into binding contracts. Businesses must be duly registered entities. Deev reserves the right
-                to decline any project request at its sole discretion.
-              </p>
+            <Section title={g.s2.title}>
+              <p>{g.s2.body}</p>
             </Section>
 
-            <Section title="3. Purchases &amp; Payment">
-              <p>
-                All prices are quoted in EUR and are exclusive of VAT unless otherwise stated. An initial deposit
-                (typically 50%) is required before work commences. The remaining balance is due upon project
-                completion or as defined in the project agreement. Invoices are payable within 14 days of issue.
-                Late payments may incur interest charges in accordance with Luxembourg law.
-              </p>
+            <Section title={g.s3.title}>
+              <p>{g.s3.body}</p>
             </Section>
 
-            <Section title="4. SME Digital &amp; SME AI Subsidies">
-              <p>
-                Eligible Luxembourg-based SMEs may benefit from government subsidies under the SME Digital and
-                SME AI programmes, which can cover up to 70% of qualifying investment costs. Projects must fall
-                within the eligible cost range (€3,000–€25,000). Deev can assist with the subsidy application
-                process; however, approval is at the sole discretion of the relevant government body. Deev does not
-                guarantee subsidy approval.
-              </p>
+            <Section title={g.s4.title}>
+              <p>{g.s4.body}</p>
             </Section>
 
-            <Section title="5. Pricing &amp; Changes">
-              <p>
-                Deev reserves the right to update service pricing at any time. Price changes will not affect
-                projects already under contract. Any scope changes or additions requested by the client after
-                contract signing may result in additional charges, which will be agreed upon in writing before
-                implementation.
-              </p>
+            <Section title={g.s5.title}>
+              <p>{g.s5.body}</p>
             </Section>
 
-            <Section title="6. Intellectual Property">
-              <p>
-                Upon full and final payment, the client receives full ownership of all custom deliverables produced
-                for their project. Deev retains the right to display the work in its portfolio unless otherwise
-                agreed in writing. All third-party assets, libraries, or software used remain subject to their
-                respective licenses.
-              </p>
+            <Section title={g.s6.title}>
+              <p>{g.s6.body}</p>
             </Section>
 
-            <Section id="cookies" title="7. Cookies, Consent &amp; Tracking">
-              <p>
-                This site sets a small number of first-party cookies, and, only with your consent,
-                cookies from Google Analytics. There is no third-party consent platform: the banner,
-                the preference dialog and the record of your choice are all part of this site and
-                nothing about you is sent anywhere in order to ask you the question.
-              </p>
+            <Section id="cookies" title={g.cookies.title}>
+              <p>{g.cookies.intro}</p>
 
-              <p className="mt-4 font-medium text-slate-900 dark:text-white">Strictly necessary</p>
-              <p className="mt-1">
-                Set on the legal basis of Article 5(3) of the ePrivacy Directive, which does not
-                require consent for what is technically necessary to deliver the service you asked for.
-              </p>
+              <p className="mt-4 font-medium text-slate-900 dark:text-white">{g.cookies.necessaryHead}</p>
+              <p className="mt-1">{g.cookies.necessaryBody}</p>
               <CookieTable
                 rows={[
-                  ["deev_consent", "deev.lu", "Your cookie choices and the record of them: a reference, the date, and the policy version.", "12 months"],
-                  ["theme", "deev.lu (local storage)", "Remembers the light or dark appearance you selected.", "Until cleared"],
+                  ["deev_consent", "deev.lu", g.cookies.rowConsent, g.cookies.lifeConsent],
+                  ["theme", "deev.lu (local storage)", g.cookies.rowTheme, g.cookies.lifeTheme],
                 ]}
               />
 
-              <p className="mt-6 font-medium text-slate-900 dark:text-white">Analytics, only with consent</p>
-              <p className="mt-1">
-                We use Google Analytics 4, operated in the EU by Google Ireland Limited, to count
-                visits and see which pages are read. It runs under Google Consent Mode. Before you
-                choose, and if you decline, the tag stays in a consent-denied state: no cookie is
-                written and no identifier is stored on your device, and Google receives only a
-                cookieless signal, including your IP address and browser type, used for aggregated
-                statistics. If you accept, the cookies below are set.
-              </p>
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.analyticsHead}</p>
+              <p className="mt-1">{g.cookies.analyticsBody}</p>
               <CookieTable
                 rows={[
-                  ["_ga", "Google Ireland Limited", "Distinguishes one visitor from another so visits can be counted.", "2 years"],
-                  ["_ga_K0T15PZHMN", "Google Ireland Limited", "Keeps the state of the current visit for this property.", "2 years"],
+                  ["_ga", "Google Ireland Limited", g.cookies.rowGa, g.cookies.lifeGa],
+                  ["_ga_K0T15PZHMN", "Google Ireland Limited", g.cookies.rowGaProperty, g.cookies.lifeGa],
                 ]}
               />
-              <p className="mt-3">
-                Advertising storage, ad personalisation and ad user data are denied at all times and
-                we run no advertising or remarketing products on this site. Google may process the
-                data outside the EU; those transfers rely on the European Commission&rsquo;s standard
-                contractual clauses and on Google&rsquo;s supplementary measures.
+              <p className="mt-3">{g.cookies.advertising}</p>
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.videoHead}</p>
+              <p className="mt-1">{g.cookies.videoBody}</p>
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.recordHead}</p>
+              <p className="mt-1">
+                {g.cookies.recordBody1} <code>deev_consent</code> {g.cookies.recordBody2}
               </p>
 
-              <p className="mt-6 font-medium text-slate-900 dark:text-white">Embedded video</p>
-              <p className="mt-1">
-                The marketing section contains two videos hosted on YouTube. The player itself is
-                not loaded until you press play, so no YouTube script runs and no third-party
-                storage is set on your device before that. The still frame you see beforehand is the
-                video&rsquo;s own thumbnail, requested from Google&rsquo;s image host
-                (i.ytimg.com) as that part of the page comes into view: that request sets no
-                cookies, but it does tell Google that a browser loaded this page, including your IP
-                address. When you press play, the player loads from youtube-nocookie.com, which
-                serves the video without advertising cookies, and YouTube may then store what it
-                needs to play it and count the view. Pressing play is your own choice.
-              </p>
-
-              <p className="mt-6 font-medium text-slate-900 dark:text-white">Your consent record</p>
-              <p className="mt-1">
-                When you choose, we store the choice itself, a random reference, the date and time,
-                and the version of this policy you were shown. That record is the evidence of consent
-                required by Article 7(1) GDPR. It lives in the <code>deev_consent</code> cookie on
-                your own device and is mirrored in your browser&rsquo;s local storage, it is not sent
-                to us or to anyone else. It expires after twelve months, and we ask again sooner if
-                this policy changes.
-              </p>
-
-              <p className="mt-6 font-medium text-slate-900 dark:text-white">Changing or withdrawing your choice</p>
-              <p className="mt-1">
-                Withdrawal is as easy as consent, as Article 7(3) GDPR requires. Open the dialog
-                below, or use &ldquo;Cookie settings&rdquo; in the footer of any page. Withdrawing
-                deletes the record, returns analytics to its denied state and shows the banner again.
-                You can also clear this site&rsquo;s data in your browser, which has the same effect.
-              </p>
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.withdrawHead}</p>
+              <p className="mt-1">{g.cookies.withdrawBody}</p>
               <button
                 type="button"
                 onClick={openCookieSettings}
@@ -190,47 +126,31 @@ export default function Legal() {
                 style={{ background: "var(--signal)" }}
               >
                 <Cookie className="w-4 h-4" />
-                Manage cookie settings
+                {g.cookies.manage}
               </button>
             </Section>
 
-            <Section id="data-protection" title="8. Data Protection &amp; GDPR">
-              <p>
-                Deev processes personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable
-                Luxembourg data protection legislation. Personal data collected through this website or in the
-                course of providing services is used solely for delivering our services, communicating with clients,
-                and fulfilling legal obligations. Data is never sold to third parties.
-              </p>
+            <Section id="data-protection" title={g.gdpr.title}>
+              <p>{g.gdpr.body1}</p>
               <p className="mt-3">
-                You have the right to access, correct, or request deletion of your personal data. To exercise these
-                rights, contact us at{" "}
+                {g.gdpr.body2a}{" "}
                 <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[#3CE7FC]/40 hover:decoration-current font-medium">
                   contact@deev.lu
                 </a>
-                . Data is retained only for as long as necessary to fulfill the purposes for which it was collected
-                or as required by law.
+                {g.gdpr.body2b}
               </p>
             </Section>
 
-            <Section title="9. Limitation of Liability">
-              <p>
-                Deev's total liability to any client arising from or in connection with a project shall not exceed
-                the total fees paid by that client under the relevant project agreement. Deev is not liable for any
-                indirect, consequential, or incidental damages. Nothing in these terms limits Deev's liability for
-                fraud or gross negligence.
-              </p>
+            <Section title={g.s9.title}>
+              <p>{g.s9.body}</p>
             </Section>
 
-            <Section title="10. Governing Law &amp; Jurisdiction">
-              <p>
-                These terms and any disputes arising from them shall be governed by and construed in accordance with
-                the laws of the Grand Duchy of Luxembourg. Any disputes shall be subject to the exclusive
-                jurisdiction of the courts of Luxembourg City.
-              </p>
+            <Section title={g.s10.title}>
+              <p>{g.s10.body}</p>
             </Section>
 
-            <Section title="11. Contact">
-              <p>For any questions regarding these terms, please contact:</p>
+            <Section title={g.s11.title}>
+              <p>{g.s11.body}</p>
               <div className="mt-3 pl-4 border-l-2 border-[#3CE7FC]/50 text-slate-700 dark:text-slate-300 space-y-1">
                 <p className="font-semibold">Lux VR States Sàrl-s. (Deev)</p>
                 <p>17, rue de Sélange, L-4965 Clemency</p>
@@ -244,18 +164,27 @@ export default function Legal() {
               </div>
             </Section>
 
+            {/* A translation is offered for comprehension; the binding text
+                stays the one the terms were drafted in. Only rendered on the
+                translated versions, where the question actually arises. */}
+            {locale !== "en" && (
+              <Section title={g.prevails.title}>
+                <p>{g.prevails.body}</p>
+              </Section>
+            )}
+
           </div>
 
           {/* Back button */}
           <div className="mt-16 pt-8 border-t border-slate-200 dark:border-white/[0.07]">
-            <Link
+            <L
               to="/"
               className="inline-flex items-center gap-2.5 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
               style={{ background: "var(--signal)" }}
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to DEEV
-            </Link>
+              {g.back}
+            </L>
           </div>
         </motion.div>
       </div>

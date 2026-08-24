@@ -38,15 +38,19 @@ const VB_M = { w: 100, h: 330 };
  *  headline, hugging the edges of the frame. Nothing travels along them: a
  *  looping animation is exactly what the mobile performance rules exclude, so
  *  the phone gets the drawing and not the light. */
+// dur and delay are zero here rather than absent: the travelling lights are
+// desktop-only, so the phone never reads them, but giving both sets one shape
+// keeps the union a single type instead of one that has to be narrowed at the
+// point of use.
 const DESTINATIONS_M = [
-  { x: -6, y: 196, bow: 0.16 },
-  { x: 106, y: 190, bow: -0.16 },
-  { x: -6, y: 306, bow: -0.14 },
-  { x: 106, y: 300, bow: 0.14 },
-  { x: 22, y: 342, bow: 0.16 },
-  { x: 78, y: 342, bow: -0.16 },
-  { x: -4, y: 54, bow: 0.22 },
-  { x: 104, y: 48, bow: -0.22 },
+  { x: -6, y: 196, bow: 0.16, dur: 0, delay: 0 },
+  { x: 106, y: 190, bow: -0.16, dur: 0, delay: 0 },
+  { x: -6, y: 306, bow: -0.14, dur: 0, delay: 0 },
+  { x: 106, y: 300, bow: 0.14, dur: 0, delay: 0 },
+  { x: 22, y: 342, bow: 0.16, dur: 0, delay: 0 },
+  { x: 78, y: 342, bow: -0.16, dur: 0, delay: 0 },
+  { x: -4, y: 54, bow: 0.22, dur: 0, delay: 0 },
+  { x: 104, y: 48, bow: -0.22, dur: 0, delay: 0 },
 ];
 
 /** Where the work goes: off every edge of the frame. The left-bound pair is
@@ -108,8 +112,6 @@ export default function HeroReach() {
     () =>
       (isMobile ? DESTINATIONS_M : DESTINATIONS).map((d) => ({
         ...d,
-        dur: "dur" in d ? d.dur : 0,
-        delay: "delay" in d ? d.delay : 0,
         path: arc(origin, d),
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps

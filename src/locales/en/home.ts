@@ -34,6 +34,7 @@ export const home = {
     lead:
       "From luxury travel to artisan spirits, every project is built with the same commitment to craft, performance, and results.",
     counter: (n: number) => `${n} projects delivered across Europe`,
+    seeProject: "See the project",
     seeAll: "See all work",
     prev: "Previous project",
     next: "Next project",
@@ -85,6 +86,7 @@ export const home = {
         copy: "Ads, SEO and campaigns that bring you qualified leads, measured properly, so you always know what's working.",
       },
     ],
+    deckLabel: "What we build",
     processEyebrow: "How we work",
     steps: [
       { title: "Understand", copy: "We start by understanding your business, your goals and what you're up against." },
@@ -131,6 +133,7 @@ export const home = {
         detail: ["Custom dashboards", "ROI tracking", "Performance reports"],
       },
     ],
+    deckLabel: "Marketing services",
     videosEyebrow: "In motion",
     videoTitle: (n: number, total: number) => `Deev marketing video, ${n} of ${total}`,
     playLabel: (title: string) => `Play: ${title}`,
@@ -141,6 +144,7 @@ export const home = {
     title: "Before we build anything, we map where AI actually pays.",
     lead:
       "We run AI discovery workshops with operations teams and turn them into an executive concept: the bottlenecks, what each one costs a year, the architecture that removes them, and a phased plan to get there. It is a document you can take to a board, not a pitch deck.",
+    deckLabel: "How the workshop runs",
     fundingLabel: "Funding",
     funding:
       "Luxembourg SMEs can cover up to [[70%]] of eligible costs through Luxinnovation's SME Package AI & Digital, capped at €25,000 of grant per project.",

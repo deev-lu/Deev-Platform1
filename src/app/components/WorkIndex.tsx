@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Link } from "react-router";
 import { ArrowUpRight } from "lucide-react";
+import L from "./L";
+import { useT } from "../../lib/useT";
 import { PROJECTS, type Project } from "../../lib/projects";
 
 /**
@@ -21,17 +22,21 @@ import { PROJECTS, type Project } from "../../lib/projects";
 const FILTERS = ["All", "Website", "E-commerce", "Web App"] as const;
 type Filter = (typeof FILTERS)[number];
 
-const LABEL: Record<Filter, string> = {
-  All: "Everything",
-  Website: "Websites",
-  "E-commerce": "Online stores",
-  "Web App": "Web apps",
+/** Filter values are data (they match projects.data.json); their labels are
+ *  copy, so they come from the dictionary. */
+const LABEL_KEY: Record<Filter, "all" | "website" | "ecommerce" | "webapp"> = {
+  All: "all",
+  Website: "website",
+  "E-commerce": "ecommerce",
+  "Web App": "webapp",
 };
 
 const domainOf = (link?: string) =>
   link ? link.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "") : "";
 
 export default function WorkIndex() {
+  const t = useT();
+  const label = (f: Filter) => t.pages.work.filters[LABEL_KEY[f]];
   const reduce = useReducedMotion();
   const [filter, setFilter] = useState<Filter>("All");
 
@@ -54,7 +59,7 @@ export default function WorkIndex() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            Selected work
+            {t.pages.work.eyebrow}
           </span>
         </div>
 
@@ -62,15 +67,14 @@ export default function WorkIndex() {
           className="text-[var(--text-hi)] font-medium"
           style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.03em", maxWidth: "14ch" }}
         >
-          Every project we ship.
+          {t.pages.work.title}
         </h1>
 
         <p
           className="text-[var(--text-mid)] mt-6"
           style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "46ch" }}
         >
-          Websites, online stores and web apps, built in Luxembourg for
-          companies across Europe.
+          {t.pages.work.lead}
         </p>
 
         {/* A rail, not a wrapped block: on a phone it scrolls sideways with
@@ -92,7 +96,7 @@ export default function WorkIndex() {
                   }`}
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
                 >
-                  {LABEL[f]}
+                  {label(f)}
                   <span className={active ? "text-white/70" : "text-[var(--text-low)]"}>{countFor(f)}</span>
                 </button>
               );
@@ -115,9 +119,7 @@ export default function WorkIndex() {
           className="eyebrow-mono uppercase text-[var(--text-low)] mt-12"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
         >
-          <span className="text-[var(--text-hi)]">{shown.length}</span>{" "}
-          {shown.length === 1 ? "project" : "projects"}
-          {filter !== "All" && ` in ${LABEL[filter].toLowerCase()}`}
+          {t.pages.work.count(shown.length, filter === "All" ? undefined : label(filter))}
         </p>
       </div>
     </main>
@@ -132,7 +134,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: Math.min(index % 3, 2) * 0.06, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Link
+      <L
         to={`/work/${project.slug}`}
         className="group block border border-[var(--line)] hover:border-[var(--line-strong)] bg-[var(--surface-1)] overflow-hidden transition-colors duration-[var(--dur-1)]"
         style={{ borderRadius: "var(--radius-1)" }}
@@ -200,7 +202,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
             strokeWidth={1.5}
           />
         </div>
-      </Link>
+      </L>
     </motion.article>
   );
 }

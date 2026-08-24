@@ -29,7 +29,7 @@ export default function ValueProposition() {
       {/* ── §6D — four panels. A swipeable deck on phones, the bordered
              2x2 from md up. Same four cards, one DOM. ───────────── */}
       <Deck
-        label="What we build"
+        label={t.home.values.deckLabel}
         className="md:grid md:grid-cols-2 md:border-t md:border-l md:border-[var(--line)]"
       >
         {values.map((v, i) => (

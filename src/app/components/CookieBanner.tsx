@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Link } from "react-router";
+import L from "./L";
+import { useT, useLocale } from "../../lib/useT";
+import type { Dict } from "../../locales";
 import { Check, X } from "lucide-react";
 import {
   CONSENT_MAX_AGE_DAYS,
@@ -38,39 +40,22 @@ import { pauseSmoothScroll, resumeSmoothScroll } from "../../lib/smoothScroll";
 
 type Row = { name: string; provider: string; purpose: string; life: string };
 
-const NECESSARY: Row[] = [
-  {
-    name: "deev_consent",
-    provider: "deev.lu",
-    purpose: "Stores your cookie choices and the record of them (id and date).",
-    life: "12 months",
-  },
-  {
-    name: "theme",
-    provider: "deev.lu",
-    purpose: "Remembers whether you chose the light or the dark appearance.",
-    life: "Until cleared",
-  },
-];
+/** Names, providers and ids are facts and never translate; what a cookie is
+ *  for and how long it lives are copy and do. */
+const rowsFor = (t: Dict) => ({
+  necessary: [
+    { name: "deev_consent", provider: "deev.lu", purpose: t.consent.cookies.consent, life: t.consent.cookies.months12 },
+    { name: "theme", provider: "deev.lu", purpose: t.consent.cookies.theme, life: t.consent.cookies.untilCleared },
+  ] as Row[],
+  analytics: [
+    { name: "_ga", provider: "Google Ireland Limited", purpose: t.consent.cookies.ga, life: t.consent.cookies.years2 },
+    { name: "_ga_K0T15PZHMN", provider: "Google Ireland Limited", purpose: t.consent.cookies.gaProperty, life: t.consent.cookies.years2 },
+  ] as Row[],
+});
 
-const ANALYTICS: Row[] = [
-  {
-    name: "_ga",
-    provider: "Google Ireland Limited",
-    purpose: "Distinguishes one visitor from another so visits can be counted.",
-    life: "2 years",
-  },
-  {
-    name: "_ga_K0T15PZHMN",
-    provider: "Google Ireland Limited",
-    purpose: "Keeps the state of the current visit for this property.",
-    life: "2 years",
-  },
-];
-
-const fmtDate = (iso: string) => {
+const fmtDate = (iso: string, locale: string) => {
   try {
-    return new Date(iso).toLocaleString("en-GB", {
+    return new Date(iso).toLocaleString(locale, {
       day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
     });
   } catch {
@@ -79,6 +64,10 @@ const fmtDate = (iso: string) => {
 };
 
 export default function CookieBanner() {
+  const t = useT();
+  const locale = useLocale();
+  const ROWS = rowsFor(t);
+  const fmt = (iso: string) => fmtDate(iso, locale);
   const reduce = useReducedMotion();
   const [record, setRecord] = useState<ConsentRecord | null>(null);
   const [showBanner, setShowBanner] = useState(false);
@@ -203,7 +192,7 @@ export default function CookieBanner() {
                   className="eyebrow-mono uppercase text-[var(--text-low)]"
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                 >
-                  Cookies
+                  {t.consent.banner.eyebrow}
                 </span>
               </div>
 
@@ -212,19 +201,17 @@ export default function CookieBanner() {
                 className="text-[var(--text-hi)] font-medium mb-3"
                 style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em" }}
               >
-                Your choice, on the record.
+                {t.consent.banner.title}
               </h2>
 
               <p
                 className="text-[var(--text-mid)] mb-7"
                 style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}
               >
-                We set what the site needs to work. With your consent we also
-                measure how it is used, so we can improve it. You can change or
-                withdraw this at any time.{" "}
-                <Link to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
-                  Cookie &amp; privacy policy
-                </Link>
+                {t.consent.banner.body}{" "}
+                <L to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
+                  {t.consent.banner.policyLink}
+                </L>
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -234,7 +221,7 @@ export default function CookieBanner() {
                   className="h-11 px-5 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                   style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
                 >
-                  Reject non-essential
+                  {t.consent.banner.reject}
                 </button>
                 <button
                   type="button"
@@ -242,7 +229,7 @@ export default function CookieBanner() {
                   className="h-11 px-5 bg-[var(--signal)] text-white hover:opacity-90 transition-opacity duration-[var(--dur-1)] cursor-pointer"
                   style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
                 >
-                  Accept all
+                  {t.consent.banner.accept}
                 </button>
               </div>
 
@@ -252,7 +239,7 @@ export default function CookieBanner() {
                 className="eyebrow-mono uppercase mt-5 text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                Customise
+                {t.consent.banner.customise}
               </button>
             </div>
           </motion.div>
@@ -295,7 +282,7 @@ export default function CookieBanner() {
                       className="eyebrow-mono uppercase text-[var(--text-low)]"
                       style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                     >
-                      Cookie preferences
+                      {t.consent.prefs.eyebrow}
                     </span>
                   </div>
                   <h2
@@ -303,13 +290,13 @@ export default function CookieBanner() {
                     className="text-[var(--text-hi)] font-medium"
                     style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em" }}
                   >
-                    What you allow, category by category.
+                    {t.consent.prefs.title}
                   </h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowPrefs(false)}
-                  aria-label="Close cookie preferences"
+                  aria-label={t.consent.prefs.close}
                   className="shrink-0 w-10 h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                   style={{ borderRadius: "var(--radius-1)" }}
                 >
@@ -319,18 +306,22 @@ export default function CookieBanner() {
 
               <div className="px-7 sm:px-9 py-8">
                 <Category
-                  title="Strictly necessary"
-                  copy="Needed for the site to work and to remember this very choice. These cannot be switched off, and they are never used to profile you."
-                  rows={NECESSARY}
+                  title={t.consent.prefs.necessary.title}
+                  copy={t.consent.prefs.necessary.copy}
+                  rows={ROWS.necessary}
                   locked
                   on
+                  alwaysOn={t.consent.prefs.always}
+                  switchLabel={t.consent.prefs.necessary.title}
                 />
                 <Category
-                  title="Analytics"
-                  copy="Google Analytics 4, used to count visits and see which pages are read. Until you allow it, the tag runs in a consent-denied state: no cookies, no identifier, only an aggregate signal."
-                  rows={ANALYTICS}
+                  title={t.consent.prefs.analytics.title}
+                  copy={t.consent.prefs.analytics.copy}
+                  rows={ROWS.analytics}
                   on={analytics}
                   onChange={setAnalytics}
+                  alwaysOn={t.consent.prefs.always}
+                  switchLabel={t.consent.prefs.analytics.title}
                 />
 
                 {/* The record itself, shown back to the person who gave it. */}
@@ -339,33 +330,32 @@ export default function CookieBanner() {
                     className="eyebrow-mono uppercase text-[var(--text-low)] mb-4"
                     style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                   >
-                    Your consent record
+                    {t.consent.prefs.recordLabel}
                   </div>
                   {record ? (
                     <dl className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-3">
-                      <Field label="Given" value={fmtDate(record.at)} />
-                      <Field label="Reference" value={record.id} mono />
+                      <Field label={t.consent.prefs.given} value={fmt(record.at)} />
+                      <Field label={t.consent.prefs.reference} value={record.id} mono />
                       <Field
-                        label="Expires"
-                        value={fmtDate(
+                        label={t.consent.prefs.expires}
+                        value={fmt(
                           new Date(new Date(record.at).getTime() + CONSENT_MAX_AGE_DAYS * 864e5).toISOString(),
                         )}
                       />
                     </dl>
                   ) : (
                     <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-small)" }}>
-                      Nothing recorded yet. Analytics stays denied until you choose.
+                      {t.consent.prefs.none}
                     </p>
                   )}
                   <p
                     className="text-[var(--text-low)] mt-4"
                     style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}
                   >
-                    Policy version {CONSENT_VERSION}. We ask again after twelve
-                    months, or sooner if the policy changes. Full detail in the{" "}
-                    <Link to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
-                      cookie &amp; privacy policy
-                    </Link>
+                    {t.consent.prefs.version(CONSENT_VERSION)}{" "}
+                    <L to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
+                      {t.consent.prefs.policyLink}
+                    </L>
                     .
                   </p>
                 </div>
@@ -378,7 +368,7 @@ export default function CookieBanner() {
                   className="h-11 px-5 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                   style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
                 >
-                  Reject non-essential
+                  {t.consent.banner.reject}
                 </button>
                 <button
                   type="button"
@@ -386,7 +376,7 @@ export default function CookieBanner() {
                   className="h-11 px-5 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                   style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
                 >
-                  Save my choices
+                  {t.consent.prefs.save}
                 </button>
                 <button
                   type="button"
@@ -394,7 +384,7 @@ export default function CookieBanner() {
                   className="h-11 px-5 sm:ml-auto bg-[var(--signal)] text-white hover:opacity-90 transition-opacity duration-[var(--dur-1)] cursor-pointer"
                   style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
                 >
-                  Accept all
+                  {t.consent.banner.accept}
                 </button>
                 {record && (
                   <button
@@ -407,7 +397,7 @@ export default function CookieBanner() {
                     className="eyebrow-mono uppercase h-11 px-2 text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                     style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                   >
-                    Withdraw
+                    {t.consent.prefs.withdraw}
                   </button>
                 )}
               </div>
@@ -445,6 +435,8 @@ function Category({
   on,
   locked,
   onChange,
+  alwaysOn,
+  switchLabel,
 }: {
   title: string;
   copy: string;
@@ -452,6 +444,8 @@ function Category({
   on: boolean;
   locked?: boolean;
   onChange?: (v: boolean) => void;
+  alwaysOn: string;
+  switchLabel: string;
 }) {
   return (
     <section className="border-t border-[var(--line)] pt-7 mt-7 first:mt-0 first:border-0 first:pt-0">
@@ -477,14 +471,14 @@ function Category({
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
           >
             <Check className="w-3.5 h-3.5" strokeWidth={2} />
-            Always on
+            {alwaysOn}
           </span>
         ) : (
           <button
             type="button"
             role="switch"
             aria-checked={on}
-            aria-label={`${title} cookies`}
+            aria-label={switchLabel}
             onClick={() => onChange?.(!on)}
             className="shrink-0 relative w-[52px] h-8 border transition-colors duration-[var(--dur-1)] cursor-pointer"
             style={{

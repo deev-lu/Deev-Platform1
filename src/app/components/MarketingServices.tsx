@@ -47,7 +47,7 @@ export default function MarketingServices() {
         </div>
 
         <div className="lg:col-span-7">
-        <Deck label="Marketing services" className="md:block md:border-t md:border-[var(--line)]">
+        <Deck label={t.home.marketing.deckLabel} className="md:block md:border-t md:border-[var(--line)]">
           {SERVICES.map((s, i) => (
             <motion.li
               key={s.index}

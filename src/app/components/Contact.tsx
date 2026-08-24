@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import L from "./L";
+import { useT, useLocalePath } from "../../lib/useT";
 import {
   Mail,
   MapPin,
@@ -15,15 +16,6 @@ import {
 } from "lucide-react";
 import { sendLeadEmail } from "../../lib/leadEmail";
 
-const INTERESTS = [
-  "General enquiry",
-  "New website",
-  "Web app / SaaS platform",
-  "AI project / automation",
-  "Lead campaigns / Marketing",
-  "Other",
-];
-
 const CONTACT_EMAIL = "contact@deev.lu";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -33,24 +25,31 @@ const initialForm = {
   email: "",
   company: "",
   phone: "",
-  interest: INTERESTS[0],
+  interest: "",
   message: "",
   website: "", // honeypot, humans never see this
 };
 
 export default function Contact() {
+  const t = useT();
+  const localePath = useLocalePath();
+  const INTERESTS = t.pages.contact.interests;
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState<Status>("idle");
+
+  // The select starts on the first option, which is a translated string, so
+  // the default cannot live in the module-level initial form.
+  const interest = form.interest || INTERESTS[0];
 
   const update = (key: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [key]: value }));
 
   const mailtoFallback = () => {
-    const subject = encodeURIComponent(`Contact, ${form.interest}`);
+    const subject = encodeURIComponent(`Contact, ${interest}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${
         form.company || "n/a"
-      }\nPhone: ${form.phone || "n/a"}\nInterest: ${form.interest}\n\n${
+      }\nPhone: ${form.phone || "n/a"}\nInterest: ${interest}\n\n${
         form.message
       }`
     );
@@ -68,14 +67,14 @@ export default function Contact() {
 
     // 1) Email the submission to contact@deev.lu (primary delivery)
     const emailed = await sendLeadEmail({
-      subject: `New contact enquiry, ${form.interest}`,
+      subject: `New contact enquiry, ${interest}`,
       from_name: form.name || "Website contact form",
       replyto: form.email,
       name: form.name,
       email: form.email,
       company: form.company || "n/a",
       phone: form.phone || "n/a",
-      interest: form.interest,
+      interest,
       message: form.message,
     });
 
@@ -99,18 +98,17 @@ export default function Contact() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
-            Get in touch
+            {t.pages.contact.badge}
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
-            Let's talk about
+            {t.pages.contact.title}
             <br className="hidden sm:block" />
             <span className=" text-[var(--signal)]">
-              {" "}your project.
+              {" "}{t.pages.contact.titleAccent}
             </span>
           </h1>
           <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
-            Tell us what you're building. We read every message and reply
-            personally, usually within one business day.
+            {t.pages.contact.lead}
           </p>
         </motion.div>
 
@@ -130,20 +128,17 @@ export default function Contact() {
                     <BadgeEuro className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider leading-tight">
-                    Up to 70% funded
+                    {t.pages.contact.grant.badge}
                   </div>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-                  Luxembourg SMEs can recover up to <strong>70%</strong> on websites,
-                  web-apps, AI and bundled marketing through the{" "}
-                  <strong>SME Digital &amp; SME AI</strong> packages. Mention it and
-                  we'll structure your project to maximise the grant.
+                  {t.pages.contact.grant.body}
                 </p>
                 <a
-                  href="/#project-builder"
+                  href={`${localePath("/")}#project-builder`}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:gap-2.5 transition-all"
                 >
-                  Estimate your net price
+                  {t.pages.contact.grant.cta}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -152,25 +147,25 @@ export default function Contact() {
             {[
               {
                 icon: Mail,
-                label: "Email",
+                label: t.pages.contact.details.email,
                 value: CONTACT_EMAIL,
                 href: `mailto:${CONTACT_EMAIL}`,
               },
               {
                 icon: MessageCircle,
-                label: "WhatsApp",
+                label: t.pages.contact.details.whatsapp,
                 value: "+352 691 388 887",
                 href: "https://api.whatsapp.com/send/?phone=352691388887",
               },
               {
                 icon: MapPin,
-                label: "Office",
+                label: t.pages.contact.details.office,
                 value: "17, rue de Sélange, L-4965 Clemency, Luxembourg",
               },
               {
                 icon: Clock,
-                label: "Response time",
-                value: "Within 1 business day",
+                label: t.pages.contact.details.responseTime,
+                value: t.pages.contact.details.responseValue,
               },
             ].map((item) => {
               const Icon = item.icon;
@@ -221,20 +216,18 @@ export default function Contact() {
                     <CheckCircle2 className="w-8 h-8 text-emerald-500" />
                   </div>
                   <h2 className="text-2xl font-medium text-slate-900 dark:text-white mb-3">
-                    Message received.
+                    {t.pages.contact.success.title}
                   </h2>
                   <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-8">
-                    Thanks{form.name ? `, ${form.name.split(" ")[0]}` : ""}. We've
-                    logged your enquiry and will get back to you within one
-                    business day.
+                    {t.pages.contact.success.body(form.name.trim().split(" ")[0] ?? "")}
                   </p>
-                  <Link
+                  <L
                     to="/"
                     className="inline-flex items-center gap-2 px-7 py-3 rounded-md font-semibold text-sm text-white transition-all duration-300 hover:-translate-y-0.5"
                     style={{ background: "var(--signal)" }}
                   >
-                    Back to homepage
-                  </Link>
+                    {t.pages.contact.success.cta}
+                  </L>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="p-7 md:p-9 space-y-5">
@@ -250,49 +243,49 @@ export default function Contact() {
                   />
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Field label="Name" required>
+                    <Field label={t.pages.contact.form.name} required>
                       <input
                         type="text"
                         required
                         value={form.name}
                         onChange={(e) => update("name", e.target.value)}
-                        placeholder="Your name"
+                        placeholder={t.pages.contact.form.namePlaceholder}
                         className={inputCls}
                       />
                     </Field>
-                    <Field label="Work email" required>
+                    <Field label={t.pages.contact.form.email} required>
                       <input
                         type="email"
                         required
                         value={form.email}
                         onChange={(e) => update("email", e.target.value)}
-                        placeholder="you@company.com"
+                        placeholder={t.pages.contact.form.emailPlaceholder}
                         className={inputCls}
                       />
                     </Field>
-                    <Field label="Company">
+                    <Field label={t.pages.contact.form.company}>
                       <input
                         type="text"
                         value={form.company}
                         onChange={(e) => update("company", e.target.value)}
-                        placeholder="Company name"
+                        placeholder={t.pages.contact.form.companyPlaceholder}
                         className={inputCls}
                       />
                     </Field>
-                    <Field label="Phone">
+                    <Field label={t.pages.contact.form.phone}>
                       <input
                         type="tel"
                         value={form.phone}
                         onChange={(e) => update("phone", e.target.value)}
-                        placeholder="+352 …"
+                        placeholder={t.pages.contact.form.phonePlaceholder}
                         className={inputCls}
                       />
                     </Field>
                   </div>
 
-                  <Field label="What can we help with?">
+                  <Field label={t.pages.contact.form.interest}>
                     <select
-                      value={form.interest}
+                      value={interest}
                       onChange={(e) => update("interest", e.target.value)}
                       className={inputCls}
                     >
@@ -304,13 +297,13 @@ export default function Contact() {
                     </select>
                   </Field>
 
-                  <Field label="Message" required>
+                  <Field label={t.pages.contact.form.message} required>
                     <textarea
                       required
                       rows={5}
                       value={form.message}
                       onChange={(e) => update("message", e.target.value)}
-                      placeholder="Tell us about your project, goals and timeline…"
+                      placeholder={t.pages.contact.form.messagePlaceholder}
                       className={`${inputCls} resize-y min-h-[120px]`}
                     />
                   </Field>
@@ -319,13 +312,13 @@ export default function Contact() {
                     <div className="flex items-start gap-3 p-4 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm text-amber-700 dark:text-amber-300">
                       <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                       <div>
-                        We couldn't submit the form right now.{" "}
+                        {t.pages.contact.form.errorLead}{" "}
                         <button
                           type="button"
                           onClick={mailtoFallback}
                           className="underline font-semibold hover:opacity-80"
                         >
-                          Send it by email instead
+                          {t.pages.contact.form.errorAction}
                         </button>
                         .
                       </div>
@@ -341,19 +334,18 @@ export default function Contact() {
                     {status === "submitting" ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        Sending…
+                        {t.pages.contact.form.submitting}
                       </>
                     ) : (
                       <>
-                        Send message
+                        {t.pages.contact.form.submit}
                         <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                       </>
                     )}
                   </button>
 
                   <p className="text-xs text-center text-[var(--text-mid)]">
-                    By submitting, you agree we may contact you about your
-                    enquiry. We never share your details.
+                    {t.pages.contact.form.consent}
                   </p>
                 </form>
               )}

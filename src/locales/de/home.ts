@@ -32,6 +32,7 @@ export const home: typeof En = {
     lead:
       "Von Luxusreisen bis zu handwerklichen Spirituosen: jedes Projekt entsteht mit demselben Anspruch an Handwerk, Performance und Ergebnis.",
     counter: (n: number) => `${n} Projekte in ganz Europa umgesetzt`,
+    seeProject: "Projekt ansehen",
     seeAll: "Alle Referenzen ansehen",
     prev: "Vorheriges Projekt",
     next: "Nächstes Projekt",
@@ -83,6 +84,7 @@ export const home: typeof En = {
         copy: "Ads, SEO und Kampagnen, die qualifizierte Leads bringen, sauber gemessen, damit Sie immer wissen, was wirkt.",
       },
     ],
+    deckLabel: "Was wir bauen",
     processEyebrow: "Wie wir arbeiten",
     steps: [
       { title: "Verstehen", copy: "Wir beginnen damit, Ihr Geschäft zu verstehen, Ihre Ziele und das, wogegen Sie antreten." },
@@ -129,6 +131,7 @@ export const home: typeof En = {
         detail: ["Individuelle Dashboards", "ROI-Tracking", "Performance-Berichte"],
       },
     ],
+    deckLabel: "Marketing-Leistungen",
     videosEyebrow: "In Bewegung",
     videoTitle: (n: number, total: number) => `Deev Marketingvideo, ${n} von ${total}`,
     playLabel: (title: string) => `Abspielen: ${title}`,
@@ -139,6 +142,7 @@ export const home: typeof En = {
     title: "Bevor wir irgendetwas bauen, kartieren wir, wo KI sich wirklich rechnet.",
     lead:
       "Wir führen KI-Discovery-Workshops mit operativen Teams durch und machen daraus ein Executive-Konzept: die Engpässe, was jeder einzelne pro Jahr kostet, die Architektur, die sie beseitigt, und ein Stufenplan dorthin. Ein Dokument für den Aufsichtsrat, keine Verkaufspräsentation.",
+    deckLabel: "Wie der Workshop abläuft",
     fundingLabel: "Förderung",
     funding:
       "Luxemburger KMU können bis zu [[70%]] der förderfähigen Kosten über das SME Package AI & Digital von Luxinnovation abdecken, gedeckelt bei 25.000 € Zuschuss pro Projekt.",

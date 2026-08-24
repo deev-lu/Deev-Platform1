@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "noUnusedLocals": false,
+    "noImplicitAny": false,
+    "types": [
+      "vite/client"
+    ]
+  },
+  "include": [
+    "src/app/App.tsx",
+    "src/app/components/*.tsx",
+    "src/lib/*.ts",
+    "src/lib/*.tsx",
+    "src/locales/**/*.ts"
+  ]
+}

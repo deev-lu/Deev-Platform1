@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useT } from "../../lib/useT";
 
 /**
  * A list that reads as a swipeable deck on phones and as an ordinary block
@@ -30,6 +31,7 @@ export function Deck({
   /** Accessible name, e.g. "What we build". */
   label: string;
 }) {
+  const t = useT();
   const ref = useRef<HTMLUListElement>(null);
   const [i, setI] = useState(0);
   const [n, setN] = useState(0);
@@ -111,7 +113,7 @@ export function Deck({
               type="button"
               onClick={() => go(-1)}
               disabled={i === 0}
-              aria-label={`${label}: previous`}
+              aria-label={t.site.deck.prev(label)}
               className="w-9 h-9 grid place-items-center border border-[var(--line)] text-[var(--text-mid)]
                          disabled:opacity-30 active:bg-[var(--surface-2)] transition-colors duration-[var(--dur-1)]"
               style={{ borderRadius: "var(--radius-1)" }}
@@ -122,7 +124,7 @@ export function Deck({
               type="button"
               onClick={() => go(1)}
               disabled={i === n - 1}
-              aria-label={`${label}: next`}
+              aria-label={t.site.deck.next(label)}
               className="w-9 h-9 grid place-items-center border border-[var(--line)] text-[var(--text-mid)]
                          disabled:opacity-30 active:bg-[var(--surface-2)] transition-colors duration-[var(--dur-1)]"
               style={{ borderRadius: "var(--radius-1)" }}

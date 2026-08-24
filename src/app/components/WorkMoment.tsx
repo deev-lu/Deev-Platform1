@@ -228,7 +228,7 @@ export default function WorkMoment() {
               className="group inline-flex items-center gap-3 mt-9 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
               style={{ fontSize: "var(--t-small)" }}
             >
-              See the project
+              {t.home.work.seeProject}
               <span
                 className="w-9 h-9 flex items-center justify-center border border-[var(--line)] group-hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
                 style={{ borderRadius: "var(--radius-1)" }}

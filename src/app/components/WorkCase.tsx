@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { motion } from "motion/react";
-import { Link, useParams, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
+import L from "./L";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getProject, nextProject } from "../../lib/projects";
+import { useT, useLocalePath } from "../../lib/useT";
 
 /**
  * /work/:slug — a dedicated page per project.
@@ -15,20 +17,23 @@ import { getProject, nextProject } from "../../lib/projects";
 export default function WorkCase() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const t = useT();
+  const localePath = useLocalePath();
   const project = getProject(slug);
 
   useEffect(() => {
-    if (!project) navigate("/", { replace: true });
-  }, [project, navigate]);
+    // Stay in the reader's language when a bad slug bounces to the homepage.
+    if (!project) navigate(localePath("/"), { replace: true });
+  }, [project, navigate, localePath]);
 
   if (!project) return null;
 
   const next = nextProject(project.slug);
   const spec: [string, string][] = [
-    ["Client", project.title],
-    ["Sector", project.category],
-    ["Type", project.filter],
-    ["Year", String(project.year)],
+    [t.pages.workCase.spec.client, project.title],
+    [t.pages.workCase.spec.sector, project.category],
+    [t.pages.workCase.spec.type, project.filter],
+    [t.pages.workCase.spec.year, String(project.year)],
   ];
 
   return (
@@ -55,14 +60,14 @@ export default function WorkCase() {
           className={`mx-auto ${project.image ? "-mt-40 relative z-10" : "pt-16"}`}
           style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
         >
-          <Link
+          <L
             to="/work"
             className="group inline-flex items-center gap-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] mb-10"
             style={{ fontSize: "var(--t-small)" }}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:-translate-x-1" strokeWidth={1.5} />
-            All work
-          </Link>
+            {t.pages.workCase.back}
+          </L>
 
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
@@ -106,7 +111,7 @@ export default function WorkCase() {
                   className="eyebrow-mono uppercase text-[var(--text-low)]"
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                 >
-                  Stack
+                  {t.pages.workCase.spec.stack}
                 </dt>
                 <dd className="text-[var(--text-hi)] text-right" style={{ fontSize: "var(--t-body)" }}>
                   {project.stack.join(" · ")}
@@ -124,7 +129,7 @@ export default function WorkCase() {
                 className="group inline-flex items-center gap-2 mt-10 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
                 style={{ fontSize: "var(--t-small)" }}
               >
-              Visit the live site
+              {t.pages.workCase.visit}
               <ArrowUpRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.5} />
             </a>
           )}
@@ -142,9 +147,9 @@ export default function WorkCase() {
             )}
 
             {([
-              ["The brief", project.challenge],
-              ["What we built", project.approach],
-              ["The outcome", project.outcome],
+              [t.pages.workCase.brief, project.challenge],
+              [t.pages.workCase.built, project.approach],
+              [t.pages.workCase.outcome, project.outcome],
             ] as [string, string | undefined][])
               .filter(([, body]) => Boolean(body))
               .map(([heading, body]) => (
@@ -169,7 +174,7 @@ export default function WorkCase() {
 
       {/* ── Next project ────────────────────────────────────────── */}
       <section className="border-t border-[var(--line)]">
-        <Link
+        <L
           to={`/work/${next.slug}`}
           className="group block hover:bg-[var(--surface-1)] transition-colors duration-[240ms]"
         >
@@ -182,7 +187,7 @@ export default function WorkCase() {
                 className="eyebrow-mono uppercase text-[var(--text-low)] block mb-4"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                Next project
+                {t.pages.workCase.next}
               </span>
               <span
                 className="text-[var(--text-hi)] font-medium"
@@ -196,7 +201,7 @@ export default function WorkCase() {
               strokeWidth={1}
             />
           </div>
-        </Link>
+        </L>
       </section>
     </main>
   );

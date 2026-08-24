@@ -4,6 +4,9 @@ import { useNavigate } from "react-router";
 import { sendLeadEmail } from "../../lib/leadEmail";
 import NoiseOverlay from "./NoiseOverlay";
 import { scrollToTop } from "../../lib/smoothScroll";
+import { useT } from "../../lib/useT";
+import { mark } from "../../lib/i18nMark";
+import type { Dict } from "../../locales";
 import {
   ArrowRight,
   ArrowLeft,
@@ -51,8 +54,8 @@ const SME_GRANT_RATE   = 0.70;   // 70% subsidy
 const SME_GRANT_MIN    = 3_000;  // minimum eligible investment
 const SME_GRANT_MAX    = 25_000; // maximum eligible investment cap
 
-function getSmePackage(system: NonNullable<CoreSystem>) {
-  return system === "ai-agent" ? "SME AI Package" : "SME Digital Package";
+function getSmePackage(system: NonNullable<CoreSystem>, t: Dict) {
+  return system === "ai-agent" ? t.builder.grant.packageAi : t.builder.grant.packageDigital;
 }
 
 function calcSmeGrant(rawMin: number, rawMax: number) {
@@ -76,62 +79,21 @@ type ScaleLevel = "mvp" | "growth" | "enterprise" | null;
 type Capability = string;
 
 // ── Core system cards ──────────────────────────────────────────────────────────
-const CORE_SYSTEMS = [
-  {
-    id: "website" as const,
-    label: "Marketing Website",
-    icon: Globe,
-    description: "High-end, conversion-focused sites that win clients.",
-  },
-  {
-    id: "ecommerce" as const,
-    label: "E-Commerce Store",
-    icon: ShoppingCart,
-    description: "Online stores with seamless payments & inventory.",
-  },
-  {
-    id: "webapp" as const,
-    label: "Web Application",
-    icon: Code,
-    description: "SaaS, dashboards, portals & complex product logic.",
-  },
-  {
-    id: "ai-agent" as const,
-    label: "AI & Automations",
-    icon: Brain,
-    description: "Custom AI agents, chatbots & smart workflows.",
-  },
-  {
-    id: "marketing" as const,
-    label: "Lead Campaigns & Marketing",
-    icon: Megaphone,
-    description: "Paid ads, SEO & funnels that generate qualified leads.",
-  },
+const CORE_SYSTEM_IDS = [
+  { id: "website" as const, icon: Globe },
+  { id: "ecommerce" as const, icon: ShoppingCart },
+  { id: "webapp" as const, icon: Code },
+  { id: "ai-agent" as const, icon: Brain },
+  { id: "marketing" as const, icon: Megaphone },
 ];
 
 // ── Scale tiers ────────────────────────────────────────────────────────────────
-const SCALE_LEVELS = [
-  {
-    id: "mvp" as const,
-    label: "Starter",
-    description: "Core features, fast launch, validate your idea.",
-    badge: "Best to start",
-    multiplier: 1,
-  },
-  {
-    id: "growth" as const,
-    label: "Professional",
-    description: "Scalable architecture, premium design & integrations.",
-    badge: "Most popular",
-    multiplier: 2,
-  },
-  {
-    id: "enterprise" as const,
-    label: "Enterprise",
-    description: "Custom security, compliance, SLA & dedicated support.",
-    badge: "Full power",
-    multiplier: 3.5,
-  },
+// The multiplier is pricing and never translates; the label, the description
+// and the badge are copy and always do.
+const SCALE_IDS = [
+  { id: "mvp" as const, multiplier: 1 },
+  { id: "growth" as const, multiplier: 2 },
+  { id: "enterprise" as const, multiplier: 3.5 },
 ];
 
 // ── Per-capability add-on pricing (from Deev Services PDF 2026) ───────────────
@@ -184,58 +146,58 @@ const CAP_PRICE: Record<string, { min: number; max: number }> = {
 };
 
 // ── Capabilities per system ───────────────────────────────────────────────────
-type CapItem = { id: string; label: string; sublabel: string; icon: React.ElementType };
+type CapItem = { id: string; icon: React.ElementType };
 
 const CAPABILITIES: Record<NonNullable<CoreSystem>, CapItem[]> = {
   website: [
-    { id: "animations",  label: "Custom Animations", sublabel: "Framer Motion / GSAP scroll effects",    icon: Sparkles },
-    { id: "blog", label: "Blog / News CMS", sublabel: "Sanity or Contentful headless CMS", icon: BookOpen },
-    { id: "i18n", label: "Multi-language (i18n)",    sublabel: "EN / FR / DE / LU support", icon: Languages },
-    { id: "lead_forms",  label: "Lead Forms & CRM Sync",    sublabel: "HubSpot, Pipedrive or custom", icon: Megaphone },
-    { id: "seo", label: "Advanced SEO", sublabel: "Schema.org, sitemap, Open Graph", icon: Search },
-    { id: "gdpr", label: "GDPR & Cookie Banner",     sublabel: "Cookiebot or custom consent layer", icon: Cookie },
-    { id: "live_chat",   label: "Live Chat Integration",    sublabel: "Crisp, Intercom or Tawk", icon: MessageSquare },
-    { id: "analytics",   label: "Analytics & GTM Setup",   sublabel: "GA4, Plausible or Matomo", icon: BarChart3 },
+    { id: "animations",  icon: Sparkles },
+    { id: "blog", icon: BookOpen },
+    { id: "i18n", icon: Languages },
+    { id: "lead_forms",  icon: Megaphone },
+    { id: "seo", icon: Search },
+    { id: "gdpr", icon: Cookie },
+    { id: "live_chat",   icon: MessageSquare },
+    { id: "analytics",   icon: BarChart3 },
   ],
   ecommerce: [
-    { id: "payments", label: "Payment Gateway", sublabel: "Stripe, Mollie or Payconiq", icon: CreditCard },
-    { id: "catalog", label: "Product Catalog & Search", sublabel: "Filters, faceted search, quick view",     icon: Package },
-    { id: "accounts", label: "Customer Accounts", sublabel: "Wishlist, order history, saved addresses", icon: ShieldCheck },
-    { id: "inventory",     label: "Inventory Management",     sublabel: "Stock alerts, variants, SKU tracking",    icon: Database },
-    { id: "order_mgmt",    label: "Order Management", sublabel: "Tracking, status updates, returns", icon: RefreshCw },
-    { id: "discounts",     label: "Discount Codes & Promos",  sublabel: "Coupon engine, BOGO, flash sales", icon: Tag },
-    { id: "cart_recovery", label: "Abandoned Cart Recovery",  sublabel: "Automated email reminders", icon: Mail },
-    { id: "multicurrency", label: "Multi-currency & VAT",     sublabel: "EU VAT rules, dynamic rates", icon: DollarSign },
+    { id: "payments", icon: CreditCard },
+    { id: "catalog", icon: Package },
+    { id: "accounts", icon: ShieldCheck },
+    { id: "inventory",     icon: Database },
+    { id: "order_mgmt",    icon: RefreshCw },
+    { id: "discounts",     icon: Tag },
+    { id: "cart_recovery", icon: Mail },
+    { id: "multicurrency", icon: DollarSign },
   ],
   webapp: [
-    { id: "auth", label: "Auth & Role Permissions",  sublabel: "Supabase, Clerk, SSO / OAuth", icon: ShieldCheck },
-    { id: "dashboard",   label: "Admin Dashboard", sublabel: "Charts, tables, export to CSV/PDF", icon: LayoutDashboard },
-    { id: "realtime",    label: "Real-time Sync", sublabel: "WebSockets, live cursors, notifications",  icon: Zap },
-    { id: "file_upload", label: "File Uploads & Storage",   sublabel: "S3 / Supabase Storage, preview & resize", icon: Upload },
-    { id: "email_notif", label: "Email Notifications", sublabel: "Resend or SendGrid, templates", icon: Mail },
-    { id: "api_integr",  label: "Third-party API Integrations", sublabel: "REST / GraphQL, webhooks", icon: Link },
-    { id: "cron_jobs",   label: "Scheduled Jobs", sublabel: "Background tasks, cron, queues", icon: Clock },
-    { id: "billing",     label: "SaaS Billing", sublabel: "Stripe Subscriptions, usage-based billing",icon: CreditCard },
+    { id: "auth", icon: ShieldCheck },
+    { id: "dashboard",   icon: LayoutDashboard },
+    { id: "realtime",    icon: Zap },
+    { id: "file_upload", icon: Upload },
+    { id: "email_notif", icon: Mail },
+    { id: "api_integr",  icon: Link },
+    { id: "cron_jobs",   icon: Clock },
+    { id: "billing",     icon: CreditCard },
   ],
   "ai-agent": [
-    { id: "chatbot",    label: "AI Chatbot (your data)",   sublabel: "Trained on your docs, website, FAQs", icon: Bot },
-    { id: "rag", label: "Document Q&A (RAG)", sublabel: "Chat with PDFs, contracts, knowledge bases", icon: FileSearch },
-    { id: "lead_bot",   label: "Lead Qualification Bot",   sublabel: "Scores & routes leads automatically", icon: UserCheck },
-    { id: "email_seq",  label: "Automated Email Sequences", sublabel: "n8n / Make workflows, smart triggers",     icon: Workflow },
-    { id: "scraping",   label: "Data Extraction", sublabel: "Web scraping, parsing, structured outputs",  icon: Database },
-    { id: "crm_integr", label: "CRM / Slack / Notion Sync", sublabel: "HubSpot, Pipedrive, Airtable, Notion",    icon: Link },
-    { id: "voice", label: "Voice Assistant", sublabel: "ElevenLabs + Whisper speech I/O", icon: Mic },
-    { id: "finetune",   label: "Custom LLM Fine-tuning",   sublabel: "Domain-specific model training", icon: Cpu },
+    { id: "chatbot",    icon: Bot },
+    { id: "rag", icon: FileSearch },
+    { id: "lead_bot",   icon: UserCheck },
+    { id: "email_seq",  icon: Workflow },
+    { id: "scraping",   icon: Database },
+    { id: "crm_integr", icon: Link },
+    { id: "voice", icon: Mic },
+    { id: "finetune",   icon: Cpu },
   ],
   marketing: [
-    { id: "google_ads", label: "Google Ads (Search/PPC)",  sublabel: "Campaign setup, keywords & bidding", icon: Search },
-    { id: "meta_ads", label: "Meta Ads (FB / Instagram)", sublabel: "Creative, audiences & retargeting", icon: Megaphone },
-    { id: "seo_campaign",    label: "SEO Campaign", sublabel: "Technical SEO, content & backlinks", icon: BarChart3 },
-    { id: "content", label: "Content & Copywriting",    sublabel: "Landing copy, blogs, ad creatives", icon: FileText },
-    { id: "email_marketing", label: "Email & Newsletters", sublabel: "Sequences, automation, Brevo/Mailchimp",   icon: Mail },
-    { id: "social_mgmt",     label: "Social Media Management",  sublabel: "Content calendar, posting & community",    icon: MessageSquare },
-    { id: "funnel", label: "Landing Pages & Funnels",  sublabel: "High-converting pages + tracking", icon: Globe },
-    { id: "cro", label: "CRO & A/B Testing", sublabel: "Optimise conversion rate, test variants",  icon: Zap },
+    { id: "google_ads", icon: Search },
+    { id: "meta_ads", icon: Megaphone },
+    { id: "seo_campaign",    icon: BarChart3 },
+    { id: "content", icon: FileText },
+    { id: "email_marketing", icon: Mail },
+    { id: "social_mgmt",     icon: MessageSquare },
+    { id: "funnel", icon: Globe },
+    { id: "cro", icon: Zap },
   ],
 };
 
@@ -274,6 +236,14 @@ function AnimatedNumber({ value }: { value: number }) {
 }
 
 export default function ProjectBuilder() {
+  const t = useT();
+
+  // Structure joins its words here: ids, icons and multipliers come from the
+  // module, every string from the dictionary the reader is on.
+  const CORE_SYSTEMS = CORE_SYSTEM_IDS.map((c) => ({ ...c, ...t.builder.systems[c.id] }));
+  const SCALE_LEVELS = SCALE_IDS.map((l) => ({ ...l, ...t.builder.scale[l.id] }));
+  const capText = (id: string) =>
+    (t.builder.caps as Record<string, { label: string; sublabel: string }>)[id];
   const [step, setStep] = useState(1);
   const [system, setSystem] = useState<CoreSystem>(null);
   const [scale, setScale] = useState<ScaleLevel>(null);
@@ -392,7 +362,7 @@ export default function ProjectBuilder() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">08</span> / Live simulator
+              <span className="text-[var(--metal)]">08</span> / {t.builder.eyebrow}
             </span>
           </div>
 
@@ -400,18 +370,14 @@ export default function ProjectBuilder() {
             className="text-[var(--text-hi)] font-medium"
             style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "18ch" }}
           >
-            Build &amp; price your project,{" "}
-            <span className="text-[var(--signal-text)]">live.</span>
+            {mark(t.builder.title, "text-[var(--signal-text)]")}
           </h2>
 
           <p
             className="text-[var(--text-mid)] mt-6"
             style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "52ch" }}
           >
-            Spec your build like a high-performance machine and watch your price,
-            and your{" "}
-            <span className="text-[var(--positive)]">net cost after the 70% SME grant</span>,
-            update in real time. Then start it in one click.
+            {mark(t.builder.lead, "text-[var(--positive)]")}
           </p>
 
           {/* The grant chip was a fixed h-9. On a phone its sentence wraps to two
@@ -425,15 +391,15 @@ export default function ProjectBuilder() {
               style={{ fontSize: "var(--t-small)", lineHeight: 1.45, borderRadius: "var(--radius-1)" }}
             >
               <BadgeEuro className="w-4 h-4 mt-[2px] shrink-0" />
-              Luxembourg SMEs: up to 70% funded by the state SME grant
+              {t.builder.grantChip}
             </span>
             <div
               className="flex flex-wrap items-center gap-x-6 gap-y-3 eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="flex items-center gap-2"><Clock className="w-3.5 h-3.5" /> Takes ~30 seconds</span>
-              <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5" /> Instant estimate</span>
-              <span className="flex items-center gap-2"><Check className="w-3.5 h-3.5" /> No commitment</span>
+              <span className="flex items-center gap-2"><Clock className="w-3.5 h-3.5" /> {t.builder.meta.time}</span>
+              <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5" /> {t.builder.meta.instant}</span>
+              <span className="flex items-center gap-2"><Check className="w-3.5 h-3.5" /> {t.builder.meta.noCommitment}</span>
             </div>
           </div>
         </div>
@@ -455,7 +421,7 @@ export default function ProjectBuilder() {
               <div className="relative z-10 px-8 pt-7">
                 <div className="flex items-center justify-between mb-2">
                   <span className="eyebrow-mono uppercase tracking-widest text-[var(--text-low)] text-[11px]">
-                    Build progress
+                    {t.builder.stage.progress}
                   </span>
                   <span className="eyebrow-mono text-[var(--signal-text)] tabular-nums text-[11px]">{buildPct}%</span>
                 </div>
@@ -479,7 +445,7 @@ export default function ProjectBuilder() {
                       className="text-center"
                     >
                       <Layers className="w-12 h-12 text-[var(--line-strong)] mx-auto mb-5" strokeWidth={1.25} />
-                      <p className="text-[var(--text-low)]" style={{ fontSize: "var(--t-small)" }}>Select a platform to begin your build</p>
+                      <p className="text-[var(--text-low)]" style={{ fontSize: "var(--t-small)" }}>{t.builder.stage.empty}</p>
                     </motion.div>
                   ) : (
                     <motion.div
@@ -540,7 +506,7 @@ export default function ProjectBuilder() {
                       <div className="text-center w-full mt-2">
                         <div className="eyebrow-mono inline-flex items-center gap-1.5 px-3 py-1 bg-[var(--surface-2)] border border-[var(--line)] text-[11px] text-[var(--signal-text)] mb-3 uppercase"
                           style={{ borderRadius: "var(--radius-1)", letterSpacing: "0.16em" }}>
-                          {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "Choose your trim →"}
+                          {SCALE_LEVELS.find((s) => s.id === scale)?.label ?? t.builder.stage.chooseTrim}
                         </div>
                         <h3 className="text-2xl font-medium text-[var(--text-hi)] tracking-tight">
                           {CORE_SYSTEMS.find((s) => s.id === system)?.label}
@@ -586,7 +552,7 @@ export default function ProjectBuilder() {
                   ) : (
                     <>
                       <div className="text-[11px] font-medium uppercase tracking-widest text-[var(--signal-text)] mb-2">
-                        Your build
+                        {t.builder.stage.yourBuild}
                       </div>
                       <div className="text-4xl xl:text-5xl leading-none font-medium text-[var(--text-hi)] tracking-tight tabular-nums">
                         €<AnimatedNumber value={estimate.rawMin} />
@@ -656,7 +622,7 @@ export default function ProjectBuilder() {
                 column, so "4 Estimate" was cut off at the exact width most
                 laptops use. This one wraps and the rules flex. */}
             <div className="flex flex-wrap items-center gap-y-3 mb-8 sm:mb-10">
-              {["Product", "Scale", "Features", "Estimate"].map((label, idx) => {
+              {t.builder.steps.map((label, idx) => {
                 const s = idx + 1;
                 const isActive = s === step;
                 const isPast = s < step;
@@ -707,7 +673,7 @@ export default function ProjectBuilder() {
                     className="space-y-3"
                   >
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
-                      What are we building?
+                      {t.builder.q.system}
                     </p>
                     {CORE_SYSTEMS.map((sys) => {
                       const Icon = sys.icon;
@@ -758,7 +724,7 @@ export default function ProjectBuilder() {
                     className="space-y-3"
                   >
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
-                      What scale are you aiming for?
+                      {t.builder.q.scale}
                     </p>
                     {SCALE_LEVELS.map((lvl) => {
                       const isSelected = scale === lvl.id;
@@ -805,7 +771,7 @@ export default function ProjectBuilder() {
                     exit={{ opacity: 0, x: -20 }}
                   >
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
-                      Which features do you need? (optional)
+                      {t.builder.q.features}
                     </p>
                     <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
                       {activeCaps.map((cap) => {
@@ -828,14 +794,14 @@ export default function ProjectBuilder() {
                                 <h3
                                   className={`text-sm font-medium leading-tight ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                                 >
-                                  {cap.label}
+                                  {capText(cap.id).label}
                                 </h3>
                                 {isSelected && (
                                   <Check className="w-4 h-4 text-[#3CE7FC] flex-shrink-0" />
                                 )}
                               </div>
                               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
-                                {cap.sublabel}
+                                {capText(cap.id).sublabel}
                               </p>
                               {price && (
                                 <p
@@ -861,17 +827,14 @@ export default function ProjectBuilder() {
                     className="text-left"
                   >
                     <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-1">
-                      Your Estimated Investment
+                      {t.builder.estimate.title}
                     </h3>
                     <p className="text-slate-500 dark:text-slate-400 mb-8 text-sm">
-                      Based on your{" "}
-                      <span className="font-semibold text-slate-700 dark:text-slate-300">
-                        {SCALE_LEVELS.find((s) => s.id === scale)?.label}
-                      </span>{" "}
-                      {CORE_SYSTEMS.find((s) => s.id === system)?.label.toLowerCase()} with{" "}
-                      {capabilities.size > 0
-                        ? `${capabilities.size} selected feature${capabilities.size > 1 ? "s" : ""}.`
-                        : "no extra features."}
+                      {t.builder.estimate.basedOnFull(
+                        SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "",
+                        CORE_SYSTEMS.find((s) => s.id === system)?.label ?? "",
+                        t.builder.estimate.features(capabilities.size),
+                      )}
                     </p>
 
                     {/* Price result card, gross → grant → net */}
@@ -883,10 +846,10 @@ export default function ProjectBuilder() {
                             {/* Header */}
                             <div className="flex items-center justify-between mb-5">
                               <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                                Your investment
+                                {t.builder.estimate.yourInvestment}
                               </span>
                               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[2px] bg-emerald-500/15 text-emerald-400 text-[11px] font-medium uppercase tracking-wider">
-                                SME grant applied
+                                {t.builder.estimate.grantApplied}
                               </span>
                             </div>
 
@@ -911,7 +874,7 @@ export default function ProjectBuilder() {
                             {/* Net, hero number */}
                             <div className="border-t border-white/10 pt-6">
                               <div className="text-xs font-medium text-emerald-400 uppercase tracking-widest mb-2.5">
-                                You pay after grant
+                                {t.builder.estimate.youPay}
                               </div>
                               <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white tracking-tight tabular-nums leading-none">
                                 €<AnimatedNumber value={estimate.netMin} />
@@ -923,14 +886,14 @@ export default function ProjectBuilder() {
                                 You save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")} – €{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
                               </div>
                               <p className="text-white/40 text-xs mt-3.5">
-                                Ex. VAT · final grant amount confirmed on application
+                                {t.builder.estimate.exVat}
                               </p>
                             </div>
                           </>
                         ) : (
                           <>
                             <div className="text-xs font-semibold text-[#3CE7FC] uppercase tracking-widest mb-2">
-                              Estimated investment
+                              {t.builder.estimate.plain}
                             </div>
                             <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white mb-2 tracking-tight tabular-nums leading-none">
                               €<AnimatedNumber value={estimate.rawMin} />
@@ -976,20 +939,14 @@ export default function ProjectBuilder() {
                           <div className="flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-2 mb-1">
                               <span className="text-sm font-extrabold text-sky-700 dark:text-sky-400 uppercase tracking-widest">
-                                Bundle into SME Digital Package
+                                {t.builder.grant.bundleTitle}
                               </span>
                             </div>
                             <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
-                              Marketing isn't separately state-funded, but it can be{" "}
-                              <strong>co-funded inside an SME Digital Package</strong> when
-                              paired with a website or web-app project, up to{" "}
-                              <strong>15% marketing services</strong> and{" "}
-                              <strong>15% ad spend</strong> of the eligible investment, at the
-                              same <strong>70%</strong> subsidy rate.
+                              {t.builder.grant.bundleBody}
                             </p>
                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                              Tell us about your wider project and we'll structure it to
-                              maximise your grant.
+                              {t.builder.grant.bundleCta}
                             </p>
                           </div>
                         </div>
@@ -1001,7 +958,7 @@ export default function ProjectBuilder() {
                       if (!system || system === "marketing") return null;
                       const grant = calcSmeGrant(estimate.rawMin, estimate.rawMax);
                       if (!grant) return null;
-                      const pkgName = getSmePackage(system);
+                      const pkgName = getSmePackage(system, t);
                       const isPartial = estimate.rawMin > SME_GRANT_MAX;
                       const isDigital = system !== "ai-agent";
                       return (
@@ -1023,30 +980,22 @@ export default function ProjectBuilder() {
                                   {pkgName}
                                 </span>
                                 <span className="text-xs font-medium px-2 py-0.5 rounded-[2px] bg-emerald-500 text-white">
-                                  Gouvernement luxembourgeois
+                                  {t.builder.grant.government}
                                 </span>
                               </div>
                               <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
-                                Your project qualifies for the{" "}
-                                <strong>{pkgName}</strong>, the Luxembourg government
-                                covers <strong>70%</strong> of your eligible investment
-                                (up to €25,000).{" "}
-                                {isPartial
-                                  ? "The first €25,000 of your investment qualifies."
-                                  : "Your full investment may be eligible."}
+                                {mark(t.builder.grant.qualifiesFull(pkgName), "font-semibold")}{" "}
+                                {isPartial ? t.builder.grant.capped : t.builder.grant.uncapped}
                               </p>
 
                               {isDigital && (
                                 <p className="text-xs text-emerald-700/90 dark:text-emerald-300/80 mb-3 leading-relaxed">
-                                  You can also bundle up to <strong>15% marketing</strong>{" "}
-                                  and <strong>15% ad spend</strong> into this package, funded
-                                  at the same 70% rate.
+                                  {t.builder.grant.marketingBundle}
                                 </p>
                               )}
 
                               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">
-                                We prepare and submit the grant application for you, you
-                                just sign. 
+                                {t.builder.grant.weApply}
                               </p>
 
                               <div className="flex flex-wrap items-center gap-4">
@@ -1071,7 +1020,7 @@ export default function ProjectBuilder() {
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
                                 >
-                                  Learn about the programme
+                                  {t.builder.grant.learnMore}
                                   <ExternalLink className="w-3 h-3" />
                                 </a>
                               </div>
@@ -1085,7 +1034,7 @@ export default function ProjectBuilder() {
                     {capabilities.size > 0 && (
                       <div className="mb-8 p-5 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                         <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">
-                          Included features
+                          {t.builder.estimate.included}
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {Array.from(capabilities).map((capId) => {
@@ -1097,7 +1046,7 @@ export default function ProjectBuilder() {
                                 className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-[2px] bg-white dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10"
                               >
                                 <cap.icon className="w-3 h-3" />
-                                {cap.label}
+                                {capText(cap.id).label}
                               </span>
                             );
                           })}
@@ -1116,7 +1065,7 @@ export default function ProjectBuilder() {
                         onClick={reset}
                         className="px-7 py-4 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-md font-medium text-base hover:bg-slate-300 dark:hover:bg-white/20 transition-colors"
                       >
-                        Reconfigure
+                        {t.builder.estimate.reconfigure}
                       </button>
                     </div>
                   </motion.div>
@@ -1142,10 +1091,10 @@ export default function ProjectBuilder() {
                     className={`flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-md font-medium text-white text-sm transition-all ${ (step === 1 && !system) || (step === 2 && !scale) ? "bg-slate-300 dark:bg-slate-700 cursor-not-allowed" : "bg-[#2563F6] hover:bg-[#2563F6]/90 /30 active:scale-[0.98]" }`}
                   >
                     {step === 1 && system === "marketing"
-                      ? "Continue on contact form"
+                      ? t.builder.nav.toContact
                       : step === 3
-                      ? "Calculate Estimate"
-                      : "Continue"}{" "}
+                      ? t.builder.nav.calculate
+                      : t.builder.nav.next}{" "}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -1177,11 +1126,10 @@ export default function ProjectBuilder() {
                       <Sparkles className="w-7 h-7 text-[#3CE7FC]" />
                     </div>
                     <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
-                      One last step
+                      {t.builder.leadForm.title}
                     </h3>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
-                      A few details so we can send an accurate estimate and project
-                      blueprint, the more you share, the better we scope it.
+                      {t.builder.leadForm.body}
                     </p>
                   </div>
                   <form
@@ -1190,13 +1138,13 @@ export default function ProjectBuilder() {
                       setSubmitting(true);
 
                       const featureLabels = Array.from(capabilities)
-                        .map((id) => activeCaps.find((c) => c.id === id)?.label)
+                        .map((id) => capText(id)?.label)
                         .filter(Boolean)
                         .join(", ");
                       const smeNote = system
                         ? system === "marketing"
-                          ? "Bundle into SME Digital Package"
-                          : getSmePackage(system)
+                          ? t.builder.grant.bundleTitle
+                          : getSmePackage(system, t)
                         : "";
                       const systemLabel =
                         CORE_SYSTEMS.find((s) => s.id === system)?.label ?? "n/a";
@@ -1240,7 +1188,7 @@ export default function ProjectBuilder() {
                       type="text"
                       value={leadForm.name}
                       onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                      placeholder="Your name"
+                      placeholder={t.builder.leadForm.name}
                       required
                       className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                     />
@@ -1248,7 +1196,7 @@ export default function ProjectBuilder() {
                       type="email"
                       value={leadForm.email}
                       onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                      placeholder="Work email"
+                      placeholder={t.builder.leadForm.email}
                       required
                       className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                     />
@@ -1257,14 +1205,14 @@ export default function ProjectBuilder() {
                         type="text"
                         value={leadForm.company}
                         onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
-                        placeholder="Company (optional)"
+                        placeholder={t.builder.leadForm.company}
                         className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                       />
                       <input
                         type="text"
                         value={leadForm.website}
                         onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
-                        placeholder="Current website (optional)"
+                        placeholder={t.builder.leadForm.website}
                         className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
                       />
                     </div>
@@ -1273,16 +1221,16 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
                       className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] ${ leadForm.timeline ? "text-[var(--text-hi)]" : "text-slate-400" }`}
                     >
-                      <option value="">When do you want to start?</option>
-                      <option value="ASAP">As soon as possible</option>
-                      <option value="1-3 months">In 1–3 months</option>
-                      <option value="3-6 months">In 3–6 months</option>
-                      <option value="Just exploring">Just exploring</option>
+                      <option value="">{t.builder.leadForm.timelinePlaceholder}</option>
+                      <option value="ASAP">{t.builder.leadForm.timelines.asap}</option>
+                      <option value="1-3 months">{t.builder.leadForm.timelines.m1_3}</option>
+                      <option value="3-6 months">{t.builder.leadForm.timelines.m3_6}</option>
+                      <option value="Just exploring">{t.builder.leadForm.timelines.exploring}</option>
                     </select>
                     <textarea
                       value={leadForm.goals}
                       onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
-                      placeholder="What does success look like? Goals, must-haves, links… (optional)"
+                      placeholder={t.builder.leadForm.goals}
                       rows={3}
                       className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] resize-none"
                     />
@@ -1308,14 +1256,10 @@ export default function ProjectBuilder() {
                     <Check className="w-7 h-7 text-green-500" />
                   </div>
                   <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
-                    You're all set!
+                    {t.builder.done.title}
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400 text-sm">
-                    We'll send your estimate to{" "}
-                    <span className="font-semibold text-slate-700 dark:text-slate-300">
-                      {leadForm.email}
-                    </span>{" "}
-                    within 24 hours.
+                    {t.builder.done.body(leadForm.email)}
                   </p>
                 </div>
               )}

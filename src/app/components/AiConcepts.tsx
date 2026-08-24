@@ -53,7 +53,7 @@ export default function AiConcepts() {
         </div>
 
         <div className="lg:col-span-7">
-          <Deck label="How the workshop runs" className="md:block md:border-t md:border-[var(--line)]">
+          <Deck label={t.home.ai.deckLabel} className="md:block md:border-t md:border-[var(--line)]">
             {METHOD.map((m, i) => (
               <motion.li
                 key={m.index}

@@ -47,6 +47,14 @@ export const site = {
     madeIn: "Engineered with precision in Luxembourg",
   },
 
+  /** The certification mark's accessible name. */
+  madeInLabel: "Made in Luxembourg, certified label",
+
+  deck: {
+    prev: (label: string) => `${label}: previous`,
+    next: (label: string) => `${label}: next`,
+  },
+
   notFound: {
     eyebrow: "404 / Page not found",
     title: "That page does not exist.",

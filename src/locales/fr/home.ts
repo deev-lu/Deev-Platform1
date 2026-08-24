@@ -32,6 +32,7 @@ export const home: typeof En = {
     lead:
       "Du voyage de luxe aux spiritueux artisanaux, chaque projet est construit avec la même exigence de savoir-faire, de performance et de résultats.",
     counter: (n: number) => `${n} projets livrés à travers l'Europe`,
+    seeProject: "Voir le projet",
     seeAll: "Voir toutes les réalisations",
     prev: "Projet précédent",
     next: "Projet suivant",
@@ -83,6 +84,7 @@ export const home: typeof En = {
         copy: "Publicité, SEO et campagnes qui vous apportent des prospects qualifiés, correctement mesurés, pour que vous sachiez toujours ce qui fonctionne.",
       },
     ],
+    deckLabel: "Ce que nous construisons",
     processEyebrow: "Notre façon de travailler",
     steps: [
       { title: "Comprendre", copy: "Nous commençons par comprendre votre activité, vos objectifs et ce à quoi vous faites face." },
@@ -129,6 +131,7 @@ export const home: typeof En = {
         detail: ["Tableaux de bord sur mesure", "Suivi du ROI", "Rapports de performance"],
       },
     ],
+    deckLabel: "Services marketing",
     videosEyebrow: "En mouvement",
     videoTitle: (n: number, total: number) => `Vidéo marketing Deev, ${n} sur ${total}`,
     playLabel: (title: string) => `Lire : ${title}`,
@@ -139,6 +142,7 @@ export const home: typeof En = {
     title: "Avant de construire quoi que ce soit, nous cartographions là où l'IA rapporte vraiment.",
     lead:
       "Nous animons des ateliers de découverte IA avec les équipes opérationnelles et les transformons en concept exécutif : les goulets d'étranglement, ce que chacun coûte par an, l'architecture qui les supprime, et un plan par phases pour y arriver. Un document présentable à un conseil d'administration, pas une plaquette commerciale.",
+    deckLabel: "Comment se déroule l'atelier",
     fundingLabel: "Financement",
     funding:
       "Les PME luxembourgeoises peuvent couvrir jusqu'à [[70%]] des coûts éligibles via le SME Package AI & Digital de Luxinnovation, plafonné à 25 000 € d'aide par projet.",
