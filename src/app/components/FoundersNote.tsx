@@ -1,85 +1,118 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import { ArrowRight } from "lucide-react";
-import fabioPhoto from "../../assets/team/fabio.jpg";
-import svenPhoto from "../../assets/team/sven.jpg";
-
-const FOUNDERS = [
-  { name: "Fabio Falchero", role: "Founder & CEO", photo: fabioPhoto },
-  { name: "Sven Kettel", role: "Founder & CEO", photo: svenPhoto },
-];
+import { Section, SectionTitle } from "./Section";
+import { FOUNDERS, TEAM_READY } from "../../lib/team";
 
 /**
- * "Who you'll work with" — the human counterweight to the system sections.
- * Two real faces, a direct note, and a straight line to a conversation.
+ * §10 — Who you'll work with.
+ *
+ * The human counterweight to nine sections of systems, layers and
+ * architecture. Two real faces, a direct note, and a straight line to a
+ * conversation.
+ *
+ * The portraits are cutouts on a transparent ground, so they are not framed:
+ * a ring and a 4:5 crop around a standing figure lops off heads and knees and
+ * turns two people into two stock tiles. They stand on a hairline baseline
+ * instead, on their own surface step, at the scale the photographs were shot
+ * for.
+ *
+ * Photos are discovered by filename the same way project screenshots are:
+ * drop fabio.png and sven.png into src/assets/team and they appear. Until both
+ * land the section is not in the page at all — see src/lib/team.ts.
  */
+
 export default function FoundersNote() {
+  // Both portraits or no section. See src/lib/team.ts.
+  if (!TEAM_READY) return null;
+
   return (
-    <section className="relative overflow-hidden bg-slate-50 dark:bg-[#08080c] py-16 sm:py-24 md:py-28 border-t border-slate-100 dark:border-white/5">
+    <Section index="10" eyebrow="Who you'll work with" tone={1}>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14 items-end">
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)] gap-12 lg:gap-16 items-center">
         {/* ── The note ─────────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 mb-6">
-            <span className="h-px w-8 bg-gradient-to-r from-[#3CE7FC]/70 to-transparent" />
-            Who you'll work with
-          </div>
+        <div className="lg:col-span-5 lg:pb-4">
+          <SectionTitle>Two people. Both of them on your project.</SectionTitle>
 
-          <p className="text-xl sm:text-2xl md:text-[1.65rem] font-medium text-slate-900 dark:text-white leading-[1.4] tracking-tight mb-6">
-            “There's no sales team here. When you write to DEEV, you reach the
-            two people who actually design and build your project, and you keep
-            that line until launch day.”
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.56, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 text-[var(--text-mid)]"
+            style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
+          >
+            There is no sales team here. When you write to DEEV you reach the two
+            people who design and build your project, and you keep that line
+            until launch day.
+          </motion.p>
 
-          <p className="text-base text-slate-500 dark:text-slate-400 leading-relaxed mb-8 max-w-xl">
-            We're a small, senior studio in Luxembourg. That's deliberate: fewer
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.56, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 text-[var(--text-mid)]"
+            style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
+          >
+            A small, senior studio in Luxembourg. That is deliberate: fewer
             projects, run properly, by the people whose names are on them.
-          </p>
+          </motion.p>
 
           <Link
             to="/contact"
-            className="group inline-flex items-center gap-2 text-base font-medium text-[#2563F6] dark:text-[#3CE7FC] hover:opacity-70 transition-opacity"
+            className="group inline-flex items-center gap-3 mt-10 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
+            style={{ fontSize: "var(--t-small)" }}
           >
             Talk to us directly
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            <span className="inline-block transition-transform duration-[var(--dur-1)] group-hover:translate-x-1">
+              &rarr;
+            </span>
           </Link>
-        </motion.div>
-
-        {/* ── The founders ─────────────────────────────────── */}
-        <div className="grid grid-cols-2 gap-5 sm:gap-6">
-          {FOUNDERS.map((f, i) => (
-            <motion.div
-              key={f.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="relative"
-            >
-              <img
-                src={f.photo}
-                alt={`${f.name}, ${f.role} at DEEV`}
-                loading="lazy"
-                decoding="async"
-                className="relative w-full aspect-[4/5] object-cover rounded-lg ring-1 ring-slate-200 dark:ring-white/10 "
-              />
-              <div className="relative mt-3.5">
-                <div className="text-sm font-medium text-slate-900 dark:text-white">
-                  {f.name}
-                </div>
-                <div className="eyebrow-mono text-[10px] uppercase tracking-[0.14em] text-slate-500 mt-0.5">
-                  {f.role}
-                </div>
-              </div>
-            </motion.div>
-          ))}
         </div>
+
+        {/* ── The two of them ──────────────────────────────── */}
+        <ul className="lg:col-span-7 grid grid-cols-2 gap-6 sm:gap-10">
+          {FOUNDERS.map((f, i) => (
+              <motion.li
+                key={f.key}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.64, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {/* The figure stands on the rule. Bottom-aligned so both of
+                    them share one baseline whatever the crop of each file. */}
+                <div className="relative flex items-end justify-center bg-[var(--surface-2)] border-b border-[var(--line-strong)] aspect-[3/4] overflow-hidden">
+                  <img
+                    src={f.photo}
+                    alt={`${f.name}, ${f.role} at DEEV`}
+                    loading="lazy"
+                    decoding="async"
+                    width={1024}
+                    height={1536}
+                    className="w-full h-full object-contain object-bottom"
+                  />
+                </div>
+
+                <div className="mt-5">
+                  <div
+                    className="text-[var(--text-hi)] font-medium"
+                    style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em" }}
+                  >
+                    {f.name}
+                  </div>
+                  <div
+                    className="eyebrow-mono uppercase text-[var(--text-low)] mt-2"
+                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                  >
+                    {f.role}
+                  </div>
+                </div>
+              </motion.li>
+          ))}
+        </ul>
+
       </div>
-    </section>
+    </Section>
   );
 }

@@ -29,7 +29,7 @@ Vercel blocks deploys when the commit email doesn't match a GitHub account.
 ## Layout of the page (src/app/App.tsx)
 Navbar → Hero → ClientLogos → SmeGrantBanner → Services (`ValueProposition`)
 → SystemStack → Portfolio → BillovioFeature → ProjectBuilder → EnterpriseTrust
-("Why Deev") → LuxembourgStrip → FinalCTA → Footer
+("Why Deev") → FoundersNote ("About") → LuxembourgStrip → FinalCTA → Footer
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
@@ -67,9 +67,15 @@ applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
 
 ## Content that needs real assets (do not invent)
-- `src/app/components/FoundersNote.tsx` is built but **not wired into App.tsx**
-  — it needs `src/assets/team/fabio.jpg` and `sven.jpg`. Add the photos, then
-  import it in App.tsx.
+- `src/app/components/FoundersNote.tsx` ("10 / Who you'll work with") is wired
+  into App.tsx between Why Deev and the Luxembourg strip. It finds its photos by
+  filename: drop `fabio.*` and `sven.*` into `src/assets/team` and they appear,
+  no import needed. Until **both** files land the section is not in the page
+  at all and the navbar drops its "About" link with it (`TEAM_READY` in
+  `src/lib/team.ts`): one real portrait beside an empty frame reads worse than
+  no section, and a stand-in silhouette would be inventing a person. The portraits are cutouts on a
+  transparent ground, so they are `object-contain object-bottom` on a surface
+  panel, never cropped into a square.
 - Testimonials: not built. Only add **real** client quotes — never write
   placeholder testimonials with real names attached.
 

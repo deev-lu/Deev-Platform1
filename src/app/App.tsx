@@ -29,6 +29,7 @@ const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const ProjectBuilder    = lazy(() => import("./components/ProjectBuilder"));
 const BillovioFeature   = lazy(() => import("./components/BillovioFeature"));
 const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
+const FoundersNote      = lazy(() => import("./components/FoundersNote"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
@@ -72,6 +73,8 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <div id="billovio"><BillovioFeature /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
+        {/* Nine sections of systems, then the two people behind them. */}
+        <div id="about"><FoundersNote /></div>
 
         {/* ── Dark act II: close on Luxembourg, the ask, the footer ── */}
         <div data-surface="dark">

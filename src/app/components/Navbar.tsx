@@ -4,16 +4,19 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
+import { TEAM_READY } from "../../lib/team";
 
 interface NavbarProps {}
 
+/** #about only exists while both founder portraits do. */
 const NAV_LINKS = [
   { label: "Services",  href: "#services" },
   { label: "Work", href: "/work" },
   { label: "Pricing",   href: "#project-builder" },
   { label: "Why Deev",  href: "#why-deev" },
+  { label: "About",     href: "#about" },
   { label: "Contact",   href: "/contact" },
-];
+].filter((l) => l.href !== "#about" || TEAM_READY);
 
 interface NavbarProps {
   theme?: "light" | "dark";
