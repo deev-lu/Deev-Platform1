@@ -27,9 +27,14 @@ tarball upload is reliable. Deploys alias to www.deev.lu automatically.
 Vercel blocks deploys when the commit email doesn't match a GitHub account.
 
 ## Layout of the page (src/app/App.tsx)
-Navbar → Hero → ClientLogos → SmeGrantBanner → Services (`ValueProposition`)
-→ SystemStack → Portfolio → BillovioFeature → ProjectBuilder → EnterpriseTrust
-("Why Deev") → FoundersNote ("About") → LuxembourgStrip → FinalCTA → Footer
+Navbar → Hero → ClientLogos → SmeGrantBanner → Portfolio (`WorkMoment`)
+→ FoundersNote ("About") → BenefitsPanel → Services (`ValueProposition`)
+→ SystemStack → MarketingServices → AiConcepts → BillovioFeature
+→ ProjectBuilder → EnterpriseTrust ("Why Deev") → LuxembourgStrip
+→ FinalCTA → Footer
+
+The numbered `NN /` eyebrows follow that order. Moving a section means
+renumbering the ones after it, or the sequence reads 01, 10, 02.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
@@ -67,8 +72,8 @@ applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
 
 ## Content that needs real assets (do not invent)
-- `src/app/components/FoundersNote.tsx` ("10 / Who you'll work with") is wired
-  into App.tsx between Why Deev and the Luxembourg strip. It finds its photos by
+- `src/app/components/FoundersNote.tsx` ("02 / Who you'll work with") is wired
+  into App.tsx directly after the portfolio. It finds its photos by
   filename: drop `fabio.*` and `sven.*` into `src/assets/team` and they appear,
   no import needed. Until **both** files land the section is not in the page
   at all and the navbar drops its "About" link with it (`TEAM_READY` in

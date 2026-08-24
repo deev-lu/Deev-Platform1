@@ -16,7 +16,7 @@ export default function BenefitsPanel() {
   }));
 
   return (
-    <Section index="02" eyebrow={t.home.benefits.eyebrow} tone={1}>
+    <Section index="03" eyebrow={t.home.benefits.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">

@@ -21,7 +21,7 @@ export default function ValueProposition() {
   const steps = t.home.values.steps.map((s, i) => ({ ...s, number: nn(i) }));
 
   return (
-    <Section index="03" eyebrow={t.home.values.eyebrow} tone={0}>
+    <Section index="04" eyebrow={t.home.values.eyebrow} tone={0}>
       <div className="max-w-[760px] mb-16">
         <SectionTitle>{t.home.values.title}</SectionTitle>
       </div>
@@ -69,7 +69,7 @@ export default function ValueProposition() {
 
       {/* ── §6E — process as a diagram ────────────────────────── */}
       <div className="mt-28">
-        <Eyebrow index="03.1">{t.home.values.processEyebrow}</Eyebrow>
+        <Eyebrow index="04.1">{t.home.values.processEyebrow}</Eyebrow>
 
         {/* desktop: nodes hung from one rule */}
         <div className="hidden md:block">

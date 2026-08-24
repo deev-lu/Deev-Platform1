@@ -31,7 +31,7 @@ export default function MarketingServices() {
   }));
 
   return (
-    <Section index="05" eyebrow={t.home.marketing.eyebrow} tone={1}>
+    <Section index="06" eyebrow={t.home.marketing.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">
@@ -105,7 +105,7 @@ export default function MarketingServices() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            <span className="text-[var(--metal)]">05.1</span> / {t.home.marketing.videosEyebrow}
+            <span className="text-[var(--metal)]">06.1</span> / {t.home.marketing.videosEyebrow}
           </span>
         </div>
 

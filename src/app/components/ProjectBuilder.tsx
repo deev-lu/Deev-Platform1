@@ -362,7 +362,7 @@ export default function ProjectBuilder() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">08</span> / {t.builder.eyebrow}
+              <span className="text-[var(--metal)]">09</span> / {t.builder.eyebrow}
             </span>
           </div>
 

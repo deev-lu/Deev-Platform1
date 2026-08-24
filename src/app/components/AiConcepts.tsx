@@ -22,7 +22,7 @@ export default function AiConcepts() {
   const METHOD = t.home.ai.method.map((m, i) => ({ ...m, index: String(i + 1).padStart(2, "0") }));
 
   return (
-    <Section index="06" eyebrow={t.home.ai.eyebrow} tone={0}>
+    <Section index="07" eyebrow={t.home.ai.eyebrow} tone={0}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">

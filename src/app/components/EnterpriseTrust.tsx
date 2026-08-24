@@ -40,7 +40,7 @@ export default function EnterpriseTrust() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">09</span> / {t.home.trust.eyebrow}
+              <span className="text-[var(--metal)]">10</span> / {t.home.trust.eyebrow}
             </span>
           </div>
           <h2

@@ -58,6 +58,11 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
             we work lands better once they have seen that we do. */}
         <div id="portfolio"><WorkMoment /></div>
 
+        {/* The work, then immediately the two people who did it. The proof and
+            the names belong next to each other; nine sections of systems in
+            between made the introduction read like an afterthought. */}
+        <div id="about"><FoundersNote /></div>
+
         <BenefitsPanel />
         <div id="services"><ValueProposition /></div>
 
@@ -74,8 +79,6 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <div id="billovio"><BillovioFeature /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
-        {/* Nine sections of systems, then the two people behind them. */}
-        <div id="about"><FoundersNote /></div>
 
         {/* ── Dark act II: close on Luxembourg, the ask, the footer ── */}
         <div data-surface="dark">

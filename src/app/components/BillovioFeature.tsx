@@ -50,7 +50,7 @@ export default function BillovioFeature() {
             className="eyebrow-mono uppercase text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            07 / {t.home.billovio.eyebrow}
+            08 / {t.home.billovio.eyebrow}
           </span>
         </div>
 

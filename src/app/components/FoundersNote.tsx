@@ -44,7 +44,7 @@ export default function FoundersNote() {
   if (!TEAM_READY) return null;
 
   return (
-    <Section index="10" eyebrow={t.home.founders.eyebrow} tone={1}>
+    <Section index="02" eyebrow={t.home.founders.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14 items-end">
 
         {/* ── The note ─────────────────────────────────────── */}
