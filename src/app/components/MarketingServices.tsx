@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
+import LiteYouTube from "./LiteYouTube";
 
 /**
  * Marketing services — a short section, not a second homepage.
@@ -7,7 +8,20 @@ import { Section, SectionTitle } from "./Section";
  * Copy is lifted verbatim from the DigitalMarketing component that was built
  * but never rendered, so these are DEEV's own words rather than new claims.
  * Treatment matches §6C: hairline rows, mono indices, no cards.
+ *
+ * The two vertical videos are our own YouTube shorts. They load from Google
+ * only once someone presses play (see LiteYouTube), so the section costs
+ * nothing on first paint and sets no third-party storage on a visitor who
+ * never asked to watch anything.
  */
+
+/** Titles are the accessible names for the players. Replace them with the real
+ *  video titles, and drop <id>.jpg into src/assets/marketing to give each one
+ *  its own still frame. */
+const VIDEOS = [
+  { id: "LeAYeRih-_Y", title: "Deev marketing video, one of two" },
+  { id: "zURSJEqZO2E", title: "Deev marketing video, two of two" },
+];
 
 const SERVICES = [
   {
@@ -100,6 +114,33 @@ export default function MarketingServices() {
           ))}
         </ul>
 
+      </div>
+
+      {/* Two shorts, at the ratio they were shot in. */}
+      <div className="mt-20 pt-10 border-t border-[var(--line)]">
+        <div className="flex items-center gap-4 mb-8">
+          <span className="h-px w-10 bg-[var(--line-strong)]" />
+          <span
+            className="eyebrow-mono uppercase text-[var(--text-low)]"
+            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+          >
+            <span className="text-[var(--metal)]">05.1</span> / In motion
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-5 sm:gap-6 max-w-[720px]">
+          {VIDEOS.map((v, i) => (
+            <motion.div
+              key={v.id}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.56, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <LiteYouTube id={v.id} title={v.title} />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </Section>
   );

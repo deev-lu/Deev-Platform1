@@ -153,6 +153,16 @@ export default function Legal() {
                 contractual clauses and on Google&rsquo;s supplementary measures.
               </p>
 
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">Embedded video</p>
+              <p className="mt-1">
+                The marketing section contains two videos hosted on YouTube. Nothing is requested
+                from Google until you press play: until then you see a still frame served from this
+                site. When you do press play, the player is loaded from youtube-nocookie.com, which
+                does not set advertising cookies for that view, and YouTube may then store what it
+                needs to play the video and to count the view. Pressing play is your own choice, and
+                there is no way to watch the video without it.
+              </p>
+
               <p className="mt-6 font-medium text-slate-900 dark:text-white">Your consent record</p>
               <p className="mt-1">
                 When you choose, we store the choice itself, a random reference, the date and time,
