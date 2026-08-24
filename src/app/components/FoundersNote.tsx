@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { Link } from "react-router";
 import { Section, SectionTitle } from "./Section";
 import { FOUNDERS, TEAM_READY } from "../../lib/team";
@@ -17,11 +18,21 @@ import { FOUNDERS, TEAM_READY } from "../../lib/team";
  * for.
  *
  * Photos are discovered by filename the same way project screenshots are:
- * drop fabio.png and sven.png into src/assets/team and they appear. Until both
- * land the section is not in the page at all — see src/lib/team.ts.
+ * drop fabio.webp and sven.webp into src/assets/team and they appear. Until
+ * both land the section is not in the page at all — see src/lib/team.ts.
+ *
+ * They are also gated on the section coming into view, which loading="lazy"
+ * does not do here. The homepage mounts this while it is still eleven screens
+ * down, before layout has placed it, so the browser resolves "is it near the
+ * viewport?" as yes and fetches both portraits during first paint. That is 232
+ * KiB and six Lighthouse points spent on something nobody has scrolled to. The
+ * marketing shorts had the same problem and are fixed the same way.
  */
 
 export default function FoundersNote() {
+  const ref = useRef<HTMLUListElement>(null);
+  const near = useInView(ref, { once: true, margin: "600px" });
+
   // Both portraits or no section. See src/lib/team.ts.
   if (!TEAM_READY) return null;
 
@@ -71,7 +82,7 @@ export default function FoundersNote() {
         </div>
 
         {/* ── The two of them ──────────────────────────────── */}
-        <ul className="lg:col-span-7 grid grid-cols-2 gap-6 sm:gap-10">
+        <ul ref={ref} className="lg:col-span-7 grid grid-cols-2 gap-6 sm:gap-10">
           {FOUNDERS.map((f, i) => (
               <motion.li
                 key={f.key}
@@ -83,15 +94,16 @@ export default function FoundersNote() {
                 {/* The figure stands on the rule. Bottom-aligned so both of
                     them share one baseline whatever the crop of each file. */}
                 <div className="relative flex items-end justify-center bg-[var(--surface-2)] border-b border-[var(--line-strong)] aspect-[3/4] overflow-hidden">
-                  <img
-                    src={f.photo}
-                    alt={`${f.name}, ${f.role} at DEEV`}
-                    loading="lazy"
-                    decoding="async"
-                    width={1024}
-                    height={1536}
-                    className="w-full h-full object-contain object-bottom"
-                  />
+                  {near && (
+                    <img
+                      src={f.photo}
+                      alt={`${f.name}, ${f.role} at DEEV`}
+                      decoding="async"
+                      width={800}
+                      height={1200}
+                      className="w-full h-full object-contain object-bottom"
+                    />
+                  )}
                 </div>
 
                 <div className="mt-5">
