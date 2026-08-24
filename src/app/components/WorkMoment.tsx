@@ -168,13 +168,17 @@ export default function WorkMoment() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12 items-start">
+        {/* On a phone the screenshot comes first. Reading the client's name
+            before you have seen anything is backwards on a narrow screen: the
+            work is the proof, so it leads and the type follows it. From lg up
+            the columns sit side by side and the order is irrelevant. */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-9 lg:gap-y-12 items-start">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={fade}
-            className="lg:col-span-4 lg:pt-14"
+            className="order-2 lg:order-1 lg:col-span-4 lg:pt-14"
           >
             {/* Title and meta swap with the image. mode="wait" keeps two titles
                 from overlapping at different lengths mid-fade, and the invisible
@@ -283,7 +287,7 @@ export default function WorkMoment() {
 
           {/* The work, framed and large. */}
           <motion.div
-            className="lg:col-span-8"
+            className="order-1 lg:order-2 lg:col-span-8"
             style={reduce ? undefined : { y }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

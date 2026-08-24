@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle, Eyebrow } from "./Section";
+import { Deck, CARD_BASE } from "./Deck";
 
 /**
  * §6D — What we build. A 2×2 of full hairline-bordered panels. On hover the
@@ -53,19 +54,24 @@ export default function ValueProposition() {
         <SectionTitle>Everything your business needs to compete online</SectionTitle>
       </div>
 
-      {/* ── §6D — four panels ─────────────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-[var(--line)]">
+      {/* ── §6D — four panels. A swipeable deck on phones, the bordered
+             2x2 from md up. Same four cards, one DOM. ───────────── */}
+      <Deck
+        label="What we build"
+        className="md:grid md:grid-cols-2 md:border-t md:border-l md:border-[var(--line)]"
+      >
         {values.map((v, i) => (
-          <motion.div
+          <motion.li
             key={v.index}
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative border-r border-b border-[var(--line)] bg-[var(--surface-1)]
+            className={`${CARD_BASE} group relative border border-[var(--line)] bg-[var(--surface-1)]
+                       md:border-0 md:border-r md:border-b
                        hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]
-                       transition-colors duration-[240ms] p-9 sm:p-12 flex flex-col
-                       min-h-[280px] lg:min-h-[320px]"
+                       transition-colors duration-[240ms] p-7 sm:p-12 flex flex-col
+                       min-h-[268px] lg:min-h-[320px]`}
           >
             <span
               className="eyebrow-mono text-[var(--metal)] mb-8"
@@ -85,9 +91,9 @@ export default function ValueProposition() {
             >
               {v.description}
             </p>
-          </motion.div>
+          </motion.li>
         ))}
-      </div>
+      </Deck>
 
       {/* ── §6E — process as a diagram ────────────────────────── */}
       <div className="mt-28">

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
 import LiteYouTube from "./LiteYouTube";
+import { Deck, CARD_BASE } from "./Deck";
 
 /**
  * Marketing services — a short section, not a second homepage.
@@ -70,7 +71,8 @@ export default function MarketingServices() {
           </div>
         </div>
 
-        <ul className="lg:col-span-7 border-t border-[var(--line)]">
+        <div className="lg:col-span-7">
+        <Deck label="Marketing services" className="md:block md:border-t md:border-[var(--line)]">
           {SERVICES.map((s, i) => (
             <motion.li
               key={s.index}
@@ -78,10 +80,12 @@ export default function MarketingServices() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-              className="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 py-8 border-b border-[var(--line)]"
+              className={`${CARD_BASE} border border-[var(--line)] bg-[var(--surface-2)] p-7
+                          md:bg-transparent md:p-0 md:border-0 md:border-b
+                          md:grid md:grid-cols-[auto_1fr] md:gap-x-10 md:py-8`}
             >
               <span
-                className="eyebrow-mono text-[var(--metal)] pt-1"
+                className="eyebrow-mono text-[var(--metal)] block mb-6 md:mb-0 md:pt-1"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
                 {s.index}
@@ -113,7 +117,8 @@ export default function MarketingServices() {
               </div>
             </motion.li>
           ))}
-        </ul>
+        </Deck>
+        </div>
 
       </div>
 

@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
+import { Deck, CARD_BASE } from "./Deck";
 
 /**
  * AI workshops & executive concepts.
@@ -83,7 +84,7 @@ export default function AiConcepts() {
         </div>
 
         <div className="lg:col-span-7">
-          <ul className="border-t border-[var(--line)]">
+          <Deck label="How the workshop runs" className="md:block md:border-t md:border-[var(--line)]">
             {METHOD.map((m, i) => (
               <motion.li
                 key={m.index}
@@ -91,10 +92,12 @@ export default function AiConcepts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 py-8 border-b border-[var(--line)]"
+                className={`${CARD_BASE} border border-[var(--line)] bg-[var(--surface-1)] p-7
+                            md:bg-transparent md:p-0 md:border-0 md:border-b
+                            md:grid md:grid-cols-[auto_1fr] md:gap-x-10 md:py-8`}
               >
                 <span
-                  className="eyebrow-mono text-[var(--metal)] pt-1"
+                  className="eyebrow-mono text-[var(--metal)] block mb-6 md:mb-0 md:pt-1"
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                 >
                   {m.index}
@@ -115,7 +118,7 @@ export default function AiConcepts() {
                 </div>
               </motion.li>
             ))}
-          </ul>
+          </Deck>
 
           {/* An unattributed example. Method and deliverable only. */}
           <motion.div

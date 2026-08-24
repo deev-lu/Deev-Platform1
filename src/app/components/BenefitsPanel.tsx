@@ -68,8 +68,19 @@ export default function BenefitsPanel() {
                 delay: Math.min(i, 4) * 0.06,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 py-8 border-b border-[var(--line)]"
+              className="relative grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 py-7 sm:py-8 border-b border-[var(--line)]"
             >
+              {/* The rule under each row draws itself as the row arrives. One
+                  pass, a composited scaleX, so it costs nothing on a phone and
+                  gives the list something to do besides sit there. */}
+              <motion.span
+                aria-hidden="true"
+                className="absolute left-0 bottom-[-1px] h-px w-full origin-left bg-[var(--signal)]"
+                initial={{ scaleX: 0, opacity: 0.9 }}
+                whileInView={{ scaleX: 1, opacity: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.9, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              />
               <span
                 className="eyebrow-mono text-[var(--metal)] pt-1"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
