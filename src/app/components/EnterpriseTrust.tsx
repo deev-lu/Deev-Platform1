@@ -6,7 +6,7 @@ const credentials = [
   { value: "50+", label: "Projects delivered" },
   { value: "100%", label: "On-time delivery" },
   { value: "EU", label: "Based in Luxembourg" },
-  { value: "Senior", label: "Only engineering" },
+  { value: "In-house", label: "Design and engineering" },
 ];
 
 const pillars = [
@@ -24,9 +24,9 @@ const pillars = [
   },
   {
     icon: Users,
-    title: "Senior-only delivery",
+    title: "Direct delivery",
     description:
-      "You work directly with the engineers building your system. No juniors learning on your budget, no offshore handoffs, no account-manager wall.",
+      "You work directly with the people building your system. No offshore handoffs, no account-manager wall, and nobody relaying your brief to a team you never meet.",
   },
   {
     icon: CalendarCheck,

@@ -17,9 +17,10 @@ a square. Keep them that way:
 
   - transparent background, not white, or they will paint a white box on the
     dark theme
-  - the full standing figure, roughly 2:3, feet at the bottom edge of the
-    canvas, so both founders share one baseline
-  - resized to display size before committing. The card is 347px wide at the
+  - an upper-body crop, square, cropped from the same region of both canvases
+    so the two of them stay a matched pair and the crop edge reads as one line
+    across both cards
+  - resized to display size before committing. The card is 353px wide at the
     1440px container, so 800px covers it at 2x and the container is capped, so
     it never grows past that. See the performance rules in CLAUDE.md.
 

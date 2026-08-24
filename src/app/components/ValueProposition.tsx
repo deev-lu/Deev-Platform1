@@ -42,7 +42,7 @@ const values = [
 
 const steps = [
   { number: "01", title: "Understand", description: "We start by understanding your business, your goals and what you're up against." },
-  { number: "02", title: "Build", description: "We build it ourselves. No handoffs, no outsourcing, no juniors learning on your budget." },
+  { number: "02", title: "Build", description: "We build it ourselves, in-house. No outsourcing, no passing your project down a chain." },
   { number: "03", title: "Launch", description: "Tested and monitored, ready for real customers from the first day it's live." },
   { number: "04", title: "Scale", description: "We stick around: improving, supporting and keeping you ahead." },
 ];

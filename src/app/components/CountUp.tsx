@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 
 interface CountUpProps {
-  /** The full display value, e.g. "50+", "100%", "Senior" */
+  /** The full display value, e.g. "50+", "100%", "In-house" */
   value: string;
   /** Animation duration in ms */
   duration?: number;
@@ -11,7 +11,7 @@ interface CountUpProps {
 
 /**
  * Animates the leading number of a value upward when it scrolls into view.
- * If the value has no leading number (e.g. "Senior") it renders as-is.
+ * If the value has no leading number (e.g. "In-house") it renders as-is.
  * Preserves any prefix/suffix around the number (e.g. "+", "%", "k").
  */
 export default function CountUp({ value, duration = 1600, className }: CountUpProps) {

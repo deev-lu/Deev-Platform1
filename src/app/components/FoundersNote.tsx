@@ -11,6 +11,11 @@ import { FOUNDERS, TEAM_READY } from "../../lib/team";
  * architecture. Two real faces, a direct note, and a straight line to a
  * conversation.
  *
+ * Upper-body crops in a square frame, not the full standing figure: the
+ * portraits are cropped from one shared region of two matched canvases, so the
+ * two of them still line up and the crop edge reads as a single line across
+ * both cards.
+ *
  * The portraits are cutouts on a transparent ground, so they are not framed:
  * a ring and a 4:5 crop around a standing figure lops off heads and knees and
  * turns two people into two stock tiles. They stand on a hairline baseline
@@ -42,7 +47,7 @@ export default function FoundersNote() {
 
         {/* ── The note ─────────────────────────────────────── */}
         <div className="lg:col-span-5 lg:pb-4">
-          <SectionTitle>Two people. Both of them on your project.</SectionTitle>
+          <SectionTitle>Two founders. Both of them on your project.</SectionTitle>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -52,9 +57,8 @@ export default function FoundersNote() {
             className="mt-6 text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
           >
-            There is no sales team here. When you write to DEEV you reach the two
-            people who design and build your project, and you keep that line
-            until launch day.
+            There is no sales layer here. When you write to DEEV you reach the
+            two of us directly, and you keep that line until launch day.
           </motion.p>
 
           <motion.p
@@ -65,8 +69,9 @@ export default function FoundersNote() {
             className="mt-6 text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
           >
-            A small, senior studio in Luxembourg. That is deliberate: fewer
-            projects, run properly, by the people whose names are on them.
+            A small studio in Luxembourg with a team behind it. That is
+            deliberate: fewer projects, run properly, by the people whose names
+            are on them.
           </motion.p>
 
           <Link
@@ -93,14 +98,14 @@ export default function FoundersNote() {
               >
                 {/* The figure stands on the rule. Bottom-aligned so both of
                     them share one baseline whatever the crop of each file. */}
-                <div className="relative flex items-end justify-center bg-[var(--surface-2)] border-b border-[var(--line-strong)] aspect-[3/4] overflow-hidden">
+                <div className="relative flex items-end justify-center bg-[var(--surface-2)] border-b border-[var(--line-strong)] aspect-square overflow-hidden">
                   {near && (
                     <img
                       src={f.photo}
                       alt={`${f.name}, ${f.role} at DEEV`}
                       decoding="async"
                       width={800}
-                      height={1200}
+                      height={800}
                       className="w-full h-full object-contain object-bottom"
                     />
                   )}
