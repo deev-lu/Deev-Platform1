@@ -3,8 +3,13 @@
  *
  * Run this on your own machine. The build container cannot reach client
  * domains: its egress policy answers 403 to everything except GitHub, npm and
- * a couple of package registries, so the eight projects without a shot here
- * can only get one from a machine that can actually open them.
+ * a couple of package registries, so the ten projects without a shot here can
+ * only get one from a machine that can actually open them.
+ *
+ * Until a project has one it sorts to the back of the portfolio: projects.ts
+ * orders work we can show first, so the slider and /work never open on a
+ * typeset plate. Capturing a shot moves that project back up to where its year
+ * puts it, with no other change.
  *
  *   npm i -D playwright && npx playwright install chromium
  *   node scripts/capture-work.mjs            # only the projects missing a shot

@@ -68,10 +68,24 @@ const imageFor = (slug: string) => byBasename[slug] ?? byBasename[ALIASES[slug]]
 // Facts live in projects.data.json — scripts/prerender-routes.mjs reads the
 // same file to emit a document per case study, so the site and the sitemap
 // can never disagree about which projects exist.
-export const PROJECTS: Project[] = (projectData as Omit<Project, "image">[]).map((p) => ({
-  ...p,
-  image: imageFor(p.slug),
-}));
+export const PROJECTS: Project[] = (projectData as Omit<Project, "image">[])
+  .map((p) => ({ ...p, image: imageFor(p.slug) }))
+  /**
+   * Work we can show leads; within that, newest first.
+   *
+   * Sorting on year alone put the two newest projects at the front of both
+   * the homepage slider and /work, and neither has been screenshotted yet, so
+   * the portfolio opened on two typeset plates. Ordering is a presentation
+   * choice, not a claim about recency, and a plate at position 1 costs more
+   * than a real screenshot at position 3 gains.
+   *
+   * This reverses itself as screenshots arrive: drop <slug>.jpg into
+   * src/assets/work and that project sorts back up to where its year puts it.
+   */
+  .sort((a, b) => {
+    if (Boolean(a.image) !== Boolean(b.image)) return a.image ? -1 : 1;
+    return b.year - a.year;
+  });
 
 export const getProject = (slug?: string) => PROJECTS.find((p) => p.slug === slug);
 

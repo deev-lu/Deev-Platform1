@@ -36,7 +36,9 @@ export default function WorkIndex() {
   const [filter, setFilter] = useState<Filter>("All");
 
   // Newest first, so the page opens on the most recent work.
-  const all = useMemo(() => [...PROJECTS].sort((a, b) => b.year - a.year), []);
+  // PROJECTS already arrives ordered: screenshots first, newest within that.
+  // Re-sorting on year here would undo it and put the plates back on top.
+  const all = useMemo(() => [...PROJECTS], []);
   const shown = filter === "All" ? all : all.filter((p) => p.filter === filter);
   const countFor = (f: Filter) => (f === "All" ? all.length : all.filter((p) => p.filter === f).length);
 
