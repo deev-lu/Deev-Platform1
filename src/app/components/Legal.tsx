@@ -45,7 +45,7 @@ export default function Legal() {
                   { label: "Trade Register", value: "B266033" },
                 ].map((item) => (
                   <div key={item.label} className="flex flex-col gap-1">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-[var(--text-mid)]">
                       {item.label}
                     </span>
                     <span className="text-slate-700 dark:text-slate-200 font-medium">{item.value}</span>
@@ -111,7 +111,7 @@ export default function Legal() {
               </p>
             </Section>
 
-            <Section title="7. Cookies, Consent &amp; Tracking">
+            <Section id="cookies" title="7. Cookies, Consent &amp; Tracking">
               <p>
                 This site sets a small number of first-party cookies, and, only with your consent,
                 cookies from Google Analytics. There is no third-party consent platform: the banner,
@@ -181,7 +181,7 @@ export default function Legal() {
               </button>
             </Section>
 
-            <Section title="8. Data Protection &amp; GDPR">
+            <Section id="data-protection" title="8. Data Protection &amp; GDPR">
               <p>
                 Deev processes personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable
                 Luxembourg data protection legislation. Personal data collected through this website or in the
@@ -191,7 +191,7 @@ export default function Legal() {
               <p className="mt-3">
                 You have the right to access, correct, or request deletion of your personal data. To exercise these
                 rights, contact us at{" "}
-                <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] hover:underline font-medium">
+                <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[#3CE7FC]/40 hover:decoration-current font-medium">
                   contact@deev.lu
                 </a>
                 . Data is retained only for as long as necessary to fulfill the purposes for which it was collected
@@ -223,7 +223,7 @@ export default function Legal() {
                 <p>17, rue de Sélange, L-4965 Clemency</p>
                 <p>Grand Duchy of Luxembourg</p>
                 <p>
-                  <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] hover:underline font-medium">
+                  <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[#3CE7FC]/40 hover:decoration-current font-medium">
                     contact@deev.lu
                   </a>
                 </p>
@@ -262,9 +262,9 @@ function CookieTable({ rows }: { rows: [string, string, string, string][] }) {
           <code className="text-[0.8rem] text-slate-900 dark:text-white break-all">{name}</code>
           <span className="text-[0.9rem]">
             {purpose}
-            <span className="text-slate-400 dark:text-slate-500"> · {provider}</span>
+            <span className="text-[var(--text-mid)]"> · {provider}</span>
           </span>
-          <span className="text-[0.8rem] uppercase tracking-wider text-slate-400 dark:text-slate-500 sm:text-right">
+          <span className="text-[0.8rem] uppercase tracking-wider text-[var(--text-mid)] sm:text-right">
             {life}
           </span>
         </li>
@@ -273,9 +273,9 @@ function CookieTable({ rows }: { rows: [string, string, string, string][] }) {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, id, children }: { title: string; id?: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.07] p-8 dark:shadow-none">
+    <div id={id} className="scroll-mt-24 rounded-lg bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.07] p-8 dark:shadow-none">
       <h2 className="text-lg font-medium text-slate-900 dark:text-white mb-4 tracking-tight">{title}</h2>
       <div className="text-slate-600 dark:text-slate-400 leading-relaxed text-[0.95rem]">{children}</div>
     </div>

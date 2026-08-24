@@ -628,7 +628,7 @@ export default function ProjectBuilder() {
                       <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
                         €<AnimatedNumber value={estimate.netMin} /> – €<AnimatedNumber value={estimate.netMax} />
                       </div>
-                      <div className="text-[10px] text-slate-400 dark:text-slate-500 line-through tabular-nums">
+                      <div className="text-[10px] text-[var(--text-mid)] line-through tabular-nums">
                         €{estimate.min} – €{estimate.max}
                       </div>
                     </>
@@ -834,7 +834,7 @@ export default function ProjectBuilder() {
                               </p>
                               {price && (
                                 <p
-                                  className={`text-xs font-semibold mt-1 ${ isSelected ? "text-[#3CE7FC]" : "text-slate-400 dark:text-slate-500" }`}
+                                  className={`text-xs font-semibold mt-1 ${ isSelected ? "text-[#3CE7FC]" : "text-[var(--text-mid)]" }`}
                                 >
                                   +€{price.min.toLocaleString("de-DE")} – €{price.max.toLocaleString("de-DE")}
                                 </p>

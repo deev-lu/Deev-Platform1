@@ -65,7 +65,7 @@ function MetricCard({
       <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
       <div className="p-6">
       <div className="mb-4">
-        <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
+        <div className="text-xs font-semibold uppercase tracking-widest text-[var(--text-mid)] mb-2">
           {title}
         </div>
         <div className="text-4xl font-extrabold text-[var(--signal)] tracking-tight">

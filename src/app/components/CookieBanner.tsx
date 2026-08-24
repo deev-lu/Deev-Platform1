@@ -222,7 +222,7 @@ export default function CookieBanner() {
                 We set what the site needs to work. With your consent we also
                 measure how it is used, so we can improve it. You can change or
                 withdraw this at any time.{" "}
-                <Link to="/legal" className="text-[var(--signal-text)] hover:underline">
+                <Link to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
                   Cookie &amp; privacy policy
                 </Link>
               </p>
@@ -363,7 +363,7 @@ export default function CookieBanner() {
                   >
                     Policy version {CONSENT_VERSION}. We ask again after twelve
                     months, or sooner if the policy changes. Full detail in the{" "}
-                    <Link to="/legal" className="text-[var(--signal-text)] hover:underline">
+                    <Link to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
                       cookie &amp; privacy policy
                     </Link>
                     .

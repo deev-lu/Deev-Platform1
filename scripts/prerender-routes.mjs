@@ -107,6 +107,18 @@ for (const [routePath, route] of Object.entries(routes)) {
   // A case study should describe itself, not just inherit the studio's
   // ProfessionalService block from the homepage template. Every value below is
   // a fact from projects.data.json: no ratings, no invented claims.
+  if (!route.project && routePath !== "/") {
+    const graph = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Deev", item: `${SITE}/` },
+        { "@type": "ListItem", position: 2, name: route.title.split("|")[0].trim(), item: url },
+      ],
+    };
+    html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(graph)}</script>\n  </head>`);
+  }
+
   if (route.project) {
     const p = route.project;
     const graph = {

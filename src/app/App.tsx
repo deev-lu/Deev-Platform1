@@ -19,6 +19,7 @@ const AiConcepts        = lazy(() => import("./components/AiConcepts"));
 const WorkMoment        = lazy(() => import("./components/WorkMoment"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
+import ScrollReset from "./components/ScrollReset";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const ValueProposition  = lazy(() => import("./components/ValueProposition"));
@@ -125,6 +126,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollReset />
       <RouteMeta />
       <Routes>
         <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />

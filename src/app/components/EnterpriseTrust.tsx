@@ -154,7 +154,7 @@ export default function EnterpriseTrust() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="text-xs font-medium uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-5">
+          <div className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-mid)] mb-5">
             Our production stack
           </div>
           <div className="flex flex-wrap justify-center gap-2.5">

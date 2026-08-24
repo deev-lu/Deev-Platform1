@@ -180,7 +180,7 @@ export default function Contact() {
                     <Icon className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
+                    <div className="text-xs font-medium uppercase tracking-wider text-[var(--text-mid)] mb-1">
                       {item.label}
                     </div>
                     <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 break-words">
@@ -351,7 +351,7 @@ export default function Contact() {
                     )}
                   </button>
 
-                  <p className="text-xs text-center text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-center text-[var(--text-mid)]">
                     By submitting, you agree we may contact you about your
                     enquiry. We never share your details.
                   </p>

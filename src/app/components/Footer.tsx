@@ -5,11 +5,13 @@ import MadeInLuxembourg from "./MadeInLuxembourg";
 import { openCookieSettings } from "../../lib/consent";
 
 const navigation = {
+  // Each of these used to be href="#": four links that went nowhere, on every
+  // page of the site. They point at the section that actually describes them.
   services: [
-    { name: "Web Applications", href: "#" },
-    { name: "AI Agents", href: "#" },
-    { name: "E-Commerce Systems", href: "#" },
-    { name: "Marketing Websites", href: "#" },
+    { name: "Web Applications", href: "/#services" },
+    { name: "AI Agents", href: "/#ai" },
+    { name: "E-Commerce Systems", href: "/#services" },
+    { name: "Marketing Websites", href: "/#marketing" },
   ],
   company: [
     { name: "Services", href: "/#services" },
@@ -18,10 +20,12 @@ const navigation = {
     { name: "Why Deev", href: "/#why-deev" },
     { name: "Contact", href: "/contact" },
   ],
+  // Three links to one URL taught nothing; the anchors land on the section
+  // each name promises.
   legal: [
     { name: "Terms & Legal", href: "/legal" },
-    { name: "Privacy Policy", href: "/legal" },
-    { name: "Cookie Policy", href: "/legal" },
+    { name: "Privacy Policy", href: "/legal#data-protection" },
+    { name: "Cookie Policy", href: "/legal#cookies" },
   ],
 };
 

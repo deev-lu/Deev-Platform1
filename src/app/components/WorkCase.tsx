@@ -3,7 +3,6 @@ import { motion } from "motion/react";
 import { Link, useParams, useNavigate } from "react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getProject, nextProject } from "../../lib/projects";
-import { scrollToTop } from "../../lib/smoothScroll";
 
 /**
  * /work/:slug — a dedicated page per project.
@@ -17,10 +16,6 @@ export default function WorkCase() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const project = getProject(slug);
-
-  useEffect(() => {
-    scrollToTop(true);
-  }, [slug]);
 
   useEffect(() => {
     if (!project) navigate("/", { replace: true });
