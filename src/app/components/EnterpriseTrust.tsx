@@ -1,40 +1,7 @@
 import { motion } from "motion/react";
 import { ShieldCheck, Lock, Users, CalendarCheck } from "lucide-react";
 import CountUp from "./CountUp";
-
-const credentials = [
-  { value: "50+", label: "Projects delivered" },
-  { value: "100%", label: "On-time delivery" },
-  { value: "EU", label: "Based in Luxembourg" },
-  { value: "In-house", label: "Design and engineering" },
-];
-
-const pillars = [
-  {
-    icon: ShieldCheck,
-    title: "GDPR & data sovereignty",
-    description:
-      "EU-hosted infrastructure and GDPR-compliant by default. Your data stays in Europe, handled to the standard regulated industries demand.",
-  },
-  {
-    icon: Lock,
-    title: "Security-first engineering",
-    description:
-      "Secure-by-design architecture, dependency auditing, and least-privilege access on every project, not an afterthought bolted on later.",
-  },
-  {
-    icon: Users,
-    title: "Direct delivery",
-    description:
-      "You work directly with the people building your system. No offshore handoffs, no account-manager wall, and nobody relaying your brief to a team you never meet.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Fixed scope, clear milestones",
-    description:
-      "Defined deliverables, transparent timelines, and milestone-based delivery. You always know what's shipping next: no surprises, no scope drift.",
-  },
-];
+import { useT } from "../../lib/useT";
 
 const stack = [
   "Next.js",
@@ -50,6 +17,11 @@ const stack = [
 ];
 
 export default function EnterpriseTrust() {
+  const t = useT();
+  // The icons are structural and stay here; every word comes from the dictionary.
+  const ICONS = [ShieldCheck, Lock, Users, CalendarCheck];
+  const pillars = t.home.trust.pillars.map((p, i) => ({ ...p, icon: ICONS[i] }));
+
   return (
     <section className="relative bg-[var(--surface-1)] border-t border-[var(--line)]" style={{ paddingBlock: "var(--section-y)" }}>
       {/* Ambient aurora, both themes, so the clear glass has colour to refract */}
@@ -68,21 +40,20 @@ export default function EnterpriseTrust() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">09</span> / Why Deev
+              <span className="text-[var(--metal)]">09</span> / {t.home.trust.eyebrow}
             </span>
           </div>
           <h2
             className="text-[var(--text-hi)] font-medium"
             style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "20ch" }}
           >
-            Engineered to be trusted with what matters.
+            {t.home.trust.title}
           </h2>
           <p
             className="text-[var(--text-mid)] mt-6"
             style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
           >
-            High-stakes projects need more than good design. They need a partner
-            who reduces your risk at every step.
+            {t.home.trust.lead}
           </p>
         </motion.div>
 
@@ -93,7 +64,7 @@ export default function EnterpriseTrust() {
           viewport={{ once: true }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 mb-20"
         >
-          {credentials.map((c) => (
+          {t.home.trust.credentials.map((c) => (
             <div
               key={c.label}
               className="border-t border-[var(--line)] pt-6"
@@ -147,7 +118,7 @@ export default function EnterpriseTrust() {
                     className="text-[var(--text-mid)]"
                     style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "62ch" }}
                   >
-                    {pillar.description}
+                    {pillar.copy}
                   </p>
                 </div>
               </motion.li>
@@ -163,7 +134,7 @@ export default function EnterpriseTrust() {
           className="text-center"
         >
           <div className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-mid)] mb-5">
-            Our production stack
+            {t.home.trust.stackLabel}
           </div>
           <div className="flex flex-wrap justify-center gap-2.5">
             {stack.map((tech) => (

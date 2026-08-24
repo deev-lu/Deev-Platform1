@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle, Eyebrow } from "./Section";
+import { useT } from "../../lib/useT";
 import { Deck, CARD_BASE } from "./Deck";
 
 /**
@@ -13,45 +14,16 @@ import { Deck, CARD_BASE } from "./Deck";
  * Copy is unchanged from the previous implementation.
  */
 
-const values = [
-  {
-    index: "01",
-    title: "AI-native products",
-    description:
-      "AI agents and assistants that actually know your business: answering customers, qualifying leads and handling the busywork your team shouldn't be stuck with.",
-  },
-  {
-    index: "02",
-    title: "Platforms that scale",
-    description:
-      "Web apps and platforms that handle real customers from day one, and keep working just as well when you're ten times busier.",
-  },
-  {
-    index: "03",
-    title: "Websites that convert",
-    description:
-      "Fast, beautiful websites that turn visitors into customers, and that Google actually rewards.",
-  },
-  {
-    index: "04",
-    title: "Growth that performs",
-    description:
-      "Ads, SEO and campaigns that bring you qualified leads, measured properly, so you always know what's working.",
-  },
-];
-
-const steps = [
-  { number: "01", title: "Understand", description: "We start by understanding your business, your goals and what you're up against." },
-  { number: "02", title: "Build", description: "We build it ourselves, in-house. No outsourcing, no passing your project down a chain." },
-  { number: "03", title: "Launch", description: "Tested and monitored, ready for real customers from the first day it's live." },
-  { number: "04", title: "Scale", description: "We stick around: improving, supporting and keeping you ahead." },
-];
-
 export default function ValueProposition() {
+  const t = useT();
+  const nn = (i: number) => String(i + 1).padStart(2, "0");
+  const values = t.home.values.items.map((v, i) => ({ ...v, index: nn(i) }));
+  const steps = t.home.values.steps.map((s, i) => ({ ...s, number: nn(i) }));
+
   return (
-    <Section index="03" eyebrow="What we build" tone={0}>
+    <Section index="03" eyebrow={t.home.values.eyebrow} tone={0}>
       <div className="max-w-[760px] mb-16">
-        <SectionTitle>Everything your business needs to compete online</SectionTitle>
+        <SectionTitle>{t.home.values.title}</SectionTitle>
       </div>
 
       {/* ── §6D — four panels. A swipeable deck on phones, the bordered
@@ -89,7 +61,7 @@ export default function ValueProposition() {
               className="text-[var(--text-mid)]"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
             >
-              {v.description}
+              {v.copy}
             </p>
           </motion.li>
         ))}
@@ -97,7 +69,7 @@ export default function ValueProposition() {
 
       {/* ── §6E — process as a diagram ────────────────────────── */}
       <div className="mt-28">
-        <Eyebrow index="03.1">How we work</Eyebrow>
+        <Eyebrow index="03.1">{t.home.values.processEyebrow}</Eyebrow>
 
         {/* desktop: nodes hung from one rule */}
         <div className="hidden md:block">
@@ -126,7 +98,7 @@ export default function ValueProposition() {
                     className="text-[var(--text-mid)]"
                     style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}
                   >
-                    {s.description}
+                    {s.copy}
                   </p>
                 </motion.div>
               ))}
@@ -149,7 +121,7 @@ export default function ValueProposition() {
                 {s.title}
               </h3>
               <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}>
-                {s.description}
+                {s.copy}
               </p>
             </div>
           ))}

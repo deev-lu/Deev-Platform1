@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
+import { useT } from "../../lib/useT";
 
 /**
  * §6C — Positioning + advantages.
@@ -7,39 +8,20 @@ import { Section, SectionTitle } from "./Section";
  * Advantages are hairline-separated rows, not cards: mono index, title, copy.
  */
 
-const ADVANTAGES = [
-  {
-    index: "01",
-    title: "Predictable enquiries",
-    copy: "Traffic is directed at a single goal and the path to it is designed, so qualified enquiries arrive steadily instead of by chance.",
-  },
-  {
-    index: "02",
-    title: "Measurable outcomes",
-    copy: "Every build ships with analytics wired in from day one, so you can see what the work returns rather than take it on faith.",
-  },
-  {
-    index: "03",
-    title: "AI where it earns its place",
-    copy: "Automation applied to the steps that actually cost you time, not bolted on because the word sells.",
-  },
-  {
-    index: "04",
-    title: "Full transparency",
-    copy: "You talk to the people who design and build your project, and you always know what is being worked on and why.",
-  },
-];
-
 export default function BenefitsPanel() {
+  const t = useT();
+  const advantages = t.home.benefits.items.map((a, i) => ({
+    ...a,
+    index: String(i + 1).padStart(2, "0"),
+  }));
+
   return (
-    <Section index="02" eyebrow="Why it works" tone={1}>
+    <Section index="02" eyebrow={t.home.benefits.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <SectionTitle>
-              Digital systems engineered for sustainable growth
-            </SectionTitle>
+            <SectionTitle>{t.home.benefits.title}</SectionTitle>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -48,16 +30,13 @@ export default function BenefitsPanel() {
               className="mt-6 text-[var(--text-mid)]"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
             >
-              We build the whole system, not a single piece of it: the site, the
-              product behind it, and the campaigns that feed it. Clear structure,
-              decisions grounded in data, and work whose commercial effect can
-              actually be measured.
+              {t.home.benefits.lead}
             </motion.p>
           </div>
         </div>
 
         <ul className="lg:col-span-7 border-t border-[var(--line)]">
-          {ADVANTAGES.map((a, i) => (
+          {advantages.map((a, i) => (
             <motion.li
               key={a.index}
               initial={{ opacity: 0, y: 12 }}

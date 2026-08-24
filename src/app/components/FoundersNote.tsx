@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Link } from "react-router";
+import L from "./L";
 import { Section, SectionTitle } from "./Section";
+import { useT } from "../../lib/useT";
 import { FOUNDERS, TEAM_READY } from "../../lib/team";
 
 /**
@@ -35,6 +36,7 @@ import { FOUNDERS, TEAM_READY } from "../../lib/team";
  */
 
 export default function FoundersNote() {
+  const t = useT();
   const ref = useRef<HTMLUListElement>(null);
   const near = useInView(ref, { once: true, margin: "600px" });
 
@@ -42,12 +44,12 @@ export default function FoundersNote() {
   if (!TEAM_READY) return null;
 
   return (
-    <Section index="10" eyebrow="Who you'll work with" tone={1}>
+    <Section index="10" eyebrow={t.home.founders.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14 items-end">
 
         {/* ── The note ─────────────────────────────────────── */}
         <div className="lg:col-span-5 lg:pb-4">
-          <SectionTitle>Two founders. Both of them on your project.</SectionTitle>
+          <SectionTitle>{t.home.founders.title}</SectionTitle>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -57,8 +59,7 @@ export default function FoundersNote() {
             className="mt-6 text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
           >
-            There is no sales layer here. When you write to DEEV you reach the
-            two of us directly, and you keep that line until launch day.
+            {t.home.founders.body1}
           </motion.p>
 
           <motion.p
@@ -69,21 +70,19 @@ export default function FoundersNote() {
             className="mt-6 text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
           >
-            A small studio in Luxembourg with a team behind it. That is
-            deliberate: fewer projects, run properly, by the people whose names
-            are on them.
+            {t.home.founders.body2}
           </motion.p>
 
-          <Link
+          <L
             to="/contact"
             className="group inline-flex items-center gap-3 mt-10 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
             style={{ fontSize: "var(--t-small)" }}
           >
-            Talk to us directly
+            {t.home.founders.cta}
             <span className="inline-block transition-transform duration-[var(--dur-1)] group-hover:translate-x-1">
               &rarr;
             </span>
-          </Link>
+          </L>
         </div>
 
         {/* ── The two of them ──────────────────────────────── */}
@@ -102,7 +101,7 @@ export default function FoundersNote() {
                   {near && (
                     <img
                       src={f.photo}
-                      alt={`${f.name}, ${f.role} at DEEV`}
+                      alt={t.home.founders.photoAlt(f.name, t.home.founders.role)}
                       decoding="async"
                       width={800}
                       height={800}
@@ -122,7 +121,7 @@ export default function FoundersNote() {
                     className="eyebrow-mono uppercase text-[var(--text-low)] mt-2"
                     style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                   >
-                    {f.role}
+                    {t.home.founders.role}
                   </div>
                 </div>
               </motion.li>

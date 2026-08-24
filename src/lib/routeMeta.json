@@ -1,22 +1,100 @@
 {
-  "/": {
-    "file": "index.html",
-    "title": "DEEV: AI-Native Digital Agency in Luxembourg",
-    "description": "AI-native web systems, web apps and lead campaigns engineered in Luxembourg to convert, automate and scale. Up to 70% funded by the SME state grant."
+  "routes": {
+    "/": {
+      "file": "index.html",
+      "meta": {
+        "en": {
+          "title": "DEEV: AI-Native Digital Agency in Luxembourg",
+          "description": "AI-native web systems, web apps and lead campaigns engineered in Luxembourg to convert, automate and scale. Up to 70% funded by the SME state grant."
+        },
+        "fr": {
+          "title": "DEEV : agence digitale AI-native au Luxembourg",
+          "description": "Systèmes web, applications et campagnes AI-native conçus au Luxembourg pour convertir, automatiser et grandir. Jusqu'à 70% financés par l'aide d'État aux PME."
+        },
+        "de": {
+          "title": "DEEV: AI-native Digitalagentur in Luxemburg",
+          "description": "AI-native Websysteme, Webanwendungen und Lead-Kampagnen, entwickelt in Luxemburg für Conversion, Automatisierung und Wachstum. Bis zu 70% staatlich gefördert."
+        }
+      }
+    },
+    "/work": {
+      "file": "work.html",
+      "meta": {
+        "en": {
+          "title": "Work: websites, online stores and web apps | DEEV",
+          "description": "Every project DEEV has shipped, by type: websites, online stores and web apps, built in Luxembourg for companies across Europe."
+        },
+        "fr": {
+          "title": "Réalisations : sites, boutiques en ligne et applications web | DEEV",
+          "description": "Tous les projets livrés par DEEV, par type : sites web, boutiques en ligne et applications web, conçus au Luxembourg pour des entreprises de toute l'Europe."
+        },
+        "de": {
+          "title": "Referenzen: Websites, Onlineshops und Webanwendungen | DEEV",
+          "description": "Alle von DEEV umgesetzten Projekte nach Art: Websites, Onlineshops und Webanwendungen, gebaut in Luxemburg für Unternehmen in ganz Europa."
+        }
+      }
+    },
+    "/contact": {
+      "file": "contact.html",
+      "meta": {
+        "en": {
+          "title": "Contact DEEV: Let's talk about your project",
+          "description": "Tell us what you're building. We read every message and reply personally, usually within one business day. DEEV, AI-native digital engineering in Luxembourg."
+        },
+        "fr": {
+          "title": "Contacter DEEV : parlons de votre projet",
+          "description": "Dites-nous ce que vous construisez. Nous lisons chaque message et répondons personnellement, en général sous un jour ouvré. DEEV, ingénierie numérique AI-native au Luxembourg."
+        },
+        "de": {
+          "title": "DEEV kontaktieren: Sprechen wir über Ihr Projekt",
+          "description": "Erzählen Sie uns, was Sie bauen. Wir lesen jede Nachricht und antworten persönlich, meist innerhalb eines Werktags. DEEV, AI-native Digital Engineering in Luxemburg."
+        }
+      }
+    },
+    "/legal": {
+      "file": "legal.html",
+      "meta": {
+        "en": {
+          "title": "Terms & Legal Notice | DEEV",
+          "description": "Terms of service, legal notice, data protection and cookie policy for DEEV, Lux VR States Sàrl-s, Clemency, Luxembourg."
+        },
+        "fr": {
+          "title": "Conditions et mentions légales | DEEV",
+          "description": "Conditions générales, mentions légales, protection des données et politique de cookies de DEEV, Lux VR States Sàrl-s, Clemency, Luxembourg."
+        },
+        "de": {
+          "title": "AGB und Impressum | DEEV",
+          "description": "Allgemeine Geschäftsbedingungen, Impressum, Datenschutz und Cookie-Richtlinie von DEEV, Lux VR States Sàrl-s, Clemency, Luxemburg."
+        }
+      }
+    }
   },
-  "/work": {
-    "file": "work.html",
-    "title": "Work: websites, online stores and web apps | DEEV",
-    "description": "Every project DEEV has shipped, by type: websites, online stores and web apps, built in Luxembourg for companies across Europe."
+  "workCase": {
+    "en": {
+      "title": "{title} | {category} | DEEV",
+      "description": "{title}: a {categoryLower} designed and built by DEEV, an AI-native digital engineering studio in Luxembourg. Shipped {year}."
+    },
+    "fr": {
+      "title": "{title} | {category} | DEEV",
+      "description": "{title} : un projet conçu et développé par DEEV, studio d'ingénierie numérique AI-native au Luxembourg. Livré en {year}."
+    },
+    "de": {
+      "title": "{title} | {category} | DEEV",
+      "description": "{title}: ein Projekt, entworfen und gebaut von DEEV, einem AI-native Digital-Engineering-Studio in Luxemburg. Umgesetzt {year}."
+    }
   },
-  "/contact": {
-    "file": "contact.html",
-    "title": "Contact DEEV: Let's talk about your project",
-    "description": "Tell us what you're building. We read every message and reply personally, usually within one business day. DEEV, AI-native digital engineering in Luxembourg."
-  },
-  "/legal": {
-    "file": "legal.html",
-    "title": "Terms & Legal Notice | DEEV",
-    "description": "Terms of service, legal notice, data protection and cookie policy for DEEV, Lux VR States Sàrl-s, Clemency, Luxembourg."
+  "notFound": {
+    "en": {
+      "title": "Page not found | DEEV",
+      "description": "That page does not exist. Everything DEEV has published is one click away from the homepage."
+    },
+    "fr": {
+      "title": "Page introuvable | DEEV",
+      "description": "Cette page n'existe pas. Tout ce que DEEV a publié se trouve à un clic de la page d'accueil."
+    },
+    "de": {
+      "title": "Seite nicht gefunden | DEEV",
+      "description": "Diese Seite gibt es nicht. Alles, was DEEV veröffentlicht hat, ist einen Klick von der Startseite entfernt."
+    }
   }
 }

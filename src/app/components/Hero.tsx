@@ -1,7 +1,9 @@
 import { lazy, Suspense } from "react";
 import { motion } from "motion/react";
-import { Link } from "react-router";
 import { ArrowRight, Check } from "lucide-react";
+import L from "./L";
+import { useT } from "../../lib/useT";
+import { mark } from "../../lib/i18nMark";
 import HeroReach from "./HeroReach";
 import LuxShade from "./LuxShade";
 import NoiseOverlay from "./NoiseOverlay";
@@ -10,15 +12,11 @@ import { scrollToId } from "../../lib/smoothScroll";
 const HeroMark = lazy(() => import("./HeroMark"));
 
 
-// Stated plainly under the headline. Every line here is something the site
-// already claims elsewhere — nothing new is asserted.
-const CLAIMS = [
-  "AI-native web platforms, web apps and online stores",
-  "Lead engines engineered to convert, not just to look good",
-  "Up to 70% funded by the Luxembourg SME state grant",
-];
-
+// The three claims under the headline are in the dictionary: every line is
+// something the site already says elsewhere, nothing new is asserted.
 export default function Hero() {
+  const t = useT();
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-50 dark:bg-[#06060a] pt-28 sm:pt-32 pb-16 transition-colors duration-300">
 
@@ -71,7 +69,7 @@ export default function Hero() {
           >
             <span className="flex items-center gap-2.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563F6] dark:bg-[#3CE7FC] animate-pulse" />
-              AI-native digital engineering, Luxembourg
+              {t.home.hero.eyebrow}
             </span>
             <span className="h-px w-12 bg-gradient-to-r from-[#3CE7FC]/70 to-transparent" />
           </motion.div>
@@ -88,11 +86,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="block">
-              Platforms that <span className="text-[var(--signal-text)]">convert</span>.
-            </span>
-            <span className="block">Systems that scale.</span>
-            <span className="block">Built in Luxembourg.</span>
+            {t.home.hero.title.map((line) => (
+              <span key={line} className="block">
+                {mark(line, "text-[var(--signal-text)]")}
+              </span>
+            ))}
           </motion.h1>
 
           {/* Subtitle */}
@@ -102,9 +100,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            AI-powered platforms, web apps and digital systems engineered to
-            convert, automate and scale, built in Luxembourg for ambitious
-            companies across Europe.
+            {t.home.hero.lead}
           </motion.p>
 
           {/* Three concrete claims, stated plainly */}
@@ -114,7 +110,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            {CLAIMS.map((claim) => (
+            {t.home.hero.claims.map((claim) => (
               <li key={claim} className="flex items-start gap-3">
                 <Check className="w-[18px] h-[18px] mt-[3px] shrink-0 text-[#2563F6] dark:text-[#3CE7FC]" />
                 <span className="text-[15px] text-slate-600 dark:text-slate-300">{claim}</span>
@@ -135,18 +131,18 @@ export default function Hero() {
               style={{ background: "var(--signal)" }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2.5">
-                Configure your project
+                {t.home.hero.ctaPrimary}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#2F6FF8] to-[#1747C4] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
 
-            <Link
+            <L
               to="/contact"
               className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-lg font-semibold text-base text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-white/[0.12] hover:border-[#2563F6]/50 dark:hover:border-white/25 hover:text-[#2563F6] dark:hover:text-white transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
             >
-              Book a strategy call
-            </Link>
+              {t.home.hero.ctaSecondary}
+            </L>
           </motion.div>
 
         </div>

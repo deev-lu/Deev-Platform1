@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import L from "./L";
 import { scrollToId } from "../../lib/smoothScroll";
+import { useT } from "../../lib/useT";
 
 /**
  * §6K — Closing CTA. Near-empty: one headline at h1 scale, one paragraph,
@@ -8,6 +9,8 @@ import { scrollToId } from "../../lib/smoothScroll";
  * Copy unchanged from the previous implementation.
  */
 export default function FinalCTA() {
+  const t = useT();
+
   return (
     <section className="relative bg-[var(--surface-0)] border-t border-[var(--line)]">
       <div
@@ -31,7 +34,7 @@ export default function FinalCTA() {
             maxWidth: "18ch",
           }}
         >
-          Let&rsquo;s build something extraordinary.
+          {t.home.finalCta.title}
         </motion.h2>
 
         <motion.p
@@ -42,8 +45,7 @@ export default function FinalCTA() {
           className="text-[var(--text-mid)] mx-auto mt-8"
           style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
         >
-          No sales layer, no account managers. When you write to DEEV, you talk
-          directly to the people who design, build and ship your project.
+          {t.home.finalCta.body}
         </motion.p>
 
         <motion.div
@@ -64,19 +66,19 @@ export default function FinalCTA() {
               fontSize: "var(--t-small)",
             }}
           >
-            Configure your project
+            {t.home.finalCta.primary}
           </button>
 
-          <Link
+          <L
             to="/contact"
             className="group inline-flex items-center gap-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
             style={{ fontSize: "var(--t-small)" }}
           >
-            Book a strategy call
+            {t.home.finalCta.secondary}
             <span className="inline-block transition-transform duration-[var(--dur-1)] group-hover:translate-x-1">
-              →
+              &rarr;
             </span>
-          </Link>
+          </L>
         </motion.div>
       </div>
     </section>

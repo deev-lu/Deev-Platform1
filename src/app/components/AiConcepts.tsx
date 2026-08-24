@@ -1,5 +1,7 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
+import { useT } from "../../lib/useT";
+import { mark } from "../../lib/i18nMark";
 import { Deck, CARD_BASE } from "./Deck";
 
 /**
@@ -15,52 +17,22 @@ import { Deck, CARD_BASE } from "./Deck";
  * The funding figures are public: Luxinnovation's SME Package AI & Digital.
  */
 
-const METHOD = [
-  {
-    index: "01",
-    title: "Discovery, on site",
-    copy: "A working session with the people who actually run the processes, not a management interview. We walk each workflow with the person who lives in it and record where it stalls.",
-  },
-  {
-    index: "02",
-    title: "Every flow, end to end",
-    copy: "For each major process we reconstruct the full path of information, from the trigger to the resolution, noting every manual handoff, every tool involved and every point where work waits.",
-  },
-  {
-    index: "03",
-    title: "Costed, not asserted",
-    copy: "Each bottleneck is converted into an estimated annual cost from your own volumes and a conservative loaded hourly rate, then sanity-checked against comparable firms. You get arithmetic you can argue with, not adjectives.",
-  },
-  {
-    index: "04",
-    title: "An architecture that integrates",
-    copy: "The systems you already run stay. The AI layer sits on top of them, so the existing investment is protected and adoption can be gradual instead of a migration.",
-  },
-  {
-    index: "05",
-    title: "A phased roadmap",
-    copy: "Twelve months, four phases, each one shipping something usable in production. No AI project worth doing runs as a single launch, and the first tangible gains land inside the first two months.",
-  },
-];
-
 export default function AiConcepts() {
+  const t = useT();
+  const METHOD = t.home.ai.method.map((m, i) => ({ ...m, index: String(i + 1).padStart(2, "0") }));
+
   return (
-    <Section index="06" eyebrow="AI workshops & concepts" tone={0}>
+    <Section index="06" eyebrow={t.home.ai.eyebrow} tone={0}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <SectionTitle>
-              Before we build anything, we map where AI actually pays.
-            </SectionTitle>
+            <SectionTitle>{t.home.ai.title}</SectionTitle>
             <p
               className="mt-6 text-[var(--text-mid)]"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
             >
-              We run AI discovery workshops with operations teams and turn them
-              into an executive concept: the bottlenecks, what each one costs a
-              year, the architecture that removes them, and a phased plan to get
-              there. It is a document you can take to a board, not a pitch deck.
+              {t.home.ai.lead}
             </p>
 
             <div className="mt-10 border-t border-[var(--line)] pt-6">
@@ -68,16 +40,13 @@ export default function AiConcepts() {
                 className="eyebrow-mono uppercase text-[var(--text-low)] mb-3"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                Funding
+                {t.home.ai.fundingLabel}
               </div>
               <p
                 className="text-[var(--text-mid)]"
                 style={{ fontSize: "var(--t-small)", lineHeight: 1.55, maxWidth: "46ch" }}
               >
-                Luxembourg SMEs can cover up to{" "}
-                <span className="text-[var(--positive)]">70%</span> of eligible
-                costs through Luxinnovation&rsquo;s SME Package AI &amp; Digital,
-                capped at €25,000 of grant per project.
+                {mark(t.home.ai.funding, "text-[var(--positive)]")}
               </p>
             </div>
           </div>
@@ -132,24 +101,16 @@ export default function AiConcepts() {
               className="eyebrow-mono uppercase text-[var(--text-low)] mb-6"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              A recent concept
+              {t.home.ai.exampleLabel}
             </div>
             <p
               className="text-[var(--text)] mb-8"
               style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "52ch" }}
             >
-              For a Luxembourg property-management group we ran a discovery
-              session with its operations and process leads, mapped seven
-              business processes end to end, and delivered a thirty-page
-              executive concept.
+              {t.home.ai.example}
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
-              {[
-                "Seven operational bottlenecks identified and individually costed",
-                "A four-pillar AI architecture layered over the existing systems",
-                "A twelve-month roadmap in four production phases",
-                "Eligible cost and grant path mapped per phase",
-              ].map((line) => (
+              {t.home.ai.exampleBullets.map((line) => (
                 <li key={line} className="grid grid-cols-[auto_1fr] gap-x-4">
                   <span className="mt-[9px] w-4 h-px bg-[var(--signal)] shrink-0" />
                   <span

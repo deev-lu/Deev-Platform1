@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react";
 import NoiseOverlay from "./NoiseOverlay";
+import { useT } from "../../lib/useT";
+import type { Dict } from "../../locales";
 import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
@@ -21,25 +23,9 @@ import { useIsMobile } from "../../lib/useIsMobile";
  *      section's own scroll progress rather than by a sticky viewport.
  */
 
-const LAYERS = [
-  {
-    n: "01",
-    name: "Interface",
-    desc: "The websites and products your customers touch: fast, precise, engineered to convert.",
-  },
-  {
-    n: "02",
-    name: "Intelligence",
-    desc: "AI agents and automations working inside your operations: qualifying, answering, executing.",
-  },
-  {
-    n: "03",
-    name: "Infrastructure",
-    desc: "EU-hosted, GDPR-native foundations built to scale without drama.",
-  },
-];
-
 export default function SystemStack() {
+  const t = useT();
+  const LAYERS = t.home.stack.layers.map((l, i) => ({ ...l, n: String(i + 1).padStart(2, "0") }));
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
@@ -71,7 +57,7 @@ export default function SystemStack() {
       </div>
 
       <div>
-        <Header />
+        <Header title={t.home.stack.title} eyebrow={t.home.stack.eyebrow} />
         <ul className="mt-10 lg:mt-12">
           {LAYERS.map((l, i) => (
             <Row key={l.n} layer={l} on={allActive || active === i} />
@@ -133,7 +119,7 @@ export default function SystemStack() {
   );
 }
 
-function Header() {
+function Header({ title, eyebrow }: { title: string; eyebrow: string }) {
   return (
     <>
       <div className="flex items-center gap-4 mb-8 lg:mb-10">
@@ -142,14 +128,14 @@ function Header() {
           className="eyebrow-mono uppercase text-[var(--text-low)]"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
         >
-          <span className="text-[var(--metal)]">04</span> / How it runs
+          <span className="text-[var(--metal)]">04</span> / {eyebrow}
         </span>
       </div>
       <h2
         className="text-[var(--text-hi)] font-medium"
         style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "16ch" }}
       >
-        One system. Every layer engineered.
+        {title}
       </h2>
     </>
   );
@@ -182,7 +168,9 @@ function Plane({ i, on, size }: { i: number; on: boolean; size: number }) {
   );
 }
 
-function Row({ layer, on }: { layer: (typeof LAYERS)[number]; on: boolean }) {
+type Layer = Dict["home"]["stack"]["layers"][number] & { n: string };
+
+function Row({ layer, on }: { layer: Layer; on: boolean }) {
   return (
     <li className="relative grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-8 py-6 lg:py-7 border-t border-[var(--line)]">
       <span
@@ -210,7 +198,7 @@ function Row({ layer, on }: { layer: (typeof LAYERS)[number]; on: boolean }) {
           }`}
           style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "48ch" }}
         >
-          {layer.desc}
+          {layer.copy}
         </p>
       </div>
     </li>

@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useT } from "../../lib/useT";
 
 // Client logos
 import feltes      from "../../assets/clients/feltes.png";
@@ -65,6 +66,8 @@ function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
 }
 
 export default function ClientLogos() {
+  const t = useT();
+
   return (
     <section className="relative py-14 bg-white dark:bg-[#06060a] border-y border-slate-100 dark:border-white/[0.06] overflow-hidden">
       {/* Fade masks left & right */}
@@ -78,7 +81,7 @@ export default function ClientLogos() {
         viewport={{ once: true }}
         className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-10"
       >
-        Trusted by leading businesses in Luxembourg &amp; beyond
+        {t.home.logos.label}
       </motion.p>
 
       {/* Infinite marquee, CSS-driven, pauses on hover, two equal groups for a perfect seam */}

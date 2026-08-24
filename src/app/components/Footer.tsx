@@ -1,33 +1,37 @@
-import { Linkedin, Mail } from "lucide-react";
-import { Link } from "react-router";
+import { Linkedin } from "lucide-react";
 import logo from "../../assets/logo.png";
 import MadeInLuxembourg from "./MadeInLuxembourg";
+import L from "./L";
 import { openCookieSettings } from "../../lib/consent";
+import { useT, useLocalePath } from "../../lib/useT";
 
-const navigation = {
-  // Each of these used to be href="#": four links that went nowhere, on every
-  // page of the site. They point at the section that actually describes them.
+// Each of these used to be href="#": four links that went nowhere, on every
+// page of the site. They point at the section that actually describes them,
+// and the three legal links land on the section each name promises rather
+// than all three on the same page top.
+//
+// Structure here, wording in the dictionary: an anchor is the same in every
+// language, its label is not.
+const NAV = {
   services: [
-    { name: "Web Applications", href: "/#services" },
-    { name: "AI Agents", href: "/#ai" },
-    { name: "E-Commerce Systems", href: "/#services" },
-    { name: "Marketing Websites", href: "/#marketing" },
+    { key: "webApps", href: "/#services" },
+    { key: "aiAgents", href: "/#ai" },
+    { key: "ecommerce", href: "/#services" },
+    { key: "marketingSites", href: "/#marketing" },
   ],
   company: [
-    { name: "Services", href: "/#services" },
-    { name: "Portfolio", href: "/work" },
-    { name: "Pricing", href: "/#project-builder" },
-    { name: "Why Deev", href: "/#why-deev" },
-    { name: "Contact", href: "/contact" },
+    { key: "services", href: "/#services" },
+    { key: "portfolio", href: "/work" },
+    { key: "pricing", href: "/#project-builder" },
+    { key: "whyDeev", href: "/#why-deev" },
+    { key: "contact", href: "/contact" },
   ],
-  // Three links to one URL taught nothing; the anchors land on the section
-  // each name promises.
   legal: [
-    { name: "Terms & Legal", href: "/legal" },
-    { name: "Privacy Policy", href: "/legal#data-protection" },
-    { name: "Cookie Policy", href: "/legal#cookies" },
+    { key: "terms", href: "/legal" },
+    { key: "privacy", href: "/legal#data-protection" },
+    { key: "cookies", href: "/legal#cookies" },
   ],
-};
+} as const;
 
 // Custom SVG icon components for platforms not in lucide
 function TikTokIcon({ className }: { className?: string }) {
@@ -62,6 +66,21 @@ const socials = [
 ];
 
 export default function Footer() {
+  const t = useT();
+  const localePath = useLocalePath();
+  const linkClass =
+    "text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200";
+
+  /** "/#services" has to become "/fr/#services", not "/#fr/services". */
+  const href = (h: string) => {
+    const [path, hash] = h.split("#");
+    return localePath(path || "/") + (hash ? `#${hash}` : "");
+  };
+
+  const label = (k: string) =>
+    (t.site.footer.links as Record<string, string>)[k] ??
+    (t.site.nav as unknown as Record<string, string>)[k];
+
   return (
     <footer className="relative bg-white dark:bg-[#06060a] border-t border-slate-200 dark:border-white/[0.07]">
       <div className="max-w-7xl mx-auto px-6 py-16">
@@ -75,8 +94,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-sm">
-              An independent, founder-led studio in Luxembourg. We build digital
-              systems that make your business impossible to ignore.
+              {t.site.footer.blurb}
             </p>
             <div className="flex gap-4">
               {socials.map((social) => {
@@ -100,23 +118,20 @@ export default function Footer() {
             <div className="mt-8 flex items-center gap-3">
               <MadeInLuxembourg className="h-16 w-20 text-slate-800 dark:text-white/90 shrink-0" />
               <div className="text-xs leading-relaxed text-[var(--text-mid)]">
-                <div className="font-semibold text-slate-700 dark:text-slate-300">Certified label</div>
-                Proudly designed &amp; engineered in Luxembourg.
+                <div className="font-semibold text-slate-700 dark:text-slate-300">{t.site.footer.certified}</div>
+                {t.site.footer.certifiedNote}
               </div>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h2 className="text-slate-900 dark:text-white font-medium mb-6">Services</h2>
+            <h2 className="text-slate-900 dark:text-white font-medium mb-6">{t.site.footer.services}</h2>
             <ul className="space-y-3">
-              {navigation.services.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200"
-                  >
-                    {item.name}
+              {NAV.services.map((item) => (
+                <li key={item.key}>
+                  <a href={href(item.href)} className={linkClass}>
+                    {label(item.key)}
                   </a>
                 </li>
               ))}
@@ -125,21 +140,19 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h2 className="text-slate-900 dark:text-white font-medium mb-6">Company</h2>
+            <h2 className="text-slate-900 dark:text-white font-medium mb-6">{t.site.footer.company}</h2>
             <ul className="space-y-3">
-              {navigation.company.map((item) => {
-                const isRoute = item.href.startsWith("/") && !item.href.includes("#");
-                const cls =
-                  "text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200";
+              {NAV.company.map((item) => {
+                const isRoute = !item.href.includes("#");
                 return (
-                  <li key={item.name}>
+                  <li key={item.key}>
                     {isRoute ? (
-                      <Link to={item.href} className={cls}>
-                        {item.name}
-                      </Link>
+                      <L to={item.href} className={linkClass}>
+                        {label(item.key)}
+                      </L>
                     ) : (
-                      <a href={item.href} className={cls}>
-                        {item.name}
+                      <a href={href(item.href)} className={linkClass}>
+                        {label(item.key)}
                       </a>
                     )}
                   </li>
@@ -150,17 +163,13 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h2 className="text-slate-900 dark:text-white font-medium mb-6">Legal</h2>
+            <h2 className="text-slate-900 dark:text-white font-medium mb-6">{t.site.footer.legal}</h2>
             <ul className="space-y-3">
-              {navigation.legal.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200"
-                  >
-                    {item.name}
-                  </Link>
+              {NAV.legal.map((item) => (
+                <li key={item.key}>
+                  <L to={item.href} className={linkClass}>
+                    {label(item.key)}
+                  </L>
                 </li>
               ))}
               {/* Withdrawal has to be as easy as consent (GDPR Art. 7(3)), so
@@ -169,9 +178,9 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={openCookieSettings}
-                  className="text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200 cursor-pointer"
+                  className={`${linkClass} cursor-pointer`}
                 >
-                  Cookie settings
+                  {t.site.footer.links.cookieSettings}
                 </button>
               </li>
             </ul>
@@ -182,10 +191,10 @@ export default function Footer() {
         <div className="pt-8 border-t border-slate-200 dark:border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[var(--text-mid)] text-sm font-medium">
-              © {new Date().getFullYear()} Deev / Lux VR States Sàrl-s. All rights reserved.
+              {t.site.footer.rights(new Date().getFullYear())}
             </p>
             <p className="text-[var(--text-mid)] text-sm font-medium">
-              Engineered with precision in Luxembourg 
+              {t.site.footer.madeIn}
             </p>
           </div>
         </div>

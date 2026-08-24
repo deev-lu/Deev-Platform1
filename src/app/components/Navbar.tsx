@@ -5,17 +5,21 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
 import { TEAM_READY } from "../../lib/team";
+import { useT, useLocalePath } from "../../lib/useT";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface NavbarProps {}
 
-/** #about only exists while both founder portraits do. */
-const NAV_LINKS = [
-  { label: "Services",  href: "#services" },
-  { label: "Work", href: "/work" },
-  { label: "Pricing",   href: "#project-builder" },
-  { label: "Why Deev",  href: "#why-deev" },
-  { label: "About",     href: "#about" },
-  { label: "Contact",   href: "/contact" },
+/** #about only exists while both founder portraits do. The labels come from
+ *  the dictionary, the hrefs do not: an anchor is part of the page structure
+ *  and is the same in every language. */
+const NAV_HREFS = [
+  { key: "services" as const,  href: "#services" },
+  { key: "work" as const,      href: "/work" },
+  { key: "pricing" as const,   href: "#project-builder" },
+  { key: "whyDeev" as const,   href: "#why-deev" },
+  { key: "about" as const,     href: "#about" },
+  { key: "contact" as const,   href: "/contact" },
 ].filter((l) => l.href !== "#about" || TEAM_READY);
 
 interface NavbarProps {
@@ -28,6 +32,9 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [overDark, setOverDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const t = useT();
+  const localePath = useLocalePath();
+  const links = NAV_HREFS.map((l) => ({ ...l, label: t.site.nav[l.key] }));
 
   useEffect(() => {
     let frame = 0;
@@ -57,7 +64,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     setMenuOpen(false);
     // Route links (e.g. "/contact") navigate via the router
     if (href.startsWith("/")) {
-      navigate(href);
+      navigate(localePath(href));
       scrollToTop(true);
       return;
     }
@@ -103,7 +110,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-2">
-            {NAV_LINKS.map((link) => (
+            {links.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
@@ -118,13 +125,17 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             ))}
           </nav>
 
-          {/* Right side: CTA + burger */}
+          {/* Right side: language, theme, CTA, burger */}
           <div className="flex items-center gap-3">
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
+
             {toggleTheme && (
               <button
                 onClick={toggleTheme}
-                aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                title={theme === "dark" ? "Light mode" : "Dark mode"}
+                aria-label={theme === "dark" ? t.site.nav.toLight : t.site.nav.toDark}
+                title={theme === "dark" ? t.site.nav.toLight : t.site.nav.toDark}
                 className="w-9 h-9 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
                 style={{ borderRadius: "var(--radius-1)" }}
               >
@@ -142,14 +153,14 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px "
               style={{ background: "var(--signal)" }}
             >
-              Get a quote
+              {t.site.nav.cta}
             </button>
 
             {/* Mobile burger */}
             <button
               onClick={() => setMenuOpen((v) => !v)}
               className={`md:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${ scrolled ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]" : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]" }`}
-              aria-label="Toggle menu"
+              aria-label={menuOpen ? t.site.nav.closeMenu : t.site.nav.openMenu}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -168,7 +179,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             className="fixed top-[68px] left-0 right-0 z-30 bg-white/97 dark:bg-[#08080c]/97 border-b border-slate-200 dark:border-white/[0.08] md:hidden "
           >
             <nav className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
+              {links.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
@@ -183,8 +194,20 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90"
                 style={{ background: "var(--signal)" }}
               >
-                Get a quote →
+                {t.site.nav.cta} &rarr;
               </button>
+
+              {/* A dropdown inside a drawer is a trap on a phone. Three
+                  buttons in a row is the whole control. */}
+              <div className="mt-5 pt-5 border-t border-[var(--line)] flex items-center justify-between gap-4">
+                <span
+                  className="eyebrow-mono uppercase text-[var(--text-low)]"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                >
+                  {t.site.nav.language}
+                </span>
+                <LanguageSwitcher compact />
+              </div>
             </nav>
           </motion.div>
         )}

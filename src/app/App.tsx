@@ -1,5 +1,6 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense, Fragment, type ReactNode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
+import { LOCALES, DEFAULT_LOCALE } from "../lib/i18n";
 
 // Critical above-the-fold — eager loaded
 import Navbar from "./components/Navbar";
@@ -133,54 +134,42 @@ export default function App() {
       <ScrollReset />
       <RouteMeta />
       <Routes>
-        <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
-        <Route path="/legal" element={
-          <>
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Suspense fallback={<SectionSkeleton />}>
-              <Legal />
-            </Suspense>
-            <Footer />
-          </>
-        } />
-        <Route path="/work" element={
-          <>
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Suspense fallback={<SectionSkeleton />}>
-              <WorkIndex />
-            </Suspense>
-            <Footer />
-          </>
-        } />
-        <Route path="/work/:slug" element={
-          <>
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <WorkCase />
-            <Footer />
-          </>
-        } />
-        <Route path="/contact" element={
-          <>
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Suspense fallback={<SectionSkeleton />}>
-              <Contact />
-            </Suspense>
-            <Footer />
-          </>
-        } />
-        {/* Anything else. The server answers these with 404.html at a real 404
-            status; this is what that document hydrates into. */}
-        <Route path="*" element={
-          <>
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Suspense fallback={<SectionSkeleton />}>
-              <NotFound />
-            </Suspense>
-            <Footer />
-          </>
-        } />
+        {/* English at the root, then the same tree again under /fr and /de.
+            One route table rendered three times: a page can never exist in
+            one language and be missing in another, and the language is a
+            property of the URL rather than of some state a reload would
+            lose. src/lib/i18n.ts is where the prefixes are defined. */}
+        {sitePages(theme, toggleTheme)}
+        {LOCALES.filter((l) => l !== DEFAULT_LOCALE).map((locale) => (
+          <Route key={locale} path={locale}>
+            {sitePages(theme, toggleTheme)}
+          </Route>
+        ))}
       </Routes>
       <CookieBanner />
     </BrowserRouter>
+  );
+}
+
+/** The site's pages, as routes relative to whatever language prefix wraps them. */
+function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
+  const chrome = (children: ReactNode) => (
+    <>
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      {children}
+      <Footer />
+    </>
+  );
+  return (
+    <Fragment>
+      <Route index element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
+      <Route path="legal" element={chrome(<Suspense fallback={<SectionSkeleton />}><Legal /></Suspense>)} />
+      <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
+      <Route path="work/:slug" element={chrome(<WorkCase />)} />
+      <Route path="contact" element={chrome(<Suspense fallback={<SectionSkeleton />}><Contact /></Suspense>)} />
+      {/* Anything else. The server answers these with 404.html at a real 404
+          status; this is what that document hydrates into. */}
+      <Route path="*" element={chrome(<Suspense fallback={<SectionSkeleton />}><NotFound /></Suspense>)} />
+    </Fragment>
   );
 }

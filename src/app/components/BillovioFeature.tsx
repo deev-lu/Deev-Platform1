@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import billovioShot from "../../assets/work/billovio.jpg";
+import { useT } from "../../lib/useT";
 
 /**
  * §07 — Billovio.
@@ -22,17 +23,12 @@ import billovioShot from "../../assets/work/billovio.jpg";
  * Copy unchanged.
  */
 
-const FEATURES = [
-  "Scope written from one sentence",
-  "Priced to your own rate card",
-  "Signature and invoice in one flow",
-  "In your brand, in about 30 seconds",
-];
-
 /** The image runs from its column to the right edge of the viewport. */
 const BLEED_RIGHT = "calc(-1 * (var(--gutter) + max(0px, (100vw - var(--container)) / 2)))";
 
 export default function BillovioFeature() {
+  const t = useT();
+  const FEATURES = t.home.billovio.features;
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -54,7 +50,7 @@ export default function BillovioFeature() {
             className="eyebrow-mono uppercase text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            07 / Our own product
+            07 / {t.home.billovio.eyebrow}
           </span>
         </div>
 
@@ -76,7 +72,7 @@ export default function BillovioFeature() {
             className="eyebrow-mono uppercase text-[var(--text-mid)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            by DEEV
+            {t.home.billovio.by}
           </span>
         </motion.div>
 
@@ -90,15 +86,14 @@ export default function BillovioFeature() {
               className="text-[var(--text-hi)] font-medium"
               style={{ fontSize: "var(--t-h3)", lineHeight: 1.15, letterSpacing: "-0.015em" }}
             >
-              We don&rsquo;t just build AI. We ship it.
+              {t.home.billovio.statement}
             </motion.p>
 
             <p
               className="text-[var(--text)] mt-6"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "42ch" }}
             >
-              Describe a job in one sentence and Billovio writes the scope, prices
-              the work, and takes it all the way to signature and invoice.
+              {t.home.billovio.lead}
             </p>
 
             <ul className="mt-12">
@@ -134,7 +129,7 @@ export default function BillovioFeature() {
               className="group inline-flex items-center gap-3 mt-12 h-12 px-7 bg-[var(--text-hi)] text-[var(--surface-product)] hover:opacity-85 transition-opacity duration-[var(--dur-1)]"
               style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
             >
-              Open billovio.com
+              {t.home.billovio.cta}
               <span className="inline-block transition-transform duration-[var(--dur-1)] group-hover:translate-x-1">
                 &rarr;
               </span>
@@ -166,7 +161,7 @@ export default function BillovioFeature() {
               </div>
               <img
                 src={billovioShot}
-                alt="Billovio, a quote written, priced and sent from a single sentence"
+                alt={t.home.billovio.shotAlt}
                 loading="lazy"
                 decoding="async"
                 width={1200}

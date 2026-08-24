@@ -1,8 +1,11 @@
 import { motion } from "motion/react";
 import { BadgeEuro, ArrowRight } from "lucide-react";
 import { scrollToId } from "../../lib/smoothScroll";
+import { useT } from "../../lib/useT";
+import { mark } from "../../lib/i18nMark";
 
 export default function SmeGrantBanner() {
+  const t = useT();
   const scrollToBuilder = () =>
     scrollToId("project-builder");
 
@@ -29,18 +32,13 @@ export default function SmeGrantBanner() {
             {/* Copy */}
             <div className="flex-1 min-w-0">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-xs font-medium uppercase tracking-widest mb-2.5">
-                Government-backed funding
+                {t.home.grant.badge}
               </div>
               <p className="text-xl sm:text-2xl md:text-[1.7rem] font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight">
-                Luxembourg SMEs: get up to{" "}
-                <span className="text-emerald-600 dark:text-emerald-400">70% funded</span>{" "}
-                by the state.
+                {mark(t.home.grant.title, "text-emerald-600 dark:text-emerald-400")}
               </p>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
-                Websites, web-apps and AI projects qualify for the{" "}
-                <strong className="text-slate-800 dark:text-slate-200">SME Digital &amp; SME AI packages</strong>
-                : 70% of investments from €3k–€25k (ex. VAT), with up to 15% marketing
-                and 15% ad spend bundled in.
+                {t.home.grant.body}
               </p>
             </div>
 
@@ -49,7 +47,7 @@ export default function SmeGrantBanner() {
               onClick={scrollToBuilder}
               className="group shrink-0 inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg font-medium text-base text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 "
             >
-              See your net price
+              {t.home.grant.cta}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>

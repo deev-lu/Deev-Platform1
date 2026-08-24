@@ -7,10 +7,11 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
-import { Link } from "react-router";
+import L from "./L";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
+import { useT } from "../../lib/useT";
 
 /**
  * §01 — Selected work.
@@ -64,6 +65,7 @@ const domainOf = (link?: string) =>
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function WorkMoment() {
+  const t = useT();
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLElement>(null);
@@ -150,21 +152,20 @@ export default function WorkMoment() {
               className="eyebrow-mono uppercase text-[var(--text-low)]"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              <span className="text-[var(--metal)]">01</span> / Selected work
+              <span className="text-[var(--metal)]">01</span> / {t.home.work.eyebrow}
             </span>
           </div>
           <h2
             className="text-[var(--text-hi)] font-medium"
             style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "18ch" }}
           >
-            Projects we&rsquo;re proud of.
+            {t.home.work.title}
           </h2>
           <p
             className="text-[var(--text-mid)] mt-6"
             style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
           >
-            From luxury travel to artisan spirits, every project is built with
-            the same commitment to craft, performance, and results.
+            {t.home.work.lead}
           </p>
         </motion.div>
 
@@ -222,7 +223,7 @@ export default function WorkMoment() {
               </AnimatePresence>
             </div>
 
-            <Link
+            <L
               to={`/work/${project.slug}`}
               className="group inline-flex items-center gap-3 mt-9 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
               style={{ fontSize: "var(--t-small)" }}
@@ -237,7 +238,7 @@ export default function WorkMoment() {
                   strokeWidth={1.5}
                 />
               </span>
-            </Link>
+            </L>
 
             {/* Fourteen projects is too many to give each one a tick, so the
                 controls are a pair of arrows, a counter, and one rail that
@@ -247,7 +248,7 @@ export default function WorkMoment() {
                 <button
                   type="button"
                   onClick={() => step(-1)}
-                  aria-label="Previous project"
+                  aria-label={t.home.work.prev}
                   className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                   style={{ borderRadius: "var(--radius-1)" }}
                 >
@@ -256,7 +257,7 @@ export default function WorkMoment() {
                 <button
                   type="button"
                   onClick={() => step(1)}
-                  aria-label="Next project"
+                  aria-label={t.home.work.next}
                   className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
                   style={{ borderRadius: "var(--radius-1)" }}
                 >
@@ -294,7 +295,7 @@ export default function WorkMoment() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ ...fade, delay: 0.08 }}
           >
-            <Link to={`/work/${project.slug}`} tabIndex={-1} aria-hidden="true" className="block">
+            <L to={`/work/${project.slug}`} tabIndex={-1} aria-hidden="true" className="block">
               <div className="border border-[var(--line)] bg-[var(--surface-2)] overflow-hidden">
                 <div className="flex items-center gap-3 px-4 h-10 border-b border-[var(--line)] bg-[var(--surface-1)]">
                   <span className="flex gap-1.5 shrink-0" aria-hidden="true">
@@ -345,7 +346,7 @@ export default function WorkMoment() {
                   </AnimatePresence>
                 </div>
               </div>
-            </Link>
+            </L>
           </motion.div>
         </div>
 
@@ -363,20 +364,20 @@ export default function WorkMoment() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            <span className="text-[var(--text-hi)]">{PROJECTS.length}</span> projects delivered across Europe
+            {t.home.work.counter(PROJECTS.length)}
           </p>
 
-          <Link
+          <L
             to="/work"
             className="group inline-flex items-center gap-3 h-12 px-7 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)]"
             style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
           >
-            See all work
+            {t.home.work.seeAll}
             <ArrowUpRight
               className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               strokeWidth={1.5}
             />
-          </Link>
+          </L>
         </motion.div>
 
       </div>

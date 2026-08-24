@@ -1,6 +1,7 @@
-import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "../../lib/projects";
+import L from "./L";
+import { useT } from "../../lib/useT";
 
 /**
  * What renders at a URL that does not exist.
@@ -10,6 +11,8 @@ import { PROJECTS } from "../../lib/projects";
  * because most bad URLs on this site are old or mistyped project links.
  */
 export default function NotFound() {
+  const t = useT();
+
   return (
     <main
       className="min-h-[80vh] flex items-center bg-[var(--surface-0)]"
@@ -25,7 +28,7 @@ export default function NotFound() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            404 / Page not found
+            {t.site.notFound.eyebrow}
           </span>
         </div>
 
@@ -33,37 +36,36 @@ export default function NotFound() {
           className="text-[var(--text-hi)] font-medium"
           style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "16ch" }}
         >
-          That page does not exist.
+          {t.site.notFound.title}
         </h1>
 
         <p
           className="text-[var(--text-mid)] mt-6"
           style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
         >
-          The link is either out of date or mistyped. Everything we have
-          published is one click from the homepage.
+          {t.site.notFound.body}
         </p>
 
-        <Link
+        <L
           to="/"
           className="group inline-flex items-center gap-3 mt-10 h-12 px-7 bg-[var(--signal)] text-white hover:opacity-90 transition-opacity duration-[var(--dur-1)]"
           style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
         >
-          Back to the homepage
+          {t.site.notFound.cta}
           <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5" strokeWidth={1.5} />
-        </Link>
+        </L>
 
         <div className="mt-16 pt-10 border-t border-[var(--line)]">
           <div
             className="eyebrow-mono uppercase text-[var(--text-low)] mb-6"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            Selected work
+            {t.site.notFound.workLabel}
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
             {PROJECTS.map((p) => (
               <li key={p.slug} className="border-b border-[var(--line)]">
-                <Link
+                <L
                   to={`/work/${p.slug}`}
                   className="flex items-baseline gap-4 py-4 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
                 >
@@ -76,7 +78,7 @@ export default function NotFound() {
                   >
                     {p.year}
                   </span>
-                </Link>
+                </L>
               </li>
             ))}
           </ul>

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
 import LiteYouTube from "./LiteYouTube";
+import { useT } from "../../lib/useT";
 import { Deck, CARD_BASE } from "./Deck";
 
 /**
@@ -16,57 +17,31 @@ import { Deck, CARD_BASE } from "./Deck";
  * never asked to watch anything.
  */
 
-/** Titles are the accessible names for the players. Replace them with the real
- *  video titles, and drop <id>.jpg into src/assets/marketing to give each one
- *  its own still frame. */
-const VIDEOS = [
-  { id: "LeAYeRih-_Y", title: "Deev marketing video, one of three" },
-  { id: "zURSJEqZO2E", title: "Deev marketing video, two of three" },
-  { id: "j9zL-hiTnF4", title: "Deev marketing video, three of three" },
-];
 
-const SERVICES = [
-  {
-    index: "01",
-    title: "Paid advertising",
-    description: "Google Ads, Meta Ads and LinkedIn: optimised for return, not for impressions.",
-    detail: ["Campaign strategy", "A/B testing", "Conversion tracking"],
-  },
-  {
-    index: "02",
-    title: "SEO & content",
-    description: "Rank higher and attract qualified leads organically, on foundations that hold.",
-    detail: ["Technical SEO", "Content strategy", "Link building"],
-  },
-  {
-    index: "03",
-    title: "Conversion optimisation",
-    description: "Turn more of the visitors you already have into customers, decided by data.",
-    detail: ["Landing pages", "User testing", "Analytics"],
-  },
-  {
-    index: "04",
-    title: "Analytics & reporting",
-    description: "Clear insight and transparent reporting on the numbers that actually matter.",
-    detail: ["Custom dashboards", "ROI tracking", "Performance reports"],
-  },
-];
+/** The three shorts are our own. Their ids are data; their accessible names
+ *  are copy, so they come from the dictionary in the reader's language. */
+const VIDEO_IDS = ["LeAYeRih-_Y", "zURSJEqZO2E", "j9zL-hiTnF4"];
 
 export default function MarketingServices() {
+  const t = useT();
+  const SERVICES = t.home.marketing.items.map((s, i) => ({ ...s, index: String(i + 1).padStart(2, "0") }));
+  const VIDEOS = VIDEO_IDS.map((id, i) => ({
+    id,
+    title: t.home.marketing.videoTitle(i + 1, VIDEO_IDS.length),
+  }));
+
   return (
-    <Section index="05" eyebrow="Marketing" tone={1}>
+    <Section index="05" eyebrow={t.home.marketing.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <SectionTitle>Building it is half the job. Being found is the other half.</SectionTitle>
+            <SectionTitle>{t.home.marketing.title}</SectionTitle>
             <p
               className="mt-6 text-[var(--text-mid)]"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
             >
-              We run the campaigns that feed the systems we build, so the traffic,
-              the site and the measurement are designed together rather than
-              handed between three suppliers.
+              {t.home.marketing.lead}
             </p>
           </div>
         </div>
@@ -101,7 +76,7 @@ export default function MarketingServices() {
                   className="text-[var(--text-mid)] mb-4"
                   style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "56ch" }}
                 >
-                  {s.description}
+                  {s.copy}
                 </p>
                 <div className="flex flex-wrap gap-x-6 gap-y-2">
                   {s.detail.map((d) => (
@@ -130,7 +105,7 @@ export default function MarketingServices() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            <span className="text-[var(--metal)]">05.1</span> / In motion
+            <span className="text-[var(--metal)]">05.1</span> / {t.home.marketing.videosEyebrow}
           </span>
         </div>
 

@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useT } from "../../lib/useT";
 import MadeInLuxembourg from "./MadeInLuxembourg";
 import luxembourgImg from "../../assets/luxembourg.jpg";
 
@@ -7,12 +8,14 @@ import luxembourgImg from "../../assets/luxembourg.jpg";
  * with a duotone treatment, coordinates and the certification mark.
  */
 export default function LuxembourgStrip() {
+  const t = useT();
+
   return (
     <section className="relative h-[86vh] min-h-[560px] max-h-[900px] overflow-hidden">
       {/* Real photography, duotone-treated */}
       <img
         src={luxembourgImg}
-        alt="Luxembourg City, the Grund and the Alzette valley"
+        alt={t.home.luxembourg.photoAlt}
         width={1080}
         height={720}
         loading="lazy"
@@ -37,18 +40,17 @@ export default function LuxembourgStrip() {
         >
           <div className="eyebrow-mono flex items-center gap-3 text-[11px] font-semibold uppercase text-white/50 mb-6">
             <span className="h-px w-10 bg-white/40" />
-            49.6117° N, 6.1300° E
+            {t.home.luxembourg.coords}
           </div>
           <h2 className="font-medium text-white mb-6"
             style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.025em" }}>
-            Engineered in Luxembourg.
+            {t.home.luxembourg.title}
             <br />
-            <span className="text-white/60">Trusted across Europe.</span>
+            <span className="text-white/60">{t.home.luxembourg.titleMuted}</span>
           </h2>
           <p className="text-white/65"
             style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "44ch" }}>
-            From the heart of Europe's financial capital, we build digital
-            systems for companies that hold themselves to a higher standard.
+            {t.home.luxembourg.body}
           </p>
         </motion.div>
 
