@@ -1,22 +1,6 @@
 {
-  "rewrites": [
-    {
-      "source": "/contact",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/legal",
-      "destination": "/legal.html"
-    },
-    {
-      "source": "/work/:slug",
-      "destination": "/work/:slug.html"
-    },
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/fonts/(.*)",

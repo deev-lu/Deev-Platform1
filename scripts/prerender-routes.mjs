@@ -80,6 +80,33 @@ for (const [routePath, route] of Object.entries(routes)) {
 }
 console.log(`prerender: ${written} route documents verified and written`);
 
+// ── 404 ───────────────────────────────────────────────────────────────────
+// Vercel serves this for any path that does not resolve, with a real 404
+// status. Before this existed, a catch-all rewrite answered every unknown URL
+// with the homepage at HTTP 200: every typo, every dead legacy link and every
+// tracking variant became a duplicate of the front page in Google's index.
+{
+  let html = template;
+  const edits = [
+    { re: /(<title>)([\s\S]*?)(<\/title>)/, value: esc("Page not found | DEEV") },
+    {
+      re: metaTag("name", "description"),
+      value: esc("That page does not exist. Everything DEEV has published is one click away from the homepage."),
+    },
+    { re: /(<meta\s+name="robots"\s+content=")([^"]*)(")/, value: "noindex, follow" },
+  ];
+  for (const { re, value } of edits) {
+    if (!re.test(html)) throw new Error("prerender: 404 template tag missing");
+    html = html.replace(re, (_m, open, _old, close) => `${open}${value}${close}`);
+  }
+  // A page that does not exist should not claim a canonical URL.
+  html = html.replace(/\s*<link\s+rel="canonical"[^>]*>/, "");
+  if (/rel="canonical"/.test(html)) throw new Error("prerender: canonical not stripped from 404.html");
+  if (!/content="noindex, follow"/.test(html)) throw new Error("prerender: 404.html is not noindex");
+  writeFileSync(join(dist, "404.html"), html);
+  console.log("  404.html      (noindex, no canonical)");
+}
+
 // The sitemap is generated, not hand-maintained, so a new project cannot be
 // shipped without it. Search Console showed the site down to 5 indexed pages;
 // every case study is a page worth indexing.

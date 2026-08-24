@@ -27,6 +27,7 @@ const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
 const WorkCase          = lazy(() => import("./components/WorkCase"));
+const NotFound          = lazy(() => import("./components/NotFound"));
 
 // Minimal section skeleton while lazy chunks load
 function SectionSkeleton() {
@@ -142,6 +143,17 @@ export default function App() {
           <Suspense fallback={<SectionSkeleton />}>
             <Contact />
           </Suspense>
+        } />
+        {/* Anything else. The server answers these with 404.html at a real 404
+            status; this is what that document hydrates into. */}
+        <Route path="*" element={
+          <>
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
+            <Suspense fallback={<SectionSkeleton />}>
+              <NotFound />
+            </Suspense>
+            <Footer />
+          </>
         } />
       </Routes>
       <CookieBanner />
