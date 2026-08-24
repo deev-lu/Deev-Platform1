@@ -1,5 +1,21 @@
 [
   {
+    "slug": "ucc-clervaux",
+    "title": "UCClervaux",
+    "year": 2026,
+    "category": "Trade Association Platform",
+    "filter": "Web App",
+    "link": "https://ucclervaux.lu/"
+  },
+  {
+    "slug": "laser-center",
+    "title": "Laser Center",
+    "year": 2026,
+    "category": "Laser Therapy",
+    "filter": "Website",
+    "link": "https://www.lasercenter.lu/"
+  },
+  {
     "slug": "bureau-immobilier-feltes",
     "title": "Bureau Immobilier Feltes",
     "year": 2024,
