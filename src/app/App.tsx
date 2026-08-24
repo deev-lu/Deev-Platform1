@@ -10,6 +10,10 @@ import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
 import BenefitsPanel from "./components/BenefitsPanel";
+// Eager: as a lazy route its Suspense fallback was a 200px spinner between the
+// navbar and the footer, so every case study shifted its layout by 0.52 the
+// moment the real page arrived. 1.7KB gzipped is cheaper than that.
+import WorkCase from "./components/WorkCase";
 const MarketingServices = lazy(() => import("./components/MarketingServices"));
 const AiConcepts        = lazy(() => import("./components/AiConcepts"));
 const WorkMoment        = lazy(() => import("./components/WorkMoment"));
@@ -26,7 +30,6 @@ const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
-const WorkCase          = lazy(() => import("./components/WorkCase"));
 const NotFound          = lazy(() => import("./components/NotFound"));
 
 // Minimal section skeleton while lazy chunks load
@@ -133,9 +136,7 @@ export default function App() {
         <Route path="/work/:slug" element={
           <>
             <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Suspense fallback={<SectionSkeleton />}>
-              <WorkCase />
-            </Suspense>
+            <WorkCase />
             <Footer />
           </>
         } />

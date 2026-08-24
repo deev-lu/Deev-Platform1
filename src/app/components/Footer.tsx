@@ -64,7 +64,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <img src={logo} alt="DEEV" className="h-9 w-auto object-contain" />
+              <img src={logo} alt="DEEV" width={256} height={256} className="h-9 w-auto object-contain" />
               <span className="text-xl font-brand tracking-[0.015em] text-[#0a0f2e] dark:text-white">
                 DEEV
               </span>
@@ -94,7 +94,7 @@ export default function Footer() {
             {/* Made in Luxembourg, certified label */}
             <div className="mt-8 flex items-center gap-3">
               <MadeInLuxembourg className="h-16 w-20 text-slate-800 dark:text-white/90 shrink-0" />
-              <div className="text-xs leading-relaxed text-slate-500 dark:text-slate-500">
+              <div className="text-xs leading-relaxed text-[var(--text-mid)]">
                 <div className="font-semibold text-slate-700 dark:text-slate-300">Certified label</div>
                 Proudly designed &amp; engineered in Luxembourg.
               </div>
@@ -103,7 +103,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-slate-900 dark:text-white font-medium mb-6">Services</h3>
+            <h2 className="text-slate-900 dark:text-white font-medium mb-6">Services</h2>
             <ul className="space-y-3">
               {navigation.services.map((item) => (
                 <li key={item.name}>
@@ -120,7 +120,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-slate-900 dark:text-white font-medium mb-6">Company</h3>
+            <h2 className="text-slate-900 dark:text-white font-medium mb-6">Company</h2>
             <ul className="space-y-3">
               {navigation.company.map((item) => {
                 const isRoute = item.href.startsWith("/") && !item.href.includes("#");
@@ -145,7 +145,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-slate-900 dark:text-white font-medium mb-6">Legal</h3>
+            <h2 className="text-slate-900 dark:text-white font-medium mb-6">Legal</h2>
             <ul className="space-y-3">
               {navigation.legal.map((item) => (
                 <li key={item.name}>
@@ -165,10 +165,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-slate-200 dark:border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 dark:text-slate-500 text-sm font-medium">
+            <p className="text-[var(--text-mid)] text-sm font-medium">
               © {new Date().getFullYear()} Deev / Lux VR States Sàrl-s. All rights reserved.
             </p>
-            <p className="text-slate-500 dark:text-slate-500 text-sm font-medium">
+            <p className="text-[var(--text-mid)] text-sm font-medium">
               Engineered with precision in Luxembourg 
             </p>
           </div>

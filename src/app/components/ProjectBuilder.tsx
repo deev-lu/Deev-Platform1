@@ -723,11 +723,11 @@ export default function ProjectBuilder() {
                             <Icon className="w-6 h-6" />
                           </div>
                           <div className="flex-1">
-                            <h4
+                            <h3
                               className={`text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                             >
                               {sys.label}
-                            </h4>
+                            </h3>
                             <p
                               className={`mt-0.5 text-sm ${ isSelected ? "text-[var(--text-mid)]" : "text-[var(--text-mid)]" }`}
                             >
@@ -765,11 +765,11 @@ export default function ProjectBuilder() {
                         >
                           <div>
                             <div className="flex items-center gap-3 mb-1">
-                              <h4
+                              <h3
                                 className={`text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                               >
                                 {lvl.label}
-                              </h4>
+                              </h3>
                               <span
                                 className={`text-xs font-semibold px-2 py-0.5 rounded-[2px] ${ isSelected ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[#3CE7FC]/10 dark:text-[#3CE7FC]" : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400" }`}
                               >
@@ -820,11 +820,11 @@ export default function ProjectBuilder() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-2">
-                                <h4
+                                <h3
                                   className={`text-sm font-medium leading-tight ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                                 >
                                   {cap.label}
-                                </h4>
+                                </h3>
                                 {isSelected && (
                                   <Check className="w-4 h-4 text-[#3CE7FC] flex-shrink-0" />
                                 )}

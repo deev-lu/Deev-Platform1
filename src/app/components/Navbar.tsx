@@ -79,6 +79,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             <img
               src={logo}
               alt="DEEV"
+              width={256}
+              height={256}
               className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <span className="text-[1.3rem] font-brand tracking-[0.015em] leading-none text-[#0a0f2e] dark:text-white">

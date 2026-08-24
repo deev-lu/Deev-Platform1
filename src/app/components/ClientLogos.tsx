@@ -29,11 +29,11 @@ import stoffel     from "../../assets/clients/stoffel.png";
 const MONO = "brightness-0 dark:brightness-0 dark:invert";
 
 const clients = [
-  { name: "Bureau Immobilier Feltes", src: feltes, filter: MONO },
-  { name: "Melly's", src: mellys, filter: "grayscale invert dark:grayscale-0 dark:invert-0" },
-  { name: "Net & Clean", src: netclean, filter: MONO },
-  { name: "Picadilly", src: picadilly, filter: MONO },
-  { name: "Stoffel Immobilier", src: stoffel, filter: MONO },
+  { name: "Bureau Immobilier Feltes", src: feltes, filter: MONO, w: 280, h: 150 },
+  { name: "Melly's", src: mellys, filter: "grayscale invert dark:grayscale-0 dark:invert-0", w: 280, h: 91 },
+  { name: "Net & Clean", src: netclean, filter: MONO, w: 280, h: 103 },
+  { name: "Picadilly", src: picadilly, filter: MONO, w: 280, h: 144 },
+  { name: "Stoffel Immobilier", src: stoffel, filter: MONO, w: 186, h: 280 },
 ];
 
 function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
@@ -51,6 +51,8 @@ function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
           <img
             src={client.src}
             alt={client.name}
+            width={client.w}
+            height={client.h}
             loading="lazy"
             decoding="async"
             draggable={false}

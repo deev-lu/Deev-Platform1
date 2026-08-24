@@ -31,11 +31,11 @@ export default function SmeGrantBanner() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-xs font-medium uppercase tracking-widest mb-2.5">
                 Government-backed funding
               </div>
-              <h3 className="text-xl sm:text-2xl md:text-[1.7rem] font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight">
+              <p className="text-xl sm:text-2xl md:text-[1.7rem] font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight">
                 Luxembourg SMEs: get up to{" "}
                 <span className="text-emerald-600 dark:text-emerald-400">70% funded</span>{" "}
                 by the state.
-              </h3>
+              </p>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
                 Websites, web-apps and AI projects qualify for the{" "}
                 <strong className="text-slate-800 dark:text-slate-200">SME Digital &amp; SME AI packages</strong>

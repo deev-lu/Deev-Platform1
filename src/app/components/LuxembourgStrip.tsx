@@ -13,6 +13,8 @@ export default function LuxembourgStrip() {
       <img
         src={luxembourgImg}
         alt="Luxembourg City, the Grund and the Alzette valley"
+        width={1080}
+        height={720}
         loading="lazy"
         decoding="async"
         className="animate-drift absolute inset-0 w-full h-full object-cover grayscale-[0.2] contrast-[1.06] brightness-[0.92]"

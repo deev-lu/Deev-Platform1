@@ -46,6 +46,8 @@ export default function WorkCase() {
             <img
               src={project.image}
               alt={`${project.title}, ${project.category}`}
+              width={1000}
+              height={583}
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--surface-0) 8%, rgba(8,9,11,0.45) 60%, rgba(8,9,11,0.25) 100%)" }} />
@@ -86,7 +88,10 @@ export default function WorkCase() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
 
-          <dl className="lg:col-span-5 border-t border-[var(--line)]">
+          {/* The link used to sit inside the <dl>, which is invalid: a
+              definition list may only contain dt/dd groups. */}
+          <div className="lg:col-span-5">
+          <dl className="border-t border-[var(--line)]">
             {spec.map(([k, v]) => (
               <div key={k} className="flex items-baseline justify-between gap-6 py-5 border-b border-[var(--line)]">
                 <dt
@@ -114,7 +119,9 @@ export default function WorkCase() {
               </div>
             )}
 
-            {project.link && (
+          </dl>
+
+          {project.link && (
               <a
                 href={project.link}
                 target="_blank"
@@ -122,11 +129,12 @@ export default function WorkCase() {
                 className="group inline-flex items-center gap-2 mt-10 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
                 style={{ fontSize: "var(--t-small)" }}
               >
-                Visit the live site
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.5} />
-              </a>
-            )}
-          </dl>
+              Visit the live site
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.5} />
+            </a>
+          )}
+          </div>
+
 
           <div className="lg:col-span-7">
             {project.summary && (
