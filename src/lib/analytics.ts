@@ -1,7 +1,22 @@
-// ── Google Analytics 4 ───────────────────────────────────────────────────────
-// Loaded lazily, and only once the visitor has accepted analytics cookies in
-// the consent banner (see components/CookieBanner.tsx). Nothing is requested
-// from Google — not even the script — until then.
+// ── Google Analytics 4, with Consent Mode v2 ────────────────────────────────
+//
+// Two things were wrong with the first version, and both cost data:
+//
+//  1. The gtag shim pushed a rest array to dataLayer. gtag.js only executes
+//     commands pushed as an `arguments` object; a plain array is treated as a
+//     data-layer event and the `js` and `config` commands were never run. The
+//     script loaded and then measured nothing. Keep the odd-looking
+//     `arguments` push below exactly as Google writes it.
+//
+//  2. Nothing was requested at all until someone pressed Accept. Visitors who
+//     ignored the banner, and there are always more of those than of the ones
+//     who press a button, were invisible. Consent Mode fixes that without
+//     storing anything on their device: the tag loads with every storage type
+//     denied, which sends cookieless pings that GA4 counts, and is upgraded to
+//     granted the moment consent is given. Advertising storage stays denied in
+//     both states because we run no ad products.
+//
+// The consent banner and this file share the `cookie-consent` key.
 
 const GA_ID = "G-K0T15PZHMN";
 const CONSENT_KEY = "cookie-consent"; // "accepted" | "rejected"
@@ -13,7 +28,7 @@ declare global {
   }
 }
 
-let loaded = false;
+let started = false;
 
 /** True when the visitor has accepted non-essential cookies. */
 export function hasAnalyticsConsent(): boolean {
@@ -24,36 +39,63 @@ export function hasAnalyticsConsent(): boolean {
   }
 }
 
-/**
- * Inject gtag.js and configure the property. Safe to call repeatedly —
- * the script is only ever added once.
- */
-export function loadAnalytics(): void {
-  if (loaded || typeof document === "undefined") return;
-  loaded = true;
+/** Boot the tag with everything denied, then load the library. Idempotent. */
+function start(): void {
+  if (started || typeof document === "undefined") return;
+  started = true;
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  } as (...args: unknown[]) => void;
+
+  // Defaults must be queued before gtag.js runs, or the first hit escapes
+  // before consent state is known.
+  window.gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    functionality_storage: "granted",
+    security_storage: "granted",
+    wait_for_update: 500,
+  });
+  window.gtag("set", "ads_data_redaction", true);
+  window.gtag("set", "url_passthrough", true);
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA_ID);
 
   const s = document.createElement("script");
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
   document.head.appendChild(s);
+}
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args);
-  };
-  window.gtag("js", new Date());
-  window.gtag("config", GA_ID);
+/** Analytics storage on or off. Advertising storage is never granted. */
+function setAnalyticsConsent(granted: boolean): void {
+  window.gtag?.("consent", "update", {
+    analytics_storage: granted ? "granted" : "denied",
+  });
+}
+
+/** Kept for callers that only want to know whether the tag is measuring. */
+export function loadAnalytics(): void {
+  start();
+  setAnalyticsConsent(true);
 }
 
 /**
- * Load analytics if consent is already stored, and listen for the banner's
- * decision so acceptance takes effect immediately. Returns a cleanup fn.
+ * Start measurement, apply whatever the visitor has already decided, and
+ * follow the banner's decision live. Returns a cleanup fn.
  */
 export function initAnalytics(): () => void {
-  if (hasAnalyticsConsent()) loadAnalytics();
+  start();
+  if (hasAnalyticsConsent()) setAnalyticsConsent(true);
 
   const onConsent = (e: Event) => {
-    if ((e as CustomEvent<string>).detail === "accepted") loadAnalytics();
+    setAnalyticsConsent((e as CustomEvent<string>).detail === "accepted");
   };
   window.addEventListener("cookie-consent", onConsent);
   return () => window.removeEventListener("cookie-consent", onConsent);

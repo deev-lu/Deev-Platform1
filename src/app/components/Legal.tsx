@@ -138,10 +138,17 @@ export default function Legal() {
                 settings or our cookie preferences panel.
               </p>
               <p className="mt-3">
-                For analytics we use Google Analytics 4 (Google Ireland Limited), which sets cookies to measure
-                page views and how visitors navigate the site. It is loaded only after you accept analytics
-                cookies in our consent banner, if you decline, no Google Analytics script is requested and
-                no analytics cookies are set. You can withdraw your consent at any time by clearing this
+                For analytics we use Google Analytics 4 (Google Ireland Limited) with Google Consent Mode.
+                Before you make a choice, and if you decline, the tag runs in a consent-denied state: no
+                cookies are set and no identifier is stored on your device. In that state Google receives
+                only a cookieless signal (including your IP address and browser type) which is used for
+                aggregated, statistical measurement of page views.
+              </p>
+              <p className="mt-3">
+                If you accept analytics cookies in our banner, analytics storage is enabled and Google
+                Analytics sets cookies to measure page views and how visitors navigate the site. Advertising
+                storage, ad personalisation and ad user data remain disabled at all times, we run no
+                advertising products on this site. You can withdraw your consent at any time by clearing this
                 site&rsquo;s data in your browser, which will show the consent banner again.
               </p>
             </Section>
