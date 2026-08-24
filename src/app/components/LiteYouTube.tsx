@@ -1,20 +1,26 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useInView } from "motion/react";
 import { Play } from "lucide-react";
 
 /**
- * A YouTube embed that contacts Google only when someone presses play.
+ * A YouTube embed that loads the player only when someone presses play.
  *
- * A normal <iframe> embed loads several hundred kilobytes of Google script on
+ * A normal <iframe> embed pulls several hundred kilobytes of Google script on
  * page load and sets third-party storage before a visitor has agreed to
- * anything, which would contradict both the consent banner and the cookie
- * policy. This renders a still frame with a play control; the first click
- * swaps in the real player, from youtube-nocookie.com, already playing.
+ * anything. This renders the video's own still frame with a play control; the
+ * first click swaps in the real player, from youtube-nocookie.com, already
+ * playing.
  *
- * The still frame is a self-hosted file: drop <video-id>.jpg into
- * src/assets/marketing and it is picked up by name, the same convention the
- * work screenshots use. Without one, the frame is drawn from the design
- * system rather than pulled from Google's thumbnail servers, which would be
- * the same third-party contact through a different door.
+ * The still frame comes from Google's thumbnail host, lazily, so it is
+ * fetched when the section is nearly in view rather than on page load. That
+ * request carries no cookies, but it does tell Google that a browser loaded
+ * this page, which is why the cookie policy says so. Shorts are vertical, so
+ * the original-aspect thumbnail is tried first and the 16:9 sizes are
+ * fallbacks; object-cover crops those to the middle, which is the frame.
+ *
+ * A self-hosted still always wins: drop <video-id>.jpg into
+ * src/assets/marketing and it is used instead, with no third-party request at
+ * all. Same convention as the work screenshots.
  */
 
 const POSTERS = import.meta.glob("../../assets/marketing/*.{jpg,jpeg,png,webp}", {
@@ -30,6 +36,13 @@ const posterFor = (id: string) => {
   return hit?.[1];
 };
 
+/** Original aspect ratio first (Shorts are 9:16), then the 16:9 sizes. */
+const remoteThumbs = (id: string) => [
+  `https://i.ytimg.com/vi/${id}/oardefault.jpg`,
+  `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+  `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+];
+
 export default function LiteYouTube({
   id,
   title,
@@ -40,10 +53,21 @@ export default function LiteYouTube({
   className?: string;
 }) {
   const [playing, setPlaying] = useState(false);
-  const poster = posterFor(id);
+  const ref = useRef<HTMLDivElement>(null);
+  // loading="lazy" is not enough here: the section mounts before the page has
+  // laid out, so the browser sees the card near the viewport and fetches
+  // immediately. Ask directly whether it is close instead.
+  const near = useInView(ref, { once: true, margin: "600px" });
+  const local = posterFor(id);
+  // Walk the fallback chain in the browser: not every video has every size,
+  // and a missing one 404s rather than redirecting.
+  const [thumbIndex, setThumbIndex] = useState(0);
+  const remote = remoteThumbs(id);
+  const poster = local ?? (near && thumbIndex < remote.length ? remote[thumbIndex] : undefined);
 
   return (
     <div
+      ref={ref}
       className={`relative overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] ${className}`}
       style={{ aspectRatio: "9 / 16", borderRadius: "var(--radius-1)" }}
     >
@@ -69,6 +93,9 @@ export default function LiteYouTube({
               alt=""
               loading="lazy"
               decoding="async"
+              width={720}
+              height={1280}
+              onError={() => !local && setThumbIndex((i) => i + 1)}
               className="absolute inset-0 w-full h-full object-cover"
             />
           ) : (

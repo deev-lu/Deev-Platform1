@@ -155,12 +155,15 @@ export default function Legal() {
 
               <p className="mt-6 font-medium text-slate-900 dark:text-white">Embedded video</p>
               <p className="mt-1">
-                The marketing section contains two videos hosted on YouTube. Nothing is requested
-                from Google until you press play: until then you see a still frame served from this
-                site. When you do press play, the player is loaded from youtube-nocookie.com, which
-                does not set advertising cookies for that view, and YouTube may then store what it
-                needs to play the video and to count the view. Pressing play is your own choice, and
-                there is no way to watch the video without it.
+                The marketing section contains two videos hosted on YouTube. The player itself is
+                not loaded until you press play, so no YouTube script runs and no third-party
+                storage is set on your device before that. The still frame you see beforehand is the
+                video&rsquo;s own thumbnail, requested from Google&rsquo;s image host
+                (i.ytimg.com) as that part of the page comes into view: that request sets no
+                cookies, but it does tell Google that a browser loaded this page, including your IP
+                address. When you press play, the player loads from youtube-nocookie.com, which
+                serves the video without advertising cookies, and YouTube may then store what it
+                needs to play it and count the view. Pressing play is your own choice.
               </p>
 
               <p className="mt-6 font-medium text-slate-900 dark:text-white">Your consent record</p>
