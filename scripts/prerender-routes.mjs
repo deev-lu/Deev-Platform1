@@ -28,6 +28,7 @@ for (const p of projects) {
     file: `work/${p.slug}.html`,
     title: `${p.title} | ${p.category} | DEEV`,
     description: `${p.title}: a ${p.category.toLowerCase()} designed and built by DEEV, an AI-native digital engineering studio in Luxembourg. Shipped ${p.year}.`,
+    project: p,
   };
 }
 const template = readFileSync(join(dist, "index.html"), "utf8");
@@ -72,6 +73,41 @@ for (const [routePath, route] of Object.entries(routes)) {
     if (found !== value) {
       throw new Error(`prerender: ${label} wrong for ${routePath} — got ${JSON.stringify(found)}`);
     }
+  }
+
+  // A case study should describe itself, not just inherit the studio's
+  // ProfessionalService block from the homepage template. Every value below is
+  // a fact from projects.data.json: no ratings, no invented claims.
+  if (route.project) {
+    const p = route.project;
+    const graph = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Deev", item: `${SITE}/` },
+            { "@type": "ListItem", position: 2, name: p.title, item: url },
+          ],
+        },
+        {
+          "@type": "CreativeWork",
+          name: p.title,
+          url,
+          genre: p.category,
+          dateCreated: String(p.year),
+          inLanguage: "en",
+          creator: { "@type": "Organization", name: "Deev", url: `${SITE}/` },
+          ...(p.link ? { sameAs: p.link } : {}),
+        },
+      ],
+    };
+    const block = `<script type="application/ld+json">${JSON.stringify(graph)}</script>`;
+    html = html.replace("</head>", `  ${block}\n  </head>`);
+    // Fail the build rather than ship a document with broken structured data.
+    const emitted = html.match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@graph".*?)<\/script>/s)?.[1];
+    if (!emitted) throw new Error(`prerender: structured data missing for ${routePath}`);
+    JSON.parse(emitted);
   }
 
   writeFileSync(join(dist, route.file), html);
