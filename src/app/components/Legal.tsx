@@ -1,31 +1,11 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import { ArrowLeft, Cookie } from "lucide-react";
-import logo from "../../assets/logo.png";
 import { openCookieSettings } from "../../lib/consent";
 
 export default function Legal() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300">
-      {/* Simple top nav */}
-      <div className="sticky top-0 z-50 border-b border-slate-200 dark:border-white/[0.07] bg-white/90 dark:bg-[#06060a]/90 ">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-4">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#2563F6] dark:hover:text-[#3CE7FC] transition-colors duration-200 font-medium text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to DEEV
-          </Link>
-          <div className="flex items-center gap-2 ml-auto">
-            <img src={logo} alt="DEEV" className="h-7 w-auto object-contain" />
-            <span className="text-lg font-extrabold tracking-tight text-[var(--signal)]">
-              Deev
-            </span>
-          </div>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300 pt-[68px]">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

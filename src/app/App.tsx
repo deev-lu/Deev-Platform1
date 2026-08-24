@@ -129,9 +129,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
         <Route path="/legal" element={
-          <Suspense fallback={<SectionSkeleton />}>
-            <Legal />
-          </Suspense>
+          <>
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
+            <Suspense fallback={<SectionSkeleton />}>
+              <Legal />
+            </Suspense>
+            <Footer />
+          </>
         } />
         <Route path="/work/:slug" element={
           <>
@@ -141,9 +145,13 @@ export default function App() {
           </>
         } />
         <Route path="/contact" element={
-          <Suspense fallback={<SectionSkeleton />}>
-            <Contact />
-          </Suspense>
+          <>
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
+            <Suspense fallback={<SectionSkeleton />}>
+              <Contact />
+            </Suspense>
+            <Footer />
+          </>
         } />
         {/* Anything else. The server answers these with 404.html at a real 404
             status; this is what that document hydrates into. */}

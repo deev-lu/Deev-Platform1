@@ -72,6 +72,61 @@ export function resumeSmoothScroll(): void {
   lenis?.start();
 }
 
+/**
+ * Scroll to a section that may not have settled yet.
+ *
+ * After a route change the page mounts in pieces, so a section's position
+ * keeps moving for a moment: `#why-deev` exists as an empty wrapper on the
+ * first frame and ends up eight thousand pixels further down once everything
+ * above it has rendered. Two guards, because either alone lands short:
+ *   - wait until both the document height and the target's offset have held
+ *     still for several frames, and never accept that before 400ms
+ *   - scroll, then check once more shortly after and correct if the page
+ *     moved underneath the animation
+ */
+export function scrollToIdWhenReady(id: string, timeout = 4000) {
+  const key = id.replace(/^#/, "");
+  const started = performance.now();
+  let lastTop: number | null = null;
+  let lastHeight = 0;
+  let stable = 0;
+
+  const correct = () => {
+    const el = document.getElementById(key);
+    if (!el) return;
+    if (Math.abs(el.getBoundingClientRect().top + NAV_OFFSET) > 4) scrollToId(key);
+  };
+
+  const tick = () => {
+    const el = document.getElementById(key);
+    const height = document.body.scrollHeight;
+    if (el) {
+      const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
+      const held = lastTop !== null && Math.abs(top - lastTop) < 2 && height === lastHeight;
+      stable = held ? stable + 1 : 0;
+      lastTop = top;
+      lastHeight = height;
+
+      if (stable >= 5 && performance.now() - started > 400) {
+        scrollToId(key);
+        window.setTimeout(correct, 900);
+        return;
+      }
+    } else {
+      lastHeight = height;
+    }
+
+    if (performance.now() - started < timeout) {
+      requestAnimationFrame(tick);
+    } else if (el) {
+      scrollToId(key);
+      window.setTimeout(correct, 900);
+    }
+  };
+
+  requestAnimationFrame(tick);
+}
+
 /** Accepts "#id" or a bare id. */
 export function scrollToId(id: string) {
   const target = document.getElementById(id.replace(/^#/, ""));

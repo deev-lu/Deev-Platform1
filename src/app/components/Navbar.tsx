@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
-import { scrollToId, scrollToTop } from "../../lib/smoothScroll";
+import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
 
 interface NavbarProps {}
 
@@ -58,7 +58,17 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       scrollToTop(true);
       return;
     }
-    scrollToId(href);
+    // The section links now also appear on /legal, /contact and the case
+    // studies, where the target does not exist. Go home first, then scroll
+    // once the section has mounted: they are lazy, so it is not there on the
+    // first frame after navigation.
+    const id = href.replace("#", "");
+    if (document.getElementById(id)) {
+      scrollToId(id);
+      return;
+    }
+    navigate("/");
+    scrollToIdWhenReady(id);
   };
 
   return (
