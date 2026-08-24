@@ -63,6 +63,15 @@ export function scrollToTop(immediate = false) {
   window.scrollTo({ top: 0, behavior: immediate ? "auto" : "smooth" });
 }
 
+/** Hold the page still while a modal is open, then let it move again. */
+export function pauseSmoothScroll(): void {
+  lenis?.stop();
+}
+
+export function resumeSmoothScroll(): void {
+  lenis?.start();
+}
+
 /** Accepts "#id" or a bare id. */
 export function scrollToId(id: string) {
   const target = document.getElementById(id.replace(/^#/, ""));

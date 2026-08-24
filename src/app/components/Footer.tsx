@@ -2,6 +2,7 @@ import { Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router";
 import logo from "../../assets/logo.png";
 import MadeInLuxembourg from "./MadeInLuxembourg";
+import { openCookieSettings } from "../../lib/consent";
 
 const navigation = {
   services: [
@@ -158,6 +159,17 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* Withdrawal has to be as easy as consent (GDPR Art. 7(3)), so
+                  the dialog is reachable from every page of the site. */}
+              <li>
+                <button
+                  type="button"
+                  onClick={openCookieSettings}
+                  className="text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200 cursor-pointer"
+                >
+                  Cookie settings
+                </button>
+              </li>
             </ul>
           </div>
         </div>

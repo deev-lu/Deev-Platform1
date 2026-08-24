@@ -16,10 +16,12 @@
 //     granted the moment consent is given. Advertising storage stays denied in
 //     both states because we run no ad products.
 //
-// The consent banner and this file share the `cookie-consent` key.
+// Which categories are allowed comes from lib/consent.ts, the site's own
+// consent store: this file only translates that into Consent Mode signals.
+
+import { hasAnalyticsConsent, onConsentChange } from "./consent";
 
 const GA_ID = "G-K0T15PZHMN";
-const CONSENT_KEY = "cookie-consent"; // "accepted" | "rejected"
 
 declare global {
   interface Window {
@@ -29,15 +31,6 @@ declare global {
 }
 
 let started = false;
-
-/** True when the visitor has accepted non-essential cookies. */
-export function hasAnalyticsConsent(): boolean {
-  try {
-    return localStorage.getItem(CONSENT_KEY) === "accepted";
-  } catch {
-    return false;
-  }
-}
 
 /** Boot the tag with everything denied, then load the library. Idempotent. */
 function start(): void {
@@ -88,15 +81,11 @@ export function loadAnalytics(): void {
 
 /**
  * Start measurement, apply whatever the visitor has already decided, and
- * follow the banner's decision live. Returns a cleanup fn.
+ * follow the consent store live. Returns a cleanup fn.
  */
 export function initAnalytics(): () => void {
   start();
   if (hasAnalyticsConsent()) setAnalyticsConsent(true);
-
-  const onConsent = (e: Event) => {
-    setAnalyticsConsent((e as CustomEvent<string>).detail === "accepted");
-  };
-  window.addEventListener("cookie-consent", onConsent);
-  return () => window.removeEventListener("cookie-consent", onConsent);
+  // Covers acceptance, a narrowing of the choice, and withdrawal.
+  return onConsentChange((record) => setAnalyticsConsent(record?.categories.analytics === true));
 }

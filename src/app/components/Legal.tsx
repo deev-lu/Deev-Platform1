@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Cookie } from "lucide-react";
 import logo from "../../assets/logo.png";
+import { openCookieSettings } from "../../lib/consent";
 
 export default function Legal() {
   return (
@@ -130,27 +131,74 @@ export default function Legal() {
               </p>
             </Section>
 
-            <Section title="7. Cookies &amp; Tracking">
+            <Section title="7. Cookies, Consent &amp; Tracking">
               <p>
-                Our website uses essential cookies necessary for its operation, as well as optional analytics
-                cookies to help us understand how visitors use the site. By continuing to use this website, you
-                consent to our use of essential cookies. You may control optional cookies through your browser
-                settings or our cookie preferences panel.
+                This site sets a small number of first-party cookies, and, only with your consent,
+                cookies from Google Analytics. There is no third-party consent platform: the banner,
+                the preference dialog and the record of your choice are all part of this site and
+                nothing about you is sent anywhere in order to ask you the question.
               </p>
+
+              <p className="mt-4 font-medium text-slate-900 dark:text-white">Strictly necessary</p>
+              <p className="mt-1">
+                Set on the legal basis of Article 5(3) of the ePrivacy Directive, which does not
+                require consent for what is technically necessary to deliver the service you asked for.
+              </p>
+              <CookieTable
+                rows={[
+                  ["deev_consent", "deev.lu", "Your cookie choices and the record of them: a reference, the date, and the policy version.", "12 months"],
+                  ["theme", "deev.lu (local storage)", "Remembers the light or dark appearance you selected.", "Until cleared"],
+                ]}
+              />
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">Analytics, only with consent</p>
+              <p className="mt-1">
+                We use Google Analytics 4, operated in the EU by Google Ireland Limited, to count
+                visits and see which pages are read. It runs under Google Consent Mode. Before you
+                choose, and if you decline, the tag stays in a consent-denied state: no cookie is
+                written and no identifier is stored on your device, and Google receives only a
+                cookieless signal, including your IP address and browser type, used for aggregated
+                statistics. If you accept, the cookies below are set.
+              </p>
+              <CookieTable
+                rows={[
+                  ["_ga", "Google Ireland Limited", "Distinguishes one visitor from another so visits can be counted.", "2 years"],
+                  ["_ga_K0T15PZHMN", "Google Ireland Limited", "Keeps the state of the current visit for this property.", "2 years"],
+                ]}
+              />
               <p className="mt-3">
-                For analytics we use Google Analytics 4 (Google Ireland Limited) with Google Consent Mode.
-                Before you make a choice, and if you decline, the tag runs in a consent-denied state: no
-                cookies are set and no identifier is stored on your device. In that state Google receives
-                only a cookieless signal (including your IP address and browser type) which is used for
-                aggregated, statistical measurement of page views.
+                Advertising storage, ad personalisation and ad user data are denied at all times and
+                we run no advertising or remarketing products on this site. Google may process the
+                data outside the EU; those transfers rely on the European Commission&rsquo;s standard
+                contractual clauses and on Google&rsquo;s supplementary measures.
               </p>
-              <p className="mt-3">
-                If you accept analytics cookies in our banner, analytics storage is enabled and Google
-                Analytics sets cookies to measure page views and how visitors navigate the site. Advertising
-                storage, ad personalisation and ad user data remain disabled at all times, we run no
-                advertising products on this site. You can withdraw your consent at any time by clearing this
-                site&rsquo;s data in your browser, which will show the consent banner again.
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">Your consent record</p>
+              <p className="mt-1">
+                When you choose, we store the choice itself, a random reference, the date and time,
+                and the version of this policy you were shown. That record is the evidence of consent
+                required by Article 7(1) GDPR. It lives in the <code>deev_consent</code> cookie on
+                your own device and is mirrored in your browser&rsquo;s local storage, it is not sent
+                to us or to anyone else. It expires after twelve months, and we ask again sooner if
+                this policy changes.
               </p>
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">Changing or withdrawing your choice</p>
+              <p className="mt-1">
+                Withdrawal is as easy as consent, as Article 7(3) GDPR requires. Open the dialog
+                below, or use &ldquo;Cookie settings&rdquo; in the footer of any page. Withdrawing
+                deletes the record, returns analytics to its denied state and shows the banner again.
+                You can also clear this site&rsquo;s data in your browser, which has the same effect.
+              </p>
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-md font-medium text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+                style={{ background: "var(--signal)" }}
+              >
+                <Cookie className="w-4 h-4" />
+                Manage cookie settings
+              </button>
             </Section>
 
             <Section title="8. Data Protection &amp; GDPR">
@@ -219,6 +267,29 @@ export default function Legal() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+/** name, provider, purpose, lifetime — the four columns a cookie policy owes. */
+function CookieTable({ rows }: { rows: [string, string, string, string][] }) {
+  return (
+    <ul className="mt-4 border-t border-slate-200 dark:border-white/[0.07]">
+      {rows.map(([name, provider, purpose, life]) => (
+        <li
+          key={name}
+          className="grid grid-cols-1 sm:grid-cols-[minmax(0,11rem)_1fr_minmax(0,9rem)] gap-x-6 gap-y-1 py-4 border-b border-slate-200 dark:border-white/[0.07]"
+        >
+          <code className="text-[0.8rem] text-slate-900 dark:text-white break-all">{name}</code>
+          <span className="text-[0.9rem]">
+            {purpose}
+            <span className="text-slate-400 dark:text-slate-500"> · {provider}</span>
+          </span>
+          <span className="text-[0.8rem] uppercase tracking-wider text-slate-400 dark:text-slate-500 sm:text-right">
+            {life}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
