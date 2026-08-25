@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
 import { TEAM_READY } from "../../lib/team";
+import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
+import { stripLocale } from "../../lib/i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 interface NavbarProps {}
@@ -16,6 +18,7 @@ interface NavbarProps {}
 const NAV_HREFS = [
   { key: "services" as const,  href: "#services" },
   { key: "work" as const,      href: "/work" },
+  { key: "journal" as const,   href: "/news" },
   { key: "pricing" as const,   href: "#project-builder" },
   { key: "whyDeev" as const,   href: "#why-deev" },
   { key: "about" as const,     href: "#about" },
@@ -34,6 +37,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const navigate = useNavigate();
   const t = useT();
   const localePath = useLocalePath();
+  const { pathname } = useLocation();
+  const atHome = stripLocale(pathname) === "/";
   const links = NAV_HREFS.map((l) => ({ ...l, label: t.site.nav[l.key] }));
 
   useEffect(() => {
@@ -91,9 +96,22 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       >
         <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
 
-          {/* Logo */}
-          <button
-            onClick={() => scrollToTop()}
+          {/* The wordmark goes home from anywhere, and it is a real anchor.
+              As a <button> it only scrolled: on /work, /legal or an article it
+              did nothing at all, it could not be opened in a new tab, and
+              crawlers never saw the logo-to-homepage link every site is
+              expected to have. On the homepage itself there is nowhere to
+              navigate, so it scrolls to the top instead. */}
+          <L
+            to="/"
+            onClick={(e) => {
+              if (atHome) {
+                e.preventDefault();
+                scrollToTop();
+              }
+              setMenuOpen(false);
+            }}
+            aria-label={t.site.nav.home}
             className="flex items-center gap-1.5 shrink-0 group -ml-1"
           >
             <img
@@ -106,7 +124,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             <span className="text-[1.3rem] font-brand tracking-[0.015em] leading-none text-[#0a0f2e] dark:text-white">
               DEEV
             </span>
-          </button>
+          </L>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-2">

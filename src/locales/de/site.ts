@@ -2,9 +2,11 @@ import type { site as En } from "../en/site";
 
 export const site: typeof En = {
   nav: {
+    home: "DEEV, zurück zur Startseite",
     services: "Leistungen",
     work: "Referenzen",
     pricing: "Preise",
+    journal: "Journal",
     whyDeev: "Warum Deev",
     about: "Über uns",
     contact: "Kontakt",

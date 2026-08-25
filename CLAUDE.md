@@ -6,7 +6,8 @@ Live: **https://www.deev.lu** (Vercel). Single-page React app.
 - **React 18 + TypeScript + Vite**
 - **Tailwind CSS v4** (`@tailwindcss/vite`, no tailwind.config — utilities only)
 - **motion/react** (Framer Motion) for animation
-- **react-router** — routes: `/`, `/contact`, `/legal`
+- **react-router** — routes: `/`, `/work`, `/work/:slug`, `/news`,
+  `/news/:slug`, `/contact`, `/legal`, each also under `/fr` and `/de`
 - No backend. Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
 
 ## Commands
@@ -30,8 +31,8 @@ Vercel blocks deploys when the commit email doesn't match a GitHub account.
 Navbar → Hero → ClientLogos → SmeGrantBanner → Portfolio (`WorkMoment`)
 → FoundersNote ("About") → BenefitsPanel → Services (`ValueProposition`)
 → SystemStack → MarketingServices → AiConcepts → BillovioFeature
-→ ProjectBuilder → EnterpriseTrust ("Why Deev") → LuxembourgStrip
-→ FinalCTA → Footer
+→ ProjectBuilder → EnterpriseTrust ("Why Deev") → NewsTeaser ("Journal")
+→ LuxembourgStrip → FinalCTA → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
@@ -86,3 +87,24 @@ If you change the default, change it in **both** `index.html` and `App.tsx`.
 
 ## Env vars (set in Vercel, not committed)
 - `RESEND_API_KEY` — server-side, used by `api/lead.ts` to email contact@deev.lu
+
+## The journal (`/news`)
+
+Articles live in `src/lib/news.data.json`, all three languages side by side.
+The `Article` type requires every locale, so a piece cannot ship in one
+language and be missing in another — the build fails instead.
+
+Bodies are **blocks**, not markdown or HTML: `{p}`, `{h}`, `{list}`, `{code}`,
+`{note}`. They render as elements, so nothing a translator writes can break the
+page or inject markup, and there is no parser to maintain. Add a block type in
+`src/lib/news.ts` and `NewsArticle.tsx` if a piece genuinely needs one.
+
+Adding an article is one entry in that file. It appears in `/news`, in the
+homepage teaser (the three most recent), in the sitemap and as its own
+prerendered document per language, with `BlogPosting` structured data carrying
+its publication date. No code change.
+
+**Article content is the studio's own claims.** Funding figures repeat what the
+rest of the site says about the SME packages; those terms change, so check them
+against Luxinnovation before relying on them. Never write an article asserting
+a client's numbers, or a third party's, without a source.

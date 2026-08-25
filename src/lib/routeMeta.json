@@ -67,6 +67,23 @@
           "description": "Allgemeine Geschäftsbedingungen, Impressum, Datenschutz und Cookie-Richtlinie von DEEV, Lux VR States Sàrl-s, Clemency, Luxemburg."
         }
       }
+    },
+    "/news": {
+      "file": "news.html",
+      "meta": {
+        "en": {
+          "title": "Journal: notes from the work | DEEV",
+          "description": "What we learn building digital systems in Luxembourg: SME funding worth claiming, engineering decisions worth the argument, and what an AI project really involves."
+        },
+        "fr": {
+          "title": "Journal : notes de terrain | DEEV",
+          "description": "Ce que nous apprenons en construisant des systèmes numériques au Luxembourg : aides aux PME, choix techniques et ce qu'implique réellement un projet d'IA."
+        },
+        "de": {
+          "title": "Journal: Notizen aus der Arbeit | DEEV",
+          "description": "Was wir beim Bauen digitaler Systeme in Luxemburg lernen: KMU-Förderung, technische Entscheidungen und was ein KI-Projekt wirklich bedeutet."
+        }
+      }
     }
   },
   "workCase": {
@@ -95,6 +112,20 @@
     "de": {
       "title": "Seite nicht gefunden | DEEV",
       "description": "Diese Seite gibt es nicht. Alles, was DEEV veröffentlicht hat, ist einen Klick von der Startseite entfernt."
+    }
+  },
+  "article": {
+    "en": {
+      "title": "{title} | DEEV",
+      "description": "{excerpt}"
+    },
+    "fr": {
+      "title": "{title} | DEEV",
+      "description": "{excerpt}"
+    },
+    "de": {
+      "title": "{title} | DEEV",
+      "description": "{excerpt}"
     }
   }
 }

@@ -9,9 +9,11 @@
  */
 export const site = {
   nav: {
+    home: "DEEV, back to the homepage",
     services: "Services",
     work: "Work",
     pricing: "Pricing",
+    journal: "Journal",
     whyDeev: "Why Deev",
     about: "About",
     contact: "Contact",

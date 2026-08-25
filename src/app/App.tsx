@@ -31,6 +31,9 @@ const ProjectBuilder    = lazy(() => import("./components/ProjectBuilder"));
 const BillovioFeature   = lazy(() => import("./components/BillovioFeature"));
 const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
 const FoundersNote      = lazy(() => import("./components/FoundersNote"));
+const NewsTeaser        = lazy(() => import("./components/NewsTeaser"));
+const NewsIndex         = lazy(() => import("./components/NewsIndex"));
+const NewsArticle       = lazy(() => import("./components/NewsArticle"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
@@ -79,6 +82,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <div id="billovio"><BillovioFeature /></div>
         <ProjectBuilder />
         <div id="why-deev"><EnterpriseTrust /></div>
+        <div id="journal"><NewsTeaser /></div>
 
         {/* ── Dark act II: close on Luxembourg, the ask, the footer ── */}
         <div data-surface="dark">
@@ -169,6 +173,11 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       <Route path="legal" element={chrome(<Suspense fallback={<SectionSkeleton />}><Legal /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
       <Route path="work/:slug" element={chrome(<WorkCase />)} />
+      <Route path="news" element={chrome(<Suspense fallback={<SectionSkeleton />}><NewsIndex /></Suspense>)} />
+      {/* Eager would be better for CLS, but an article is 8KB of prose and the
+          index is the common entry point, so the fallback is never the first
+          thing a visitor sees here. */}
+      <Route path="news/:slug" element={chrome(<Suspense fallback={<SectionSkeleton />}><NewsArticle /></Suspense>)} />
       <Route path="contact" element={chrome(<Suspense fallback={<SectionSkeleton />}><Contact /></Suspense>)} />
       {/* Anything else. The server answers these with 404.html at a real 404
           status; this is what that document hydrates into. */}

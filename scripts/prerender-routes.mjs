@@ -21,6 +21,7 @@ const SITE = "https://www.deev.lu";
 
 const meta = JSON.parse(readFileSync(join(root, "src/lib/routeMeta.json"), "utf8"));
 const projects = JSON.parse(readFileSync(join(root, "src/lib/projects.data.json"), "utf8"));
+const articles = JSON.parse(readFileSync(join(root, "src/lib/news.data.json"), "utf8"));
 
 // The languages are whatever the metadata actually provides, and every entry
 // has to provide the same set. A language added to src/lib/i18n.ts without its
@@ -32,6 +33,7 @@ const OG_LOCALE = { en: "en_GB", fr: "fr_FR", de: "de_DE" };
 for (const [name, entry] of [
   ...Object.entries(meta.routes).map(([p, r]) => [`route ${p}`, r.meta]),
   ["workCase", meta.workCase],
+  ["article", meta.article],
   ["notFound", meta.notFound],
 ]) {
   const got = Object.keys(entry).sort().join(",");
@@ -92,10 +94,24 @@ for (const p of projects) {
   pages.push({ path: `/work/${p.slug}`, file: `work/${p.slug}.html`, meta: perLocale, project: p });
 }
 
+for (const a of articles) {
+  const perLocale = {};
+  for (const l of LOCALES) {
+    if (!a[l]) throw new Error(`prerender: article ${a.slug} has no ${l} text`);
+    const vars = { title: a[l].title, excerpt: a[l].excerpt };
+    perLocale[l] = {
+      title: fill(meta.article[l].title, vars),
+      description: fill(meta.article[l].description, vars),
+    };
+  }
+  pages.push({ path: `/news/${a.slug}`, file: `news/${a.slug}.html`, meta: perLocale, article: a });
+}
+
 let written = 0;
 for (const locale of LOCALES) {
   const dir = locale === DEFAULT_LOCALE ? dist : join(dist, locale);
   mkdirSync(join(dir, "work"), { recursive: true });
+  mkdirSync(join(dir, "news"), { recursive: true });
 
   for (const page of pages) {
     const url = abs(withLocale(page.path, locale));
@@ -159,7 +175,7 @@ for (const locale of LOCALES) {
     }
 
     // Structured data. Every value is a fact from projects.data.json.
-    if (!page.project && page.path !== "/") {
+    if (!page.project && !page.article && page.path !== "/") {
       const graph = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -169,6 +185,39 @@ for (const locale of LOCALES) {
         ],
       };
       html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(graph)}</script>\n  </head>`);
+    }
+
+    if (page.article) {
+      const a = page.article;
+      const graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Deev", item: abs(withLocale("/", locale)) },
+              { "@type": "ListItem", position: 2, name: page.meta[locale].title.split("|")[0].trim(), item: url },
+            ],
+          },
+          {
+            "@type": "BlogPosting",
+            headline: a[locale].title,
+            description: a[locale].description ?? a[locale].excerpt,
+            url,
+            datePublished: a.date,
+            dateModified: a.date,
+            inLanguage: locale,
+            author: { "@type": "Organization", name: "Deev", url: abs("/") },
+            publisher: { "@type": "Organization", name: "Deev", url: abs("/") },
+            mainEntityOfPage: url,
+          },
+        ],
+      };
+      const block = `<script type="application/ld+json">${JSON.stringify(graph)}</script>`;
+      html = html.replace("</head>", `  ${block}\n  </head>`);
+      const emitted = html.match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@graph".*?)<\/script>/s)?.[1];
+      if (!emitted) throw new Error(`prerender: structured data missing for ${locale} ${page.path}`);
+      JSON.parse(emitted);
     }
 
     if (page.project) {
@@ -246,7 +295,10 @@ const urls = [];
 for (const locale of LOCALES) {
   for (const page of pages) {
     const loc = abs(withLocale(page.path, locale));
-    const priority = page.path === "/" ? "1.0" : page.path.startsWith("/work/") ? "0.7" : "0.5";
+    const priority =
+      page.path === "/" ? "1.0"
+      : page.path.startsWith("/work/") || page.path.startsWith("/news/") ? "0.7"
+      : "0.5";
     const alts = [
       ...LOCALES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${abs(withLocale(page.path, l))}" />`),
       `    <xhtml:link rel="alternate" hreflang="x-default" href="${abs(withLocale(page.path, DEFAULT_LOCALE))}" />`,
