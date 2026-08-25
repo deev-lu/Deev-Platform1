@@ -11,7 +11,7 @@ export const home = {
     claims: [
       "AI-native web platforms, web apps and online stores",
       "Lead engines engineered to convert, not just to look good",
-      "Up to 70% funded by the Luxembourg SME state grant",
+      "70% funded by the Luxembourg SME state grant",
     ],
     ctaPrimary: "Configure your project",
     ctaSecondary: "Book a strategy call",
@@ -21,7 +21,7 @@ export const home = {
 
   grant: {
     badge: "Government-backed funding",
-    title: "Luxembourg SMEs: get up to [[70% funded]] by the state.",
+    title: "Luxembourg SMEs: [[70% funded]] by the state.",
     body:
       "Websites, web-apps and AI projects qualify for the SME Digital & SME AI packages: 70% of investments from €3k–€25k (ex. VAT), with up to 15% marketing and 15% ad spend bundled in.",
     strong: "SME Digital & SME AI packages",
@@ -147,7 +147,7 @@ export const home = {
     deckLabel: "How the workshop runs",
     fundingLabel: "Funding",
     funding:
-      "Luxembourg SMEs can cover up to [[70%]] of eligible costs through Luxinnovation's SME Package AI & Digital, capped at €25,000 of grant per project.",
+      "Luxembourg SMEs cover [[70%]] of eligible costs through Luxinnovation's SME Package AI & Digital, capped at €25,000 of grant per project.",
     method: [
       {
         title: "Discovery, on site",

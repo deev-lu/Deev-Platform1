@@ -52,6 +52,31 @@ export const site = {
   /** The certification mark's accessible name. */
   madeInLabel: "Made in Luxembourg, certified label",
 
+  /** The mega panels. Structure lives in MegaMenu.tsx; every word is here. */
+  mega: {
+    close: "Close menu",
+    columns: { build: "Build", grow: "Grow", studio: "Studio" },
+    items: {
+      "what-we-build": { label: "What we build", desc: "Websites, platforms, online stores and AI products" },
+      "how-it-runs": { label: "How it runs", desc: "Interface, intelligence and EU-hosted infrastructure" },
+      "pricing": { label: "Pricing", desc: "Configure a project and see the price update live" },
+      "marketing": { label: "Marketing", desc: "Ads, SEO and the measurement that proves them" },
+      "ai": { label: "AI workshops", desc: "Where AI pays, costed from your own volumes" },
+      "billovio": { label: "Billovio", desc: "Our own product: a quote written from one sentence" },
+      "why-it-works": { label: "Why it works", desc: "Predictable enquiries and outcomes you can measure" },
+      "why-deev": { label: "Why Deev", desc: "GDPR, security and delivery you can hold us to" },
+      "about": { label: "Who you'll work with", desc: "Two founders, both of them on your project" },
+    },
+    feature: {
+      badge: "Government-backed funding",
+      title: "70% funded by the state",
+      body: "Luxembourg SMEs claim 70% of an eligible digital or AI project. See what yours would actually cost.",
+      cta: "See your net price",
+    },
+    work: { browse: "Browse", all: "All work", recent: "Recent projects" },
+    journal: { browse: "Topics", all: "Read the journal", latest: "Latest articles" },
+  },
+
   deck: {
     prev: (label: string) => `${label}: previous`,
     next: (label: string) => `${label}: next`,

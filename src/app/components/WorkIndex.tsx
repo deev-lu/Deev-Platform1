@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { PROJECTS, type Project } from "../../lib/projects";
+import { WORK_CATEGORIES, categoryPath } from "../../lib/workCategories";
 
 /**
  * /work — the portfolio as a page of its own.
@@ -19,33 +20,22 @@ import { PROJECTS, type Project } from "../../lib/projects";
  * later, at the widths that can hold them.
  */
 
-const FILTERS = ["All", "Website", "E-commerce", "Web App"] as const;
-type Filter = (typeof FILTERS)[number];
-
-/** Filter values are data (they match projects.data.json); their labels are
- *  copy, so they come from the dictionary. */
-const LABEL_KEY: Record<Filter, "all" | "website" | "ecommerce" | "webapp"> = {
-  All: "all",
-  Website: "website",
-  "E-commerce": "ecommerce",
-  "Web App": "webapp",
-};
-
 const domainOf = (link?: string) =>
   link ? link.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "") : "";
 
-export default function WorkIndex() {
+export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string }) {
   const t = useT();
-  const label = (f: Filter) => t.pages.work.filters[LABEL_KEY[f]];
   const reduce = useReducedMotion();
-  const [filter, setFilter] = useState<Filter>("All");
 
-  // Newest first, so the page opens on the most recent work.
+  // The category comes from the route, so the URL is always the truth about
+  // what is on screen and every category can be linked to directly.
+  const current = WORK_CATEGORIES.find((c) => c.slug === categorySlug) ?? WORK_CATEGORIES[0];
+
   // PROJECTS already arrives ordered: screenshots first, newest within that.
   // Re-sorting on year here would undo it and put the plates back on top.
   const all = useMemo(() => [...PROJECTS], []);
-  const shown = filter === "All" ? all : all.filter((p) => p.filter === filter);
-  const countFor = (f: Filter) => (f === "All" ? all.length : all.filter((p) => p.filter === f).length);
+  const shown = current.filter === "All" ? all : all.filter((p) => p.filter === current.filter);
+  const countFor = (f: string) => (f === "All" ? all.length : all.filter((p) => p.filter === f).length);
 
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
@@ -81,24 +71,23 @@ export default function WorkIndex() {
             the thumb instead of stacking into three rows of chips. */}
         <div className="mt-12 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar">
           <div className="flex items-center gap-2 min-w-max pb-1">
-            {FILTERS.map((f) => {
-              const active = f === filter;
+            {WORK_CATEGORIES.map((c) => {
+              const active = c.slug === current.slug;
               return (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => setFilter(f)}
-                  aria-pressed={active}
-                  className={`eyebrow-mono uppercase inline-flex items-center gap-2 h-11 px-5 border transition-colors duration-[var(--dur-1)] cursor-pointer ${
+                <L
+                  key={c.key}
+                  to={categoryPath(c.slug)}
+                  aria-current={active ? "page" : undefined}
+                  className={`eyebrow-mono uppercase inline-flex items-center gap-2 h-11 px-5 border transition-colors duration-[var(--dur-1)] ${
                     active
                       ? "bg-[var(--signal)] border-[var(--signal)] text-white"
                       : "border-[var(--line)] text-[var(--text-mid)] hover:border-[var(--line-strong)] hover:text-[var(--text-hi)]"
                   }`}
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
                 >
-                  {label(f)}
-                  <span className={active ? "text-white/70" : "text-[var(--text-low)]"}>{countFor(f)}</span>
-                </button>
+                  {t.pages.work.filters[c.key]}
+                  <span className={active ? "text-white/70" : "text-[var(--text-low)]"}>{countFor(c.filter)}</span>
+                </L>
               );
             })}
           </div>
@@ -119,7 +108,7 @@ export default function WorkIndex() {
           className="eyebrow-mono uppercase text-[var(--text-low)] mt-12"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
         >
-          {t.pages.work.count(shown.length, filter === "All" ? undefined : label(filter))}
+          {t.pages.work.count(shown.length, current.filter === "All" ? undefined : t.pages.work.filters[current.key])}
         </p>
       </div>
     </main>

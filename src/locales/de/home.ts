@@ -9,7 +9,7 @@ export const home: typeof En = {
     claims: [
       "AI-native Webplattformen, Webanwendungen und Onlineshops",
       "Lead-Maschinen, gebaut für Conversion, nicht nur fürs Auge",
-      "Bis zu 70% gefördert durch die luxemburgische KMU-Staatsbeihilfe",
+      "70% gefördert durch die luxemburgische KMU-Staatsbeihilfe",
     ],
     ctaPrimary: "Projekt konfigurieren",
     ctaSecondary: "Strategiegespräch buchen",
@@ -19,7 +19,7 @@ export const home: typeof En = {
 
   grant: {
     badge: "Staatliche Förderung",
-    title: "Luxemburger KMU: bis zu [[70% gefördert]] vom Staat.",
+    title: "Luxemburger KMU: [[70% gefördert]] vom Staat.",
     body:
       "Websites, Webanwendungen und KI-Projekte sind über die Programme SME Digital und SME AI förderfähig: 70% von Investitionen zwischen 3.000 € und 25.000 € (netto), davon bis zu 15% Marketing und 15% Werbebudget.",
     strong: "Programme SME Digital und SME AI",
@@ -145,7 +145,7 @@ export const home: typeof En = {
     deckLabel: "Wie der Workshop abläuft",
     fundingLabel: "Förderung",
     funding:
-      "Luxemburger KMU können bis zu [[70%]] der förderfähigen Kosten über das SME Package AI & Digital von Luxinnovation abdecken, gedeckelt bei 25.000 € Zuschuss pro Projekt.",
+      "Luxemburger KMU decken [[70%]] der förderfähigen Kosten über das SME Package AI & Digital von Luxinnovation abdecken, gedeckelt bei 25.000 € Zuschuss pro Projekt.",
     method: [
       {
         title: "Discovery, vor Ort",

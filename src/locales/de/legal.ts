@@ -32,7 +32,7 @@ export const legal: typeof En = {
   },
   s4: {
     title: "4. Förderung durch SME Digital und SME AI",
-    body: "Förderfähige luxemburgische KMU können staatliche Zuschüsse aus den Programmen SME Digital und SME AI erhalten, die bis zu 70% der förderfähigen Investitionskosten abdecken können. Projekte müssen im förderfähigen Kostenrahmen liegen (3.000 € bis 25.000 €). Deev unterstützt bei der Antragstellung; die Bewilligung liegt jedoch im alleinigen Ermessen der zuständigen Behörde. Deev übernimmt keine Gewähr für die Bewilligung.",
+    body: "Förderfähige luxemburgische KMU können staatliche Zuschüsse aus den Programmen SME Digital und SME AI erhalten, die 70% der förderfähigen Investitionskosten abdecken. Projekte müssen im förderfähigen Kostenrahmen liegen (3.000 € bis 25.000 €). Deev unterstützt bei der Antragstellung; die Bewilligung liegt jedoch im alleinigen Ermessen der zuständigen Behörde. Deev übernimmt keine Gewähr für die Bewilligung.",
   },
   s5: {
     title: "5. Preise und Änderungen",

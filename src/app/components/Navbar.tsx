@@ -9,20 +9,30 @@ import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
 import { stripLocale } from "../../lib/i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
+import MegaMenu, { type PanelId } from "./MegaMenu";
+import { ChevronDown } from "lucide-react";
 
 interface NavbarProps {}
 
-/** #about only exists while both founder portraits do. The labels come from
- *  the dictionary, the hrefs do not: an anchor is part of the page structure
- *  and is the same in every language. */
-const NAV_HREFS = [
-  { key: "services" as const,  href: "#services" },
-  { key: "work" as const,      href: "/work" },
-  { key: "journal" as const,   href: "/news" },
-  { key: "pricing" as const,   href: "#project-builder" },
-  { key: "whyDeev" as const,   href: "#why-deev" },
-  { key: "about" as const,     href: "#about" },
-  { key: "contact" as const,   href: "/contact" },
+/** The drawer's flat list. #about only exists while both founder portraits do.
+ *  Desktop navigation lives in MegaMenu; this is the phone. */
+const DRAWER_LINKS = [
+  { key: "work" as const,    href: "/work" },
+  { key: "journal" as const, href: "/news" },
+  { key: "contact" as const, href: "/contact" },
+];
+
+/** The same sections the Services panel holds, as an accordion on a phone. */
+const DRAWER_SECTIONS = [
+  { key: "what-we-build", href: "#services" },
+  { key: "how-it-runs", href: "#how-it-runs" },
+  { key: "pricing", href: "#pricing" },
+  { key: "marketing", href: "#marketing" },
+  { key: "ai", href: "#ai" },
+  { key: "billovio", href: "#billovio" },
+  { key: "why-it-works", href: "#why-it-works" },
+  { key: "why-deev", href: "#why-deev" },
+  { key: "about", href: "#about" },
 ].filter((l) => l.href !== "#about" || TEAM_READY);
 
 interface NavbarProps {
@@ -39,7 +49,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const localePath = useLocalePath();
   const { pathname } = useLocation();
   const atHome = stripLocale(pathname) === "/";
-  const links = NAV_HREFS.map((l) => ({ ...l, label: t.site.nav[l.key] }));
+  const [panel, setPanel] = useState<PanelId | null>(null);
+  const [sectionsOpen, setSectionsOpen] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -67,6 +78,10 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
+    // An anchor on the page you are already on is not a route change, so the
+    // panel's route listener never fires and it would sit open over the
+    // section it just sent you to.
+    setPanel(null);
     // Route links (e.g. "/contact") navigate via the router
     if (href.startsWith("/")) {
       navigate(localePath(href));
@@ -126,22 +141,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             </span>
           </L>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-2">
-            {links.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollTo(link.href)}
-                className="group relative px-1 py-2 text-sm font-medium text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-              >
-                {link.label}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute left-0 bottom-1 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-x-100"
-                />
-              </button>
-            ))}
-          </nav>
+          {/* Desktop navigation: three panels and a link. See MegaMenu. */}
+          <MegaMenu open={panel} setOpen={setPanel} onAnchor={scrollTo} />
 
           {/* Right side: language, theme, CTA, burger */}
           <div className="flex items-center gap-3">
@@ -197,13 +198,45 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             className="fixed top-[68px] left-0 right-0 z-30 bg-white/97 dark:bg-[#08080c]/97 border-b border-slate-200 dark:border-white/[0.08] md:hidden "
           >
             <nav className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
-              {links.map((link) => (
+              {/* A hover panel is unusable on touch, so the same sections are
+                  an accordion here rather than a second dropdown. */}
+              <button
+                type="button"
+                onClick={() => setSectionsOpen((v) => !v)}
+                aria-expanded={sectionsOpen}
+                className="flex items-center justify-between gap-3 text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all"
+              >
+                {t.site.nav.services}
+                <ChevronDown
+                  className={`w-4 h-4 shrink-0 transition-transform duration-[var(--dur-1)] ${sectionsOpen ? "rotate-180" : ""}`}
+                  strokeWidth={1.5}
+                />
+              </button>
+
+              {sectionsOpen && (
+                <ul className="mb-1 ml-4 pl-4 border-l border-[var(--line)] flex flex-col">
+                  {DRAWER_SECTIONS.map((item) => (
+                    <li key={item.key}>
+                      <button
+                        type="button"
+                        onClick={() => scrollTo(item.href)}
+                        className="block w-full text-left py-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                        style={{ fontSize: "var(--t-small)" }}
+                      >
+                        {t.site.mega.items[item.key as keyof typeof t.site.mega.items].label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {DRAWER_LINKS.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
                   className="text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all"
                 >
-                  {link.label}
+                  {t.site.nav[link.key]}
                 </button>
               ))}
 

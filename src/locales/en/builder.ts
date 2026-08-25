@@ -4,7 +4,7 @@ export const builder = {
   eyebrow: "Live simulator",
   title: "Build & price your project, [[live]].",
   lead: "Spec your build like a high-performance machine and watch your price, and your [[net cost after the 70% SME grant]], update in real time. Then start it in one click.",
-  grantChip: "Luxembourg SMEs: up to 70% funded by the state SME grant",
+  grantChip: "Luxembourg SMEs: 70% funded by the state SME grant",
   meta: { time: "Takes ~30 seconds", instant: "Instant estimate", noCommitment: "No commitment" },
   steps: ["Product", "Scale", "Features", "Estimate"],
 

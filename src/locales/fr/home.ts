@@ -9,7 +9,7 @@ export const home: typeof En = {
     claims: [
       "Plateformes web, applications et boutiques en ligne AI-native",
       "Des moteurs à prospects conçus pour convertir, pas seulement pour plaire",
-      "Jusqu'à 70% financés par l'aide d'État luxembourgeoise aux PME",
+      "70% financés par l'aide d'État luxembourgeoise aux PME",
     ],
     ctaPrimary: "Configurer votre projet",
     ctaSecondary: "Réserver un appel stratégique",
@@ -19,7 +19,7 @@ export const home: typeof En = {
 
   grant: {
     badge: "Financement public",
-    title: "PME luxembourgeoises : jusqu'à [[70% financés]] par l'État.",
+    title: "PME luxembourgeoises : [[70% financés]] par l'État.",
     body:
       "Les sites web, applications web et projets IA sont éligibles aux programmes SME Digital et SME AI : 70% des investissements de 3 000 € à 25 000 € (HT), dont jusqu'à 15% de marketing et 15% de budget publicitaire.",
     strong: "programmes SME Digital et SME AI",
@@ -145,7 +145,7 @@ export const home: typeof En = {
     deckLabel: "Comment se déroule l'atelier",
     fundingLabel: "Financement",
     funding:
-      "Les PME luxembourgeoises peuvent couvrir jusqu'à [[70%]] des coûts éligibles via le SME Package AI & Digital de Luxinnovation, plafonné à 25 000 € d'aide par projet.",
+      "Les PME luxembourgeoises couvrent [[70%]] des coûts éligibles via le SME Package AI & Digital de Luxinnovation, plafonné à 25 000 € d'aide par projet.",
     method: [
       {
         title: "Découverte, sur site",

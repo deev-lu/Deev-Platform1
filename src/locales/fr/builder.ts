@@ -4,7 +4,7 @@ export const builder: typeof En = {
   eyebrow: "Simulateur en direct",
   title: "Construisez et chiffrez votre projet, [[en direct]].",
   lead: "Configurez votre projet comme une machine de haute performance et voyez votre prix, ainsi que votre [[coût net après l'aide PME de 70%]], se mettre à jour en temps réel. Puis lancez-le en un clic.",
-  grantChip: "PME luxembourgeoises : jusqu'à 70% financés par l'aide d'État aux PME",
+  grantChip: "PME luxembourgeoises : 70% financés par l'aide d'État aux PME",
   meta: { time: "Environ 30 secondes", instant: "Estimation immédiate", noCommitment: "Sans engagement" },
   steps: ["Produit", "Envergure", "Fonctionnalités", "Estimation"],
 

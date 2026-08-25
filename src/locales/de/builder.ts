@@ -4,7 +4,7 @@ export const builder: typeof En = {
   eyebrow: "Live-Konfigurator",
   title: "Konfigurieren und kalkulieren Sie Ihr Projekt, [[live]].",
   lead: "Konfigurieren Sie Ihr Projekt wie eine Hochleistungsmaschine und sehen Sie Ihren Preis und Ihre [[Nettokosten nach der 70%-KMU-Förderung]] in Echtzeit. Dann starten Sie es mit einem Klick.",
-  grantChip: "Luxemburger KMU: bis zu 70% durch die staatliche KMU-Förderung",
+  grantChip: "Luxemburger KMU: 70% durch die staatliche KMU-Förderung",
   meta: { time: "Dauert ca. 30 Sekunden", instant: "Sofortige Schätzung", noCommitment: "Unverbindlich" },
   steps: ["Produkt", "Umfang", "Funktionen", "Schätzung"],
 

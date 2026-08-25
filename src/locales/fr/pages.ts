@@ -32,9 +32,9 @@ export const pages: typeof En = {
     lead:
       "Dites-nous ce que vous construisez. Nous lisons chaque message et répondons personnellement, en général sous un jour ouvré.",
     grant: {
-      badge: "Jusqu'à 70% financés",
+      badge: "70% financés",
       body:
-        "Les PME luxembourgeoises peuvent récupérer jusqu'à 70% sur les sites web, applications web, projets IA et le marketing associé via les programmes SME Digital et SME AI. Signalez-le et nous structurerons votre projet pour maximiser l'aide.",
+        "Les PME luxembourgeoises récupèrent 70% sur les sites web, applications web, projets IA et le marketing associé via les programmes SME Digital et SME AI. Signalez-le et nous structurerons votre projet pour maximiser l'aide.",
       cta: "Estimer votre prix net",
     },
     details: {

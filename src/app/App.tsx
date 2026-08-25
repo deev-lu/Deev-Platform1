@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense, Fragment, type ReactNode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { LOCALES, DEFAULT_LOCALE } from "../lib/i18n";
+import { WORK_CATEGORIES } from "../lib/workCategories";
 
 // Critical above-the-fold — eager loaded
 import Navbar from "./components/Navbar";
@@ -66,7 +67,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
             between made the introduction read like an afterthought. */}
         <div id="about"><FoundersNote /></div>
 
-        <BenefitsPanel />
+        <div id="why-it-works"><BenefitsPanel /></div>
         <div id="services"><ValueProposition /></div>
 
         {/* ── Dark act I: how the system is built ────────────────────
@@ -74,13 +75,13 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
             so these render in their dark treatment in both themes. The
             page is meant to breathe light → dark → light → dark rather
             than run eight near-identical pale sections in a row. */}
-        <div data-surface="dark">
+        <div data-surface="dark" id="how-it-runs">
           <SystemStack />
         </div>
         <div id="marketing"><MarketingServices /></div>
         <div id="ai"><AiConcepts /></div>
         <div id="billovio"><BillovioFeature /></div>
-        <ProjectBuilder />
+        <div id="pricing"><ProjectBuilder /></div>
         <div id="why-deev"><EnterpriseTrust /></div>
         <div id="journal"><NewsTeaser /></div>
 
@@ -172,6 +173,20 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       <Route index element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
       <Route path="legal" element={chrome(<Suspense fallback={<SectionSkeleton />}><Legal /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
+      {/* Each portfolio category is its own page, so it can be linked to,
+          shared and indexed. Declared before work/:slug: a static segment
+          outranks a dynamic one, and no project slug collides with these. */}
+      {WORK_CATEGORIES.filter((c) => c.slug).map((c) => (
+        <Route
+          key={c.slug}
+          path={`work/${c.slug}`}
+          element={chrome(
+            <Suspense fallback={<SectionSkeleton />}>
+              <WorkIndex categorySlug={c.slug} />
+            </Suspense>,
+          )}
+        />
+      ))}
       <Route path="work/:slug" element={chrome(<WorkCase />)} />
       <Route path="news" element={chrome(<Suspense fallback={<SectionSkeleton />}><NewsIndex /></Suspense>)} />
       {/* Eager would be better for CLS, but an article is 8KB of prose and the

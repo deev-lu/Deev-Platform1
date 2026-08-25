@@ -32,7 +32,7 @@ export const legal: typeof En = {
   },
   s4: {
     title: "4. Aides SME Digital et SME AI",
-    body: "Les PME luxembourgeoises éligibles peuvent bénéficier d'aides publiques au titre des programmes SME Digital et SME AI, qui peuvent couvrir jusqu'à 70% des coûts d'investissement éligibles. Les projets doivent se situer dans la fourchette de coûts éligibles (3 000 € à 25 000 €). Deev peut vous accompagner dans la demande d'aide ; l'octroi relève toutefois de la seule appréciation de l'organisme public compétent. Deev ne garantit pas l'obtention de l'aide.",
+    body: "Les PME luxembourgeoises éligibles peuvent bénéficier d'aides publiques au titre des programmes SME Digital et SME AI, qui couvrent 70% des coûts d'investissement éligibles. Les projets doivent se situer dans la fourchette de coûts éligibles (3 000 € à 25 000 €). Deev peut vous accompagner dans la demande d'aide ; l'octroi relève toutefois de la seule appréciation de l'organisme public compétent. Deev ne garantit pas l'obtention de l'aide.",
   },
   s5: {
     title: "5. Tarifs et modifications",

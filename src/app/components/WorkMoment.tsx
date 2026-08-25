@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import L from "./L";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { useT } from "../../lib/useT";
@@ -24,7 +24,7 @@ import { useT } from "../../lib/useT";
  * a screenshot carries the client's own typography, so a title laid over it
  * prints the project name twice.
  *
- * All fourteen projects are in the cycle. Six of them have a screenshot; the
+ * All sixteen projects are in the cycle. Six of them have a screenshot; the
  * other eight have none we can ship, so the frame shows a typeset plate with
  * that project's own name, sector, year and live domain. It is real data set
  * in the site's own type, not a placeholder, and it is replaced the moment a
@@ -62,7 +62,6 @@ const LONGEST_META = SLIDES.reduce((a, p) => {
 const domainOf = (link?: string) =>
   link ? link.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "") : "";
 
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function WorkMoment() {
   const t = useT();
@@ -76,11 +75,15 @@ export default function WorkMoment() {
   // and restarts in step with the timer, including after a manual pick.
   const [cycle, setCycle] = useState(0);
   const [tabVisible, setTabVisible] = useState(true);
+  // Set once, when someone picks a project themselves. From then on the strip
+  // is the only thing that changes what is on screen.
+  const [chosen, setChosen] = useState(false);
+  const activeThumb = useRef<HTMLButtonElement>(null);
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["3%", "-3%"]);
 
-  const running = !reduce && inView && tabVisible && SLIDES.length > 1;
+  const running = !reduce && !chosen && inView && tabVisible && SLIDES.length > 1;
 
   useEffect(() => {
     const onVisibility = () => setTabVisible(!document.hidden);
@@ -98,6 +101,17 @@ export default function WorkMoment() {
     return () => window.clearTimeout(t);
   }, [running, index, cycle]);
 
+  // Follow the rotation with the strip, so the highlighted thumbnail is never
+  // off the side of the screen. Nearest, not centred: nudging by a few pixels
+  // beats yanking the strip on every tick.
+  useEffect(() => {
+    activeThumb.current?.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "nearest",
+      inline: "nearest",
+    });
+  }, [index, reduce]);
+
   // Warm the next frame while the current one is being read.
   useEffect(() => {
     const next = SLIDES[(index + 1) % SLIDES.length];
@@ -109,9 +123,11 @@ export default function WorkMoment() {
   if (SLIDES.length === 0) return null;
 
   const project = SLIDES[index];
-  /** step(-1) / step(1). Wraps, and restarts the ten seconds either way. */
-  const step = (dir: number) => {
-    setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length);
+
+  /** Choosing a project stops the rotation for good. */
+  const pick = (i: number) => {
+    setChosen(true);
+    setIndex(i);
     setCycle((c) => c + 1);
   };
 
@@ -240,50 +256,6 @@ export default function WorkMoment() {
               </span>
             </L>
 
-            {/* Fourteen projects is too many to give each one a tick, so the
-                controls are a pair of arrows, a counter, and one rail that
-                fills across the ten seconds. */}
-            <div className="mt-10">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => step(-1)}
-                  aria-label={t.home.work.prev}
-                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
-                  style={{ borderRadius: "var(--radius-1)" }}
-                >
-                  <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => step(1)}
-                  aria-label={t.home.work.next}
-                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
-                  style={{ borderRadius: "var(--radius-1)" }}
-                >
-                  <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-                </button>
-                <span
-                  className="eyebrow-mono text-[var(--text-low)] ml-2 tabular-nums"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {pad(index + 1)} / {pad(SLIDES.length)}
-                </span>
-              </div>
-
-              <div className="relative h-px w-full mt-7 bg-[var(--line)] overflow-hidden">
-                <motion.span
-                  key={`${cycle}-${running && !isMobile}`}
-                  className="absolute inset-0 origin-left bg-[var(--signal)]"
-                  initial={{ scaleX: running && !isMobile ? 0 : 1 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{
-                    duration: running && !isMobile ? ROTATION_MS / 1000 : 0.24,
-                    ease: "linear",
-                  }}
-                />
-              </div>
-            </div>
           </motion.div>
 
           {/* The work, framed and large. */}
@@ -348,6 +320,61 @@ export default function WorkMoment() {
               </div>
             </L>
           </motion.div>
+        </div>
+
+        {/* One control instead of four.
+            Arrows, a counter and a filling progress bar asked someone to step
+            through sixteen projects blind and to work out what the bar meant.
+            The strip shows what there is and goes straight to it, which is
+            also the one gesture that already works on a phone: a thumb drag.
+            Auto-advance stops for good the moment anyone touches it, because
+            a carousel that keeps moving after you have chosen is fighting
+            you. */}
+        <div className="mt-10 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar">
+          <ul className="flex items-stretch gap-3 min-w-max pb-1" role="tablist" aria-label={t.home.work.eyebrow}>
+            {SLIDES.map((p, i) => {
+              const active = i === index;
+              return (
+                <li key={p.slug}>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    aria-label={p.title}
+                    ref={active ? activeThumb : undefined}
+                    onClick={() => pick(i)}
+                    className={`block w-[132px] sm:w-[152px] border transition-all duration-[var(--dur-2)] cursor-pointer overflow-hidden ${
+                      active
+                        ? "border-[var(--signal)] opacity-100"
+                        : "border-[var(--line)] opacity-55 hover:opacity-100 hover:border-[var(--line-strong)]"
+                    }`}
+                    style={{ borderRadius: "var(--radius-1)" }}
+                  >
+                    <span className="block relative w-full bg-[var(--surface-2)]" style={{ aspectRatio: "1000 / 583" }}>
+                      {p.image ? (
+                        <img
+                          src={p.image}
+                          alt=""
+                          width={1000}
+                          height={583}
+                          loading="lazy"
+                          decoding="async"
+                          className="absolute inset-0 w-full h-full object-cover object-top"
+                        />
+                      ) : (
+                        <span
+                          className="absolute inset-0 flex items-center justify-center px-2 text-center eyebrow-mono uppercase text-[var(--text-low)]"
+                          style={{ fontSize: "var(--t-label)", letterSpacing: "0.12em" }}
+                        >
+                          {p.title}
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         {/* The full list lives on /work now. One line here keeps every case

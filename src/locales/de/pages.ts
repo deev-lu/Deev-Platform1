@@ -32,9 +32,9 @@ export const pages: typeof En = {
     lead:
       "Erzählen Sie uns, was Sie bauen. Wir lesen jede Nachricht und antworten persönlich, meist innerhalb eines Werktags.",
     grant: {
-      badge: "Bis zu 70% gefördert",
+      badge: "70% gefördert",
       body:
-        "Luxemburger KMU können über die Programme SME Digital und SME AI bis zu 70% für Websites, Webanwendungen, KI und begleitendes Marketing zurückerhalten. Sagen Sie uns Bescheid, und wir strukturieren Ihr Projekt so, dass die Förderung maximal ausfällt.",
+        "Luxemburger KMU können über die Programme SME Digital und SME AI 70% für Websites, Webanwendungen, KI und begleitendes Marketing zurückerhalten. Sagen Sie uns Bescheid, und wir strukturieren Ihr Projekt so, dass die Förderung maximal ausfällt.",
       cta: "Nettopreis schätzen",
     },
     details: {

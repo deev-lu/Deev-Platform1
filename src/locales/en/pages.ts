@@ -31,9 +31,9 @@ export const pages = {
     lead:
       "Tell us what you're building. We read every message and reply personally, usually within one business day.",
     grant: {
-      badge: "Up to 70% funded",
+      badge: "70% funded",
       body:
-        "Luxembourg SMEs can recover up to 70% on websites, web-apps, AI and bundled marketing through the SME Digital & SME AI packages. Mention it and we'll structure your project to maximise the grant.",
+        "Luxembourg SMEs recover 70% on websites, web-apps, AI and bundled marketing through the SME Digital & SME AI packages. Mention it and we'll structure your project to maximise the grant.",
       cta: "Estimate your net price",
     },
     details: {

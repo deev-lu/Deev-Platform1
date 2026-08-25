@@ -38,7 +38,7 @@ export const legal = {
   },
   s4: {
     title: "4. SME Digital & SME AI Subsidies",
-    body: "Eligible Luxembourg-based SMEs may benefit from government subsidies under the SME Digital and SME AI programmes, which can cover up to 70% of qualifying investment costs. Projects must fall within the eligible cost range (€3,000–€25,000). Deev can assist with the subsidy application process; however, approval is at the sole discretion of the relevant government body. Deev does not guarantee subsidy approval.",
+    body: "Eligible Luxembourg-based SMEs may benefit from government subsidies under the SME Digital and SME AI programmes, which cover 70% of qualifying investment costs. Projects must fall within the eligible cost range (€3,000–€25,000). Deev can assist with the subsidy application process; however, approval is at the sole discretion of the relevant government body. Deev does not guarantee subsidy approval.",
   },
   s5: {
     title: "5. Pricing & Changes",

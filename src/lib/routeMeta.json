@@ -5,15 +5,15 @@
       "meta": {
         "en": {
           "title": "DEEV: AI-Native Digital Agency in Luxembourg",
-          "description": "AI-native web systems, web apps and lead campaigns engineered in Luxembourg to convert, automate and scale. Up to 70% funded by the SME state grant."
+          "description": "AI-native web systems, web apps and lead campaigns engineered in Luxembourg to convert, automate and scale. 70% funded by the SME state grant."
         },
         "fr": {
           "title": "DEEV : agence digitale AI-native au Luxembourg",
-          "description": "Systèmes web, applications et campagnes AI-native conçus au Luxembourg pour convertir, automatiser et grandir. Jusqu'à 70% financés par l'aide d'État aux PME."
+          "description": "Systèmes web, applications et campagnes AI-native conçus au Luxembourg pour convertir, automatiser et grandir. 70% financés par l'aide d'État aux PME."
         },
         "de": {
           "title": "DEEV: AI-native Digitalagentur in Luxemburg",
-          "description": "AI-native Websysteme, Webanwendungen und Lead-Kampagnen, entwickelt in Luxemburg für Conversion, Automatisierung und Wachstum. Bis zu 70% staatlich gefördert."
+          "description": "AI-native Websysteme, Webanwendungen und Lead-Kampagnen, entwickelt in Luxemburg für Conversion, Automatisierung und Wachstum. 70% staatlich gefördert."
         }
       }
     },
@@ -82,6 +82,57 @@
         "de": {
           "title": "Journal: Notizen aus der Arbeit | DEEV",
           "description": "Was wir beim Bauen digitaler Systeme in Luxemburg lernen: KMU-Förderung, technische Entscheidungen und was ein KI-Projekt wirklich bedeutet."
+        }
+      }
+    },
+    "/work/websites": {
+      "file": "work/websites.html",
+      "meta": {
+        "en": {
+          "title": "Websites built in Luxembourg | DEEV",
+          "description": "Marketing sites and brand websites designed and built by DEEV: fast, conversion-focused, and rewarded by search."
+        },
+        "fr": {
+          "title": "Sites web conçus au Luxembourg | DEEV",
+          "description": "Sites vitrines et sites de marque conçus et développés par DEEV : rapides, pensés pour convertir et récompensés par les moteurs de recherche."
+        },
+        "de": {
+          "title": "Websites, gebaut in Luxemburg | DEEV",
+          "description": "Marketing- und Markenwebsites, entworfen und gebaut von DEEV: schnell, auf Conversion ausgelegt und von Suchmaschinen belohnt."
+        }
+      }
+    },
+    "/work/online-stores": {
+      "file": "work/online-stores.html",
+      "meta": {
+        "en": {
+          "title": "Online stores and e-commerce | DEEV",
+          "description": "E-commerce projects by DEEV: online stores with payments, catalogue and inventory that hold up from the first customer."
+        },
+        "fr": {
+          "title": "Boutiques en ligne et e-commerce | DEEV",
+          "description": "Projets e-commerce de DEEV : des boutiques en ligne avec paiements, catalogue et gestion des stocks qui tiennent dès le premier client."
+        },
+        "de": {
+          "title": "Onlineshops und E-Commerce | DEEV",
+          "description": "E-Commerce-Projekte von DEEV: Onlineshops mit Zahlungen, Katalog und Bestandsführung, die vom ersten Kunden an tragen."
+        }
+      }
+    },
+    "/work/web-apps": {
+      "file": "work/web-apps.html",
+      "meta": {
+        "en": {
+          "title": "Web apps and platforms | DEEV",
+          "description": "Web applications and platforms built by DEEV: dashboards, portals and product logic that handle real customers from day one."
+        },
+        "fr": {
+          "title": "Applications web et plateformes | DEEV",
+          "description": "Applications web et plateformes développées par DEEV : tableaux de bord, portails et logique métier qui gèrent de vrais clients dès le premier jour."
+        },
+        "de": {
+          "title": "Webanwendungen und Plattformen | DEEV",
+          "description": "Von DEEV gebaute Webanwendungen und Plattformen: Dashboards, Portale und Produktlogik, die vom ersten Tag an echte Kunden tragen."
         }
       }
     }
