@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useInView } from "motion/react";
+import { useT } from "../../lib/useT";
 import { Play } from "lucide-react";
 
 /**
@@ -52,6 +53,7 @@ export default function LiteYouTube({
   title: string;
   className?: string;
 }) {
+  const t = useT();
   const [playing, setPlaying] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   // loading="lazy" is not enough here: the section mounts before the page has
@@ -84,7 +86,7 @@ export default function LiteYouTube({
         <button
           type="button"
           onClick={() => setPlaying(true)}
-          aria-label={`Play video: ${title}`}
+          aria-label={t.home.marketing.playLabel(title)}
           className="group absolute inset-0 w-full h-full cursor-pointer"
         >
           {poster ? (

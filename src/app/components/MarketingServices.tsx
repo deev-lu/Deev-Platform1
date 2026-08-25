@@ -18,9 +18,10 @@ import { Deck, CARD_BASE } from "./Deck";
  */
 
 
-/** The three shorts are our own. Their ids are data; their accessible names
- *  are copy, so they come from the dictionary in the reader's language. */
-const VIDEO_IDS = ["LeAYeRih-_Y", "zURSJEqZO2E", "j9zL-hiTnF4"];
+/** The shorts are our own. Their ids are data; their accessible names are copy,
+ *  so they come from the dictionary in the reader's language, and the count in
+ *  "two of four" follows the list rather than being written down twice. */
+const VIDEO_IDS = ["LeAYeRih-_Y", "zURSJEqZO2E", "j9zL-hiTnF4", "J0xtCDzHrXU"];
 
 export default function MarketingServices() {
   const t = useT();
@@ -109,7 +110,7 @@ export default function MarketingServices() {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 max-w-[1040px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-[1040px]">
           {VIDEOS.map((v, i) => (
             <motion.div
               key={v.id}
