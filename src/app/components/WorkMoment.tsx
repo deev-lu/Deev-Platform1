@@ -75,15 +75,12 @@ export default function WorkMoment() {
   // and restarts in step with the timer, including after a manual pick.
   const [cycle, setCycle] = useState(0);
   const [tabVisible, setTabVisible] = useState(true);
-  // Set once, when someone picks a project themselves. From then on the strip
-  // is the only thing that changes what is on screen.
-  const [chosen, setChosen] = useState(false);
   const activeThumb = useRef<HTMLButtonElement>(null);
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["3%", "-3%"]);
 
-  const running = !reduce && !chosen && inView && tabVisible && SLIDES.length > 1;
+  const running = !reduce && inView && tabVisible && SLIDES.length > 1;
 
   useEffect(() => {
     const onVisibility = () => setTabVisible(!document.hidden);
@@ -124,9 +121,10 @@ export default function WorkMoment() {
 
   const project = SLIDES[index];
 
-  /** Choosing a project, by either control, stops the rotation for good. */
+  /** Choosing a project, by either control, restarts the ten seconds rather
+   *  than ending the rotation: bumping the cycle remounts the progress fill so
+   *  the bar and the timer stay in step. */
   const pick = (i: number) => {
-    setChosen(true);
     setIndex(i);
     setCycle((c) => c + 1);
   };
@@ -259,6 +257,46 @@ export default function WorkMoment() {
               </span>
             </L>
 
+            {/* Below the link, where they were: two arrows and a rail that
+                fills across the ten seconds, so the automatic switch shows
+                how long is left rather than just happening. The strip under
+                the frame is the third way in, for going straight to one. */}
+            <div className="mt-10">
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => step(-1)}
+                  aria-label={t.home.work.prev}
+                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+                  style={{ borderRadius: "var(--radius-1)" }}
+                >
+                  <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => step(1)}
+                  aria-label={t.home.work.next}
+                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+                  style={{ borderRadius: "var(--radius-1)" }}
+                >
+                  <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                </button>
+              </div>
+
+              <div className="relative h-px w-full mt-7 bg-[var(--line)] overflow-hidden">
+                <motion.span
+                  key={`${cycle}-${running && !isMobile}`}
+                  className="absolute inset-0 origin-left bg-[var(--signal)]"
+                  initial={{ scaleX: running && !isMobile ? 0 : 1 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{
+                    duration: running && !isMobile ? ROTATION_MS / 1000 : 0.24,
+                    ease: "linear",
+                  }}
+                />
+              </div>
+            </div>
+
           </motion.div>
 
           {/* The work, framed and large. */}
@@ -325,36 +363,10 @@ export default function WorkMoment() {
           </motion.div>
         </div>
 
-        {/* The strip is the control; the arrows drive the same thing.
-            What went was the counter and the bar that filled over ten
-            seconds: the counter said where you were in a sequence the strip
-            already shows, and the bar described a timer rather than offering
-            anything to press. The arrows are hidden on a phone, where the
-            strip is already a thumb drag and two 40px targets would only
-            take room from it. Either control stops the rotation for good,
-            because a carousel that keeps moving after you have chosen is
-            fighting you. */}
-        <div className="mt-10 flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => step(-1)}
-            aria-label={t.home.work.prev}
-            className="hidden sm:flex w-10 h-10 shrink-0 items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
-            style={{ borderRadius: "var(--radius-1)" }}
-          >
-            <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
-          </button>
-          <button
-            type="button"
-            onClick={() => step(1)}
-            aria-label={t.home.work.next}
-            className="hidden sm:flex w-10 h-10 shrink-0 items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
-            style={{ borderRadius: "var(--radius-1)" }}
-          >
-            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-          </button>
-
-          <div className="min-w-0 flex-1 -mr-[var(--gutter)] pr-[var(--gutter)] sm:mr-0 sm:pr-0 overflow-x-auto no-scrollbar">
+        {/* Every project, to go straight to one. The arrows and the countdown
+            live with the copy above; this is the third way in, and the only
+            one that works as a thumb drag. */}
+        <div className="mt-10 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar">
           <ul className="flex items-stretch gap-3 min-w-max pb-1" role="tablist" aria-label={t.home.work.eyebrow}>
             {SLIDES.map((p, i) => {
               const active = i === index;
@@ -399,7 +411,6 @@ export default function WorkMoment() {
               );
             })}
           </ul>
-          </div>
         </div>
 
         {/* The full list lives on /work now. One line here keeps every case
