@@ -32,6 +32,24 @@ export const pages: typeof En = {
     next: "Nächstes Projekt",
   },
 
+  /**
+   * /services — die Seite, auf die der Menüpunkt "Services" verweist. Die neun
+   * Bereiche selbst stammen aus site.mega.items, damit Menü und Seite nicht
+   * auseinanderlaufen können.
+   */
+  services: {
+    eyebrow: "Was wir machen",
+    title: "Alles, was wir bauen und betreiben.",
+    lead:
+      "Websites, Plattformen, Onlineshops, KI und das Marketing, das sie füllt. Entwickelt in Luxemburg, zu 70 % gefördert für luxemburgische KMU.",
+    cta: {
+      title: "Sie wissen nicht, was Sie brauchen?",
+      body:
+        "Sagen Sie uns, was Sie lösen wollen. Wir sagen Ihnen, was es braucht, was es kostet und was der Staat übernimmt.",
+      action: "Sprechen wir darüber",
+    },
+  },
+
   contact: {
     badge: "Kontakt aufnehmen",
     title: "Sprechen wir über",

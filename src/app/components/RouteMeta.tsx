@@ -32,15 +32,15 @@ function metaFor(path: string, locale: Locale): Meta | null {
 
   const slug = path.startsWith("/work/") ? path.slice("/work/".length) : null;
   if (!slug) return null;
-  const p = (projects as { slug: string; title: string; category: string; year: number }[])
+  const p = (projects as { slug: string; title: string; category: Record<string, string>; year: number }[])
     .find((x) => x.slug === slug);
   if (!p) return null;
 
   const tpl = (routeMeta.workCase as Record<string, Meta>)[locale];
   const vars = {
     title: p.title,
-    category: p.category,
-    categoryLower: p.category.toLowerCase(),
+    category: p.category[locale],
+    categoryLower: p.category[locale].toLowerCase(),
     year: String(p.year),
   };
   return { title: fill(tpl.title, vars), description: fill(tpl.description, vars) };

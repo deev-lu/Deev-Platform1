@@ -54,6 +54,7 @@ export const site = {
 
   /** The mega panels. Structure lives in MegaMenu.tsx; every word is here. */
   mega: {
+    toggle: (label: string) => `Open the ${label} menu`,
     close: "Close menu",
     columns: { build: "Build", grow: "Grow", studio: "Studio" },
     items: {

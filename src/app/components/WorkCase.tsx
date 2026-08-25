@@ -3,8 +3,8 @@ import { motion } from "motion/react";
 import { useParams, useNavigate } from "react-router";
 import L from "./L";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { getProject, nextProject } from "../../lib/projects";
-import { useT, useLocalePath } from "../../lib/useT";
+import { getProject, nextProject, sectorOf } from "../../lib/projects";
+import { useT, useLocalePath, useLocale } from "../../lib/useT";
 
 /**
  * /work/:slug — a dedicated page per project.
@@ -18,6 +18,7 @@ export default function WorkCase() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const t = useT();
+  const locale = useLocale();
   const localePath = useLocalePath();
   const project = getProject(slug);
 
@@ -31,7 +32,7 @@ export default function WorkCase() {
   const next = nextProject(project.slug);
   const spec: [string, string][] = [
     [t.pages.workCase.spec.client, project.title],
-    [t.pages.workCase.spec.sector, project.category],
+    [t.pages.workCase.spec.sector, sectorOf(project, locale)],
     // No Type row. It carried the filter value, which is plural on purpose
     // ("Web apps" names a category of many) and read wrong for a single
     // project, and "What we did" below now says the same thing in the
@@ -48,7 +49,7 @@ export default function WorkCase() {
           <div className="relative h-[62vh] min-h-[420px] overflow-hidden">
             <img
               src={project.image}
-              alt={`${project.title}, ${project.category}`}
+              alt={`${project.title}, ${sectorOf(project, locale)}`}
               width={1000}
               height={583}
               className="absolute inset-0 w-full h-full object-cover object-top"

@@ -32,6 +32,24 @@ export const pages: typeof En = {
     next: "Projet suivant",
   },
 
+  /**
+   * /services — la page vers laquelle pointe le bouton "Services" de la
+   * navigation. Les neuf domaines eux-mêmes viennent de site.mega.items :
+   * le menu et la page ne peuvent donc pas diverger.
+   */
+  services: {
+    eyebrow: "Ce que nous faisons",
+    title: "Tout ce que nous construisons et faisons tourner.",
+    lead:
+      "Sites, plateformes, boutiques en ligne, IA et le marketing qui les alimente. Conçu au Luxembourg, financé à 70 % pour les PME luxembourgeoises.",
+    cta: {
+      title: "Vous ne savez pas ce qu'il vous faut ?",
+      body:
+        "Dites-nous ce que vous cherchez à régler. Nous vous dirons ce que cela demande, ce que cela coûte et ce que l'État couvre.",
+      action: "Parlons-en",
+    },
+  },
+
   contact: {
     badge: "Nous contacter",
     title: "Parlons de",

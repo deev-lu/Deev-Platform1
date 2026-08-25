@@ -20,7 +20,7 @@ const NAV = {
     { key: "marketingSites", href: "/#marketing" },
   ],
   company: [
-    { key: "services", href: "/#services" },
+    { key: "services", href: "/services" },
     { key: "portfolio", href: "/work" },
     { key: "journal", href: "/blog" },
     { key: "pricing", href: "/#project-builder" },

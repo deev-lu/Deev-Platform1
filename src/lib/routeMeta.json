@@ -17,6 +17,23 @@
         }
       }
     },
+    "/services": {
+      "file": "services.html",
+      "meta": {
+        "en": {
+          "title": "Services: websites, web apps, AI and marketing | DEEV",
+          "description": "What DEEV builds and runs: websites, platforms, online stores, AI workshops and the marketing behind them. Engineered in Luxembourg, 70% funded for Luxembourg SMEs."
+        },
+        "fr": {
+          "title": "Services : sites, applications web, IA et marketing | DEEV",
+          "description": "Ce que DEEV construit et fait tourner : sites web, plateformes, boutiques en ligne, ateliers IA et le marketing qui va avec. Conçu au Luxembourg, financé à 70 % pour les PME luxembourgeoises."
+        },
+        "de": {
+          "title": "Leistungen: Websites, Webanwendungen, KI und Marketing | DEEV",
+          "description": "Was DEEV baut und betreibt: Websites, Plattformen, Onlineshops, KI-Workshops und das passende Marketing. Entwickelt in Luxemburg, zu 70 % gefördert für luxemburgische KMU."
+        }
+      }
+    },
     "/work": {
       "file": "work.html",
       "meta": {

@@ -82,8 +82,8 @@ for (const p of projects) {
   for (const l of LOCALES) {
     const vars = {
       title: p.title,
-      category: p.category,
-      categoryLower: p.category.toLowerCase(),
+      category: p.category[l],
+      categoryLower: p.category[l].toLowerCase(),
       year: String(p.year),
     };
     perLocale[l] = {
@@ -137,7 +137,7 @@ for (const locale of LOCALES) {
             { label: "twitter:image",   re: metaTag("name", "twitter:image"),       value: image },
             { label: "og:image:width",  re: metaTag("property", "og:image:width"),  value: "1000" },
             { label: "og:image:height", re: metaTag("property", "og:image:height"), value: "583" },
-            { label: "og:image:alt",    re: metaTag("property", "og:image:alt"),    value: esc(`${page.project.title}, ${page.project.category}`) },
+            { label: "og:image:alt",    re: metaTag("property", "og:image:alt"),    value: esc(`${page.project.title}, ${page.project.category[locale]}`) },
           ]
         : []),
     ];
@@ -236,7 +236,7 @@ for (const locale of LOCALES) {
             "@type": "CreativeWork",
             name: p.title,
             url,
-            genre: p.category,
+            genre: p.category[locale],
             dateCreated: String(p.year),
             inLanguage: locale,
             creator: { "@type": "Organization", name: "Deev", url: abs("/") },

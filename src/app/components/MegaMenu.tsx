@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLocation } from "react-router";
-import { ArrowRight, ArrowUpRight, BadgeEuro } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeEuro, ChevronDown } from "lucide-react";
 import L from "./L";
-import { PROJECTS } from "../../lib/projects";
+import { PROJECTS, sectorOf } from "../../lib/projects";
 import { WORK_CATEGORIES, categoryPath } from "../../lib/workCategories";
+import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
 import { ARTICLES, formatDate } from "../../lib/news";
 import { useT, useLocale, useLocalePath } from "../../lib/useT";
 
@@ -25,8 +26,9 @@ import { useT, useLocale, useLocalePath } from "../../lib/useT";
  *     to the button next to it.
  *   - Closes on Escape, on outside click, on route change and when focus
  *     leaves the panel.
- *   - Every trigger is a real button with aria-expanded, and the panel is
- *     labelled by it.
+ *   - Every trigger is a link to a real page (/services, /work, /blog) with a
+ *     separate chevron button carrying aria-expanded for the panel, so the
+ *     menu is a shortcut into a destination rather than the only route to it.
  *   - Rendered only while open, so nothing inside it is fetched or decoded
  *     for a visitor who never opens it. That matters: the Work panel holds
  *     three screenshots.
@@ -35,23 +37,6 @@ import { useT, useLocale, useLocalePath } from "../../lib/useT";
  * touch; the drawer in Navbar carries the same links as an accordion.
  */
 
-const SECTIONS = {
-  build: ["what-we-build", "how-it-runs", "pricing"],
-  grow: ["marketing", "ai", "billovio"],
-  studio: ["why-it-works", "why-deev", "about"],
-} as const;
-
-const HREF: Record<string, string> = {
-  "what-we-build": "#services",
-  "how-it-runs": "#how-it-runs",
-  pricing: "#pricing",
-  marketing: "#marketing",
-  ai: "#ai",
-  billovio: "#billovio",
-  "why-it-works": "#why-it-works",
-  "why-deev": "#why-deev",
-  about: "#about",
-};
 
 export type PanelId = "services" | "work" | "journal";
 
@@ -71,10 +56,12 @@ export default function MegaMenu({
   const wrap = useRef<HTMLDivElement>(null);
   const timer = useRef<number | undefined>(undefined);
 
-  const TRIGGERS: { id: PanelId; label: string }[] = [
-    { id: "services", label: t.site.nav.services },
-    { id: "work", label: t.site.nav.work },
-    { id: "journal", label: t.site.nav.journal },
+  // Each trigger is a destination first and a panel second: the panel is a
+  // shortcut into the page, never the only way to reach it.
+  const TRIGGERS: { id: PanelId; label: string; to: string }[] = [
+    { id: "services", label: t.site.nav.services, to: "/services" },
+    { id: "work", label: t.site.nav.work, to: "/work" },
+    { id: "journal", label: t.site.nav.journal, to: "/blog" },
   ];
 
   // A route change means the visitor got where they were going.
@@ -113,30 +100,59 @@ export default function MegaMenu({
       onMouseEnter={() => window.clearTimeout(timer.current)}
     >
       <nav className="flex items-center gap-1">
-        {TRIGGERS.map((trigger) => (
-          <button
-            key={trigger.id}
-            type="button"
-            aria-expanded={open === trigger.id}
-            aria-controls={`mega-${trigger.id}`}
-            onMouseEnter={() => hoverOpen(trigger.id)}
-            onFocus={() => setOpen(trigger.id)}
-            onClick={() => setOpen(open === trigger.id ? null : trigger.id)}
-            className={`group relative px-3 py-2 text-sm font-medium transition-colors duration-[var(--dur-1)] ${
-              open === trigger.id
-                ? "text-slate-900 dark:text-[var(--text-hi)]"
-                : "text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)]"
-            }`}
-          >
-            {trigger.label}
-            <span
-              aria-hidden="true"
-              className={`pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] ${
-                open === trigger.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-              }`}
-            />
-          </button>
-        ))}
+        {TRIGGERS.map((trigger) => {
+          const on = open === trigger.id;
+          return (
+            <div
+              key={trigger.id}
+              className="group relative flex items-center"
+              onMouseEnter={() => hoverOpen(trigger.id)}
+            >
+              {/* The label navigates. Clicking "Blog" goes to the blog; it
+                  does not merely open a panel about it, and a crawler now
+                  finds a real href where there used to be a bare button. */}
+              <L
+                to={trigger.to}
+                onFocus={() => setOpen(trigger.id)}
+                className={`relative pl-3 pr-1 py-2 text-sm font-medium transition-colors duration-[var(--dur-1)] ${
+                  on
+                    ? "text-slate-900 dark:text-[var(--text-hi)]"
+                    : "text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)]"
+                }`}
+              >
+                {trigger.label}
+              </L>
+
+              {/* The panel keeps its own control, so it can still be opened
+                  and closed from the keyboard without leaving the page. */}
+              <button
+                type="button"
+                aria-expanded={on}
+                aria-controls={`mega-${trigger.id}`}
+                aria-label={t.site.mega.toggle(trigger.label)}
+                onClick={() => setOpen(on ? null : trigger.id)}
+                onFocus={() => setOpen(trigger.id)}
+                className={`relative pr-3 pl-0.5 py-2 transition-colors duration-[var(--dur-1)] ${
+                  on
+                    ? "text-slate-900 dark:text-[var(--text-hi)]"
+                    : "text-slate-500 dark:text-[var(--text-low)] hover:text-slate-900 dark:hover:text-[var(--text-hi)]"
+                }`}
+              >
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-[var(--dur-1)] ${on ? "rotate-180" : ""}`}
+                  strokeWidth={1.75}
+                />
+              </button>
+
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] ${
+                  on ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                }`}
+              />
+            </div>
+          );
+        })}
 
         <L
           to="/contact"
@@ -195,17 +211,17 @@ function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
 
   return (
     <div className="grid grid-cols-12 gap-x-10 gap-y-10">
-      {(Object.keys(SECTIONS) as (keyof typeof SECTIONS)[]).map((col) => (
+      {(Object.keys(SERVICE_GROUPS) as (keyof typeof SERVICE_GROUPS)[]).map((col) => (
         <div key={col} className="col-span-3">
           <ColumnHeading>{t.site.mega.columns[col]}</ColumnHeading>
           <ul className="flex flex-col gap-1">
-            {SECTIONS[col].map((id) => {
+            {SERVICE_GROUPS[col].map((id) => {
               const item = t.site.mega.items[id];
               return (
                 <li key={id}>
                   <button
                     type="button"
-                    onClick={() => onAnchor(HREF[id])}
+                    onClick={() => onAnchor(SERVICE_HREF[id])}
                     className="group block w-full text-left py-2.5 px-3 -mx-3 rounded-[var(--radius-1)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
                   >
                     <span className="flex items-center gap-2 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
@@ -258,6 +274,7 @@ function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
 
 function WorkPanel() {
   const t = useT();
+  const locale = useLocale();
   const recent = PROJECTS.slice(0, 3);
 
   return (
@@ -314,7 +331,7 @@ function WorkPanel() {
                   {p.image && (
                     <img
                       src={p.image}
-                      alt={`${p.title}, ${p.category}`}
+                      alt={`${p.title}, ${sectorOf(p, locale)}`}
                       width={1000}
                       height={583}
                       decoding="async"
@@ -329,7 +346,7 @@ function WorkPanel() {
                   className="eyebrow-mono uppercase text-[var(--text-low)] mt-1 truncate"
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                 >
-                  {p.category}
+                  {sectorOf(p, locale)}
                 </div>
               </L>
             </li>

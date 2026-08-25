@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import L from "./L";
-import { useT } from "../../lib/useT";
-import { PROJECTS, type Project } from "../../lib/projects";
+import { useT, useLocale } from "../../lib/useT";
+import { PROJECTS, type Project, sectorOf } from "../../lib/projects";
 import { WORK_CATEGORIES, categoryPath } from "../../lib/workCategories";
 
 /**
@@ -25,6 +25,7 @@ const domainOf = (link?: string) =>
 
 export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string }) {
   const t = useT();
+  const locale = useLocale();
   const reduce = useReducedMotion();
 
   // The category comes from the route, so the URL is always the truth about
@@ -116,6 +117,7 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
 }
 
 function Card({ project, index, reduce }: { project: Project; index: number; reduce: boolean }) {
+  const locale = useLocale();
   return (
     <motion.article
       initial={reduce ? undefined : { opacity: 0, y: 18 }}
@@ -146,7 +148,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
           {project.image ? (
             <img
               src={project.image}
-              alt={`${project.title}, ${project.category}`}
+              alt={`${project.title}, ${sectorOf(project, locale)}`}
               loading="lazy"
               decoding="async"
               width={1000}
@@ -165,7 +167,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
                 className="text-[var(--text-hi)] font-medium"
                 style={{ fontSize: "var(--t-h3)", lineHeight: 1.1, letterSpacing: "-0.02em", maxWidth: "12ch" }}
               >
-                {project.category}
+                {sectorOf(project, locale)}
               </span>
             </div>
           )}
@@ -183,7 +185,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
               className="eyebrow-mono uppercase text-[var(--text-low)] mt-1.5 truncate"
               style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
             >
-              {project.category} / {project.year}
+              {sectorOf(project, locale)} / {project.year}
             </p>
           </div>
           <ArrowUpRight

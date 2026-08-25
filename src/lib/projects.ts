@@ -13,13 +13,21 @@
  */
 
 import projectData from "./projects.data.json";
+import type { Locale } from "./i18n";
 
 export interface Project {
   slug: string;
   title: string;
   year: number;
-  /** Sector / what it is, e.g. "Real Estate Web-App" */
-  category: string;
+  /**
+   * Sector / what it is, e.g. "Real Estate Web-App", in every language.
+   *
+   * A record rather than a string, for the same reason an Article carries all
+   * three locales: the type makes a project that is only described in English
+   * a build error instead of an English sector name sitting in the middle of
+   * a German page.
+   */
+  category: Record<Locale, string>;
   /** Grid filter bucket */
   filter: "Website" | "E-commerce" | "Web App";
   link?: string;
@@ -103,3 +111,6 @@ export const nextProject = (slug: string) => {
   const i = PROJECTS.findIndex((p) => p.slug === slug);
   return PROJECTS[(i + 1) % PROJECTS.length];
 };
+
+/** The project's sector in one language. Every project has all three. */
+export const sectorOf = (p: Project, locale: Locale) => p.category[locale];

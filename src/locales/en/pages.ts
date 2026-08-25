@@ -31,6 +31,27 @@ export const pages = {
     next: "Next project",
   },
 
+  /**
+   * /services — the hub the "Services" trigger in the navigation points at.
+   *
+   * The nine service areas themselves are not repeated here: their names and
+   * one-line descriptions live in site.mega.items and are read from there, so
+   * the menu and the page can never drift apart. Only the page's own framing
+   * is below.
+   */
+  services: {
+    eyebrow: "What we do",
+    title: "Everything we build and run.",
+    lead:
+      "Websites, platforms, online stores, AI and the marketing that feeds them. Engineered in Luxembourg, funded at 70% for Luxembourg SMEs.",
+    cta: {
+      title: "Not sure which one you need?",
+      body:
+        "Tell us what you are trying to fix. We will say what it takes, what it costs and what the state covers.",
+      action: "Talk to us",
+    },
+  },
+
   contact: {
     badge: "Get in touch",
     title: "Let's talk about",

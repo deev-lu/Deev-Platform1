@@ -3,7 +3,11 @@
     "slug": "ucc-clervaux",
     "title": "UCClervaux",
     "year": 2026,
-    "category": "Trade Association Platform",
+    "category": {
+      "en": "Trade Association Platform",
+      "fr": "Plateforme de fédération professionnelle",
+      "de": "Verbandsplattform"
+    },
     "filter": "Web App",
     "link": "https://ucclervaux.lu/",
     "scope": [
@@ -14,7 +18,11 @@
     "slug": "laser-center",
     "title": "Laser Center",
     "year": 2026,
-    "category": "Laser Therapy",
+    "category": {
+      "en": "Laser Therapy",
+      "fr": "Thérapie au laser",
+      "de": "Lasertherapie"
+    },
     "filter": "Website",
     "link": "https://www.lasercenter.lu/",
     "scope": [
@@ -25,7 +33,11 @@
     "slug": "bureau-immobilier-feltes",
     "title": "Bureau Immobilier Feltes",
     "year": 2024,
-    "category": "Real Estate Web-App",
+    "category": {
+      "en": "Real Estate Web-App",
+      "fr": "Application web immobilière",
+      "de": "Immobilien-Webanwendung"
+    },
     "filter": "Web App",
     "link": "https://www.feltes.lu/",
     "scope": [
@@ -36,7 +48,11 @@
     "slug": "aurora-experience",
     "title": "Aurora Experience",
     "year": 2025,
-    "category": "Luxury Travel",
+    "category": {
+      "en": "Luxury Travel",
+      "fr": "Voyages de luxe",
+      "de": "Luxusreisen"
+    },
     "filter": "Website",
     "link": "https://www.auroraexp.eu",
     "scope": [
@@ -47,7 +63,11 @@
     "slug": "oscars-bar",
     "title": "Oscar's Bar",
     "year": 2025,
-    "category": "Bar & Nightlife",
+    "category": {
+      "en": "Bar & Nightlife",
+      "fr": "Bar et vie nocturne",
+      "de": "Bar und Nachtleben"
+    },
     "filter": "Website",
     "link": "https://oscarsbar.lu/",
     "scope": [
@@ -58,7 +78,11 @@
     "slug": "mellys",
     "title": "Melly's",
     "year": 2025,
-    "category": "Candy E-commerce",
+    "category": {
+      "en": "Candy E-commerce",
+      "fr": "Confiserie en ligne",
+      "de": "Süßwaren-Onlineshop"
+    },
     "filter": "E-commerce",
     "link": "https://www.mellys.lu",
     "scope": [
@@ -69,7 +93,11 @@
     "slug": "geoplus-3d",
     "title": "Geoplus 3D",
     "year": 2025,
-    "category": "3D Scanning Tech",
+    "category": {
+      "en": "3D Scanning Tech",
+      "fr": "Technologie de numérisation 3D",
+      "de": "3D-Scan-Technologie"
+    },
     "filter": "Website",
     "link": "https://geoplus3d.lu/",
     "scope": [
@@ -80,7 +108,11 @@
     "slug": "vino-amore",
     "title": "Vino Amore",
     "year": 2025,
-    "category": "Wine E-commerce",
+    "category": {
+      "en": "Wine E-commerce",
+      "fr": "Cave à vin en ligne",
+      "de": "Wein-Onlineshop"
+    },
     "filter": "E-commerce",
     "link": "https://vinoamoreandmore.de/",
     "scope": [
@@ -91,7 +123,11 @@
     "slug": "flenting",
     "title": "Flenting",
     "year": 2026,
-    "category": "Finance Website",
+    "category": {
+      "en": "Finance Website",
+      "fr": "Site web financier",
+      "de": "Finanz-Website"
+    },
     "filter": "Website",
     "link": "https://flenting.framer.website/",
     "scope": [
@@ -103,7 +139,11 @@
     "slug": "bach-vereenegung",
     "title": "Bach Vereenegung Lëtzebuerg",
     "year": 2025,
-    "category": "Musical Arts",
+    "category": {
+      "en": "Musical Arts",
+      "fr": "Arts musicaux",
+      "de": "Musikkunst"
+    },
     "filter": "Website",
     "link": "https://bachvereenegung.lu/",
     "scope": [
@@ -114,7 +154,11 @@
     "slug": "net-and-clean",
     "title": "Net & Clean",
     "year": 2025,
-    "category": "Cleaning Services",
+    "category": {
+      "en": "Cleaning Services",
+      "fr": "Services de nettoyage",
+      "de": "Reinigungsdienste"
+    },
     "filter": "Website",
     "link": "https://www.net-clean.lu/",
     "scope": [
@@ -125,7 +169,11 @@
     "slug": "feine-jong",
     "title": "Feine Jong",
     "year": 2025,
-    "category": "Pet Care",
+    "category": {
+      "en": "Pet Care",
+      "fr": "Soins pour animaux",
+      "de": "Tierpflege"
+    },
     "filter": "Website",
     "link": "https://www.feinejong.com/",
     "scope": [
@@ -136,7 +184,11 @@
     "slug": "supa-saya-gin",
     "title": "Supa Saya Gin",
     "year": 2025,
-    "category": "Spirits Brand",
+    "category": {
+      "en": "Spirits Brand",
+      "fr": "Marque de spiritueux",
+      "de": "Spirituosenmarke"
+    },
     "filter": "Website",
     "link": "https://supasayagin.lu/",
     "scope": [
@@ -147,7 +199,11 @@
     "slug": "angolodoro",
     "title": "Angolodoro",
     "year": 2024,
-    "category": "Restaurant",
+    "category": {
+      "en": "Restaurant",
+      "fr": "Restaurant",
+      "de": "Restaurant"
+    },
     "filter": "Website",
     "link": "https://www.langolodoro.lu/",
     "scope": [
@@ -158,7 +214,11 @@
     "slug": "amd-cars",
     "title": "AMD Cars",
     "year": 2024,
-    "category": "Car Dealership",
+    "category": {
+      "en": "Car Dealership",
+      "fr": "Concession automobile",
+      "de": "Autohaus"
+    },
     "filter": "Website",
     "link": "https://www.amdcars.lu/",
     "scope": [
@@ -169,7 +229,11 @@
     "slug": "florian-blencke",
     "title": "Florian Blencke",
     "year": 2023,
-    "category": "Personal Brand",
+    "category": {
+      "en": "Personal Brand",
+      "fr": "Marque personnelle",
+      "de": "Personal Brand"
+    },
     "filter": "Website",
     "link": "https://www.florianblencke.com/",
     "scope": [

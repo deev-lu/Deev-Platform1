@@ -9,9 +9,10 @@ import {
 } from "motion/react";
 import L from "./L";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { PROJECTS, type Project } from "../../lib/projects";
+import { PROJECTS, type Project, sectorOf } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useT } from "../../lib/useT";
+import { useT, useLocale } from "../../lib/useT";
+import { LOCALES } from "../../lib/i18n";
 
 /**
  * §01 — Selected work.
@@ -55,8 +56,13 @@ const SLIDES = PROJECTS;
  *  two-line name is replaced by a one-line name. */
 const LONGEST_TITLE = SLIDES.reduce((a, p) => (p.title.length > a.length ? p.title : a), "");
 const LONGEST_META = SLIDES.reduce((a, p) => {
-  const m = `${p.category} / ${p.year}`;
-  return m.length > a.length ? m : a;
+  // Across every language, not the current one: the reserved block is laid
+  // out once, and French sector names are the long ones.
+  for (const l of LOCALES) {
+    const m = `${sectorOf(p, l)} / ${p.year}`;
+    if (m.length > a.length) a = m;
+  }
+  return a;
 }, "");
 
 const domainOf = (link?: string) =>
@@ -65,6 +71,7 @@ const domainOf = (link?: string) =>
 
 export default function WorkMoment() {
   const t = useT();
+  const locale = useLocale();
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLElement>(null);
@@ -234,7 +241,7 @@ export default function WorkMoment() {
                     className="eyebrow-mono uppercase text-[var(--text-low)]"
                     style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                   >
-                    {project.category} / {project.year}
+                    {sectorOf(project, locale)} / {project.year}
                   </p>
                 </motion.div>
               </AnimatePresence>
@@ -345,7 +352,7 @@ export default function WorkMoment() {
                       {project.image ? (
                         <img
                           src={project.image}
-                          alt={`${project.title}, ${project.category}`}
+                          alt={`${project.title}, ${sectorOf(project, locale)}`}
                           loading="lazy"
                           decoding="async"
                           width={1000}
@@ -457,6 +464,8 @@ export default function WorkMoment() {
  * mapped in projects.ts, the plate is replaced by it automatically.
  */
 function Plate({ project }: { project: Project }) {
+  const locale = useLocale();
+
   return (
     <div
       className="w-full h-full flex flex-col justify-end gap-6 p-8 sm:p-12 bg-[var(--surface-2)]"
@@ -471,7 +480,7 @@ function Plate({ project }: { project: Project }) {
         className="text-[var(--text-hi)] font-medium"
         style={{ fontSize: "var(--t-h2)", lineHeight: 1.05, letterSpacing: "-0.025em", maxWidth: "12ch" }}
       >
-        {project.category}
+        {sectorOf(project, locale)}
       </span>
 
       <span

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
+import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
 import { TEAM_READY } from "../../lib/team";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
@@ -22,18 +23,12 @@ const DRAWER_LINKS = [
   { key: "contact" as const, href: "/contact" },
 ];
 
-/** The same sections the Services panel holds, as an accordion on a phone. */
-const DRAWER_SECTIONS = [
-  { key: "what-we-build", href: "#services" },
-  { key: "how-it-runs", href: "#how-it-runs" },
-  { key: "pricing", href: "#pricing" },
-  { key: "marketing", href: "#marketing" },
-  { key: "ai", href: "#ai" },
-  { key: "billovio", href: "#billovio" },
-  { key: "why-it-works", href: "#why-it-works" },
-  { key: "why-deev", href: "#why-deev" },
-  { key: "about", href: "#about" },
-].filter((l) => l.href !== "#about" || TEAM_READY);
+/** The same sections the Services panel holds, as an accordion on a phone.
+ *  Read from the shared list so the phone and the desktop cannot disagree. */
+const DRAWER_SECTIONS = Object.values(SERVICE_GROUPS)
+  .flat()
+  .map((key) => ({ key, href: SERVICE_HREF[key] }))
+  .filter((l) => l.href !== "#about" || TEAM_READY);
 
 interface NavbarProps {
   theme?: "light" | "dark";
@@ -200,18 +195,29 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             <nav className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
               {/* A hover panel is unusable on touch, so the same sections are
                   an accordion here rather than a second dropdown. */}
-              <button
-                type="button"
-                onClick={() => setSectionsOpen((v) => !v)}
-                aria-expanded={sectionsOpen}
-                className="flex items-center justify-between gap-3 text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all"
-              >
-                {t.site.nav.services}
-                <ChevronDown
-                  className={`w-4 h-4 shrink-0 transition-transform duration-[var(--dur-1)] ${sectionsOpen ? "rotate-180" : ""}`}
-                  strokeWidth={1.5}
-                />
-              </button>
+              <div className="flex items-center rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all">
+                {/* The row is a link to the services page; only the chevron
+                    expands the list. Tapping the word goes somewhere. */}
+                <L
+                  to="/services"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex-1 px-4 py-3.5 hover:text-slate-900 dark:hover:text-white transition-colors"
+                >
+                  {t.site.nav.services}
+                </L>
+                <button
+                  type="button"
+                  onClick={() => setSectionsOpen((v) => !v)}
+                  aria-expanded={sectionsOpen}
+                  aria-label={t.site.mega.toggle(t.site.nav.services)}
+                  className="px-4 py-3.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                >
+                  <ChevronDown
+                    className={`w-4 h-4 shrink-0 transition-transform duration-[var(--dur-1)] ${sectionsOpen ? "rotate-180" : ""}`}
+                    strokeWidth={1.5}
+                  />
+                </button>
+              </div>
 
               {sectionsOpen && (
                 <ul className="mb-1 ml-4 pl-4 border-l border-[var(--line)] flex flex-col">

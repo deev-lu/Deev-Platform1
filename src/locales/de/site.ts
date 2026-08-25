@@ -46,6 +46,7 @@ export const site: typeof En = {
   madeInLabel: "Made in Luxembourg, zertifiziertes Label",
 
   mega: {
+    toggle: (label: string) => `Menü ${label} öffnen`,
     close: "Menü schließen",
     columns: { build: "Bauen", grow: "Wachsen", studio: "Das Studio" },
     items: {
