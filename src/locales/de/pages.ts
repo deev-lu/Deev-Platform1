@@ -18,6 +18,13 @@ export const pages: typeof En = {
   workCase: {
     back: "Alle Referenzen",
     spec: { client: "Kunde", sector: "Branche", type: "Art", year: "Jahr", stack: "Technologien" },
+    scope: "Was wir gemacht haben",
+    scopeItems: {
+      website: "Website",
+      onlineStore: "Onlineshop",
+      platform: "Web-Plattform",
+      branding: "Marken- und visuelle Identität",
+    },
     visit: "Zur Live-Website",
     brief: "Die Aufgabe",
     built: "Was wir gebaut haben",

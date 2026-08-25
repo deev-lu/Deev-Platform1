@@ -5,7 +5,10 @@
     "year": 2026,
     "category": "Trade Association Platform",
     "filter": "Web App",
-    "link": "https://ucclervaux.lu/"
+    "link": "https://ucclervaux.lu/",
+    "scope": [
+      "platform"
+    ]
   },
   {
     "slug": "laser-center",
@@ -13,7 +16,10 @@
     "year": 2026,
     "category": "Laser Therapy",
     "filter": "Website",
-    "link": "https://www.lasercenter.lu/"
+    "link": "https://www.lasercenter.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "bureau-immobilier-feltes",
@@ -21,7 +27,10 @@
     "year": 2024,
     "category": "Real Estate Web-App",
     "filter": "Web App",
-    "link": "https://www.feltes.lu/"
+    "link": "https://www.feltes.lu/",
+    "scope": [
+      "platform"
+    ]
   },
   {
     "slug": "aurora-experience",
@@ -29,7 +38,10 @@
     "year": 2025,
     "category": "Luxury Travel",
     "filter": "Website",
-    "link": "https://www.auroraexp.eu"
+    "link": "https://www.auroraexp.eu",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "oscars-bar",
@@ -37,7 +49,10 @@
     "year": 2025,
     "category": "Bar & Nightlife",
     "filter": "Website",
-    "link": "https://oscarsbar.lu/"
+    "link": "https://oscarsbar.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "mellys",
@@ -45,7 +60,10 @@
     "year": 2025,
     "category": "Candy E-commerce",
     "filter": "E-commerce",
-    "link": "https://www.mellys.lu"
+    "link": "https://www.mellys.lu",
+    "scope": [
+      "onlineStore"
+    ]
   },
   {
     "slug": "geoplus-3d",
@@ -53,7 +71,10 @@
     "year": 2025,
     "category": "3D Scanning Tech",
     "filter": "Website",
-    "link": "https://geoplus3d.lu/"
+    "link": "https://geoplus3d.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "vino-amore",
@@ -61,7 +82,10 @@
     "year": 2025,
     "category": "Wine E-commerce",
     "filter": "E-commerce",
-    "link": "https://vinoamoreandmore.de/"
+    "link": "https://vinoamoreandmore.de/",
+    "scope": [
+      "onlineStore"
+    ]
   },
   {
     "slug": "flenting",
@@ -69,7 +93,11 @@
     "year": 2026,
     "category": "Finance Website",
     "filter": "Website",
-    "link": "https://flenting.framer.website/"
+    "link": "https://flenting.framer.website/",
+    "scope": [
+      "branding",
+      "website"
+    ]
   },
   {
     "slug": "bach-vereenegung",
@@ -77,7 +105,10 @@
     "year": 2025,
     "category": "Musical Arts",
     "filter": "Website",
-    "link": "https://bachvereenegung.lu/"
+    "link": "https://bachvereenegung.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "net-and-clean",
@@ -85,7 +116,10 @@
     "year": 2025,
     "category": "Cleaning Services",
     "filter": "Website",
-    "link": "https://www.net-clean.lu/"
+    "link": "https://www.net-clean.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "feine-jong",
@@ -93,7 +127,10 @@
     "year": 2025,
     "category": "Pet Care",
     "filter": "Website",
-    "link": "https://www.feinejong.com/"
+    "link": "https://www.feinejong.com/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "supa-saya-gin",
@@ -101,7 +138,10 @@
     "year": 2025,
     "category": "Spirits Brand",
     "filter": "Website",
-    "link": "https://supasayagin.lu/"
+    "link": "https://supasayagin.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "angolodoro",
@@ -109,15 +149,21 @@
     "year": 2024,
     "category": "Restaurant",
     "filter": "Website",
-    "link": "https://www.langolodoro.lu/"
+    "link": "https://www.langolodoro.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "amd-cars",
     "title": "AMD Cars",
     "year": 2024,
-    "category": "Car Rental",
+    "category": "Car Dealership",
     "filter": "Website",
-    "link": "https://www.amdcars.lu/"
+    "link": "https://www.amdcars.lu/",
+    "scope": [
+      "website"
+    ]
   },
   {
     "slug": "florian-blencke",
@@ -125,6 +171,9 @@
     "year": 2023,
     "category": "Personal Brand",
     "filter": "Website",
-    "link": "https://www.florianblencke.com/"
+    "link": "https://www.florianblencke.com/",
+    "scope": [
+      "website"
+    ]
   }
 ]

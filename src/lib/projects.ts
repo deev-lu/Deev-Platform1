@@ -32,6 +32,15 @@ export interface Project {
   outcome?: string;
   /** e.g. ["Next.js", "Supabase", "Stripe"] */
   stack?: string[];
+
+  /**
+   * What DEEV actually delivered, as keys rather than sentences.
+   *
+   * Prose here would be sixteen near-identical paragraphs saying we built the
+   * website, which reads as filler and counts as thin content besides. Keys
+   * translate cleanly and say the same thing in a line the reader can scan.
+   */
+  scope?: ("website" | "onlineStore" | "platform" | "branding")[];
 }
 
 /**
@@ -40,8 +49,9 @@ export interface Project {
  * slider and on the case-study page. No import, no map entry, no rebuild of
  * this file.
  *
- * The six shots taken before this convention existed keep their old names,
- * which is what ALIASES is for. New ones should just be named after the slug.
+ * The shots taken before this convention existed keep their old names, which
+ * is what ALIASES is for. New ones should just be named after the slug, and
+ * an old one gets to drop out of that map whenever its file is renamed.
  */
 const FILES = import.meta.glob("../assets/work/*.{jpg,jpeg,png,webp}", {
   eager: true,
@@ -54,7 +64,6 @@ const ALIASES: Record<string, string> = {
   "aurora-experience": "aurora",
   "oscars-bar": "oscarsbar",
   "geoplus-3d": "geoplus",
-  "vino-amore": "vinoamore",
 };
 
 const byBasename: Record<string, string> = {};

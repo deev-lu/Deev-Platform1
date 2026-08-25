@@ -17,6 +17,13 @@ export const pages = {
   workCase: {
     back: "All work",
     spec: { client: "Client", sector: "Sector", type: "Type", year: "Year", stack: "Stack" },
+    scope: "What we did",
+    scopeItems: {
+      website: "Website",
+      onlineStore: "Online store",
+      platform: "Web platform",
+      branding: "Brand and visual identity",
+    },
     visit: "Visit the live site",
     brief: "The brief",
     built: "What we built",

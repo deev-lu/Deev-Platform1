@@ -32,7 +32,10 @@ export default function WorkCase() {
   const spec: [string, string][] = [
     [t.pages.workCase.spec.client, project.title],
     [t.pages.workCase.spec.sector, project.category],
-    [t.pages.workCase.spec.type, project.filter],
+    // No Type row. It carried the filter value, which is plural on purpose
+    // ("Web apps" names a category of many) and read wrong for a single
+    // project, and "What we did" below now says the same thing in the
+    // singular. One row, not two.
     [t.pages.workCase.spec.year, String(project.year)],
   ];
 
@@ -105,6 +108,20 @@ export default function WorkCase() {
                 </dd>
               </div>
             ))}
+            {project.scope && project.scope.length > 0 && (
+              <div className="flex items-baseline justify-between gap-6 py-5 border-b border-[var(--line)]">
+                <dt
+                  className="eyebrow-mono uppercase text-[var(--text-low)]"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                >
+                  {t.pages.workCase.scope}
+                </dt>
+                <dd className="text-[var(--text-hi)] text-right" style={{ fontSize: "var(--t-body)" }}>
+                  {project.scope.map((k) => t.pages.workCase.scopeItems[k]).join(" \u00B7 ")}
+                </dd>
+              </div>
+            )}
+
             {project.stack && project.stack.length > 0 && (
               <div className="flex items-baseline justify-between gap-6 py-5 border-b border-[var(--line)]">
                 <dt
