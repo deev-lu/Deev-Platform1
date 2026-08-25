@@ -25,7 +25,7 @@ export default function NewsTeaser() {
         <SectionTitle>{t.news.teaserTitle}</SectionTitle>
 
         <L
-          to="/news"
+          to="/blog"
           className="group inline-flex items-center gap-3 h-12 px-7 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)]"
           style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
         >
@@ -48,7 +48,7 @@ export default function NewsTeaser() {
             className="border-r border-b border-[var(--line)]"
           >
             <L
-              to={`/news/${a.slug}`}
+              to={`/blog/${a.slug}`}
               className="group flex flex-col h-full p-8 sm:p-10 bg-[var(--surface-1)] hover:bg-[var(--surface-2)] transition-colors duration-[240ms]"
             >
               <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-8">

@@ -18,7 +18,7 @@ interface NavbarProps {}
  *  Desktop navigation lives in MegaMenu; this is the phone. */
 const DRAWER_LINKS = [
   { key: "work" as const,    href: "/work" },
-  { key: "journal" as const, href: "/news" },
+  { key: "journal" as const, href: "/blog" },
   { key: "contact" as const, href: "/contact" },
 ];
 

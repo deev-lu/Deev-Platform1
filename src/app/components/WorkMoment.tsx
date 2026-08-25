@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import L from "./L";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { useT } from "../../lib/useT";
@@ -124,12 +124,15 @@ export default function WorkMoment() {
 
   const project = SLIDES[index];
 
-  /** Choosing a project stops the rotation for good. */
+  /** Choosing a project, by either control, stops the rotation for good. */
   const pick = (i: number) => {
     setChosen(true);
     setIndex(i);
     setCycle((c) => c + 1);
   };
+
+  /** step(-1) / step(1). Wraps in both directions. */
+  const step = (dir: number) => pick((index + dir + SLIDES.length) % SLIDES.length);
 
   const fade = { duration: 0.56, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -322,15 +325,36 @@ export default function WorkMoment() {
           </motion.div>
         </div>
 
-        {/* One control instead of four.
-            Arrows, a counter and a filling progress bar asked someone to step
-            through sixteen projects blind and to work out what the bar meant.
-            The strip shows what there is and goes straight to it, which is
-            also the one gesture that already works on a phone: a thumb drag.
-            Auto-advance stops for good the moment anyone touches it, because
-            a carousel that keeps moving after you have chosen is fighting
-            you. */}
-        <div className="mt-10 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar">
+        {/* The strip is the control; the arrows drive the same thing.
+            What went was the counter and the bar that filled over ten
+            seconds: the counter said where you were in a sequence the strip
+            already shows, and the bar described a timer rather than offering
+            anything to press. The arrows are hidden on a phone, where the
+            strip is already a thumb drag and two 40px targets would only
+            take room from it. Either control stops the rotation for good,
+            because a carousel that keeps moving after you have chosen is
+            fighting you. */}
+        <div className="mt-10 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            aria-label={t.home.work.prev}
+            className="hidden sm:flex w-10 h-10 shrink-0 items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+            style={{ borderRadius: "var(--radius-1)" }}
+          >
+            <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
+          </button>
+          <button
+            type="button"
+            onClick={() => step(1)}
+            aria-label={t.home.work.next}
+            className="hidden sm:flex w-10 h-10 shrink-0 items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+            style={{ borderRadius: "var(--radius-1)" }}
+          >
+            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+          </button>
+
+          <div className="min-w-0 flex-1 -mr-[var(--gutter)] pr-[var(--gutter)] sm:mr-0 sm:pr-0 overflow-x-auto no-scrollbar">
           <ul className="flex items-stretch gap-3 min-w-max pb-1" role="tablist" aria-label={t.home.work.eyebrow}>
             {SLIDES.map((p, i) => {
               const active = i === index;
@@ -375,6 +399,7 @@ export default function WorkMoment() {
               );
             })}
           </ul>
+          </div>
         </div>
 
         {/* The full list lives on /work now. One line here keeps every case

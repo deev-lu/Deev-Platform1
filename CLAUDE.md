@@ -6,8 +6,8 @@ Live: **https://www.deev.lu** (Vercel). Single-page React app.
 - **React 18 + TypeScript + Vite**
 - **Tailwind CSS v4** (`@tailwindcss/vite`, no tailwind.config — utilities only)
 - **motion/react** (Framer Motion) for animation
-- **react-router** — routes: `/`, `/work`, `/work/:slug`, `/news`,
-  `/news/:slug`, `/contact`, `/legal`, each also under `/fr` and `/de`
+- **react-router** — routes: `/`, `/work`, `/work/:slug`, `/blog`,
+  `/blog/:slug`, `/contact`, `/legal`, each also under `/fr` and `/de`
 - No backend. Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
 
 ## Commands
@@ -31,7 +31,7 @@ Vercel blocks deploys when the commit email doesn't match a GitHub account.
 Navbar → Hero → ClientLogos → SmeGrantBanner → Portfolio (`WorkMoment`)
 → FoundersNote ("About") → BenefitsPanel → Services (`ValueProposition`)
 → SystemStack → MarketingServices → AiConcepts → BillovioFeature
-→ ProjectBuilder → EnterpriseTrust ("Why Deev") → NewsTeaser ("Journal")
+→ ProjectBuilder → EnterpriseTrust ("Why Deev") → NewsTeaser ("Blog")
 → LuxembourgStrip → FinalCTA → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
@@ -88,7 +88,7 @@ If you change the default, change it in **both** `index.html` and `App.tsx`.
 ## Env vars (set in Vercel, not committed)
 - `RESEND_API_KEY` — server-side, used by `api/lead.ts` to email contact@deev.lu
 
-## The journal (`/news`)
+## The blog (`/blog`)
 
 Articles live in `src/lib/news.data.json`, all three languages side by side.
 The `Article` type requires every locale, so a piece cannot ship in one
@@ -99,10 +99,16 @@ Bodies are **blocks**, not markdown or HTML: `{p}`, `{h}`, `{list}`, `{code}`,
 page or inject markup, and there is no parser to maintain. Add a block type in
 `src/lib/news.ts` and `NewsArticle.tsx` if a piece genuinely needs one.
 
-Adding an article is one entry in that file. It appears in `/news`, in the
+Adding an article is one entry in that file. It appears in `/blog`, in the
 homepage teaser (the three most recent), in the sitemap and as its own
 prerendered document per language, with `BlogPosting` structured data carrying
 its publication date. No code change.
+
+The components and data files keep the `news` name (`news.data.json`,
+`NewsIndex`, `NewsArticle`, `NewsTeaser`) while the route and every label say
+Blog. Renaming them buys nothing and would churn the diff; the user-facing
+name is the one that matters. `/news` redirects to `/blog` in all three
+languages.
 
 **Article content is the studio's own claims.** Funding figures repeat what the
 rest of the site says about the SME packages; those terms change, so check them

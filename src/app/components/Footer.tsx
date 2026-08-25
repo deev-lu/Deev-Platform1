@@ -22,7 +22,7 @@ const NAV = {
   company: [
     { key: "services", href: "/#services" },
     { key: "portfolio", href: "/work" },
-    { key: "journal", href: "/news" },
+    { key: "journal", href: "/blog" },
     { key: "pricing", href: "/#project-builder" },
     { key: "whyDeev", href: "/#why-deev" },
     { key: "contact", href: "/contact" },

@@ -13,7 +13,7 @@ export const site = {
     services: "Services",
     work: "Work",
     pricing: "Pricing",
-    journal: "Journal",
+    journal: "Blog",
     whyDeev: "Why Deev",
     about: "About",
     contact: "Contact",
@@ -74,7 +74,7 @@ export const site = {
       cta: "See your net price",
     },
     work: { browse: "Browse", all: "All work", recent: "Recent projects" },
-    journal: { browse: "Topics", all: "Read the journal", latest: "Latest articles" },
+    journal: { browse: "Topics", all: "Read the blog", latest: "Latest articles" },
   },
 
   deck: {

@@ -7,7 +7,7 @@ import { getArticle, nextArticle, formatDate, type Block } from "../../lib/news"
 import { useT, useLocale, useLocalePath } from "../../lib/useT";
 
 /**
- * /news/:slug — one article.
+ * /blog/:slug — one article.
  *
  * Held to a single readable column at roughly 68 characters. The blocks come
  * from news.data.json and render as elements, never as raw HTML, so nothing a
@@ -23,7 +23,7 @@ export default function NewsArticle() {
 
   useEffect(() => {
     // An unknown slug goes back to the index, in the reader's language.
-    if (!article) navigate(localePath("/news"), { replace: true });
+    if (!article) navigate(localePath("/blog"), { replace: true });
   }, [article, navigate, localePath]);
 
   if (!article) return null;
@@ -38,7 +38,7 @@ export default function NewsArticle() {
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
       >
         <L
-          to="/news"
+          to="/blog"
           className="group inline-flex items-center gap-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] mb-12"
           style={{ fontSize: "var(--t-small)" }}
         >
@@ -118,7 +118,7 @@ export default function NewsArticle() {
 
       <section className="border-t border-[var(--line)]">
         <L
-          to={`/news/${next.slug}`}
+          to={`/blog/${next.slug}`}
           className="group block hover:bg-[var(--surface-1)] transition-colors duration-[240ms]"
         >
           <div

@@ -353,7 +353,7 @@ function JournalPanel() {
           {(["funding", "engineering", "ai"] as const).map((k) => (
             <li key={k}>
               <L
-                to="/news"
+                to="/blog"
                 className="text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
                 style={{ fontSize: "var(--t-small)" }}
               >
@@ -363,7 +363,7 @@ function JournalPanel() {
           ))}
         </ul>
         <L
-          to="/news"
+          to="/blog"
           className="group inline-flex items-center gap-3 text-[var(--text-hi)] font-medium mt-6"
           style={{ fontSize: "var(--t-small)" }}
         >
@@ -380,7 +380,7 @@ function JournalPanel() {
         <ul className="grid grid-cols-3 gap-8">
           {latest.map((a) => (
             <li key={a.slug}>
-              <L to={`/news/${a.slug}`} className="group block">
+              <L to={`/blog/${a.slug}`} className="group block">
                 <div className="flex items-baseline gap-3 mb-3">
                   <span
                     className="eyebrow-mono uppercase text-[var(--signal-text)]"

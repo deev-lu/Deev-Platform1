@@ -6,7 +6,7 @@ import { ARTICLES, formatDate, type Article } from "../../lib/news";
 import { useT, useLocale } from "../../lib/useT";
 
 /**
- * /news — the journal.
+ * /blog — the blog.
  *
  * Text is the whole product here, so the list is typography rather than cards
  * with pictures: an article that has to borrow a stock photograph to look
@@ -131,7 +131,7 @@ function Row({
       className="border-b border-[var(--line)]"
     >
       <L
-        to={`/news/${article.slug}`}
+        to={`/blog/${article.slug}`}
         className="group grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-4 py-9 sm:py-11 transition-colors duration-[var(--dur-1)] hover:bg-[var(--surface-1)] -mx-[var(--gutter)] px-[var(--gutter)]"
       >
         <div className="lg:col-span-3 flex flex-wrap items-baseline gap-x-5 gap-y-2">

@@ -1,7 +1,7 @@
 import type { news as En } from "../en/news";
 
 export const news: typeof En = {
-  eyebrow: "Journal",
+  eyebrow: "Blog",
   title: "Notizen aus der Arbeit.",
   lead:
     "Was wir beim Bauen von Systemen in Luxemburg lernen: Förderungen, die sich zu beantragen lohnen, technische Entscheidungen, über die zu streiten sich gelohnt hat, und die Teile eines KI-Projekts, die niemand in die Broschüre schreibt.",
@@ -13,9 +13,9 @@ export const news: typeof En = {
   all: "Alle",
   readingTime: (n: number) => `${n} Min. Lesezeit`,
   count: (n: number) => `${n} ${n === 1 ? "Artikel" : "Artikel"}`,
-  teaserEyebrow: "Aus dem Journal",
+  teaserEyebrow: "Aus dem Blog",
   teaserTitle: "Woran wir zuletzt gearbeitet haben.",
-  teaserCta: "Journal lesen",
+  teaserCta: "Blog lesen",
   back: "Alle Artikel",
   published: "Veröffentlicht am",
   next: "Nächster Artikel",

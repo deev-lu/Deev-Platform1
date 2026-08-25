@@ -1,6 +1,6 @@
 /** The journal: the index, an article, and the homepage teaser. */
 export const news = {
-  eyebrow: "Journal",
+  eyebrow: "Blog",
   title: "Notes from the work.",
   lead:
     "What we learn building systems in Luxembourg: funding that is worth claiming, engineering that turned out to be worth the argument, and the parts of an AI project nobody puts in the brochure.",
@@ -13,9 +13,9 @@ export const news = {
   readingTime: (n: number) => `${n} min read`,
   count: (n: number) => `${n} ${n === 1 ? "article" : "articles"}`,
   /** Homepage teaser. */
-  teaserEyebrow: "From the journal",
+  teaserEyebrow: "From the blog",
   teaserTitle: "What we have been working out.",
-  teaserCta: "Read the journal",
+  teaserCta: "Read the blog",
   /** Article page. */
   back: "All articles",
   published: "Published",

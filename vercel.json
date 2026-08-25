@@ -17,6 +17,26 @@
       "source": "/deev-ai",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/news",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/news/:path*",
+      "destination": "/blog/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:locale(fr|de)/news",
+      "destination": "/:locale/blog",
+      "permanent": true
+    },
+    {
+      "source": "/:locale(fr|de)/news/:path*",
+      "destination": "/:locale/blog/:path*",
+      "permanent": true
     }
   ]
 }

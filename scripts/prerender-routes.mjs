@@ -104,14 +104,14 @@ for (const a of articles) {
       description: fill(meta.article[l].description, vars),
     };
   }
-  pages.push({ path: `/news/${a.slug}`, file: `news/${a.slug}.html`, meta: perLocale, article: a });
+  pages.push({ path: `/blog/${a.slug}`, file: `blog/${a.slug}.html`, meta: perLocale, article: a });
 }
 
 let written = 0;
 for (const locale of LOCALES) {
   const dir = locale === DEFAULT_LOCALE ? dist : join(dist, locale);
   mkdirSync(join(dir, "work"), { recursive: true });
-  mkdirSync(join(dir, "news"), { recursive: true });
+  mkdirSync(join(dir, "blog"), { recursive: true });
 
   for (const page of pages) {
     const url = abs(withLocale(page.path, locale));
@@ -297,7 +297,7 @@ for (const locale of LOCALES) {
     const loc = abs(withLocale(page.path, locale));
     const priority =
       page.path === "/" ? "1.0"
-      : page.path.startsWith("/work/") || page.path.startsWith("/news/") ? "0.7"
+      : page.path.startsWith("/work/") || page.path.startsWith("/blog/") ? "0.7"
       : "0.5";
     const alts = [
       ...LOCALES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${abs(withLocale(page.path, l))}" />`),

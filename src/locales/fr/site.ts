@@ -6,7 +6,7 @@ export const site: typeof En = {
     services: "Services",
     work: "Réalisations",
     pricing: "Tarifs",
-    journal: "Journal",
+    journal: "Blog",
     whyDeev: "Pourquoi Deev",
     about: "À propos",
     contact: "Contact",
@@ -66,7 +66,7 @@ export const site: typeof En = {
       cta: "Voir votre prix net",
     },
     work: { browse: "Parcourir", all: "Toutes les réalisations", recent: "Projets récents" },
-    journal: { browse: "Thèmes", all: "Lire le journal", latest: "Derniers articles" },
+    journal: { browse: "Thèmes", all: "Lire le blog", latest: "Derniers articles" },
   },
 
   deck: {
