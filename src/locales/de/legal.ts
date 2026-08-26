@@ -80,6 +80,8 @@ export const legal: typeof En = {
       "Deev verarbeitet personenbezogene Daten gemäß der Verordnung (EU) 2016/679 (DSGVO) und den geltenden luxemburgischen Datenschutzvorschriften. Über diese Website oder im Rahmen der Leistungserbringung erhobene personenbezogene Daten werden ausschließlich zur Erbringung unserer Leistungen, zur Kommunikation mit Kunden und zur Erfüllung gesetzlicher Pflichten verwendet. Daten werden niemals an Dritte verkauft.",
     body2a: "Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer personenbezogenen Daten. Um diese Rechte auszuüben, schreiben Sie uns an",
     body2b: ". Daten werden nur so lange aufbewahrt, wie es für die Zwecke ihrer Erhebung erforderlich ist oder wie es das Gesetz verlangt.",
+    assistant:
+      "Die Website bietet einen KI-Assistenten an. Was Sie dort eingeben, wird an Anthropic PBC übermittelt, die die Antwort als Auftragsverarbeiter auf Grundlage eines Auftragsverarbeitungsvertrags erzeugt; diese Verarbeitung findet außerhalb der Europäischen Union auf Basis der Standardvertragsklauseln der Europäischen Kommission statt. Deev zeichnet das Gespräch weder auf noch speichert es, und der Assistent hat keinen Zugriff auf Ihre Akte, Ihr Konto oder Kundendaten. Bitte geben Sie dort keine persönlichen oder vertraulichen Angaben ein: Nutzen Sie das Kontaktformular oder contact@deev.lu, wo ein Mensch mitliest. Antworten werden automatisch erzeugt, können falsch sein und stellen keine Beratung dar; nichts, was der Assistent sagt, ist Teil eines Angebots oder Vertrags.",
   },
 
   s9: {

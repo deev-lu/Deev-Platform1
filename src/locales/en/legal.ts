@@ -86,6 +86,8 @@ export const legal = {
       "Deev processes personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable Luxembourg data protection legislation. Personal data collected through this website or in the course of providing services is used solely for delivering our services, communicating with clients, and fulfilling legal obligations. Data is never sold to third parties.",
     body2a: "You have the right to access, correct, or request deletion of your personal data. To exercise these rights, contact us at",
     body2b: ". Data is retained only for as long as necessary to fulfill the purposes for which it was collected or as required by law.",
+    assistant:
+      "The website offers an AI assistant. What you type into it is sent to Anthropic PBC, which generates the answer as our processor under a data processing agreement; that processing takes place outside the European Union under the European Commission's standard contractual clauses. Deev does not record or store the conversation, and the assistant has no access to your file, your account or any client data. Please do not enter personal or confidential information into it: use the contact form or contact@deev.lu, where a person will read it. Answers are generated automatically, can be wrong, and are not advice; nothing the assistant says forms part of an offer or a contract.",
   },
 
   s9: {

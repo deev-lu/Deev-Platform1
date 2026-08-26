@@ -139,6 +139,9 @@ export default function Legal() {
                 </a>
                 {g.gdpr.body2b}
               </p>
+              {/* The site assistant sends what a visitor types to a processor
+                  outside the EU, so it is disclosed here as well as in the widget. */}
+              <p>{g.gdpr.assistant}</p>
             </Section>
 
             <Section title={g.s9.title}>
