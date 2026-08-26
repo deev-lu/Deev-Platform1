@@ -143,6 +143,21 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <SiteTree theme={theme} toggleTheme={toggleTheme} />
+    </BrowserRouter>
+  );
+}
+
+/**
+ * Everything inside the router.
+ *
+ * Split out so the prerender can render the same tree under StaticRouter and
+ * write real HTML into each document. There is exactly one page definition;
+ * the server and the browser cannot drift.
+ */
+export function SiteTree({ theme, toggleTheme }: ThemeProps) {
+  return (
+    <>
       <ScrollReset />
       <RouteMeta />
       <Routes>
@@ -162,7 +177,7 @@ export default function App() {
       <Suspense fallback={null}>
         <ChatWidget />
       </Suspense>
-    </BrowserRouter>
+    </>
   );
 }
 

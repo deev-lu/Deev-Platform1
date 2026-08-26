@@ -146,6 +146,13 @@
       #app-loader {
         position: fixed;
         inset: 0;
+        /* Opaque, and above everything. The document now ships a full static
+           render of the page inside #root so crawlers that do not run
+           JavaScript can read it; this keeps that markup out of sight while
+           the app boots, so a visitor still sees the branded loader and then
+           the live page, exactly as before. */
+        z-index: 2147483647;
+        background: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -158,6 +165,9 @@
         letter-spacing: 0.02em;
         font-size: 26px;
         color: #0a0b0d;
+      }
+      html.dark #app-loader {
+        background: #08090b;
       }
       html.dark #app-loader .wm {
         color: #f2f4f6;

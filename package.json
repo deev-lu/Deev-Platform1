@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "npm run typecheck && vite build && node scripts/prerender-routes.mjs",
+    "build": "npm run typecheck && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender-routes.mjs",
     "dev": "vite",
     "typecheck": "tsc -p tsconfig.app.json && tsc -p tsconfig.api.json"
   },

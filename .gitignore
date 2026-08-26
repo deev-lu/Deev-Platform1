@@ -39,3 +39,6 @@ yarn-error.log*
 # Claude
 .claude/
 .vercel
+
+# SSR bundle: build-time only, never served
+dist-ssr/

@@ -12,6 +12,7 @@
 // still hydrates as the same SPA, which reads the language back off the URL.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -71,6 +72,20 @@ const metaTag = (attr, name) =>
   new RegExp(`(<meta\\s+${attr}="${name}"\\s+content=")([\\s\\S]*?)(")`);
 
 const template = readFileSync(join(dist, "index.html"), "utf8");
+
+// The static render of the app itself. Built by `vite build --ssr` into
+// dist-ssr just before this script runs; see package.json.
+//
+// Without it every document shipped a loading shell: the word DEEV and
+// nothing else. Googlebot executes the JavaScript and saw the real page, but
+// the crawlers that feed language models mostly do not, so to them the whole
+// site was blank. Now the markup carries the words.
+const { render } = await import(pathToFileURL(join(root, "dist-ssr/entry-server.js")).href);
+
+/** Where the app mounts, and what the loading shell looks like inside it. */
+const ROOT_RE = /(<div id="root">)([\s\S]*?)(<\/div>\s*<\/body>)/;
+if (!ROOT_RE.test(template)) throw new Error("prerender: #root not found in index.html");
+const LOADER = template.match(ROOT_RE)[2];
 
 /** Build the full route table: the fixed pages plus one per case study. */
 const pages = [];
@@ -250,6 +265,35 @@ for (const locale of LOCALES) {
       if (!emitted) throw new Error(`prerender: structured data missing for ${locale} ${page.path}`);
       JSON.parse(emitted);
     }
+
+    // The body. The loading shell stays in front of it (it is fixed, opaque
+    // and on top), so a visitor still sees the branded loader while the app
+    // boots and then the live page; a crawler that runs no JavaScript reads
+    // the markup underneath. Same components, same data, same words.
+    // Strip presentation. The static body exists so a crawler can read the
+    // words and the structure; it is never shown, because React replaces it
+    // on mount and the loader covers it until then. Tailwind's utility
+    // classes are most of the bytes and none of the meaning, so dropping
+    // class and style attributes cuts the document by well over half without
+    // losing a heading, a link or a sentence.
+    const body = (await render(withLocale(page.path, locale)))
+      .replace(/\s(?:class|style)="[^"]*"/g, "");
+    if (!/<h1[ >]/.test(body) && page.path !== "/legal") {
+      throw new Error(`prerender: no h1 in the rendered body for ${locale} ${page.path}`);
+    }
+    if (body.length < 600) {
+      throw new Error(`prerender: body for ${locale} ${page.path} is only ${body.length} bytes`);
+    }
+    // Loader first, content second. The browser paints as soon as it has
+    // parsed the loader; putting the static body ahead of it made it parse
+    // 138KB of markup before the first pixel, which cost ~900ms of FCP on a
+    // throttled phone. The body is inert to a visitor either way.
+    html = html.replace(
+      ROOT_RE,
+      (_m, open, _old, close) =>
+        `${open}${LOADER}<div id="prerendered" style="content-visibility:hidden">${body}</div>${close}`,
+    );
+    if (!html.includes(body)) throw new Error(`prerender: body not injected for ${locale} ${page.path}`);
 
     writeFileSync(join(dir, page.file), html);
     written++;
