@@ -1,4 +1,83 @@
+# https://www.deev.lu
+#
+# Everything is open. The explicit blocks below exist because the default is
+# not always what a crawler assumes: several AI crawlers have their own
+# opt-out conventions, and a few hosting firewalls block them unless a site
+# says otherwise. Naming them is how we say otherwise.
+
 User-agent: *
+Allow: /
+
+# ── Search ──────────────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Google's separate control for Gemini and for grounding AI answers. Blocking
+# it removes the site from those answers without affecting Search rank.
+User-agent: Google-Extended
+Allow: /
+
+# ── The crawlers that feed language models ──────────────────────────────────
+# Two kinds, and they are worth telling apart. The search-time fetchers below
+# are how a model cites us in an answer someone is reading right now; the
+# training crawlers are how a model knows we exist at all. We want both.
+
+# OpenAI: search-time retrieval, live user-triggered fetch, and training
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# Anthropic: search-time retrieval, live user-triggered fetch, and training
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Others
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: DuckAssistBot
 Allow: /
 
 Sitemap: https://www.deev.lu/sitemap.xml

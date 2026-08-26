@@ -4,7 +4,7 @@ export const legal: typeof En = {
   badge: "Rechtliche Hinweise",
   title: "AGB und",
   titleAccent: "Impressum",
-  updated: "Zuletzt aktualisiert: Mai 2025",
+updated: "Zuletzt aktualisiert: August 2026",
 
   company: {
     heading: "Angaben zum Unternehmen",
@@ -60,6 +60,8 @@ export const legal: typeof En = {
     rowGa: "Unterscheidet einen Besucher vom anderen, damit Besuche gezählt werden können.",
     rowGaProperty: "Hält den Zustand des aktuellen Besuchs für diese Property fest.",
     lifeGa: "2 Jahre",
+    linking:
+      "Was wir nicht tun, zählt ebenso. Google Analytics erhält keine Kennung, die Sie benennt: kein Konto, keine E-Mail-Adresse, keine User-ID und nichts, was Sie in ein Formular eingeben. Wir spielen keine Daten von anderer Stelle ein und führen die Analysedaten mit nichts zusammen, was uns sonst vorliegt; erfasst wird ein Besuch auf dieser Website und nicht mehr. Es entsteht kein geräte- oder websiteübergreifendes Profil von Ihnen, und die Daten dienen weder Werbezielgruppen noch Remarketing oder personalisierter Werbung. Google Analytics 4 speichert keine IP-Adressen; die Adresse dient dazu, einen ungefähren Standort abzuleiten, und wird danach verworfen. Google bewahrt die Daten für den auf unserer Property eingestellten Zeitraum auf und löscht sie anschließend.",
     advertising:
       "Werbespeicherung, Anzeigenpersonalisierung und Nutzerdaten für Werbung sind dauerhaft abgelehnt, und wir setzen auf dieser Website keine Werbe- oder Remarketing-Produkte ein. Google kann die Daten außerhalb der EU verarbeiten; diese Übermittlungen stützen sich auf die Standardvertragsklauseln der Europäischen Kommission und auf ergänzende Maßnahmen von Google.",
     videoHead: "Eingebettete Videos",

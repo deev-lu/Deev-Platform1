@@ -329,6 +329,65 @@ console.log(`prerender: ${written} route documents verified and written`);
   console.log("  404.html      (noindex, no canonical)");
 }
 
+// ── llms.txt ──────────────────────────────────────────────────────────────
+// A plain-text map of the site for language models and coding agents.
+//
+// Worth being clear-eyed about what this is: it is not a search lever.
+// Google has said it does not support llms.txt and has no plans to, and
+// measurements of AI crawler traffic show the major crawlers almost never
+// request it. What it is good for is agent retrieval: an assistant asked
+// about Deev can read one short file instead of guessing at URLs. It is
+// generated from the same data as the sitemap, so it cannot drift, and it
+// costs one request to serve.
+{
+  const line = (path, label, locale = DEFAULT_LOCALE) =>
+    `- [${label}](${abs(withLocale(path, locale))})`;
+
+  const out = [
+    "# Deev",
+    "",
+    "> An independent digital engineering studio in Luxembourg (legal name Lux VR States",
+    "> Sarl-s), building websites, online stores, web apps and AI systems, plus the",
+    "> marketing that feeds them. Luxembourg SMEs recover 70% of an eligible digital or",
+    "> AI project through the SME Digital and SME AI packages.",
+    "",
+    "Founded and run by Fabio Falchero and Sven Kettel. Contact: contact@deev.lu,",
+    "+352 691 388 887, 17 rue de Selange, L-4965 Clemency, Luxembourg.",
+    "Published in English, French and German; the French and German versions of every",
+    "page live under /fr and /de.",
+    "",
+    "## Pages",
+    "",
+    line("/", "Home: what Deev builds, and a live project price simulator"),
+    line("/services", "Services: everything Deev builds and runs"),
+    line("/work", "Work: every project, filterable by type"),
+    line("/blog", "Blog: articles on funding, engineering and AI"),
+    line("/contact", "Contact"),
+    line("/legal", "Terms, privacy, cookies"),
+    "",
+    "## Projects",
+    "",
+    ...projects.map((p) =>
+      `- [${p.title}](${abs(`/work/${p.slug}`)}): ${p.category[DEFAULT_LOCALE]}, ${p.year}` +
+      `${p.scope?.length ? `, delivered ${p.scope.join(" and ")}` : ""}` +
+      `${p.link ? `, live at ${p.link}` : ""}`),
+    "",
+    "## Articles",
+    "",
+    ...articles.map((a) => `- [${a[DEFAULT_LOCALE].title}](${abs(`/blog/${a.slug}`)}): ${a[DEFAULT_LOCALE].excerpt}`),
+    "",
+    "## Other languages",
+    "",
+    ...LOCALES.filter((l) => l !== DEFAULT_LOCALE).map((l) => line("/", `Deev in ${l.toUpperCase()}`, l)),
+    "",
+  ].join("\n");
+
+  if (!out.includes("70%")) throw new Error("prerender: llms.txt lost the funding line");
+  if (projects.some((p) => !out.includes(p.title))) throw new Error("prerender: llms.txt is missing a project");
+  writeFileSync(join(dist, "llms.txt"), out);
+  console.log(`  llms.txt      (${projects.length} projects, ${articles.length} articles)`);
+}
+
 // ── sitemap ───────────────────────────────────────────────────────────────
 // Generated, not hand-maintained, so a new project or a new language cannot be
 // shipped without it. Each entry lists every language of that page, which is

@@ -10,7 +10,7 @@ export const legal = {
   badge: "Legal Information",
   title: "Terms &",
   titleAccent: "Legal Notice",
-  updated: "Last updated: May 2025",
+updated: "Last updated: August 2026",
 
   company: {
     heading: "Company Information",
@@ -66,6 +66,8 @@ export const legal = {
     rowGa: "Distinguishes one visitor from another so visits can be counted.",
     rowGaProperty: "Keeps the state of the current visit for this property.",
     lifeGa: "2 years",
+    linking:
+      "What we do not do matters as much. Google Analytics receives no identifier that names you: no account, no email address, no User-ID, and nothing you type into a form. We upload no data to it from anywhere else and we join its data with nothing else we hold, so what it records is a visit to this website and nothing more. It builds no cross-device or cross-site profile of you, and it is not used for advertising audiences, remarketing or ad personalisation. Google Analytics 4 does not store IP addresses; the address is used to derive an approximate location and then discarded. Google keeps the data for the retention period set on our property and deletes it afterwards.",
     advertising:
       "Advertising storage, ad personalisation and ad user data are denied at all times and we run no advertising or remarketing products on this site. Google may process the data outside the EU; those transfers rely on the European Commission's standard contractual clauses and on Google's supplementary measures.",
     videoHead: "Embedded video",

@@ -4,7 +4,7 @@ export const legal: typeof En = {
   badge: "Informations légales",
   title: "Conditions et",
   titleAccent: "mentions légales",
-  updated: "Dernière mise à jour : mai 2025",
+updated: "Dernière mise à jour : août 2026",
 
   company: {
     heading: "Informations sur la société",
@@ -60,6 +60,8 @@ export const legal: typeof En = {
     rowGa: "Distingue un visiteur d'un autre afin de pouvoir compter les visites.",
     rowGaProperty: "Conserve l'état de la visite en cours pour cette propriété.",
     lifeGa: "2 ans",
+    linking:
+      "Ce que nous ne faisons pas compte tout autant. Google Analytics ne reçoit aucun identifiant qui vous nomme : ni compte, ni adresse e-mail, ni User-ID, ni rien de ce que vous saisissez dans un formulaire. Nous n'y importons aucune donnée venue d'ailleurs et nous ne croisons ses données avec aucune autre en notre possession : ce qu'il enregistre est une visite sur ce site, rien de plus. Il ne constitue aucun profil multi-appareils ou multi-sites, et il ne sert ni aux audiences publicitaires, ni au reciblage, ni à la personnalisation des annonces. Google Analytics 4 ne conserve pas les adresses IP : l'adresse sert à déduire une localisation approximative, puis elle est supprimée. Google conserve les données pendant la durée définie sur notre propriété, puis les efface.",
     advertising:
       "Le stockage publicitaire, la personnalisation des annonces et les données publicitaires utilisateur sont refusés en permanence, et nous n'utilisons aucun produit publicitaire ni de remarketing sur ce site. Google peut traiter les données en dehors de l'UE ; ces transferts s'appuient sur les clauses contractuelles types de la Commission européenne et sur les mesures supplémentaires de Google.",
     videoHead: "Vidéos intégrées",

@@ -107,6 +107,9 @@ export default function Legal() {
                   ["_ga_K0T15PZHMN", "Google Ireland Limited", g.cookies.rowGaProperty, g.cookies.lifeGa],
                 ]}
               />
+              {/* The narrow truth behind Google's user-data acknowledgement:
+                  nothing identifying is sent, and nothing is joined to it. */}
+              <p className="mt-3">{g.cookies.linking}</p>
               <p className="mt-3">{g.cookies.advertising}</p>
 
               <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.videoHead}</p>
