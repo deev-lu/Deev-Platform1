@@ -82,8 +82,6 @@ updated: "Dernière mise à jour : août 2026",
       "Deev traite les données personnelles conformément au règlement (UE) 2016/679 (RGPD) et à la législation luxembourgeoise applicable en matière de protection des données. Les données personnelles collectées via ce site ou dans le cadre de la fourniture de nos services servent uniquement à délivrer nos prestations, à communiquer avec nos clients et à respecter nos obligations légales. Les données ne sont jamais vendues à des tiers.",
     body2a: "Vous disposez du droit d'accéder à vos données personnelles, de les rectifier ou d'en demander la suppression. Pour exercer ces droits, écrivez-nous à",
     body2b: ". Les données ne sont conservées que le temps nécessaire aux finalités pour lesquelles elles ont été collectées ou aussi longtemps que la loi l'exige.",
-    assistant:
-      "Le site propose un assistant IA. Ce que vous y écrivez est transmis à Anthropic PBC, qui génère la réponse en tant que sous-traitant, dans le cadre d'un accord de traitement des données ; ce traitement a lieu en dehors de l'Union européenne, sur la base des clauses contractuelles types de la Commission européenne. Deev n'enregistre ni ne conserve la conversation, et l'assistant n'a accès ni à votre dossier, ni à votre compte, ni à aucune donnée client. N'y saisissez pas d'informations personnelles ou confidentielles : utilisez le formulaire de contact ou contact@deev.lu, où une personne vous lira. Les réponses sont générées automatiquement, peuvent être inexactes et ne constituent pas un conseil ; rien de ce que dit l'assistant ne fait partie d'une offre ou d'un contrat.",
   },
 
   s9: {

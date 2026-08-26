@@ -40,9 +40,6 @@ const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
 const NotFound          = lazy(() => import("./components/NotFound"));
-// The assistant. Lazy, and it removes itself when the route that answers
-// it is not configured, so an unset key costs nothing but one 503.
-const ChatWidget        = lazy(() => import("./components/ChatWidget"));
 
 // Minimal section skeleton while lazy chunks load
 function SectionSkeleton() {
@@ -174,9 +171,6 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
         ))}
       </Routes>
       <CookieBanner />
-      <Suspense fallback={null}>
-        <ChatWidget />
-      </Suspense>
     </>
   );
 }
