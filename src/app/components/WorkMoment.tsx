@@ -83,6 +83,7 @@ export default function WorkMoment() {
   const [cycle, setCycle] = useState(0);
   const [tabVisible, setTabVisible] = useState(true);
   const activeThumb = useRef<HTMLButtonElement>(null);
+  const strip = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["3%", "-3%"]);
@@ -106,14 +107,34 @@ export default function WorkMoment() {
   }, [running, index, cycle]);
 
   // Follow the rotation with the strip, so the highlighted thumbnail is never
-  // off the side of the screen. Nearest, not centred: nudging by a few pixels
-  // beats yanking the strip on every tick.
+  // off the side of the screen.
+  //
+  // This sets the strip's own scrollLeft rather than calling scrollIntoView on
+  // the thumbnail. scrollIntoView scrolls every scrollable ancestor, the
+  // document included, and "block: nearest" does not prevent that: on load the
+  // strip is a screen and a half below the fold, so bringing a thumbnail into
+  // view meant scrolling the whole page down to the portfolio. Anyone opening
+  // deev.lu landed mid-page instead of on the hero. Moving one element's
+  // scrollLeft cannot move the page.
   useEffect(() => {
-    activeThumb.current?.scrollIntoView({
-      behavior: reduce ? "auto" : "smooth",
-      block: "nearest",
-      inline: "nearest",
-    });
+    const box = strip.current;
+    const thumb = activeThumb.current;
+    if (!box || !thumb) return;
+
+    const left = thumb.offsetLeft - box.offsetLeft;
+    const right = left + thumb.offsetWidth;
+    const pad = 24;
+    // Nearest edge, not centred: nudging by a few pixels beats yanking the
+    // strip sideways on every tick.
+    const to =
+      left < box.scrollLeft + pad
+        ? left - pad
+        : right > box.scrollLeft + box.clientWidth - pad
+          ? right - box.clientWidth + pad
+          : null;
+    if (to === null) return;
+
+    box.scrollTo({ left: Math.max(0, to), behavior: reduce ? "auto" : "smooth" });
   }, [index, reduce]);
 
   // Warm the next frame while the current one is being read.
@@ -373,7 +394,10 @@ export default function WorkMoment() {
         {/* Every project, to go straight to one. The arrows and the countdown
             live with the copy above; this is the third way in, and the only
             one that works as a thumb drag. */}
-        <div className="mt-10 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar">
+        <div
+          ref={strip}
+          className="mt-10 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar"
+        >
           <ul className="flex items-stretch gap-3 min-w-max pb-1" role="tablist" aria-label={t.home.work.eyebrow}>
             {SLIDES.map((p, i) => {
               const active = i === index;
