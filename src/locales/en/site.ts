@@ -52,6 +52,15 @@ export const site = {
   /** The certification mark's accessible name. */
   madeInLabel: "Made in Luxembourg, certified label",
 
+  /** The floating WhatsApp button. */
+  whatsapp: {
+    label: "Chat on WhatsApp",
+    tooltip: "Questions? Message us",
+    /** Prefilled first line. The sender can delete it before sending. */
+    message: "Hello Deev, I have a question about",
+    dismiss: "Hide",
+  },
+
   /** The mega panels. Structure lives in MegaMenu.tsx; every word is here. */
   mega: {
     toggle: (label: string) => `Open the ${label} menu`,

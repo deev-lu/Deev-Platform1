@@ -45,6 +45,14 @@ export const site: typeof En = {
   /** The certification mark's accessible name. */
   madeInLabel: "Made in Luxembourg, zertifiziertes Label",
 
+  /** Der schwebende WhatsApp-Button. */
+  whatsapp: {
+    label: "Auf WhatsApp schreiben",
+    tooltip: "Fragen? Schreiben Sie uns",
+    message: "Hallo Deev, ich habe eine Frage zu",
+    dismiss: "Ausblenden",
+  },
+
   mega: {
     toggle: (label: string) => `Menü ${label} öffnen`,
     close: "Menü schließen",

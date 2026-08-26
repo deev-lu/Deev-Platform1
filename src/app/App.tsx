@@ -40,6 +40,9 @@ const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
 const NotFound          = lazy(() => import("./components/NotFound"));
+// The floating WhatsApp button. Lazy: it does not appear until the visitor
+// has scrolled past the first screen, so it never competes for the load.
+const WhatsAppButton    = lazy(() => import("./components/WhatsAppButton"));
 
 // Minimal section skeleton while lazy chunks load
 function SectionSkeleton() {
@@ -171,6 +174,9 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
         ))}
       </Routes>
       <CookieBanner />
+      <Suspense fallback={null}>
+        <WhatsAppButton />
+      </Suspense>
     </>
   );
 }

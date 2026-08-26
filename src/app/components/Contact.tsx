@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
+import { whatsappHref, WHATSAPP_DISPLAY } from "../../lib/whatsapp";
 import {
   Mail,
   MapPin,
@@ -154,8 +155,8 @@ export default function Contact() {
               {
                 icon: MessageCircle,
                 label: t.pages.contact.details.whatsapp,
-                value: "+352 691 388 887",
-                href: "https://api.whatsapp.com/send/?phone=352691388887",
+                value: WHATSAPP_DISPLAY,
+                href: whatsappHref(),
               },
               {
                 icon: MapPin,
