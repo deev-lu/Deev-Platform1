@@ -27,6 +27,7 @@ export const home: typeof En = {
   },
 
   work: {
+    scrollbar: "Durch die Projekte scrollen",
     eyebrow: "Referenzen",
     title: "Projekte, auf die wir stolz sind.",
     lead:

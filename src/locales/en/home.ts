@@ -29,6 +29,7 @@ export const home = {
   },
 
   work: {
+    scrollbar: "Scroll through the projects",
     eyebrow: "Selected work",
     title: "Projects we're proud of.",
     lead:

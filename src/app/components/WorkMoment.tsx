@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import {
   AnimatePresence,
   motion,
@@ -396,6 +396,7 @@ export default function WorkMoment() {
             one that works as a thumb drag. */}
         <div
           ref={strip}
+          id="work-strip"
           className="mt-10 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar"
         >
           <ul className="flex items-stretch gap-3 min-w-max pb-1" role="tablist" aria-label={t.home.work.eyebrow}>
@@ -443,6 +444,8 @@ export default function WorkMoment() {
             })}
           </ul>
         </div>
+
+        <StripScrollbar strip={strip} label={t.home.work.scrollbar} />
 
         {/* The full list lives on /work now. One line here keeps every case
             study two clicks from the homepage without printing sixteen rows
@@ -513,6 +516,143 @@ function Plate({ project }: { project: Project }) {
       >
         {project.year}
       </span>
+    </div>
+  );
+}
+
+/**
+ * A draggable scrollbar for the thumbnail strip.
+ *
+ * The strip has always been scrollable, but its scrollbar was hidden and on
+ * macOS the native one only appears while you are already scrolling, so there
+ * was nothing to say sixteen projects were there or to grab and pull. This is
+ * that affordance: the thumb's width is the fraction of the strip on screen,
+ * its position is how far along you are, and it can be dragged, tapped on the
+ * track to jump, or moved with the arrow keys.
+ *
+ * It hides itself when everything already fits, because a scrollbar spanning
+ * its whole track is furniture that does nothing.
+ *
+ * Position is read from the strip rather than held here, so the arrows, the
+ * automatic rotation and a two-finger swipe all move it without being told to.
+ */
+function StripScrollbar({
+  strip,
+  label,
+}: {
+  strip: RefObject<HTMLDivElement | null>;
+  label: string;
+}) {
+  const track = useRef<HTMLDivElement>(null);
+  const [geom, setGeom] = useState({ ratio: 1, progress: 0 });
+  const [dragging, setDragging] = useState(false);
+
+  const measure = useCallback(() => {
+    const el = strip.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setGeom({
+      ratio: el.scrollWidth > 0 ? el.clientWidth / el.scrollWidth : 1,
+      progress: max > 0 ? el.scrollLeft / max : 0,
+    });
+  }, [strip]);
+
+  useEffect(() => {
+    const el = strip.current;
+    if (!el) return;
+    measure();
+    el.addEventListener("scroll", measure, { passive: true });
+    // Thumbnails load lazily, so the strip's width is not final on mount.
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    return () => {
+      el.removeEventListener("scroll", measure);
+      ro.disconnect();
+    };
+  }, [strip, measure]);
+
+  /** Put the given point on the track at the middle of the thumb. */
+  const scrollToPoint = useCallback(
+    (clientX: number) => {
+      const el = strip.current;
+      const rail = track.current;
+      if (!el || !rail) return;
+      const box = rail.getBoundingClientRect();
+      const thumb = box.width * geom.ratio;
+      const travel = box.width - thumb;
+      if (travel <= 0) return;
+      const p = Math.min(1, Math.max(0, (clientX - box.left - thumb / 2) / travel));
+      el.scrollLeft = p * (el.scrollWidth - el.clientWidth);
+    },
+    [strip, geom.ratio],
+  );
+
+  // Pointer events rather than mouse events: one path covers a mouse, a
+  // trackpad and a finger, and capture keeps the drag alive when the pointer
+  // leaves the bar.
+  const onPointerDown = (e: React.PointerEvent) => {
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    setDragging(true);
+    scrollToPoint(e.clientX);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    const el = strip.current;
+    if (!el) return;
+    const step = el.clientWidth * 0.5;
+    const to =
+      e.key === "ArrowLeft" ? el.scrollLeft - step
+      : e.key === "ArrowRight" ? el.scrollLeft + step
+      : e.key === "Home" ? 0
+      : e.key === "End" ? el.scrollWidth
+      : null;
+    if (to === null) return;
+    e.preventDefault();
+    el.scrollTo({ left: to, behavior: "smooth" });
+  };
+
+  // Everything fits: there is nothing to scroll and nothing to show.
+  if (geom.ratio >= 0.999) return null;
+
+  const widthPct = Math.max(geom.ratio * 100, 8);
+  const leftPct = geom.progress * (100 - widthPct);
+
+  return (
+    <div
+      ref={track}
+      role="scrollbar"
+      aria-label={label}
+      aria-controls="work-strip"
+      aria-orientation="horizontal"
+      aria-valuenow={Math.round(geom.progress * 100)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      tabIndex={0}
+      onPointerDown={onPointerDown}
+      onPointerMove={(e) => dragging && scrollToPoint(e.clientX)}
+      onPointerUp={() => setDragging(false)}
+      onPointerCancel={() => setDragging(false)}
+      onKeyDown={onKeyDown}
+      className={`relative mt-5 h-1.5 w-full cursor-pointer touch-none bg-[var(--line)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--signal)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--surface-0)] ${
+        dragging ? "" : "transition-colors duration-[var(--dur-1)]"
+      }`}
+      style={{ borderRadius: "999px" }}
+    >
+      <span
+        aria-hidden="true"
+        className={`absolute inset-y-0 bg-[var(--text-low)] ${
+          dragging ? "bg-[var(--signal)]" : "hover:bg-[var(--text-mid)]"
+        }`}
+        style={{
+          width: `${widthPct}%`,
+          left: `${leftPct}%`,
+          borderRadius: "999px",
+          // No transition on the offset: it follows the strip's own scroll,
+          // and easing it would lag a finger that is dragging it.
+          transition: "background-color var(--dur-1)",
+        }}
+      />
     </div>
   );
 }
