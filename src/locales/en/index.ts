@@ -5,6 +5,7 @@ import { consent } from "./consent";
 import { builder } from "./builder";
 import { legal } from "./legal";
 import { news } from "./news";
+import { grant } from "./grant";
 
-export const en = { site, home, pages, consent, builder, legal, news };
+export const en = { site, home, pages, consent, builder, legal, news, grant };
 export type Dict = typeof en;

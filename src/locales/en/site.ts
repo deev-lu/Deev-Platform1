@@ -35,6 +35,7 @@ export const site = {
     company: "Company",
     legal: "Legal",
     links: {
+      grant: "SME Packages",
       webApps: "Web Applications",
       aiAgents: "AI Agents",
       ecommerce: "E-Commerce Systems",

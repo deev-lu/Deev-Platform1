@@ -258,14 +258,14 @@ function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
           <p className="text-[var(--text-mid)] mb-6" style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}>
             {t.site.mega.feature.body}
           </p>
-          <a
-            href={`${localePath("/")}#pricing`}
+          <L
+            to="/sme-packages"
             className="group mt-auto inline-flex items-center gap-2 text-[var(--positive)] font-medium"
             style={{ fontSize: "var(--t-small)" }}
           >
             {t.site.mega.feature.cta}
             <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
-          </a>
+          </L>
         </div>
       </div>
     </div>

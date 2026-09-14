@@ -48,11 +48,14 @@ import {
   TrendingDown,
   ExternalLink,
 } from "lucide-react";
+import { GRANT_RATE, GRANT_MIN, GRANT_MAX } from "../../lib/smeGrant";
 
 // ── Luxembourg SME government grant rules ─────────────────────────────────────
-const SME_GRANT_RATE   = 0.70;   // 70% subsidy
-const SME_GRANT_MIN    = 3_000;  // minimum eligible investment
-const SME_GRANT_MAX    = 25_000; // maximum eligible investment cap
+// The numbers live in lib/smeGrant.ts, shared with the /sme-packages page, so
+// the simulator and the page that explains it cannot quote different terms.
+const SME_GRANT_RATE = GRANT_RATE;
+const SME_GRANT_MIN = GRANT_MIN;
+const SME_GRANT_MAX = GRANT_MAX;
 
 function getSmePackage(system: NonNullable<CoreSystem>, t: Dict) {
   return system === "ai-agent" ? t.builder.grant.packageAi : t.builder.grant.packageDigital;

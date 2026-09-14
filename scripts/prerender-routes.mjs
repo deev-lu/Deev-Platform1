@@ -80,7 +80,7 @@ const template = readFileSync(join(dist, "index.html"), "utf8");
 // nothing else. Googlebot executes the JavaScript and saw the real page, but
 // the crawlers that feed language models mostly do not, so to them the whole
 // site was blank. Now the markup carries the words.
-const { render } = await import(pathToFileURL(join(root, "dist-ssr/entry-server.js")).href);
+const { render, grantFaq } = await import(pathToFileURL(join(root, "dist-ssr/entry-server.js")).href);
 
 /** Where the app mounts, and what the loading shell looks like inside it. */
 const ROOT_RE = /(<div id="root">)([\s\S]*?)(<\/div>\s*<\/body>)/;
@@ -266,6 +266,27 @@ for (const locale of LOCALES) {
       JSON.parse(emitted);
     }
 
+    // The funding page answers seven real questions, so it says so in a form
+    // Google and the AI crawlers can read directly. Built from the same
+    // dictionary the page renders.
+    if (page.path === "/sme-packages") {
+      const faq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        inLanguage: locale,
+        mainEntity: grantFaq(locale).map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+      };
+      html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(faq)}</script>\n  </head>`);
+      const emitted = html.match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@type":"FAQPage".*?)<\/script>/s)?.[1];
+      if (!emitted) throw new Error(`prerender: FAQPage missing for ${locale} ${page.path}`);
+      const parsed = JSON.parse(emitted);
+      if (!parsed.mainEntity.length) throw new Error(`prerender: FAQPage for ${locale} has no questions`);
+    }
+
     // The body. The loading shell stays in front of it (it is fixed, opaque
     // and on top), so a visitor still sees the branded loader while the app
     // boots and then the live page; a crawler that runs no JavaScript reads
@@ -349,7 +370,7 @@ console.log(`prerender: ${written} route documents verified and written`);
     "> An independent digital engineering studio in Luxembourg (legal name Lux VR States",
     "> Sarl-s), building websites, online stores, web apps and AI systems, plus the",
     "> marketing that feeds them. Luxembourg SMEs recover 70% of an eligible digital or",
-    "> AI project through the SME Digital and SME AI packages.",
+    "> AI project through the SME Digital and SME AI packages, up to EUR 17,500.",
     "",
     "Founded and run by Fabio Falchero and Sven Kettel. Contact: contact@deev.lu,",
     "+352 691 388 887, 17 rue de Selange, L-4965 Clemency, Luxembourg.",
@@ -360,6 +381,7 @@ console.log(`prerender: ${written} route documents verified and written`);
     "",
     line("/", "Home: what Deev builds, and a live project price simulator"),
     line("/services", "Services: everything Deev builds and runs"),
+    line("/sme-packages", "SME Packages: how Luxembourg's 70% digital and AI funding works, what qualifies, and an eligibility check"),
     line("/work", "Work: every project, filterable by type"),
     line("/blog", "Blog: articles on funding, engineering and AI"),
     line("/contact", "Contact"),

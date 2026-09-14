@@ -28,6 +28,7 @@ export const site: typeof En = {
     company: "Entreprise",
     legal: "Mentions légales",
     links: {
+      grant: "SME Packages",
       webApps: "Applications web",
       aiAgents: "Agents IA",
       ecommerce: "Systèmes e-commerce",

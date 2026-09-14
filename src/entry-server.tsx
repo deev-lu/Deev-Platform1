@@ -15,6 +15,7 @@ import { renderToPipeableStream } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { Writable } from "node:stream";
 import { SiteTree } from "./app/App";
+import { DICTS } from "./locales";
 import "./styles/index.css";
 
 export function render(url: string): Promise<string> {
@@ -44,4 +45,15 @@ export function render(url: string): Promise<string> {
       },
     );
   });
+}
+
+/**
+ * The funding page's questions, for the prerender's FAQPage data.
+ *
+ * Read from the same dictionary the page renders, so the structured data and
+ * the visible text cannot drift apart. Emitting a question Google shows that
+ * the page does not answer is worse than emitting nothing.
+ */
+export function grantFaq(locale: "en" | "fr" | "de") {
+  return DICTS[locale].grant.faq.items.map((i) => ({ q: i.q, a: i.a }));
 }

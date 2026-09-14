@@ -18,6 +18,7 @@ import BenefitsPanel from "./components/BenefitsPanel";
 import WorkCase from "./components/WorkCase";
 const WorkIndex         = lazy(() => import("./components/WorkIndex"));
 const ServicesIndex     = lazy(() => import("./components/ServicesIndex"));
+const GrantPage         = lazy(() => import("./components/GrantPage"));
 const MarketingServices = lazy(() => import("./components/MarketingServices"));
 const AiConcepts        = lazy(() => import("./components/AiConcepts"));
 const WorkMoment        = lazy(() => import("./components/WorkMoment"));
@@ -197,6 +198,9 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       {/* Services, Work and Blog each own a URL, because each is a real
           destination in the navigation and not only a panel that opens. */}
       <Route path="services" element={chrome(<Suspense fallback={<SectionSkeleton />}><ServicesIndex /></Suspense>)} />
+      {/* The funding page. Most Luxembourg enquiries start with the grant,
+          so it gets a URL of its own to advertise and to be found by. */}
+      <Route path="sme-packages" element={chrome(<Suspense fallback={<SectionSkeleton />}><GrantPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
       {/* Each portfolio category is its own page, so it can be linked to,
           shared and indexed. Declared before work/:slug: a static segment

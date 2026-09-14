@@ -34,6 +34,23 @@
         }
       }
     },
+    "/sme-packages": {
+      "file": "sme-packages.html",
+      "meta": {
+        "en": {
+          "title": "SME Packages Luxembourg: 70% funded, up to €17,500 | DEEV",
+          "description": "Luxembourg SMEs recover 70% of an eligible digital or AI project through the SME Packages, up to €17,500. What qualifies, how the six steps run, and what your net cost would be."
+        },
+        "fr": {
+          "title": "SME Packages Luxembourg : 70 % financés, jusqu'à 17 500 € | DEEV",
+          "description": "Les PME luxembourgeoises récupèrent 70 % d'un projet numérique ou IA éligible via les SME Packages, jusqu'à 17 500 €. Ce qui est éligible, les six étapes, et votre coût net."
+        },
+        "de": {
+          "title": "SME Packages Luxemburg: 70 % gefördert, bis zu 17.500 € | DEEV",
+          "description": "Luxemburgische KMU erhalten 70 % eines förderfähigen Digital- oder KI-Projekts über die SME Packages zurück, bis zu 17.500 €. Was zählt, die sechs Schritte und Ihre Nettokosten."
+        }
+      }
+    },
     "/work": {
       "file": "work.html",
       "meta": {
