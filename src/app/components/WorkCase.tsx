@@ -162,19 +162,19 @@ export default function WorkCase() {
 
 
           <div className="lg:col-span-7">
-            {project.summary && (
+            {project.summary?.[locale] && (
               <p
                 className="text-[var(--text)] mb-12"
                 style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
               >
-                {project.summary}
+                {project.summary[locale]}
               </p>
             )}
 
             {([
-              [t.pages.workCase.brief, project.challenge],
-              [t.pages.workCase.built, project.approach],
-              [t.pages.workCase.outcome, project.outcome],
+              [t.pages.workCase.brief, project.challenge?.[locale]],
+              [t.pages.workCase.built, project.approach?.[locale]],
+              [t.pages.workCase.outcome, project.outcome?.[locale]],
             ] as [string, string | undefined][])
               .filter(([, body]) => Boolean(body))
               .map(([heading, body]) => (
