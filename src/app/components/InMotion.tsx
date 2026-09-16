@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
 import LiteYouTube from "./LiteYouTube";
+import Reveal from "./Reveal";
 import { useT } from "../../lib/useT";
 
 /**
@@ -24,7 +24,6 @@ const VIDEO_IDS = ["LeAYeRih-_Y", "zURSJEqZO2E", "j9zL-hiTnF4", "J0xtCDzHrXU"];
 
 export default function InMotion() {
   const t = useT();
-  const reduce = useReducedMotion();
   const m = t.home.inMotion;
 
   return (
@@ -63,15 +62,9 @@ export default function InMotion() {
             Kilometer Scrollweg. */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6">
           {VIDEO_IDS.map((id, i) => (
-            <motion.div
-              key={id}
-              initial={reduce ? false : { opacity: 0, y: 16 }}
-              whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <Reveal key={id} delay={i * 0.07}>
               <LiteYouTube id={id} title={t.home.marketing.videoTitle(i + 1, VIDEO_IDS.length)} />
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

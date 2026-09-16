@@ -9,7 +9,10 @@
 export const SERVICE_GROUPS = {
   build: ["what-we-build", "how-it-runs", "pricing"],
   grow: ["marketing", "ai", "billovio"],
-  studio: ["why-it-works", "why-deev", "about"],
+  // "Warum es funktioniert" ist raus. Der Punkt zeigte auf denselben
+  // Abschnitt wie "Warum Deev" und sagte dasselbe mit anderen Worten - zwei
+  // Eintraege fuer eine Aussage sind im Menue kein Angebot, sondern Rauschen.
+  studio: ["why-deev", "about"],
 } as const;
 
 export type ServiceGroup = keyof typeof SERVICE_GROUPS;
@@ -29,13 +32,12 @@ export type ServiceId = (typeof SERVICE_GROUPS)[ServiceGroup][number];
  * Themen, es gibt aber vier Wege.
  */
 export const SERVICE_HREF: Record<string, string> = {
-  "what-we-build": "/services/websites",
+  "what-we-build": "/services",
   "how-it-runs": "/services/custom-software",
   pricing: "/project",
   marketing: "/services/marketing",
   ai: "/services/ai-automation",
-  billovio: "/services/custom-software",
-  "why-it-works": "/services",
-  "why-deev": "/services",
+  billovio: "/work/billovio",
+  "why-deev": "/services#why-deev",
   about: "/#about",
 };

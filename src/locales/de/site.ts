@@ -66,7 +66,7 @@ export const site: typeof En = {
       "ai": { label: "KI-Workshops", desc: "Wo KI sich rechnet, beziffert aus Ihren eigenen Mengen" },
       "billovio": { label: "Billovio", desc: "Unser Produkt: ein Angebot aus einem einzigen Satz" },
       "why-it-works": { label: "Warum es funktioniert", desc: "Planbare Anfragen und messbare Ergebnisse" },
-      "why-deev": { label: "Warum Deev", desc: "DSGVO, Sicherheit und Zusagen, an denen Sie uns messen" },
+      "why-deev": { label: "Warum Deev", desc: "Wie wir arbeiten und wofür wir geradestehen" },
       "about": { label: "Mit wem Sie arbeiten", desc: "Zwei Gründer, beide an Ihrem Projekt" },
     },
     feature: {

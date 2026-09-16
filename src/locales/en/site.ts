@@ -75,7 +75,7 @@ export const site = {
       "ai": { label: "AI workshops", desc: "Where AI pays, costed from your own volumes" },
       "billovio": { label: "Billovio", desc: "Our own product: a quote written from one sentence" },
       "why-it-works": { label: "Why it works", desc: "Predictable enquiries and outcomes you can measure" },
-      "why-deev": { label: "Why Deev", desc: "GDPR, security and delivery you can hold us to" },
+      "why-deev": { label: "Why Deev", desc: "How we work and what we stand behind" },
       "about": { label: "Who you'll work with", desc: "Two founders, both of them on your project" },
     },
     feature: {
