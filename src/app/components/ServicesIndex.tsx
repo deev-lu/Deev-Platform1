@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, ArrowUpRight, BadgeEuro } from "lucide-react";
 import L from "./L";
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
+import { Suspense, lazy } from "react";
 import { useT, useLocalePath } from "../../lib/useT";
 
 /**
@@ -16,6 +17,19 @@ import { useT, useLocalePath } from "../../lib/useT";
  * Every word comes from the same dictionary the panel reads, so adding or
  * renaming a service is still one edit in one place.
  */
+/**
+ * Die von der Startseite ausgelagerten Uebersichtsbloecke.
+ *
+ * Sie sind nicht geloescht worden, sie stehen jetzt dort, wo jemand sie sucht,
+ * der sich schon fuer das Angebot interessiert. Auf der Startseite haben sie
+ * zwischen Beleg und Anfrage gestanden und dieselben Argumente mehrfach
+ * wiederholt.
+ */
+const ValueProposition = lazy(() => import("./ValueProposition"));
+const BenefitsPanel = lazy(() => import("./BenefitsPanel"));
+const MarketingServices = lazy(() => import("./MarketingServices"));
+const EnterpriseTrust = lazy(() => import("./EnterpriseTrust"));
+
 export default function ServicesIndex() {
   const t = useT();
   const localePath = useLocalePath();
@@ -107,6 +121,16 @@ export default function ServicesIndex() {
             </ul>
           </section>
         ))}
+
+        {/* Die Bloecke, die von der Startseite hierher gewandert sind.
+            Jeder traegt seinen alten Anker weiter, damit bestehende Links und
+            Menueeintraege nicht ins Leere zeigen. */}
+        <Suspense fallback={null}>
+          <div id="services-detail"><ValueProposition /></div>
+          <div id="why-it-works"><BenefitsPanel /></div>
+          <div id="marketing"><MarketingServices /></div>
+          <div id="why-deev"><EnterpriseTrust /></div>
+        </Suspense>
 
         {/* The funding is the first question every Luxembourg SME asks, so it
             gets the same card here that it gets in the navigation panel. */}

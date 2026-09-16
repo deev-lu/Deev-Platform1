@@ -34,6 +34,57 @@
         }
       }
     },
+    "/services/websites": {
+      "file": "services/websites.html",
+      "meta": {
+        "en": {
+          "title": "Website development in Luxembourg | DEEV",
+          "description": "Company websites, relaunches and online stores built to be found, understood and acted on. Real projects, clear scope, a direct line to the founders."
+        },
+        "fr": {
+          "title": "Création de sites web au Luxembourg | DEEV",
+          "description": "Sites d'entreprise, refontes et boutiques en ligne conçus pour être trouvés, compris et suivis d'une action. Projets réels, périmètre clair, contact direct avec les fondateurs."
+        },
+        "de": {
+          "title": "Websites entwickeln in Luxemburg | DEEV",
+          "description": "Unternehmenswebsites, Relaunch und Onlineshops, gebaut um gefunden, verstanden und genutzt zu werden. Echte Projekte, klarer Umfang, direkter Draht zu den Gründern."
+        }
+      }
+    },
+    "/services/ai-automation": {
+      "file": "services/ai-automation.html",
+      "meta": {
+        "en": {
+          "title": "AI and automation for Luxembourg businesses | DEEV",
+          "description": "We start by looking at where the time actually goes, then automate what repeats. Not every company needs AI, and we will say so. Workshops, pilots and production."
+        },
+        "fr": {
+          "title": "IA et automatisation pour les entreprises au Luxembourg | DEEV",
+          "description": "Nous regardons d'abord où le temps part réellement, puis nous automatisons ce qui se répète. Toutes les entreprises n'ont pas besoin d'IA, et nous le dirons."
+        },
+        "de": {
+          "title": "KI und Automatisierung für Unternehmen in Luxemburg | DEEV",
+          "description": "Wir schauen zuerst, wohin die Zeit tatsächlich geht, und automatisieren dann, was sich wiederholt. Nicht jedes Unternehmen braucht KI, und das sagen wir auch."
+        }
+      }
+    },
+    "/services/custom-software": {
+      "file": "services/custom-software.html",
+      "meta": {
+        "en": {
+          "title": "Custom web applications and software | DEEV Luxembourg",
+          "description": "Web applications, portals, interfaces and the business logic behind them, built around your process rather than against it. Luxembourg SME funding may apply."
+        },
+        "fr": {
+          "title": "Applications web et logiciels sur mesure | DEEV Luxembourg",
+          "description": "Applications web, portails, interfaces et la logique métier derrière, conçus autour de votre processus plutôt que contre lui. Aide PME luxembourgeoise possible."
+        },
+        "de": {
+          "title": "Individuelle Webanwendungen und Software | DEEV Luxemburg",
+          "description": "Webanwendungen, Portale, Schnittstellen und die Geschäftslogik dahinter, gebaut um Ihren Ablauf herum statt gegen ihn. Luxemburger KMU-Förderung möglich."
+        }
+      }
+    },
     "/sme-packages": {
       "file": "sme-packages.html",
       "meta": {

@@ -127,6 +127,7 @@ for (const locale of LOCALES) {
   const dir = locale === DEFAULT_LOCALE ? dist : join(dist, locale);
   mkdirSync(join(dir, "work"), { recursive: true });
   mkdirSync(join(dir, "blog"), { recursive: true });
+  mkdirSync(join(dir, "services"), { recursive: true });
 
   for (const page of pages) {
     const url = abs(withLocale(page.path, locale));

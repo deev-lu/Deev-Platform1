@@ -52,6 +52,42 @@ export const pages = {
     },
   },
 
+  servicePages: {
+    websites: {
+      eyebrow: "Websites",
+      title: "A site that explains your offer and keeps the next step simple.",
+      lead: "Company sites, relaunches and online stores. Built to be found, understood and acted on.",
+      problems: [
+        "Visitors arrive and still cannot tell what you actually do.",
+        "The site looks fine but produces no enquiries.",
+        "Nobody can change a price or a text without calling an agency.",
+      ],
+    },
+    ai: {
+      eyebrow: "AI and automation",
+      title: "Less manual routine, with solutions that fit how you work.",
+      lead: "We start by looking at where the time actually goes. Not every company needs AI, and we will say so.",
+      problems: [
+        "The same enquiries get answered by hand every week.",
+        "Documents are read, sorted and retyped by a person.",
+        "Data lives in three systems and is copied between them.",
+      ],
+    },
+    software: {
+      eyebrow: "Custom software",
+      title: "When standard tools no longer fit how you work.",
+      lead: "Web applications, portals, interfaces and the business logic behind them.",
+      problems: [
+        "A spreadsheet has quietly become a business-critical system.",
+        "Off-the-shelf software forces a process that does not match yours.",
+        "Two systems need to talk and nobody has made them.",
+      ],
+    },
+    problemsLabel: "Sounds familiar?",
+    workLabel: "Related work",
+    cta: "Discuss a project like this",
+  },
+
   project: {
     title: "What would your project cost?",
     lead: "Configure a build and see an indicative range. It is an orientation, not a quote, and it asks for no email address.",

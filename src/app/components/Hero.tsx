@@ -28,6 +28,15 @@ import { PROJECTS, sectorOf } from "../../lib/projects";
  *   werden nicht eingeblendet. Animiert wird nur das Bild, und auch das nicht
  *   unter prefers-reduced-motion.
  */
+/**
+ * React 18 kennt `fetchPriority` nicht: beim Server-Rendern wird das Attribut
+ * verworfen, mitsamt einer Warnung. Verloren geht es ausgerechnet im
+ * vorgerenderten HTML, also genau dort, wo der Preload-Scanner es liest.
+ * Kleingeschrieben durchgereicht landet der Hinweis wirklich im Dokument.
+ * Mit React 19 kann daraus wieder ein normales Prop werden.
+ */
+const PRIORITY_HINT = { fetchpriority: "high" } as Record<string, string>;
+
 export default function Hero() {
   const t = useT();
   const locale = useLocale();
@@ -140,7 +149,7 @@ export default function Hero() {
                   height={680}
                   // Das ist das LCP-Bild. Nicht lazy, und mit Priorität.
                   loading="eager"
-                  fetchPriority="high"
+                  {...PRIORITY_HINT}
                   decoding="async"
                   className="w-full h-auto"
                 />

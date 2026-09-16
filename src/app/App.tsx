@@ -10,7 +10,6 @@ import ClientLogos from "./components/ClientLogos";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
-import BenefitsPanel from "./components/BenefitsPanel";
 // Eager: as a lazy route its Suspense fallback was a 200px spinner between the
 // navbar and the footer, so every case study shifted its layout by 0.52 the
 // moment the real page arrived. 1.7KB gzipped is cheaper than that.
@@ -18,23 +17,17 @@ import WorkCase from "./components/WorkCase";
 const WorkIndex         = lazy(() => import("./components/WorkIndex"));
 const ServicesIndex     = lazy(() => import("./components/ServicesIndex"));
 const GrantPage         = lazy(() => import("./components/GrantPage"));
+const ServiceDetail     = lazy(() => import("./components/ServiceDetail"));
 const ProjectPage       = lazy(() => import("./components/ProjectPage"));
-const MarketingServices = lazy(() => import("./components/MarketingServices"));
-const AiConcepts        = lazy(() => import("./components/AiConcepts"));
 const SelectedWork      = lazy(() => import("./components/SelectedWork"));
+const ServicePaths      = lazy(() => import("./components/ServicePaths"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
 
 // Below-the-fold — lazy loaded for faster initial paint
-const ValueProposition  = lazy(() => import("./components/ValueProposition"));
-const SystemStack       = lazy(() => import("./components/SystemStack"));
-const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const BudgetTeaser      = lazy(() => import("./components/BudgetTeaser"));
-const BillovioFeature   = lazy(() => import("./components/BillovioFeature"));
-const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
 const FoundersNote      = lazy(() => import("./components/FoundersNote"));
-const NewsTeaser        = lazy(() => import("./components/NewsTeaser"));
 const NewsIndex         = lazy(() => import("./components/NewsIndex"));
 const NewsArticle       = lazy(() => import("./components/NewsArticle"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
@@ -56,45 +49,37 @@ function SectionSkeleton() {
 
 function HomePage({ theme, toggleTheme }: ThemeProps) {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] overflow-x-clip transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
+
+      {/* 1. Angebot und naechster Schritt, mit einer echten Arbeitsprobe. */}
       <Hero />
       <ClientLogos />
+
       <Suspense fallback={<SectionSkeleton />}>
-        {/* The work comes first among the numbered sections. Visitors arrive
-            to find out whether we can build their thing; the argument for how
-            we work lands better once they have seen that we do. */}
+        {/* 2. Die Arbeit zuerst. Besucher kommen, um herauszufinden, ob wir
+            ihre Sache bauen koennen; jedes Argument darueber, wie wir arbeiten,
+            landet besser, nachdem sie gesehen haben, dass wir liefern. */}
         <div id="portfolio"><SelectedWork /></div>
 
-        {/* The work, then immediately the two people who did it. The proof and
-            the names belong next to each other; nine sections of systems in
-            between made the introduction read like an afterthought. */}
+        {/* 3. Drei Leistungswege, jeder mit dem Problem in den Worten des
+            Kaeufers und einem Ziel, das eine eigene Seite ist. */}
+        <ServicePaths />
+
+        {/* 4. Die zwei Menschen, die es machen. Direkt hinter dem Beleg: die
+            Arbeit und die Namen gehoeren nebeneinander. */}
         <div id="about"><FoundersNote /></div>
 
-        <div id="why-it-works"><BenefitsPanel /></div>
-        <div id="services"><ValueProposition /></div>
-
-        {/* ── Dark act I: how the system is built ────────────────────
-            `dark` is scoped per-section (@custom-variant dark = .dark *),
-            so these render in their dark treatment in both themes. The
-            page is meant to breathe light → dark → light → dark rather
-            than run eight near-identical pale sections in a row. */}
-        <div data-surface="dark" id="how-it-runs">
-          <SystemStack />
-        </div>
-        <div id="marketing"><MarketingServices /></div>
-        <div id="ai"><AiConcepts /></div>
-        <div id="billovio"><BillovioFeature /></div>
+        {/* 5. Budget und moeglicher Zuschuss, beides kompakt und verlinkt.
+            Traegt weiterhin die alten Kampagnenanker #pricing und
+            #project-builder, weil ein Fragment den Server nie erreicht und
+            sich nicht per Weiterleitung auffangen laesst. */}
         <div id="pricing"><BudgetTeaser /></div>
-        <div id="why-deev"><EnterpriseTrust /></div>
-        <div id="journal"><NewsTeaser /></div>
 
-        {/* ── Dark act II: close on Luxembourg, the ask, the footer ── */}
-        <div data-surface="dark">
-          <LuxembourgStrip />
-        </div>
+        {/* 6. Ein Abschluss, keine vierte Zusammenfassung. */}
         <FinalCTA />
       </Suspense>
+
       <Footer />
     </div>
   );
@@ -201,6 +186,21 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
           so it gets a URL of its own to advertise and to be found by. */}
       {/* Der Rechner als eigene Seite. Die Startseite zeigt nur noch
           einen Budget-Teaser, der hierher fuehrt. */}
+      {/* Ein Leistungsweg, eine Seite. Unterschiedliche Leistungen brauchen
+          unterschiedliche Argumente; ein Anker kann ausserdem nicht ranken. */}
+      {([["websites", "websites"], ["ai-automation", "ai"], ["custom-software", "software"]] as const).map(
+        ([slug, key]) => (
+          <Route
+            key={slug}
+            path={`services/${slug}`}
+            element={chrome(
+              <Suspense fallback={<SectionSkeleton />}>
+                <ServiceDetail service={key} />
+              </Suspense>,
+            )}
+          />
+        ),
+      )}
       <Route path="project" element={chrome(<Suspense fallback={<SectionSkeleton />}><ProjectPage /></Suspense>)} />
       <Route path="sme-packages" element={chrome(<Suspense fallback={<SectionSkeleton />}><GrantPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />

@@ -17,13 +17,16 @@ export type ServiceId = (typeof SERVICE_GROUPS)[ServiceGroup][number];
 
 /** Where each area actually lives: a section of the homepage. */
 export const SERVICE_HREF: Record<string, string> = {
-  "what-we-build": "#services",
-  "how-it-runs": "#how-it-runs",
+  // Nach dem Entschlacken der Startseite tragen Seiten den Inhalt, nicht mehr
+  // Anker. Ein Anker auf einen Abschnitt, den es nicht mehr gibt, ist ein
+  // Klick ins Leere; ausserdem kann eine Seite ranken und ein Anker nicht.
+  "what-we-build": "/services",
+  "how-it-runs": "/services/custom-software",
   pricing: "/project",
-  marketing: "#marketing",
-  ai: "#ai",
-  billovio: "#billovio",
-  "why-it-works": "#why-it-works",
-  "why-deev": "#why-deev",
-  about: "#about",
+  marketing: "/services",
+  ai: "/services/ai-automation",
+  billovio: "/services/custom-software",
+  "why-it-works": "/services",
+  "why-deev": "/services",
+  about: "/#about",
 };
