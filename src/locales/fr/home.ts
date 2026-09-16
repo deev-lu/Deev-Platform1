@@ -24,6 +24,16 @@ export const home: typeof En = {
     cta: "Voir votre prix net",
   },
 
+  budget: {
+    eyebrow: "Budget",
+    title: "Combien cela coûterait-il ?",
+    lead: "Configurez un projet et voyez une fourchette indicative en une minute. Sans adresse e-mail, sans engagement.",
+    cta: "Estimer mon budget",
+    grantTitle: "SME Packages Luxembourg",
+    grantBody: "L’État rembourse 70 % des coûts éligibles sur un projet de 3 000 à 25 000 € HT, soit au maximum 17 500 € par package. L’éligibilité se décide lors de la pré-analyse.",
+    grantCta: "Comment fonctionne l’aide",
+  },
+
   selected: {
     eyebrow: "Réalisations",
     title: "Des projets que nous avons livrés.",

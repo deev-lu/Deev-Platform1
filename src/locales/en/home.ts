@@ -27,6 +27,16 @@ export const home = {
     cta: "See your net price",
   },
 
+  budget: {
+    eyebrow: "Budget",
+    title: "What would it cost?",
+    lead: "Configure a build and see an indicative range in about a minute. No email address, no commitment.",
+    cta: "Estimate my budget",
+    grantTitle: "Luxembourg SME packages",
+    grantBody: "The state reimburses 70% of eligible costs on a project of €3,000 to €25,000 ex. VAT, so at most €17,500 per package. Eligibility is decided at the pre-analysis.",
+    grantCta: "How the funding works",
+  },
+
   selected: {
     eyebrow: "Selected work",
     title: "Work we have shipped.",

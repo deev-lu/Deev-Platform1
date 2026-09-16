@@ -146,7 +146,7 @@ export default function Contact() {
                   {t.pages.contact.grant.body}
                 </p>
                 <a
-                  href={`${localePath("/")}#project-builder`}
+                  href={localePath("/project")}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:gap-2.5 transition-all"
                 >
                   {t.pages.contact.grant.cta}

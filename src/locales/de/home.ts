@@ -24,6 +24,16 @@ export const home: typeof En = {
     cta: "Nettopreis berechnen",
   },
 
+  budget: {
+    eyebrow: "Budget",
+    title: "Was würde das kosten?",
+    lead: "Konfigurieren Sie ein Projekt und sehen Sie in etwa einer Minute eine unverbindliche Spanne. Ohne E-Mail-Adresse, ohne Verpflichtung.",
+    cta: "Budget einschätzen",
+    grantTitle: "SME Packages Luxemburg",
+    grantBody: "Der Staat erstattet 70 % der förderfähigen Kosten bei einem Projekt von 3.000 bis 25.000 € netto, also höchstens 17.500 € pro Package. Über die Förderfähigkeit entscheidet die Voranalyse.",
+    grantCta: "Wie die Förderung funktioniert",
+  },
+
   selected: {
     eyebrow: "Referenzen",
     title: "Projekte, die wir ausgeliefert haben.",

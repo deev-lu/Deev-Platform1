@@ -19,7 +19,7 @@ export type ServiceId = (typeof SERVICE_GROUPS)[ServiceGroup][number];
 export const SERVICE_HREF: Record<string, string> = {
   "what-we-build": "#services",
   "how-it-runs": "#how-it-runs",
-  pricing: "#pricing",
+  pricing: "/project",
   marketing: "#marketing",
   ai: "#ai",
   billovio: "#billovio",

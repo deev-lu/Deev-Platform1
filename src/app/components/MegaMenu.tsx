@@ -219,6 +219,26 @@ function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
               const item = t.site.mega.items[id];
               return (
                 <li key={id}>
+                  {/* Routen sind Links, Anker sind Aktionen. Seit der Rechner
+                      unter /project liegt, ist "pricing" das eine und nicht
+                      mehr das andere. */}
+                  {SERVICE_HREF[id].startsWith("/") ? (
+                  <L
+                    to={SERVICE_HREF[id]}
+                    className="group block w-full text-left py-2.5 px-3 -mx-3 rounded-[var(--radius-1)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
+                  >
+                    <span className="flex items-center gap-2 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
+                      {item.label}
+                      <ArrowRight
+                        className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--dur-1)] text-[var(--signal-text)]"
+                        strokeWidth={1.5}
+                      />
+                    </span>
+                    <span className="block text-[var(--text-low)] mt-1" style={{ fontSize: "var(--t-label)", lineHeight: 1.5 }}>
+                      {item.desc}
+                    </span>
+                  </L>
+                  ) : (
                   <button
                     type="button"
                     onClick={() => onAnchor(SERVICE_HREF[id])}
@@ -235,6 +255,7 @@ function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
                       {item.desc}
                     </span>
                   </button>
+                  )}
                 </li>
               );
             })}

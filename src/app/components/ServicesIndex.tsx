@@ -134,7 +134,7 @@ export default function ServicesIndex() {
               {t.site.mega.feature.body}
             </p>
             <a
-              href={`${home}#pricing`}
+              href={localePath("/project")}
               className="group mt-auto inline-flex items-center gap-2 text-[var(--positive)] font-medium"
               style={{ fontSize: "var(--t-small)" }}
             >

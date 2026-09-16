@@ -31,7 +31,7 @@ import ScrollReset from "./components/ScrollReset";
 const ValueProposition  = lazy(() => import("./components/ValueProposition"));
 const SystemStack       = lazy(() => import("./components/SystemStack"));
 const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
-const ProjectBuilder    = lazy(() => import("./components/ProjectBuilder"));
+const BudgetTeaser      = lazy(() => import("./components/BudgetTeaser"));
 const BillovioFeature   = lazy(() => import("./components/BillovioFeature"));
 const EnterpriseTrust   = lazy(() => import("./components/EnterpriseTrust"));
 const FoundersNote      = lazy(() => import("./components/FoundersNote"));
@@ -87,7 +87,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <div id="marketing"><MarketingServices /></div>
         <div id="ai"><AiConcepts /></div>
         <div id="billovio"><BillovioFeature /></div>
-        <div id="pricing"><ProjectBuilder /></div>
+        <div id="pricing"><BudgetTeaser /></div>
         <div id="why-deev"><EnterpriseTrust /></div>
         <div id="journal"><NewsTeaser /></div>
 

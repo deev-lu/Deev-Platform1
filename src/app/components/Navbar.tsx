@@ -162,13 +162,13 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             )}
 
             {/* CTA */}
-            <button
-              onClick={() => scrollTo("#project-builder")}
+            <L
+              to="/project"
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px "
               style={{ background: "var(--signal)" }}
             >
               {t.site.nav.cta}
-            </button>
+            </L>
 
             {/* Mobile burger */}
             <button
@@ -246,13 +246,14 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 </button>
               ))}
 
-              <button
-                onClick={() => scrollTo("#project-builder")}
-                className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90"
+              <L
+                to="/project"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90 text-center"
                 style={{ background: "var(--signal)" }}
               >
                 {t.site.nav.cta} &rarr;
-              </button>
+              </L>
 
               {/* A dropdown inside a drawer is a trap on a phone. Three
                   buttons in a row is the whole control. */}

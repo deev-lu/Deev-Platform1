@@ -26,7 +26,7 @@ const NAV = {
     { key: "grant", href: "/sme-packages" },
     { key: "portfolio", href: "/work" },
     { key: "journal", href: "/blog" },
-    { key: "pricing", href: "/#project-builder" },
+    { key: "pricing", href: "/project" },
     { key: "whyDeev", href: "/#why-deev" },
     { key: "contact", href: "/contact" },
   ],

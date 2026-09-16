@@ -109,7 +109,7 @@ export default function GrantPage() {
 
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <a
-            href={`${home}#pricing`}
+            href={localePath("/project")}
             className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--signal)] text-white font-medium"
             style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
           >
@@ -302,7 +302,7 @@ export default function GrantPage() {
               <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
             </L>
             <a
-              href={`${home}#pricing`}
+              href={localePath("/project")}
               className="inline-flex items-center h-12 px-6 border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] font-medium transition-colors duration-[var(--dur-1)]"
               style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
             >
@@ -555,7 +555,7 @@ function GrantCalculator() {
         )}
 
         <a
-          href={`${localePath("/")}#pricing`}
+          href={localePath("/project")}
           className="group mt-8 inline-flex items-center gap-2 text-[var(--signal-text)] font-medium"
           style={{ fontSize: "var(--t-small)" }}
         >
