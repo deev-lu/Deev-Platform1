@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { useReducedMotion } from "motion/react";
 import L from "./L";
 import { useLocale, useT } from "../../lib/useT";
@@ -73,6 +74,21 @@ export default function HeroWork() {
           >
             {active.link?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
           </span>
+
+          {/* Direkt zur echten Website. Die Adresse steht daneben, aber eine
+              Adresse zum Abtippen ist kein Angebot - anklickbar schon. */}
+          {active.link && (
+            <a
+              href={active.link}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="ml-auto inline-flex items-center gap-1.5 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] shrink-0"
+              style={{ fontSize: "var(--t-label)" }}
+            >
+              {t.pages.workCase.visit}
+              <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+            </a>
+          )}
         </div>
 
         {/* Alle Aufnahmen liegen übereinander und werden ein- und

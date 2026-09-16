@@ -29,6 +29,8 @@ import ScrollReset from "./components/ScrollReset";
 const BudgetTeaser      = lazy(() => import("./components/BudgetTeaser"));
 const FoundersNote      = lazy(() => import("./components/FoundersNote"));
 const HowWeWork         = lazy(() => import("./components/HowWeWork"));
+const NewsTeaser        = lazy(() => import("./components/NewsTeaser"));
+const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const NewsIndex         = lazy(() => import("./components/NewsIndex"));
 const NewsArticle       = lazy(() => import("./components/NewsArticle"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
@@ -80,6 +82,16 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
             #project-builder, weil ein Fragment den Server nie erreicht und
             sich nicht per Weiterleitung auffangen laesst. */}
         <div id="pricing"><BudgetTeaser /></div>
+
+        {/* 5b. Die drei neuesten Artikel. Beim Entschlacken herausgeflogen,
+            und damit auch der einzige Grund, ueber den Budgetblock hinaus
+            weiterzulesen. Es sind echte Artikel, keine Fuellung. */}
+        <NewsTeaser />
+
+        {/* 5c. Ein Bild, das die Seite atmen laesst. Echte Fotografie aus
+            Luxemburg, langsam bewegt - der einzige grosse visuelle Moment der
+            Seite, und er behauptet nichts. */}
+        <LuxembourgStrip />
 
         {/* 6. Ein Abschluss, keine vierte Zusammenfassung. */}
         <FinalCTA />

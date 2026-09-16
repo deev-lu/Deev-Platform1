@@ -33,11 +33,20 @@ export interface Project {
   link?: string;
   image?: string;
 
-  /** ── Optional narrative. Fill these in to deepen a case study. ── */
-  summary?: string;
-  challenge?: string;
-  approach?: string;
-  outcome?: string;
+  /** ── Die Fallstudie. Optional, aber wenn, dann in allen drei Sprachen. ──
+   *
+   * Als einfacher String stand deutscher Text auch auf der franzoesischen
+   * Seite. Ein Record erzwingt alle drei, genau wie bei `category` und bei
+   * einem Blogartikel: eine Fallstudie, die nur auf Deutsch existiert, ist ein
+   * Build-Fehler statt einer halb uebersetzten Seite.
+   *
+   * `outcome` bleibt bewusst selten gefuellt. Ein Ergebnis ist eine Aussage
+   * ueber den Kunden, und die gehoert belegt - siehe FRAGEN_AN_DEEV.md. Ohne
+   * Beleg bleibt das Feld leer, und die Seite zeigt den Abschnitt nicht. */
+  summary?: Record<Locale, string>;
+  challenge?: Record<Locale, string>;
+  approach?: Record<Locale, string>;
+  outcome?: Record<Locale, string>;
   /** e.g. ["Next.js", "Supabase", "Stripe"] */
   stack?: string[];
 

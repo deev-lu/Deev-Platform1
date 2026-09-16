@@ -12,7 +12,22 @@
     "link": "https://fachinstitut-tierheilkunde.de/",
     "scope": [
       "website"
-    ]
+    ],
+    "summary": {
+      "de": "Ein Ausbildungsinstitut verkauft keine Ware, sondern eine Entscheidung über 17 Monate Lebenszeit. Die Seite ist darauf gebaut, genau diese Entscheidung zu erleichtern.",
+      "en": "A training institute does not sell a product, it asks for a 17-month decision. The site is built to make exactly that decision easier.",
+      "fr": "Un institut de formation ne vend pas un produit, il demande une décision qui engage 17 mois. Le site est conçu pour faciliter précisément cette décision."
+    },
+    "challenge": {
+      "de": "Wer eine berufsbegleitende Ausbildung sucht, hat immer dieselben drei Fragen: Kann ich das neben dem Beruf? Wann fängt es an? Und wo muss ich hin? Stehen diese Antworten verstreut über mehrere Seiten, springt der Interessent ab, bevor er sie gefunden hat. Zusätzlich gibt es Ausbildungen in mehreren Fachrichtungen und je zwei Zeitformen, Abend und Wochenende, mit unterschiedlichen Startterminen und Praxisstandorten. Diese Kombinationen sind der eigentliche Grund, warum solche Seiten unübersichtlich werden.",
+      "en": "Anyone looking at a part-time qualification asks the same three questions: can I do this alongside my job, when does it start, and where do I have to be? If those answers are scattered across several pages, the visitor leaves before finding them. On top of that there are courses in several disciplines, each in two formats, evening and weekend, with different start dates and practical locations. Those combinations are the real reason sites like this become hard to read.",
+      "fr": "Toute personne qui envisage une formation en cours d'emploi pose les trois mêmes questions : est-ce compatible avec mon travail, quand cela commence-t-il, et où dois-je me rendre ? Si ces réponses sont dispersées sur plusieurs pages, le visiteur repart avant de les avoir trouvées. S'y ajoutent des formations dans plusieurs disciplines, chacune en deux formats, soirée et week-end, avec des dates de début et des lieux de pratique différents. Ce sont ces combinaisons qui rendent ce type de site illisible."
+    },
+    "approach": {
+      "de": "Jede Ausbildung hat eine eigene Seite mit einer Übersichtskarte, die alle harten Angaben an einer Stelle bündelt: Starttermin je Zeitform, wo die Theorie stattfindet, wo die Praxis, und wie lange es dauert. Direkt darunter das Anmeldeformular, damit auf die Antwort sofort der nächste Schritt folgt. Der ausführliche Teil liegt in Reitern (Inhalte, Ablauf und Termine, Voraussetzungen, Kosten), sodass die Seite kurz bleibt und trotzdem alles trägt. Auf der Startseite steht der nächste Starttermin über allem, dazu ein Hinweisband, das ihn seitenweit wiederholt. Die Dozentinnen bekommen eigene Profile mit Qualifikationen und eigener Website, weil bei einer Ausbildung die Menschen das Angebot sind.",
+      "en": "Each course has its own page with an overview card that gathers every hard fact in one place: start date per format, where the theory happens, where the practical happens, and how long it runs. The enrolment form sits directly beneath it, so the answer is immediately followed by the next step. The detail lives in tabs (content, schedule and dates, prerequisites, cost), which keeps the page short without leaving anything out. On the homepage the next start date leads, repeated site-wide by a notice bar. The instructors have their own profiles with qualifications and their own sites, because in training the people are the offer.",
+      "fr": "Chaque formation a sa propre page avec une fiche récapitulative qui réunit tous les faits concrets au même endroit : date de début par format, lieu de la théorie, lieu de la pratique et durée. Le formulaire d'inscription se trouve juste en dessous, pour que la réponse soit immédiatement suivie de l'étape suivante. Le détail est rangé dans des onglets (contenu, déroulé et dates, prérequis, coûts), ce qui garde la page courte sans rien omettre. Sur la page d'accueil, la prochaine date de début passe avant tout, reprise par un bandeau présent sur tout le site. Les intervenantes disposent de profils avec leurs qualifications et leur propre site, parce que dans la formation, ce sont les personnes qui constituent l'offre."
+    }
   },
   {
     "slug": "ucc-clervaux",
