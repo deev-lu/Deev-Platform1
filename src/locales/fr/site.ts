@@ -75,7 +75,7 @@ export const site: typeof En = {
       body: "Les PME luxembourgeoises obtiennent 70% d'un projet numérique ou d'IA éligible. Voyez ce que le vôtre coûterait réellement.",
       cta: "Voir votre prix net",
     },
-    work: { browse: "Parcourir", all: "Toutes les réalisations", recent: "Projets récents" },
+    work: { browse: "Parcourir", all: "Toutes les réalisations", recent: "Des projets que nous aimons montrer" },
     journal: { browse: "Thèmes", all: "Lire le blog", latest: "Derniers articles" },
   },
 

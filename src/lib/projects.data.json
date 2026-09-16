@@ -89,7 +89,8 @@
         "Parcours continu du devis à la facture",
         "Conçu pour un usage mobile"
       ]
-    }
+    },
+    "menuRank": 2
   },
   {
     "slug": "fachinstitut-tierheilkunde",
@@ -297,7 +298,8 @@
         "Architecture CMS Webflow calquée sur les données des biens",
         "Weglot pour la diffusion multilingue"
       ]
-    }
+    },
+    "menuRank": 1
   },
   {
     "slug": "aurora-experience",
@@ -613,7 +615,8 @@
     ],
     "caseStudy": "none",
     "homepageRank": 1,
-    "portfolioRank": 5
+    "portfolioRank": 5,
+    "menuRank": 3
   },
   {
     "slug": "angolodoro",

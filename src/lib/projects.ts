@@ -132,6 +132,7 @@ export interface Project {
      Rang und Einstufung werden nie ausgeliefert: ein kleinerer Kunde darf
      öffentlich nicht als weniger wichtig markiert sein. */
   homepageRank?: number;
+  menuRank?: number;
   portfolioRank?: number;
   tier?: "A" | "B" | "C";
   scale?: "small" | "medium" | "large";
@@ -220,6 +221,18 @@ export const PROJECTS: Project[] = (projectData as Omit<Project, "image">[])
 export const HOMEPAGE_FEATURED: Project[] = PROJECTS.filter(
   (p) => p.homepageRank !== undefined && p.image,
 ).sort((a, b) => a.homepageRank! - b.homepageRank!);
+
+/**
+ * Die Auswahl im Navigationsmenue.
+ *
+ * Vorher waren es schlicht die ersten drei des Portfolios. Welche drei im
+ * Menue stehen, ist aber eine eigene Entscheidung: das Menue sieht jemand,
+ * der noch gar nicht im Portfolio ist, und dort zaehlt nicht die Sortierung,
+ * sondern welche Arbeit man jemandem als Erstes zeigen wuerde.
+ */
+export const MENU_FEATURED: Project[] = PROJECTS.filter(
+  (p) => p.menuRank !== undefined,
+).sort((a, b) => a.menuRank! - b.menuRank!);
 
 export const getProject = (slug?: string) => PROJECTS.find((p) => p.slug === slug);
 

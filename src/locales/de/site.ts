@@ -75,7 +75,7 @@ export const site: typeof En = {
       body: "Luxemburger KMU erhalten 70% eines förderfähigen Digital- oder KI-Projekts. Sehen Sie, was Ihres tatsächlich kosten würde.",
       cta: "Nettopreis ansehen",
     },
-    work: { browse: "Stöbern", all: "Alle Referenzen", recent: "Aktuelle Projekte" },
+    work: { browse: "Stöbern", all: "Alle Referenzen", recent: "Projekte, die wir gern zeigen" },
     journal: { browse: "Themen", all: "Blog lesen", latest: "Neueste Artikel" },
   },
 

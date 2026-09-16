@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLocation } from "react-router";
 import { ArrowRight, ArrowUpRight, BadgeEuro, ChevronDown } from "lucide-react";
 import L from "./L";
-import { PROJECTS, sectorOf } from "../../lib/projects";
+import { MENU_FEATURED, PROJECTS, sectorOf } from "../../lib/projects";
 import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategories";
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
 import { ARTICLES, formatDate } from "../../lib/news";
@@ -296,7 +296,8 @@ function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
 function WorkPanel() {
   const t = useT();
   const locale = useLocale();
-  const recent = PROJECTS.slice(0, 3);
+  // Kuratiert statt "die ersten drei", siehe MENU_FEATURED.
+  const recent = MENU_FEATURED;
 
   return (
     <div className="grid grid-cols-12 gap-x-10 gap-y-8">

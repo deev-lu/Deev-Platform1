@@ -84,7 +84,7 @@ export const site = {
       body: "Luxembourg SMEs claim 70% of an eligible digital or AI project. See what yours would actually cost.",
       cta: "See your net price",
     },
-    work: { browse: "Browse", all: "All work", recent: "Recent projects" },
+    work: { browse: "Browse", all: "All work", recent: "Projects we're happy about" },
     journal: { browse: "Topics", all: "Read the blog", latest: "Latest articles" },
   },
 
