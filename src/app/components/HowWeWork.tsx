@@ -1,4 +1,5 @@
 import L from "./L";
+import Reveal from "./Reveal";
 import { useT } from "../../lib/useT";
 
 /**
@@ -40,7 +41,7 @@ export default function HowWeWork() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 mt-12">
           {v.steps.map((step, i) => (
-            <div key={step.title} className="border-t border-[var(--line)] pt-6">
+            <Reveal key={step.title} delay={i * 0.07} className="border-t border-[var(--line)] pt-6">
               <span
                 className="eyebrow-mono text-[var(--text-low)]"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
@@ -59,7 +60,7 @@ export default function HowWeWork() {
               >
                 {step.copy}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
 

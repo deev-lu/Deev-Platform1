@@ -104,9 +104,14 @@ function Card({ project, featured = false }: { project: Project; featured?: bool
     : null;
 
   return (
-    <L
-      to={`/work/${project.slug}`}
-      className="group block border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)]"
+    /* Zwei Ziele in einer Karte, und dafür darf sie kein <a> mehr sein: ein
+       Link im Link ist ungültiges HTML, und Browser hängen den inneren dann
+       einfach aus. Stattdessen deckt der Link zur Fallstudie die ganze Karte
+       ab, und der Link zur echten Website liegt darüber. Beide bleiben echte
+       Links mit eigenem Namen, also auch für Tastatur und Screenreader zwei
+       getrennte Ziele. */
+    <div
+      className="group relative border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)]"
       style={{ borderRadius: "var(--radius-1)" }}
     >
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: featured ? "1200 / 430" : "1000 / 583" }}>
@@ -115,12 +120,26 @@ function Card({ project, featured = false }: { project: Project; featured?: bool
           alt={`${project.title}, ${sectorOf(project, locale)}`}
           width={1200}
           height={680}
-          // Das Leitprojekt steht direkt unter dem Hero und wird oft sofort
-          // gesehen; die beiden kleineren dürfen warten.
           loading={featured ? "eager" : "lazy"}
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[var(--dur-4)] group-hover:scale-[1.02]"
         />
+
+        {/* Zur echten Website. Über dem Kartenlink, damit der Klick hier
+            landet und nicht auf der Fallstudie. */}
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer noopener"
+            onClick={(e) => e.stopPropagation()}
+            className="absolute top-4 right-4 z-20 inline-flex items-center gap-1.5 h-9 px-3.5 bg-[var(--surface-0)]/90 border border-[var(--line-strong)] text-[var(--text-hi)] opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-[var(--dur-1)]"
+            style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+          >
+            {t.pages.workCase.visit}
+            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+          </a>
+        )}
       </div>
 
       <div className={`flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3 ${featured ? "p-7 sm:p-8" : "p-6"}`}>
@@ -129,7 +148,11 @@ function Card({ project, featured = false }: { project: Project; featured?: bool
             className="text-[var(--text-hi)] font-medium"
             style={{ fontSize: featured ? "var(--t-h3)" : "var(--t-body)", letterSpacing: "-0.015em" }}
           >
-            {project.title}
+            {/* Der Kartenlink. Er liegt als Fläche über der ganzen Karte, sein
+                Text steht aber hier, damit die Überschrift sein Name ist. */}
+            <L to={`/work/${project.slug}`} className="after:absolute after:inset-0 after:z-10">
+              {project.title}
+            </L>
           </h3>
           <p
             className="eyebrow-mono uppercase text-[var(--text-low)] mt-2"
@@ -158,6 +181,6 @@ function Card({ project, featured = false }: { project: Project; featured?: bool
           </span>
         </div>
       </div>
-    </L>
+    </div>
   );
 }
