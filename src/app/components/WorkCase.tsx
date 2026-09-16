@@ -420,30 +420,27 @@ export default function WorkCase() {
 /**
  * Die ausgelieferte Seite in einem Browserfenster.
  *
- * Standardmäßig steht dort die Aufnahme. Ein Klick auf „Live" tauscht sie
- * gegen die echte Website in einem `<iframe>`, in dem man scrollen kann wie in
- * einem Browser.
+ * Der Rahmen zeigt zuerst die Aufnahme. Ob daraus die laufende Website werden
+ * kann, entscheidet die fremde Seite über `X-Frame-Options` und
+ * `Content-Security-Policy: frame-ancestors`. Verbietet sie es, zeigt der
+ * Browser eine graue Fehlerseite - und dagegen gibt es im Browser kein
+ * Mittel: der Rahmen meldet trotzdem "geladen", der Inhalt ist nicht
+ * auslesbar, eine Erkennung im Nachhinein gibt es nicht.
  *
- * Warum nicht gleich live? Drei Gründe, jeder für sich ausreichend:
+ * Deshalb wird vorher gefragt. `/api/embeddable` holt die Kopfzeilen
+ * serverseitig - dort gelten die Regeln des Browsers nicht - und sagt, ob ein
+ * Rahmen erlaubt ist:
  *
- *   Manche Seiten verbieten das Einbetten (`X-Frame-Options`,
- *   `frame-ancestors`). Der Browser zeigt dann eine graue Fehlerseite - und
- *   die deckt die Aufnahme darunter zu. Auf einer Referenzseite ist ein
- *   graues Rechteck dort, wo die Arbeit stehen soll, schlimmer als gar keine
- *   Live-Ansicht. Ob eine Seite es erlaubt, lässt sich von hier aus nicht
- *   prüfen und aus dem Browser heraus auch nicht zuverlässig erkennen: ein
- *   blockierter Rahmen meldet trotzdem „geladen".
+ *   erlaubt      Schaltfläche "Live", die Seite läuft im Rahmen.
+ *   verboten     keine Schaltfläche. Die Aufnahme bleibt, und der Weg zur
+ *                echten Seite ist der Link daneben. Genau das war der Fall
+ *                bei Feltes, und ein Klick auf "Live" führte dort in eine
+ *                graue Fläche.
+ *   unbekannt    solange die Antwort aussteht, wird nichts angeboten. Lieber
+ *                eine Schaltfläche zu spät als eine, die nicht hält.
  *
- *   Eine fremde Website vollständig zu laden heißt, ihre Skripte und Cookies
- *   mitzuladen - ohne dass unser Einwilligungsbanner davon etwas weiß. Nach
- *   einem Klick ist das eine bewusste Handlung des Besuchers.
- *
- *   Es ist teuer. Eine komplette Fremdseite im ersten Seitenaufbau kostet
- *   mehr als alles andere auf dieser Seite zusammen.
- *
- *   `sandbox` erlaubt der eingebetteten Seite nur, sich selbst darzustellen:
- *   ohne `allow-top-navigation` kann sie unseren Tab nicht umleiten, ohne
- *   `allow-popups` kein Fenster öffnen.
+ * `noEmbed` in den Projektdaten schaltet die Abfrage ab, wenn man es schon
+ * weiß.
  */
 function SitePreview({
   project,
@@ -455,8 +452,27 @@ function SitePreview({
   t: ReturnType<typeof useT>;
 }) {
   const [live, setLive] = useState(false);
+  const [allowed, setAllowed] = useState<boolean | null>(null);
   const domain = project.link?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
-  const canEmbed = Boolean(project.link) && !project.noEmbed;
+
+  useEffect(() => {
+    if (!project.link || project.noEmbed) {
+      setAllowed(false);
+      return;
+    }
+    let live = true;
+    fetch(`/api/embeddable?url=${encodeURIComponent(project.link)}`)
+      .then((r) => (r.ok ? r.json() : { embeddable: false }))
+      .then((d: { embeddable?: boolean }) => {
+        if (live) setAllowed(Boolean(d.embeddable));
+      })
+      .catch(() => {
+        if (live) setAllowed(false);
+      });
+    return () => {
+      live = false;
+    };
+  }, [project.link, project.noEmbed]);
 
   return (
     <div
@@ -477,7 +493,7 @@ function SitePreview({
         </span>
 
         <span className="ml-auto shrink-0 flex items-center gap-4">
-          {canEmbed && !live && (
+          {allowed === true && !live && (
             <button
               type="button"
               onClick={() => setLive(true)}
@@ -503,16 +519,6 @@ function SitePreview({
         </span>
       </div>
 
-      {/* Die Aufnahme bestimmt die Fensterhoehe.
-          Mit einer festen Hoehe oder einem festen Seitenverhaeltnis passte sie
-          nie genau: entweder wurde sie seitlich beschnitten, um zu fuellen,
-          oder es blieb ein dunkles Band darunter. Steht sie im normalen Fluss,
-          ist das Fenster exakt so hoch wie sie - unabhaengig davon, wie die
-          Datei geschnitten ist.
-
-          Die Obergrenze fasst nur sehr hohe Aufnahmen, also
-          Ganzseiten-Screenshots. Bei denen ist Beschneiden richtig: ihren
-          Verlauf sieht man in der Live-Ansicht. */}
       <div
         className="relative overflow-hidden bg-[var(--surface-0)]"
         style={{ maxHeight: "min(68vh, 700px)" }}
