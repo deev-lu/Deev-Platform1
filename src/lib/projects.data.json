@@ -1,5 +1,20 @@
 [
   {
+    "slug": "fachinstitut-tierheilkunde",
+    "title": "F.I.T. Fachinstitut für Tierheilkunde",
+    "year": 2026,
+    "category": {
+      "en": "Animal Therapy Training Institute",
+      "fr": "Institut de formation en thérapie animale",
+      "de": "Ausbildungsinstitut für Tiertherapie"
+    },
+    "filter": "Website",
+    "link": "https://fachinstitut-tierheilkunde.de/",
+    "scope": [
+      "website"
+    ]
+  },
+  {
     "slug": "ucc-clervaux",
     "title": "UCClervaux",
     "year": 2026,

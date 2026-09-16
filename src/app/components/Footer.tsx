@@ -14,12 +14,16 @@ import { whatsappHref } from "../../lib/whatsapp";
 //
 // Structure here, wording in the dictionary: an anchor is the same in every
 // language, its label is not.
+// Diese fünf zeigten auf Startseitenanker, die es nach dem Entschlacken der
+// Startseite nicht mehr gibt: #ai, #marketing und #why-deev sind auf die
+// Leistungsseiten gewandert. Ein Anker ins Leere scrollt nirgendwohin und
+// sieht für den Besucher aus wie ein kaputter Link - er ist es auch.
 const NAV = {
   services: [
-    { key: "webApps", href: "/#services" },
-    { key: "aiAgents", href: "/#ai" },
-    { key: "ecommerce", href: "/#services" },
-    { key: "marketingSites", href: "/#marketing" },
+    { key: "webApps", href: "/services/custom-software" },
+    { key: "aiAgents", href: "/services/ai-automation" },
+    { key: "ecommerce", href: "/services/websites" },
+    { key: "marketingSites", href: "/services#marketing" },
   ],
   company: [
     { key: "services", href: "/services" },
@@ -27,7 +31,7 @@ const NAV = {
     { key: "portfolio", href: "/work" },
     { key: "journal", href: "/blog" },
     { key: "pricing", href: "/project" },
-    { key: "whyDeev", href: "/#why-deev" },
+    { key: "whyDeev", href: "/services#why-deev" },
     { key: "contact", href: "/contact" },
   ],
   legal: [

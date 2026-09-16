@@ -66,3 +66,31 @@ sind die Fragen, die ein Interessent vor der Anfrage beantwortet haben will,
 und sie sind eine kaufmännische Aussage, die ich nicht selbst treffen darf.
 
 Bis dahin bleibt die Seite kurz und richtig, statt lang und ausgedacht.
+
+## 6. F.I.T. Fachinstitut für Tierheilkunde: Eintrag da, Screenshot fehlt
+
+Der Eintrag ist angelegt und erzeugt bereits Portfolioeintrag, Fallstudienseite
+in drei Sprachen und Sitemap-Einträge. Zwei Punkte sind offen.
+
+**Der Screenshot.** `fachinstitut-tierheilkunde.de` ist aus meiner
+Arbeitsumgebung gesperrt, ich kann die Aufnahme nicht selbst machen, und die
+Bilder aus dem Chat liegen mir nicht als Datei vor. Bitte als
+`fachinstitut-tierheilkunde.jpg` hier ablegen:
+
+https://github.com/deev-lu/Deev-Platform1/upload/main/src/assets/work
+
+Erst danach erscheint das Projekt in der Hero-Rotation — die zeigt nur
+Projekte mit Aufnahme, damit dort nie eine leere Fläche steht. Der Platz ist
+bereits für es reserviert.
+
+**Das Jahr.** Eingetragen ist 2026, abgeleitet aus den Kursterminen auf der
+Seite (nächster Start Oktober 2026, Abendform März 2027). Das belegt, dass die
+Seite 2026 läuft, nicht wann DEEV sie geliefert hat. Bitte bestätigen oder
+korrigieren.
+
+Die übrigen Angaben stammen aus den Aufnahmen der Seite selbst: berufsbegleitende
+Ausbildungen in Tierphysiotherapie, Osteopathie, Chiropraktik und
+Ernährungstherapie für Hund und Pferd, Theorie im virtuellen Klassenzimmer,
+Praxis in NRW, Hessen und Niedersachsen. Was DEEV daran geliefert hat und
+welches Ergebnis bestätigt ist, steht dort nicht — dafür weiterhin die vier
+Fragen aus `FRAGEN_AN_DEEV.md`.
