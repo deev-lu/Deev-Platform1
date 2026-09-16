@@ -58,6 +58,55 @@ export const pages: typeof En = {
     },
   },
 
+  servicesNav: {
+    eyebrow: "Leistungen",
+    title: "Was muss bei Ihnen weitergehen?",
+    lead: "Websites, KI, individuelle Software und Wachstum. Wählen Sie das Problem, das gelöst werden soll.",
+    bestFor: "Passt, wenn",
+    includes: "Enthält unter anderem",
+    cta: (name: string) => `${name} ansehen`,
+    paths: {
+      websites: {
+        title: "Websites und E-Commerce",
+        line: "Auftritte und Onlineshops, die aus Aufmerksamkeit einen nächsten Schritt machen.",
+        cue: "Ich brauche eine neue Website oder einen Shop.",
+        caps: ["Websites", "E-Commerce", "CMS und Integrationen", "SEO und Performance"],
+      },
+      ai: {
+        title: "KI und Automatisierung",
+        line: "Agenten, Assistenten und Abläufe, gebaut um die Arbeit herum, die Ihr Team wirklich Zeit kostet.",
+        cue: "Dieselbe Routine frisst jede Woche Stunden.",
+        caps: ["KI-Agenten", "Prozessautomatisierung", "Assistenten", "Systemanbindung"],
+      },
+      software: {
+        title: "Individuelle Software",
+        line: "Plattformen, Portale und Webanwendungen, entworfen um Ihren Betrieb herum.",
+        cue: "Standardsoftware passt nicht mehr zu uns.",
+        caps: ["Webanwendungen", "Kundenportale", "Interne Plattformen", "Schnittstellen"],
+      },
+      marketing: {
+        title: "Marketing und Wachstum",
+        line: "Bezahlte Werbung, SEO und Conversion, ausgelegt auf qualifizierte Nachfrage.",
+        cue: "Wir brauchen mehr passende Kunden.",
+        caps: ["Bezahlte Werbung", "SEO", "Conversion", "Analytik"],
+      },
+    },
+  },
+  servicesTrust: {
+    title: "Von Anfang an richtig gebaut.",
+    points: [
+      { title: "Erst verstehen, dann bauen", copy: "Wir fangen bei Ihrem Geschäft an, nicht beim Entwurf." },
+      { title: "Design und Entwicklung im Haus", copy: "Kein Outsourcing, keine Kette, an deren Ende niemand haftet." },
+      { title: "Messung ist eingebaut", copy: "Sie sehen, was die Arbeit einbringt, statt es glauben zu müssen." },
+      { title: "Auch nach dem Launch da", copy: "Fehler im vereinbarten Umfang beheben wir. Für Späteres gibt es Wartung oder Aufwand." },
+    ],
+  },
+  servicesCta: {
+    title: "Nicht sicher, welcher Weg passt?",
+    lead: "Sagen Sie uns, was Sie erreichen wollen. Wir klären mit Ihnen, was dafür tatsächlich gebaut werden muss.",
+    primary: "Gespräch vereinbaren",
+    secondary: "Projekt konfigurieren",
+  },
   servicePages: {
     websites: {
       eyebrow: "Websites",
@@ -87,6 +136,16 @@ export const pages: typeof En = {
         "Eine Tabelle ist unbemerkt zum betriebskritischen System geworden.",
         "Eine Standardsoftware erzwingt einen Ablauf, der nicht Ihrer ist.",
         "Zwei Systeme müssten miteinander reden, und niemand hat sie verbunden.",
+      ],
+    },
+    marketing: {
+      eyebrow: "Marketing und Wachstum",
+      title: "Nachfrage, die zu Ihrem Angebot passt, statt Reichweite.",
+      lead: "Bezahlte Werbung, SEO und die Messung dahinter. Wir fahren die Kampagnen, die die Systeme speisen, die wir bauen.",
+      problems: [
+        "Die Website ist gut, aber es kommt niemand.",
+        "Es kommen Anfragen, aber die falschen.",
+        "Niemand kann sagen, welcher Kanal die Kunden bringt.",
       ],
     },
     problemsLabel: "Kommt Ihnen das bekannt vor?",

@@ -205,7 +205,7 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
           einen Budget-Teaser, der hierher fuehrt. */}
       {/* Ein Leistungsweg, eine Seite. Unterschiedliche Leistungen brauchen
           unterschiedliche Argumente; ein Anker kann ausserdem nicht ranken. */}
-      {([["websites", "websites"], ["ai-automation", "ai"], ["custom-software", "software"]] as const).map(
+      {([["websites", "websites"], ["ai-automation", "ai"], ["custom-software", "software"], ["marketing", "marketing"]] as const).map(
         ([slug, key]) => (
           <Route
             key={slug}

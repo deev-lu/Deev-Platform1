@@ -15,24 +15,27 @@ export const SERVICE_GROUPS = {
 export type ServiceGroup = keyof typeof SERVICE_GROUPS;
 export type ServiceId = (typeof SERVICE_GROUPS)[ServiceGroup][number];
 
-/** Wohin jede Kachel führt. */
+/**
+ * Wohin jeder Menuepunkt fuehrt.
+ *
+ * Vier davon zeigten auf Abschnitte von /services - #services-detail,
+ * #why-it-works, #marketing, #why-deev. Diese Abschnitte gibt es dort nicht
+ * mehr: die Seite ist ein Wegweiser auf die vier Leistungsseiten geworden,
+ * statt selbst der Inhalt zu sein. Ein Anker auf einen geloeschten Abschnitt
+ * scrollt nirgendwohin.
+ *
+ * Jeder Eintrag zeigt jetzt auf die Seite, die sein Thema wirklich traegt.
+ * Dass mehrere auf dieselbe zeigen, ist richtig so: das Menue benennt neun
+ * Themen, es gibt aber vier Wege.
+ */
 export const SERVICE_HREF: Record<string, string> = {
-  // Nach dem Entschlacken tragen Seiten den Inhalt. Vier dieser Ziele zeigten
-  // danach auf "/services" - also auf die Seite, auf der die Kacheln selbst
-  // stehen. Auf /services war der Klick damit wirkungslos: die Adresse ändert
-  // sich nicht, es wird nicht gescrollt, nichts passiert. Von aussen sah das
-  // aus wie ein kaputter Link, und es war einer.
-  //
-  // Jetzt zeigt jede Kachel auf den Abschnitt, den sie ankündigt. Die vier
-  // Anker stehen in ServicesIndex und werden dort gesetzt; wer sie umbenennt,
-  // muss hier mit umbenennen.
-  "what-we-build": "/services#services-detail",
+  "what-we-build": "/services/websites",
   "how-it-runs": "/services/custom-software",
   pricing: "/project",
-  marketing: "/services#marketing",
+  marketing: "/services/marketing",
   ai: "/services/ai-automation",
   billovio: "/services/custom-software",
-  "why-it-works": "/services#why-it-works",
-  "why-deev": "/services#why-deev",
+  "why-it-works": "/services",
+  "why-deev": "/services",
   about: "/#about",
 };

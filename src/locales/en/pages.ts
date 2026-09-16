@@ -60,6 +60,55 @@ export const pages = {
     },
   },
 
+  servicesNav: {
+    eyebrow: "Services",
+    title: "What do you need to move forward?",
+    lead: "Websites, AI, custom software and growth. Choose the problem you need solved.",
+    bestFor: "Best for",
+    includes: "Includes",
+    cta: (name: string) => `Explore ${name}`,
+    paths: {
+      websites: {
+        title: "Websites and e-commerce",
+        line: "Sites and online stores built to turn attention into a next step.",
+        cue: "I need a new website or online shop.",
+        caps: ["Websites", "E-commerce", "CMS and integrations", "SEO and performance"],
+      },
+      ai: {
+        title: "AI and automation",
+        line: "Agents, assistants and workflows built around the work that actually costs your team time.",
+        cue: "The same routine eats hours every week.",
+        caps: ["AI agents", "Process automation", "Assistants", "System integration"],
+      },
+      software: {
+        title: "Custom software",
+        line: "Platforms, portals and web applications designed around how your business works.",
+        cue: "Off-the-shelf software no longer fits.",
+        caps: ["Web applications", "Customer portals", "Internal platforms", "Custom integrations"],
+      },
+      marketing: {
+        title: "Marketing and growth",
+        line: "Paid advertising, SEO and conversion, aimed at qualified demand.",
+        cue: "We need more of the right customers.",
+        caps: ["Paid advertising", "SEO", "Conversion", "Analytics"],
+      },
+    },
+  },
+  servicesTrust: {
+    title: "Built properly from the start.",
+    points: [
+      { title: "Understand first, then build", copy: "We start with your business, not with a layout." },
+      { title: "Design and engineering in-house", copy: "No outsourcing, no chain with nobody accountable at the end." },
+      { title: "Measurement is built in", copy: "You see what the work returns instead of having to believe it." },
+      { title: "Still here after launch", copy: "Faults within the agreed scope we fix. Later work runs on maintenance or effort." },
+    ],
+  },
+  servicesCta: {
+    title: "Not sure which path fits?",
+    lead: "Tell us what you are trying to achieve. We will work out with you what actually needs to be built.",
+    primary: "Book a call",
+    secondary: "Configure your project",
+  },
   servicePages: {
     websites: {
       eyebrow: "Websites",
@@ -89,6 +138,16 @@ export const pages = {
         "A spreadsheet has quietly become a business-critical system.",
         "Off-the-shelf software forces a process that does not match yours.",
         "Two systems need to talk and nobody has made them.",
+      ],
+    },
+    marketing: {
+      eyebrow: "Marketing and growth",
+      title: "Demand that matches what you sell, not reach for its own sake.",
+      lead: "Paid advertising, SEO and the measurement behind them. We run the campaigns that feed the systems we build.",
+      problems: [
+        "The website is good, but nobody arrives.",
+        "Enquiries come in, but the wrong ones.",
+        "Nobody can say which channel brings the customers.",
       ],
     },
     problemsLabel: "Sounds familiar?",

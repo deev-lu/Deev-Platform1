@@ -1,208 +1,293 @@
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, ArrowUpRight, BadgeEuro } from "lucide-react";
+import { ArrowRight, BadgeEuro } from "lucide-react";
 import L from "./L";
-import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
-import { Suspense, lazy } from "react";
-import { useT, useLocalePath } from "../../lib/useT";
+import ServiceStage from "./ServiceStage";
+import { useT } from "../../lib/useT";
 
 /**
- * /services — the page behind the "Services" item in the navigation.
+ * /services — der Wegweiser, nicht der Inhalt.
  *
- * The nav item used to be a switch that only opened a panel, so there was no
- * services URL to link to, share or index. This is that URL. It is a hub
- * rather than a second copy of the homepage: each area links to the section
- * that already explains it, which keeps one description of each service on
- * the site instead of two that drift apart.
+ * Vorher stand hier ein Menü aus neun Kacheln, darunter vier lange
+ * Übersichtsblöcke, die teils dasselbe noch einmal erklärten. Gemessen:
+ * 5.887 Zeichen auf 9,5 Bildschirmen, und nur vier der neun Kacheln zeigten
+ * überhaupt auf diese Seite. Wer wissen wollte, wo er hingehört, musste die
+ * ganze Seite lesen.
  *
- * Every word comes from the same dictionary the panel reads, so adding or
- * renaming a service is still one edit in one place.
+ * Jetzt beantwortet die Seite eine einzige Frage: welcher der vier Wege ist
+ * meiner? Die Tiefe liegt auf den vier Leistungsseiten, wo sie hingehört.
+ *
+ * Marketing ist dabei bewusst ein gleichwertiger vierter Weg und kein
+ * Unterpunkt: Nachfrage zu erzeugen ist ein eigener Bedarf, mit dem jemand
+ * herkommt, ohne eine Website zu wollen.
+ *
+ * Die Bühne rechts steht still und wechselt mit dem aktiven Weg. Aktiv wird
+ * ein Weg durch Zeigen, Tastaturfokus oder schlicht dadurch, dass man ihn
+ * anklickt - nie muss man etwas überfahren, um die Seite zu verstehen, und
+ * jede Zeile ist von sich aus ein Link.
  */
-/**
- * Die von der Startseite ausgelagerten Uebersichtsbloecke.
- *
- * Sie sind nicht geloescht worden, sie stehen jetzt dort, wo jemand sie sucht,
- * der sich schon fuer das Angebot interessiert. Auf der Startseite haben sie
- * zwischen Beleg und Anfrage gestanden und dieselben Argumente mehrfach
- * wiederholt.
- */
-const ValueProposition = lazy(() => import("./ValueProposition"));
-const BenefitsPanel = lazy(() => import("./BenefitsPanel"));
-const MarketingServices = lazy(() => import("./MarketingServices"));
-const EnterpriseTrust = lazy(() => import("./EnterpriseTrust"));
+export type PathKey = "websites" | "ai" | "software" | "marketing";
+
+const PATHS: { key: PathKey; to: string }[] = [
+  { key: "websites", to: "/services/websites" },
+  { key: "ai", to: "/services/ai-automation" },
+  { key: "software", to: "/services/custom-software" },
+  { key: "marketing", to: "/services/marketing" },
+];
 
 export default function ServicesIndex() {
   const t = useT();
-  const localePath = useLocalePath();
   const reduce = useReducedMotion();
-
-  const groups = Object.keys(SERVICE_GROUPS) as (keyof typeof SERVICE_GROUPS)[];
+  const n = t.pages.servicesNav;
+  const [active, setActive] = useState<PathKey>("websites");
 
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+      {/* ── 01 Hero. Kurz gehalten, damit der erste Weg noch im ersten
+             Bildausschnitt beginnt. ───────────────────────────────────── */}
       <header
         className="mx-auto"
-        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
+        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingTop: "clamp(56px, 7vw, 96px)" }}
       >
-        <div className="flex items-center gap-4 mb-10">
+        <div className="flex items-center gap-4 mb-8">
           <span className="h-px w-10 bg-[var(--line-strong)]" />
           <span
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            {t.pages.services.eyebrow}
+            {n.eyebrow}
           </span>
         </div>
 
         <h1
           className="text-[var(--text-hi)] font-medium"
-          style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.03em", maxWidth: "16ch" }}
+          style={{
+            fontSize: "clamp(2.25rem, 1rem + 3.4vw, 3.75rem)",
+            lineHeight: 1.05,
+            letterSpacing: "-0.032em",
+            maxWidth: "18ch",
+          }}
         >
-          {t.pages.services.title}
+          {n.title}
         </h1>
 
         <p
           className="text-[var(--text-mid)] mt-6"
-          style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "56ch" }}
+          style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "52ch" }}
         >
-          {t.pages.services.lead}
+          {n.lead}
         </p>
       </header>
 
+      {/* ── 02 Der Navigator ──────────────────────────────────────────── */}
       <div
-        className="mx-auto pb-[var(--section-y)]"
-        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
+        className="mx-auto"
+        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingTop: "clamp(48px, 6vw, 80px)" }}
       >
-        {groups.map((group, gi) => (
-          <section key={group} className={gi ? "mt-20" : ""}>
-            <div
-              className="eyebrow-mono uppercase text-[var(--text-low)] pb-4 mb-8 border-b border-[var(--line)]"
-              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-            >
-              {t.site.mega.columns[group]}
-            </div>
-
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {SERVICE_GROUPS[group].map((id, i) => (
-                <motion.li
-                  key={id}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: reduce ? 0 : 0.4, delay: reduce ? 0 : i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {/* A real navigation, not a router hop: the target is a
-                      section of another document, and the browser's own
-                      fragment handling puts the reader on it. */}
-                  <a
-                    /* Nicht zusammensetzen, uebersetzen lassen.
-                       Vorher wurde localePath("/") vorangestellt. Auf
-                       Englisch liefert localePath("/") ein "/", und zusammen
-                       mit "/services#why-it-works" wurde daraus
-                       "//services#why-it-works" - eine protokoll-relative
-                       Adresse, die der Browser als Hostname liest und zu
-                       https://services/#why-it-works aufloest. Jede dieser
-                       neun Kacheln fuehrte damit ins Nichts, aber nur auf
-                       Englisch: auf Deutsch ist der Praefix "/de" und es
-                       entstand kein doppelter Schraegstrich.
-
-                       Entstanden ist das beim Umstellen der Ziele von Ankern
-                       auf Pfade - vorher war es "/" + "#why-deev". */
-                    href={localePath(SERVICE_HREF[id])}
-                    className="group flex h-full flex-col border border-[var(--line)] bg-[var(--surface-1)] p-7 hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
-                    style={{ borderRadius: "var(--radius-1)" }}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16">
+          <ol className="lg:col-span-7 border-t border-[var(--line)]">
+            {PATHS.map(({ key, to }, i) => {
+              const p = n.paths[key];
+              const on = active === key;
+              return (
+                <li key={key} className="border-b border-[var(--line)]">
+                  <L
+                    to={to}
+                    onMouseEnter={() => setActive(key)}
+                    onFocus={() => setActive(key)}
+                    className="group block py-9 outline-none"
+                    aria-describedby={`svc-${key}-cue`}
                   >
-                    <span
-                      className="text-[var(--text-hi)] font-medium flex items-start justify-between gap-4"
-                      style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em" }}
-                    >
-                      {t.site.mega.items[id].label}
-                      <ArrowUpRight
-                        className="w-5 h-5 shrink-0 mt-1 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
-                        strokeWidth={1.5}
-                      />
-                    </span>
-                    <span
-                      className="block text-[var(--text-mid)] mt-3"
-                      style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}
-                    >
-                      {t.site.mega.items[id].desc}
-                    </span>
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </section>
-        ))}
+                    <div className="flex items-baseline gap-5">
+                      <span
+                        className="eyebrow-mono shrink-0 transition-colors duration-[var(--dur-2)]"
+                        style={{
+                          fontSize: "var(--t-label)",
+                          letterSpacing: "0.16em",
+                          color: on ? "var(--signal-text)" : "var(--metal)",
+                        }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h2
+                        className="text-[var(--text-hi)] font-medium"
+                        style={{
+                          fontSize: "clamp(1.5rem, 1rem + 1.4vw, 2.125rem)",
+                          lineHeight: 1.15,
+                          letterSpacing: "-0.022em",
+                        }}
+                      >
+                        {p.title}
+                      </h2>
+                    </div>
 
-        {/* Die Bloecke, die von der Startseite hierher gewandert sind.
-            Jeder traegt seinen alten Anker weiter, damit bestehende Links und
-            Menueeintraege nicht ins Leere zeigen. */}
-        <Suspense fallback={null}>
-          <div id="services-detail"><ValueProposition /></div>
-          <div id="why-it-works"><BenefitsPanel /></div>
-          <div id="marketing"><MarketingServices /></div>
-          <div id="why-deev"><EnterpriseTrust /></div>
-        </Suspense>
+                    <div className="pl-[calc(var(--t-label)+1.25rem)]">
+                      <p
+                        className="text-[var(--text-mid)] mt-3"
+                        style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
+                      >
+                        {p.line}
+                      </p>
 
-        {/* The funding is the first question every Luxembourg SME asks, so it
-            gets the same card here that it gets in the navigation panel. */}
-        <div
-          className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-4"
-        >
-          <div
-            className="border border-[var(--positive)]/35 bg-[var(--surface-1)] p-8 flex flex-col"
-            style={{ borderRadius: "var(--radius-1)" }}
-          >
-            <BadgeEuro className="w-5 h-5 text-[var(--positive)] mb-5" strokeWidth={1.5} />
-            <div
-              className="eyebrow-mono uppercase text-[var(--positive)] mb-3"
-              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-            >
-              {t.site.mega.feature.badge}
-            </div>
-            <div
-              className="text-[var(--text-hi)] font-medium mb-3"
-              style={{ fontSize: "var(--t-h2)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
-            >
-              {t.site.mega.feature.title}
-            </div>
-            <p className="text-[var(--text-mid)] mb-8" style={{ fontSize: "var(--t-body)", lineHeight: 1.55 }}>
-              {t.site.mega.feature.body}
-            </p>
-            <a
-              href={localePath("/project")}
-              className="group mt-auto inline-flex items-center gap-2 text-[var(--positive)] font-medium"
-              style={{ fontSize: "var(--t-small)" }}
-            >
-              {t.site.mega.feature.cta}
-              <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
-            </a>
-          </div>
+                      {/* Der Satz, an dem sich jemand wiedererkennt. Er steht
+                          fest da und nicht erst nach einer Bewegung: wer die
+                          Seite nur überfliegt, soll ihn sehen. */}
+                      <p
+                        id={`svc-${key}-cue`}
+                        className="mt-4 text-[var(--text-low)]"
+                        style={{ fontSize: "var(--t-small)" }}
+                      >
+                        <span className="text-[var(--text-mid)]">{n.bestFor}:</span> {p.cue}
+                      </p>
 
-          <div
-            className="border border-[var(--line)] bg-[var(--surface-1)] p-8 flex flex-col"
-            style={{ borderRadius: "var(--radius-1)" }}
-          >
-            <div
-              className="text-[var(--text-hi)] font-medium mb-3"
-              style={{ fontSize: "var(--t-h2)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
-            >
-              {t.pages.services.cta.title}
+                      <ul className="flex flex-wrap gap-x-2 gap-y-2 mt-5">
+                        {p.caps.map((c) => (
+                          <li
+                            key={c}
+                            className="eyebrow-mono uppercase inline-flex items-center h-7 px-2.5 border transition-colors duration-[var(--dur-2)]"
+                            style={{
+                              fontSize: "var(--t-label)",
+                              letterSpacing: "0.14em",
+                              borderRadius: "var(--radius-1)",
+                              borderColor: on ? "var(--line-strong)" : "var(--line)",
+                              color: on ? "var(--text-mid)" : "var(--text-low)",
+                            }}
+                          >
+                            {c}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <span
+                        className="inline-flex items-center gap-2 mt-6 text-[var(--signal-text)] font-medium"
+                        style={{ fontSize: "var(--t-small)" }}
+                      >
+                        {n.cta(p.title)}
+                        <ArrowRight
+                          className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1 group-focus-visible:translate-x-1"
+                          strokeWidth={1.5}
+                        />
+                      </span>
+                    </div>
+                  </L>
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* Die Bühne. Nur ab der Breite, auf der sie neben den Wegen Platz
+              hat - darunter ist sie Beiwerk, das Scrollweg kostet. */}
+          <div className="hidden lg:block lg:col-span-5">
+            <div className="sticky top-32">
+              <ServiceStage active={active} />
             </div>
-            <p className="text-[var(--text-mid)] mb-8" style={{ fontSize: "var(--t-body)", lineHeight: 1.55 }}>
-              {t.pages.services.cta.body}
-            </p>
-            <L
-              to="/contact"
-              className="group mt-auto inline-flex items-center gap-2 h-12 px-6 bg-[var(--signal)] text-white font-medium self-start"
-              style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
-            >
-              {t.pages.services.cta.action}
-              <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
-            </L>
           </div>
         </div>
       </div>
+
+      {/* ── 03 Vertrauen, kompakt ─────────────────────────────────────── */}
+      <section
+        className="mx-auto"
+        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
+      >
+        <h2
+          className="text-[var(--text-hi)] font-medium"
+          style={{ fontSize: "var(--t-h2)", lineHeight: 1.1, letterSpacing: "-0.026em", maxWidth: "16ch" }}
+        >
+          {t.pages.servicesTrust.title}
+        </h2>
+
+        <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 mt-12">
+          {t.pages.servicesTrust.points.map((pt, i) => (
+            <motion.li
+              key={pt.title}
+              className="border-t border-[var(--line)] pt-6"
+              initial={reduce ? false : { opacity: 0, y: 12 }}
+              whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span
+                className="eyebrow-mono text-[var(--metal)]"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3
+                className="text-[var(--text-hi)] font-medium mt-4"
+                style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em" }}
+              >
+                {pt.title}
+              </h3>
+              <p className="text-[var(--text-mid)] mt-3" style={{ fontSize: "var(--t-small)", lineHeight: 1.6 }}>
+                {pt.copy}
+              </p>
+            </motion.li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ── 04 Abschluss. Bewusst ohne Leistungsbezug: wer bis hierher
+             gescrollt hat, hat sich gerade NICHT entschieden. ─────────── */}
+      <section
+        className="border-t border-[var(--line)]"
+        style={{ paddingBlock: "var(--section-y)" }}
+      >
+        <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-8 items-end">
+            <div className="lg:col-span-7">
+              <h2
+                className="text-[var(--text-hi)] font-medium"
+                style={{ fontSize: "var(--t-h2)", lineHeight: 1.1, letterSpacing: "-0.026em", maxWidth: "16ch" }}
+              >
+                {t.pages.servicesCta.title}
+              </h2>
+              <p
+                className="text-[var(--text-mid)] mt-5"
+                style={{ fontSize: "var(--t-lead)", lineHeight: 1.5, maxWidth: "46ch" }}
+              >
+                {t.pages.servicesCta.lead}
+              </p>
+            </div>
+
+            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:justify-end gap-3">
+              <L
+                to="/contact"
+                className="group inline-flex items-center justify-center gap-2 h-[52px] px-7 bg-[var(--signal)] text-white font-medium"
+                style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+              >
+                {t.pages.servicesCta.primary}
+                <ArrowRight
+                  className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1"
+                  strokeWidth={1.5}
+                />
+              </L>
+              <L
+                to="/project"
+                className="inline-flex items-center justify-center h-[52px] px-7 border border-[var(--line-strong)] text-[var(--text-hi)] font-medium hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
+                style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+              >
+                {t.pages.servicesCta.secondary}
+              </L>
+            </div>
+          </div>
+
+          {/* Die Förderung ist die erste Frage jedes luxemburgischen KMU und
+              bleibt deshalb als eine ruhige Zeile stehen, nicht als Block. */}
+          <L
+            to="/sme-packages"
+            className="group inline-flex items-center gap-3 mt-14 pt-8 border-t border-[var(--line)] w-full text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+            style={{ fontSize: "var(--t-small)" }}
+          >
+            <BadgeEuro className="w-4 h-4 text-[var(--positive)] shrink-0" strokeWidth={1.5} />
+            {t.site.mega.feature.title}
+            <ArrowRight
+              className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1"
+              strokeWidth={1.5}
+            />
+          </L>
+        </div>
+      </section>
     </main>
   );
 }
