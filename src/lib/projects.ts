@@ -93,6 +93,13 @@ export interface Project {
   /** Eigenes Produkt, kein Kundenauftrag. Wird als Etikett gezeigt. */
   ownProduct?: boolean;
 
+  /**
+   * Diese Seite verbietet das Einbetten (X-Frame-Options oder
+   * frame-ancestors). Der Rahmen auf der Fallstudienseite zeigt dann die
+   * Aufnahme statt der laufenden Website.
+   */
+  noEmbed?: boolean;
+
   /** Ort und Branche, wenn belegt. Leere Felder werden nicht gerendert. */
   location?: string;
   industry?: Record<Locale, string>;

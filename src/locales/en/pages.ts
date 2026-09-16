@@ -34,6 +34,7 @@ export const pages = {
     technical: "Under the surface",
     ownProduct: "Own product",
     snapshot: { industry: "Industry", audience: "Audience", location: "Location" },
+    livePreview: "Live",
     specOnly: "For this project the key facts and the live site are documented; the full case study is not written yet. We only write one once the brief, the scope and the outcome are confirmed with the client.",
     next: "Next project",
   },
