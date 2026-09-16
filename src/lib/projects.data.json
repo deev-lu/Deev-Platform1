@@ -1,5 +1,97 @@
 [
   {
+    "slug": "billovio",
+    "title": "Billovio",
+    "year": 2026,
+    "category": {
+      "de": "Angebote und Rechnungen",
+      "en": "Quoting and invoicing",
+      "fr": "Devis et facturation"
+    },
+    "filter": "Web App",
+    "link": "https://billovio.com",
+    "services": [
+      "software"
+    ],
+    "scope": [
+      "platform"
+    ],
+    "ownProduct": true,
+    "caseStudy": "full",
+    "tier": "A",
+    "scale": "large",
+    "industry": {
+      "de": "Eigenes Produkt",
+      "en": "Own product",
+      "fr": "Produit propre"
+    },
+    "audience": {
+      "de": "Unternehmen, die Angebote und Rechnungen sauber und schnell herausbekommen wollen",
+      "en": "Companies that want to get quotes and invoices out cleanly and quickly",
+      "fr": "Les entreprises qui veulent produire devis et factures proprement et rapidement"
+    },
+    "summary": {
+      "de": "Ein Angebot zu schreiben kostet mehr Zeit als die Arbeit zu planen. Billovio macht aus einer kurzen Projektbeschreibung ein fertiges, bepreistes Angebot.",
+      "en": "Writing a quote takes longer than planning the work. Billovio turns a short project description into a finished, priced quotation.",
+      "fr": "Rédiger un devis prend plus de temps que planifier le travail. Billovio transforme une courte description de projet en un devis fini et chiffré."
+    },
+    "context": {
+      "de": "Billovio ist kein Kundenprojekt, sondern unser eigenes Produkt. Es ist live und wird laufend weiterentwickelt. Wir bauen es, weil wir denselben Ablauf selbst jede Woche haben.",
+      "en": "Billovio is not a client project, it is our own product. It is live and under continuous development. We build it because we go through the same routine ourselves every week.",
+      "fr": "Billovio n'est pas un projet client, c'est notre propre produit. Il est en ligne et développé en continu. Nous le construisons parce que nous vivons la même routine chaque semaine."
+    },
+    "challenge": {
+      "de": "Zwischen dem Zusagen und einem unterschriebenen Angebot liegt Arbeit, die niemand bezahlt: Umfang gliedern, Positionen bepreisen, sauber formatieren, hinterhertelefonieren. Und sie fällt selten am Schreibtisch an, sondern zwischen zwei Terminen.",
+      "en": "Between saying yes and a signed quotation sits work nobody pays for: breaking down the scope, pricing the items, formatting it properly, chasing it up. And it rarely comes up at a desk, but between two appointments.",
+      "fr": "Entre l'accord verbal et un devis signé se trouve un travail que personne ne paie : structurer le périmètre, chiffrer les postes, mettre en forme proprement, relancer. Et cela survient rarement au bureau, plutôt entre deux rendez-vous."
+    },
+    "approach": {
+      "de": "Der Einstieg ist ein Satz, keine Eingabemaske. Aus der Projektbeschreibung entsteht eine gegliederte Leistungsübersicht, die anhand hinterlegter Preis- und Satzlogik bepreist wird. Von dort läuft alles in einem Strang weiter: Angebot im eigenen Erscheinungsbild, digitaler Freigabeweg, digitale Signatur, Rechnung.",
+      "en": "The entry point is a sentence, not a form. From the project description a structured scope is produced and priced against stored pricing and rate logic. From there it runs in one thread: a branded quotation, a digital approval path, a digital signature, an invoice.",
+      "fr": "Le point d'entrée est une phrase, pas un formulaire. De la description du projet naît un périmètre structuré, chiffré selon une logique de prix et de tarifs enregistrée. Ensuite, tout suit un seul fil : devis à votre image, parcours de validation numérique, signature électronique, facture."
+    },
+    "execution": {
+      "de": "Für das Telefon gebaut, nicht nur dafür angepasst. Ein Angebot entsteht dort, wo es entschieden wird: beim Kunden, im Auto, auf der Baustelle. Der Weg vom Angebot zur Rechnung ist ein Ablauf und nicht zwei Werkzeuge.",
+      "en": "Built for the phone, not merely adapted to it. A quotation is written where it is decided: at the customer, in the car, on site. The path from quotation to invoice is one workflow, not two tools.",
+      "fr": "Conçu pour le téléphone, pas simplement adapté. Un devis se rédige là où il se décide : chez le client, en voiture, sur le chantier. Le passage du devis à la facture est un seul flux, pas deux outils."
+    },
+    "deliverables": {
+      "de": [
+        "Angebot aus einer Projektbeschreibung",
+        "Automatische Gliederung des Leistungsumfangs",
+        "Bepreisung über hinterlegte Preis- und Satzlogik",
+        "Angebote im eigenen Erscheinungsbild",
+        "Digitaler Freigabeweg",
+        "Digitale Signatur",
+        "Rechnungen",
+        "Durchgängiger Weg vom Angebot zur Rechnung",
+        "Für mobile Nutzung ausgelegt"
+      ],
+      "en": [
+        "Quotation from a project description",
+        "Automatic structuring of the scope",
+        "Pricing from stored pricing and rate logic",
+        "Branded quotations",
+        "Digital approval path",
+        "Digital signature",
+        "Invoices",
+        "End-to-end path from quotation to invoice",
+        "Built for mobile use"
+      ],
+      "fr": [
+        "Devis à partir d'une description de projet",
+        "Structuration automatique du périmètre",
+        "Chiffrage selon une logique de prix enregistrée",
+        "Devis à votre image",
+        "Parcours de validation numérique",
+        "Signature électronique",
+        "Factures",
+        "Parcours continu du devis à la facture",
+        "Conçu pour un usage mobile"
+      ]
+    }
+  },
+  {
     "slug": "fachinstitut-tierheilkunde",
     "title": "F.I.T. Fachinstitut für Tierheilkunde",
     "year": 2026,
@@ -37,7 +129,13 @@
       "de": "Die Seite ist um die Termine herum gebaut, weil sie das Einzige sind, was sich ständig ändert. Der nächste Start steht auf der Startseite, im Hinweisband über allen Seiten und in der Übersichtskarte jeder Ausbildung — geändert wird er an einer Stelle. Die Dozentinnen bekommen echte Profile mit Qualifikationen, eigenem Zitat und Link auf ihre Praxis, statt einer Reihe austauschbarer Porträts. Nach außen bleibt die Seite ruhig: Serifen für die Überschriften, viel Weißraum, gedecktes Blau. Eine Ausbildung ist eine Vertrauensentscheidung, und die verträgt keine laute Gestaltung.",
       "en": "The site is built around the dates, because they are the one thing that keeps changing. The next start appears on the homepage, in the notice bar across every page and in the overview card of each course — and is edited in one place. The instructors get real profiles with qualifications, their own words and a link to their practice, rather than a row of interchangeable portraits. The surface stays calm: serif headings, generous whitespace, muted blue. Choosing a qualification is a decision about trust, and that does not tolerate loud design.",
       "fr": "Le site est construit autour des dates, parce qu'elles sont la seule chose qui change constamment. La prochaine session figure sur la page d'accueil, dans le bandeau présent sur toutes les pages et dans la fiche récapitulative de chaque formation — et se modifie à un seul endroit. Les intervenantes disposent de vrais profils avec leurs qualifications, leurs propres mots et un lien vers leur cabinet, plutôt qu'une rangée de portraits interchangeables. L'ensemble reste calme : titres en serif, beaucoup de blanc, bleu sourd. Choisir une formation est une décision de confiance, et cela ne supporte pas une mise en forme bruyante."
-    }
+    },
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none",
+    "homepageRank": 3,
+    "portfolioRank": 4
   },
   {
     "slug": "ucc-clervaux",
@@ -52,7 +150,12 @@
     "link": "https://ucclervaux.lu/",
     "scope": [
       "platform"
-    ]
+    ],
+    "services": [
+      "software"
+    ],
+    "caseStudy": "none",
+    "portfolioRank": 6
   },
   {
     "slug": "laser-center",
@@ -67,7 +170,12 @@
     "link": "https://www.lasercenter.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none",
+    "portfolioRank": 7
   },
   {
     "slug": "bureau-immobilier-feltes",
@@ -81,8 +189,115 @@
     "filter": "Web App",
     "link": "https://www.feltes.lu/",
     "scope": [
+      "website",
       "platform"
-    ]
+    ],
+    "services": [
+      "website",
+      "software"
+    ],
+    "caseStudy": "full",
+    "homepageRank": 2,
+    "portfolioRank": 1,
+    "tier": "A",
+    "scale": "large",
+    "location": "Luxembourg",
+    "industry": {
+      "de": "Immobilien",
+      "en": "Real estate",
+      "fr": "Immobilier"
+    },
+    "summary": {
+      "de": "Ein Maklerbüro lebt von seinem Bestand. Wenn der auf der Website von Hand gepflegt wird, ist er dort immer veraltet — hier läuft er automatisch aus der Verwaltung ein.",
+      "en": "An estate agency lives off its listings. Maintained by hand on a website, they are always out of date there — here they flow in automatically from the management system.",
+      "fr": "Une agence immobilière vit de son portefeuille. Maintenu à la main sur un site, il y est toujours périmé — ici, il arrive automatiquement depuis le système de gestion."
+    },
+    "context": {
+      "de": "Bureau Immobilier Feltes vermittelt Immobilien in Luxemburg. Das Unternehmen, seine Leistungen und der aktuelle Bestand mussten an einer Stelle zusammenkommen — und der Bestand liegt in einer Verwaltungssoftware, die weiterläuft.",
+      "en": "Bureau Immobilier Feltes sells and lets property in Luxembourg. The company, its services and the current portfolio needed to meet in one place — and that portfolio lives in a management system that keeps running.",
+      "fr": "Bureau Immobilier Feltes commercialise des biens au Luxembourg. L'entreprise, ses services et le portefeuille actuel devaient se rejoindre au même endroit — et ce portefeuille réside dans un logiciel de gestion qui continue de tourner."
+    },
+    "challenge": {
+      "de": "Eine Immobilienwebsite ist keine Website mit Bildern, sondern ein zweites Schaufenster für einen Bestand, der sich täglich ändert. Wird er doppelt gepflegt, stimmt eine der beiden Stellen immer nicht, und die falsche ist die öffentliche. Dazu kommt Luxemburg: mehrsprachig ist hier kein Zusatz, sondern Voraussetzung.",
+      "en": "A property site is not a website with pictures, it is a second shop window onto a portfolio that changes daily. Maintained twice, one of the two is always wrong, and the wrong one is the public one. On top of that, Luxembourg: multilingual is not an extra here, it is the baseline.",
+      "fr": "Un site immobilier n'est pas un site avec des photos, c'est une seconde vitrine sur un portefeuille qui change chaque jour. Maintenu deux fois, l'un des deux est toujours faux, et le faux est le public. À cela s'ajoute le Luxembourg : le multilingue n'y est pas une option, c'est la base."
+    },
+    "approach": {
+      "de": "Der öffentliche Auftritt wird an die bestehende Infrastruktur angeschlossen, statt sie zu ersetzen. Die Objektdaten kommen über Apimo herein und laufen automatisiert ins Webflow-CMS; Übersicht, Detailseiten und Filter entstehen aus diesen Daten. Gepflegt wird weiter dort, wo ohnehin gearbeitet wird.",
+      "en": "The public site is connected to the existing infrastructure rather than replacing it. Listing data comes in through Apimo and is transferred automatically into the Webflow CMS; the overview, the detail pages and the filters are generated from that data. Maintenance stays where the work already happens.",
+      "fr": "Le site public est raccordé à l'infrastructure existante plutôt que de la remplacer. Les données des biens arrivent via Apimo et sont transférées automatiquement dans le CMS Webflow ; la liste, les pages de détail et les filtres en découlent. La maintenance reste là où le travail se fait déjà."
+    },
+    "execution": {
+      "de": "Gebaut in Webflow, mit einer CMS-Architektur, die auf die Struktur der Objektdaten ausgelegt ist statt umgekehrt. Die Veröffentlichung neuer und geänderter Objekte läuft automatisiert. Die Mehrsprachigkeit ist über Weglot umgesetzt, sodass auch übersetzte Objektseiten mitwachsen. Alles ist responsiv umgesetzt — Immobilien werden unterwegs gesucht, nicht am Schreibtisch.",
+      "en": "Built in Webflow, with a CMS architecture shaped around the structure of the listing data rather than the other way round. Publishing new and changed listings is automated. Multilingual runs through Weglot, so translated listing pages grow with the portfolio. Everything is implemented responsively — property is searched for on the move, not at a desk.",
+      "fr": "Réalisé sous Webflow, avec une architecture CMS calquée sur la structure des données des biens et non l'inverse. La publication des biens nouveaux et modifiés est automatisée. Le multilingue passe par Weglot, de sorte que les pages traduites suivent le portefeuille. Le tout est responsive — on cherche un bien en déplacement, pas à son bureau."
+    },
+    "outcome": {
+      "de": "Website und Immobilienplattform sind heute eine Adresse: Unternehmen, Leistungen und der aktuelle Bestand an einer Stelle. Der Bestand ist dynamisch an die bestehende Infrastruktur angebunden, die manuelle Pflege von Objekten auf der Website entfällt weitgehend.",
+      "en": "The website and the property platform are now one address: the company, its services and the current portfolio in one place. The portfolio is dynamically connected to the existing infrastructure, and maintaining listings on the website by hand is largely gone.",
+      "fr": "Le site et la plateforme immobilière ne font plus qu'une adresse : l'entreprise, ses services et le portefeuille actuel au même endroit. Le portefeuille est connecté dynamiquement à l'infrastructure existante, et la maintenance manuelle des biens sur le site disparaît largement."
+    },
+    "deliverables": {
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Webflow-Entwicklung",
+        "Responsive Umsetzung",
+        "Immobilienplattform",
+        "Dynamische Objektübersicht",
+        "Objekt-Detailseiten",
+        "Filter",
+        "Webflow-CMS-Architektur",
+        "Apimo-Anbindung",
+        "Mehrsprachigkeit"
+      ],
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Webflow development",
+        "Responsive implementation",
+        "Property platform",
+        "Dynamic listing overview",
+        "Listing detail pages",
+        "Filters",
+        "Webflow CMS architecture",
+        "Apimo integration",
+        "Multilingual"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Développement Webflow",
+        "Implémentation responsive",
+        "Plateforme immobilière",
+        "Liste dynamique des biens",
+        "Pages de détail des biens",
+        "Filtres",
+        "Architecture CMS Webflow",
+        "Intégration Apimo",
+        "Multilingue"
+      ]
+    },
+    "technical": {
+      "de": [
+        "Apimo-Integration: automatisierte Übernahme der Objektdaten ins Webflow-CMS",
+        "Automatisiertes Aktualisieren und Veröffentlichen von Objekten",
+        "Webflow-CMS-Architektur nach der Struktur der Objektdaten",
+        "Weglot für die mehrsprachige Auslieferung"
+      ],
+      "en": [
+        "Apimo integration: automated transfer of listing data into the Webflow CMS",
+        "Automated updating and publishing of listings",
+        "Webflow CMS architecture shaped around the listing data",
+        "Weglot for multilingual delivery"
+      ],
+      "fr": [
+        "Intégration Apimo : transfert automatisé des données des biens vers le CMS Webflow",
+        "Mise à jour et publication automatisées des biens",
+        "Architecture CMS Webflow calquée sur les données des biens",
+        "Weglot pour la diffusion multilingue"
+      ]
+    }
   },
   {
     "slug": "aurora-experience",
@@ -97,7 +312,11 @@
     "link": "https://www.auroraexp.eu",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "oscars-bar",
@@ -112,7 +331,11 @@
     "link": "https://oscarsbar.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "mellys",
@@ -127,7 +350,12 @@
     "link": "https://www.mellys.lu",
     "scope": [
       "onlineStore"
-    ]
+    ],
+    "services": [
+      "ecommerce",
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "geoplus-3d",
@@ -142,7 +370,11 @@
     "link": "https://geoplus3d.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "vino-amore",
@@ -156,8 +388,134 @@
     "filter": "E-commerce",
     "link": "https://vinoamoreandmore.de/",
     "scope": [
-      "onlineStore"
-    ]
+      "onlineStore",
+      "website"
+    ],
+    "services": [
+      "ecommerce",
+      "website"
+    ],
+    "caseStudy": "full",
+    "portfolioRank": 2,
+    "tier": "A",
+    "scale": "large",
+    "industry": {
+      "de": "Weinhandel",
+      "en": "Wine retail",
+      "fr": "Vente de vin"
+    },
+    "summary": {
+      "de": "Ein Weinhändler verkauft, was andere herstellen. Sichtbar wird er nur, wenn seine Produktseiten besser sind als die der Marke selbst.",
+      "en": "A wine merchant sells what others make. He only becomes visible if his product pages are better than the brand's own.",
+      "fr": "Un caviste vend ce que d'autres produisent. Il ne devient visible que si ses pages produit sont meilleures que celles de la marque elle-même."
+    },
+    "context": {
+      "de": "Vino Amore handelt mit Wein und Spirituosen. Der Shop wurde vollständig neu gebaut, nicht überarbeitet: von der Struktur bis zum Auftritt.",
+      "en": "Vino Amore sells wine and spirits. The shop was rebuilt from scratch rather than reworked: from its structure to its surface.",
+      "fr": "Vino Amore vend du vin et des spiritueux. La boutique a été entièrement reconstruite et non retouchée : de sa structure à son apparence."
+    },
+    "challenge": {
+      "de": "Im Weinhandel konkurriert ein Händler bei jeder Suche mit dem Hersteller, mit Marktplätzen und mit anderen Händlern, die dasselbe Produkt führen. Der Unterschied entsteht nicht im Sortiment, sondern in der Umsetzung: Auffindbarkeit, Tempo, und ein Kauf, der auf dem Telefon genauso funktioniert wie am Rechner.",
+      "en": "In wine retail a merchant competes, on every search, with the producer, with marketplaces and with other merchants carrying the same product. The difference is not the range, it is the execution: findability, speed, and a purchase that works on a phone exactly as it does on a desktop.",
+      "fr": "Dans la vente de vin, un marchand affronte à chaque recherche le producteur, les places de marché et d'autres revendeurs du même produit. La différence ne vient pas de l'assortiment mais de l'exécution : trouvabilité, rapidité, et un achat qui fonctionne sur téléphone comme sur ordinateur."
+    },
+    "approach": {
+      "de": "Ein neues Handelskonzept, dann die vollständige Umsetzung auf Shopify. Katalog, Kategorien, Produktseiten und Filter sind so aufgebaut, dass sie für Suchmaschinen und für Menschen dieselbe Struktur haben. Zahlung, Versandlogik und Ländersteuerung gehören zum Aufbau, nicht zur Nacharbeit.",
+      "en": "A new commerce concept first, then the complete implementation on Shopify. Catalogue, collections, product pages and filtering are structured so that search engines and people read the same thing. Payment, shipping logic and market handling are part of the build, not an afterthought.",
+      "fr": "Un nouveau concept commercial, puis l'implémentation complète sur Shopify. Catalogue, collections, pages produit et filtres sont structurés pour que moteurs de recherche et visiteurs y lisent la même chose. Paiement, logique d'expédition et gestion des marchés font partie de la construction, pas des retouches."
+    },
+    "execution": {
+      "de": "Mobil zuerst, weil dort gekauft wird. Dazu Arbeit an Ladezeit und technischem SEO über den gesamten Shop. Mehrsprachig und mit Ländersteuerung umgesetzt, bis zum Launch technisch begleitet.",
+      "en": "Mobile first, because that is where the buying happens. Alongside that, work on load times and technical SEO across the whole shop. Implemented multilingually and with market handling, supported technically through to launch.",
+      "fr": "Mobile d'abord, parce que c'est là qu'on achète. À cela s'ajoute le travail sur les temps de chargement et le SEO technique sur l'ensemble de la boutique. Implémenté en multilingue avec gestion des marchés, accompagné techniquement jusqu'au lancement."
+    },
+    "outcome": {
+      "de": "Der neu gebaute Shop ist live. In der organischen Suche ist Vino Amore für produkt- und markenbezogene Suchanfragen gut sichtbar; bei einzelnen Suchen steht der Händler vor der Website der jeweiligen Marke.",
+      "en": "The rebuilt shop is live. In organic search Vino Amore is well visible for product and brand related queries; on individual searches the merchant ranks ahead of the respective brand's own site.",
+      "fr": "La boutique reconstruite est en ligne. En recherche organique, Vino Amore est bien visible sur les requêtes produit et marque ; sur certaines recherches, le revendeur devance le site de la marque concernée."
+    },
+    "deliverables": {
+      "de": [
+        "E-Commerce-Konzept",
+        "UX und UI",
+        "Webdesign",
+        "Vollständige Shopify-Umsetzung",
+        "Responsive Umsetzung",
+        "Produktkatalog",
+        "Produktseiten",
+        "Kategorien",
+        "Produktfilter",
+        "Warenkorb und Kasse",
+        "Zahlungsanbieter",
+        "Versand- und Lieferlogik",
+        "Mehrsprachigkeit und Ländersteuerung",
+        "Mobile Optimierung",
+        "SEO",
+        "Performance"
+      ],
+      "en": [
+        "E-commerce concept",
+        "UX and UI",
+        "Web design",
+        "Full Shopify implementation",
+        "Responsive implementation",
+        "Product catalogue",
+        "Product pages",
+        "Collections",
+        "Product filtering",
+        "Cart and checkout",
+        "Payment provider",
+        "Shipping and delivery logic",
+        "Multilingual and market handling",
+        "Mobile optimisation",
+        "SEO",
+        "Performance"
+      ],
+      "fr": [
+        "Concept e-commerce",
+        "UX et UI",
+        "Web design",
+        "Implémentation Shopify complète",
+        "Implémentation responsive",
+        "Catalogue produits",
+        "Pages produit",
+        "Collections",
+        "Filtres produits",
+        "Panier et paiement",
+        "Prestataire de paiement",
+        "Logique d'expédition et de livraison",
+        "Multilingue et gestion des marchés",
+        "Optimisation mobile",
+        "SEO",
+        "Performance"
+      ]
+    },
+    "technical": {
+      "de": [
+        "Shopify, vollständig neu aufgebaut",
+        "Zahlungsanbieter eingerichtet",
+        "Versand- und Lieferlogik konfiguriert",
+        "Mehrsprachigkeit mit Ländersteuerung",
+        "Technisches SEO über den gesamten Shop",
+        "Performance-Optimierung"
+      ],
+      "en": [
+        "Shopify, rebuilt from scratch",
+        "Payment provider configured",
+        "Shipping and delivery logic configured",
+        "Multilingual with market handling",
+        "Technical SEO across the whole shop",
+        "Performance optimisation"
+      ],
+      "fr": [
+        "Shopify, entièrement reconstruit",
+        "Prestataire de paiement configuré",
+        "Logique d'expédition et de livraison configurée",
+        "Multilingue avec gestion des marchés",
+        "SEO technique sur toute la boutique",
+        "Optimisation des performances"
+      ]
+    }
   },
   {
     "slug": "flenting",
@@ -173,7 +531,11 @@
     "scope": [
       "branding",
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "bach-vereenegung",
@@ -188,7 +550,11 @@
     "link": "https://bachvereenegung.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "net-and-clean",
@@ -203,7 +569,11 @@
     "link": "https://www.net-clean.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "feine-jong",
@@ -218,7 +588,11 @@
     "link": "https://www.feinejong.com/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "supa-saya-gin",
@@ -233,7 +607,13 @@
     "link": "https://supasayagin.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none",
+    "homepageRank": 1,
+    "portfolioRank": 5
   },
   {
     "slug": "angolodoro",
@@ -248,7 +628,11 @@
     "link": "https://www.langolodoro.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "amd-cars",
@@ -263,7 +647,11 @@
     "link": "https://www.amdcars.lu/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   },
   {
     "slug": "florian-blencke",
@@ -278,6 +666,10 @@
     "link": "https://www.florianblencke.com/",
     "scope": [
       "website"
-    ]
+    ],
+    "services": [
+      "website"
+    ],
+    "caseStudy": "none"
   }
 ]

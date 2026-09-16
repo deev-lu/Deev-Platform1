@@ -64,7 +64,7 @@ export default function SelectedWork() {
               className="text-[var(--text-mid)] mt-5"
               style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "54ch" }}
             >
-              {t.home.selected.lead(PROJECTS.length)}
+              {t.home.selected.lead()}
             </p>
           </div>
           <L

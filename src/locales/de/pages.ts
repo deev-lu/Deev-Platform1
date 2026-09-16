@@ -31,6 +31,10 @@ export const pages: typeof En = {
     outcome: "Das Ergebnis",
     chapters: { context: "Ausgangslage", challenge: "Die Aufgabe", approach: "Der Ansatz", execution: "Die Umsetzung", outcome: "Das Ergebnis" },
     services: "Leistungen",
+    deliverables: "Was wir geliefert haben",
+    technical: "Unter der Oberfläche",
+    ownProduct: "Eigenes Produkt",
+    snapshot: { industry: "Branche", audience: "Für wen", location: "Ort" },
     specOnly: "Für dieses Projekt sind die Eckdaten und die ausgelieferte Seite dokumentiert, die ausführliche Fallstudie noch nicht. Wir schreiben sie erst, wenn Aufgabe, Umfang und Ergebnis mit dem Kunden abgestimmt sind.",
     next: "Nächstes Projekt",
   },
@@ -111,7 +115,7 @@ export const pages: typeof En = {
       whatsapp: "WhatsApp",
       office: "Büro",
       responseTime: "Antwortzeit",
-      responseValue: "Innerhalb von 1 Werktag",
+      responseValue: "Meist innerhalb eines Werktags",
     },
     form: {
       name: "Name",
@@ -142,7 +146,7 @@ export const pages: typeof En = {
     success: {
       title: "Nachricht erhalten.",
       body: (firstName: string) =>
-        `Danke${firstName ? `, ${firstName}` : ""}. Wir haben Ihre Anfrage aufgenommen und melden uns innerhalb eines Werktags.`,
+        `Danke${firstName ? `, ${firstName}` : ""}. Wir haben Ihre Anfrage aufgenommen und melden uns meist innerhalb eines Werktags.`,
       cta: "Zurück zur Startseite",
     },
   },

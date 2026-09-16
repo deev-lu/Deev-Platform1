@@ -3,25 +3,20 @@ import { ArrowUpRight } from "lucide-react";
 import { useReducedMotion } from "motion/react";
 import L from "./L";
 import { useLocale, useT } from "../../lib/useT";
-import { PROJECTS, sectorOf, type Project } from "../../lib/projects";
+import { HOMEPAGE_FEATURED, PROJECTS, sectorOf, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
  * Die Arbeitsprobe im Hero: echte Projekte, die einander ablösen.
  *
- * Die Reihenfolge ist hier fest verdrahtet, und zwar absichtlich. Alles
- * andere auf der Seite zieht sich aus dem Portfolio; welche drei Projekte
- * aber ganz oben stehen, ist eine Vertriebsentscheidung und keine
- * Eigenschaft der Daten.
+ * Welche Projekte hier stehen und in welcher Reihenfolge, entscheidet
+ * `homepageRank` in den Projektdaten - nicht das Jahr und nicht diese Datei.
+ * Die Startseite hat bewusst eine eigene Reihenfolge, getrennt von der des
+ * Portfolios: es ist die engste Auswahl überhaupt und wird öfter gewechselt.
  *
- * Fehlt ein Eintrag oder sein Screenshot, fällt er still heraus, statt eine
- * leere Fläche zu hinterlassen. `fachinstitut-tierheilkunde` steht deshalb
- * schon in der Liste, obwohl es das Projekt im Repository noch nicht gibt:
- * sobald Eintrag und `fachinstitut-tierheilkunde.jpg` vorliegen, erscheint es
- * hier von selbst, ohne dass an dieser Datei etwas zu ändern wäre.
+ * Ein Projekt ohne Aufnahme fällt still heraus, statt eine leere Fläche zu
+ * hinterlassen.
  */
-const FEATURED = ["fachinstitut-tierheilkunde", "bureau-immobilier-feltes", "supa-saya-gin"];
-
 const INTERVAL = 5200;
 
 export default function HeroWork() {
@@ -35,9 +30,10 @@ export default function HeroWork() {
   const [held, setHeld] = useState(false);
   const shown = useRef<Set<string>>(new Set());
 
-  const picks: Project[] = FEATURED.map((slug) => PROJECTS.find((p) => p.slug === slug)).filter(
-    (p): p is Project => Boolean(p?.image),
-  );
+  // Die Auswahl und ihre Reihenfolge stehen in den Projektdaten
+  // (`homepageRank`), nicht hier: welche Arbeit ganz oben steht, ist eine
+  // Vertriebsentscheidung und soll ohne Codeaenderung wechseln koennen.
+  const picks: Project[] = HOMEPAGE_FEATURED;
 
   const stop = reduce || held || picks.length < 2;
 

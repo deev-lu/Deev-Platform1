@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import { PROJECTS, type Project, sectorOf } from "../../lib/projects";
-import { WORK_CATEGORIES, categoryPath } from "../../lib/workCategories";
+import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategories";
 
 /**
  * /work — the portfolio as a page of its own.
@@ -35,8 +35,8 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
   // PROJECTS already arrives ordered: screenshots first, newest within that.
   // Re-sorting on year here would undo it and put the plates back on top.
   const all = useMemo(() => [...PROJECTS], []);
-  const shown = current.filter === "All" ? all : all.filter((p) => p.filter === current.filter);
-  const countFor = (f: string) => (f === "All" ? all.length : all.filter((p) => p.filter === f).length);
+  const shown = all.filter((p) => inCategory(p, current.tag));
+  const countFor = (tag: string | null) => all.filter((p) => inCategory(p, tag)).length;
 
   // Das Leitprojekt nur, wenn es eine Aufnahme hat - eine grosse Flaeche mit
   // Platzhaltermuster waere das Gegenteil des Gewuenschten.
@@ -77,7 +77,7 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
             the thumb instead of stacking into three rows of chips. */}
         <div className="mt-12 -mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto no-scrollbar">
           <div className="flex items-center gap-2 min-w-max pb-1">
-            {WORK_CATEGORIES.map((c) => {
+            {WORK_CATEGORIES.filter((c) => countFor(c.tag) > 0).map((c) => {
               const active = c.slug === current.slug;
               return (
                 <L
@@ -92,7 +92,7 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
                 >
                   {t.pages.work.filters[c.key]}
-                  <span className={active ? "text-white/70" : "text-[var(--text-low)]"}>{countFor(c.filter)}</span>
+                  <span className={active ? "text-white/70" : "text-[var(--text-low)]"}>{countFor(c.tag)}</span>
                 </L>
               );
             })}
@@ -124,7 +124,7 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
           className="eyebrow-mono uppercase text-[var(--text-low)] mt-12"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
         >
-          {t.pages.work.count(shown.length, current.filter === "All" ? undefined : t.pages.work.filters[current.key])}
+          {t.pages.work.count(shown.length, current.tag === null ? undefined : t.pages.work.filters[current.key])}
         </p>
       </div>
     </main>

@@ -66,7 +66,7 @@ export const home = {
   selected: {
     eyebrow: "Selected work",
     title: "Work we have shipped.",
-    lead: (n: number) => `Three of ${n} projects. Each one is live, and each links to what we actually delivered.`,
+    lead: () => "A selection of our work. Every project is live, and each links to what we actually delivered.",
     all: "See all work",
     view: "View case study",
   },
@@ -247,8 +247,8 @@ export const home = {
     lead:
       "High-stakes projects need more than good design. They need a partner who reduces your risk at every step.",
     credentials: [
-      { value: "50+", label: "Projects delivered" },
-      { value: "100%", label: "On-time delivery" },
+      { value: "2", label: "Founders, both on your project" },
+      { value: "3", label: "Languages, fully maintained" },
       { value: "EU", label: "Based in Luxembourg" },
       { value: "In-house", label: "Design and engineering" },
     ],
