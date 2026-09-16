@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import L from "./L";
-import { useLocale } from "../../lib/useT";
+import { useLocale, useT } from "../../lib/useT";
 import { PROJECTS, sectorOf, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 
@@ -25,6 +25,7 @@ const INTERVAL = 5200;
 
 export default function HeroWork() {
   const locale = useLocale();
+  const t = useT();
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const [index, setIndex] = useState(0);
@@ -109,6 +110,21 @@ export default function HeroWork() {
             );
           })}
         </div>
+
+        {/* Zeigt, dass gewechselt wird und wann. Ohne das springt das Bild
+            unerklaert um; mit dem Balken ist es eine Ansage. Steht die
+            Rotation - nach einem Klick oder bei reduzierter Bewegung -, ist
+            auch der Balken weg, statt eine Bewegung zu versprechen, die nicht
+            kommt. */}
+        {!stop && (
+          <div className="h-[2px] w-full bg-[var(--line)]" aria-hidden="true">
+            <div
+              key={`${active.slug}-${index}`}
+              className="h-full bg-[var(--signal)]"
+              style={{ animation: `hw-progress ${INTERVAL}ms linear forwards` }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Auswahl und Beschriftung. Echte Schaltflächen, nicht nur Punkte:
@@ -128,10 +144,10 @@ export default function HeroWork() {
                 }}
                 onMouseEnter={() => !isMobile && setIndex(i)}
                 aria-current={isActive}
-                className={`px-3 h-8 border transition-colors duration-[var(--dur-1)] ${
+                className={`px-3.5 h-9 border transition-colors duration-[var(--dur-1)] ${
                   isActive
-                    ? "border-[var(--line-strong)] text-[var(--text-hi)] bg-[var(--surface-2)]"
-                    : "border-[var(--line)] text-[var(--text-low)] hover:text-[var(--text-mid)]"
+                    ? "border-[var(--signal)] text-[var(--text-hi)] bg-[var(--surface-2)]"
+                    : "border-[var(--line)] text-[var(--text-mid)] bg-[var(--surface-1)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)]"
                 }`}
                 style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
               >
@@ -142,10 +158,21 @@ export default function HeroWork() {
         </div>
       )}
 
-      <p className="text-[var(--text-mid)] mt-3" style={{ fontSize: "var(--t-small)" }}>
-        {sectorOf(active, locale)}
-        {active.year ? ` · ${active.year}` : ""}
-      </p>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mt-3">
+        <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-small)" }}>
+          {sectorOf(active, locale)}
+          {active.year ? ` · ${active.year}` : ""}
+        </p>
+        {/* Zwei Projekte im Hero, siebzehn im Portfolio. Ohne diesen Weg endet
+            der Beleg hier, und der Besucher muss die Navigation suchen. */}
+        <L
+          to="/work"
+          className="text-[var(--signal-text)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+          style={{ fontSize: "var(--t-small)" }}
+        >
+          {t.home.selected.all}
+        </L>
+      </div>
     </div>
   );
 }

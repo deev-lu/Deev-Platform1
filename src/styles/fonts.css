@@ -388,3 +388,12 @@ li {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Der Fortschrittsbalken der Hero-Arbeitsprobe. Reine CSS-Animation: sie
+   laeuft ohne Zustand in React und wird beim Wechsel ueber den key neu
+   gestartet. Unter prefers-reduced-motion wird der Balken gar nicht erst
+   gerendert, die Rotation steht dort ohnehin still. */
+@keyframes hw-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}

@@ -63,7 +63,7 @@ export const home: typeof En = {
   selected: {
     eyebrow: "Referenzen",
     title: "Projekte, die wir ausgeliefert haben.",
-    lead: "Drei von sechzehn Projekten. Jedes ist online, und jedes verlinkt auf das, was wir tatsächlich geliefert haben.",
+    lead: (n: number) => `Drei von ${n} Projekten. Jedes ist online, und jedes verlinkt auf das, was wir tatsächlich geliefert haben.`,
     all: "Alle Referenzen ansehen",
     view: "Fallstudie ansehen",
   },

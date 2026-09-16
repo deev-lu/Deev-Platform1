@@ -66,7 +66,7 @@ export const home = {
   selected: {
     eyebrow: "Selected work",
     title: "Work we have shipped.",
-    lead: "Three of sixteen projects. Each one is live, and each links to what we actually delivered.",
+    lead: (n: number) => `Three of ${n} projects. Each one is live, and each links to what we actually delivered.`,
     all: "See all work",
     view: "View case study",
   },
