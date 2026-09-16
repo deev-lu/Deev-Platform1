@@ -63,7 +63,7 @@ export const home: typeof En = {
   selected: {
     eyebrow: "Referenzen",
     title: "Projekte, die wir ausgeliefert haben.",
-    lead: (n: number) => `Drei von ${n} Projekten. Jedes ist online, und jedes verlinkt auf das, was wir tatsächlich geliefert haben.`,
+    lead: () => "Eine Auswahl unserer Arbeit. Jedes Projekt ist online, und jedes verlinkt auf das, was wir tatsächlich geliefert haben.",
     all: "Alle Referenzen ansehen",
     view: "Fallstudie ansehen",
   },
@@ -244,8 +244,12 @@ export const home: typeof En = {
     lead:
       "Projekte mit hohem Einsatz brauchen mehr als gutes Design. Sie brauchen einen Partner, der Ihr Risiko bei jedem Schritt senkt.",
     credentials: [
-      { value: "50+", label: "Projekte umgesetzt" },
-      { value: "100%", label: "Termintreue" },
+      // "50+ Projekte" und "100% Termintreue" standen hier. Beides ist
+      // nicht belegt: das Portfolio zaehlt die gezeigten Projekte, und eine
+      // Termintreuequote wurde nie gemessen. Auf einer Vertrauensseite ist
+      // eine erfundene Zahl das Gegenteil von Vertrauen.
+      { value: "2", label: "Gründer, beide an Ihrem Projekt" },
+      { value: "3", label: "Sprachen, vollständig gepflegt" },
       { value: "EU", label: "Sitz in Luxemburg" },
       { value: "Im Haus", label: "Design und Entwicklung" },
     ],

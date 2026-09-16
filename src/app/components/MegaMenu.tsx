@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 import { ArrowRight, ArrowUpRight, BadgeEuro, ChevronDown } from "lucide-react";
 import L from "./L";
 import { PROJECTS, sectorOf } from "../../lib/projects";
-import { WORK_CATEGORIES, categoryPath } from "../../lib/workCategories";
+import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategories";
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
 import { ARTICLES, formatDate } from "../../lib/news";
 import { useT, useLocale, useLocalePath } from "../../lib/useT";
@@ -305,11 +305,10 @@ function WorkPanel() {
       <div className="col-span-3">
         <ColumnHeading>{t.site.mega.work.browse}</ColumnHeading>
         <ul className="flex flex-col">
-          {WORK_CATEGORIES.map((c) => {
-            const n =
-              c.filter === "All"
-                ? PROJECTS.length
-                : PROJECTS.filter((p) => p.filter === c.filter).length;
+          {WORK_CATEGORIES.filter((c) => PROJECTS.some((p) => inCategory(p, c.tag))).map((c) => {
+            // Mehrfachzuordnung: ein Projekt zaehlt in jeder Kategorie, zu der
+            // es gehoert. Leere Kategorien erscheinen gar nicht erst.
+            const n = PROJECTS.filter((p) => inCategory(p, c.tag)).length;
             return (
               <li key={c.key}>
                 <L

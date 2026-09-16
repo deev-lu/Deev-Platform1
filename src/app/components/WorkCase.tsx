@@ -54,6 +54,9 @@ export default function WorkCase() {
      das Auge bei jedem Absatz zurück nach links. */
   const facts = [
     { label: t.pages.workCase.spec.sector, value: sectorOf(project, locale) },
+    project.industry ? { label: t.pages.workCase.snapshot.industry, value: project.industry[locale] } : null,
+    project.audience ? { label: t.pages.workCase.snapshot.audience, value: project.audience[locale] } : null,
+    project.location ? { label: t.pages.workCase.snapshot.location, value: project.location } : null,
     { label: t.pages.workCase.spec.year, value: String(project.year) },
     project.scope?.length
       ? {
@@ -124,6 +127,18 @@ export default function WorkCase() {
           >
             {project.title}
           </motion.h1>
+
+          {/* Billovio ist unser eigenes Produkt, kein Kundenauftrag. Das muss
+              dranstehen: in einer Referenzliste liest es sich sonst wie ein
+              Kunde, den es nicht gibt. */}
+          {project.ownProduct && (
+            <span
+              className="eyebrow-mono uppercase inline-flex items-center h-7 px-3 mt-6 border border-[var(--line-strong)] text-[var(--text-mid)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
+            >
+              {t.pages.workCase.ownProduct}
+            </span>
+          )}
         </div>
       </header>
 
@@ -229,6 +244,96 @@ export default function WorkCase() {
           >
             {t.pages.workCase.specOnly}
           </p>
+        )}
+
+        {/* Belegte Kennzahlen. Fehlen sie, verschwindet der Abschnitt
+            vollstaendig - es gibt hier absichtlich keinen Platzhalter. Eine
+            erfundene Prozentzahl auf einer Referenzseite ist der teuerste
+            Fehler, den diese Website machen kann. */}
+        {project.metrics && project.metrics.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10 mt-20 pt-14 border-t border-[var(--line)]">
+            {project.metrics.map((m) => (
+              <div key={m.value}>
+                <div
+                  className="text-[var(--text-hi)] font-medium"
+                  style={{ fontSize: "clamp(2.5rem, 1.5rem + 3vw, 4rem)", lineHeight: 1, letterSpacing: "-0.03em" }}
+                >
+                  {m.value}
+                </div>
+                <div className="text-[var(--text-mid)] mt-3" style={{ fontSize: "var(--t-small)" }}>
+                  {m.label[locale]}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Was geliefert wurde, projektspezifisch. Nummeriert statt als
+            Symbolkarten: es ist eine Liste von Arbeit, kein Leistungskatalog. */}
+        {project.deliverables?.[locale]?.length ? (
+          <div className="mt-20 pt-14 border-t border-[var(--line)]">
+            <h2
+              className="text-[var(--text-hi)] font-medium"
+              style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.015em" }}
+            >
+              {t.pages.workCase.deliverables}
+            </h2>
+            <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-0 mt-8">
+              {project.deliverables[locale].map((item, i) => (
+                <li
+                  key={item}
+                  className="flex items-baseline gap-4 py-3.5 border-b border-[var(--line)]"
+                  style={{ fontSize: "var(--t-body)" }}
+                >
+                  <span
+                    className="eyebrow-mono text-[var(--metal)] shrink-0"
+                    style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[var(--text)]">{item}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ) : null}
+
+        {/* Die technischen Entscheidungen. Der Grund, warum dieser Abschnitt
+            existiert: DEEV ist nicht nur eine Designagentur, und das sieht man
+            einem Screenshot nicht an. */}
+        {project.technical?.[locale]?.length ? (
+          <div className="mt-20 pt-14 border-t border-[var(--line)]">
+            <h2
+              className="text-[var(--text-hi)] font-medium"
+              style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.015em" }}
+            >
+              {t.pages.workCase.technical}
+            </h2>
+            <ul className="mt-8 space-y-4" style={{ maxWidth: "70ch" }}>
+              {project.technical[locale].map((item) => (
+                <li key={item} className="flex gap-4 text-[var(--text)]" style={{ fontSize: "var(--t-body)", lineHeight: 1.5 }}>
+                  <span className="mt-[0.62em] h-px w-4 shrink-0 bg-[var(--signal)]" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {/* Nur mit echtem, freigegebenem Zitat. */}
+        {project.testimonial && (
+          <figure className="mt-20 pt-14 border-t border-[var(--line)]">
+            <blockquote
+              className="text-[var(--text-hi)] font-medium"
+              style={{ fontSize: "clamp(1.375rem, 1rem + 1.2vw, 1.875rem)", lineHeight: 1.35, letterSpacing: "-0.015em", maxWidth: "30ch" }}
+            >
+              {project.testimonial.quote[locale]}
+            </blockquote>
+            <figcaption className="text-[var(--text-mid)] mt-6" style={{ fontSize: "var(--t-small)" }}>
+              {project.testimonial.name}
+              {project.testimonial.role ? ` \u00B7 ${project.testimonial.role[locale]}` : ""}
+            </figcaption>
+          </figure>
         )}
       </section>
 

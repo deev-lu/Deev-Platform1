@@ -63,7 +63,7 @@ export const home: typeof En = {
   selected: {
     eyebrow: "Réalisations",
     title: "Des projets que nous avons livrés.",
-    lead: (n: number) => `Trois projets sur ${n}. Chacun est en ligne, et chacun renvoie à ce que nous avons réellement livré.`,
+    lead: () => "Une sélection de notre travail. Chaque projet est en ligne, et chacun renvoie à ce que nous avons réellement livré.",
     all: "Voir toutes les réalisations",
     view: "Voir l’étude de cas",
   },
@@ -244,8 +244,8 @@ export const home: typeof En = {
     lead:
       "Les projets à fort enjeu demandent plus qu'un bon design. Ils demandent un partenaire qui réduit votre risque à chaque étape.",
     credentials: [
-      { value: "50+", label: "Projets livrés" },
-      { value: "100%", label: "Livraisons dans les délais" },
+      { value: "2", label: "Fondateurs, tous deux sur votre projet" },
+      { value: "3", label: "Langues, entièrement maintenues" },
       { value: "UE", label: "Basés au Luxembourg" },
       { value: "En interne", label: "Design et développement" },
     ],
