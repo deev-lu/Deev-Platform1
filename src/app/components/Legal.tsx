@@ -35,7 +35,7 @@ export default function Legal() {
 
           {/* Company Info Card */}
           <div className="rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden mb-10 dark:shadow-none">
-            <div className="h-[2px] w-full bg-gradient-to-r from-[#3CE7FC] to-[#2563F6]" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-[var(--signal-text)] to-[#2563F6]" />
             <div className="p-8">
               <h2 className="text-xl font-medium text-slate-900 dark:text-white mb-6">{g.company.heading}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -137,7 +137,7 @@ export default function Legal() {
               <p>{g.gdpr.body1}</p>
               <p className="mt-3">
                 {g.gdpr.body2a}{" "}
-                <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[#3CE7FC]/40 hover:decoration-current font-medium">
+                <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[var(--signal-text)] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[var(--signal-text)]/40 hover:decoration-current font-medium">
                   contact@deev.lu
                 </a>
                 {g.gdpr.body2b}
@@ -154,12 +154,12 @@ export default function Legal() {
 
             <Section title={g.s11.title}>
               <p>{g.s11.body}</p>
-              <div className="mt-3 pl-4 border-l-2 border-[#3CE7FC]/50 text-slate-700 dark:text-slate-300 space-y-1">
+              <div className="mt-3 pl-4 border-l-2 border-[var(--signal-text)]/50 text-slate-700 dark:text-slate-300 space-y-1">
                 <p className="font-semibold">Lux VR States Sàrl-s. (Deev)</p>
                 <p>17, rue de Sélange, L-4965 Clemency</p>
                 <p>Grand Duchy of Luxembourg</p>
                 <p>
-                  <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[#3CE7FC] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[#3CE7FC]/40 hover:decoration-current font-medium">
+                  <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[var(--signal-text)] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[var(--signal-text)]/40 hover:decoration-current font-medium">
                     contact@deev.lu
                   </a>
                 </p>

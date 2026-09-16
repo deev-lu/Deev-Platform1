@@ -7,7 +7,6 @@ import { WORK_CATEGORIES } from "../lib/workCategories";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ClientLogos from "./components/ClientLogos";
-import SmeGrantBanner from "./components/SmeGrantBanner";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
@@ -61,7 +60,6 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Hero />
       <ClientLogos />
-      <SmeGrantBanner />
       <Suspense fallback={<SectionSkeleton />}>
         {/* The work comes first among the numbered sections. Visitors arrive
             to find out whether we can build their thing; the argument for how

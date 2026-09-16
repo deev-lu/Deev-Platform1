@@ -66,7 +66,7 @@ export default function Footer() {
   const t = useT();
   const localePath = useLocalePath();
   const linkClass =
-    "text-slate-600 dark:text-slate-400 hover:text-[#3CE7FC] dark:hover:text-[#3CE7FC] font-medium transition-colors duration-200";
+    "text-slate-600 dark:text-slate-400 hover:text-[var(--signal-text)] dark:hover:text-[var(--signal-text)] font-medium transition-colors duration-200";
 
   /** "/#services" has to become "/fr/#services", not "/#fr/services". */
   const href = (h: string) => {

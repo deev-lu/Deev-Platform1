@@ -182,8 +182,8 @@ export default function Contact() {
               const Icon = item.icon;
               const inner = (
                 <div className="flex items-start gap-4 p-5 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] dark:shadow-none transition-all duration-300 hover:border-[#2563F6]/20 dark:hover:border-white/[0.15]">
-                  <div className="shrink-0 w-11 h-11 rounded-md bg-[#2563F6]/[0.07] dark:bg-[#3CE7FC]/[0.10] flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC]" />
+                  <div className="shrink-0 w-11 h-11 rounded-md bg-[#2563F6]/[0.07] dark:bg-[var(--signal-text)]/[0.10] flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#2563F6] dark:text-[var(--signal-text)]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs font-medium uppercase tracking-wider text-[var(--text-mid)] mb-1">
@@ -219,7 +219,7 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden dark:shadow-none">
-              <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[#3CE7FC]" />
+              <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[var(--signal-text)]" />
 
               {status === "success" ? (
                 <div className="p-10 md:p-14 text-center">
@@ -369,7 +369,7 @@ export default function Contact() {
 }
 
 const inputCls =
-  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] transition-shadow";
+  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] transition-shadow";
 
 function Field({
   label,
@@ -384,7 +384,7 @@ function Field({
     <label className="block">
       <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
         {label}
-        {required && <span className="text-[#2563F6] dark:text-[#3CE7FC]"> *</span>}
+        {required && <span className="text-[#2563F6] dark:text-[var(--signal-text)]"> *</span>}
       </span>
       {children}
     </label>

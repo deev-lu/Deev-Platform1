@@ -414,7 +414,7 @@ export default function ProjectBuilder() {
               {/* Stage glows */}
               <div className="absolute inset-0 pointer-events-none">
               </div>
-              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3CE7FC]/40 to-transparent" />
+              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--signal-text)]/40 to-transparent" />
 
               {/* Build progress */}
               <div className="relative z-10 px-8 pt-7">
@@ -456,7 +456,7 @@ export default function ProjectBuilder() {
                       {/* Chassis + orbiting capabilities */}
                       <div className="relative w-52 h-52 mb-6">
                         <motion.div
-                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#2563F6]/25 to-[#3CE7FC]/20 border border-[var(--signal)]/35 flex items-center justify-center relative"
+                          className="w-full h-full rounded-[2rem] bg-gradient-to-tr from-[#2563F6]/25 to-[var(--signal-text)]/20 border border-[var(--signal)]/35 flex items-center justify-center relative"
                           style={{
                             boxShadow: `0 0 ${30 + (SCALE_LEVELS.find((s) => s.id === scale)?.multiplier ?? 1) * 18}px rgba(60,231,252,0.28)`,
                           }}
@@ -486,7 +486,7 @@ export default function ProjectBuilder() {
                                   animate={{ opacity: 1, scale: 1, x, y }}
                                   exit={{ opacity: 0, scale: 0 }}
                                   transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                                  className="absolute w-11 h-11 bg-[#0a0a14] rounded-[2px] border border-[#3CE7FC]/40 flex items-center justify-center top-1/2 left-1/2 -mt-[22px] -ml-[22px]"
+                                  className="absolute w-11 h-11 bg-[#0a0a14] rounded-[2px] border border-[var(--signal-text)]/40 flex items-center justify-center top-1/2 left-1/2 -mt-[22px] -ml-[22px]"
                                 >
                                   <CapIcon className="w-4 h-4 text-[var(--signal-text)]" />
                                 </motion.div>
@@ -587,7 +587,7 @@ export default function ProjectBuilder() {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="lg:hidden mb-5 px-4 py-3.5 rounded-lg bg-white dark:bg-white/[0.05] border border-[#3CE7FC]/30 flex items-center justify-between"
+                className="lg:hidden mb-5 px-4 py-3.5 rounded-lg bg-white dark:bg-white/[0.05] border border-[var(--signal-text)]/30 flex items-center justify-between"
               >
                 <div>
                   {estimate.hasGrant ? (
@@ -604,7 +604,7 @@ export default function ProjectBuilder() {
                     </>
                   ) : (
                     <>
-                      <div className="text-[10px] font-medium text-[#2563F6] dark:text-[#3CE7FC] uppercase tracking-widest mb-0.5">Your build</div>
+                      <div className="text-[10px] font-medium text-[#2563F6] dark:text-[var(--signal-text)] uppercase tracking-widest mb-0.5">Your build</div>
                       <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
                         €<AnimatedNumber value={estimate.rawMin} /> – €<AnimatedNumber value={estimate.rawMax} />
                       </div>
@@ -705,7 +705,7 @@ export default function ProjectBuilder() {
                             </p>
                           </div>
                           {isSelected && (
-                            <Check className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC] ml-4 flex-shrink-0" />
+                            <Check className="w-5 h-5 text-[#2563F6] dark:text-[var(--signal-text)] ml-4 flex-shrink-0" />
                           )}
                         </button>
                       );
@@ -741,7 +741,7 @@ export default function ProjectBuilder() {
                                 {lvl.label}
                               </h3>
                               <span
-                                className={`text-xs font-semibold px-2 py-0.5 rounded-[2px] ${ isSelected ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[#3CE7FC]/10 dark:text-[#3CE7FC]" : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400" }`}
+                                className={`text-xs font-semibold px-2 py-0.5 rounded-[2px] ${ isSelected ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[var(--signal-text)]/10 dark:text-[var(--signal-text)]" : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400" }`}
                               >
                                 {lvl.badge}
                               </span>
@@ -753,7 +753,7 @@ export default function ProjectBuilder() {
                             </p>
                           </div>
                           {isSelected && (
-                            <Check className="w-5 h-5 text-[#2563F6] dark:text-[#3CE7FC] ml-4 flex-shrink-0" />
+                            <Check className="w-5 h-5 text-[#2563F6] dark:text-[var(--signal-text)] ml-4 flex-shrink-0" />
                           )}
                         </button>
                       );
@@ -796,7 +796,7 @@ export default function ProjectBuilder() {
                                   {capText(cap.id).label}
                                 </h3>
                                 {isSelected && (
-                                  <Check className="w-4 h-4 text-[#3CE7FC] flex-shrink-0" />
+                                  <Check className="w-4 h-4 text-[var(--signal-text)] flex-shrink-0" />
                                 )}
                               </div>
                               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
@@ -804,7 +804,7 @@ export default function ProjectBuilder() {
                               </p>
                               {price && (
                                 <p
-                                  className={`text-xs font-semibold mt-1 ${ isSelected ? "text-[#3CE7FC]" : "text-[var(--text-mid)]" }`}
+                                  className={`text-xs font-semibold mt-1 ${ isSelected ? "text-[var(--signal-text)]" : "text-[var(--text-mid)]" }`}
                                 >
                                   +€{price.min.toLocaleString("de-DE")} – €{price.max.toLocaleString("de-DE")}
                                 </p>
@@ -891,7 +891,7 @@ export default function ProjectBuilder() {
                           </>
                         ) : (
                           <>
-                            <div className="text-xs font-semibold text-[#3CE7FC] uppercase tracking-widest mb-2">
+                            <div className="text-xs font-semibold text-[var(--signal-text)] uppercase tracking-widest mb-2">
                               {t.builder.estimate.plain}
                             </div>
                             <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white mb-2 tracking-tight tabular-nums leading-none">
@@ -916,7 +916,7 @@ export default function ProjectBuilder() {
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Quality</div>
                             <div className="font-medium text-lg text-white flex items-center gap-1">
-                              <Sparkles className="w-4 h-4 text-[#3CE7FC]" /> Top tier
+                              <Sparkles className="w-4 h-4 text-[var(--signal-text)]" /> Top tier
                             </div>
                           </div>
                         </div>
@@ -1122,8 +1122,8 @@ export default function ProjectBuilder() {
               {!submitted ? (
                 <>
                   <div className="text-center mb-6">
-                    <div className="w-14 h-14 bg-[#3CE7FC]/10 dark:bg-[#3CE7FC]/20 rounded-[2px] flex items-center justify-center mx-auto mb-4">
-                      <Sparkles className="w-7 h-7 text-[#3CE7FC]" />
+                    <div className="w-14 h-14 bg-[var(--signal-text)]/10 dark:bg-[var(--signal-text)]/20 rounded-[2px] flex items-center justify-center mx-auto mb-4">
+                      <Sparkles className="w-7 h-7 text-[var(--signal-text)]" />
                     </div>
                     <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                       {t.builder.leadForm.title}
@@ -1204,7 +1204,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                       placeholder={t.builder.leadForm.name}
                       required
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
                     />
                     <input
                       type="email"
@@ -1212,7 +1212,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                       placeholder={t.builder.leadForm.email}
                       required
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
@@ -1220,20 +1220,20 @@ export default function ProjectBuilder() {
                         value={leadForm.company}
                         onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
                         placeholder={t.builder.leadForm.company}
-                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
                       />
                       <input
                         type="text"
                         value={leadForm.website}
                         onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
                         placeholder={t.builder.leadForm.website}
-                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC]"
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
                       />
                     </div>
                     <select
                       value={leadForm.timeline}
                       onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
-                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] ${ leadForm.timeline ? "text-[var(--text-hi)]" : "text-slate-400" }`}
+                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] ${ leadForm.timeline ? "text-[var(--text-hi)]" : "text-slate-400" }`}
                     >
                       <option value="">{t.builder.leadForm.timelinePlaceholder}</option>
                       <option value="ASAP">{t.builder.leadForm.timelines.asap}</option>
@@ -1246,7 +1246,7 @@ export default function ProjectBuilder() {
                       onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
                       placeholder={t.builder.leadForm.goals}
                       rows={3}
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] resize-none"
+                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] resize-none"
                     />
                     {/* Fehlschlag sichtbar machen, statt den Erfolgsschritt zu
                         zeigen. role=alert, damit ein Screenreader es meldet. */}

@@ -73,15 +73,17 @@
 }
 
 .dark {
-  /* Surfaces — near-black steps, cool-shifted. Elevation = lighter. */
-  --surface-0: #08090b;
-  --surface-1: #0c0e11;
-  --surface-2: #121519;
-  --surface-3: #191d22;
+  /* Flächen aus dem Brand Book, Seite 7: Void Black als Grund, Surface als
+     erste Stufe. Beide sind blaustichig, nicht neutralgrau; die Stufen 2 und 3
+     setzen denselben Ton fort, damit die Erhebung aus einer Familie kommt. */
+  --surface-0: #06060a;
+  --surface-1: #101426;
+  --surface-2: #171c33;
+  --surface-3: #1e2440;
   --surface-inv: #f6f7f8;
   /* Deep blue-slate: darker than the page's raised surfaces, clearly not
      black, and carrying a hint of the brand blue rather than a neutral grey. */
-  --surface-product: #0d1421;
+  --surface-product: #0b1020;
 
   --line-faint: rgba(255, 255, 255, 0.06);
   --line: rgba(255, 255, 255, 0.10);
@@ -90,19 +92,28 @@
   --text-hi: #f2f4f6;
   --text: #c6cbd1;
   --text-mid: #8b929b;
-  --text-low: #767d87;
+  /* Auf der alten, helleren Fläche trug #767d87 noch. Auf Void Black/Surface
+     fällt es auf 4,39:1 und reicht für Text nicht mehr. Gleicher Farbton, eine
+     Stufe heller: 4,84:1 auf Surface, 5,25:1 auf Void Black. */
+  --text-low: #7d848e;
   --text-inv: #0a0b0d;
 
-  /* Brief §4.1 specifies #2E6BFF for the fill. Accent type cannot reach 7:1
-     at that hue (4.42:1), so --signal-text carries a lighter tint. */
-  --signal: #2e6bff;
-  --signal-hi: #558bff;
-  --signal-text: #6e9bff;
-  --signal-dim: rgba(46, 107, 255, 0.12);
+  /* Electric Blue und Sky, beide aus dem Brand Book, Seite 7.
+     Nachgerechnet gegen WCAG 2.2, damit die Aufteilung nachvollziehbar ist:
+       weiß auf Electric Blue          5,01:1  trägt als Fläche
+       Electric Blue als Text          4,04:1  reicht für Text NICHT
+       Sky als Text auf Void Black     6,76:1  trägt
+       Sky als Text auf Surface        6,10:1  trägt
+     Deshalb füllt Electric Blue Flächen und Sky trägt Schrift. Beide Werte
+     stehen im Brand Book; es kommt keine dritte Farbe hinzu. */
+  --signal: #2563f6;
+  --signal-hi: #4397f8;
+  --signal-text: #4397f8;
+  --signal-dim: rgba(37, 99, 246, 0.14);
 
   --metal: #9aa3ad;
 
-  --positive: #3dbe7a;
+  --positive: #55d096;
   --warn: #e0a33c;
 }
 
