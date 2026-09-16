@@ -23,7 +23,7 @@ const NAV = {
     { key: "webApps", href: "/services/custom-software" },
     { key: "aiAgents", href: "/services/ai-automation" },
     { key: "ecommerce", href: "/services/websites" },
-    { key: "marketingSites", href: "/services#marketing" },
+    { key: "marketingSites", href: "/services/marketing" },
   ],
   company: [
     { key: "services", href: "/services" },
@@ -31,7 +31,7 @@ const NAV = {
     { key: "portfolio", href: "/work" },
     { key: "journal", href: "/blog" },
     { key: "pricing", href: "/project" },
-    { key: "whyDeev", href: "/services#why-deev" },
+    { key: "whyDeev", href: "/services" },
     { key: "contact", href: "/contact" },
   ],
   legal: [

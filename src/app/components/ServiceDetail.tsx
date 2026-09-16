@@ -18,17 +18,22 @@ import { track } from "../../lib/analytics";
  * Software. Sie sind lazy, damit eine Seite nicht den Code der anderen lädt.
  */
 
-export type ServiceKey = "websites" | "ai" | "software";
+export type ServiceKey = "websites" | "ai" | "software" | "marketing";
 
 const SystemStack = lazy(() => import("./SystemStack"));
 const AiConcepts = lazy(() => import("./AiConcepts"));
 const BillovioFeature = lazy(() => import("./BillovioFeature"));
+const MarketingServices = lazy(() => import("./MarketingServices"));
 
 /** Welcher ausgelagerte Block auf welcher Seite landet. */
 const EXTRAS: Record<ServiceKey, ComponentType[]> = {
   websites: [],
   ai: [AiConcepts],
   software: [SystemStack, BillovioFeature],
+  // Der Marketingblock stand auf /services zwischen drei anderen
+  // Uebersichten. Hier ist er der Inhalt der Seite, nicht ein Abschnitt
+  // unter vielen.
+  marketing: [MarketingServices],
 };
 
 /** Welche Projekte als Beleg zu welchem Weg passen. */
@@ -36,6 +41,7 @@ const MATCHES: Record<ServiceKey, string[]> = {
   websites: ["website", "branding"],
   ai: ["platform"],
   software: ["platform"],
+  marketing: ["website", "onlineStore"],
 };
 
 export default function ServiceDetail({ service }: { service: ServiceKey }) {

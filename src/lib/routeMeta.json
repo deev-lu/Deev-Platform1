@@ -85,6 +85,23 @@
         }
       }
     },
+    "/services/marketing": {
+      "file": "services/marketing.html",
+      "meta": {
+        "en": {
+          "title": "Marketing and growth | DEEV",
+          "description": "Paid advertising, SEO and the measurement behind them. Campaigns that feed the websites and platforms DEEV builds, run from Luxembourg."
+        },
+        "de": {
+          "title": "Marketing und Wachstum | DEEV",
+          "description": "Bezahlte Werbung, SEO und die Messung dahinter. Kampagnen, die die Websites und Plattformen speisen, die DEEV baut, aus Luxemburg."
+        },
+        "fr": {
+          "title": "Marketing et croissance | DEEV",
+          "description": "Publicité payante, SEO et la mesure derrière. Des campagnes qui alimentent les sites et plateformes que DEEV construit, depuis le Luxembourg."
+        }
+      }
+    },
     "/sme-packages": {
       "file": "sme-packages.html",
       "meta": {

@@ -58,6 +58,55 @@ export const pages: typeof En = {
     },
   },
 
+  servicesNav: {
+    eyebrow: "Prestations",
+    title: "De quoi avez-vous besoin pour avancer ?",
+    lead: "Sites web, IA, logiciel sur mesure et croissance. Choisissez le problème à résoudre.",
+    bestFor: "Adapté si",
+    includes: "Comprend",
+    cta: (name: string) => `Découvrir ${name}`,
+    paths: {
+      websites: {
+        title: "Sites web et e-commerce",
+        line: "Des sites et boutiques conçus pour transformer l'attention en action.",
+        cue: "J'ai besoin d'un nouveau site ou d'une boutique.",
+        caps: ["Sites web", "E-commerce", "CMS et intégrations", "SEO et performance"],
+      },
+      ai: {
+        title: "IA et automatisation",
+        line: "Agents, assistants et flux conçus autour du travail qui coûte vraiment du temps à votre équipe.",
+        cue: "La même routine dévore des heures chaque semaine.",
+        caps: ["Agents IA", "Automatisation", "Assistants", "Intégration"],
+      },
+      software: {
+        title: "Logiciel sur mesure",
+        line: "Plateformes, portails et applications web conçus autour de votre fonctionnement.",
+        cue: "Les logiciels standards ne conviennent plus.",
+        caps: ["Applications web", "Portails clients", "Plateformes internes", "Intégrations"],
+      },
+      marketing: {
+        title: "Marketing et croissance",
+        line: "Publicité payante, SEO et conversion, orientés vers une demande qualifiée.",
+        cue: "Il nous faut plus de clients pertinents.",
+        caps: ["Publicité payante", "SEO", "Conversion", "Analytique"],
+      },
+    },
+  },
+  servicesTrust: {
+    title: "Bien construit dès le départ.",
+    points: [
+      { title: "Comprendre avant de construire", copy: "Nous partons de votre activité, pas d'une maquette." },
+      { title: "Design et développement en interne", copy: "Pas de sous-traitance, pas de chaîne sans responsable." },
+      { title: "La mesure est intégrée", copy: "Vous voyez ce que le travail rapporte au lieu de devoir y croire." },
+      { title: "Présents après le lancement", copy: "Les défauts dans le périmètre convenu sont corrigés. Le reste passe par la maintenance ou au temps passé." },
+    ],
+  },
+  servicesCta: {
+    title: "Pas sûr du chemin à prendre ?",
+    lead: "Dites-nous ce que vous voulez atteindre. Nous déterminerons avec vous ce qu'il faut réellement construire.",
+    primary: "Prendre rendez-vous",
+    secondary: "Configurer votre projet",
+  },
   servicePages: {
     websites: {
       eyebrow: "Sites web",
@@ -87,6 +136,16 @@ export const pages: typeof En = {
         "Un tableur est devenu un système critique sans que personne l’ait décidé.",
         "Un logiciel du marché impose un processus qui n’est pas le vôtre.",
         "Deux systèmes doivent se parler et personne ne les a reliés.",
+      ],
+    },
+    marketing: {
+      eyebrow: "Marketing et croissance",
+      title: "De la demande qui correspond à votre offre, pas de la portée.",
+      lead: "Publicité payante, SEO et la mesure derrière. Nous menons les campagnes qui alimentent les systèmes que nous construisons.",
+      problems: [
+        "Le site est bon, mais personne n'arrive.",
+        "Des demandes arrivent, mais les mauvaises.",
+        "Personne ne peut dire quel canal amène les clients.",
       ],
     },
     problemsLabel: "Ça vous parle ?",
