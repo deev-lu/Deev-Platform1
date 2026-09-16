@@ -48,48 +48,39 @@ export default function WorkCase() {
 
   const next = nextProject(project.slug);
 
-  /* Links: nur, was belegt ist. Die Vorlage führt hier auch Zielgruppe und
-     Land; beides steht bei uns nirgends, und eine Referenzseite ist der
-     letzte Ort, an dem man so etwas schätzt. Eine Zeile ohne Wert fällt
-     heraus, statt leer dazustehen. */
+  /* Die harten Angaben. Sie stehen jetzt als ruhige Zeile unter dem Titel
+     statt in einer Tafel neben der Erzählung: eine Fallstudie wird gelesen,
+     nicht abgeglichen, und eine Spalte Metadaten neben dem Fließtext zwingt
+     das Auge bei jedem Absatz zurück nach links. */
   const facts = [
-    { icon: Building2, label: t.pages.workCase.spec.client, value: project.title },
-    { icon: Tag, label: t.pages.workCase.spec.sector, value: sectorOf(project, locale) },
-    { icon: Calendar, label: t.pages.workCase.spec.year, value: String(project.year) },
-    project.stack?.length
-      ? { icon: Cpu, label: t.pages.workCase.spec.stack, value: project.stack.join(" · ") }
-      : null,
-  ].filter((r): r is { icon: typeof Building2; label: string; value: string } => r !== null);
-
-  /* Rechts: Aufgabe, Umfang, Ergebnis - dieselbe Dreiteilung wie in der
-     Vorlage. Der Umfang kommt als Liste aus `scope`, also aus Daten, die jedes
-     Projekt hat; die Prosa daneben ist optional. Ein Abschnitt ohne Inhalt
-     wird nicht gerendert, und `outcome` ist fast überall leer, weil ein
-     Ergebnis eine Aussage über den Kunden ist und einen Beleg braucht. */
-  type Block = {
-    icon: typeof Target;
-    heading: string;
-    body?: string;
-    bullets?: string[];
-  };
-  const hasNarrative = Boolean(project.challenge?.[locale] || project.approach?.[locale] || project.outcome?.[locale]);
-
-  const story: Block[] = ([
-    project.challenge?.[locale]
-      ? { icon: Target, heading: t.pages.workCase.brief, body: project.challenge[locale], bullets: undefined }
-      : null,
-    project.scope?.length || project.approach?.[locale]
+    { label: t.pages.workCase.spec.sector, value: sectorOf(project, locale) },
+    { label: t.pages.workCase.spec.year, value: String(project.year) },
+    project.scope?.length
       ? {
-          icon: Lightbulb,
-          heading: t.pages.workCase.built,
-          body: project.approach?.[locale],
-          bullets: project.scope?.map((k) => t.pages.workCase.scopeItems[k]),
+          label: t.pages.workCase.services,
+          value: project.scope.map((k) => t.pages.workCase.scopeItems[k]).join(", "),
         }
       : null,
-    project.outcome?.[locale]
-      ? { icon: TrendingUp, heading: t.pages.workCase.outcome, body: project.outcome[locale], bullets: undefined }
+    project.stack?.length
+      ? { label: t.pages.workCase.spec.stack, value: project.stack.join(", ") }
       : null,
-  ] as (Block | null)[]).filter((r): r is Block => r !== null);
+  ].filter((r): r is { label: string; value: string } => r !== null);
+
+  /* Fünf Kapitel, in fester Reihenfolge, jedes einzeln optional. Die
+     Nummerierung läuft über das, was tatsächlich da ist - eine Fallstudie mit
+     drei Kapiteln zählt 01, 02, 03 und nicht 01, 03, 05. */
+  const c = t.pages.workCase.chapters;
+  const chapters = (
+    [
+      [c.context, project.context?.[locale]],
+      [c.challenge, project.challenge?.[locale]],
+      [c.approach, project.approach?.[locale]],
+      [c.execution, project.execution?.[locale]],
+      [c.outcome, project.outcome?.[locale]],
+    ] as [string, string | undefined][]
+  )
+    .filter((r): r is [string, string] => Boolean(r[1]))
+    .map(([heading, body], i) => ({ heading, body, n: String(i + 1).padStart(2, "0") }));
 
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
@@ -141,143 +132,104 @@ export default function WorkCase() {
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
       >
-        {/* Zwei Tafeln: links die harten Angaben, rechts die Erzählung.
-            Vorher lief beides als eine Spalte Fließtext, und die Seite sah bei
-            jedem Projekt gleich aus, egal wie viel dahinterstand.
+        {/* Eine Spalte, editorial gesetzt.
+            Vorher standen Fakten und Erzählung als zwei Tafeln nebeneinander.
+            Das liest sich wie ein Datenblatt; eine Fallstudie soll aber von
+            oben nach unten erzählen. Jetzt: der Eröffnungssatz groß, darunter
+            die Angaben als ruhige Zeile, dann die Kapitel. */}
 
-            Die Tafeln sind flach, hart gekantet und tragen Signalblau statt
-            runder farbiger Kreise: dieselbe Aufteilung wie die Vorlage, aber
-            in der Formensprache des Brand Book. */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-          {/* ── Die Fakten ──────────────────────────────────────── */}
-          <div
-            className="lg:col-span-5 border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-10"
-            style={{ borderRadius: "var(--radius-2)" }}
+        {project.summary?.[locale] && (
+          <p
+            className="text-[var(--text-hi)] font-medium"
+            style={{
+              fontSize: "clamp(1.5rem, 1rem + 1.6vw, 2.25rem)",
+              lineHeight: 1.22,
+              letterSpacing: "-0.02em",
+              maxWidth: "26ch",
+            }}
           >
-            <dl className="space-y-7">
-              {facts.map(({ icon: Icon, label, value }) => (
-                <div key={label} className="flex items-start gap-4">
-                  <span
-                    className="shrink-0 flex items-center justify-center w-9 h-9 bg-[var(--signal-dim)] text-[var(--signal-text)]"
-                    style={{ borderRadius: "var(--radius-1)" }}
-                    aria-hidden="true"
-                  >
-                    <Icon className="w-4 h-4" strokeWidth={1.5} />
-                  </span>
-                  <div className="min-w-0">
-                    <dt
-                      className="eyebrow-mono uppercase text-[var(--text-low)]"
+            {project.summary[locale]}
+          </p>
+        )}
+
+        {/* Die Angaben. Klein, einzeilig, am oberen Rand der Erzählung - sie
+            beantworten "was war das", nicht "warum lesen". */}
+        <dl className="flex flex-wrap gap-x-12 gap-y-6 mt-14 pt-10 border-t border-[var(--line)]">
+          {facts.map(({ label, value }) => (
+            <div key={label} className="min-w-0">
+              <dt
+                className="eyebrow-mono uppercase text-[var(--text-low)]"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+              >
+                {label}
+              </dt>
+              <dd className="text-[var(--text-hi)] mt-2" style={{ fontSize: "var(--t-body)" }}>
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center justify-center gap-2 h-[52px] px-7 mt-12 bg-[var(--signal)] text-white font-medium"
+            style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+          >
+            {t.pages.workCase.visit}
+            <ArrowUpRight
+              className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              strokeWidth={1.5}
+            />
+          </a>
+        )}
+
+        {/* Die Kapitel. Links die Nummer und der Name, rechts der Text - ein
+            Leser kann so überfliegen, wo er ist, ohne den Absatz zu lesen. Die
+            Zeilenlänge bleibt bei 62 Zeichen; breiter wird Fließtext
+            anstrengend, egal wie viel Platz daneben frei ist. */}
+        {chapters.length > 0 ? (
+          <div className="mt-24 border-t border-[var(--line)]">
+            {chapters.map(({ heading, body, n }) => (
+              <div
+                key={heading}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-5 py-14 border-b border-[var(--line)]"
+              >
+                <div className="lg:col-span-4">
+                  <div className="flex items-baseline gap-4 lg:sticky lg:top-28">
+                    <span
+                      className="eyebrow-mono text-[var(--metal)]"
                       style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
                     >
-                      {label}
-                    </dt>
-                    <dd className="text-[var(--text-hi)] mt-1.5" style={{ fontSize: "var(--t-body)", lineHeight: 1.45 }}>
-                      {value}
-                    </dd>
+                      {n}
+                    </span>
+                    <h2
+                      className="text-[var(--text-hi)] font-medium"
+                      style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.015em" }}
+                    >
+                      {heading}
+                    </h2>
                   </div>
                 </div>
-              ))}
-            </dl>
-
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group mt-10 w-full inline-flex items-center justify-center gap-2 h-[52px] px-7 bg-[var(--signal)] text-white font-medium"
-                style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
-              >
-                {t.pages.workCase.visit}
-                <ArrowUpRight
-                  className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  strokeWidth={1.5}
-                />
-              </a>
-            )}
-          </div>
-
-          {/* ── Die Erzählung ───────────────────────────────────── */}
-          <div
-            className="lg:col-span-7 border border-[var(--line)] bg-[var(--surface-2)] p-8 sm:p-10"
-            style={{ borderRadius: "var(--radius-2)" }}
-          >
-            {project.summary?.[locale] && (
-              <p
-                className="text-[var(--text-hi)] pb-9 mb-9 border-b border-[var(--line)]"
-                style={{ fontSize: "var(--t-lead)", lineHeight: 1.45 }}
-              >
-                {project.summary[locale]}
-              </p>
-            )}
-
-            {/* Der Umfang allein ist keine Fallstudie: ohne Aufgabe und ohne
-                Beschreibung steht rechts eine Zeile, und die Tafel sieht aus,
-                als fehle etwas. Sie sagt dann selbst, was sie zeigt. */}
-            {story.length > 0 ? (
-              <div className="space-y-9">
-                {story.map(({ icon: Icon, heading, body, bullets }) => (
-                  <div key={heading} className="flex items-start gap-4">
-                    <span
-                      className="shrink-0 flex items-center justify-center w-9 h-9 bg-[var(--signal-dim)] text-[var(--signal-text)]"
-                      style={{ borderRadius: "var(--radius-1)" }}
-                      aria-hidden="true"
-                    >
-                      <Icon className="w-4 h-4" strokeWidth={1.5} />
-                    </span>
-                    <div className="min-w-0">
-                      <h2
-                        className="text-[var(--text-hi)] font-medium"
-                        style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.01em" }}
-                      >
-                        {heading}
-                      </h2>
-                      {bullets && bullets.length > 0 && (
-                        <ul className="mt-4 space-y-2">
-                          {bullets.map((b) => (
-                            <li
-                              key={b}
-                              className="flex gap-3 text-[var(--text)]"
-                              style={{ fontSize: "var(--t-body)", lineHeight: 1.5 }}
-                            >
-                              <span
-                                className="mt-[0.6em] h-px w-3 shrink-0 bg-[var(--signal)]"
-                                aria-hidden="true"
-                              />
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      {body && (
-                        <p
-                          className="text-[var(--text-mid)] mt-4"
-                          style={{ fontSize: "var(--t-body)", lineHeight: 1.6, maxWidth: "62ch" }}
-                        >
-                          {body}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {!hasNarrative && (
-                  <p
-                    className="text-[var(--text-mid)] pt-8 border-t border-[var(--line)]"
-                    style={{ fontSize: "var(--t-small)", lineHeight: 1.6 }}
-                  >
-                    {t.pages.workCase.specOnly}
-                  </p>
-                )}
+                <p
+                  className="lg:col-span-8 text-[var(--text-mid)]"
+                  style={{ fontSize: "var(--t-lead)", lineHeight: 1.6, maxWidth: "62ch" }}
+                >
+                  {body}
+                </p>
               </div>
-            ) : (
-              /* Kein erfundener Lückenfüller. Steht noch keine Fallstudie da,
-                 sagt die Seite, was sie zeigt, statt Absätze zu erfinden. */
-              <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-body)", lineHeight: 1.6 }}>
-                {t.pages.workCase.specOnly}
-              </p>
-            )}
+            ))}
           </div>
-        </div>
+        ) : (
+          <p
+            className="text-[var(--text-mid)] mt-20 pt-10 border-t border-[var(--line)]"
+            style={{ fontSize: "var(--t-body)", lineHeight: 1.6, maxWidth: "62ch" }}
+          >
+            {t.pages.workCase.specOnly}
+          </p>
+        )}
       </section>
 
       {/* ── Next project ────────────────────────────────────────── */}

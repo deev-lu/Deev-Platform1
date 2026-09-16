@@ -43,9 +43,30 @@ export interface Project {
    * `outcome` bleibt bewusst selten gefuellt. Ein Ergebnis ist eine Aussage
    * ueber den Kunden, und die gehoert belegt - siehe FRAGEN_AN_DEEV.md. Ohne
    * Beleg bleibt das Feld leer, und die Seite zeigt den Abschnitt nicht. */
+  /**
+   * Die Eröffnung. Ein Satz, der eine Haltung hat, keine Agenturfloskel:
+   * er steht groß über der Seite und entscheidet, ob weitergelesen wird.
+   */
   summary?: Record<Locale, string>;
+
+  /**
+   * Fünf Kapitel, in dieser Reihenfolge. Es sind bewusst fünf und nicht drei:
+   * ohne `context` beginnt eine Fallstudie mitten im Problem, ohne dass der
+   * Leser weiß, um wessen Geschäft es geht, und ohne `execution` bleibt der
+   * Ansatz eine Absichtserklärung.
+   *
+   * Jedes Kapitel ist einzeln optional. Was fehlt, wird nicht gerendert - eine
+   * Fallstudie mit drei ehrlichen Kapiteln ist besser als fünf, von denen zwei
+   * gestreckt sind.
+   */
+  context?: Record<Locale, string>;
   challenge?: Record<Locale, string>;
   approach?: Record<Locale, string>;
+  execution?: Record<Locale, string>;
+  /**
+   * Das Ergebnis ist die einzige Aussage hier, die dem Kunden gehört und nicht
+   * uns. Sie steht nur da, wenn er sie so unterschreiben würde.
+   */
   outcome?: Record<Locale, string>;
   /** e.g. ["Next.js", "Supabase", "Stripe"] */
   stack?: string[];

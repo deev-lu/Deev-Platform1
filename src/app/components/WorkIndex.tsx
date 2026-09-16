@@ -38,6 +38,11 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
   const shown = current.filter === "All" ? all : all.filter((p) => p.filter === current.filter);
   const countFor = (f: string) => (f === "All" ? all.length : all.filter((p) => p.filter === f).length);
 
+  // Das Leitprojekt nur, wenn es eine Aufnahme hat - eine grosse Flaeche mit
+  // Platzhaltermuster waere das Gegenteil des Gewuenschten.
+  const lead = shown[0]?.image ? shown[0] : undefined;
+  const grid = lead ? shown.slice(1) : shown;
+
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
       <header
@@ -99,8 +104,18 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
         className="mx-auto pb-[var(--section-y)]"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
       >
+        {/* Das erste Projekt gross, der Rest im Raster.
+            Sechzehn gleich grosse Kacheln sind eine Wand: nichts fuehrt das
+            Auge, und der Besucher entscheidet nach Bildzufall statt nach
+            Relevanz. Eine grosse Aufnahme oben gibt der Seite einen Anfang und
+            zeigt die Arbeit in der Groesse, in der man sie beurteilen kann. */}
+        {lead && (
+          <div className="mb-6">
+            <Card project={lead} index={0} reduce={!!reduce} featured />
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {shown.map((p, i) => (
+          {grid.map((p, i) => (
             <Card key={p.slug} project={p} index={i} reduce={!!reduce} />
           ))}
         </div>
@@ -116,8 +131,25 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
   );
 }
 
-function Card({ project, index, reduce }: { project: Project; index: number; reduce: boolean }) {
+function Card({
+  project,
+  index,
+  reduce,
+  featured = false,
+}: {
+  project: Project;
+  index: number;
+  reduce: boolean;
+  featured?: boolean;
+}) {
   const locale = useLocale();
+  const t = useT();
+  // Was wir gemacht haben, nicht nur fuer wen. Ohne diese Zeile sagt eine
+  // Kachel nur "Website, 2025" und der Besucher muss sie oeffnen, um zu
+  // erfahren, was daran unsere Arbeit war.
+  const scope = project.scope?.length
+    ? project.scope.map((k) => t.pages.workCase.scopeItems[k]).join(" · ")
+    : null;
   return (
     <motion.article
       initial={reduce ? undefined : { opacity: 0, y: 18 }}
@@ -144,7 +176,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
           </span>
         </div>
 
-        <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1000 / 583" }}>
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: featured ? "1600 / 620" : "1000 / 583" }}>
           {project.image ? (
             <img
               src={project.image}
@@ -177,7 +209,7 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
           <div className="min-w-0">
             <h2
               className="text-[var(--text-hi)] font-medium truncate"
-              style={{ fontSize: "var(--t-body)", letterSpacing: "-0.01em" }}
+              style={{ fontSize: featured ? "var(--t-h3)" : "var(--t-body)", letterSpacing: "-0.01em" }}
             >
               {project.title}
             </h2>
@@ -187,6 +219,11 @@ function Card({ project, index, reduce }: { project: Project; index: number; red
             >
               {sectorOf(project, locale)} / {project.year}
             </p>
+            {scope && (
+              <p className="text-[var(--text-mid)] mt-3" style={{ fontSize: "var(--t-small)" }}>
+                {scope}
+              </p>
+            )}
           </div>
           <ArrowUpRight
             className="w-4 h-4 shrink-0 mt-1 text-[var(--text-low)] group-hover:text-[var(--signal-text)] transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
