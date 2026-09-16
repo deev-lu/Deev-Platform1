@@ -34,7 +34,6 @@ export default function ServicesIndex() {
   const t = useT();
   const localePath = useLocalePath();
   const reduce = useReducedMotion();
-  const home = localePath("/");
 
   const groups = Object.keys(SERVICE_GROUPS) as (keyof typeof SERVICE_GROUPS)[];
 
@@ -95,7 +94,20 @@ export default function ServicesIndex() {
                       section of another document, and the browser's own
                       fragment handling puts the reader on it. */}
                   <a
-                    href={`${home}${SERVICE_HREF[id]}`}
+                    /* Nicht zusammensetzen, uebersetzen lassen.
+                       Vorher wurde localePath("/") vorangestellt. Auf
+                       Englisch liefert localePath("/") ein "/", und zusammen
+                       mit "/services#why-it-works" wurde daraus
+                       "//services#why-it-works" - eine protokoll-relative
+                       Adresse, die der Browser als Hostname liest und zu
+                       https://services/#why-it-works aufloest. Jede dieser
+                       neun Kacheln fuehrte damit ins Nichts, aber nur auf
+                       Englisch: auf Deutsch ist der Praefix "/de" und es
+                       entstand kein doppelter Schraegstrich.
+
+                       Entstanden ist das beim Umstellen der Ziele von Ankern
+                       auf Pfade - vorher war es "/" + "#why-deev". */
+                    href={localePath(SERVICE_HREF[id])}
                     className="group flex h-full flex-col border border-[var(--line)] bg-[var(--surface-1)] p-7 hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
                     style={{ borderRadius: "var(--radius-1)" }}
                   >
