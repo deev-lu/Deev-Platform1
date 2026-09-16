@@ -13,8 +13,9 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
-import { getProject, nextProject, sectorOf } from "../../lib/projects";
+import { getProject, nextProject, sectorOf, type Project } from "../../lib/projects";
 import { useT, useLocalePath, useLocale } from "../../lib/useT";
+import type { Locale } from "../../lib/i18n";
 import { track } from "../../lib/analytics";
 
 /**
@@ -88,25 +89,21 @@ export default function WorkCase() {
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
 
-      {/* ── Opening ─────────────────────────────────────────────── */}
-      <header className="relative">
-        {project.image ? (
-          <div className="relative h-[62vh] min-h-[420px] overflow-hidden">
-            <img
-              src={project.image}
-              alt={`${project.title}, ${sectorOf(project, locale)}`}
-              width={1000}
-              height={583}
-              className="absolute inset-0 w-full h-full object-cover object-top"
-            />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--surface-0) 8%, rgba(8,9,11,0.45) 60%, rgba(8,9,11,0.25) 100%)" }} />
-          </div>
-        ) : (
-          <div className="h-[34vh] min-h-[220px] border-b border-[var(--line)]" />
-        )}
+      {/* ── Kopf ────────────────────────────────────────────────
+          Vorher lag die Aufnahme als ganzflächiges Band über die halbe
+          Bildschirmhöhe, mit einem Farbverlauf darüber und dem Titel darauf.
+          Das war aus zwei Gründen falsch: `object-cover` schneidet bei jedem
+          Seitenverhältnis anders zu, und je höher die Aufnahme, desto mehr
+          Seite fiel weg — bei FIT blieb vom Auftritt ein Streifen übrig. Und
+          wer auf einer Referenzseite landet, will die Arbeit sehen, nicht
+          einen zugeschnittenen Ausschnitt davon.
 
+          Jetzt steht die Aufnahme in einem Browserfenster, wie im Hero der
+          Startseite: vollständig, nichts beschnitten, und scrollbar, wenn sie
+          höher ist als der Rahmen. Ein Klick öffnet die echte Seite. */}
+      <header className="relative">
         <div
-          className={`mx-auto ${project.image ? "-mt-40 relative z-10" : "pt-16"}`}
+          className="mx-auto pt-16"
           style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
         >
           <L
@@ -139,6 +136,8 @@ export default function WorkCase() {
               {t.pages.workCase.ownProduct}
             </span>
           )}
+
+          {project.image && <SitePreview project={project} locale={locale} t={t} />}
         </div>
       </header>
 
@@ -369,5 +368,116 @@ export default function WorkCase() {
         </L>
       </section>
     </main>
+  );
+}
+
+/**
+ * Die ausgelieferte Seite in einem Browserfenster.
+ *
+ * Drei Entscheidungen, die den Unterschied zum vorherigen Vollbild-Band
+ * ausmachen:
+ *
+ *   Nichts wird beschnitten. Die Aufnahme läuft in voller Breite und
+ *   natürlicher Höhe; ist sie höher als der Rahmen, wird sie scrollbar, statt
+ *   dass der untere Teil der Seite verschwindet. Bei einer Aufnahme über die
+ *   ganze Seitenlänge kann man so den kompletten Auftritt durchsehen.
+ *
+ *   Der Rahmen hat ein festes Verhältnis. Die Höhe der Aufnahme bestimmt damit
+ *   nicht mehr, wie viel Bildschirm die Seite belegt - vorher entschied das
+ *   Seitenverhältnis der Datei über das Layout.
+ *
+ *   Ein Klick öffnet die echte Seite. Der Rahmen ist ein Link, kein Bild mit
+ *   Klickhandler: er lässt sich mit der Tastatur erreichen, in einem neuen Tab
+ *   öffnen und von Suchmaschinen lesen. Scrollen und Klicken stören einander
+ *   nicht - gescrollt wird mit dem Rad, navigiert wird mit dem Klick.
+ */
+function SitePreview({
+  project,
+  locale,
+  t,
+}: {
+  project: Project;
+  locale: Locale;
+  t: ReturnType<typeof useT>;
+}) {
+  const domain = project.link?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+
+  const frame = (
+    <div
+      className="border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
+      style={{ borderRadius: "var(--radius-1)" }}
+    >
+      {/* Die Leiste sagt „Website", ohne die Aufnahme in ein Gerät zu stecken. */}
+      <div className="flex items-center gap-3 px-4 h-11 border-b border-[var(--line)] bg-[var(--surface-2)]">
+        <span className="flex gap-1.5 shrink-0" aria-hidden="true">
+          {[0, 1, 2].map((i) => (
+            <span key={i} className="w-2 h-2 rounded-full bg-[var(--line-strong)]" />
+          ))}
+        </span>
+        <span
+          className="eyebrow-mono lowercase text-[var(--text-low)] truncate"
+          style={{ fontSize: "var(--t-label)", letterSpacing: "0.08em" }}
+        >
+          {domain}
+        </span>
+        {project.link && (
+          <span
+            className="ml-auto shrink-0 inline-flex items-center gap-1.5 text-[var(--text-mid)] group-hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+            style={{ fontSize: "var(--t-label)" }}
+          >
+            {t.pages.workCase.visit}
+            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+          </span>
+        )}
+      </div>
+
+      {/* Der Fensterinhalt. `overscroll-contain` verhindert, dass das Scrollen
+          am Ende der Aufnahme auf die Seite durchschlägt. */}
+      {/* Eine Obergrenze, keine feste Höhe.
+          Mit einem Seitenverhältnis richtete sich die Höhe nach der Datei: eine
+          hohe Aufnahme belegte den halben Bildschirm, und weil sie dann genau
+          hineinpasste, gab es nichts zu scrollen. Eine feste Höhe wiederum
+          hinterließ auf dem Telefon leere Fläche, weil die Aufnahme dort auf
+          390px Breite nur noch gut 240px hoch ist.
+
+          Eine Obergrenze löst beides: ist die Aufnahme höher, wird gedeckelt
+          und scrollbar; ist sie kürzer, endet der Rahmen mit ihr. */}
+      <div
+        className="overflow-y-auto overscroll-contain bg-[var(--surface-0)] site-preview"
+        style={{ maxHeight: "clamp(280px, 52vh, 600px)" }}
+        /* Lenis faengt das Mausrad seitenweit ab und bewegt damit das Fenster.
+           Ohne diese Markierung scrollte ueber dem Rahmen also die Seite
+           weiter, und der Rahmen blieb stehen - nachgemessen: Seite 233 auf
+           430, Rahmen 0. `data-lenis-prevent` gibt das Rad ueber diesem
+           Element wieder an den Browser zurueck. */
+        data-lenis-prevent
+      >
+        <img
+          src={project.image}
+          alt={`${project.title}, ${sectorOf(project, locale)}`}
+          width={1200}
+          height={748}
+          // Das ist das LCP-Bild dieser Seite.
+          loading="eager"
+          {...({ fetchpriority: "high" } as Record<string, string>)}
+          decoding="async"
+          className="w-full h-auto block"
+        />
+      </div>
+    </div>
+  );
+
+  if (!project.link) return <div className="mt-12">{frame}</div>;
+
+  return (
+    <a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block mt-12"
+      aria-label={`${project.title} — ${t.pages.workCase.visit}`}
+    >
+      {frame}
+    </a>
   );
 }
