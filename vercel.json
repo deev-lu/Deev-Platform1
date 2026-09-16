@@ -3,6 +3,21 @@
   "trailingSlash": false,
   "headers": [
     {
+      "source": "/(.*)",
+      "missing": [
+        {
+          "type": "host",
+          "value": "www.deev.lu"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/fonts/(.*)",
       "headers": [
         {

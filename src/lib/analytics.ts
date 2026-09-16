@@ -23,6 +23,25 @@ import { hasAnalyticsConsent, onConsentChange } from "./consent";
 
 const GA_ID = "G-K0T15PZHMN";
 
+/**
+ * Gemessen wird nur auf der echten Seite.
+ *
+ * Vorschauen und Testdomains laufen mit demselben Build und derselben
+ * Mess-ID. Ohne diese Grenze zaehlt jeder eigene Klick auf einer
+ * Vorschau-URL als Sitzung, und zwar in genau dem Konto, das gerade
+ * aufgesetzt wird: Absprungrate, Sitzungsdauer und die Zahl der Anfragen
+ * waeren von Anfang an mit unserer eigenen Abnahme vermischt. Nachtraeglich
+ * laesst sich das in GA4 nicht sauber herausrechnen.
+ *
+ * Auch `localhost` ist damit ausgenommen - in der Entwicklung soll ohnehin
+ * nichts gesendet werden.
+ */
+const PROD_HOST = "www.deev.lu";
+
+function onProduction(): boolean {
+  return typeof location !== "undefined" && location.hostname === PROD_HOST;
+}
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -35,6 +54,7 @@ let started = false;
 /** Boot the tag with everything denied, then load the library. Idempotent. */
 function start(): void {
   if (started || typeof document === "undefined") return;
+  if (!onProduction()) return;
   started = true;
 
   window.dataLayer = window.dataLayer || [];
@@ -153,6 +173,10 @@ function safe(params: Record<string, Param>): Record<string, Param> {
  */
 export function track(event: TrackEvent, params: Record<string, Param> = {}): void {
   if (typeof window === "undefined" || typeof document === "undefined") return;
+  // Ausdruecklich, nicht nur als Nebenwirkung davon, dass `start()` auf einer
+  // Testdomain nichts aufsetzt: diese Zeile ist die Zusage, dass eine Vorschau
+  // keine Messdaten erzeugt, und sie laesst sich pruefen.
+  if (!onProduction()) return;
   start();
   window.gtag?.("event", event, safe(params));
 }

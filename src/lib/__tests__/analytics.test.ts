@@ -16,6 +16,9 @@ type FakeWindow = { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] }
 const g = globalThis as { window?: FakeWindow; document?: unknown };
 const win: FakeWindow = g.window ?? {};
 g.window = win;
+// Ohne einen Produktionshost sendet `track` nichts - das ist die Zusage fuer
+// Testdomains. Fuer die Filtertests wird er hier gesetzt.
+(g as { location?: { hostname: string } }).location = { hostname: "www.deev.lu" };
 g.document = g.document ?? {
   createElement: () => ({ set src(_v: string) {}, async: false }),
   head: { appendChild: () => {} },
@@ -69,6 +72,14 @@ describe("track", () => {
   it("laesst Zahlen und Wahrheitswerte durch", () => {
     track("calculator_step", { from: 2, to: 3, grant: true });
     expect(sent[0][2]).toEqual({ from: 2, to: 3, grant: true });
+  });
+
+  it("sendet auf einer Testdomain gar nichts", () => {
+    const loc = (g as { location?: { hostname: string } }).location!;
+    loc.hostname = "deev-platform1-git-test.vercel.app";
+    track("service_view", { service: "ai" });
+    expect(sent).toHaveLength(0);
+    loc.hostname = "www.deev.lu";
   });
 
   it("faellt still aus, wenn das Tag nicht laeuft", () => {
