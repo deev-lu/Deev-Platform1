@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Link, type LinkProps } from "react-router";
+import { Link, useLocation, type LinkProps } from "react-router";
 import { useLocalePath } from "../../lib/useT";
 
 /**
@@ -11,11 +11,35 @@ import { useLocalePath } from "../../lib/useT";
  * common way a translated site leaks.
  *
  * External and hash-only targets pass through untouched.
+ *
+ * Zeigt ein Link auf die Seite, auf der er steht, bekommt er
+ * `aria-current="page"`. Das ist Auditpunkt D-12, und es ist auch die
+ * ehrliche Antwort auf etwas, das von aussen wie ein kaputter Link aussieht:
+ * in Navigation und Fussbereich steht die aktuelle Seite mit in der Liste,
+ * ein Klick darauf kann nichts bewirken. Ohne Kennzeichnung ist das für
+ * niemanden erkennbar - für Screenreader gar nicht. Mit Kennzeichnung ist es
+ * ein Zustand statt eines toten Klicks, und Stile können daran andocken.
+ *
+ * Nur ohne Fragment: `/services#marketing` auf `/services` scrollt, das ist
+ * eine Wirkung und keine Sackgasse.
  */
 const L = forwardRef<HTMLAnchorElement, LinkProps>(function L({ to, ...rest }, ref) {
   const localize = useLocalePath();
+  const { pathname } = useLocation();
   const target = typeof to === "string" && to.startsWith("/") ? localize(to) : to;
-  return <Link ref={ref} to={target} {...rest} />;
+
+  const isCurrent =
+    typeof target === "string" &&
+    !target.includes("#") &&
+    trim(target) === trim(pathname) &&
+    rest["aria-current"] === undefined;
+
+  return <Link ref={ref} to={target} {...(isCurrent ? { "aria-current": "page" as const } : {})} {...rest} />;
 });
+
+/** "/de/work/" und "/de/work" sind dieselbe Seite. */
+function trim(p: string): string {
+  return p.split("?")[0].replace(/\/+$/, "") || "/";
+}
 
 export default L;
