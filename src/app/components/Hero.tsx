@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
@@ -24,9 +23,10 @@ import { PROJECTS, sectorOf } from "../../lib/projects";
  *   Screenshot einer ausgelieferten Seite belegt, dass wir liefern, und ist
  *   verlinkt, damit er nachprüfbar ist.
  *
- *   Nichts wartet. Überschrift, Text und beide Aktionen stehen im HTML und
- *   werden nicht eingeblendet. Animiert wird nur das Bild, und auch das nicht
- *   unter prefers-reduced-motion.
+ *   Nichts wartet. Überschrift, Text, beide Aktionen und das Bild stehen im
+ *   HTML und werden nicht eingeblendet. Das Bild ist das LCP-Element; es aus
+ *   Deckkraft 0 einzublenden hiesse, die wichtigste Messgroesse der Seite
+ *   absichtlich zu verzoegern, und ohne JavaScript bliebe es unsichtbar.
  */
 /**
  * React 18 kennt `fetchPriority` nicht: beim Server-Rendern wird das Attribut
@@ -40,7 +40,6 @@ const PRIORITY_HINT = { fetchpriority: "high" } as Record<string, string>;
 export default function Hero() {
   const t = useT();
   const locale = useLocale();
-  const reduce = useReducedMotion();
 
   // Das erste Projekt mit Screenshot. PROJECTS ist screenshots-first sortiert,
   // also ist das immer eine echte Ansicht und nie eine Ersatzfläche.
@@ -116,12 +115,7 @@ export default function Hero() {
 
         {/* ── Echte Arbeit, kein Mockup ─────────────────────────────────── */}
         {sample?.image && (
-          <motion.div
-            className="lg:col-span-6"
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="lg:col-span-6">
             <L to={`/work/${sample.slug}`} className="group block">
               <div
                 className="border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
@@ -169,7 +163,7 @@ export default function Hero() {
                 </span>
               </div>
             </L>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

@@ -75,14 +75,12 @@ export default function ClientLogos() {
       <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 z-10 bg-gradient-to-l from-white dark:from-[#06060a] to-transparent pointer-events-none" />
 
       {/* Label */}
-      <motion.p
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-10"
-      >
+      {/* Steht direkt unter dem Hero, also praktisch immer im ersten
+          Bildausschnitt. Ein whileInView-Einblenden bedeutete: ohne JavaScript
+          unsichtbar, mit JavaScript ein Aufblitzen ohne Gewinn. */}
+      <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-10">
         {t.home.logos.label}
-      </motion.p>
+      </p>
 
       {/* Infinite marquee, CSS-driven, pauses on hover, two equal groups for a perfect seam */}
       <div className="marquee-track flex overflow-hidden select-none">
