@@ -35,7 +35,7 @@ export default function BudgetTeaser() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            <span className="text-[var(--metal)]">05</span> / {b.eyebrow}
+            <span className="text-[var(--metal)]">04</span> / {b.eyebrow}
           </span>
         </div>
 

@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
-import LiteYouTube from "./LiteYouTube";
 import { useT } from "../../lib/useT";
 import { Deck, CARD_BASE } from "./Deck";
 
@@ -21,15 +20,10 @@ import { Deck, CARD_BASE } from "./Deck";
 /** The shorts are our own. Their ids are data; their accessible names are copy,
  *  so they come from the dictionary in the reader's language, and the count in
  *  "two of four" follows the list rather than being written down twice. */
-const VIDEO_IDS = ["LeAYeRih-_Y", "zURSJEqZO2E", "j9zL-hiTnF4", "J0xtCDzHrXU"];
 
 export default function MarketingServices() {
   const t = useT();
   const SERVICES = t.home.marketing.items.map((s, i) => ({ ...s, index: String(i + 1).padStart(2, "0") }));
-  const VIDEOS = VIDEO_IDS.map((id, i) => ({
-    id,
-    title: t.home.marketing.videoTitle(i + 1, VIDEO_IDS.length),
-  }));
 
   return (
     <Section index="03" eyebrow={t.home.marketing.eyebrow} tone={1}>
@@ -98,32 +92,11 @@ export default function MarketingServices() {
 
       </div>
 
-      {/* Two shorts, at the ratio they were shot in. */}
-      <div className="mt-20 pt-10 border-t border-[var(--line)]">
-        <div className="flex items-center gap-4 mb-8">
-          <span className="h-px w-10 bg-[var(--line-strong)]" />
-          <span
-            className="eyebrow-mono uppercase text-[var(--text-low)]"
-            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-          >
-            <span className="text-[var(--metal)]">06.1</span> / {t.home.marketing.videosEyebrow}
-          </span>
-        </div>
+      {/* Der Videoblock stand hier als Unterabschnitt 06.1 und wurde dort
+          fast nie gesehen. Er ist auf die Startseite gewandert, direkt hinter
+          die Referenzen - verschoben, nicht kopiert, damit es ihn nicht
+          zweimal gibt. Siehe InMotion.tsx. */}
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-[1040px]">
-          {VIDEOS.map((v, i) => (
-            <motion.div
-              key={v.id}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.56, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <LiteYouTube id={v.id} title={v.title} />
-            </motion.div>
-          ))}
-        </div>
-      </div>
     </Section>
   );
 }

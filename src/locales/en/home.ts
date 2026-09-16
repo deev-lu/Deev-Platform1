@@ -150,6 +150,11 @@ export const home = {
     ],
   },
 
+  inMotion: {
+    eyebrow: "In motion",
+    title: "Built to move.",
+    lead: "Real work, not just stills.",
+  },
   marketing: {
     eyebrow: "Marketing",
     title: "Building it is half the job. Being found is the other half.",

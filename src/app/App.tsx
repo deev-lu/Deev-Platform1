@@ -29,6 +29,7 @@ import ScrollReset from "./components/ScrollReset";
 const BudgetTeaser      = lazy(() => import("./components/BudgetTeaser"));
 const FoundersNote      = lazy(() => import("./components/FoundersNote"));
 const HowWeWork         = lazy(() => import("./components/HowWeWork"));
+const InMotion          = lazy(() => import("./components/InMotion"));
 const NewsTeaser        = lazy(() => import("./components/NewsTeaser"));
 const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const NewsIndex         = lazy(() => import("./components/NewsIndex"));
@@ -55,45 +56,50 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
     <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
+      {/* Die Reihenfolge folgt der Frage, die der Besucher als naechstes
+          hat - nicht der Reihenfolge, in der die Bausteine entstanden sind.
+
+          Der wichtigste Umzug: der Budgetblock stand hinter Gruendern und
+          Ablauf, also hinter zwei Abschnitten, die niemanden interessieren,
+          der gerade "was kostet das" denkt. Er steht jetzt direkt hinter den
+          Leistungswegen, wo die Frage entsteht. Gruender und Ablauf kommen
+          danach: sie beantworten "mit wem" und "wie", und das fragt man,
+          wenn der Preis einen nicht abgeschreckt hat. */}
+
       {/* 1. Angebot und naechster Schritt, mit einer echten Arbeitsprobe. */}
       <Hero />
       <ClientLogos />
 
       <Suspense fallback={<SectionSkeleton />}>
-        {/* 2. Die Arbeit zuerst. Besucher kommen, um herauszufinden, ob wir
-            ihre Sache bauen koennen; jedes Argument darueber, wie wir arbeiten,
-            landet besser, nachdem sie gesehen haben, dass wir liefern. */}
+        {/* 01 Die Arbeit zuerst. Besucher kommen, um herauszufinden, ob wir
+            ihre Sache bauen koennen. */}
         <div id="portfolio"><SelectedWork /></div>
 
-        {/* 3. Drei Leistungswege, jeder mit dem Problem in den Worten des
-            Kaeufers und einem Ziel, das eine eigene Seite ist. */}
+        {/* 02 Dieselbe Arbeit, eine Stufe tiefer: ein Screenshot beweist, dass
+            etwas existiert, eine Aufnahme, dass es sich gut anfuehlt. */}
+        <InMotion />
+
+        {/* 03 Drei Leistungswege, jeder mit dem Problem in den Worten des
+            Kaeufers. */}
         <ServicePaths />
 
-        {/* 4. Die zwei Menschen, die es machen. Direkt hinter dem Beleg: die
-            Arbeit und die Namen gehoeren nebeneinander. */}
-        <div id="about"><FoundersNote /></div>
-
-        {/* 4b. Was passiert, wenn ich mich melde? Der Brief verlangt Gründer
-            UND Ablauf; die Gründer standen da, der Ablauf fehlte. */}
-        <HowWeWork />
-
-        {/* 5. Budget und moeglicher Zuschuss, beides kompakt und verlinkt.
-            Traegt weiterhin die alten Kampagnenanker #pricing und
-            #project-builder, weil ein Fragment den Server nie erreicht und
-            sich nicht per Weiterleitung auffangen laesst. */}
+        {/* 04 Und was kostet das? Genau hier entsteht die Frage. Traegt
+            weiterhin die Kampagnenanker #pricing und #project-builder. */}
         <div id="pricing"><BudgetTeaser /></div>
 
-        {/* 5b. Die drei neuesten Artikel. Beim Entschlacken herausgeflogen,
-            und damit auch der einzige Grund, ueber den Budgetblock hinaus
-            weiterzulesen. Es sind echte Artikel, keine Fuellung. */}
+        {/* 05 Mit wem. Erst jetzt, wenn der Preis nicht abgeschreckt hat. */}
+        <div id="about"><FoundersNote /></div>
+
+        {/* 06 Und wie laeuft das ab. */}
+        <HowWeWork />
+
+        {/* 07 Was zuletzt entstanden ist. */}
         <NewsTeaser />
 
-        {/* 5c. Ein Bild, das die Seite atmen laesst. Echte Fotografie aus
-            Luxemburg, langsam bewegt - der einzige grosse visuelle Moment der
-            Seite, und er behauptet nichts. */}
+        {/* Ein Bild, das die Seite atmen laesst, direkt vor dem Abschluss. */}
         <LuxembourgStrip />
 
-        {/* 6. Ein Abschluss, keine vierte Zusammenfassung. */}
+        {/* 08 Ein Abschluss, keine vierte Zusammenfassung. */}
         <FinalCTA />
       </Suspense>
 
