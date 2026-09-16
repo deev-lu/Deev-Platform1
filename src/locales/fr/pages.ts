@@ -3,16 +3,15 @@ import type { pages as En } from "../en/pages";
 export const pages: typeof En = {
   work: {
     eyebrow: "Réalisations",
-    title: "Tous les projets que nous livrons.",
+    title: "Une sélection de notre travail.",
     lead: "Sites web, boutiques en ligne et applications web, conçus au Luxembourg pour des entreprises de toute l'Europe.",
     filters: {
       all: "Tout",
       website: "Sites web",
-      ecommerce: "Boutiques en ligne",
-      webapp: "Applications web",
+      webapp: "Applications web et logiciels",
+      ecommerce: "E-commerce",
+      ai: "IA et automatisation",
     },
-    count: (n: number, filterLabel?: string) =>
-      `${n} ${n === 1 ? "projet" : "projets"}${filterLabel ? ` en ${filterLabel.toLowerCase()}` : ""}`,
   },
 
   workCase: {

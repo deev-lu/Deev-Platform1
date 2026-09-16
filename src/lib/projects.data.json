@@ -11,7 +11,8 @@
     "filter": "Web App",
     "link": "https://billovio.com",
     "services": [
-      "software"
+      "software",
+      "ai"
     ],
     "scope": [
       "platform"
@@ -31,66 +32,85 @@
       "fr": "Les entreprises qui veulent produire devis et factures proprement et rapidement"
     },
     "summary": {
-      "de": "Ein Angebot zu schreiben kostet mehr Zeit als die Arbeit zu planen. Billovio macht aus einer kurzen Projektbeschreibung ein fertiges, bepreistes Angebot.",
-      "en": "Writing a quote takes longer than planning the work. Billovio turns a short project description into a finished, priced quotation.",
-      "fr": "Rédiger un devis prend plus de temps que planifier le travail. Billovio transforme une courte description de projet en un devis fini et chiffré."
+      "en": "A quotation and invoicing tool DEEV built for itself: describe a job in a sentence, get a structured, priced quotation you can send from your phone.",
+      "de": "Ein Werkzeug für Angebote und Rechnungen, das wir für uns selbst gebaut haben: einen Auftrag in einem Satz beschreiben und ein gegliedertes, bepreistes Angebot herausbekommen, vom Telefon aus.",
+      "fr": "Un outil de devis et de facturation que nous avons construit pour nous-mêmes : décrivez une mission en une phrase et obtenez un devis structuré et chiffré, envoyé depuis votre téléphone."
     },
     "context": {
-      "de": "Billovio ist kein Kundenprojekt, sondern unser eigenes Produkt. Es ist live und wird laufend weiterentwickelt. Wir bauen es, weil wir denselben Ablauf selbst jede Woche haben.",
-      "en": "Billovio is not a client project, it is our own product. It is live and under continuous development. We build it because we go through the same routine ourselves every week.",
-      "fr": "Billovio n'est pas un projet client, c'est notre propre produit. Il est en ligne et développé en continu. Nous le construisons parce que nous vivons la même routine chaque semaine."
+      "en": "Billovio is not a client project. It is our own product, live and under continuous development. We build it because we run into the same administrative routine ourselves every week.",
+      "de": "Billovio ist kein Kundenprojekt. Es ist unser eigenes Produkt, live und in laufender Weiterentwicklung. Wir bauen es, weil wir dieselbe Verwaltungsroutine selbst jede Woche haben.",
+      "fr": "Billovio n'est pas un projet client. C'est notre propre produit, en ligne et en développement continu. Nous le construisons parce que nous vivons la même routine administrative chaque semaine."
     },
     "challenge": {
-      "de": "Zwischen dem Zusagen und einem unterschriebenen Angebot liegt Arbeit, die niemand bezahlt: Umfang gliedern, Positionen bepreisen, sauber formatieren, hinterhertelefonieren. Und sie fällt selten am Schreibtisch an, sondern zwischen zwei Terminen.",
-      "en": "Between saying yes and a signed quotation sits work nobody pays for: breaking down the scope, pricing the items, formatting it properly, chasing it up. And it rarely comes up at a desk, but between two appointments.",
-      "fr": "Entre l'accord verbal et un devis signé se trouve un travail que personne ne paie : structurer le périmètre, chiffrer les postes, mettre en forme proprement, relancer. Et cela survient rarement au bureau, plutôt entre deux rendez-vous."
+      "en": "Between agreeing to a job and sending a quotation sits unpaid work: breaking the scope into items, pricing each one, formatting it so it looks like a business rather than a note. It rarely happens at a desk. It happens between appointments, which is exactly where most invoicing tools stop being usable.",
+      "de": "Zwischen der Zusage und einem verschickten Angebot liegt unbezahlte Arbeit: den Umfang in Positionen zerlegen, jede bepreisen, alles so formatieren, dass es nach Unternehmen aussieht und nicht nach Notiz. Das passiert selten am Schreibtisch, sondern zwischen zwei Terminen — und genau dort hören die meisten Rechnungswerkzeuge auf, benutzbar zu sein.",
+      "fr": "Entre l'accord et l'envoi d'un devis se trouve un travail non payé : découper le périmètre en postes, chiffrer chacun, mettre en forme pour que cela ressemble à une entreprise et non à une note. Cela se passe rarement au bureau, mais entre deux rendez-vous — précisément là où la plupart des outils de facturation cessent d'être utilisables."
     },
     "approach": {
-      "de": "Der Einstieg ist ein Satz, keine Eingabemaske. Aus der Projektbeschreibung entsteht eine gegliederte Leistungsübersicht, die anhand hinterlegter Preis- und Satzlogik bepreist wird. Von dort läuft alles in einem Strang weiter: Angebot im eigenen Erscheinungsbild, digitaler Freigabeweg, digitale Signatur, Rechnung.",
-      "en": "The entry point is a sentence, not a form. From the project description a structured scope is produced and priced against stored pricing and rate logic. From there it runs in one thread: a branded quotation, a digital approval path, a digital signature, an invoice.",
-      "fr": "Le point d'entrée est une phrase, pas un formulaire. De la description du projet naît un périmètre structuré, chiffré selon une logique de prix et de tarifs enregistrée. Ensuite, tout suit un seul fil : devis à votre image, parcours de validation numérique, signature électronique, facture."
+      "en": "The entry point is a sentence, not a form. From a short description of the job, Billovio assembles a structured scope and prices it against the services and rates you have stored. The document carries your own branding, and the same thread continues from quotation to invoice.",
+      "de": "Der Einstieg ist ein Satz, keine Eingabemaske. Aus einer kurzen Beschreibung des Auftrags stellt Billovio einen gegliederten Leistungsumfang zusammen und bepreist ihn anhand der hinterlegten Leistungen und Sätze. Das Dokument trägt Ihr eigenes Erscheinungsbild, und derselbe Strang läuft vom Angebot bis zur Rechnung.",
+      "fr": "Le point d'entrée est une phrase, pas un formulaire. À partir d'une courte description, Billovio assemble un périmètre structuré et le chiffre selon les prestations et tarifs enregistrés. Le document porte votre image, et le même fil continue du devis à la facture."
     },
     "execution": {
-      "de": "Für das Telefon gebaut, nicht nur dafür angepasst. Ein Angebot entsteht dort, wo es entschieden wird: beim Kunden, im Auto, auf der Baustelle. Der Weg vom Angebot zur Rechnung ist ein Ablauf und nicht zwei Werkzeuge.",
-      "en": "Built for the phone, not merely adapted to it. A quotation is written where it is decided: at the customer, in the car, on site. The path from quotation to invoice is one workflow, not two tools.",
-      "fr": "Conçu pour le téléphone, pas simplement adapté. Un devis se rédige là où il se décide : chez le client, en voiture, sur le chantier. Le passage du devis à la facture est un seul flux, pas deux outils."
+      "en": "Built for the phone rather than adapted to it. A quotation gets written where the decision happens: at the customer, in the car, on site. That accessibility is the point of the product, not a feature of it.",
+      "de": "Für das Telefon gebaut, nicht dafür angepasst. Ein Angebot entsteht dort, wo entschieden wird: beim Kunden, im Auto, auf der Baustelle. Diese Erreichbarkeit ist der Sinn des Produkts, nicht eine seiner Funktionen.",
+      "fr": "Conçu pour le téléphone, pas adapté après coup. Un devis se rédige là où la décision se prend : chez le client, en voiture, sur le chantier. Cette accessibilité est la raison d'être du produit, pas une de ses fonctions."
     },
     "deliverables": {
-      "de": [
-        "Angebot aus einer Projektbeschreibung",
-        "Automatische Gliederung des Leistungsumfangs",
-        "Bepreisung über hinterlegte Preis- und Satzlogik",
-        "Angebote im eigenen Erscheinungsbild",
-        "Digitaler Freigabeweg",
-        "Digitale Signatur",
-        "Rechnungen",
-        "Durchgängiger Weg vom Angebot zur Rechnung",
-        "Für mobile Nutzung ausgelegt"
-      ],
       "en": [
-        "Quotation from a project description",
-        "Automatic structuring of the scope",
-        "Pricing from stored pricing and rate logic",
-        "Branded quotations",
-        "Digital approval path",
-        "Digital signature",
-        "Invoices",
-        "End-to-end path from quotation to invoice",
-        "Built for mobile use"
+        "Product concept",
+        "Software UX",
+        "Interface design",
+        "AI-assisted quotation creation",
+        "Pricing and service logic",
+        "Branded document generation",
+        "Quotation to invoice workflow",
+        "Mobile-first build"
+      ],
+      "de": [
+        "Produktkonzept",
+        "Software-UX",
+        "Interfacedesign",
+        "KI-gestützte Angebotserstellung",
+        "Preis- und Leistungslogik",
+        "Dokumente im eigenen Erscheinungsbild",
+        "Weg vom Angebot zur Rechnung",
+        "Mobile-first gebaut"
       ],
       "fr": [
-        "Devis à partir d'une description de projet",
-        "Structuration automatique du périmètre",
-        "Chiffrage selon une logique de prix enregistrée",
-        "Devis à votre image",
-        "Parcours de validation numérique",
-        "Signature électronique",
-        "Factures",
-        "Parcours continu du devis à la facture",
-        "Conçu pour un usage mobile"
+        "Concept produit",
+        "UX logicielle",
+        "Design d'interface",
+        "Création de devis assistée par IA",
+        "Logique de prix et de prestations",
+        "Documents à votre image",
+        "Parcours du devis à la facture",
+        "Conçu mobile-first"
       ]
     },
-    "menuRank": 2
+    "menuRank": 2,
+    "outcome": {
+      "en": "Billovio is live and in active development. We use it ourselves; it has no public customer base to point to yet, and we would rather say that than imply one.",
+      "de": "Billovio ist live und wird aktiv weiterentwickelt. Wir nutzen es selbst; einen öffentlichen Kundenstamm gibt es noch nicht, und das sagen wir lieber, als einen anzudeuten.",
+      "fr": "Billovio est en ligne et en développement actif. Nous l'utilisons nous-mêmes ; il n'y a pas encore de base de clients publique, et nous préférons le dire plutôt que de le laisser entendre."
+    },
+    "technical": {
+      "en": [
+        "AI-assisted quotation: a short job description becomes a structured, priced scope",
+        "Stored service and rate logic drives the pricing",
+        "Built mobile-first, so the full workflow runs from a phone"
+      ],
+      "de": [
+        "KI-gestützte Angebotserstellung: aus einer kurzen Beschreibung wird ein gegliederter, bepreister Umfang",
+        "Hinterlegte Leistungs- und Satzlogik übernimmt die Bepreisung",
+        "Mobile-first gebaut, der ganze Ablauf läuft vom Telefon aus"
+      ],
+      "fr": [
+        "Devis assisté par IA : une courte description devient un périmètre structuré et chiffré",
+        "La logique de prestations et de tarifs enregistrée pilote le chiffrage",
+        "Conçu mobile-first : tout le parcours se fait depuis un téléphone"
+      ]
+    }
   },
   {
     "slug": "fachinstitut-tierheilkunde",
@@ -107,9 +127,9 @@
       "website"
     ],
     "summary": {
-      "de": "Ein Ausbildungsinstitut verkauft keine Ware, sondern eine Entscheidung über 17 Monate Lebenszeit. Die Seite ist darauf gebaut, genau diese Entscheidung zu erleichtern.",
-      "en": "A training institute does not sell a product, it asks for a 17-month decision. The site is built to make exactly that decision easier.",
-      "fr": "Un institut de formation ne vend pas un produit, il demande une décision qui engage 17 mois. Le site est conçu pour faciliter précisément cette décision."
+      "en": "A custom Umbraco website for a part-time animal therapy institute, built so that dates, formats and locations stay findable instead of scattered.",
+      "de": "Eine individuelle Umbraco-Website für ein berufsbegleitendes Ausbildungsinstitut, gebaut damit Termine, Zeitformen und Standorte auffindbar bleiben statt verstreut.",
+      "fr": "Un site Umbraco sur mesure pour un institut de formation en cours d'emploi, conçu pour que dates, formats et lieux restent trouvables au lieu d'être dispersés."
     },
     "challenge": {
       "de": "Wer eine berufsbegleitende Ausbildung sucht, hat immer dieselben drei Fragen: Kann ich das neben dem Beruf? Wann fängt es an? Und wo muss ich hin? Stehen diese Antworten verstreut über mehrere Seiten, springt der Interessent ab, bevor er sie gefunden hat. Zusätzlich gibt es Ausbildungen in mehreren Fachrichtungen und je zwei Zeitformen, Abend und Wochenende, mit unterschiedlichen Startterminen und Praxisstandorten. Diese Kombinationen sind der eigentliche Grund, warum solche Seiten unübersichtlich werden.",
@@ -136,7 +156,66 @@
     ],
     "caseStudy": "none",
     "homepageRank": 3,
-    "portfolioRank": 4
+    "portfolioRank": 4,
+    "platform": "Umbraco",
+    "location": "Germany",
+    "deliverables": {
+      "en": [
+        "Strategy",
+        "UX",
+        "UI design",
+        "Website architecture",
+        "Custom Umbraco implementation",
+        "Responsive build",
+        "Content structuring",
+        "Launch",
+        "Ongoing growth work"
+      ],
+      "de": [
+        "Strategie",
+        "UX",
+        "UI-Design",
+        "Websitearchitektur",
+        "Individuelle Umbraco-Umsetzung",
+        "Responsive Umsetzung",
+        "Inhaltsstrukturierung",
+        "Launch",
+        "Laufende Wachstumsarbeit"
+      ],
+      "fr": [
+        "Stratégie",
+        "UX",
+        "Design UI",
+        "Architecture du site",
+        "Implémentation Umbraco sur mesure",
+        "Implémentation responsive",
+        "Structuration du contenu",
+        "Lancement",
+        "Travail de croissance continu"
+      ]
+    },
+    "outcome": {
+      "en": "The website is complete and live. Usability and visibility improved, and inquiries have already arrived through it. The specialist content came from the client and was developed into the site together; paid advertising and funnel work are still running, so there are no final campaign results to report.",
+      "de": "Die Website ist fertig und live. Bedienbarkeit und Sichtbarkeit haben sich verbessert, und über sie sind bereits Anfragen eingegangen. Die Fachinhalte kamen vom Kunden und wurden gemeinsam in die Seite eingearbeitet; bezahlte Werbung und Funnelarbeit laufen noch, endgültige Kampagnenergebnisse gibt es deshalb nicht.",
+      "fr": "Le site est terminé et en ligne. L'ergonomie et la visibilité se sont améliorées, et des demandes sont déjà arrivées. Les contenus spécialisés venaient du client et ont été intégrés ensemble ; la publicité payante et le travail de funnel sont en cours, il n'y a donc pas encore de résultats de campagne définitifs."
+    },
+    "technical": {
+      "en": [
+        "Custom implementation on Umbraco",
+        "Course structure modelled so each discipline carries its own formats, start dates and practical locations",
+        "The next start date is edited in one place and appears across the site"
+      ],
+      "de": [
+        "Individuelle Umsetzung auf Umbraco",
+        "Kursstruktur so modelliert, dass jede Fachrichtung eigene Zeitformen, Starttermine und Praxisstandorte trägt",
+        "Der nächste Starttermin wird an einer Stelle gepflegt und erscheint seitenweit"
+      ],
+      "fr": [
+        "Implémentation sur mesure sous Umbraco",
+        "Structure des formations modélisée pour que chaque discipline porte ses formats, dates et lieux",
+        "La prochaine date se modifie à un seul endroit et apparaît sur tout le site"
+      ]
+    }
   },
   {
     "slug": "ucc-clervaux",
@@ -147,16 +226,82 @@
       "fr": "Plateforme de fédération professionnelle",
       "de": "Verbandsplattform"
     },
-    "filter": "Web App",
+    "filter": "Website",
     "link": "https://ucclervaux.lu/",
     "scope": [
+      "website",
       "platform"
     ],
     "services": [
+      "website",
       "software"
     ],
-    "caseStudy": "none",
-    "portfolioRank": 6
+    "caseStudy": "full",
+    "portfolioRank": 6,
+    "platform": "Framer",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A redesigned platform for Clervaux's business association, with search, categories, maps and a content system the organisation maintains itself, in three languages.",
+      "de": "Eine neu gestaltete Plattform für die Geschäftsvereinigung von Clervaux, mit Suche, Kategorien, Karten und einem Inhaltssystem, das die Organisation selbst pflegt — in drei Sprachen.",
+      "fr": "Une plateforme repensée pour l'association commerçante de Clervaux, avec recherche, catégories, cartes et un système de contenu que l'organisation gère elle-même, en trois langues."
+    },
+    "context": {
+      "en": "UCClervaux represents the businesses of a Luxembourg town. Its existing platform was dated, and the brief was a redesign rather than a rebuild of the organisation's role.",
+      "de": "UCClervaux vertritt die Betriebe einer luxemburgischen Stadt. Die bestehende Plattform war in die Jahre gekommen; der Auftrag war eine Neugestaltung, keine Neuerfindung der Rolle der Organisation.",
+      "fr": "UCClervaux représente les commerces d'une ville luxembourgeoise. Sa plateforme existante était datée ; la mission était une refonte, pas une réinvention du rôle de l'association."
+    },
+    "challenge": {
+      "en": "A directory is only useful if people find the right business quickly. That means search, categories and a map that work together, and content that the association can keep current without calling anyone.",
+      "de": "Ein Verzeichnis nützt nur, wenn man den richtigen Betrieb schnell findet. Das heißt: Suche, Kategorien und Karte, die zusammenspielen, und Inhalte, die der Verein aktuell halten kann, ohne jemanden anzurufen.",
+      "fr": "Un annuaire n'est utile que si l'on trouve vite le bon commerce. Cela suppose une recherche, des catégories et une carte qui fonctionnent ensemble, et un contenu que l'association peut tenir à jour sans appeler personne."
+    },
+    "approach": {
+      "en": "Search, categories and maps sit on one surface rather than in separate sections, so finding a business is one path instead of three. The content system is built for the association: UCC maintains the entries centrally. Individual merchants do not manage their own profiles, which keeps the directory consistent.",
+      "de": "Suche, Kategorien und Karte liegen auf einer Fläche statt in getrennten Bereichen, damit das Finden ein Weg ist und nicht drei. Das Inhaltssystem ist auf den Verein zugeschnitten: UCC pflegt die Einträge zentral. Einzelne Betriebe verwalten ihre Profile nicht selbst, was das Verzeichnis einheitlich hält.",
+      "fr": "Recherche, catégories et carte se trouvent sur une même surface plutôt que dans des sections séparées. Le système de contenu est pensé pour l'association : UCC gère les entrées de façon centrale. Les commerçants ne gèrent pas leurs profils eux-mêmes, ce qui garde l'annuaire cohérent."
+    },
+    "execution": {
+      "en": "Built in Framer, responsive throughout, and implemented in Luxembourgish, French and German — the three languages the town actually uses.",
+      "de": "In Framer gebaut, durchgehend responsiv, umgesetzt auf Luxemburgisch, Französisch und Deutsch — den drei Sprachen, die in der Stadt tatsächlich gesprochen werden.",
+      "fr": "Réalisé sous Framer, responsive de bout en bout, implémenté en luxembourgeois, français et allemand — les trois langues réellement parlées dans la ville."
+    },
+    "outcome": {
+      "en": "The organisation now has a contemporary platform in place of the outdated one, and can keep it current itself.",
+      "de": "Die Organisation hat jetzt eine zeitgemäße Plattform anstelle der veralteten und kann sie selbst aktuell halten.",
+      "fr": "L'organisation dispose désormais d'une plateforme actuelle à la place de l'ancienne, et peut la tenir à jour elle-même."
+    },
+    "deliverables": {
+      "en": [
+        "Complete redesign",
+        "UX and UI",
+        "Framer implementation",
+        "Search",
+        "Categories",
+        "Maps",
+        "Editable content system",
+        "Multilingual implementation"
+      ],
+      "de": [
+        "Komplette Neugestaltung",
+        "UX und UI",
+        "Framer-Umsetzung",
+        "Suche",
+        "Kategorien",
+        "Karten",
+        "Pflegbares Inhaltssystem",
+        "Mehrsprachigkeit"
+      ],
+      "fr": [
+        "Refonte complète",
+        "UX et UI",
+        "Implémentation Framer",
+        "Recherche",
+        "Catégories",
+        "Cartes",
+        "Système de contenu éditable",
+        "Multilingue"
+      ]
+    }
   },
   {
     "slug": "laser-center",
@@ -170,13 +315,63 @@
     "filter": "Website",
     "link": "https://www.lasercenter.lu/",
     "scope": [
-      "website"
+      "website",
+      "branding"
     ],
     "services": [
       "website"
     ],
-    "caseStudy": "none",
-    "portfolioRank": 7
+    "caseStudy": "short",
+    "portfolioRank": 7,
+    "platform": "Custom",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A custom website for a laser therapy practice, structured around what a prospective patient needs to understand before booking.",
+      "de": "Eine individuelle Website für eine Lasertherapie-Praxis, aufgebaut um das, was ein Interessent verstehen muss, bevor er einen Termin macht.",
+      "fr": "Un site sur mesure pour un cabinet de thérapie laser, structuré autour de ce qu'un patient doit comprendre avant de prendre rendez-vous."
+    },
+    "approach": {
+      "en": "The site is about communication and trust, not about the therapy itself. Services, process and the path to an appointment are laid out so that someone unfamiliar can follow them. The service facts came from the client; we structured and refined how they are told.",
+      "de": "Es geht auf dieser Seite um Kommunikation und Vertrauen, nicht um die Therapie selbst. Leistungen, Ablauf und der Weg zum Termin sind so gelegt, dass jemand ohne Vorwissen ihnen folgen kann. Die fachlichen Angaben kamen vom Kunden; wir haben strukturiert und geschärft, wie sie erzählt werden.",
+      "fr": "Ce site porte sur la communication et la confiance, pas sur la thérapie elle-même. Prestations, déroulé et chemin vers le rendez-vous sont posés pour qu'une personne non initiée puisse les suivre. Les informations médicales venaient du client ; nous avons structuré et affiné leur présentation."
+    },
+    "outcome": {
+      "en": "Inquiries and appointments have come in through the new website. We would not claim every one of them for the site alone.",
+      "de": "Über die neue Website sind Anfragen und Termine eingegangen. Wir würden nicht jeden davon allein der Seite zuschreiben.",
+      "fr": "Des demandes et des rendez-vous sont arrivés par le nouveau site. Nous n'en attribuerions pas chacun au site seul."
+    },
+    "deliverables": {
+      "en": [
+        "Website concept",
+        "UX and UI",
+        "Design",
+        "Custom implementation",
+        "Responsive build",
+        "Part of the logo and branding",
+        "Content structuring",
+        "Conversion-focused structure"
+      ],
+      "de": [
+        "Websitekonzept",
+        "UX und UI",
+        "Design",
+        "Individuelle Umsetzung",
+        "Responsive Umsetzung",
+        "Teil des Logos und Brandings",
+        "Inhaltsstrukturierung",
+        "Auf Anfragen ausgelegte Struktur"
+      ],
+      "fr": [
+        "Concept du site",
+        "UX et UI",
+        "Design",
+        "Implémentation sur mesure",
+        "Implémentation responsive",
+        "Une partie du logo et du branding",
+        "Structuration du contenu",
+        "Structure orientée conversion"
+      ]
+    }
   },
   {
     "slug": "bureau-immobilier-feltes",
@@ -209,9 +404,9 @@
       "fr": "Immobilier"
     },
     "summary": {
-      "de": "Ein Maklerbüro lebt von seinem Bestand. Wenn der auf der Website von Hand gepflegt wird, ist er dort immer veraltet — hier läuft er automatisch aus der Verwaltung ein.",
-      "en": "An estate agency lives off its listings. Maintained by hand on a website, they are always out of date there — here they flow in automatically from the management system.",
-      "fr": "Une agence immobilière vit de son portefeuille. Maintenu à la main sur un site, il y est toujours périmé — ici, il arrive automatiquement depuis le système de gestion."
+      "en": "A multilingual real-estate platform connecting Feltes' public website directly to its existing property management workflow.",
+      "de": "Eine mehrsprachige Immobilienplattform, die den öffentlichen Auftritt von Feltes direkt an die bestehende Objektverwaltung anschließt.",
+      "fr": "Une plateforme immobilière multilingue qui relie le site public de Feltes directement à sa gestion de biens existante."
     },
     "context": {
       "de": "Bureau Immobilier Feltes vermittelt Immobilien in Luxemburg. Das Unternehmen, seine Leistungen und der aktuelle Bestand mussten an einer Stelle zusammenkommen — und der Bestand liegt in einer Verwaltungssoftware, die weiterläuft.",
@@ -239,44 +434,44 @@
       "fr": "Le site et la plateforme immobilière ne font plus qu'une adresse : l'entreprise, ses services et le portefeuille actuel au même endroit. Le portefeuille est connecté dynamiquement à l'infrastructure existante, et la maintenance manuelle des biens sur le site disparaît largement."
     },
     "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Webflow development",
+        "Responsive build",
+        "CMS architecture",
+        "Dynamic property inventory",
+        "Property detail pages",
+        "Property filtering",
+        "Apimo integration",
+        "Automated import and publishing",
+        "Multilingual with Weglot"
+      ],
       "de": [
         "UX und UI",
         "Webdesign",
         "Webflow-Entwicklung",
         "Responsive Umsetzung",
-        "Immobilienplattform",
-        "Dynamische Objektübersicht",
+        "CMS-Architektur",
+        "Dynamischer Objektbestand",
         "Objekt-Detailseiten",
-        "Filter",
-        "Webflow-CMS-Architektur",
+        "Objektfilter",
         "Apimo-Anbindung",
-        "Mehrsprachigkeit"
-      ],
-      "en": [
-        "UX and UI",
-        "Web design",
-        "Webflow development",
-        "Responsive implementation",
-        "Property platform",
-        "Dynamic listing overview",
-        "Listing detail pages",
-        "Filters",
-        "Webflow CMS architecture",
-        "Apimo integration",
-        "Multilingual"
+        "Automatisierter Import und Veröffentlichung",
+        "Mehrsprachig über Weglot"
       ],
       "fr": [
         "UX et UI",
         "Web design",
         "Développement Webflow",
         "Implémentation responsive",
-        "Plateforme immobilière",
-        "Liste dynamique des biens",
+        "Architecture CMS",
+        "Portefeuille dynamique",
         "Pages de détail des biens",
         "Filtres",
-        "Architecture CMS Webflow",
         "Intégration Apimo",
-        "Multilingue"
+        "Import et publication automatisés",
+        "Multilingue via Weglot"
       ]
     },
     "technical": {
@@ -299,7 +494,8 @@
         "Weglot pour la diffusion multilingue"
       ]
     },
-    "menuRank": 1
+    "menuRank": 1,
+    "platform": "Webflow"
   },
   {
     "slug": "aurora-experience",
@@ -318,7 +514,68 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "full",
+    "platform": "Framer",
+    "summary": {
+      "en": "A premium hospitality website presenting two distinct destinations, their houses and the experiences around them, extending a brand the client already had.",
+      "de": "Eine Website für gehobene Gastlichkeit, die zwei unterschiedliche Reiseziele, ihre Häuser und die Erlebnisse darum herum zeigt — als digitale Erweiterung einer bestehenden Marke.",
+      "fr": "Un site d'hospitalité haut de gamme présentant deux destinations distinctes, leurs maisons et les expériences qui les entourent, en prolongement d'une marque existante."
+    },
+    "context": {
+      "en": "Aurora Experience offers stays across two destinations with different characters. The core brand came from the client; the task was to carry it into a digital experience.",
+      "de": "Aurora Experience bietet Aufenthalte an zwei Reisezielen mit unterschiedlichem Charakter. Die Kernmarke kam vom Kunden; die Aufgabe war, sie in ein digitales Erlebnis zu übertragen.",
+      "fr": "Aurora Experience propose des séjours dans deux destinations au caractère différent. La marque de base venait du client ; la mission était de la porter dans une expérience numérique."
+    },
+    "challenge": {
+      "en": "Two destinations, several houses and a set of experiences can easily turn into a list. In this segment the decision is emotional before it is practical, so the hierarchy has to let someone feel a place before comparing it.",
+      "de": "Zwei Reiseziele, mehrere Häuser und eine Reihe von Erlebnissen werden schnell zur Liste. In diesem Segment fällt die Entscheidung emotional, bevor sie praktisch wird — die Hierarchie muss also spüren lassen, bevor sie vergleichen lässt.",
+      "fr": "Deux destinations, plusieurs maisons et un ensemble d'expériences deviennent vite une liste. Dans ce segment, la décision est émotionnelle avant d'être pratique : la hiérarchie doit faire ressentir avant de faire comparer."
+    },
+    "approach": {
+      "en": "Each destination gets its own space and its own art direction rather than a shared template with swapped photographs. Houses and experiences sit underneath, so the page reads as places first and inventory second.",
+      "de": "Jedes Reiseziel bekommt einen eigenen Raum und eine eigene Bildsprache statt einer gemeinsamen Vorlage mit ausgetauschten Fotos. Häuser und Erlebnisse liegen darunter, sodass die Seite zuerst Orte zeigt und dann Angebot.",
+      "fr": "Chaque destination a son propre espace et sa propre direction artistique, plutôt qu'un gabarit commun avec des photos échangées. Maisons et expériences viennent ensuite : la page montre d'abord des lieux, puis une offre."
+    },
+    "outcome": {
+      "en": "A premium hospitality site launched, with both destinations presented in their own right. There is no booking integration; enquiries run through the site's contact paths.",
+      "de": "Eine Website für gehobene Gastlichkeit ist gelauncht, beide Reiseziele stehen für sich. Eine Buchungsanbindung gibt es nicht; Anfragen laufen über die Kontaktwege der Seite.",
+      "fr": "Un site d'hospitalité haut de gamme est en ligne, chaque destination présentée pour elle-même. Il n'y a pas d'intégration de réservation ; les demandes passent par les chemins de contact du site."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Framer implementation",
+        "Responsive build",
+        "Content architecture",
+        "Copy structuring",
+        "Destination presentation",
+        "Houses and stays",
+        "Experiences"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Framer-Umsetzung",
+        "Responsive Umsetzung",
+        "Inhaltsarchitektur",
+        "Textstrukturierung",
+        "Darstellung der Reiseziele",
+        "Häuser und Aufenthalte",
+        "Erlebnisse"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Implémentation Framer",
+        "Implémentation responsive",
+        "Architecture de contenu",
+        "Structuration des textes",
+        "Présentation des destinations",
+        "Maisons et séjours",
+        "Expériences"
+      ]
+    }
   },
   {
     "slug": "oscars-bar",
@@ -337,7 +594,51 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Framer",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A replacement for an outdated bar website: menu, karaoke and venue information in one clear place, with the external reservation tool wired in.",
+      "de": "Ein Ersatz für eine veraltete Bar-Website: Karte, Karaoke und Informationen zum Haus an einer klaren Stelle, mit eingebundener externer Reservierung.",
+      "fr": "Le remplacement d'un site de bar dépassé : carte, karaoké et informations sur le lieu au même endroit, avec la réservation externe intégrée."
+    },
+    "approach": {
+      "en": "Straightforward work, done properly. The existing identity stays; what changes is that someone can now find the menu, the karaoke nights and a table on a phone. The reservation platform is a third-party tool we integrated, not something we built.",
+      "de": "Geradlinige Arbeit, sauber gemacht. Die bestehende Identität bleibt; geändert hat sich, dass man Karte, Karaokeabende und einen Tisch jetzt auf dem Telefon findet. Die Reservierungsplattform ist ein fremdes Werkzeug, das wir eingebunden haben, nichts Selbstgebautes.",
+      "fr": "Un travail simple, bien fait. L'identité existante reste ; ce qui change, c'est qu'on trouve désormais la carte, les soirées karaoké et une table depuis son téléphone. La plateforme de réservation est un outil tiers que nous avons intégré, pas développé."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Website redesign",
+        "Framer implementation",
+        "Responsive build",
+        "Selected photography",
+        "SEO",
+        "External reservation integration",
+        "Menu, karaoke and venue content"
+      ],
+      "de": [
+        "UX und UI",
+        "Neugestaltung",
+        "Framer-Umsetzung",
+        "Responsive Umsetzung",
+        "Ausgewählte Fotografie",
+        "SEO",
+        "Anbindung der externen Reservierung",
+        "Karte, Karaoke und Hausinformationen"
+      ],
+      "fr": [
+        "UX et UI",
+        "Refonte du site",
+        "Implémentation Framer",
+        "Implémentation responsive",
+        "Photographies choisies",
+        "SEO",
+        "Intégration de la réservation externe",
+        "Carte, karaoké et informations"
+      ]
+    }
   },
   {
     "slug": "mellys",
@@ -348,16 +649,55 @@
       "fr": "Confiserie en ligne",
       "de": "Süßwaren-Onlineshop"
     },
-    "filter": "E-commerce",
+    "filter": "Website",
     "link": "https://www.mellys.lu",
     "scope": [
-      "onlineStore"
-    ],
-    "services": [
-      "ecommerce",
       "website"
     ],
-    "caseStudy": "none"
+    "services": [
+      "website"
+    ],
+    "caseStudy": "short",
+    "platform": "Wix Studio",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A digital showcase for a young Luxembourg candy brand: the brand and its variations presented clearly. It is not a shop.",
+      "de": "Ein digitaler Schaukasten für eine junge luxemburgische Süßwarenmarke: die Marke und ihre Sorten klar gezeigt. Ein Shop ist es nicht.",
+      "fr": "Une vitrine numérique pour une jeune marque de confiserie luxembourgeoise : la marque et ses variantes présentées clairement. Ce n'est pas une boutique."
+    },
+    "context": {
+      "en": "Melly's started as a school project and grew into a real business. The site shows the brand and its product variations; online selling may follow later, but nothing of that is live today.",
+      "de": "Melly's begann als Schulprojekt und wurde ein echtes Geschäft. Die Seite zeigt die Marke und ihre Sorten; ein Onlineverkauf kann später dazukommen, live ist davon heute nichts.",
+      "fr": "Melly's a commencé comme projet scolaire et est devenu une vraie activité. Le site montre la marque et ses variantes ; la vente en ligne pourra suivre, mais rien n'est en ligne aujourd'hui."
+    },
+    "approach": {
+      "en": "Branding and imagery came from the client. Our work was the structure and the interface: giving each variation room to be seen without pretending there is a checkout behind it.",
+      "de": "Branding und Bildmaterial kamen vom Kunden. Unsere Arbeit war Struktur und Oberfläche: jeder Sorte Raum geben, ohne eine Kasse vorzutäuschen, die es nicht gibt.",
+      "fr": "Le branding et les visuels venaient du client. Notre travail : la structure et l'interface, donner sa place à chaque variante sans faire croire à une caisse qui n'existe pas."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Wix Studio implementation",
+        "Responsive build",
+        "Product and variation showcase"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Wix-Studio-Umsetzung",
+        "Responsive Umsetzung",
+        "Produkt- und Sortendarstellung"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Implémentation Wix Studio",
+        "Implémentation responsive",
+        "Présentation des produits et variantes"
+      ]
+    }
   },
   {
     "slug": "geoplus-3d",
@@ -376,7 +716,60 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Framer",
+    "summary": {
+      "en": "A B2B website that makes 3D scanning services visually understandable, including a before-and-after comparison of scan and model.",
+      "de": "Eine B2B-Website, die 3D-Scanning-Leistungen sichtbar erklärt — mit einem Vorher-Nachher-Vergleich von Scan und Modell.",
+      "fr": "Un site B2B qui rend les services de scan 3D visuellement compréhensibles, avec une comparaison avant-après entre scan et modèle."
+    },
+    "approach": {
+      "en": "Scan-to-CAD and point cloud work are hard to explain in words and immediately obvious in pictures. The client supplied the technical material and imagery; we built the site so the images carry the explanation, with an interactive comparison where the difference between input and result is the whole point.",
+      "de": "Scan-to-CAD und Punktwolken lassen sich schwer beschreiben und sofort zeigen. Der Kunde lieferte das technische Material und die Bilder; wir haben die Seite so gebaut, dass die Bilder die Erklärung tragen — mit einem interaktiven Vergleich dort, wo der Unterschied zwischen Ausgangsdaten und Ergebnis die eigentliche Aussage ist.",
+      "fr": "Le scan-to-CAD et les nuages de points se décrivent mal et se montrent bien. Le client a fourni le matériel technique et les images ; nous avons construit le site pour que les images portent l'explication, avec une comparaison interactive là où l'écart entre la donnée brute et le résultat est tout le propos."
+    },
+    "outcome": {
+      "en": "A modern website that presents highly technical services more clearly than a specification list could.",
+      "de": "Eine moderne Website, die hochtechnische Leistungen klarer zeigt, als eine Leistungsliste es könnte.",
+      "fr": "Un site moderne qui présente des services très techniques plus clairement qu'une liste de prestations."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Framer implementation",
+        "Responsive build",
+        "Visual presentation of technical services",
+        "Interactive before-and-after comparison"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Framer-Umsetzung",
+        "Responsive Umsetzung",
+        "Visuelle Darstellung technischer Leistungen",
+        "Interaktiver Vorher-Nachher-Vergleich"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Implémentation Framer",
+        "Implémentation responsive",
+        "Présentation visuelle de services techniques",
+        "Comparaison avant-après interactive"
+      ]
+    },
+    "technical": {
+      "en": [
+        "Interactive comparison slider between scan and finished model"
+      ],
+      "de": [
+        "Interaktiver Vergleichsregler zwischen Scan und fertigem Modell"
+      ],
+      "fr": [
+        "Curseur de comparaison interactif entre le scan et le modèle fini"
+      ]
+    }
   },
   {
     "slug": "vino-amore",
@@ -391,7 +784,8 @@
     "link": "https://vinoamoreandmore.de/",
     "scope": [
       "onlineStore",
-      "website"
+      "website",
+      "branding"
     ],
     "services": [
       "ecommerce",
@@ -407,9 +801,9 @@
       "fr": "Vente de vin"
     },
     "summary": {
-      "de": "Ein Weinhändler verkauft, was andere herstellen. Sichtbar wird er nur, wenn seine Produktseiten besser sind als die der Marke selbst.",
-      "en": "A wine merchant sells what others make. He only becomes visible if his product pages are better than the brand's own.",
-      "fr": "Un caviste vend ce que d'autres produisent. Il ne devient visible que si ses pages produit sont meilleures que celles de la marque elle-même."
+      "en": "A Shopify store built from scratch around a multilingual catalogue, international markets and a mobile shopping experience that holds up on a phone.",
+      "de": "Ein von Grund auf neu gebauter Shopify-Shop um einen mehrsprachigen Katalog, internationale Märkte und ein Einkaufserlebnis, das auf dem Telefon trägt.",
+      "fr": "Une boutique Shopify construite de zéro autour d'un catalogue multilingue, de marchés internationaux et d'une expérience d'achat qui tient sur téléphone."
     },
     "context": {
       "de": "Vino Amore handelt mit Wein und Spirituosen. Der Shop wurde vollständig neu gebaut, nicht überarbeitet: von der Struktur bis zum Auftritt.",
@@ -432,64 +826,58 @@
       "fr": "Mobile d'abord, parce que c'est là qu'on achète. À cela s'ajoute le travail sur les temps de chargement et le SEO technique sur l'ensemble de la boutique. Implémenté en multilingue avec gestion des marchés, accompagné techniquement jusqu'au lancement."
     },
     "outcome": {
-      "de": "Der neu gebaute Shop ist live. In der organischen Suche ist Vino Amore für produkt- und markenbezogene Suchanfragen gut sichtbar; bei einzelnen Suchen steht der Händler vor der Website der jeweiligen Marke.",
-      "en": "The rebuilt shop is live. In organic search Vino Amore is well visible for product and brand related queries; on individual searches the merchant ranks ahead of the respective brand's own site.",
-      "fr": "La boutique reconstruite est en ligne. En recherche organique, Vino Amore est bien visible sur les requêtes produit et marque ; sur certaines recherches, le revendeur devance le site de la marque concernée."
+      "en": "The rebuilt shop is live and performs well in organic search. For some product and brand searches, Vino Amore as a reseller ranks ahead of the producer's own site. Product copy and keyword material came from the client; the structure, implementation and technical SEO are ours.",
+      "de": "Der neu gebaute Shop ist live und in der organischen Suche gut sichtbar. Bei einzelnen Produkt- und Markensuchen steht Vino Amore als Händler vor der Seite des Herstellers. Produkttexte und Keyword-Material kamen vom Kunden; Struktur, Umsetzung und technisches SEO sind von uns.",
+      "fr": "La boutique reconstruite est en ligne et bien visible en recherche organique. Sur certaines requêtes produit et marque, Vino Amore devance le site du producteur. Les textes produits et les mots-clés venaient du client ; la structure, l'implémentation et le SEO technique sont de nous."
     },
     "deliverables": {
+      "en": [
+        "Branding",
+        "UX and UI",
+        "Web design",
+        "Shopify implementation",
+        "Product catalogue and collections",
+        "Product filtering",
+        "Cart and checkout setup",
+        "Payment provider setup",
+        "Shipping and delivery configuration",
+        "Multilingual implementation",
+        "International market configuration",
+        "Mobile optimisation",
+        "Performance optimisation",
+        "SEO implementation"
+      ],
       "de": [
-        "E-Commerce-Konzept",
+        "Branding",
         "UX und UI",
         "Webdesign",
-        "Vollständige Shopify-Umsetzung",
-        "Responsive Umsetzung",
-        "Produktkatalog",
-        "Produktseiten",
-        "Kategorien",
+        "Shopify-Umsetzung",
+        "Produktkatalog und Kategorien",
         "Produktfilter",
         "Warenkorb und Kasse",
         "Zahlungsanbieter",
         "Versand- und Lieferlogik",
-        "Mehrsprachigkeit und Ländersteuerung",
+        "Mehrsprachigkeit",
+        "Internationale Märkte",
         "Mobile Optimierung",
-        "SEO",
-        "Performance"
-      ],
-      "en": [
-        "E-commerce concept",
-        "UX and UI",
-        "Web design",
-        "Full Shopify implementation",
-        "Responsive implementation",
-        "Product catalogue",
-        "Product pages",
-        "Collections",
-        "Product filtering",
-        "Cart and checkout",
-        "Payment provider",
-        "Shipping and delivery logic",
-        "Multilingual and market handling",
-        "Mobile optimisation",
-        "SEO",
-        "Performance"
+        "Performance",
+        "SEO-Umsetzung"
       ],
       "fr": [
-        "Concept e-commerce",
+        "Branding",
         "UX et UI",
         "Web design",
-        "Implémentation Shopify complète",
-        "Implémentation responsive",
-        "Catalogue produits",
-        "Pages produit",
-        "Collections",
+        "Implémentation Shopify",
+        "Catalogue et collections",
         "Filtres produits",
         "Panier et paiement",
         "Prestataire de paiement",
-        "Logique d'expédition et de livraison",
-        "Multilingue et gestion des marchés",
+        "Logique d'expédition",
+        "Multilingue",
+        "Marchés internationaux",
         "Optimisation mobile",
-        "SEO",
-        "Performance"
+        "Performance",
+        "Mise en œuvre SEO"
       ]
     },
     "technical": {
@@ -517,7 +905,8 @@
         "SEO technique sur toute la boutique",
         "Optimisation des performances"
       ]
-    }
+    },
+    "platform": "Shopify"
   },
   {
     "slug": "flenting",
@@ -537,7 +926,53 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Framer",
+    "conceptProject": true,
+    "summary": {
+      "en": "A concept project: branding, product idea and website for a housing platform that does not operate. The concept originated with external founders, who agreed to us showing it.",
+      "de": "Ein Konzeptprojekt: Branding, Produktidee und Website für eine Wohnplattform, die nicht in Betrieb ist. Die Idee stammt von externen Gründern, die der Veröffentlichung zugestimmt haben.",
+      "fr": "Un projet conceptuel : branding, idée produit et site pour une plateforme de logement qui n'est pas en activité. L'idée vient de fondateurs externes, qui ont accepté que nous la montrions."
+    },
+    "context": {
+      "en": "Flenting is a concept, not a running business. There are no tenants, no investors, no transactions and no financial services behind it. What exists is the idea, its visual identity and a website that presents it.",
+      "de": "Flenting ist ein Konzept, kein laufendes Geschäft. Es gibt keine Mieter, keine Investoren, keine Transaktionen und keine Finanzdienstleistungen dahinter. Was existiert, sind die Idee, ihre visuelle Identität und eine Website, die sie zeigt.",
+      "fr": "Flenting est un concept, pas une activité en cours. Il n'y a ni locataires, ni investisseurs, ni transactions, ni services financiers derrière. Ce qui existe, c'est l'idée, son identité visuelle et un site qui la présente."
+    },
+    "approach": {
+      "en": "We built the brand from nothing — logo, identity, the way the product talks — and then the site that makes the idea legible. Anything the interface implies about how it would work is part of the concept, not a description of something running.",
+      "de": "Wir haben die Marke von null gebaut — Logo, Identität, die Art, wie das Produkt spricht — und dann die Seite, die die Idee lesbar macht. Was die Oberfläche über die Funktionsweise andeutet, gehört zum Konzept und beschreibt nichts Laufendes.",
+      "fr": "Nous avons construit la marque à partir de rien — logo, identité, façon de parler du produit — puis le site qui rend l'idée lisible. Ce que l'interface laisse entendre sur son fonctionnement fait partie du concept et ne décrit rien d'existant."
+    },
+    "deliverables": {
+      "en": [
+        "Logo",
+        "Full branding",
+        "Visual identity",
+        "Product concept presentation",
+        "UX and UI",
+        "Web design",
+        "Framer implementation"
+      ],
+      "de": [
+        "Logo",
+        "Vollständiges Branding",
+        "Visuelle Identität",
+        "Darstellung des Produktkonzepts",
+        "UX und UI",
+        "Webdesign",
+        "Framer-Umsetzung"
+      ],
+      "fr": [
+        "Logo",
+        "Branding complet",
+        "Identité visuelle",
+        "Présentation du concept produit",
+        "UX et UI",
+        "Web design",
+        "Implémentation Framer"
+      ]
+    }
   },
   {
     "slug": "bach-vereenegung",
@@ -556,7 +991,88 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "full",
+    "platform": "Framer",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A full redesign for a cultural association, with an event system the organisation runs itself: create a concert, move it to the archive when it has passed.",
+      "de": "Eine vollständige Neugestaltung für einen Kulturverein, mit einem Veranstaltungssystem, das die Organisation selbst bedient: ein Konzert anlegen und ins Archiv verschieben, wenn es vorbei ist.",
+      "fr": "Une refonte complète pour une association culturelle, avec un système d'événements que l'organisation gère elle-même : créer un concert, l'archiver une fois passé."
+    },
+    "context": {
+      "en": "Bach Vereenegung Lëtzebuerg is an established cultural institution. Its previous website was heavily outdated, visually and technically.",
+      "de": "Die Bach Vereenegung Lëtzebuerg ist eine etablierte Kulturinstitution. Ihre bisherige Website war visuell und technisch stark veraltet.",
+      "fr": "La Bach Vereenegung Lëtzebuerg est une institution culturelle établie. Son ancien site était fortement dépassé, visuellement et techniquement."
+    },
+    "challenge": {
+      "en": "A concert programme changes constantly. If keeping it current requires a developer, it stops being current — and an outdated programme is worse than none.",
+      "de": "Ein Konzertprogramm ändert sich laufend. Wenn das Aktualisieren einen Entwickler braucht, bleibt es nicht aktuell — und ein veraltetes Programm ist schlimmer als keines.",
+      "fr": "Un programme de concerts change constamment. Si le tenir à jour exige un développeur, il cesse de l'être — et un programme périmé vaut moins que pas de programme."
+    },
+    "approach": {
+      "en": "Events live in a CMS the association operates. A concert is created once and moved between current and archived as its date passes. No ticketing platform and no newsletter system were part of this — the point was a programme the client can actually maintain.",
+      "de": "Die Veranstaltungen liegen in einem CMS, das der Verein bedient. Ein Konzert wird einmal angelegt und wandert zwischen aktuell und archiviert, sobald sein Datum vorbei ist. Ein Ticketsystem oder ein Newsletter gehörten nicht dazu — es ging um ein Programm, das der Kunde wirklich pflegen kann.",
+      "fr": "Les événements vivent dans un CMS que l'association utilise. Un concert est créé une fois et passe d'actuel à archivé une fois la date écoulée. Ni billetterie ni newsletter n'en faisaient partie — l'objectif était un programme que le client peut réellement tenir à jour."
+    },
+    "execution": {
+      "en": "Rebuilt in Framer, responsive, with the existing content migrated and tidied rather than discarded, and a donation call to action worked into the structure.",
+      "de": "In Framer neu gebaut, responsiv, mit übernommenen und aufgeräumten statt weggeworfenen Inhalten, und einem Spendenaufruf, der in die Struktur eingearbeitet ist.",
+      "fr": "Reconstruit sous Framer, responsive, avec le contenu existant repris et remis au propre plutôt que jeté, et un appel aux dons intégré à la structure."
+    },
+    "outcome": {
+      "en": "A modern, maintainable website replaced a very outdated one, and the programme is now kept current by the organisation itself.",
+      "de": "Eine moderne, pflegbare Website hat eine stark veraltete ersetzt, und das Programm hält die Organisation jetzt selbst aktuell.",
+      "fr": "Un site moderne et maintenable a remplacé un site très dépassé, et le programme est désormais tenu à jour par l'organisation elle-même."
+    },
+    "deliverables": {
+      "en": [
+        "Full redesign",
+        "UX",
+        "UI",
+        "Framer development",
+        "Responsive build",
+        "CMS event system",
+        "Content migration",
+        "Content refinement",
+        "Multilingual implementation",
+        "Donation call to action"
+      ],
+      "de": [
+        "Vollständige Neugestaltung",
+        "UX",
+        "UI",
+        "Framer-Entwicklung",
+        "Responsive Umsetzung",
+        "CMS-Veranstaltungssystem",
+        "Inhaltsübernahme",
+        "Textüberarbeitung",
+        "Mehrsprachigkeit",
+        "Spendenaufruf"
+      ],
+      "fr": [
+        "Refonte complète",
+        "UX",
+        "UI",
+        "Développement Framer",
+        "Implémentation responsive",
+        "Système d'événements CMS",
+        "Migration du contenu",
+        "Révision des textes",
+        "Multilingue",
+        "Appel aux dons"
+      ]
+    },
+    "technical": {
+      "en": [
+        "Events are managed in a CMS and moved between current and archived by the client"
+      ],
+      "de": [
+        "Veranstaltungen werden im CMS gepflegt und vom Kunden zwischen aktuell und archiviert verschoben"
+      ],
+      "fr": [
+        "Les événements sont gérés dans un CMS et déplacés entre actuel et archivé par le client"
+      ]
+    }
   },
   {
     "slug": "net-and-clean",
@@ -575,7 +1091,48 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Wix Studio",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A clear, conversion-oriented website for a cleaning service: what they do, for whom, and how to ask.",
+      "de": "Eine klare, auf Anfragen ausgelegte Website für einen Reinigungsdienst: was, für wen, und wie man fragt.",
+      "fr": "Un site clair et orienté conversion pour une entreprise de nettoyage : ce qu'ils font, pour qui, et comment demander."
+    },
+    "approach": {
+      "en": "Nothing technically unusual here, and we will not invent something. The value is a service business presented so that a visitor understands the offer and finds the enquiry path without hunting. The copy was developed with the client.",
+      "de": "Technisch ist hier nichts Besonderes, und wir erfinden auch nichts. Der Wert liegt darin, ein Dienstleistungsgeschäft so zu zeigen, dass ein Besucher das Angebot versteht und den Anfrageweg findet, ohne zu suchen. Die Texte sind mit dem Kunden entstanden.",
+      "fr": "Rien de technique inhabituel ici, et nous n'allons pas en inventer. La valeur est de présenter une entreprise de services pour qu'un visiteur comprenne l'offre et trouve le chemin de la demande sans chercher. Les textes ont été développés avec le client."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Wix Studio implementation",
+        "Responsive build",
+        "Service structure",
+        "Enquiry structure",
+        "Website copy with client input"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Wix-Studio-Umsetzung",
+        "Responsive Umsetzung",
+        "Leistungsstruktur",
+        "Anfragestruktur",
+        "Texte mit Zuarbeit des Kunden"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Implémentation Wix Studio",
+        "Implémentation responsive",
+        "Structure des prestations",
+        "Structure de demande",
+        "Textes avec l'apport du client"
+      ]
+    }
   },
   {
     "slug": "feine-jong",
@@ -594,7 +1151,48 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Wix Studio",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A mobile-first service website for dog care, written and structured so an owner can judge quickly whether this is the right person for their animal.",
+      "de": "Eine mobil gedachte Website für Hundebetreuung, so geschrieben und strukturiert, dass ein Halter schnell einschätzen kann, ob das die richtige Person für sein Tier ist.",
+      "fr": "Un site de services pensé mobile pour la garde de chiens, écrit et structuré pour qu'un propriétaire juge vite si c'est la bonne personne pour son animal."
+    },
+    "approach": {
+      "en": "Handing over a dog is a trust decision made on a phone, usually quickly. The services are laid out plainly, the tone stays warm without becoming cute, and the way to get in touch is never more than a screen away. There is no booking system, and we do not suggest one.",
+      "de": "Einen Hund abzugeben ist eine Vertrauensentscheidung, die meist schnell und auf dem Telefon fällt. Die Leistungen stehen schlicht da, der Ton bleibt warm ohne niedlich zu werden, und der Weg zur Kontaktaufnahme ist nie mehr als einen Bildschirm entfernt. Ein Buchungssystem gibt es nicht, und wir tun auch nicht so.",
+      "fr": "Confier son chien est une décision de confiance, prise vite et sur téléphone. Les prestations sont posées simplement, le ton reste chaleureux sans devenir mièvre, et le contact n'est jamais à plus d'un écran. Il n'y a pas de système de réservation, et nous ne le laissons pas croire."
+    },
+    "deliverables": {
+      "en": [
+        "Website concept",
+        "UX and UI",
+        "Wix Studio implementation",
+        "Mobile-first responsive build",
+        "Website copy",
+        "Service structuring",
+        "Contact paths"
+      ],
+      "de": [
+        "Websitekonzept",
+        "UX und UI",
+        "Wix-Studio-Umsetzung",
+        "Mobile-first responsive Umsetzung",
+        "Websitetexte",
+        "Leistungsstruktur",
+        "Kontaktwege"
+      ],
+      "fr": [
+        "Concept du site",
+        "UX et UI",
+        "Implémentation Wix Studio",
+        "Responsive mobile-first",
+        "Textes du site",
+        "Structuration des prestations",
+        "Chemins de contact"
+      ]
+    }
   },
   {
     "slug": "supa-saya-gin",
@@ -613,10 +1211,70 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none",
+    "caseStudy": "short",
     "homepageRank": 1,
     "portfolioRank": 5,
-    "menuRank": 3
+    "menuRank": 3,
+    "platform": "Framer",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A Luxembourg gin brand's first website: product, Rent-a-Bar, merchandise and personalised bottles, built in Framer around an identity that already existed.",
+      "de": "Die erste Website einer luxemburgischen Gin-Marke: Produkt, Rent-a-Bar, Merchandise und personalisierte Flaschen, in Framer gebaut um eine bereits bestehende Identität.",
+      "fr": "Le premier site d'une marque de gin luxembourgeoise : produit, Rent-a-Bar, merchandising et bouteilles personnalisées, réalisé sous Framer autour d'une identité déjà existante."
+    },
+    "context": {
+      "en": "Supa Saya Gin had no proper website. The brand existed physically — bottles, bar, events — but not as a digital presence.",
+      "de": "Supa Saya Gin hatte keine richtige Website. Die Marke existierte physisch — Flaschen, Bar, Veranstaltungen — aber nicht digital.",
+      "fr": "Supa Saya Gin n'avait pas de véritable site. La marque existait physiquement — bouteilles, bar, événements — mais pas en ligne."
+    },
+    "approach": {
+      "en": "We did not create the brand identity; it was already there. The work was translating it into a digital experience and giving the four things the brand sells — the gin, the mobile bar, merchandise and personalised bottles — a place each, without turning the site into a shop.",
+      "de": "Die Markenidentität stammt nicht von uns, sie war da. Die Arbeit bestand darin, sie in ein digitales Erlebnis zu übersetzen und den vier Dingen, die die Marke anbietet — Gin, mobile Bar, Merchandise und personalisierte Flaschen — je einen Platz zu geben, ohne einen Shop daraus zu machen.",
+      "fr": "L'identité de marque ne vient pas de nous, elle existait. Le travail a consisté à la traduire en expérience numérique et à donner une place à chacune des quatre offres — le gin, le bar mobile, le merchandising et les bouteilles personnalisées — sans en faire une boutique."
+    },
+    "outcome": {
+      "en": "A brand that had no website now has a complete digital presence. Part of the photography is ours, part came from the brand.",
+      "de": "Eine Marke ohne Website hat jetzt einen vollständigen digitalen Auftritt. Ein Teil der Fotografie stammt von uns, ein Teil von der Marke.",
+      "fr": "Une marque sans site dispose maintenant d'une présence numérique complète. Une partie des photos est de nous, une partie vient de la marque."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Framer development",
+        "Responsive build",
+        "Product presentation",
+        "Rent-a-Bar presentation",
+        "Merchandise presentation",
+        "Personalised bottles",
+        "Visual direction",
+        "Part of the photography"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Framer-Entwicklung",
+        "Responsive Umsetzung",
+        "Produktdarstellung",
+        "Rent-a-Bar",
+        "Merchandise",
+        "Personalisierte Flaschen",
+        "Visuelle Richtung",
+        "Ein Teil der Fotografie"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Développement Framer",
+        "Implémentation responsive",
+        "Présentation produit",
+        "Rent-a-Bar",
+        "Merchandising",
+        "Bouteilles personnalisées",
+        "Direction visuelle",
+        "Une partie des photos"
+      ]
+    }
   },
   {
     "slug": "angolodoro",
@@ -635,7 +1293,51 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Wix Studio",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A new restaurant website where the reservation setup, built inside Wix Studio, was the real work behind the redesign.",
+      "de": "Eine neue Restaurant-Website, bei der die in Wix Studio umgesetzte Reservierung die eigentliche Arbeit hinter der Neugestaltung war.",
+      "fr": "Un nouveau site de restaurant où la réservation, mise en place dans Wix Studio, a été le vrai travail derrière la refonte."
+    },
+    "approach": {
+      "en": "The visible part is a clean restaurant site with the menu where people look for it. The part that took the time was getting reservations to work properly within the platform's constraints.",
+      "de": "Sichtbar ist eine aufgeräumte Restaurantseite mit der Karte dort, wo man sie sucht. Zeit gekostet hat, die Reservierung innerhalb der Grenzen der Plattform sauber zum Laufen zu bringen.",
+      "fr": "La partie visible est un site de restaurant net, avec la carte là où on la cherche. Ce qui a pris du temps, c'est de faire fonctionner correctement la réservation dans les limites de la plateforme."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Wix Studio implementation",
+        "Website copy",
+        "Responsive build",
+        "Static menu",
+        "Reservation setup",
+        "Basic SEO"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Wix-Studio-Umsetzung",
+        "Websitetexte",
+        "Responsive Umsetzung",
+        "Statische Speisekarte",
+        "Reservierung",
+        "Basis-SEO"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Implémentation Wix Studio",
+        "Textes du site",
+        "Implémentation responsive",
+        "Carte statique",
+        "Réservation",
+        "SEO de base"
+      ]
+    }
   },
   {
     "slug": "amd-cars",
@@ -654,7 +1356,59 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Wix",
+    "location": "Luxembourg",
+    "summary": {
+      "en": "A car dealership website where the public inventory is fed by an external vehicle data feed instead of being typed in by hand.",
+      "de": "Eine Autohaus-Website, deren öffentlicher Bestand über einen externen Fahrzeug-Datenfeed einläuft statt von Hand eingetragen zu werden.",
+      "fr": "Un site de concession dont le stock public est alimenté par un flux de données véhicules externe plutôt que saisi à la main."
+    },
+    "approach": {
+      "en": "The interesting part is not the design, it is where the cars come from. Vehicles arrive through a data feed, so the website shows what is actually in stock without anyone maintaining a second list.",
+      "de": "Das Interessante ist nicht die Gestaltung, sondern woher die Fahrzeuge kommen. Sie laufen über einen Datenfeed ein, sodass die Website den tatsächlichen Bestand zeigt, ohne dass jemand eine zweite Liste pflegt.",
+      "fr": "L'intéressant n'est pas le design mais la provenance des véhicules. Ils arrivent via un flux de données : le site montre le stock réel sans que personne n'entretienne une seconde liste."
+    },
+    "deliverables": {
+      "en": [
+        "UX and UI",
+        "Web design",
+        "Wix implementation",
+        "Vehicle inventory presentation",
+        "External data feed integration",
+        "SEO",
+        "Responsive build"
+      ],
+      "de": [
+        "UX und UI",
+        "Webdesign",
+        "Wix-Umsetzung",
+        "Fahrzeugbestand",
+        "Anbindung eines externen Datenfeeds",
+        "SEO",
+        "Responsive Umsetzung"
+      ],
+      "fr": [
+        "UX et UI",
+        "Web design",
+        "Implémentation Wix",
+        "Présentation du stock",
+        "Intégration d'un flux externe",
+        "SEO",
+        "Implémentation responsive"
+      ]
+    },
+    "technical": {
+      "en": [
+        "Vehicles are imported through an external data feed rather than entered manually"
+      ],
+      "de": [
+        "Fahrzeuge werden über einen externen Datenfeed importiert statt manuell eingetragen"
+      ],
+      "fr": [
+        "Les véhicules sont importés via un flux de données externe plutôt que saisis manuellement"
+      ]
+    }
   },
   {
     "slug": "florian-blencke",
@@ -673,6 +1427,43 @@
     "services": [
       "website"
     ],
-    "caseStudy": "none"
+    "caseStudy": "short",
+    "platform": "Wix",
+    "summary": {
+      "en": "A personal brand website, and one of the first projects DEEV built. Modernised structure and copy, developed from substantial input by Florian himself.",
+      "de": "Eine Personal-Brand-Website und eines der ersten Projekte von DEEV. Struktur und Texte modernisiert, entstanden aus umfangreicher Zuarbeit von Florian selbst.",
+      "fr": "Un site de marque personnelle, et l'un des premiers projets de DEEV. Structure et textes modernisés, développés à partir d'un apport important de Florian lui-même."
+    },
+    "approach": {
+      "en": "Florian brought the substance — his positioning, his material, a lot of it. Our part was turning that into sections that read well and a site that looks current. It is an early project, and we would rather show it as what it is than dress it up.",
+      "de": "Florian brachte den Inhalt mit — seine Positionierung, sein Material, und davon viel. Unser Teil war, daraus Abschnitte zu machen, die sich lesen lassen, und eine Seite, die aktuell aussieht. Es ist ein frühes Projekt, und wir zeigen es lieber als das, was es ist, als es aufzuhübschen.",
+      "fr": "Florian a apporté le fond — son positionnement, son matériel, et beaucoup. Notre part : en faire des sections qui se lisent et un site qui paraît actuel. C'est un projet ancien, et nous préférons le montrer tel quel plutôt que de l'enjoliver."
+    },
+    "deliverables": {
+      "en": [
+        "UX",
+        "UI",
+        "Web design",
+        "Wix implementation",
+        "Personal brand structure",
+        "Content structuring"
+      ],
+      "de": [
+        "UX",
+        "UI",
+        "Webdesign",
+        "Wix-Umsetzung",
+        "Struktur der Personenmarke",
+        "Inhaltsstrukturierung"
+      ],
+      "fr": [
+        "UX",
+        "UI",
+        "Web design",
+        "Implémentation Wix",
+        "Structure de la marque personnelle",
+        "Structuration du contenu"
+      ]
+    }
   }
 ]

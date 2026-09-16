@@ -91,8 +91,10 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
                   }`}
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
                 >
+                  {/* Ohne Zahl. Die Gesamtzahl der gezeigten Projekte ist
+                      keine oeffentliche Aussage: das Portfolio ist eine
+                      Auswahl, keine Bilanz. */}
                   {t.pages.work.filters[c.key]}
-                  <span className={active ? "text-white/70" : "text-[var(--text-low)]"}>{countFor(c.tag)}</span>
                 </L>
               );
             })}
@@ -120,12 +122,6 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
           ))}
         </div>
 
-        <p
-          className="eyebrow-mono uppercase text-[var(--text-low)] mt-12"
-          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-        >
-          {t.pages.work.count(shown.length, current.tag === null ? undefined : t.pages.work.filters[current.key])}
-        </p>
       </div>
     </main>
   );
