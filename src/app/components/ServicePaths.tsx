@@ -37,7 +37,7 @@ export default function ServicePaths() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            {p.eyebrow}
+            <span className="text-[var(--metal)]">02</span> / {p.eyebrow}
           </span>
         </div>
 
@@ -81,11 +81,31 @@ export default function ServicePaths() {
                   </p>
 
                   <p
-                    className="text-[var(--text-mid)] mt-4 mb-8"
+                    className="text-[var(--text-mid)] mt-4"
                     style={{ fontSize: "var(--t-small)", lineHeight: 1.6 }}
                   >
                     {item.body}
                   </p>
+
+                  {/* Drei Sätze, in denen sich jemand wiedererkennt oder eben
+                      nicht. Sie stehen schon auf der jeweiligen Leistungsseite;
+                      hier zu wiederholen ist kein Duplikat, sondern der Grund,
+                      warum jemand überhaupt dorthin klickt. */}
+                  <ul className="mt-6 mb-8 space-y-2.5">
+                    {t.pages.servicePages[key].problems.map((line) => (
+                      <li
+                        key={line}
+                        className="flex gap-2.5 text-[var(--text-low)]"
+                        style={{ fontSize: "var(--t-small)", lineHeight: 1.5 }}
+                      >
+                        <span
+                          className="mt-[0.55em] h-px w-2.5 shrink-0 bg-[var(--line-strong)]"
+                          aria-hidden="true"
+                        />
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
 
                   <span
                     className="mt-auto inline-flex items-center gap-2 text-[var(--signal-text)] font-medium"

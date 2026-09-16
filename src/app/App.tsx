@@ -28,6 +28,7 @@ import ScrollReset from "./components/ScrollReset";
 // Below-the-fold — lazy loaded for faster initial paint
 const BudgetTeaser      = lazy(() => import("./components/BudgetTeaser"));
 const FoundersNote      = lazy(() => import("./components/FoundersNote"));
+const HowWeWork         = lazy(() => import("./components/HowWeWork"));
 const NewsIndex         = lazy(() => import("./components/NewsIndex"));
 const NewsArticle       = lazy(() => import("./components/NewsArticle"));
 const FinalCTA          = lazy(() => import("./components/FinalCTA"));
@@ -69,6 +70,10 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         {/* 4. Die zwei Menschen, die es machen. Direkt hinter dem Beleg: die
             Arbeit und die Namen gehoeren nebeneinander. */}
         <div id="about"><FoundersNote /></div>
+
+        {/* 4b. Was passiert, wenn ich mich melde? Der Brief verlangt Gründer
+            UND Ablauf; die Gründer standen da, der Ablauf fehlte. */}
+        <HowWeWork />
 
         {/* 5. Budget und moeglicher Zuschuss, beides kompakt und verlinkt.
             Traegt weiterhin die alten Kampagnenanker #pricing und

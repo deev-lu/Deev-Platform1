@@ -51,7 +51,7 @@ export default function SelectedWork() {
                 className="eyebrow-mono uppercase text-[var(--text-low)]"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                {t.home.selected.eyebrow}
+                <span className="text-[var(--metal)]">01</span> / {t.home.selected.eyebrow}
               </span>
             </div>
             <h2

@@ -366,31 +366,15 @@ export default function ProjectBuilder() {
         className="relative z-10 mx-auto w-full"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
       >
-        {/* Header — same left edge, same type scale as every other section. */}
+        {/* Kein eigener Kopf mehr.
+            Dieser Baustein war der neunte Abschnitt der Startseite und brachte
+            Augenbraue, Ueberschrift und Einleitung selbst mit. Seit er auf
+            /project steht, setzt ProjectPage denselben Kopf davor: der Besucher
+            sah "LIVE-KONFIGURATOR" zweimal, zwei konkurrierende Ueberschriften
+            und die Nummer 09, die sich auf eine Reihenfolge bezog, die es nicht
+            mehr gibt. Der Kopf gehoert der Seite, dieser Baustein faengt beim
+            ersten Schritt an. */}
         <div className="mb-14 md:mb-16">
-          <div className="flex items-center gap-4 mb-10">
-            <span className="h-px w-10 bg-[var(--line-strong)]" />
-            <span
-              className="eyebrow-mono uppercase text-[var(--text-low)]"
-              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-            >
-              <span className="text-[var(--metal)]">09</span> / {t.builder.eyebrow}
-            </span>
-          </div>
-
-          <h2
-            className="text-[var(--text-hi)] font-medium"
-            style={{ fontSize: "var(--t-h2)", lineHeight: 1.08, letterSpacing: "-0.025em", maxWidth: "18ch" }}
-          >
-            {mark(t.builder.title, "text-[var(--signal-text)]")}
-          </h2>
-
-          <p
-            className="text-[var(--text-mid)] mt-6"
-            style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "52ch" }}
-          >
-            {mark(t.builder.lead, "text-[var(--positive)]")}
-          </p>
 
           {/* The grant chip was a fixed h-9. On a phone its sentence wraps to two
               lines, so the text grew and the box did not: the second line sat on
@@ -1104,7 +1088,7 @@ export default function ProjectBuilder() {
                     disabled={step === 1}
                     className={`flex items-center justify-center gap-2 font-semibold px-5 py-3 rounded-md transition-colors text-sm ${ step === 1 ? "opacity-0 pointer-events-none" : "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10" }`}
                   >
-                    <ArrowLeft className="w-4 h-4" /> Back
+                    <ArrowLeft className="w-4 h-4" /> {t.builder.nav.back}
                   </button>
                   <button
                     onClick={handleNext}

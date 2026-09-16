@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import L from "./L";
-import HeroMark from "./HeroMark";
+import HeroWork from "./HeroWork";
 import { useT } from "../../lib/useT";
 
 /**
@@ -18,13 +18,14 @@ import { useT } from "../../lib/useT";
  *   Der Fließtext darunter nennt die drei Leistungen ausdrücklich, damit die
  *   Überschrift nicht allein abstrakt bleibt.
  *
- *   Rechts steht die Markenillustration. Sie belegt nichts, und das muss sie
- *   hier auch nicht: der Portfolioabschnitt steht direkt darunter und zeigt
- *   drei ausgelieferte Projekte mit Namen und Link.
+ *   Rechts stehen echte Projekte im Wechsel, keine Dekoration. Ein
+ *   Screenshot einer ausgelieferten Seite belegt, dass wir liefern; eine
+ *   Illustration belegt nichts. Anklickbar und verlinkt, damit der Besucher
+ *   selbst wählen und nachsehen kann.
  *
- *   Nichts wartet. Überschrift, Text, beide Aktionen und die Illustration
- *   stehen im HTML und werden nicht eingeblendet; ohne JavaScript bliebe
- *   sonst die halbe Fläche leer.
+ *   Nichts wartet. Überschrift, Text, beide Aktionen und die erste
+ *   Arbeitsprobe stehen im HTML und werden nicht eingeblendet; ohne
+ *   JavaScript bliebe sonst die halbe Fläche leer.
  */
 export default function Hero() {
   const t = useT();
@@ -98,13 +99,11 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* ── Die Markenillustration ────────────────────────────────────
-            Ringe um die Wortmarke, reines CSS und SVG. Sie behauptet nichts
-            und belegt nichts; den Beleg traegt der Portfolioabschnitt direkt
-            darunter, der drei ausgelieferte Projekte zeigt. */}
-        <div className="lg:col-span-6">
-          <HeroMark />
-        </div>
+        {/* ── Echte Arbeit, im Wechsel ──────────────────────────────────
+            Drei ausgelieferte Projekte statt einer Illustration. Anklickbar,
+            damit man selbst wählen kann, und verlinkt, damit es nachprüfbar
+            bleibt. */}
+        <HeroWork />
 
       </div>
     </section>
