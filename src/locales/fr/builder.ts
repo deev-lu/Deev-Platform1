@@ -126,6 +126,17 @@ export const builder: typeof En = {
   },
 
   leadForm: {
+    cancel: "Annuler",
+    submit: "Afficher mon estimation",
+    sending: "Envoi…",
+    retry: "Réessayer",
+    errors: {
+      offline: "Nous n'avons pas pu joindre notre serveur. Vérifiez votre connexion et réessayez ; vos saisies sont conservées.",
+      "rate-limited": "Cela fait beaucoup de tentatives en peu de temps. Attendez une minute et réessayez.",
+      invalid: "Un champ a été refusé. Vérifiez votre nom et votre adresse e-mail, puis réessayez.",
+      unconfigured: "Notre service de demande est momentanément injoignable. Écrivez à contact@deev.lu, nous vous répondrons.",
+      failed: "La demande n'est pas partie. Rien n'est perdu : réessayez ou écrivez à contact@deev.lu.",
+    },
     title: "Une dernière étape",
     body: "Quelques informations pour vous envoyer une estimation précise et un plan de projet. Plus vous en dites, mieux nous cadrons.",
     name: "Votre nom",

@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
 import { useNavigate } from "react-router";
-import { sendLeadEmail } from "../../lib/leadEmail";
+import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
 import NoiseOverlay from "./NoiseOverlay";
 import { scrollToTop } from "../../lib/smoothScroll";
 import { useT } from "../../lib/useT";
@@ -47,8 +47,9 @@ import {
   BadgeEuro,
   TrendingDown,
   ExternalLink,
+  AlertCircle,
 } from "lucide-react";
-import { GRANT_RATE, GRANT_MIN, GRANT_MAX } from "../../lib/smeGrant";
+import { GRANT_RATE, GRANT_MIN, GRANT_MAX, grantForRange } from "../../lib/smeGrant";
 
 // ── Luxembourg SME government grant rules ─────────────────────────────────────
 // The numbers live in lib/smeGrant.ts, shared with the /sme-packages page, so
@@ -59,22 +60,6 @@ const SME_GRANT_MAX = GRANT_MAX;
 
 function getSmePackage(system: NonNullable<CoreSystem>, t: Dict) {
   return system === "ai-agent" ? t.builder.grant.packageAi : t.builder.grant.packageDigital;
-}
-
-function calcSmeGrant(rawMin: number, rawMax: number) {
-  // Only applies when the range overlaps [SME_GRANT_MIN, SME_GRANT_MAX]
-  if (rawMax < SME_GRANT_MIN) return null;
-
-  // Each endpoint is calculated independently (min with min, max with max)
-  const capAmount = (v: number) => Math.min(v, SME_GRANT_MAX);
-
-  const subsidyMin = Math.round(capAmount(rawMin) * SME_GRANT_RATE);
-  const subsidyMax = Math.round(capAmount(rawMax) * SME_GRANT_RATE);
-
-  const netMin = Math.round(rawMin - subsidyMin);
-  const netMax = Math.round(rawMax - subsidyMax);
-
-  return { subsidyMin, subsidyMax, netMin: Math.max(0, netMin), netMax: Math.max(0, netMax) };
 }
 
 type CoreSystem = "webapp" | "ai-agent" | "website" | "ecommerce" | "marketing" | null;
@@ -262,6 +247,10 @@ export default function ProjectBuilder() {
     goals: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  /** Fehlerart der letzten Übermittlung, null solange nichts schiefging. */
+  const [leadError, setLeadError] = useState<LeadStatus | null>(null);
+  /** Ein Schlüssel pro Anfrageinhalt, damit ein Retry nichts verdoppelt. */
+  const leadRequestId = useRef<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   const toggleCapability = (id: Capability) => {
@@ -291,8 +280,11 @@ export default function ProjectBuilder() {
     const rawMin = Math.round(base.min * mult + addMin);
     const rawMax = Math.round(base.max * mult + addMax);
 
-    // Net price after the 70% SME grant (not for standalone marketing)
-    const grant = system !== "marketing" ? calcSmeGrant(rawMin, rawMax) : null;
+    // Förderung: nur Digital/AI, und nur wenn die ganze Spanne im Rahmen liegt.
+    // grantForRange entscheidet das, damit eine Spanne, die die Mindestgrenze
+    // schneidet, keine durchgehende Nettospanne mehr erzeugt (Audit D-04).
+    const grant = system !== "marketing" ? grantForRange(rawMin, rawMax) : null;
+    const eligible = grant?.status === "eligible";
 
     return {
       min: rawMin.toLocaleString("de-DE"),
@@ -300,9 +292,13 @@ export default function ProjectBuilder() {
       weeks: base.weeks,
       rawMin,
       rawMax,
-      hasGrant: !!grant,
-      netMin: grant?.netMin ?? rawMin,
-      netMax: grant?.netMax ?? rawMax,
+      /** Nur wahr, wenn beide Spannenenden förderfähig sind. */
+      hasGrant: eligible,
+      grantStatus: grant?.status ?? "below",
+      /** Oberes Ende über 25.000 €: der Zuschuss steht still, der Rest nicht. */
+      capped: grant?.capped ?? false,
+      netMin: eligible ? grant!.netMin : rawMin,
+      netMax: eligible ? grant!.netMax : rawMax,
     };
   }, [system, scale, capabilities]);
 
@@ -959,10 +955,11 @@ export default function ProjectBuilder() {
                     {/* ── SME Grant callout (Digital / AI) ──────────────── */}
                     {(() => {
                       if (!system || system === "marketing") return null;
-                      const grant = calcSmeGrant(estimate.rawMin, estimate.rawMax);
-                      if (!grant) return null;
+                      const grant = grantForRange(estimate.rawMin, estimate.rawMax);
+                      if (grant.status === "below") return null;
                       const pkgName = getSmePackage(system, t);
-                      const isPartial = estimate.rawMin > SME_GRANT_MAX;
+                      // Gedeckelt heißt: der Zuschuss steht bei 17.500 € still.
+                      const isPartial = grant.capped;
                       const isDigital = system !== "ai-agent";
                       return (
                         <motion.div
@@ -1137,6 +1134,7 @@ export default function ProjectBuilder() {
                   </div>
                   <form
                     onSubmit={async (e) => {
+                      if (submitting) return;
                       e.preventDefault();
                       setSubmitting(true);
 
@@ -1164,8 +1162,11 @@ export default function ProjectBuilder() {
                         .filter(Boolean)
                         .join("\n");
 
-                      // 1) Email the configured project to contact@deev.lu
-                      await sendLeadEmail({
+                      // Konfiguration und Kontaktdaten an contact@deev.lu melden.
+                      const id =
+                        leadRequestId.current ??
+                        (leadRequestId.current = newRequestId());
+                      const result = await sendLead({
                         subject: `New project from simulator, ${systemLabel} (${scaleLabel})`,
                         from_name: leadForm.name || "Project simulator",
                         replyto: leadForm.email,
@@ -1179,9 +1180,19 @@ export default function ProjectBuilder() {
                           : "n/a",
                         timeline: `${estimate.weeks} weeks`,
                         details: notes || "n/a",
-                      });
+                      }, id);
 
+                      // Auditbefund D-01: Vorher lief hier `setStep(4)`
+                      // unabhängig vom Ergebnis, ein fehlgeschlagener Versand
+                      // sah für den Besucher aus wie eine angenommene Anfrage.
                       setSubmitting(false);
+                      if (!result.ok) {
+                        // Eingaben bleiben stehen, der Dialog bleibt offen.
+                        setLeadError(result.status);
+                        return;
+                      }
+                      leadRequestId.current = null;
+                      setLeadError(null);
                       setStep(4);
                       setShowLeadCapture(false);
                     }}
@@ -1237,19 +1248,34 @@ export default function ProjectBuilder() {
                       rows={3}
                       className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3CE7FC] resize-none"
                     />
+                    {/* Fehlschlag sichtbar machen, statt den Erfolgsschritt zu
+                        zeigen. role=alert, damit ein Screenreader es meldet. */}
+                    {leadError && (
+                      <p
+                        role="alert"
+                        className="flex items-start gap-2 p-4 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm text-amber-700 dark:text-amber-300"
+                      >
+                        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                        <span>{t.builder.leadForm.errors[leadError]}</span>
+                      </p>
+                    )}
                     <button
                       type="submit"
                       disabled={submitting}
                       className="w-full py-4 bg-[#2563F6] hover:bg-[#2563F6]/90 text-white rounded-md font-medium transition-all /30 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      {submitting ? "Sending…" : "Reveal My Estimate →"}
+                      {submitting
+                        ? t.builder.leadForm.sending
+                        : leadError
+                          ? t.builder.leadForm.retry
+                          : t.builder.leadForm.submit}
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowLeadCapture(false)}
                       className="w-full py-3 text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-200"
                     >
-                      Cancel
+                      {t.builder.leadForm.cancel}
                     </button>
                   </form>
                 </>

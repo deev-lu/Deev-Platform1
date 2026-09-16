@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
@@ -15,7 +15,7 @@ import {
   BadgeEuro,
   ArrowRight,
 } from "lucide-react";
-import { sendLeadEmail } from "../../lib/leadEmail";
+import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
 
 const CONTACT_EMAIL = "contact@deev.lu";
 
@@ -37,6 +37,9 @@ export default function Contact() {
   const INTERESTS = t.pages.contact.interests;
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState<Status>("idle");
+  /** Welche Art Fehler, damit die Meldung konkret sein kann. */
+  const [failure, setFailure] = useState<LeadStatus | null>(null);
+  const requestId = useRef<string | null>(null);
 
   // The select starts on the first option, which is a translated string, so
   // the default cannot live in the module-level initial form.
@@ -59,32 +62,39 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Honeypot: a filled "website" field means a bot — pretend success, store nothing.
+    // Honeypot: ein ausgefülltes "website"-Feld ist ein Bot. Wir zeigen Erfolg
+    // und senden nichts, damit der Bot nichts lernt.
     if (form.website) {
       setStatus("success");
       return;
     }
+    if (status === "submitting") return; // Doppelklick
+
     setStatus("submitting");
 
-    // 1) Email the submission to contact@deev.lu (primary delivery)
-    const emailed = await sendLeadEmail({
-      subject: `New contact enquiry, ${interest}`,
-      from_name: form.name || "Website contact form",
-      replyto: form.email,
-      name: form.name,
-      email: form.email,
-      company: form.company || "n/a",
-      phone: form.phone || "n/a",
-      interest,
-      message: form.message,
-    });
+    // Derselbe Schlüssel über alle Wiederholungen dieses Formularinhalts, damit
+    // ein zweiter Versuch nach einem Timeout keine zweite Anfrage erzeugt.
+    const id = requestId.current ?? (requestId.current = newRequestId());
 
-    if (emailed) {
-      setStatus("success");
-    } else {
-      // Email failed — offer the mailto fallback so the lead is never lost.
-      setStatus("error");
-    }
+    const result = await sendLead(
+      {
+        subject: `New contact enquiry, ${interest}`,
+        from_name: form.name || "Website contact form",
+        replyto: form.email,
+        name: form.name,
+        email: form.email,
+        company: form.company || "n/a",
+        phone: form.phone || "n/a",
+        interest,
+        message: form.message,
+      },
+      id,
+    );
+
+    setFailure(result.ok ? null : result.status);
+    setStatus(result.ok ? "success" : "error");
+    // Nach einer angenommenen Anfrage ist der Schlüssel verbraucht.
+    if (result.ok) requestId.current = null;
   };
 
   return (

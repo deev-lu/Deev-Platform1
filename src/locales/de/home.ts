@@ -146,7 +146,7 @@ export const home: typeof En = {
     deckLabel: "Wie der Workshop abläuft",
     fundingLabel: "Förderung",
     funding:
-      "Luxemburger KMU decken [[70%]] der förderfähigen Kosten über das SME Package AI & Digital von Luxinnovation abdecken, gedeckelt bei 25.000 € Zuschuss pro Projekt.",
+      "Über die SME Packages Digital und AI erstattet der Staat [[70%]] der förderfähigen Kosten bei einem Projekt von 3.000 bis 25.000 € netto, also höchstens 17.500 € pro Package. Über die Förderfähigkeit entscheidet die Voranalyse, nicht der Preis.",
     method: [
       {
         title: "Discovery, vor Ort",

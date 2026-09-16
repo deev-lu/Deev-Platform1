@@ -126,6 +126,17 @@ export const builder: typeof En = {
   },
 
   leadForm: {
+    cancel: "Abbrechen",
+    submit: "Schätzung anzeigen",
+    sending: "Wird gesendet…",
+    retry: "Erneut versuchen",
+    errors: {
+      offline: "Wir konnten unseren Server nicht erreichen. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut; Ihre Eingaben bleiben erhalten.",
+      "rate-limited": "Das sind viele Versuche in kurzer Zeit. Warten Sie eine Minute und versuchen Sie es erneut.",
+      invalid: "Eine Eingabe wurde abgelehnt. Prüfen Sie Name und E-Mail-Adresse und versuchen Sie es erneut.",
+      unconfigured: "Unser Anfragedienst ist gerade nicht erreichbar. Schreiben Sie an contact@deev.lu, wir melden uns.",
+      failed: "Die Anfrage ist nicht durchgegangen. Es ist nichts verloren: erneut versuchen oder an contact@deev.lu schreiben.",
+    },
     title: "Ein letzter Schritt",
     body: "Ein paar Angaben, damit wir eine genaue Schätzung und einen Projektentwurf schicken können. Je mehr Sie teilen, desto besser fassen wir den Umfang.",
     name: "Ihr Name",

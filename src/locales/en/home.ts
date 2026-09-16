@@ -148,7 +148,7 @@ export const home = {
     deckLabel: "How the workshop runs",
     fundingLabel: "Funding",
     funding:
-      "Luxembourg SMEs cover [[70%]] of eligible costs through Luxinnovation's SME Package AI & Digital, capped at €25,000 of grant per project.",
+      "Through the SME Package Digital and SME Package AI, the state reimburses [[70%]] of eligible costs on a project of €3,000 to €25,000 ex. VAT, so at most €17,500 per package. Eligibility is decided at the pre-analysis, not by the price.",
     method: [
       {
         title: "Discovery, on site",

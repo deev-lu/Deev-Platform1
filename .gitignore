@@ -42,3 +42,6 @@ yarn-error.log*
 
 # SSR bundle: build-time only, never served
 dist-ssr/
+
+# Briefpaket: Arbeitsgrundlage, gehört nicht ins Deployment
+deev-website-brief/

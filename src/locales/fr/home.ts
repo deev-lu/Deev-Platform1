@@ -146,7 +146,7 @@ export const home: typeof En = {
     deckLabel: "Comment se déroule l'atelier",
     fundingLabel: "Financement",
     funding:
-      "Les PME luxembourgeoises couvrent [[70%]] des coûts éligibles via le SME Package AI & Digital de Luxinnovation, plafonné à 25 000 € d'aide par projet.",
+      "Via les SME Packages Digital et AI, l'État rembourse [[70%]] des coûts éligibles sur un projet de 3 000 à 25 000 € HT, soit au maximum 17 500 € par package. L'éligibilité se décide lors de la pré-analyse, pas par le prix.",
     method: [
       {
         title: "Découverte, sur site",

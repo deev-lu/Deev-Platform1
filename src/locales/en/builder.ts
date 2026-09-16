@@ -126,6 +126,17 @@ export const builder = {
   },
 
   leadForm: {
+    cancel: "Cancel",
+    submit: "Reveal my estimate",
+    sending: "Sending…",
+    retry: "Try again",
+    errors: {
+      offline: "We could not reach our server. Check your connection and try again; your entries are still here.",
+      "rate-limited": "That is a lot of attempts in a short time. Wait a minute and try again.",
+      invalid: "Something in the form was rejected. Check your name and email address, then try again.",
+      unconfigured: "Our enquiry service is not reachable right now. Please email contact@deev.lu and we will reply.",
+      failed: "The enquiry did not go through. Nothing was lost; try again, or email contact@deev.lu.",
+    },
     title: "One last step",
     body: "A few details so we can send an accurate estimate and project blueprint, the more you share, the better we scope it.",
     name: "Your name",
