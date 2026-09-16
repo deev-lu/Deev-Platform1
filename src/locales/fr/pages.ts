@@ -29,6 +29,7 @@ export const pages: typeof En = {
     brief: "Le brief",
     built: "Ce que nous avons construit",
     outcome: "Le résultat",
+    specOnly: "Pour ce projet, les données clés et le site livré sont documentés ; l\u2019étude de cas détaillée ne l\u2019est pas encore. Nous ne la rédigeons qu\u2019une fois la mission, le périmètre et le résultat validés avec le client.",
     next: "Projet suivant",
   },
 
