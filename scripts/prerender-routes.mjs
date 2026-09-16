@@ -82,10 +82,9 @@ const template = readFileSync(join(dist, "index.html"), "utf8");
 // site was blank. Now the markup carries the words.
 const { render, grantFaq } = await import(pathToFileURL(join(root, "dist-ssr/entry-server.js")).href);
 
-/** Where the app mounts, and what the loading shell looks like inside it. */
+/** Wo die App einhaengt. */
 const ROOT_RE = /(<div id="root">)([\s\S]*?)(<\/div>\s*<\/body>)/;
 if (!ROOT_RE.test(template)) throw new Error("prerender: #root not found in index.html");
-const LOADER = template.match(ROOT_RE)[2];
 
 /** Build the full route table: the fixed pages plus one per case study. */
 const pages = [];
@@ -127,6 +126,7 @@ for (const locale of LOCALES) {
   const dir = locale === DEFAULT_LOCALE ? dist : join(dist, locale);
   mkdirSync(join(dir, "work"), { recursive: true });
   mkdirSync(join(dir, "blog"), { recursive: true });
+  mkdirSync(join(dir, "services"), { recursive: true });
 
   for (const page of pages) {
     const url = abs(withLocale(page.path, locale));
@@ -287,32 +287,46 @@ for (const locale of LOCALES) {
       if (!parsed.mainEntity.length) throw new Error(`prerender: FAQPage for ${locale} has no questions`);
     }
 
-    // The body. The loading shell stays in front of it (it is fixed, opaque
-    // and on top), so a visitor still sees the branded loader while the app
-    // boots and then the live page; a crawler that runs no JavaScript reads
-    // the markup underneath. Same components, same data, same words.
-    // Strip presentation. The static body exists so a crawler can read the
-    // words and the structure; it is never shown, because React replaces it
-    // on mount and the loader covers it until then. Tailwind's utility
-    // classes are most of the bytes and none of the meaning, so dropping
-    // class and style attributes cuts the document by well over half without
-    // losing a heading, a link or a sentence.
-    const body = (await render(withLocale(page.path, locale)))
-      .replace(/\s(?:class|style)="[^"]*"/g, "");
+    // Der Koerper der Seite, mit Klassen und Stilen.
+    //
+    // Vorher wurde beides herausgeschnitten und das Ergebnis unsichtbar hinter
+    // einen deckenden Ladebildschirm gelegt: Crawler lasen die Woerter, ein
+    // Besucher sah einen Balken, bis das JavaScript fertig war. Gemessen auf
+    // gedrosseltem Mobilgeraet waren das 1,4s bis zum ersten Pixel und 2,9s,
+    // bis ueberhaupt Inhalt dastand.
+    //
+    // Jetzt ist dieses Markup die Seite. Es wird angezeigt, und React haengt
+    // sich per hydrateRoot daran, statt es zu ersetzen. Die Klassen sind damit
+    // keine ueberfluessigen Bytes mehr, sondern das, was die Seite aussehen
+    // laesst - sie muessen bleiben.
+    const body = await render(withLocale(page.path, locale));
     if (!/<h1[ >]/.test(body) && page.path !== "/legal") {
       throw new Error(`prerender: no h1 in the rendered body for ${locale} ${page.path}`);
     }
     if (body.length < 600) {
       throw new Error(`prerender: body for ${locale} ${page.path} is only ${body.length} bytes`);
     }
-    // Loader first, content second. The browser paints as soon as it has
-    // parsed the loader; putting the static body ahead of it made it parse
-    // 138KB of markup before the first pixel, which cost ~900ms of FCP on a
-    // throttled phone. The body is inert to a visitor either way.
+    // Der Ladebildschirm faellt hier weg. Er war die Antwort darauf, dass in
+    // #root nichts Anzeigbares stand; jetzt steht dort die fertige Seite, und
+    // ein Balken davor wuerde sie nur verdecken. In der Entwicklung, wo nicht
+    // vorgerendert wird, bleibt er in index.html stehen.
+    // `data-ssr` traegt die Sprache, in der dieses Dokument gerendert wurde,
+    // nicht nur ein Ja. Der Client vergleicht sie mit der Sprache in der
+    // Adresse und hydriert nur, wenn beide uebereinstimmen.
+    //
+    // Der Grund ist die Aufloesung von /de zu einer Datei. Diese Seite liegt
+    // als de/index.html vor, und ob ein Host sie unter /de ausliefert oder
+    // auf die englische Wurzel zurueckfaellt, ist Hostverhalten, das ich von
+    // hier aus nicht nachpruefen kann. Faellt er zurueck, waere Hydrieren der
+    // schlechteste Ausgang: englisches Markup, das sichtbar zu deutschem
+    // umspringt. Mit dem Vergleich wird daraus stillschweigend das Verhalten
+    // von vorher, naemlich ein sauberes Rendern auf dem Client.
+    //
+    // Die 404-Seite unten bekommt die Markierung nicht: dort steht weiterhin
+    // nur der Ladebildschirm in #root.
     html = html.replace(
       ROOT_RE,
-      (_m, open, _old, close) =>
-        `${open}${LOADER}<div id="prerendered" style="content-visibility:hidden">${body}</div>${close}`,
+      (_m, _open, _old, close) => `<div id="root" data-ssr="${locale}">${body}${close}`,
     );
     if (!html.includes(body)) throw new Error(`prerender: body not injected for ${locale} ${page.path}`);
 

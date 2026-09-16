@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
+import { track } from "../../lib/analytics";
 
 const CONTACT_EMAIL = "contact@deev.lu";
 
@@ -93,6 +94,12 @@ export default function Contact() {
 
     setFailure(result.ok ? null : result.status);
     setStatus(result.ok ? "success" : "error");
+    // Gemeldet wird nur, welcher Weg und welches Interesse - nie Name,
+    // Adresse oder Nachricht. Der Grund des Scheiterns ist die eigentlich
+    // wichtige Zahl: ein Formular, das still nicht zustellt, sieht in einer
+    // reinen Erfolgsmessung genauso aus wie ein Besucher, der nie abschickt.
+    if (result.ok) track("lead_accepted", { source: "contact", interest });
+    else track("lead_error", { source: "contact", interest, reason: result.status });
     // Nach einer angenommenen Anfrage ist der Schlüssel verbraucht.
     if (result.ok) requestId.current = null;
   };

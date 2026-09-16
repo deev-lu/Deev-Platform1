@@ -98,10 +98,11 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+      {/* Kein Einschweben mehr. Die Navigation ist das erste, was ein Besucher
+          braucht, und sie stand im vorgerenderten HTML mit Deckkraft 0 - ohne
+          JavaScript also gar nicht. Ein halbsekuendiges Hereinrutschen bei
+          jedem Seitenaufruf war ohnehin Unruhe, kein Nutzen. */}
+      <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${ overDark ? "dark " : "" }${ scrolled ? overDark ? "bg-[#06060a]/90 md:bg-[#06060a]/75 border-b border-white/[0.09] " : "bg-white/90 md:bg-white/60 dark:bg-[#06060a]/90 md:dark:bg-[#06060a]/75 border-b border-white/50 dark:border-white/[0.09] " : "bg-transparent" }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
@@ -180,7 +181,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile drawer */}
       <AnimatePresence>

@@ -11,7 +11,7 @@ Das ist der aktuelle HEAD des Feature-Branches, das Audit ist also nicht veralte
 | D-02 | **bestätigt** | `api/lead.ts` `FROM_EMAIL = "Deev Website <onboarding@resend.dev>"`. Kontoseite nicht prüfbar. |
 | D-03 | **bestätigt, schwerer als beschrieben** | `home.ts:151` EN „capped at €25,000 of grant per project", DE `:149` „gedeckelt bei 25.000 € Zuschuss", FR `:149` „plafonné à 25 000 € d'aide". Der Zuschuss ist auf 17.500 € gedeckelt; 25.000 € ist die Projektobergrenze. Zusätzlich dreht „SMEs cover 70%" die Rollen um. |
 | D-04 | **bestätigt, reproduziert** | `reproduce_grant.mjs`: Intervall 2200–3800 liefert `subsidyMin 1540`, `netMin 660`. 2200 € liegt unter der Mindestgrenze und ist nicht förderfähig. |
-| D-05 | **bestätigt** | `prerender-routes.mjs` schreibt den Body mit `content-visibility:hidden`, `index.html` legt einen opaken Vollbildloader darüber, `main.tsx` nutzt `createRoot`. Von mir selbst so gebaut; die Kritik ist berechtigt. |
+| D-05 | **behoben** | War: `prerender-routes.mjs` schrieb den Body mit `content-visibility:hidden`, `index.html` legte einen opaken Vollbildloader darüber, `main.tsx` nutzte `createRoot`. Von mir selbst so gebaut; die Kritik war berechtigt. Jetzt: das vorgerenderte Markup **ist** die Seite, `main.tsx` hydriert. Messwerte in `docs/RENDERING.md`. |
 
 ## Reihenfolge
 

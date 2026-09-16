@@ -1,8 +1,7 @@
-import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import L from "./L";
-import { useT, useLocale } from "../../lib/useT";
-import { PROJECTS, sectorOf } from "../../lib/projects";
+import HeroMark from "./HeroMark";
+import { useT } from "../../lib/useT";
 
 /**
  * Der Hero.
@@ -19,23 +18,17 @@ import { PROJECTS, sectorOf } from "../../lib/projects";
  *   Der Fließtext darunter nennt die drei Leistungen ausdrücklich, damit die
  *   Überschrift nicht allein abstrakt bleibt.
  *
- *   Rechts steht ein echtes Projekt statt Dekoration. Vorher lag dort eine
- *   Luxemburg-Karte mit Radarkreisen: aufwendig, aber sie belegt nichts. Ein
- *   Screenshot einer ausgelieferten Seite belegt, dass wir liefern, und ist
- *   verlinkt, damit er nachprüfbar ist.
+ *   Rechts steht die Markenillustration. Sie belegt nichts, und das muss sie
+ *   hier auch nicht: der Portfolioabschnitt steht direkt darunter und zeigt
+ *   drei ausgelieferte Projekte mit Namen und Link.
  *
- *   Nichts wartet. Überschrift, Text und beide Aktionen stehen im HTML und
- *   werden nicht eingeblendet. Animiert wird nur das Bild, und auch das nicht
- *   unter prefers-reduced-motion.
+ *   Nichts wartet. Überschrift, Text, beide Aktionen und die Illustration
+ *   stehen im HTML und werden nicht eingeblendet; ohne JavaScript bliebe
+ *   sonst die halbe Fläche leer.
  */
 export default function Hero() {
   const t = useT();
-  const locale = useLocale();
-  const reduce = useReducedMotion();
 
-  // Das erste Projekt mit Screenshot. PROJECTS ist screenshots-first sortiert,
-  // also ist das immer eine echte Ansicht und nie eine Ersatzfläche.
-  const sample = PROJECTS.find((p) => p.image);
 
   return (
     <section
@@ -105,63 +98,14 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* ── Echte Arbeit, kein Mockup ─────────────────────────────────── */}
-        {sample?.image && (
-          <motion.div
-            className="lg:col-span-6"
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <L to={`/work/${sample.slug}`} className="group block">
-              <div
-                className="border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
-                style={{ borderRadius: "var(--radius-1)" }}
-              >
-                {/* Browserleiste als ruhiger Rahmen: sie sagt "Website", ohne
-                    den Screenshot zu verzerren oder in ein Gerät zu stecken. */}
-                <div className="flex items-center gap-2 px-4 h-10 border-b border-[var(--line)]">
-                  <span className="flex gap-1.5" aria-hidden="true">
-                    {[0, 1, 2].map((i) => (
-                      <span key={i} className="w-2 h-2 rounded-full bg-[var(--line-strong)]" />
-                    ))}
-                  </span>
-                  <span
-                    className="eyebrow-mono text-[var(--text-low)] lowercase truncate"
-                    style={{ fontSize: "var(--t-label)" }}
-                  >
-                    {sample.link?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
-                  </span>
-                </div>
-                <img
-                  src={sample.image}
-                  alt={`${sample.title}, ${sectorOf(sample, locale)}`}
-                  width={1200}
-                  height={680}
-                  // Das ist das LCP-Bild. Nicht lazy, und mit Priorität.
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="flex items-baseline justify-between gap-4 mt-4">
-                <span
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {t.home.hero.sampleLabel}
-                </span>
-                <span
-                  className="text-[var(--text-mid)] group-hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-                  style={{ fontSize: "var(--t-small)" }}
-                >
-                  {sample.title}, {sectorOf(sample, locale)}
-                </span>
-              </div>
-            </L>
-          </motion.div>
-        )}
+        {/* ── Die Markenillustration ────────────────────────────────────
+            Ringe um die Wortmarke, reines CSS und SVG. Sie behauptet nichts
+            und belegt nichts; den Beleg traegt der Portfolioabschnitt direkt
+            darunter, der drei ausgelieferte Projekte zeigt. */}
+        <div className="lg:col-span-6">
+          <HeroMark />
+        </div>
+
       </div>
     </section>
   );

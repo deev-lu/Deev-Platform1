@@ -1,10 +1,24 @@
 import { motion, useReducedMotion } from "motion/react";
 import logo from "../../assets/logo.png";
+import { useIsMobile } from "../../lib/useIsMobile";
 
 /**
- * Clean, abstract brand visual for the hero.
- * Concentric orbit rings around the DEEV mark — calm, geometric, no chrome.
- * Pure CSS/SVG: no images beyond the logo, nothing to load or cycle.
+ * Die Illustration im Hero: konzentrische Ringe um die Wortmarke.
+ * Reines CSS und SVG, ausser dem Logo wird nichts geladen.
+ *
+ * Drei Dinge weichen von der ersten Fassung ab, weil sich das Umfeld
+ * geaendert hat:
+ *
+ *   Sie blendet sich nicht mehr ein. Sie steht ueber dem Seitenumbruch, und
+ *   das vorgerenderte HTML wird inzwischen angezeigt statt verworfen; mit
+ *   Deckkraft 0 im Markup waere sie ohne JavaScript unsichtbar.
+ *
+ *   Die Ringe drehen sich auf dem Telefon nicht. Fuenf endlose Animationen
+ *   sind dort genau die Last, die der Rest der Seite bewusst vermeidet.
+ *
+ *   Farben statt Verlaeufe. Die Designtoken entfernen Verlaufsflaechen
+ *   global; die Punkte waeren damit ohne Fuellung geblieben, also
+ *   unsichtbar.
  */
 
 const RINGS = [
@@ -15,30 +29,26 @@ const RINGS = [
 
 export default function HeroMark() {
   const reduce = useReducedMotion();
+  const isMobile = useIsMobile();
+  const still = reduce || isMobile;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.94 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full aspect-square max-w-[520px] mx-auto"
-      aria-hidden="true"
-    >
+    <div className="relative w-full aspect-square max-w-[520px] mx-auto" aria-hidden="true">
       {/* Ambient bloom */}
 
       {/* Grounding glass disc behind the mark */}
-      <div className="absolute inset-[36%] rounded-full bg-gradient-to-br from-white/[0.10] to-white/[0.02] dark:from-white/[0.08] dark:to-white/[0.01] border border-slate-300/50 dark:border-white/[0.10] pointer-events-none" />
+      <div className="absolute inset-[36%] rounded-full bg-[var(--surface-2)] border border-[var(--line)] pointer-events-none" />
 
       {/* Orbit rings */}
       {RINGS.map((ring) => (
         <motion.div
           key={ring.size}
           className="absolute inset-0 flex items-center justify-center"
-          animate={reduce ? undefined : { rotate: 360 }}
+          animate={still ? undefined : { rotate: 360 }}
           transition={{ duration: ring.dur, repeat: Infinity, ease: "linear" }}
         >
           <div
-            className="relative rounded-full border border-slate-300/70 dark:border-white/20"
+            className="relative rounded-full border border-[var(--line-strong)]"
             style={{
               width: `${ring.size}%`,
               height: `${ring.size}%`,
@@ -49,7 +59,7 @@ export default function HeroMark() {
             {ring.dots.map((deg) => (
               <span
                 key={deg}
-                className="absolute w-1.5 h-1.5 rounded-full bg-gradient-to-br from-[#3CE7FC] to-[#2563F6]"
+                className="absolute w-1.5 h-1.5 rounded-full bg-[var(--signal)]"
                 style={{
                   top: "50%",
                   left: "50%",
@@ -66,7 +76,7 @@ export default function HeroMark() {
       {/* Sweeping arc, a single bright accent on the outer ring */}
       <motion.div
         className="absolute inset-0"
-        animate={reduce ? undefined : { rotate: -360 }}
+        animate={still ? undefined : { rotate: -360 }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 200 200" className="w-full h-full">
@@ -92,7 +102,7 @@ export default function HeroMark() {
       {/* Brand mark, centred and still */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center"
-        animate={reduce ? undefined : { y: [0, -8, 0] }}
+        animate={still ? undefined : { y: [0, -8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       >
         <img
@@ -103,6 +113,6 @@ export default function HeroMark() {
           className="w-[34%] h-auto object-contain"
         />
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

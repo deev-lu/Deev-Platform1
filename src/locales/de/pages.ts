@@ -50,6 +50,42 @@ export const pages: typeof En = {
     },
   },
 
+  servicePages: {
+    websites: {
+      eyebrow: "Websites",
+      title: "Ein Auftritt, der Ihr Angebot verständlich macht und den nächsten Schritt einfach hält.",
+      lead: "Unternehmenswebsites, Relaunch und Onlineshops. Gebaut, um gefunden, verstanden und genutzt zu werden.",
+      problems: [
+        "Besucher kommen an und wissen danach immer noch nicht, was Sie eigentlich machen.",
+        "Der Auftritt sieht ordentlich aus, bringt aber keine Anfragen.",
+        "Niemand kann einen Preis oder einen Text ändern, ohne eine Agentur anzurufen.",
+      ],
+    },
+    ai: {
+      eyebrow: "KI und Automatisierung",
+      title: "Weniger manuelle Routine. Mit Lösungen, die zu Ihren Abläufen passen.",
+      lead: "Wir schauen zuerst, wohin die Zeit tatsächlich geht. Nicht jedes Unternehmen braucht KI, und das sagen wir auch.",
+      problems: [
+        "Dieselben Anfragen werden jede Woche von Hand beantwortet.",
+        "Dokumente werden von einem Menschen gelesen, sortiert und abgetippt.",
+        "Daten liegen in drei Systemen und werden dazwischen kopiert.",
+      ],
+    },
+    software: {
+      eyebrow: "Individuelle Software",
+      title: "Wenn Standardtools nicht mehr zu Ihrem Betrieb passen.",
+      lead: "Webanwendungen, Portale, Schnittstellen und die Geschäftslogik dahinter.",
+      problems: [
+        "Eine Tabelle ist unbemerkt zum betriebskritischen System geworden.",
+        "Eine Standardsoftware erzwingt einen Ablauf, der nicht Ihrer ist.",
+        "Zwei Systeme müssten miteinander reden, und niemand hat sie verbunden.",
+      ],
+    },
+    problemsLabel: "Kommt Ihnen das bekannt vor?",
+    workLabel: "Passende Referenzen",
+    cta: "Ein ähnliches Projekt besprechen",
+  },
+
   project: {
     title: "Was würde Ihr Projekt kosten?",
     lead: "Konfigurieren Sie ein Projekt und sehen Sie eine unverbindliche Spanne. Das ist eine Orientierung, kein Angebot, und es wird keine E-Mail-Adresse verlangt.",

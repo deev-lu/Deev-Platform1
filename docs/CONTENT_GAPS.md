@@ -51,3 +51,18 @@ Repository **nicht** belegt und wird bis zur Bestätigung nicht behauptet.
 - Typold-Weblizenz. Die PDF nennt nur eine Desktop-Lizenz; eine WOFF2 im
   Repository belegt keine Weblizenz.
 - Resend-Konto und DNS bei OVH für eine verifizierte Absenderdomain.
+
+## 5. Die Leistungsseite „Websites" ist die dünnste der drei
+
+Gemessen am ausgelieferten Build trägt sie rund 1.300 Zeichen Text, die
+KI-Seite rund 3.400, die Softwareseite rund 2.000. Der Grund ist kein
+Versehen: für KI und Software konnten vorhandene Blöcke von der Startseite
+umziehen (`AiConcepts`, `SystemStack`, `BillovioFeature`), für Websites gibt
+es keinen solchen Block.
+
+Was die Seite füllen würde, ist genau das, was oben unter Punkt 3 fehlt: die
+Inklusivleistungen. Wartung, Hosting, Schulung und spätere Inhaltsänderungen
+sind die Fragen, die ein Interessent vor der Anfrage beantwortet haben will,
+und sie sind eine kaufmännische Aussage, die ich nicht selbst treffen darf.
+
+Bis dahin bleibt die Seite kurz und richtig, statt lang und ausgedacht.

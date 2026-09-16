@@ -50,6 +50,42 @@ export const pages: typeof En = {
     },
   },
 
+  servicePages: {
+    websites: {
+      eyebrow: "Sites web",
+      title: "Un site qui explique votre offre et garde l’étape suivante simple.",
+      lead: "Sites d’entreprise, refontes et boutiques en ligne. Conçus pour être trouvés, compris et suivis d’une action.",
+      problems: [
+        "Les visiteurs arrivent et ne comprennent toujours pas ce que vous faites.",
+        "Le site est correct mais ne génère aucune demande.",
+        "Personne ne peut changer un prix ou un texte sans appeler une agence.",
+      ],
+    },
+    ai: {
+      eyebrow: "IA et automatisation",
+      title: "Moins de routine manuelle, avec des solutions adaptées à vos processus.",
+      lead: "Nous commençons par regarder où le temps part réellement. Toutes les entreprises n’ont pas besoin d’IA, et nous le dirons.",
+      problems: [
+        "Les mêmes demandes reçoivent une réponse manuelle chaque semaine.",
+        "Des documents sont lus, triés et ressaisis par une personne.",
+        "Les données vivent dans trois systèmes et sont recopiées entre eux.",
+      ],
+    },
+    software: {
+      eyebrow: "Logiciel sur mesure",
+      title: "Quand les outils standards ne correspondent plus à votre façon de travailler.",
+      lead: "Applications web, portails, interfaces et la logique métier derrière.",
+      problems: [
+        "Un tableur est devenu un système critique sans que personne l’ait décidé.",
+        "Un logiciel du marché impose un processus qui n’est pas le vôtre.",
+        "Deux systèmes doivent se parler et personne ne les a reliés.",
+      ],
+    },
+    problemsLabel: "Ça vous parle ?",
+    workLabel: "Réalisations liées",
+    cta: "Parler d’un projet comme celui-ci",
+  },
+
   project: {
     title: "Combien coûterait votre projet ?",
     lead: "Configurez un projet et voyez une fourchette indicative. C’est une orientation, pas un devis, et aucune adresse e-mail n’est demandée.",
