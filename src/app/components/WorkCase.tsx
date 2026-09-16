@@ -127,7 +127,7 @@ export default function WorkCase() {
             {t.pages.workCase.back}
           </L>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-start">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--signal-text)]" aria-hidden="true" />
@@ -165,21 +165,31 @@ export default function WorkCase() {
               {/* Eckdaten direkt unter dem Namen, mit Symbolen. Sie standen
                   vorher weit unten; hier beantworten sie in einem Blick, was
                   das Projekt ist - und das ist die erste Frage. */}
-              <dl className="flex flex-wrap gap-x-8 gap-y-5 mt-10 pt-8 border-t border-[var(--line)]">
+              {/* Untereinander, nicht nebeneinander.
+                  Nebeneinander umbrachen die Angaben je nach Textlaenge in
+                  unterschiedlich viele Zeilen, und es entstand ein unruhiger
+                  Block. Untereinander hat jede Angabe dieselbe Zeile:
+                  Beschriftung links in fester Breite, Wert rechts - das Auge
+                  laeuft eine Kante entlang statt zu suchen. */}
+              <dl className="mt-10 border-t border-[var(--line)]">
                 {keyFacts.map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="flex items-start gap-3 min-w-0">
-                    <Icon className="w-4 h-4 mt-[3px] shrink-0 text-[var(--signal-text)]" strokeWidth={1.5} />
-                    <div className="min-w-0">
-                      <dt
-                        className="eyebrow-mono uppercase text-[var(--text-low)]"
-                        style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                      >
-                        {label}
-                      </dt>
-                      <dd className="text-[var(--text-hi)] mt-1" style={{ fontSize: "var(--t-small)" }}>
-                        {value}
-                      </dd>
-                    </div>
+                  <div
+                    key={label}
+                    className="flex items-baseline gap-4 py-4 border-b border-[var(--line)]"
+                  >
+                    <Icon
+                      className="w-4 h-4 shrink-0 translate-y-[3px] text-[var(--signal-text)]"
+                      strokeWidth={1.5}
+                    />
+                    <dt
+                      className="eyebrow-mono uppercase text-[var(--text-low)] shrink-0"
+                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", width: "9rem" }}
+                    >
+                      {label}
+                    </dt>
+                    <dd className="text-[var(--text-hi)] min-w-0" style={{ fontSize: "var(--t-small)" }}>
+                      {value}
+                    </dd>
                   </div>
                 ))}
               </dl>
