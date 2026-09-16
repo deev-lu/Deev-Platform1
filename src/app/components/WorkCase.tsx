@@ -2,7 +2,17 @@ import { useEffect } from "react";
 import { motion } from "motion/react";
 import { useParams, useNavigate } from "react-router";
 import L from "./L";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Building2,
+  Calendar,
+  Cpu,
+  Lightbulb,
+  Tag,
+  Target,
+  TrendingUp,
+} from "lucide-react";
 import { getProject, nextProject, sectorOf } from "../../lib/projects";
 import { useT, useLocalePath, useLocale } from "../../lib/useT";
 import { track } from "../../lib/analytics";
@@ -37,15 +47,49 @@ export default function WorkCase() {
   if (!project) return null;
 
   const next = nextProject(project.slug);
-  const spec: [string, string][] = [
-    [t.pages.workCase.spec.client, project.title],
-    [t.pages.workCase.spec.sector, sectorOf(project, locale)],
-    // No Type row. It carried the filter value, which is plural on purpose
-    // ("Web apps" names a category of many) and read wrong for a single
-    // project, and "What we did" below now says the same thing in the
-    // singular. One row, not two.
-    [t.pages.workCase.spec.year, String(project.year)],
-  ];
+
+  /* Links: nur, was belegt ist. Die Vorlage führt hier auch Zielgruppe und
+     Land; beides steht bei uns nirgends, und eine Referenzseite ist der
+     letzte Ort, an dem man so etwas schätzt. Eine Zeile ohne Wert fällt
+     heraus, statt leer dazustehen. */
+  const facts = [
+    { icon: Building2, label: t.pages.workCase.spec.client, value: project.title },
+    { icon: Tag, label: t.pages.workCase.spec.sector, value: sectorOf(project, locale) },
+    { icon: Calendar, label: t.pages.workCase.spec.year, value: String(project.year) },
+    project.stack?.length
+      ? { icon: Cpu, label: t.pages.workCase.spec.stack, value: project.stack.join(" · ") }
+      : null,
+  ].filter((r): r is { icon: typeof Building2; label: string; value: string } => r !== null);
+
+  /* Rechts: Aufgabe, Umfang, Ergebnis - dieselbe Dreiteilung wie in der
+     Vorlage. Der Umfang kommt als Liste aus `scope`, also aus Daten, die jedes
+     Projekt hat; die Prosa daneben ist optional. Ein Abschnitt ohne Inhalt
+     wird nicht gerendert, und `outcome` ist fast überall leer, weil ein
+     Ergebnis eine Aussage über den Kunden ist und einen Beleg braucht. */
+  type Block = {
+    icon: typeof Target;
+    heading: string;
+    body?: string;
+    bullets?: string[];
+  };
+  const hasNarrative = Boolean(project.challenge?.[locale] || project.approach?.[locale] || project.outcome?.[locale]);
+
+  const story: Block[] = ([
+    project.challenge?.[locale]
+      ? { icon: Target, heading: t.pages.workCase.brief, body: project.challenge[locale], bullets: undefined }
+      : null,
+    project.scope?.length || project.approach?.[locale]
+      ? {
+          icon: Lightbulb,
+          heading: t.pages.workCase.built,
+          body: project.approach?.[locale],
+          bullets: project.scope?.map((k) => t.pages.workCase.scopeItems[k]),
+        }
+      : null,
+    project.outcome?.[locale]
+      ? { icon: TrendingUp, heading: t.pages.workCase.outcome, body: project.outcome[locale], bullets: undefined }
+      : null,
+  ] as (Block | null)[]).filter((r): r is Block => r !== null);
 
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
@@ -97,102 +141,141 @@ export default function WorkCase() {
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
+        {/* Zwei Tafeln: links die harten Angaben, rechts die Erzählung.
+            Vorher lief beides als eine Spalte Fließtext, und die Seite sah bei
+            jedem Projekt gleich aus, egal wie viel dahinterstand.
 
-          {/* The link used to sit inside the <dl>, which is invalid: a
-              definition list may only contain dt/dd groups. */}
-          <div className="lg:col-span-5">
-          <dl className="border-t border-[var(--line)]">
-            {spec.map(([k, v]) => (
-              <div key={k} className="flex items-baseline justify-between gap-6 py-5 border-b border-[var(--line)]">
-                <dt
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {k}
-                </dt>
-                <dd className="text-[var(--text-hi)] text-right" style={{ fontSize: "var(--t-body)" }}>
-                  {v}
-                </dd>
-              </div>
-            ))}
-            {project.scope && project.scope.length > 0 && (
-              <div className="flex items-baseline justify-between gap-6 py-5 border-b border-[var(--line)]">
-                <dt
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {t.pages.workCase.scope}
-                </dt>
-                <dd className="text-[var(--text-hi)] text-right" style={{ fontSize: "var(--t-body)" }}>
-                  {project.scope.map((k) => t.pages.workCase.scopeItems[k]).join(" \u00B7 ")}
-                </dd>
-              </div>
-            )}
+            Die Tafeln sind flach, hart gekantet und tragen Signalblau statt
+            runder farbiger Kreise: dieselbe Aufteilung wie die Vorlage, aber
+            in der Formensprache des Brand Book. */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-            {project.stack && project.stack.length > 0 && (
-              <div className="flex items-baseline justify-between gap-6 py-5 border-b border-[var(--line)]">
-                <dt
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {t.pages.workCase.spec.stack}
-                </dt>
-                <dd className="text-[var(--text-hi)] text-right" style={{ fontSize: "var(--t-body)" }}>
-                  {project.stack.join(" · ")}
-                </dd>
-              </div>
-            )}
+          {/* ── Die Fakten ──────────────────────────────────────── */}
+          <div
+            className="lg:col-span-5 border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-10"
+            style={{ borderRadius: "var(--radius-2)" }}
+          >
+            <dl className="space-y-7">
+              {facts.map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-start gap-4">
+                  <span
+                    className="shrink-0 flex items-center justify-center w-9 h-9 bg-[var(--signal-dim)] text-[var(--signal-text)]"
+                    style={{ borderRadius: "var(--radius-1)" }}
+                    aria-hidden="true"
+                  >
+                    <Icon className="w-4 h-4" strokeWidth={1.5} />
+                  </span>
+                  <div className="min-w-0">
+                    <dt
+                      className="eyebrow-mono uppercase text-[var(--text-low)]"
+                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                    >
+                      {label}
+                    </dt>
+                    <dd className="text-[var(--text-hi)] mt-1.5" style={{ fontSize: "var(--t-body)", lineHeight: 1.45 }}>
+                      {value}
+                    </dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
 
-          </dl>
-
-          {project.link && (
+            {project.link && (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 mt-10 text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
-                style={{ fontSize: "var(--t-small)" }}
+                className="group mt-10 w-full inline-flex items-center justify-center gap-2 h-[52px] px-7 bg-[var(--signal)] text-white font-medium"
+                style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
               >
-              {t.pages.workCase.visit}
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.5} />
-            </a>
-          )}
+                {t.pages.workCase.visit}
+                <ArrowUpRight
+                  className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  strokeWidth={1.5}
+                />
+              </a>
+            )}
           </div>
 
-
-          <div className="lg:col-span-7">
+          {/* ── Die Erzählung ───────────────────────────────────── */}
+          <div
+            className="lg:col-span-7 border border-[var(--line)] bg-[var(--surface-2)] p-8 sm:p-10"
+            style={{ borderRadius: "var(--radius-2)" }}
+          >
             {project.summary?.[locale] && (
               <p
-                className="text-[var(--text)] mb-12"
-                style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
+                className="text-[var(--text-hi)] pb-9 mb-9 border-b border-[var(--line)]"
+                style={{ fontSize: "var(--t-lead)", lineHeight: 1.45 }}
               >
                 {project.summary[locale]}
               </p>
             )}
 
-            {([
-              [t.pages.workCase.brief, project.challenge?.[locale]],
-              [t.pages.workCase.built, project.approach?.[locale]],
-              [t.pages.workCase.outcome, project.outcome?.[locale]],
-            ] as [string, string | undefined][])
-              .filter(([, body]) => Boolean(body))
-              .map(([heading, body]) => (
-                <div key={heading} className="mb-12">
-                  <h2
-                    className="text-[var(--text-hi)] font-medium mb-4"
-                    style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.01em" }}
-                  >
-                    {heading}
-                  </h2>
+            {/* Der Umfang allein ist keine Fallstudie: ohne Aufgabe und ohne
+                Beschreibung steht rechts eine Zeile, und die Tafel sieht aus,
+                als fehle etwas. Sie sagt dann selbst, was sie zeigt. */}
+            {story.length > 0 ? (
+              <div className="space-y-9">
+                {story.map(({ icon: Icon, heading, body, bullets }) => (
+                  <div key={heading} className="flex items-start gap-4">
+                    <span
+                      className="shrink-0 flex items-center justify-center w-9 h-9 bg-[var(--signal-dim)] text-[var(--signal-text)]"
+                      style={{ borderRadius: "var(--radius-1)" }}
+                      aria-hidden="true"
+                    >
+                      <Icon className="w-4 h-4" strokeWidth={1.5} />
+                    </span>
+                    <div className="min-w-0">
+                      <h2
+                        className="text-[var(--text-hi)] font-medium"
+                        style={{ fontSize: "var(--t-h3)", letterSpacing: "-0.01em" }}
+                      >
+                        {heading}
+                      </h2>
+                      {bullets && bullets.length > 0 && (
+                        <ul className="mt-4 space-y-2">
+                          {bullets.map((b) => (
+                            <li
+                              key={b}
+                              className="flex gap-3 text-[var(--text)]"
+                              style={{ fontSize: "var(--t-body)", lineHeight: 1.5 }}
+                            >
+                              <span
+                                className="mt-[0.6em] h-px w-3 shrink-0 bg-[var(--signal)]"
+                                aria-hidden="true"
+                              />
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {body && (
+                        <p
+                          className="text-[var(--text-mid)] mt-4"
+                          style={{ fontSize: "var(--t-body)", lineHeight: 1.6, maxWidth: "62ch" }}
+                        >
+                          {body}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {!hasNarrative && (
                   <p
-                    className="text-[var(--text-mid)]"
-                    style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "62ch" }}
+                    className="text-[var(--text-mid)] pt-8 border-t border-[var(--line)]"
+                    style={{ fontSize: "var(--t-small)", lineHeight: 1.6 }}
                   >
-                    {body}
+                    {t.pages.workCase.specOnly}
                   </p>
-                </div>
-              ))}
+                )}
+              </div>
+            ) : (
+              /* Kein erfundener Lückenfüller. Steht noch keine Fallstudie da,
+                 sagt die Seite, was sie zeigt, statt Absätze zu erfinden. */
+              <p className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-body)", lineHeight: 1.6 }}>
+                {t.pages.workCase.specOnly}
+              </p>
+            )}
           </div>
         </div>
       </section>
