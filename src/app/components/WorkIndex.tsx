@@ -157,9 +157,12 @@ function Card({
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: Math.min(index % 3, 2) * 0.06, ease: [0.16, 1, 0.3, 1] }}
     >
-      <L
-        to={`/work/${project.slug}`}
-        className="group block border border-[var(--line)] hover:border-[var(--line-strong)] bg-[var(--surface-1)] overflow-hidden transition-colors duration-[var(--dur-1)]"
+      {/* Zwei Ziele, wie auf der Startseite: die Flaeche oeffnet die
+          Fallstudie, der Knopf im Bild fuehrt direkt zur echten Website. Ein
+          Link im Link ist ungueltiges HTML, deshalb ist die Karte ein <div>
+          und der Kartenlink liegt als Flaeche unter der Ueberschrift. */}
+      <div
+        className="group relative border border-[var(--line)] hover:border-[var(--line-strong)] bg-[var(--surface-1)] overflow-hidden transition-colors duration-[var(--dur-1)]"
         style={{ borderRadius: "var(--radius-1)" }}
       >
         <div className="flex items-center gap-3 px-4 h-10 border-b border-[var(--line)] bg-[var(--surface-2)]">
@@ -203,15 +206,34 @@ function Card({
               </span>
             </div>
           )}
+
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 h-8 px-3 bg-[var(--surface-0)]/90 border border-[var(--line-strong)] text-[var(--text-hi)] opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-[var(--dur-1)]"
+              style={{ fontSize: "var(--t-label)", borderRadius: "var(--radius-1)" }}
+            >
+              {t.pages.workCase.visit}
+              <ArrowUpRight className="w-3 h-3" strokeWidth={1.5} />
+            </a>
+          )}
         </div>
 
+        {/* Eine Grundlinie fuer alles: Titel, Angabe und Umfang beginnen an
+            derselben Kante, der Pfeil sitzt rechts. Vorher richtete sich der
+            Pfeil an der ersten Zeile aus und die Bloecke standen je nach
+            Textlaenge unterschiedlich hoch. */}
         <div className="flex items-start justify-between gap-4 px-6 py-5">
           <div className="min-w-0">
             <h2
               className="text-[var(--text-hi)] font-medium truncate"
               style={{ fontSize: featured ? "var(--t-h3)" : "var(--t-body)", letterSpacing: "-0.01em" }}
             >
-              {project.title}
+              <L to={`/work/${project.slug}`} className="after:absolute after:inset-0 after:z-10">
+                {project.title}
+              </L>
             </h2>
             <p
               className="eyebrow-mono uppercase text-[var(--text-low)] mt-1.5 truncate"
@@ -230,7 +252,7 @@ function Card({
             strokeWidth={1.5}
           />
         </div>
-      </L>
+      </div>
     </motion.article>
   );
 }

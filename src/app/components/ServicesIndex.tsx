@@ -185,8 +185,13 @@ export default function ServicesIndex() {
         </div>
       </div>
 
-      {/* ── 03 Vertrauen, kompakt ─────────────────────────────────────── */}
+      {/* ── 03 Vertrauen, kompakt ───────────────────────────────────────
+             Traegt den Anker #why-deev: der Menuepunkt "Warum Deev" zeigte
+             auf einen Abschnitt, den es nach dem Umbau nicht mehr gab, und
+             landete auf dem Seitenkopf. Inhaltlich ist genau dieser Block die
+             Antwort auf die Frage, also zeigt der Punkt jetzt hierher. */}
       <section
+        id="why-deev"
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
       >

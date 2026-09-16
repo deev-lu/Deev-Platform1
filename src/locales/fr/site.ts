@@ -66,7 +66,7 @@ export const site: typeof En = {
       "ai": { label: "Ateliers IA", desc: "Là où l'IA rapporte, chiffré sur vos propres volumes" },
       "billovio": { label: "Billovio", desc: "Notre produit : un devis rédigé à partir d'une phrase" },
       "why-it-works": { label: "Pourquoi ça marche", desc: "Des demandes prévisibles et des résultats mesurables" },
-      "why-deev": { label: "Pourquoi Deev", desc: "RGPD, sécurité et des engagements que vous pouvez tenir" },
+      "why-deev": { label: "Pourquoi Deev", desc: "Notre façon de travailler et ce que nous assumons" },
       "about": { label: "Avec qui vous travaillez", desc: "Deux fondateurs, tous les deux sur votre projet" },
     },
     feature: {
@@ -75,7 +75,7 @@ export const site: typeof En = {
       body: "Les PME luxembourgeoises obtiennent 70% d'un projet numérique ou d'IA éligible. Voyez ce que le vôtre coûterait réellement.",
       cta: "Voir votre prix net",
     },
-    work: { browse: "Parcourir", all: "Toutes les réalisations", recent: "Projets récents" },
+    work: { browse: "Parcourir", all: "Toutes les réalisations", recent: "Des projets que nous aimons montrer" },
     journal: { browse: "Thèmes", all: "Lire le blog", latest: "Derniers articles" },
   },
 
