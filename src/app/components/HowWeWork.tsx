@@ -70,7 +70,7 @@ function Eyebrow({ eyebrow }: { eyebrow: string }) {
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: 0.32 }}
       >
-        <span className="text-[var(--metal)]">04</span> / {eyebrow}
+        <span className="text-[var(--metal)]">06</span> / {eyebrow}
       </motion.span>
     </div>
   );

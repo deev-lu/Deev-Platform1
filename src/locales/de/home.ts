@@ -147,6 +147,11 @@ export const home: typeof En = {
     ],
   },
 
+  inMotion: {
+    eyebrow: "In Bewegung",
+    title: "Gebaut, um sich zu bewegen.",
+    lead: "Echte Arbeit, nicht nur Standbilder.",
+  },
   marketing: {
     eyebrow: "Marketing",
     title: "Es zu bauen ist die halbe Arbeit. Gefunden zu werden die andere.",

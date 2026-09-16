@@ -37,7 +37,7 @@ export default function ServicePaths() {
             className="eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
           >
-            <span className="text-[var(--metal)]">02</span> / {p.eyebrow}
+            <span className="text-[var(--metal)]">03</span> / {p.eyebrow}
           </span>
         </div>
 

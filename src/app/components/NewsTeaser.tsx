@@ -20,7 +20,7 @@ export default function NewsTeaser() {
   if (latest.length === 0) return null;
 
   return (
-    <Section index="11" eyebrow={t.news.teaserEyebrow} tone={0}>
+    <Section index="07" eyebrow={t.news.teaserEyebrow} tone={0}>
       <div className="flex flex-wrap items-end justify-between gap-8 mb-14">
         <SectionTitle>{t.news.teaserTitle}</SectionTitle>
 
