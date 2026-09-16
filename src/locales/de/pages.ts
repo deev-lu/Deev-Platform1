@@ -50,6 +50,11 @@ export const pages: typeof En = {
     },
   },
 
+  project: {
+    title: "Was würde Ihr Projekt kosten?",
+    lead: "Konfigurieren Sie ein Projekt und sehen Sie eine unverbindliche Spanne. Das ist eine Orientierung, kein Angebot, und es wird keine E-Mail-Adresse verlangt.",
+  },
+
   contact: {
     badge: "Kontakt aufnehmen",
     title: "Sprechen wir über",

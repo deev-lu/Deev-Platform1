@@ -2,17 +2,15 @@ import type { home as En } from "../en/home";
 
 export const home: typeof En = {
   hero: {
-    eyebrow: "AI-native Digital Engineering, Luxemburg",
-    title: ["Plattformen, die [[konvertieren]].", "Systeme, die mitwachsen.", "Gebaut in Luxemburg."],
+    eyebrow: "Websites · KI · individuelle Software — Luxemburg",
+    title: ["Mehr Anfragen.", "Weniger Routine."],
     lead:
-      "KI-gestützte Plattformen, Webanwendungen und digitale Systeme, entwickelt für Conversion, Automatisierung und Wachstum. Gebaut in Luxemburg für ambitionierte Unternehmen in ganz Europa.",
-    claims: [
-      "AI-native Webplattformen, Webanwendungen und Onlineshops",
-      "Lead-Maschinen, gebaut für Conversion, nicht nur fürs Auge",
-      "70% gefördert durch die luxemburgische KMU-Staatsbeihilfe",
-    ],
-    ctaPrimary: "Projekt konfigurieren",
-    ctaSecondary: "Strategiegespräch buchen",
+      "Wir entwickeln Websites, KI-Lösungen und individuelle Webanwendungen für Unternehmen in Luxemburg. Mit Fokus auf Kundengewinnung und einfachere Abläufe.",
+    ctaPrimary: "Projekt besprechen",
+    ctaSecondary: "Budget einschätzen",
+    founders: "Direkt mit Sven und Fabio.",
+    sampleLabel: "Aktuelle Arbeit",
+    positioning: "AI-native digital engineering",
   },
 
   logos: { label: "Das Vertrauen führender Unternehmen in Luxemburg und darüber hinaus" },
@@ -24,6 +22,14 @@ export const home: typeof En = {
       "Websites, Webanwendungen und KI-Projekte sind über die Programme SME Digital und SME AI förderfähig: 70% von Investitionen zwischen 3.000 € und 25.000 € (netto), davon bis zu 15% Marketing und 15% Werbebudget.",
     strong: "Programme SME Digital und SME AI",
     cta: "Nettopreis berechnen",
+  },
+
+  selected: {
+    eyebrow: "Referenzen",
+    title: "Projekte, die wir ausgeliefert haben.",
+    lead: "Drei von sechzehn Projekten. Jedes ist online, und jedes verlinkt auf das, was wir tatsächlich geliefert haben.",
+    all: "Alle Referenzen ansehen",
+    view: "Fallstudie ansehen",
   },
 
   work: {

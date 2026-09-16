@@ -51,6 +51,23 @@
         }
       }
     },
+    "/project": {
+      "file": "project.html",
+      "meta": {
+        "en": {
+          "title": "Estimate your project budget | DEEV",
+          "description": "Configure a website, online store, web app or AI project and see an indicative price range, plus what the Luxembourg SME packages could cover. No email required."
+        },
+        "fr": {
+          "title": "Estimer le budget de votre projet | DEEV",
+          "description": "Configurez un site, une boutique, une application web ou un projet IA et voyez une fourchette de prix indicative, ainsi que ce que les SME Packages pourraient couvrir. Sans e-mail."
+        },
+        "de": {
+          "title": "Projektbudget einschätzen | DEEV",
+          "description": "Website, Onlineshop, Webanwendung oder KI-Projekt konfigurieren und eine unverbindliche Preisspanne sehen, dazu was die SME Packages abdecken könnten. Ohne E-Mail."
+        }
+      }
+    },
     "/work": {
       "file": "work.html",
       "meta": {

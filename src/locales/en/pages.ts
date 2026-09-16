@@ -52,6 +52,11 @@ export const pages = {
     },
   },
 
+  project: {
+    title: "What would your project cost?",
+    lead: "Configure a build and see an indicative range. It is an orientation, not a quote, and it asks for no email address.",
+  },
+
   contact: {
     badge: "Get in touch",
     title: "Let's talk about",

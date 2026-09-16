@@ -4,17 +4,16 @@
  */
 export const home = {
   hero: {
-    eyebrow: "AI-native digital engineering, Luxembourg",
-    title: ["Platforms that [[convert]].", "Systems that scale.", "Built in Luxembourg."],
+    eyebrow: "Websites · AI · custom software — Luxembourg",
+    title: ["More enquiries.", "Less repetitive work."],
     lead:
-      "AI-powered platforms, web apps and digital systems engineered to convert, automate and scale, built in Luxembourg for ambitious companies across Europe.",
-    claims: [
-      "AI-native web platforms, web apps and online stores",
-      "Lead engines engineered to convert, not just to look good",
-      "70% funded by the Luxembourg SME state grant",
-    ],
-    ctaPrimary: "Configure your project",
-    ctaSecondary: "Book a strategy call",
+      "We build websites, AI solutions and custom web applications for businesses in Luxembourg. Designed to support customer acquisition and simplify everyday work.",
+    ctaPrimary: "Let’s discuss your project",
+    ctaSecondary: "Estimate my budget",
+    founders: "Work directly with Sven and Fabio.",
+    /** Bildunterschrift am echten Projektbeispiel im Hero. */
+    sampleLabel: "Recent work",
+    positioning: "AI-native digital engineering",
   },
 
   logos: { label: "Trusted by leading businesses in Luxembourg & beyond" },
@@ -26,6 +25,14 @@ export const home = {
       "Websites, web-apps and AI projects qualify for the SME Digital & SME AI packages: 70% of investments from €3k–€25k (ex. VAT), with up to 15% marketing and 15% ad spend bundled in.",
     strong: "SME Digital & SME AI packages",
     cta: "See your net price",
+  },
+
+  selected: {
+    eyebrow: "Selected work",
+    title: "Work we have shipped.",
+    lead: "Three of sixteen projects. Each one is live, and each links to what we actually delivered.",
+    all: "See all work",
+    view: "View case study",
   },
 
   work: {

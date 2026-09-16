@@ -50,6 +50,11 @@ export const pages: typeof En = {
     },
   },
 
+  project: {
+    title: "Combien coûterait votre projet ?",
+    lead: "Configurez un projet et voyez une fourchette indicative. C’est une orientation, pas un devis, et aucune adresse e-mail n’est demandée.",
+  },
+
   contact: {
     badge: "Nous contacter",
     title: "Parlons de",

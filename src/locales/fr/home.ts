@@ -2,17 +2,15 @@ import type { home as En } from "../en/home";
 
 export const home: typeof En = {
   hero: {
-    eyebrow: "Ingénierie numérique AI-native, Luxembourg",
-    title: ["Des plateformes qui [[convertissent]].", "Des systèmes qui grandissent.", "Conçus au Luxembourg."],
+    eyebrow: "Sites web · IA · logiciel sur mesure — Luxembourg",
+    title: ["Plus de demandes.", "Moins de tâches répétitives."],
     lead:
-      "Des plateformes, applications web et systèmes numériques propulsés par l'IA, conçus pour convertir, automatiser et grandir. Développés au Luxembourg pour des entreprises ambitieuses partout en Europe.",
-    claims: [
-      "Plateformes web, applications et boutiques en ligne AI-native",
-      "Des moteurs à prospects conçus pour convertir, pas seulement pour plaire",
-      "70% financés par l'aide d'État luxembourgeoise aux PME",
-    ],
-    ctaPrimary: "Configurer votre projet",
-    ctaSecondary: "Réserver un appel stratégique",
+      "Nous créons des sites web, des solutions d’IA et des applications sur mesure pour les entreprises au Luxembourg. Pour faciliter l’acquisition de clients et simplifier le quotidien.",
+    ctaPrimary: "Parlons de votre projet",
+    ctaSecondary: "Estimer mon budget",
+    founders: "En direct avec Sven et Fabio.",
+    sampleLabel: "Réalisation récente",
+    positioning: "Ingénierie numérique AI-native",
   },
 
   logos: { label: "La confiance d'entreprises de premier plan au Luxembourg et au-delà" },
@@ -24,6 +22,14 @@ export const home: typeof En = {
       "Les sites web, applications web et projets IA sont éligibles aux programmes SME Digital et SME AI : 70% des investissements de 3 000 € à 25 000 € (HT), dont jusqu'à 15% de marketing et 15% de budget publicitaire.",
     strong: "programmes SME Digital et SME AI",
     cta: "Voir votre prix net",
+  },
+
+  selected: {
+    eyebrow: "Réalisations",
+    title: "Des projets que nous avons livrés.",
+    lead: "Trois projets sur seize. Chacun est en ligne, et chacun renvoie à ce que nous avons réellement livré.",
+    all: "Voir toutes les réalisations",
+    view: "Voir l’étude de cas",
   },
 
   work: {

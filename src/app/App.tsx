@@ -19,9 +19,10 @@ import WorkCase from "./components/WorkCase";
 const WorkIndex         = lazy(() => import("./components/WorkIndex"));
 const ServicesIndex     = lazy(() => import("./components/ServicesIndex"));
 const GrantPage         = lazy(() => import("./components/GrantPage"));
+const ProjectPage       = lazy(() => import("./components/ProjectPage"));
 const MarketingServices = lazy(() => import("./components/MarketingServices"));
 const AiConcepts        = lazy(() => import("./components/AiConcepts"));
-const WorkMoment        = lazy(() => import("./components/WorkMoment"));
+const SelectedWork      = lazy(() => import("./components/SelectedWork"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
@@ -65,7 +66,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         {/* The work comes first among the numbered sections. Visitors arrive
             to find out whether we can build their thing; the argument for how
             we work lands better once they have seen that we do. */}
-        <div id="portfolio"><WorkMoment /></div>
+        <div id="portfolio"><SelectedWork /></div>
 
         {/* The work, then immediately the two people who did it. The proof and
             the names belong next to each other; nine sections of systems in
@@ -200,6 +201,9 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       <Route path="services" element={chrome(<Suspense fallback={<SectionSkeleton />}><ServicesIndex /></Suspense>)} />
       {/* The funding page. Most Luxembourg enquiries start with the grant,
           so it gets a URL of its own to advertise and to be found by. */}
+      {/* Der Rechner als eigene Seite. Die Startseite zeigt nur noch
+          einen Budget-Teaser, der hierher fuehrt. */}
+      <Route path="project" element={chrome(<Suspense fallback={<SectionSkeleton />}><ProjectPage /></Suspense>)} />
       <Route path="sme-packages" element={chrome(<Suspense fallback={<SectionSkeleton />}><GrantPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
       {/* Each portfolio category is its own page, so it can be linked to,
