@@ -5,6 +5,7 @@ import L from "./L";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getProject, nextProject, sectorOf } from "../../lib/projects";
 import { useT, useLocalePath, useLocale } from "../../lib/useT";
+import { track } from "../../lib/analytics";
 
 /**
  * /work/:slug — a dedicated page per project.
@@ -26,6 +27,12 @@ export default function WorkCase() {
     // Stay in the reader's language when a bad slug bounces to the homepage.
     if (!project) navigate(localePath("/"), { replace: true });
   }, [project, navigate, localePath]);
+
+  // Welche Referenz wird wirklich gelesen? Das entscheidet, welche drei auf
+  // der Startseite stehen sollten - bisher war das eine Vermutung.
+  useEffect(() => {
+    if (project) track("case_view", { project: project.slug, locale });
+  }, [project, locale]);
 
   if (!project) return null;
 

@@ -89,3 +89,70 @@ export function initAnalytics(): () => void {
   // Covers acceptance, a narrowing of the choice, and withdrawal.
   return onConsentChange((record) => setAnalyticsConsent(record?.categories.analytics === true));
 }
+
+// ── Ereignisse ──────────────────────────────────────────────────────────────
+//
+// Seitenaufrufe allein beantworten nicht, woran es hakt. Diese Ereignisse
+// beantworten die Fragen, die den Verkauf betreffen: Welcher Leistungsweg wird
+// ueberhaupt geoeffnet? Welche Referenz wird gelesen? Wie viele brechen den
+// Rechner ab, und wo? Und - der Punkt, der vorher voellig blind war - wie oft
+// scheitert ein Absenden, statt anzukommen.
+//
+// Unter Consent Mode duerfen diese Ereignisse auch ohne Einwilligung gesendet
+// werden: im verweigerten Zustand sind es cookielose Pings ohne Kennung. Was
+// die Einwilligung steuert, ist die Speicherung, nicht die Messung.
+
+/** Die vollstaendige Liste. Ein Tippfehler waere sonst ein stilles Leck. */
+export type TrackEvent =
+  | "service_view"
+  | "case_view"
+  | "calculator_start"
+  | "calculator_step"
+  | "calculator_complete"
+  | "lead_accepted"
+  | "lead_error";
+
+type Param = string | number | boolean;
+
+/**
+ * Schluessel, die niemals nach Google gehen. GA4 darf keine
+ * personenbezogenen Daten enthalten, und die Stelle, an der so etwas
+ * passiert, ist immer dieselbe: jemand reicht das Formularobjekt durch,
+ * statt einzelne Felder zu waehlen. Deshalb wird hier gefiltert und nicht
+ * nur in der Anleitung darum gebeten.
+ */
+const FORBIDDEN = /email|mail|name|phone|tel|address|message|company|contact|ip\b/i;
+
+function safe(params: Record<string, Param>): Record<string, Param> {
+  const out: Record<string, Param> = {};
+  for (const [k, v] of Object.entries(params)) {
+    if (FORBIDDEN.test(k)) continue;
+    // Auch ein harmlos benannter Schluessel kann eine Adresse tragen.
+    if (typeof v === "string" && (v.includes("@") || v.length > 100)) continue;
+    out[k] = v;
+  }
+  return out;
+}
+
+/**
+ * Ein Ereignis senden.
+ *
+ * `start()` wird hier mitgerufen, und das ist kein Beiwerk. In React laufen
+ * die Effekte der Kinder vor denen der Eltern; `initAnalytics()` haengt im
+ * Effekt von `App`, ganz oben. Ein Ereignis, das ein Baustein beim Einhaengen
+ * meldet, kam also vor dem Shim an und fiel ersatzlos aus - im Browser
+ * nachgemessen: `case_view` auf einer Fallstudienseite wurde nie gesendet,
+ * `service_view` dagegen schon, weil die Leistungsseiten nachgeladen werden
+ * und dadurch spaeter dran sind. Ein Messpunkt, der davon abhaengt, in
+ * welcher Reihenfolge React zwei Effekte ausfuehrt, ist keiner.
+ *
+ * `start()` ist idempotent und setzt die Consent-Vorgaben, bevor irgendetwas
+ * gesendet wird; es vorzuziehen aendert an der Einwilligung nichts.
+ *
+ * Ohne Fenster - im Serverrendern, im Test ohne DOM - passiert nichts.
+ */
+export function track(event: TrackEvent, params: Record<string, Param> = {}): void {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+  start();
+  window.gtag?.("event", event, safe(params));
+}

@@ -1,8 +1,9 @@
-import { Suspense, lazy, type ComponentType } from "react";
+import { Suspense, lazy, useEffect, type ComponentType } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import { PROJECTS, sectorOf } from "../../lib/projects";
+import { track } from "../../lib/analytics";
 
 /**
  * Die drei Leistungsseiten, aus einer Vorlage.
@@ -47,6 +48,12 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
   const related = PROJECTS.filter(
     (p) => p.image && p.scope?.some((sc) => MATCHES[service].includes(sc)),
   ).slice(0, 3);
+
+  // Welcher der drei Wege wird tatsächlich geöffnet? Ohne diese Zahl ist die
+  // Aufteilung in drei Seiten eine Behauptung über das Interesse der Besucher.
+  useEffect(() => {
+    track("service_view", { service, locale });
+  }, [service, locale]);
 
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">

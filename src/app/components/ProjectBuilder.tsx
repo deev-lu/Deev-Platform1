@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
 import { useNavigate } from "react-router";
 import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
+import { track } from "../../lib/analytics";
 import NoiseOverlay from "./NoiseOverlay";
 import { scrollToTop } from "../../lib/smoothScroll";
 import { useT } from "../../lib/useT";
@@ -249,6 +250,9 @@ export default function ProjectBuilder() {
   const [submitting, setSubmitting] = useState(false);
   /** Fehlerart der letzten Übermittlung, null solange nichts schiefging. */
   const [leadError, setLeadError] = useState<LeadStatus | null>(null);
+  // Nur der erste Griff zaehlt als Beginn; wer die Auswahl wechselt, faengt
+  // nicht noch einmal an.
+  const started = useRef(false);
   /** Ein Schlüssel pro Anfrageinhalt, damit ein Retry nichts verdoppelt. */
   const leadRequestId = useRef<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -311,15 +315,24 @@ export default function ProjectBuilder() {
   const handleNext = () => {
     // Marketing isn't priced here — scope it personally on the contact form
     if (step === 1 && system === "marketing") {
+      track("calculator_step", { from: 1, to: "contact", system: "marketing" });
       navigate("/contact");
       scrollToTop(true);
       return;
     }
-    if (step === 3) setShowLeadCapture(true);
-    else setStep((s) => s + 1);
+    // Wo bricht der Rechner ab? Jeder Schritt meldet, woher er kommt; die
+    // Luecke zwischen zwei Schritten ist die Absprungstelle.
+    if (step === 3) {
+      track("calculator_step", { from: 3, to: "lead_form", system: system ?? "none", scale: scale ?? "none" });
+      setShowLeadCapture(true);
+    } else {
+      track("calculator_step", { from: step, to: step + 1, system: system ?? "none", scale: scale ?? "none" });
+      setStep((s) => s + 1);
+    }
   };
 
   const reset = () => {
+    started.current = false;
     setStep(1);
     setSystem(null);
     setScale(null);
@@ -681,6 +694,14 @@ export default function ProjectBuilder() {
                         <button
                           key={sys.id}
                           onClick={() => {
+                            // Die erste Auswahl ist der Beginn. Ein Aufruf der
+                            // Seite ist nur ein Aufruf; hier faengt jemand
+                            // tatsaechlich an zu rechnen, und das ist die
+                            // Bezugsgroesse fuer jeden spaeteren Abbruch.
+                            if (!started.current) {
+                              started.current = true;
+                              track("calculator_start", { system: sys.id });
+                            }
                             setSystem(sys.id);
                             // Reset capabilities when system changes
                             setCapabilities(new Set());
@@ -1188,11 +1209,16 @@ export default function ProjectBuilder() {
                       setSubmitting(false);
                       if (!result.ok) {
                         // Eingaben bleiben stehen, der Dialog bleibt offen.
+                        // Gemeldet wird der Grund, nicht die Eingabe: wie oft
+                        // ein Absenden scheitert, war bisher unsichtbar.
+                        track("lead_error", { source: "calculator", reason: result.status });
                         setLeadError(result.status);
                         return;
                       }
                       leadRequestId.current = null;
                       setLeadError(null);
+                      track("calculator_complete", { system: systemLabel, scale: scaleLabel });
+                      track("lead_accepted", { source: "calculator", system: systemLabel, scale: scaleLabel });
                       setStep(4);
                       setShowLeadCapture(false);
                     }}
