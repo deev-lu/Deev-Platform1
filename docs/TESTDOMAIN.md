@@ -5,7 +5,26 @@ vor. Die Domain selbst müssen Sie anlegen — es sind wenige Klicks. Was ich
 vorbereiten konnte, ist das, was bei einer Testdomain sonst schiefgeht;
 siehe „Zwei Fallen" unten.
 
-## Variante A — Vorschau je Branch (empfohlen, kein Aufwand)
+## Variante 0 — sofort testen, ein Befehl auf Ihrem Rechner
+
+Das Repository hat keine GitHub-Action, die deployt; laut `CLAUDE.md` wird
+von Hand deployt. Der dort dokumentierte Befehl hat `--prod` und geht damit
+auf `www.deev.lu`. **Ohne `--prod` entsteht stattdessen eine Vorschau-URL** —
+dieselbe Mechanik, andere Adresse, die echte Seite bleibt unberührt:
+
+```bash
+git fetch origin claude/website-connection-status-kziv3w
+git checkout claude/website-connection-status-kziv3w
+npx vercel --archive=tgz --yes        # kein --prod!
+```
+
+Am Ende steht eine Adresse der Form `deev-<hash>.vercel.app`. Die ist sofort
+teilbar und dank der `noindex`-Regel unten nicht indexierbar.
+
+`--archive=tgz` bitte beibehalten: laut `CLAUDE.md` sind einfache Uploads
+über wackelige Verbindungen wiederholt fehlgeschlagen.
+
+## Variante A — Vorschau je Branch (dauerhaft, kein Aufwand mehr)
 
 Wenn das Repository in Vercel mit GitHub verbunden ist, entsteht für **jeden
 Push auf einen Branch automatisch eine eigene URL**. Kein Anlegen, keine DNS,
