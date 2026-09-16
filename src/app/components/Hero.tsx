@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import L from "./L";
-import { useT, useLocale } from "../../lib/useT";
-import { PROJECTS, sectorOf } from "../../lib/projects";
+import HeroMark from "./HeroMark";
+import { useT } from "../../lib/useT";
 
 /**
  * Der Hero.
@@ -18,32 +18,17 @@ import { PROJECTS, sectorOf } from "../../lib/projects";
  *   Der Fließtext darunter nennt die drei Leistungen ausdrücklich, damit die
  *   Überschrift nicht allein abstrakt bleibt.
  *
- *   Rechts steht ein echtes Projekt statt Dekoration. Vorher lag dort eine
- *   Luxemburg-Karte mit Radarkreisen: aufwendig, aber sie belegt nichts. Ein
- *   Screenshot einer ausgelieferten Seite belegt, dass wir liefern, und ist
- *   verlinkt, damit er nachprüfbar ist.
+ *   Rechts steht die Markenillustration. Sie belegt nichts, und das muss sie
+ *   hier auch nicht: der Portfolioabschnitt steht direkt darunter und zeigt
+ *   drei ausgelieferte Projekte mit Namen und Link.
  *
- *   Nichts wartet. Überschrift, Text, beide Aktionen und das Bild stehen im
- *   HTML und werden nicht eingeblendet. Das Bild ist das LCP-Element; es aus
- *   Deckkraft 0 einzublenden hiesse, die wichtigste Messgroesse der Seite
- *   absichtlich zu verzoegern, und ohne JavaScript bliebe es unsichtbar.
+ *   Nichts wartet. Überschrift, Text, beide Aktionen und die Illustration
+ *   stehen im HTML und werden nicht eingeblendet; ohne JavaScript bliebe
+ *   sonst die halbe Fläche leer.
  */
-/**
- * React 18 kennt `fetchPriority` nicht: beim Server-Rendern wird das Attribut
- * verworfen, mitsamt einer Warnung. Verloren geht es ausgerechnet im
- * vorgerenderten HTML, also genau dort, wo der Preload-Scanner es liest.
- * Kleingeschrieben durchgereicht landet der Hinweis wirklich im Dokument.
- * Mit React 19 kann daraus wieder ein normales Prop werden.
- */
-const PRIORITY_HINT = { fetchpriority: "high" } as Record<string, string>;
-
 export default function Hero() {
   const t = useT();
-  const locale = useLocale();
 
-  // Das erste Projekt mit Screenshot. PROJECTS ist screenshots-first sortiert,
-  // also ist das immer eine echte Ansicht und nie eine Ersatzfläche.
-  const sample = PROJECTS.find((p) => p.image);
 
   return (
     <section
@@ -113,58 +98,14 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* ── Echte Arbeit, kein Mockup ─────────────────────────────────── */}
-        {sample?.image && (
-          <div className="lg:col-span-6">
-            <L to={`/work/${sample.slug}`} className="group block">
-              <div
-                className="border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
-                style={{ borderRadius: "var(--radius-1)" }}
-              >
-                {/* Browserleiste als ruhiger Rahmen: sie sagt "Website", ohne
-                    den Screenshot zu verzerren oder in ein Gerät zu stecken. */}
-                <div className="flex items-center gap-2 px-4 h-10 border-b border-[var(--line)]">
-                  <span className="flex gap-1.5" aria-hidden="true">
-                    {[0, 1, 2].map((i) => (
-                      <span key={i} className="w-2 h-2 rounded-full bg-[var(--line-strong)]" />
-                    ))}
-                  </span>
-                  <span
-                    className="eyebrow-mono text-[var(--text-low)] lowercase truncate"
-                    style={{ fontSize: "var(--t-label)" }}
-                  >
-                    {sample.link?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
-                  </span>
-                </div>
-                <img
-                  src={sample.image}
-                  alt={`${sample.title}, ${sectorOf(sample, locale)}`}
-                  width={1200}
-                  height={680}
-                  // Das ist das LCP-Bild. Nicht lazy, und mit Priorität.
-                  loading="eager"
-                  {...PRIORITY_HINT}
-                  decoding="async"
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="flex items-baseline justify-between gap-4 mt-4">
-                <span
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {t.home.hero.sampleLabel}
-                </span>
-                <span
-                  className="text-[var(--text-mid)] group-hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-                  style={{ fontSize: "var(--t-small)" }}
-                >
-                  {sample.title}, {sectorOf(sample, locale)}
-                </span>
-              </div>
-            </L>
-          </div>
-        )}
+        {/* ── Die Markenillustration ────────────────────────────────────
+            Ringe um die Wortmarke, reines CSS und SVG. Sie behauptet nichts
+            und belegt nichts; den Beleg traegt der Portfolioabschnitt direkt
+            darunter, der drei ausgelieferte Projekte zeigt. */}
+        <div className="lg:col-span-6">
+          <HeroMark />
+        </div>
+
       </div>
     </section>
   );
