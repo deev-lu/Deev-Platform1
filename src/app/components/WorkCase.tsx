@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useParams, useNavigate } from "react-router";
 import L from "./L";
@@ -8,7 +8,10 @@ import {
   Building2,
   Calendar,
   Cpu,
+  Layers,
   Lightbulb,
+  MapPin,
+  Play,
   Tag,
   Target,
   TrendingUp,
@@ -53,6 +56,22 @@ export default function WorkCase() {
      statt in einer Tafel neben der Erzählung: eine Fallstudie wird gelesen,
      nicht abgeglichen, und eine Spalte Metadaten neben dem Fließtext zwingt
      das Auge bei jedem Absatz zurück nach links. */
+  /* Die Eckdaten im Kopf: kurz, mit Symbol, und nur was belegt ist. */
+  const keyFacts = [
+    { icon: Calendar, label: t.pages.workCase.spec.year, value: String(project.year) },
+    project.scope?.length
+      ? {
+          icon: Layers,
+          label: t.pages.workCase.services,
+          value: project.scope.map((k) => t.pages.workCase.scopeItems[k]).join(", "),
+        }
+      : null,
+    project.location ? { icon: MapPin, label: t.pages.workCase.snapshot.location, value: project.location } : null,
+    project.industry
+      ? { icon: Building2, label: t.pages.workCase.snapshot.industry, value: project.industry[locale] }
+      : null,
+  ].filter((r): r is { icon: typeof Calendar; label: string; value: string } => r !== null);
+
   const facts = [
     { label: t.pages.workCase.spec.sector, value: sectorOf(project, locale) },
     project.industry ? { label: t.pages.workCase.snapshot.industry, value: project.industry[locale] } : null,
@@ -89,55 +108,87 @@ export default function WorkCase() {
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
 
-      {/* ── Kopf ────────────────────────────────────────────────
-          Vorher lag die Aufnahme als ganzflächiges Band über die halbe
-          Bildschirmhöhe, mit einem Farbverlauf darüber und dem Titel darauf.
-          Das war aus zwei Gründen falsch: `object-cover` schneidet bei jedem
-          Seitenverhältnis anders zu, und je höher die Aufnahme, desto mehr
-          Seite fiel weg — bei FIT blieb vom Auftritt ein Streifen übrig. Und
-          wer auf einer Referenzseite landet, will die Arbeit sehen, nicht
-          einen zugeschnittenen Ausschnitt davon.
-
-          Jetzt steht die Aufnahme in einem Browserfenster, wie im Hero der
-          Startseite: vollständig, nichts beschnitten, und scrollbar, wenn sie
-          höher ist als der Rahmen. Ein Klick öffnet die echte Seite. */}
+      {/* ── Kopf: Name links, die Seite rechts ──────────────────
+          Zweispaltig wie der Hero der Startseite. Vorher standen Titel und
+          Vorschau untereinander, wodurch die Vorschau erst nach dem Scrollen
+          begann und der Kopf leer wirkte. Nebeneinander sieht man in einem
+          Blick, um welches Projekt es geht und wie es aussieht. */}
       <header className="relative">
         <div
-          className="mx-auto pt-16"
+          className="mx-auto pt-14"
           style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
         >
           <L
             to="/work"
-            className="group inline-flex items-center gap-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] mb-10"
+            className="group inline-flex items-center gap-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] mb-12"
             style={{ fontSize: "var(--t-small)" }}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:-translate-x-1" strokeWidth={1.5} />
             {t.pages.workCase.back}
           </L>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.56, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[var(--text-hi)] font-medium"
-            style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: "16ch" }}
-          >
-            {project.title}
-          </motion.h1>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-center">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--signal-text)]" aria-hidden="true" />
+                <span
+                  className="eyebrow-mono uppercase text-[var(--text-low)]"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                >
+                  {sectorOf(project, locale)}
+                </span>
+              </div>
 
-          {/* Billovio ist unser eigenes Produkt, kein Kundenauftrag. Das muss
-              dranstehen: in einer Referenzliste liest es sich sonst wie ein
-              Kunde, den es nicht gibt. */}
-          {project.ownProduct && (
-            <span
-              className="eyebrow-mono uppercase inline-flex items-center h-7 px-3 mt-6 border border-[var(--line-strong)] text-[var(--text-mid)]"
-              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
-            >
-              {t.pages.workCase.ownProduct}
-            </span>
-          )}
+              <motion.h1
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.56, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[var(--text-hi)] font-medium"
+                style={{
+                  fontSize: "clamp(2.25rem, 1rem + 3.2vw, 3.5rem)",
+                  lineHeight: 1.06,
+                  letterSpacing: "-0.03em",
+                }}
+              >
+                {project.title}
+              </motion.h1>
 
-          {project.image && <SitePreview project={project} locale={locale} t={t} />}
+              {project.ownProduct && (
+                <span
+                  className="eyebrow-mono uppercase inline-flex items-center h-7 px-3 mt-6 border border-[var(--line-strong)] text-[var(--text-mid)]"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
+                >
+                  {t.pages.workCase.ownProduct}
+                </span>
+              )}
+
+              {/* Eckdaten direkt unter dem Namen, mit Symbolen. Sie standen
+                  vorher weit unten; hier beantworten sie in einem Blick, was
+                  das Projekt ist - und das ist die erste Frage. */}
+              <dl className="flex flex-wrap gap-x-8 gap-y-5 mt-10 pt-8 border-t border-[var(--line)]">
+                {keyFacts.map(({ icon: Icon, label, value }) => (
+                  <div key={label} className="flex items-start gap-3 min-w-0">
+                    <Icon className="w-4 h-4 mt-[3px] shrink-0 text-[var(--signal-text)]" strokeWidth={1.5} />
+                    <div className="min-w-0">
+                      <dt
+                        className="eyebrow-mono uppercase text-[var(--text-low)]"
+                        style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                      >
+                        {label}
+                      </dt>
+                      <dd className="text-[var(--text-hi)] mt-1" style={{ fontSize: "var(--t-small)" }}>
+                        {value}
+                      </dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div className="lg:col-span-7">
+              <SitePreview project={project} locale={locale} t={t} />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -168,21 +219,6 @@ export default function WorkCase() {
 
         {/* Die Angaben. Klein, einzeilig, am oberen Rand der Erzählung - sie
             beantworten "was war das", nicht "warum lesen". */}
-        <dl className="flex flex-wrap gap-x-12 gap-y-6 mt-14 pt-10 border-t border-[var(--line)]">
-          {facts.map(({ label, value }) => (
-            <div key={label} className="min-w-0">
-              <dt
-                className="eyebrow-mono uppercase text-[var(--text-low)]"
-                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-              >
-                {label}
-              </dt>
-              <dd className="text-[var(--text-hi)] mt-2" style={{ fontSize: "var(--t-body)" }}>
-                {value}
-              </dd>
-            </div>
-          ))}
-        </dl>
 
         {project.link && (
           <a
@@ -374,22 +410,30 @@ export default function WorkCase() {
 /**
  * Die ausgelieferte Seite in einem Browserfenster.
  *
- * Drei Entscheidungen, die den Unterschied zum vorherigen Vollbild-Band
- * ausmachen:
+ * Standardmäßig steht dort die Aufnahme. Ein Klick auf „Live" tauscht sie
+ * gegen die echte Website in einem `<iframe>`, in dem man scrollen kann wie in
+ * einem Browser.
  *
- *   Nichts wird beschnitten. Die Aufnahme läuft in voller Breite und
- *   natürlicher Höhe; ist sie höher als der Rahmen, wird sie scrollbar, statt
- *   dass der untere Teil der Seite verschwindet. Bei einer Aufnahme über die
- *   ganze Seitenlänge kann man so den kompletten Auftritt durchsehen.
+ * Warum nicht gleich live? Drei Gründe, jeder für sich ausreichend:
  *
- *   Der Rahmen hat ein festes Verhältnis. Die Höhe der Aufnahme bestimmt damit
- *   nicht mehr, wie viel Bildschirm die Seite belegt - vorher entschied das
- *   Seitenverhältnis der Datei über das Layout.
+ *   Manche Seiten verbieten das Einbetten (`X-Frame-Options`,
+ *   `frame-ancestors`). Der Browser zeigt dann eine graue Fehlerseite - und
+ *   die deckt die Aufnahme darunter zu. Auf einer Referenzseite ist ein
+ *   graues Rechteck dort, wo die Arbeit stehen soll, schlimmer als gar keine
+ *   Live-Ansicht. Ob eine Seite es erlaubt, lässt sich von hier aus nicht
+ *   prüfen und aus dem Browser heraus auch nicht zuverlässig erkennen: ein
+ *   blockierter Rahmen meldet trotzdem „geladen".
  *
- *   Ein Klick öffnet die echte Seite. Der Rahmen ist ein Link, kein Bild mit
- *   Klickhandler: er lässt sich mit der Tastatur erreichen, in einem neuen Tab
- *   öffnen und von Suchmaschinen lesen. Scrollen und Klicken stören einander
- *   nicht - gescrollt wird mit dem Rad, navigiert wird mit dem Klick.
+ *   Eine fremde Website vollständig zu laden heißt, ihre Skripte und Cookies
+ *   mitzuladen - ohne dass unser Einwilligungsbanner davon etwas weiß. Nach
+ *   einem Klick ist das eine bewusste Handlung des Besuchers.
+ *
+ *   Es ist teuer. Eine komplette Fremdseite im ersten Seitenaufbau kostet
+ *   mehr als alles andere auf dieser Seite zusammen.
+ *
+ *   `sandbox` erlaubt der eingebetteten Seite nur, sich selbst darzustellen:
+ *   ohne `allow-top-navigation` kann sie unseren Tab nicht umleiten, ohne
+ *   `allow-popups` kein Fenster öffnen.
  */
 function SitePreview({
   project,
@@ -400,14 +444,15 @@ function SitePreview({
   locale: Locale;
   t: ReturnType<typeof useT>;
 }) {
+  const [live, setLive] = useState(false);
   const domain = project.link?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+  const canEmbed = Boolean(project.link) && !project.noEmbed;
 
-  const frame = (
+  return (
     <div
-      className="border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
+      className="group border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
       style={{ borderRadius: "var(--radius-1)" }}
     >
-      {/* Die Leiste sagt „Website", ohne die Aufnahme in ein Gerät zu stecken. */}
       <div className="flex items-center gap-3 px-4 h-11 border-b border-[var(--line)] bg-[var(--surface-2)]">
         <span className="flex gap-1.5 shrink-0" aria-hidden="true">
           {[0, 1, 2].map((i) => (
@@ -420,64 +465,76 @@ function SitePreview({
         >
           {domain}
         </span>
-        {project.link && (
-          <span
-            className="ml-auto shrink-0 inline-flex items-center gap-1.5 text-[var(--text-mid)] group-hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-            style={{ fontSize: "var(--t-label)" }}
-          >
-            {t.pages.workCase.visit}
-            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
-          </span>
+
+        <span className="ml-auto shrink-0 flex items-center gap-4">
+          {canEmbed && !live && (
+            <button
+              type="button"
+              onClick={() => setLive(true)}
+              className="eyebrow-mono uppercase inline-flex items-center gap-1.5 h-7 px-2.5 border border-[var(--line-strong)] text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
+            >
+              <Play className="w-3 h-3" strokeWidth={2} />
+              {t.pages.workCase.livePreview}
+            </button>
+          )}
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+              style={{ fontSize: "var(--t-label)" }}
+            >
+              {t.pages.workCase.visit}
+              <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+            </a>
+          )}
+        </span>
+      </div>
+
+      {/* Die Aufnahme bestimmt die Fensterhoehe.
+          Mit einer festen Hoehe oder einem festen Seitenverhaeltnis passte sie
+          nie genau: entweder wurde sie seitlich beschnitten, um zu fuellen,
+          oder es blieb ein dunkles Band darunter. Steht sie im normalen Fluss,
+          ist das Fenster exakt so hoch wie sie - unabhaengig davon, wie die
+          Datei geschnitten ist.
+
+          Die Obergrenze fasst nur sehr hohe Aufnahmen, also
+          Ganzseiten-Screenshots. Bei denen ist Beschneiden richtig: ihren
+          Verlauf sieht man in der Live-Ansicht. */}
+      <div
+        className="relative overflow-hidden bg-[var(--surface-0)]"
+        style={{ maxHeight: "min(68vh, 700px)" }}
+      >
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={`${project.title}, ${sectorOf(project, locale)}`}
+            width={1200}
+            height={748}
+            loading="eager"
+            {...({ fetchpriority: "high" } as Record<string, string>)}
+            decoding="async"
+            className="w-full h-auto block"
+          />
+        ) : (
+          <div style={{ aspectRatio: "16 / 10" }} />
+        )}
+
+        {live && project.link && (
+          <iframe
+            src={project.link}
+            title={`${project.title} \u2014 ${domain}`}
+            sandbox="allow-scripts allow-same-origin allow-forms"
+            referrerPolicy="no-referrer"
+            className="absolute inset-0 w-full h-full border-0"
+            // Ohne diese Markierung bewegt Lenis beim Rad ueber dem Rahmen die
+            // Seite statt der eingebetteten Website.
+            data-lenis-prevent
+          />
         )}
       </div>
-
-      {/* Der Fensterinhalt. `overscroll-contain` verhindert, dass das Scrollen
-          am Ende der Aufnahme auf die Seite durchschlägt. */}
-      {/* Eine Obergrenze, keine feste Höhe.
-          Mit einem Seitenverhältnis richtete sich die Höhe nach der Datei: eine
-          hohe Aufnahme belegte den halben Bildschirm, und weil sie dann genau
-          hineinpasste, gab es nichts zu scrollen. Eine feste Höhe wiederum
-          hinterließ auf dem Telefon leere Fläche, weil die Aufnahme dort auf
-          390px Breite nur noch gut 240px hoch ist.
-
-          Eine Obergrenze löst beides: ist die Aufnahme höher, wird gedeckelt
-          und scrollbar; ist sie kürzer, endet der Rahmen mit ihr. */}
-      <div
-        className="overflow-y-auto overscroll-contain bg-[var(--surface-0)] site-preview"
-        style={{ maxHeight: "clamp(280px, 52vh, 600px)" }}
-        /* Lenis faengt das Mausrad seitenweit ab und bewegt damit das Fenster.
-           Ohne diese Markierung scrollte ueber dem Rahmen also die Seite
-           weiter, und der Rahmen blieb stehen - nachgemessen: Seite 233 auf
-           430, Rahmen 0. `data-lenis-prevent` gibt das Rad ueber diesem
-           Element wieder an den Browser zurueck. */
-        data-lenis-prevent
-      >
-        <img
-          src={project.image}
-          alt={`${project.title}, ${sectorOf(project, locale)}`}
-          width={1200}
-          height={748}
-          // Das ist das LCP-Bild dieser Seite.
-          loading="eager"
-          {...({ fetchpriority: "high" } as Record<string, string>)}
-          decoding="async"
-          className="w-full h-auto block"
-        />
-      </div>
     </div>
-  );
-
-  if (!project.link) return <div className="mt-12">{frame}</div>;
-
-  return (
-    <a
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block mt-12"
-      aria-label={`${project.title} — ${t.pages.workCase.visit}`}
-    >
-      {frame}
-    </a>
   );
 }

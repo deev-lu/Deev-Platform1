@@ -35,6 +35,7 @@ export const pages: typeof En = {
     technical: "Unter der Oberfläche",
     ownProduct: "Eigenes Produkt",
     snapshot: { industry: "Branche", audience: "Für wen", location: "Ort" },
+    livePreview: "Live",
     specOnly: "Für dieses Projekt sind die Eckdaten und die ausgelieferte Seite dokumentiert, die ausführliche Fallstudie noch nicht. Wir schreiben sie erst, wenn Aufgabe, Umfang und Ergebnis mit dem Kunden abgestimmt sind.",
     next: "Nächstes Projekt",
   },
