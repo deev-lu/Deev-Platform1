@@ -27,6 +27,32 @@ export const home = {
     cta: "See your net price",
   },
 
+  paths: {
+    eyebrow: "What we do",
+    title: "Three ways we work.",
+    lead: "Different problems need different work. These are not three names for the same project.",
+    items: {
+      websites: {
+        title: "Websites",
+        problem: "Our site does not explain or sell what we offer well enough.",
+        body: "A site that makes your offer understandable and keeps the next step simple. Company sites, relaunches, online stores.",
+        cta: "Websites",
+      },
+      ai: {
+        title: "AI and automation",
+        problem: "Repeat enquiries, documents and tasks eat our time.",
+        body: "We look at where the time actually goes, then automate the parts that repeat. Not every company needs AI, and we will say so.",
+        cta: "AI and automation",
+      },
+      software: {
+        title: "Custom software",
+        problem: "Standard tools no longer fit how we work.",
+        body: "Web applications, portals, interfaces and the business logic behind them, built around your process rather than against it.",
+        cta: "Custom software",
+      },
+    },
+  },
+
   budget: {
     eyebrow: "Budget",
     title: "What would it cost?",

@@ -24,6 +24,32 @@ export const home: typeof En = {
     cta: "Nettopreis berechnen",
   },
 
+  paths: {
+    eyebrow: "Was wir machen",
+    title: "Drei Wege, wie wir arbeiten.",
+    lead: "Unterschiedliche Probleme brauchen unterschiedliche Arbeit. Das sind nicht drei Namen für dasselbe Projekt.",
+    items: {
+      websites: {
+        title: "Websites",
+        problem: "Unser Auftritt erklärt und verkauft unser Angebot nicht gut genug.",
+        body: "Ein Auftritt, der Ihr Angebot verständlich macht und den nächsten Schritt einfach hält. Unternehmenswebsites, Relaunch, Onlineshops.",
+        cta: "Websites",
+      },
+      ai: {
+        title: "KI und Automatisierung",
+        problem: "Wiederkehrende Anfragen, Dokumente und Aufgaben kosten Zeit.",
+        body: "Wir schauen, wohin die Zeit tatsächlich geht, und automatisieren dann, was sich wiederholt. Nicht jedes Unternehmen braucht KI, und das sagen wir auch.",
+        cta: "KI und Automatisierung",
+      },
+      software: {
+        title: "Individuelle Software",
+        problem: "Standardtools bilden unsere Abläufe nicht mehr passend ab.",
+        body: "Webanwendungen, Portale, Schnittstellen und die Geschäftslogik dahinter, gebaut um Ihren Ablauf herum statt gegen ihn.",
+        cta: "Individuelle Software",
+      },
+    },
+  },
+
   budget: {
     eyebrow: "Budget",
     title: "Was würde das kosten?",

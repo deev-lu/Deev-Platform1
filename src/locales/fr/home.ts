@@ -24,6 +24,32 @@ export const home: typeof En = {
     cta: "Voir votre prix net",
   },
 
+  paths: {
+    eyebrow: "Ce que nous faisons",
+    title: "Trois façons de travailler.",
+    lead: "Des problèmes différents demandent un travail différent. Ce ne sont pas trois noms pour le même projet.",
+    items: {
+      websites: {
+        title: "Sites web",
+        problem: "Notre site n’explique pas assez bien ce que nous proposons.",
+        body: "Un site qui rend votre offre compréhensible et garde l’étape suivante simple. Sites d’entreprise, refontes, boutiques en ligne.",
+        cta: "Sites web",
+      },
+      ai: {
+        title: "IA et automatisation",
+        problem: "Les demandes, documents et tâches répétitives nous prennent du temps.",
+        body: "Nous regardons où le temps part réellement, puis nous automatisons ce qui se répète. Toutes les entreprises n’ont pas besoin d’IA, et nous le dirons.",
+        cta: "IA et automatisation",
+      },
+      software: {
+        title: "Logiciel sur mesure",
+        problem: "Les outils standards ne correspondent plus à notre façon de travailler.",
+        body: "Applications web, portails, interfaces et la logique métier derrière, conçus autour de votre processus plutôt que contre lui.",
+        cta: "Logiciel sur mesure",
+      },
+    },
+  },
+
   budget: {
     eyebrow: "Budget",
     title: "Combien cela coûterait-il ?",
