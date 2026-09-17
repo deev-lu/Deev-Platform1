@@ -2,16 +2,15 @@
 export const pages = {
   work: {
     eyebrow: "Selected work",
-    title: "Every project we ship.",
+    title: "A selection of our work.",
     lead: "Websites, online stores and web apps, built in Luxembourg for companies across Europe.",
     filters: {
-      all: "Everything",
+      all: "All",
       website: "Websites",
-      ecommerce: "Online stores",
-      webapp: "Web apps",
+      webapp: "Web apps & software",
+      ecommerce: "E-commerce",
+      ai: "AI & automation",
     },
-    count: (n: number, filterLabel?: string) =>
-      `${n} ${n === 1 ? "project" : "projects"}${filterLabel ? ` in ${filterLabel.toLowerCase()}` : ""}`,
   },
 
   workCase: {
