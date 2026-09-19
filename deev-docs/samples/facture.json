@@ -1,0 +1,68 @@
+{
+  "locale": "fr",
+  "filename": "IN2609-0143 MBM",
+  "title": "FACTURE",
+  "subtitle": "// AI-NATIVE DIGITAL ENGINEERING — LUXEMBOURG",
+  "watermark": false,
+  "refs": [
+    { "label": "N° FACTURE", "value": "IN2609-0143" },
+    { "label": "DATE", "value": "15/09/2026" },
+    { "label": "ÉCHÉANCE", "value": "22/09/2026", "accent": true }
+  ],
+  "issuer": {
+    "name": "DEEV — Lux VR States S.à r.l.-S",
+    "lines": [
+      "17 Rue de Sélange",
+      "L-4965 Clemency (Kéinzig), Luxembourg",
+      "+352 691 388 887 · contact@deev.lu",
+      { "text": "RCS Luxembourg B266033 · TVA LU33936811", "slate": true }
+    ]
+  },
+  "recipient": {
+    "label": "// POUR",
+    "name": "MBM Group S.à r.l.",
+    "lines": [
+      "À l’attention de la direction",
+      "33, Allée Scheffer",
+      { "text": "L-2520 Luxembourg", "slate": true }
+    ]
+  },
+  "subject": {
+    "label": "// OBJET",
+    "title": "Projet digital MBM Group",
+    "lead": "Facture intermédiaire relative à la poursuite du projet digital MBM Group, émise selon l’avancement des travaux convenus."
+  },
+  "blocks": [
+    {
+      "label": "// PRESTATIONS",
+      "columns": ["QTÉ", "DÉSIGNATION", "PRIX UNIT. HT", "PRIX TOTAL HT"],
+      "items": true,
+      "rows": [
+        {
+          "n": "1",
+          "title": "Poursuite du projet",
+          "desc": "Poursuite des travaux de développement du projet digital MBM Group : suite de la mise en œuvre convenue, selon l’avancement.",
+          "unit": 3000,
+          "total": 3000
+        }
+      ]
+    },
+    { "totals": true, "ht": 3000, "vatRate": 17, "vat": 510, "ttc": 3510,
+      "note": "TVA luxembourgeoise au taux normal de 17 %. Montants en euros." },
+    {
+      "label": "// PAIEMENT",
+      "callout": true,
+      "variant": "payment",
+      "paragraphs": [
+        { "text": "Paiement à 7 jours à compter de la date de facture (au plus tard le 22/09/2026). Communication : facture n° IN2609-0143." },
+        { "text": "Virement sur le compte suivant — IBAN : LU82 0024 9020 2565 5400 · BIC/SWIFT : BILLLULL", "muted": true },
+        { "rule": true },
+        { "text": "Facturation par étapes selon l’avancement du projet. Facture précédente : IN2606-0137.", "muted": true }
+      ]
+    }
+  ],
+  "footer": [
+    "LUX VR STATES S.À R.L.-S · 17 RUE DE SÉLANGE, L-4965 CLEMENCY · RCS B266033 · TVA LU33936811",
+    "CONTACT@DEEV.LU · WWW.DEEV.LU · +352 691 388 887"
+  ]
+}
