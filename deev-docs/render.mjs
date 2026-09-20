@@ -11,6 +11,10 @@
  * Spezifikation; wer das Gabarit aendert, aendert nur die CSS-Datei.
  */
 
+/* Als Escape-Sequenz, nicht als Zeichen. Ein echtes geschuetztes Leerzeichen
+   waere im Quelltext von einem gewoehnlichen nicht zu unterscheiden - und
+   genau das ist der Unterschied zwischen "15 200,00 €" und einem Betrag, der
+   mitten im Umbruch auseinanderfaellt. */
 const NBSP = " ";
 
 /** Franzoesischer Zahlensatz: 15 200,00 € mit geschuetzten Leerzeichen. */
@@ -99,7 +103,7 @@ const BLOCKS = {
   break: () => `<div class="break"></div>`,
 };
 
-/* ── Dokument ──────────────────────────────────────────────────────── */
+/* ── Dokument ────────────────────────────────────────────────────────── */
 
 /**
  * `base` ist das Verzeichnis, in dem Stylesheet und Assets liegen. Ohne
