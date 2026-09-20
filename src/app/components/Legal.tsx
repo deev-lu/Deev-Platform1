@@ -115,6 +115,15 @@ export default function Legal() {
               <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.videoHead}</p>
               <p className="mt-1">{g.cookies.videoBody}</p>
 
+              {/* Beide laden erst auf Klick, wie das Video darueber - und
+                  gehoeren aus demselben Grund hierher: wer klickt, verbindet
+                  sich mit einem Dritten, und das sollte er vorher wissen. */}
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.previewHead}</p>
+              <p className="mt-1">{g.cookies.previewBody}</p>
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.whatsappHead}</p>
+              <p className="mt-1">{g.cookies.whatsappBody}</p>
+
               <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.recordHead}</p>
               <p className="mt-1">
                 {g.cookies.recordBody1} <code>deev_consent</code> {g.cookies.recordBody2}
@@ -135,7 +144,25 @@ export default function Legal() {
 
             <Section id="data-protection" title={g.gdpr.title}>
               <p>{g.gdpr.body1}</p>
-              <p className="mt-3">
+
+              <SubHead>{g.gdpr.basisHead}</SubHead>
+              <Bullets items={g.gdpr.basis} />
+
+              <SubHead>{g.gdpr.processorsHead}</SubHead>
+              <p>{g.gdpr.processorsIntro}</p>
+              <Bullets items={g.gdpr.processors} />
+              <p className="mt-3">{g.gdpr.transfers}</p>
+
+              <SubHead>{g.gdpr.retentionHead}</SubHead>
+              <Bullets items={g.gdpr.retention} />
+
+              <SubHead>{g.gdpr.rightsHead}</SubHead>
+              <p>{g.gdpr.rightsIntro}</p>
+
+              <SubHead>{g.gdpr.complaintHead}</SubHead>
+              <p>{g.gdpr.complaintBody}</p>
+
+              <p className="mt-4">
                 {g.gdpr.body2a}{" "}
                 <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[var(--signal-text)] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[var(--signal-text)]/40 hover:decoration-current font-medium">
                   contact@deev.lu
@@ -213,6 +240,31 @@ function CookieTable({ rows }: { rows: [string, string, string, string][] }) {
             {life}
           </span>
         </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Eine Zwischenueberschrift im Fliesstext eines Abschnitts.
+ *
+ * Der Datenschutzteil beantwortet fuenf verschiedene Fragen - Rechtsgrundlage,
+ * Auftragsverarbeiter, Aufbewahrung, Rechte, Beschwerde. Als ein Block Text
+ * findet niemand die eine, die er sucht.
+ */
+function SubHead({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-slate-900 dark:text-white font-medium mt-6 mb-2 text-[0.95rem]">
+      {children}
+    </h3>
+  );
+}
+
+function Bullets({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="list-disc pl-5 space-y-1.5 marker:text-[#2563F6] dark:marker:text-[var(--signal-text)]">
+      {items.map((t) => (
+        <li key={t}>{t}</li>
       ))}
     </ul>
   );

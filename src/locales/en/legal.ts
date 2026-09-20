@@ -10,7 +10,7 @@ export const legal = {
   badge: "Legal Information",
   title: "Terms &",
   titleAccent: "Legal Notice",
-updated: "Last updated: August 2026",
+updated: "Last updated: September 2026",
 
   company: {
     heading: "Company Information",
@@ -73,6 +73,12 @@ updated: "Last updated: August 2026",
     videoHead: "Embedded video",
     videoBody:
       "The marketing section contains videos hosted on YouTube. The player itself is not loaded until you press play, so no YouTube script runs and no third-party storage is set on your device before that. The still frame you see beforehand is the video's own thumbnail, requested from Google's image host (i.ytimg.com) as that part of the page comes into view: that request sets no cookies, but it does tell Google that a browser loaded this page, including your IP address. When you press play, the player loads from youtube-nocookie.com, which serves the video without advertising cookies, and YouTube may then store what it needs to play it and count the view. Pressing play is your own choice.",
+    previewHead: "Live previews of client websites",
+    previewBody:
+      "On a case study you can open the client's real website inside a frame on the page. Nothing loads until you press that button. When you do, your browser connects directly to that site, exactly as if you had typed its address: it receives your IP address and may set its own cookies, and what it does with them is governed by its own policy, not ours. The screenshot you see beforehand is served from this site and connects to nobody.",
+    whatsappHead: "The WhatsApp button",
+    whatsappBody:
+      "The floating button and the one in the footer are ordinary links. They load nothing and set nothing while you are here. Following one hands you to WhatsApp, and from that point WhatsApp and Meta process the conversation under their terms — we receive only the message you choose to send us.",
     recordHead: "Your consent record",
     recordBody1: "When you choose, we store the choice itself, a random reference, the date and time, and the version of this policy you were shown. That record is the evidence of consent required by Article 7(1) GDPR. It lives in the",
     recordBody2: "cookie on your own device and is mirrored in your browser's local storage, it is not sent to us or to anyone else. It expires after twelve months, and we ask again sooner if this policy changes.",
@@ -85,9 +91,45 @@ updated: "Last updated: August 2026",
   gdpr: {
     title: "8. Data Protection & GDPR",
     body1:
-      "Deev processes personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable Luxembourg data protection legislation. Personal data collected through this website or in the course of providing services is used solely for delivering our services, communicating with clients, and fulfilling legal obligations. Data is never sold to third parties.",
-    body2a: "You have the right to access, correct, or request deletion of your personal data. To exercise these rights, contact us at",
-    body2b: ". Data is retained only for as long as necessary to fulfill the purposes for which it was collected or as required by law.",
+      "The controller for the processing described here is Lux VR States S.à r.l.-S, 17 rue de Sélange, L-4965 Clemency, Luxembourg. We process personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable Luxembourg legislation. Data is never sold, and it is never used to build a profile of you.",
+
+    basisHead: "What we process, and on what legal basis",
+    basis: [
+      "An enquiry you send us — your name, email address, and whatever you write in the message or on the phone. We use it to answer you and, if it leads to work, to prepare and perform the contract. Article 6(1)(b) GDPR.",
+      "Measurement of how this site is used, only after you allow it. Article 6(1)(a) GDPR — your consent, which you can withdraw at any time.",
+      "Server logs kept by our host, including IP addresses, to keep the site available and to defend it against abuse. Article 6(1)(f) GDPR — our legitimate interest in a site that stays up.",
+      "Contracts, invoices and accounting records, which Luxembourg commercial law requires us to keep. Article 6(1)(c) GDPR.",
+    ],
+
+    processorsHead: "Who else handles your data",
+    processorsIntro:
+      "We use three service providers. They act on our instructions, under contract, and for nothing but the purpose named here. No one else receives your data unless the law obliges us.",
+    processors: [
+      "Vercel — hosting. This site and the function behind the contact form run on their infrastructure, so every request reaches them, including your IP address.",
+      "Resend — email delivery. When you send the contact form, its contents pass through Resend to reach our mailbox.",
+      "Google Ireland Limited — analytics, and only if you consent. Section 7 describes exactly what it does and does not receive.",
+    ],
+    transfers:
+      "Vercel and Resend are based in the United States, so your data may be processed outside the European Union. Those transfers rely on the European Commission's standard contractual clauses. Our own mailbox is operated by Microsoft within the EU.",
+
+    retentionHead: "How long we keep it",
+    retention: [
+      "An enquiry that does not lead to work: deleted after twelve months.",
+      "Correspondence and records belonging to a project: for the duration of the engagement and ten years afterwards, which is the retention period Luxembourg commercial law sets for business records.",
+      "Analytics: for the retention period set on our Google Analytics property, after which Google deletes it.",
+      "Your cookie choice: twelve months, on your own device — see section 7.",
+    ],
+
+    rightsHead: "Your rights",
+    rightsIntro:
+      "Under the GDPR you may ask us for access to your data, for a copy of it in a portable form, for it to be corrected, erased or its processing restricted, and you may object to processing we base on legitimate interest. Where processing rests on consent, you can withdraw it at any time without affecting what was lawful beforehand. We answer within one month.",
+
+    complaintHead: "If you are not satisfied",
+    complaintBody:
+      "You can lodge a complaint with the Luxembourg supervisory authority, the Commission nationale pour la protection des données (CNPD), 15 boulevard du Jazz, L-4370 Belvaux, cnpd.lu — or with the authority in the EU country where you live or work. You do not have to contact us first, though we would rather you did.",
+
+    body2a: "To exercise any of these rights, write to",
+    body2b: ". Please tell us which right you are exercising, so we can deal with it properly.",
   },
 
   s9: {

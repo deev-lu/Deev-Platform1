@@ -4,7 +4,7 @@ export const legal: typeof En = {
   badge: "Rechtliche Hinweise",
   title: "AGB und",
   titleAccent: "Impressum",
-updated: "Zuletzt aktualisiert: August 2026",
+updated: "Zuletzt aktualisiert: September 2026",
 
   company: {
     heading: "Angaben zum Unternehmen",
@@ -67,6 +67,12 @@ updated: "Zuletzt aktualisiert: August 2026",
     videoHead: "Eingebettete Videos",
     videoBody:
       "Der Marketingbereich enthält Videos, die bei YouTube gehostet werden. Der Player selbst wird erst geladen, wenn Sie auf Wiedergabe drücken, sodass vorher kein YouTube-Skript ausgeführt und kein Speicher Dritter auf Ihrem Gerät gesetzt wird. Das Standbild, das Sie zuvor sehen, ist das Vorschaubild des Videos selbst, das beim Erscheinen dieses Seitenbereichs vom Bildhost von Google (i.ytimg.com) angefordert wird: Diese Anfrage setzt keine Cookies, teilt Google aber mit, dass ein Browser diese Seite geladen hat, einschließlich Ihrer IP-Adresse. Wenn Sie auf Wiedergabe drücken, wird der Player von youtube-nocookie.com geladen, das das Video ohne Werbecookies ausliefert; YouTube kann dann speichern, was zur Wiedergabe und zur Zählung des Aufrufs nötig ist. Auf Wiedergabe zu drücken ist Ihre eigene Entscheidung.",
+    previewHead: "Live-Vorschau von Kundenwebsites",
+    previewBody:
+      "In einer Fallstudie können Sie die echte Website des Kunden in einem Rahmen auf der Seite öffnen. Vorher wird nichts geladen. Drücken Sie den Knopf, verbindet sich Ihr Browser unmittelbar mit dieser Website, genau als hätten Sie ihre Adresse eingegeben: sie erhält Ihre IP-Adresse, kann eigene Cookies setzen, und was sie damit tut, richtet sich nach ihrer eigenen Erklärung, nicht nach unserer. Das Bild, das Sie vorher sehen, kommt von dieser Seite und verbindet sich mit niemandem.",
+    whatsappHead: "Der WhatsApp-Knopf",
+    whatsappBody:
+      "Der schwebende Knopf und der im Fußbereich sind gewöhnliche Links. Solange Sie hier sind, laden sie nichts und setzen nichts. Wer einem folgt, wird an WhatsApp übergeben; ab da verarbeiten WhatsApp und Meta das Gespräch nach ihren Bedingungen — bei uns kommt nur die Nachricht an, die Sie uns schicken.",
     recordHead: "Ihr Einwilligungsnachweis",
     recordBody1: "Wenn Sie sich entscheiden, speichern wir die Auswahl selbst, eine zufällige Referenz, Datum und Uhrzeit sowie die Version dieser Richtlinie, die Ihnen angezeigt wurde. Dieser Datensatz ist der nach Artikel 7(1) DSGVO erforderliche Nachweis der Einwilligung. Er liegt im Cookie",
     recordBody2: "auf Ihrem eigenen Gerät und wird im lokalen Speicher Ihres Browsers gespiegelt; er wird weder an uns noch an Dritte übermittelt. Er läuft nach zwölf Monaten ab, und wir fragen früher erneut, wenn sich diese Richtlinie ändert.",
@@ -79,9 +85,45 @@ updated: "Zuletzt aktualisiert: August 2026",
   gdpr: {
     title: "8. Datenschutz und DSGVO",
     body1:
-      "Deev verarbeitet personenbezogene Daten gemäß der Verordnung (EU) 2016/679 (DSGVO) und den geltenden luxemburgischen Datenschutzvorschriften. Über diese Website oder im Rahmen der Leistungserbringung erhobene personenbezogene Daten werden ausschließlich zur Erbringung unserer Leistungen, zur Kommunikation mit Kunden und zur Erfüllung gesetzlicher Pflichten verwendet. Daten werden niemals an Dritte verkauft.",
-    body2a: "Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer personenbezogenen Daten. Um diese Rechte auszuüben, schreiben Sie uns an",
-    body2b: ". Daten werden nur so lange aufbewahrt, wie es für die Zwecke ihrer Erhebung erforderlich ist oder wie es das Gesetz verlangt.",
+      "Verantwortlich für die hier beschriebene Verarbeitung ist die Lux VR States S.à r.l.-S, 17 rue de Sélange, L-4965 Clemency, Luxemburg. Wir verarbeiten personenbezogene Daten gemäß der Verordnung (EU) 2016/679 (DSGVO) und den geltenden luxemburgischen Vorschriften. Daten werden niemals verkauft, und sie dienen nie dazu, ein Profil von Ihnen zu erstellen.",
+
+    basisHead: "Was wir verarbeiten und auf welcher Rechtsgrundlage",
+    basis: [
+      "Ihre Anfrage — Name, E-Mail-Adresse und das, was Sie uns schreiben oder am Telefon sagen. Wir nutzen das, um Ihnen zu antworten, und, wenn daraus ein Auftrag wird, um den Vertrag vorzubereiten und zu erfüllen. Artikel 6 Absatz 1 Buchstabe b DSGVO.",
+      "Die Messung, wie diese Seite genutzt wird — erst, wenn Sie es erlauben. Artikel 6 Absatz 1 Buchstabe a DSGVO, Ihre Einwilligung, die Sie jederzeit widerrufen können.",
+      "Server-Protokolle unseres Hosters, einschließlich IP-Adressen, damit die Seite erreichbar bleibt und gegen Missbrauch geschützt ist. Artikel 6 Absatz 1 Buchstabe f DSGVO, unser berechtigtes Interesse an einer Seite, die läuft.",
+      "Verträge, Rechnungen und Buchhaltungsunterlagen, zu deren Aufbewahrung uns das luxemburgische Handelsrecht verpflichtet. Artikel 6 Absatz 1 Buchstabe c DSGVO.",
+    ],
+
+    processorsHead: "Wer Ihre Daten außerdem verarbeitet",
+    processorsIntro:
+      "Wir setzen drei Dienstleister ein. Sie handeln auf unsere Weisung, vertraglich gebunden, und zu nichts anderem als dem hier genannten Zweck. Weitergegeben wird sonst nichts, sofern uns nicht das Gesetz dazu verpflichtet.",
+    processors: [
+      "Vercel — Hosting. Diese Seite und die Funktion hinter dem Kontaktformular laufen auf deren Infrastruktur, jede Anfrage erreicht sie also, einschließlich Ihrer IP-Adresse.",
+      "Resend — E-Mail-Zustellung. Wenn Sie das Kontaktformular absenden, läuft sein Inhalt über Resend in unser Postfach.",
+      "Google Ireland Limited — Statistik, und nur mit Ihrer Einwilligung. Abschnitt 7 beschreibt genau, was dort ankommt und was nicht.",
+    ],
+    transfers:
+      "Vercel und Resend sitzen in den Vereinigten Staaten, Ihre Daten können also außerhalb der Europäischen Union verarbeitet werden. Diese Übermittlungen stützen sich auf die Standardvertragsklauseln der Europäischen Kommission. Unser eigenes Postfach betreibt Microsoft innerhalb der EU.",
+
+    retentionHead: "Wie lange wir sie aufbewahren",
+    retention: [
+      "Eine Anfrage, aus der kein Auftrag wird: nach zwölf Monaten gelöscht.",
+      "Schriftverkehr und Unterlagen zu einem Projekt: für die Dauer der Zusammenarbeit und zehn Jahre darüber hinaus — die Frist, die das luxemburgische Handelsrecht für Geschäftsunterlagen vorsieht.",
+      "Statistikdaten: für den in unserem Google-Analytics-Konto eingestellten Zeitraum, danach löscht Google sie.",
+      "Ihre Cookie-Entscheidung: zwölf Monate, auf Ihrem eigenen Gerät — siehe Abschnitt 7.",
+    ],
+
+    rightsHead: "Ihre Rechte",
+    rightsIntro:
+      "Nach der DSGVO können Sie Auskunft über Ihre Daten verlangen, eine Kopie in einem übertragbaren Format, Berichtigung, Löschung oder Einschränkung der Verarbeitung, und Sie können einer Verarbeitung widersprechen, die wir auf ein berechtigtes Interesse stützen. Wo die Verarbeitung auf Einwilligung beruht, können Sie diese jederzeit widerrufen, ohne dass die vorherige Rechtmäßigkeit berührt wird. Wir antworten innerhalb eines Monats.",
+
+    complaintHead: "Wenn Sie nicht zufrieden sind",
+    complaintBody:
+      "Sie können sich bei der luxemburgischen Aufsichtsbehörde beschweren, der Commission nationale pour la protection des données (CNPD), 15 boulevard du Jazz, L-4370 Belvaux, cnpd.lu — oder bei der Behörde des EU-Landes, in dem Sie wohnen oder arbeiten. Sie müssen sich vorher nicht an uns wenden, uns wäre es aber lieber.",
+
+    body2a: "Um eines dieser Rechte auszuüben, schreiben Sie an",
+    body2b: ". Sagen Sie uns bitte, welches Recht Sie ausüben, damit wir es richtig bearbeiten können.",
   },
 
   s9: {

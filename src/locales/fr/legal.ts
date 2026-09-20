@@ -4,7 +4,7 @@ export const legal: typeof En = {
   badge: "Informations légales",
   title: "Conditions et",
   titleAccent: "mentions légales",
-updated: "Dernière mise à jour : août 2026",
+updated: "Dernière mise à jour : septembre 2026",
 
   company: {
     heading: "Informations sur la société",
@@ -67,6 +67,12 @@ updated: "Dernière mise à jour : août 2026",
     videoHead: "Vidéos intégrées",
     videoBody:
       "La section marketing contient des vidéos hébergées sur YouTube. Le lecteur n'est pas chargé tant que vous n'appuyez pas sur lecture : aucun script YouTube ne s'exécute et aucun stockage tiers n'est déposé sur votre appareil avant cela. L'image fixe affichée auparavant est la vignette de la vidéo elle-même, demandée au serveur d'images de Google (i.ytimg.com) lorsque cette partie de la page apparaît à l'écran : cette requête ne dépose aucun cookie, mais elle indique à Google qu'un navigateur a chargé cette page, y compris votre adresse IP. Lorsque vous appuyez sur lecture, le lecteur se charge depuis youtube-nocookie.com, qui diffuse la vidéo sans cookies publicitaires, et YouTube peut alors stocker ce qui lui est nécessaire pour la lire et comptabiliser la vue. Appuyer sur lecture relève de votre propre choix.",
+    previewHead: "Aperçus en direct des sites clients",
+    previewBody:
+      "Sur une étude de cas, vous pouvez ouvrir le site réel du client dans un cadre sur la page. Rien ne se charge avant que vous n'appuyiez sur ce bouton. Lorsque vous le faites, votre navigateur se connecte directement à ce site, exactement comme si vous aviez saisi son adresse : il reçoit votre adresse IP, peut déposer ses propres cookies, et ce qu'il en fait relève de sa politique, non de la nôtre. L'image que vous voyez auparavant provient de ce site et ne se connecte à personne.",
+    whatsappHead: "Le bouton WhatsApp",
+    whatsappBody:
+      "Le bouton flottant et celui du pied de page sont de simples liens. Tant que vous êtes ici, ils ne chargent rien et ne déposent rien. Les suivre vous remet à WhatsApp ; à partir de là, WhatsApp et Meta traitent la conversation selon leurs conditions — nous ne recevons que le message que vous choisissez de nous envoyer.",
     recordHead: "Votre preuve de consentement",
     recordBody1: "Lorsque vous faites un choix, nous conservons le choix lui-même, une référence aléatoire, la date et l'heure, ainsi que la version de la présente politique qui vous a été présentée. Cet enregistrement constitue la preuve du consentement exigée par l'article 7(1) du RGPD. Il réside dans le cookie",
     recordBody2: "sur votre propre appareil et est répliqué dans le stockage local de votre navigateur ; il ne nous est pas transmis, ni à quiconque. Il expire après douze mois, et nous vous redemanderons plus tôt si la présente politique change.",
@@ -79,9 +85,45 @@ updated: "Dernière mise à jour : août 2026",
   gdpr: {
     title: "8. Protection des données et RGPD",
     body1:
-      "Deev traite les données personnelles conformément au règlement (UE) 2016/679 (RGPD) et à la législation luxembourgeoise applicable en matière de protection des données. Les données personnelles collectées via ce site ou dans le cadre de la fourniture de nos services servent uniquement à délivrer nos prestations, à communiquer avec nos clients et à respecter nos obligations légales. Les données ne sont jamais vendues à des tiers.",
-    body2a: "Vous disposez du droit d'accéder à vos données personnelles, de les rectifier ou d'en demander la suppression. Pour exercer ces droits, écrivez-nous à",
-    body2b: ". Les données ne sont conservées que le temps nécessaire aux finalités pour lesquelles elles ont été collectées ou aussi longtemps que la loi l'exige.",
+      "Le responsable du traitement décrit ici est Lux VR States S.à r.l.-S, 17 rue de Sélange, L-4965 Clemency, Luxembourg. Nous traitons les données personnelles conformément au règlement (UE) 2016/679 (RGPD) et à la législation luxembourgeoise applicable. Les données ne sont jamais vendues, et elles ne servent jamais à établir un profil de vous.",
+
+    basisHead: "Ce que nous traitons, et sur quelle base légale",
+    basis: [
+      "La demande que vous nous adressez — votre nom, votre adresse e-mail et ce que vous écrivez dans le message ou dites au téléphone. Nous l'utilisons pour vous répondre et, si elle débouche sur une mission, pour préparer et exécuter le contrat. Article 6, paragraphe 1, point b du RGPD.",
+      "La mesure de l'usage de ce site, uniquement après votre accord. Article 6, paragraphe 1, point a du RGPD — votre consentement, révocable à tout moment.",
+      "Les journaux de notre hébergeur, adresses IP comprises, pour que le site reste disponible et protégé contre les abus. Article 6, paragraphe 1, point f du RGPD — notre intérêt légitime à un site qui fonctionne.",
+      "Les contrats, factures et pièces comptables, que le droit commercial luxembourgeois nous oblige à conserver. Article 6, paragraphe 1, point c du RGPD.",
+    ],
+
+    processorsHead: "Qui d'autre traite vos données",
+    processorsIntro:
+      "Nous faisons appel à trois prestataires. Ils agissent sur nos instructions, sous contrat, et pour la seule finalité indiquée ici. Personne d'autre ne reçoit vos données, sauf obligation légale.",
+    processors: [
+      "Vercel — hébergement. Ce site et la fonction derrière le formulaire de contact tournent sur leur infrastructure : chaque requête leur parvient, votre adresse IP comprise.",
+      "Resend — acheminement des e-mails. Lorsque vous envoyez le formulaire, son contenu transite par Resend pour arriver dans notre boîte.",
+      "Google Ireland Limited — statistiques, et seulement si vous y consentez. La section 7 décrit précisément ce qui lui parvient et ce qui ne lui parvient pas.",
+    ],
+    transfers:
+      "Vercel et Resend sont établis aux États-Unis : vos données peuvent donc être traitées hors de l'Union européenne. Ces transferts reposent sur les clauses contractuelles types de la Commission européenne. Notre propre boîte aux lettres est exploitée par Microsoft au sein de l'UE.",
+
+    retentionHead: "Combien de temps nous les conservons",
+    retention: [
+      "Une demande qui ne débouche sur rien : supprimée après douze mois.",
+      "La correspondance et les pièces liées à un projet : pendant la durée de la mission et dix ans ensuite — le délai que le droit commercial luxembourgeois fixe pour les documents d'entreprise.",
+      "Les statistiques : pendant la durée définie sur notre propriété Google Analytics, après quoi Google les supprime.",
+      "Votre choix de cookies : douze mois, sur votre propre appareil — voir la section 7.",
+    ],
+
+    rightsHead: "Vos droits",
+    rightsIntro:
+      "En vertu du RGPD, vous pouvez demander l'accès à vos données, une copie dans un format portable, leur rectification, leur effacement ou la limitation du traitement, et vous pouvez vous opposer à un traitement fondé sur l'intérêt légitime. Lorsque le traitement repose sur le consentement, vous pouvez le retirer à tout moment sans remettre en cause ce qui était licite auparavant. Nous répondons dans un délai d'un mois.",
+
+    complaintHead: "Si vous n'êtes pas satisfait",
+    complaintBody:
+      "Vous pouvez introduire une réclamation auprès de l'autorité de contrôle luxembourgeoise, la Commission nationale pour la protection des données (CNPD), 15 boulevard du Jazz, L-4370 Belvaux, cnpd.lu — ou auprès de l'autorité du pays de l'UE où vous résidez ou travaillez. Vous n'êtes pas tenu de nous contacter au préalable, même si nous le préférerions.",
+
+    body2a: "Pour exercer l'un de ces droits, écrivez à",
+    body2b: ". Précisez le droit que vous exercez, afin que nous puissions le traiter correctement.",
   },
 
   s9: {
