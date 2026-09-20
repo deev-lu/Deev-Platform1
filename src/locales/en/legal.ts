@@ -80,8 +80,8 @@ updated: "Last updated: September 2026",
     whatsappBody:
       "The floating button and the one in the footer are ordinary links. They load nothing and set nothing while you are here. Following one hands you to WhatsApp, and from that point WhatsApp and Meta process the conversation under their terms — we receive only the message you choose to send us.",
     recordHead: "Your consent record",
-    recordBody1: "When you choose, we store the choice itself, a random reference, the date and time, and the version of this policy you were shown. That record is the evidence of consent required by Article 7(1) GDPR. It lives in the",
-    recordBody2: "cookie on your own device and is mirrored in your browser's local storage, it is not sent to us or to anyone else. It expires after twelve months, and we ask again sooner if this policy changes.",
+    recordBody1: "Your cookie choice is stored in a DEEV consent record. It holds the categories you selected, a random reference, the date and time, and the version of the consent information you were shown. The record exists so your choice can be kept and the consent version used remains traceable. It is stored in the",
+    recordBody2: "cookie on your device and mirrored in your browser's local storage. It expires after twelve months, and we ask again sooner if this policy changes.",
     withdrawHead: "Changing or withdrawing your choice",
     withdrawBody:
       "Withdrawal is as easy as consent, as Article 7(3) GDPR requires. Open the dialog below, or use “Cookie settings” in the footer of any page. Withdrawing deletes the record, returns analytics to its denied state and shows the banner again. You can also clear this site's data in your browser, which has the same effect.",
@@ -110,15 +110,11 @@ updated: "Last updated: September 2026",
       "Google Ireland Limited — analytics, and only if you consent. Section 7 describes exactly what it does and does not receive.",
     ],
     transfers:
-      "Vercel and Resend are based in the United States, so your data may be processed outside the European Union. Those transfers rely on the European Commission's standard contractual clauses. Our own mailbox is operated by Microsoft within the EU.",
+      "These providers may process data outside the European Union. We have not finished documenting how each of those transfers is safeguarded, so we do not state a mechanism here. Ask us and we will tell you what we have established for a given provider.",
 
     retentionHead: "How long we keep it",
-    retention: [
-      "An enquiry that does not lead to work: deleted after twelve months.",
-      "Correspondence and records belonging to a project: for the duration of the engagement and ten years afterwards, which is the retention period Luxembourg commercial law sets for business records.",
-      "Analytics: for the retention period set on our Google Analytics property, after which Google deletes it.",
-      "Your cookie choice: twelve months, on your own device — see section 7.",
-    ],
+    retention:
+      "We keep personal data only for as long as the purpose it was collected for requires, or for as long as a statutory retention obligation applies. Once neither does, it is deleted.",
 
     rightsHead: "Your rights",
     rightsIntro:

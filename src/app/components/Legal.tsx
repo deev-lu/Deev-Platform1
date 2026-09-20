@@ -42,10 +42,10 @@ export default function Legal() {
                 {[
                   { label: g.company.tradeName, value: "Deev" },
                   { label: g.company.legalEntity, value: "Lux VR States Sàrl-s." },
-                  { label: g.company.directors, value: "FALCHERO Fabio & KETTEL Sven" },
+                  { label: g.company.directors, value: "Sven Kettel · Fabio Falchero" },
                   { label: g.company.address, value: "17, rue de Sélange, L-4965 Clemency, Luxembourg" },
                   { label: g.company.email, value: "contact@deev.lu" },
-                  { label: g.company.phone, value: "+352 691 786 002 / +352 691 388 887" },
+                  { label: g.company.phone, value: "Sven Kettel +352 691 388 887 · Fabio Falchero +352 621 779 802" },
                   { label: g.company.vat, value: "LU33936811" },
                   { label: g.company.register, value: "B266033" },
                 ].map((item) => (
@@ -153,8 +153,12 @@ export default function Legal() {
               <Bullets items={g.gdpr.processors} />
               <p className="mt-3">{g.gdpr.transfers}</p>
 
+              {/* Ein Grundsatz, keine Liste mit Fristen. Konkrete Zahlen
+                  standen hier, waren aber nicht durch eine Richtlinie des
+                  Unternehmens gedeckt - eine erfundene Frist ist auf einer
+                  Rechtsseite schlimmer als gar keine. */}
               <SubHead>{g.gdpr.retentionHead}</SubHead>
-              <Bullets items={g.gdpr.retention} />
+              <p>{g.gdpr.retention}</p>
 
               <SubHead>{g.gdpr.rightsHead}</SubHead>
               <p>{g.gdpr.rightsIntro}</p>
@@ -190,7 +194,7 @@ export default function Legal() {
                     contact@deev.lu
                   </a>
                 </p>
-                <p>+352 691 786 002</p>
+                <p>+352 691 388 887</p>
               </div>
             </Section>
 

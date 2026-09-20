@@ -74,8 +74,8 @@ updated: "Zuletzt aktualisiert: September 2026",
     whatsappBody:
       "Der schwebende Knopf und der im Fußbereich sind gewöhnliche Links. Solange Sie hier sind, laden sie nichts und setzen nichts. Wer einem folgt, wird an WhatsApp übergeben; ab da verarbeiten WhatsApp und Meta das Gespräch nach ihren Bedingungen — bei uns kommt nur die Nachricht an, die Sie uns schicken.",
     recordHead: "Ihr Einwilligungsnachweis",
-    recordBody1: "Wenn Sie sich entscheiden, speichern wir die Auswahl selbst, eine zufällige Referenz, Datum und Uhrzeit sowie die Version dieser Richtlinie, die Ihnen angezeigt wurde. Dieser Datensatz ist der nach Artikel 7(1) DSGVO erforderliche Nachweis der Einwilligung. Er liegt im Cookie",
-    recordBody2: "auf Ihrem eigenen Gerät und wird im lokalen Speicher Ihres Browsers gespiegelt; er wird weder an uns noch an Dritte übermittelt. Er läuft nach zwölf Monaten ab, und wir fragen früher erneut, wenn sich diese Richtlinie ändert.",
+    recordBody1: "Ihre Cookie-Auswahl wird in einem DEEV-Consent-Datensatz gespeichert. Dieser enthält insbesondere die ausgewählten Kategorien, eine zufällige Referenz, Datum und Uhrzeit sowie die Version der Einwilligungsinformationen. Der Datensatz dient dazu, Ihre Auswahl zu speichern und die verwendete Einwilligungsversion nachvollziehbar zu machen. Er liegt im Cookie",
+    recordBody2: "auf Ihrem Gerät und wird im Local Storage Ihres Browsers gespiegelt. Er läuft nach zwölf Monaten ab, und wir fragen früher erneut, wenn sich diese Richtlinie ändert.",
     withdrawHead: "Auswahl ändern oder widerrufen",
     withdrawBody:
       "Der Widerruf ist so einfach wie die Einwilligung, wie Artikel 7(3) DSGVO es verlangt. Öffnen Sie den Dialog unten oder nutzen Sie „Cookie-Einstellungen“ im Fußbereich jeder Seite. Der Widerruf löscht den Nachweis, versetzt die Statistik zurück in den abgelehnten Zustand und zeigt das Banner erneut an. Sie können auch die Daten dieser Website in Ihrem Browser löschen, was dieselbe Wirkung hat.",
@@ -104,15 +104,11 @@ updated: "Zuletzt aktualisiert: September 2026",
       "Google Ireland Limited — Statistik, und nur mit Ihrer Einwilligung. Abschnitt 7 beschreibt genau, was dort ankommt und was nicht.",
     ],
     transfers:
-      "Vercel und Resend sitzen in den Vereinigten Staaten, Ihre Daten können also außerhalb der Europäischen Union verarbeitet werden. Diese Übermittlungen stützen sich auf die Standardvertragsklauseln der Europäischen Kommission. Unser eigenes Postfach betreibt Microsoft innerhalb der EU.",
+      "Diese Dienstleister können Daten auch außerhalb der Europäischen Union verarbeiten. Wie die jeweilige Übermittlung abgesichert ist, haben wir noch nicht abschließend dokumentiert, deshalb nennen wir hier keinen Mechanismus. Fragen Sie uns, und wir sagen Ihnen, was für einen bestimmten Dienstleister feststeht.",
 
     retentionHead: "Wie lange wir sie aufbewahren",
-    retention: [
-      "Eine Anfrage, aus der kein Auftrag wird: nach zwölf Monaten gelöscht.",
-      "Schriftverkehr und Unterlagen zu einem Projekt: für die Dauer der Zusammenarbeit und zehn Jahre darüber hinaus — die Frist, die das luxemburgische Handelsrecht für Geschäftsunterlagen vorsieht.",
-      "Statistikdaten: für den in unserem Google-Analytics-Konto eingestellten Zeitraum, danach löscht Google sie.",
-      "Ihre Cookie-Entscheidung: zwölf Monate, auf Ihrem eigenen Gerät — siehe Abschnitt 7.",
-    ],
+    retention:
+      "Wir bewahren personenbezogene Daten nur so lange auf, wie es der Zweck ihrer Erhebung erfordert oder eine gesetzliche Aufbewahrungspflicht besteht. Sobald beides entfällt, werden sie gelöscht.",
 
     rightsHead: "Ihre Rechte",
     rightsIntro:

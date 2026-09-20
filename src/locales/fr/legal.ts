@@ -74,8 +74,8 @@ updated: "Dernière mise à jour : septembre 2026",
     whatsappBody:
       "Le bouton flottant et celui du pied de page sont de simples liens. Tant que vous êtes ici, ils ne chargent rien et ne déposent rien. Les suivre vous remet à WhatsApp ; à partir de là, WhatsApp et Meta traitent la conversation selon leurs conditions — nous ne recevons que le message que vous choisissez de nous envoyer.",
     recordHead: "Votre preuve de consentement",
-    recordBody1: "Lorsque vous faites un choix, nous conservons le choix lui-même, une référence aléatoire, la date et l'heure, ainsi que la version de la présente politique qui vous a été présentée. Cet enregistrement constitue la preuve du consentement exigée par l'article 7(1) du RGPD. Il réside dans le cookie",
-    recordBody2: "sur votre propre appareil et est répliqué dans le stockage local de votre navigateur ; il ne nous est pas transmis, ni à quiconque. Il expire après douze mois, et nous vous redemanderons plus tôt si la présente politique change.",
+    recordBody1: "Votre choix de cookies est enregistré dans un enregistrement de consentement DEEV. Il contient notamment les catégories sélectionnées, une référence aléatoire, la date et l'heure, ainsi que la version des informations de consentement. Cet enregistrement sert à conserver votre choix et à rendre traçable la version de consentement utilisée. Il se trouve dans le cookie",
+    recordBody2: "sur votre appareil et est répliqué dans le stockage local de votre navigateur. Il expire après douze mois, et nous redemandons plus tôt si cette politique change.",
     withdrawHead: "Modifier ou retirer votre choix",
     withdrawBody:
       "Le retrait est aussi simple que le consentement, comme l'exige l'article 7(3) du RGPD. Ouvrez la fenêtre ci-dessous, ou utilisez « Paramètres des cookies » dans le pied de page de n'importe quelle page. Le retrait supprime l'enregistrement, replace la mesure d'audience en état refusé et réaffiche le bandeau. Vous pouvez également effacer les données de ce site dans votre navigateur, ce qui produit le même effet.",
@@ -104,15 +104,11 @@ updated: "Dernière mise à jour : septembre 2026",
       "Google Ireland Limited — statistiques, et seulement si vous y consentez. La section 7 décrit précisément ce qui lui parvient et ce qui ne lui parvient pas.",
     ],
     transfers:
-      "Vercel et Resend sont établis aux États-Unis : vos données peuvent donc être traitées hors de l'Union européenne. Ces transferts reposent sur les clauses contractuelles types de la Commission européenne. Notre propre boîte aux lettres est exploitée par Microsoft au sein de l'UE.",
+      "Ces prestataires peuvent traiter des données en dehors de l'Union européenne. Nous n'avons pas achevé de documenter la manière dont chacun de ces transferts est encadré ; nous n'indiquons donc aucun mécanisme ici. Demandez-nous et nous vous dirons ce qui est établi pour un prestataire donné.",
 
     retentionHead: "Combien de temps nous les conservons",
-    retention: [
-      "Une demande qui ne débouche sur rien : supprimée après douze mois.",
-      "La correspondance et les pièces liées à un projet : pendant la durée de la mission et dix ans ensuite — le délai que le droit commercial luxembourgeois fixe pour les documents d'entreprise.",
-      "Les statistiques : pendant la durée définie sur notre propriété Google Analytics, après quoi Google les supprime.",
-      "Votre choix de cookies : douze mois, sur votre propre appareil — voir la section 7.",
-    ],
+    retention:
+      "Nous ne conservons les données personnelles que le temps nécessaire à la finalité pour laquelle elles ont été collectées, ou aussi longtemps qu'une obligation légale de conservation s'applique. Dès que ce n'est plus le cas, elles sont supprimées.",
 
     rightsHead: "Vos droits",
     rightsIntro:
