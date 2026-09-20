@@ -11,11 +11,16 @@
  * Spezifikation; wer das Gabarit aendert, aendert nur die CSS-Datei.
  */
 
-/* Als Escape-Sequenz, nicht als Zeichen. Ein echtes geschuetztes Leerzeichen
-   waere im Quelltext von einem gewoehnlichen nicht zu unterscheiden - und
-   genau das ist der Unterschied zwischen "15 200,00 €" und einem Betrag, der
-   mitten im Umbruch auseinanderfaellt. */
-const NBSP = " ";
+/* Das geschuetzte Leerzeichen wird berechnet, nicht getippt.
+ *
+ * Als Zeichen im Quelltext waere es von einem gewoehnlichen Leerzeichen nicht
+ * zu unterscheiden: wer die Zeile anfasst, ersetzt es versehentlich, und der
+ * franzoesische Zahlensatz bricht lautlos - aus "15 200,00 EUR" wird ein
+ * Betrag, der mitten im Umbruch auseinanderfaellt. Als \u-Escape ueberlebt es
+ * nicht jeden Transportweg (JSON-Nutzlasten loesen es wieder in das Zeichen
+ * auf). fromCharCode ist sichtbar, eindeutig und ueberall dasselbe.
+ */
+const NBSP = String.fromCharCode(0xa0);
 
 /** Franzoesischer Zahlensatz: 15 200,00 € mit geschuetzten Leerzeichen. */
 export function money(n, locale = "fr") {
