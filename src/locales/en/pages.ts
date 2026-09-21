@@ -34,6 +34,8 @@ export const pages = {
     ownProduct: "Own product",
     snapshot: { industry: "Industry", audience: "Audience", location: "Location" },
     livePreview: "Live",
+    previewNotice:
+      "Loading the live preview embeds the client's website in this page. Your browser connects to it directly, so data — including your IP address — can be transmitted to its operator and to any services it uses.",
     specOnly: "For this project the key facts and the live site are documented; the full case study is not written yet. We only write one once the brief, the scope and the outcome are confirmed with the client.",
     next: "Next project",
   },

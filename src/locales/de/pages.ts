@@ -35,6 +35,8 @@ export const pages: typeof En = {
     ownProduct: "Eigenes Produkt",
     snapshot: { industry: "Branche", audience: "Für wen", location: "Ort" },
     livePreview: "Live",
+    previewNotice:
+      "Beim Laden der Live-Vorschau wird die Website des Kunden in diese Seite eingebettet. Ihr Browser verbindet sich unmittelbar mit ihr, sodass Daten — darunter Ihre IP-Adresse — an deren Betreiber und an die dort eingesetzten Dienste übertragen werden können.",
     specOnly: "Für dieses Projekt sind die Eckdaten und die ausgelieferte Seite dokumentiert, die ausführliche Fallstudie noch nicht. Wir schreiben sie erst, wenn Aufgabe, Umfang und Ergebnis mit dem Kunden abgestimmt sind.",
     next: "Nächstes Projekt",
   },

@@ -35,6 +35,8 @@ export const pages: typeof En = {
     ownProduct: "Produit propre",
     snapshot: { industry: "Secteur", audience: "Public", location: "Lieu" },
     livePreview: "Live",
+    previewNotice:
+      "Le chargement de l'aperçu en direct intègre le site du client dans cette page. Votre navigateur s'y connecte directement : des données — dont votre adresse IP — peuvent donc être transmises à son exploitant et aux services qu'il utilise.",
     specOnly: "Pour ce projet, les données clés et le site livré sont documentés ; l\u2019étude de cas détaillée ne l\u2019est pas encore. Nous ne la rédigeons qu\u2019une fois la mission, le périmètre et le résultat validés avec le client.",
     next: "Projet suivant",
   },
