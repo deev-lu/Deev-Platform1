@@ -34,7 +34,7 @@ export const site: typeof En = {
       ecommerce: "E-Commerce-Systeme",
       marketingSites: "Marketing-Websites",
       portfolio: "Referenzen",
-      terms: "AGB und Impressum",
+      terms: "Rechtliche Hinweise",
       privacy: "Datenschutzerklärung",
       cookies: "Cookie-Richtlinie",
       cookieSettings: "Cookie-Einstellungen",

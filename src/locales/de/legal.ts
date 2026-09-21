@@ -2,9 +2,13 @@ import type { legal as En } from "../en/legal";
 
 export const legal: typeof En = {
   badge: "Rechtliche Hinweise",
-  title: "AGB und",
-  titleAccent: "Impressum",
+  title: "Rechtliche",
+  titleAccent: "Hinweise",
 updated: "Zuletzt aktualisiert: September 2026",
+
+  intro: "Unternehmensangaben, Datenschutz und Informationen zur Nutzung unserer Website.",
+  scope:
+    "Diese Seite enthält allgemeine rechtliche Informationen zu DEEV und zur Nutzung dieser Website. Sie stellt keine einheitlichen Allgemeinen Geschäftsbedingungen für sämtliche Kundenprojekte dar. Leistungsumfang, Preise, Zahlungsmodalitäten, Rechte und sonstige projektbezogene Bedingungen richten sich nach der jeweiligen Vereinbarung mit dem Kunden.",
 
   company: {
     heading: "Angaben zum Unternehmen",
@@ -16,37 +20,37 @@ updated: "Zuletzt aktualisiert: September 2026",
     phone: "Telefon",
     vat: "USt-IdNr.",
     register: "Handelsregister",
+    authorisations: "Niederlassungsgenehmigungen",
+    qrAlt: "Offizieller QR-Code für Lux VR States Sàrl-s",
+    qrCaption: "Offizieller QR-Code",
+    qrNote: "Lux VR States Sàrl-s — Niederlassungsgenehmigung",
   },
 
-  s1: {
+  services: {
     title: "1. Leistungen",
-    body: "Deev (Lux VR States Sàrl-s.) erbringt Leistungen einer Digitalagentur, insbesondere: Webdesign und Webentwicklung, KI-Integration, digitales Marketing, E-Commerce-Lösungen und zugehörige Beratung. Alle Leistungen unterliegen einem gesonderten Dienstleistungsvertrag zwischen Deev und dem Kunden.",
+    body: "DEEV ist eine Marke von Lux VR States Sàrl-s und bietet digitale Leistungen insbesondere in den Bereichen Websites und E-Commerce, individuelle Software und Webanwendungen, KI-Lösungen und Automatisierung sowie digitales Marketing an.\n\nJe nach Projekt können außerdem Konzeption, Strategie, Gestaltung, Inhalte, technische Einrichtung, Integrationen, Beratung, Schulung, Wartung und Betreuung vereinbart werden.\n\nWelche Leistungen im konkreten Projekt enthalten sind, richtet sich nach der jeweiligen Vereinbarung mit dem Kunden.",
   },
-  s2: {
-    title: "2. Voraussetzungen",
-    body: "Mit der Beauftragung unserer Leistungen bestätigen Sie, dass Sie mindestens 18 Jahre alt und geschäftsfähig sind. Unternehmen müssen ordnungsgemäß eingetragen sein. Deev behält sich vor, Projektanfragen nach eigenem Ermessen abzulehnen.",
+  payment: {
+    title: "2. Angebote, Beauftragung und Zahlung",
+    body: "Leistungsumfang, Preis und Zahlungsmodalitäten werden für das jeweilige Projekt individuell vereinbart.\n\nJe nach Projekt kann eine Anzahlung, eine vollständige Vorauszahlung, eine Zahlung in Teilbeträgen oder eine andere Zahlungsstruktur vereinbart werden. Etwaige Zahlungsfristen ergeben sich aus dem jeweiligen Angebot, der Auftragsbestätigung, Rechnung oder einer sonstigen projektbezogenen Vereinbarung.\n\nSoweit Umsatzsteuer anfällt, wird sie entsprechend den anwendbaren Vorschriften ausgewiesen.",
   },
-  s3: {
-    title: "3. Bestellung und Zahlung",
-    body: "Alle Preise verstehen sich in Euro und zuzüglich Mehrwertsteuer, sofern nicht anders angegeben. Vor Arbeitsbeginn ist eine Anzahlung (in der Regel 50%) fällig. Der Restbetrag wird mit Projektabschluss oder gemäß Projektvertrag fällig. Rechnungen sind innerhalb von 14 Tagen ab Ausstellung zahlbar. Bei Zahlungsverzug können nach luxemburgischem Recht Verzugszinsen anfallen.",
+  changes: {
+    title: "3. Änderungen und zusätzliche Leistungen",
+    body: "Der vereinbarte Preis bezieht sich auf den für das jeweilige Projekt vereinbarten Leistungsumfang.\n\nNachträgliche Wünsche, Erweiterungen oder zusätzliche Leistungen, die über diesen Umfang hinausgehen, können zusätzliche Kosten und Auswirkungen auf den Zeitplan verursachen. Umfang, Auswirkungen und gegebenenfalls zusätzliche Vergütung werden vor der Umsetzung abgestimmt.",
   },
-  s4: {
-    title: "4. Förderung durch SME Digital und SME AI",
-    body: "Förderfähige luxemburgische KMU können staatliche Zuschüsse aus den Programmen SME Digital und SME AI erhalten, die 70% der förderfähigen Investitionskosten abdecken. Projekte müssen im förderfähigen Kostenrahmen liegen (3.000 € bis 25.000 €). Deev unterstützt bei der Antragstellung; die Bewilligung liegt jedoch im alleinigen Ermessen der zuständigen Behörde. Deev übernimmt keine Gewähr für die Bewilligung.",
+  funding: {
+    title: "4. Öffentliche Förderprogramme",
+    body: "Für bestimmte Unternehmen und Projekte können öffentliche Förderprogramme in Betracht kommen. Förderfähigkeit, Voraussetzungen, Verfahren und Höhe einer Förderung richten sich ausschließlich nach den jeweils geltenden Bedingungen der zuständigen öffentlichen Stellen.\n\nAktuelle Informationen finden Sie insbesondere bei Guichet.lu, der House of Entrepreneurship der Chambre de Commerce sowie — für Handwerksunternehmen — beim Service eHandwierk der Chambre des Métiers.\n\nSoweit dies für ein konkretes Projekt vereinbart wird, kann DEEV bei der Vorbereitung projektbezogener Informationen unterstützen. Über Förderfähigkeit und Bewilligung entscheidet ausschließlich die zuständige öffentliche Stelle. DEEV kann keine Förderzusage oder Bewilligung garantieren.",
   },
-  s5: {
-    title: "5. Preise und Änderungen",
-    body: "Deev behält sich vor, die Preise jederzeit anzupassen. Preisänderungen gelten nicht für bereits vertraglich vereinbarte Projekte. Vom Kunden nach Vertragsschluss gewünschte Änderungen oder Erweiterungen des Leistungsumfangs können zusätzliche Kosten verursachen, die vor der Umsetzung schriftlich vereinbart werden.",
-  },
-  s6: {
-    title: "6. Geistiges Eigentum",
-    body: "Nach vollständiger Zahlung erhält der Kunde das uneingeschränkte Eigentum an allen individuell für sein Projekt erstellten Ergebnissen. Deev behält das Recht, die Arbeit im eigenen Portfolio zu zeigen, sofern nichts anderes schriftlich vereinbart wurde. Alle verwendeten Inhalte, Bibliotheken oder Software Dritter unterliegen weiterhin ihren jeweiligen Lizenzen.",
+  rights: {
+    title: "5. Rechte an Arbeitsergebnissen",
+    body: "Welche Nutzungs-, Bearbeitungs- und Übergaberechte der Kunde an im Rahmen eines Projekts erstellten Arbeitsergebnissen erhält, wird projektbezogen vereinbart.\n\nDies gilt insbesondere für Quellcode, technische Dateien, Dokumentation, Designs, Inhalte und die Möglichkeit einer technischen Weiterbetreuung durch Dritte.\n\nKundenspezifische Arbeitsergebnisse können von allgemeinen DEEV-Bausteinen, Werkzeugen und nicht vertraulichem Know-how zu unterscheiden sein. Der konkrete Umfang der jeweiligen Rechte ergibt sich aus der Projektvereinbarung.\n\nFür Software, Bibliotheken, Plattformen, Inhalte und sonstige Bestandteile Dritter gelten zusätzlich deren jeweilige Rechte und Lizenzbedingungen.",
   },
 
   cookies: {
-    title: "7. Cookies, Einwilligung und Tracking",
+    title: "6. Cookies, Einwilligung und Tracking",
     intro:
-      "Diese Website setzt eine kleine Zahl eigener Cookies und, ausschließlich mit Ihrer Einwilligung, Cookies von Google Analytics. Es gibt keine Consent-Plattform eines Dritten: Banner, Einstellungsdialog und der Nachweis Ihrer Auswahl sind Teil dieser Website, und es werden keinerlei Daten über Sie irgendwohin übermittelt, nur um Ihnen die Frage zu stellen.",
+      "Wir verwenden technisch erforderliche Speicherungen, damit die Website funktioniert und Ihre Cookie-Auswahl gespeichert werden kann.\n\nGoogle Analytics wird nur aktiviert, wenn Sie der Nutzung von Statistikdiensten ausdrücklich zustimmen. Ohne diese Zustimmung wird der Google-Analytics-Tag nicht geladen.\n\nSie können Ihre Auswahl jederzeit über \u201eCookie-Einstellungen\u201c im Fußbereich der Website ändern oder widerrufen.",
     necessaryHead: "Unbedingt erforderlich",
     necessaryBody:
       "Gesetzt auf der Rechtsgrundlage von Artikel 5(3) der ePrivacy-Richtlinie, der für technisch notwendige Vorgänge zur Erbringung des von Ihnen angeforderten Dienstes keine Einwilligung verlangt.",
@@ -56,14 +60,14 @@ updated: "Zuletzt aktualisiert: September 2026",
     lifeTheme: "Bis zum Löschen",
     analyticsHead: "Statistik, nur mit Einwilligung",
     analyticsBody:
-      "Wir verwenden Google Analytics 4, in der EU betrieben von Google Ireland Limited, um Besuche zu zählen und zu sehen, welche Seiten gelesen werden. Es läuft im Google Consent Mode. Vor Ihrer Auswahl und bei Ablehnung bleibt das Tag im Zustand der verweigerten Einwilligung: Es wird kein Cookie geschrieben und keine Kennung auf Ihrem Gerät gespeichert, und Google erhält nur ein cookieloses Signal, einschließlich Ihrer IP-Adresse und Ihres Browsertyps, das für aggregierte Statistiken verwendet wird. Wenn Sie zustimmen, werden die untenstehenden Cookies gesetzt.",
+      "Google Analytics 4, betrieben von Google Ireland Limited, Mess-ID G-K0T15PZHMN. Gezählt werden Besuche und gelesene Seiten. Vor Ihrer Zustimmung wird bei Google nichts angefordert: das Skript wird nicht geladen, es wird kein Ereignis gesendet und kein Cookie geschrieben. Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.",
     rowGa: "Unterscheidet einen Besucher vom anderen, damit Besuche gezählt werden können.",
     rowGaProperty: "Hält den Zustand des aktuellen Besuchs für diese Property fest.",
     lifeGa: "2 Jahre",
     linking:
       "Was wir nicht tun, zählt ebenso. Google Analytics erhält keine Kennung, die Sie benennt: kein Konto, keine E-Mail-Adresse, keine User-ID und nichts, was Sie in ein Formular eingeben. Wir spielen keine Daten von anderer Stelle ein und führen die Analysedaten mit nichts zusammen, was uns sonst vorliegt; erfasst wird ein Besuch auf dieser Website und nicht mehr. Es entsteht kein geräte- oder websiteübergreifendes Profil von Ihnen, und die Daten dienen weder Werbezielgruppen noch Remarketing oder personalisierter Werbung. Google Analytics 4 speichert keine IP-Adressen; die Adresse dient dazu, einen ungefähren Standort abzuleiten, und wird danach verworfen. Google bewahrt die Daten für den auf unserer Property eingestellten Zeitraum auf und löscht sie anschließend.",
     advertising:
-      "Werbespeicherung, Anzeigenpersonalisierung und Nutzerdaten für Werbung sind dauerhaft abgelehnt, und wir setzen auf dieser Website keine Werbe- oder Remarketing-Produkte ein. Google kann die Daten außerhalb der EU verarbeiten; diese Übermittlungen stützen sich auf die Standardvertragsklauseln der Europäischen Kommission und auf ergänzende Maßnahmen von Google.",
+      "Werbespeicherung, Anzeigenpersonalisierung und Nutzerdaten für Werbung sind dauerhaft abgelehnt, und wir setzen auf dieser Website keine Werbe- oder Remarketing-Produkte ein.",
     videoHead: "Eingebettete Videos",
     videoBody:
       "Der Marketingbereich enthält Videos, die bei YouTube gehostet werden. Der Player selbst wird erst geladen, wenn Sie auf Wiedergabe drücken, sodass vorher kein YouTube-Skript ausgeführt und kein Speicher Dritter auf Ihrem Gerät gesetzt wird. Das Standbild, das Sie zuvor sehen, ist das Vorschaubild des Videos selbst, das beim Erscheinen dieses Seitenbereichs vom Bildhost von Google (i.ytimg.com) angefordert wird: Diese Anfrage setzt keine Cookies, teilt Google aber mit, dass ein Browser diese Seite geladen hat, einschließlich Ihrer IP-Adresse. Wenn Sie auf Wiedergabe drücken, wird der Player von youtube-nocookie.com geladen, das das Video ohne Werbecookies ausliefert; YouTube kann dann speichern, was zur Wiedergabe und zur Zählung des Aufrufs nötig ist. Auf Wiedergabe zu drücken ist Ihre eigene Entscheidung.",
@@ -83,7 +87,7 @@ updated: "Zuletzt aktualisiert: September 2026",
   },
 
   gdpr: {
-    title: "8. Datenschutz und DSGVO",
+    title: "7. Datenschutz und DSGVO",
     body1:
       "Verantwortlich für die hier beschriebene Verarbeitung ist die Lux VR States S.à r.l.-S, 17 rue de Sélange, L-4965 Clemency, Luxemburg. Wir verarbeiten personenbezogene Daten gemäß der Verordnung (EU) 2016/679 (DSGVO) und den geltenden luxemburgischen Vorschriften. Daten werden niemals verkauft, und sie dienen nie dazu, ein Profil von Ihnen zu erstellen.",
 
@@ -122,22 +126,9 @@ updated: "Zuletzt aktualisiert: September 2026",
     body2b: ". Sagen Sie uns bitte, welches Recht Sie ausüben, damit wir es richtig bearbeiten können.",
   },
 
-  s9: {
-    title: "9. Haftungsbeschränkung",
-    body: "Die Gesamthaftung von Deev gegenüber einem Kunden aus oder im Zusammenhang mit einem Projekt übersteigt nicht die Summe der von diesem Kunden im Rahmen des betreffenden Projektvertrags gezahlten Honorare. Deev haftet nicht für mittelbare Schäden, Folgeschäden oder Nebenschäden. Keine Bestimmung dieser Bedingungen beschränkt die Haftung von Deev für Betrug oder grobe Fahrlässigkeit.",
-  },
-  s10: {
-    title: "10. Anwendbares Recht und Gerichtsstand",
-    body: "Diese Bedingungen und alle daraus entstehenden Streitigkeiten unterliegen dem Recht des Großherzogtums Luxemburg und werden nach diesem ausgelegt. Für alle Streitigkeiten sind ausschließlich die Gerichte der Stadt Luxemburg zuständig.",
-  },
-  s11: {
-    title: "11. Kontakt",
-    body: "Bei Fragen zu diesen Bedingungen wenden Sie sich bitte an:",
-  },
-
-  prevails: {
-    title: "12. Sprache",
-    body: "Diese Übersetzung wird zu Ihrer besseren Verständlichkeit bereitgestellt. Bei Abweichungen oder Widersprüchen zwischen dieser Fassung und der englischen Fassung ist die englische Fassung maßgeblich und allein vertraglich bindend. Diese Bedingungen sind ein Mustertext und wurden nicht anwaltlich geprüft; wir empfehlen Ihnen, sie vor einer Berufung darauf rechtlich prüfen zu lassen.",
+  contact: {
+    title: "8. Kontakt",
+    body: "Bei Fragen zu dieser Seite wenden Sie sich bitte an:",
   },
 
   back: "Zurück zu DEEV",

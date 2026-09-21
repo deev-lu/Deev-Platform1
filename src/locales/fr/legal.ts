@@ -2,9 +2,13 @@ import type { legal as En } from "../en/legal";
 
 export const legal: typeof En = {
   badge: "Informations légales",
-  title: "Conditions et",
-  titleAccent: "mentions légales",
+  title: "Informations",
+  titleAccent: "légales",
 updated: "Dernière mise à jour : septembre 2026",
+
+  intro: "Informations sur l'entreprise, protection des données et utilisation de notre site web.",
+  scope:
+    "Cette page contient des informations légales générales sur DEEV et sur l'utilisation de ce site web. Elle ne constitue pas des conditions générales uniformes applicables à l'ensemble des projets clients. Le périmètre des prestations, les prix, les modalités de paiement, les droits et les autres conditions liées à un projet relèvent de l'accord conclu avec le client concerné.",
 
   company: {
     heading: "Informations sur la société",
@@ -16,37 +20,37 @@ updated: "Dernière mise à jour : septembre 2026",
     phone: "Téléphone",
     vat: "Numéro de TVA",
     register: "Registre de commerce",
+    authorisations: "Autorisations d'établissement",
+    qrAlt: "Code QR officiel pour Lux VR States Sàrl-s",
+    qrCaption: "Code QR officiel",
+    qrNote: "Lux VR States Sàrl-s — autorisation d'établissement",
   },
 
-  s1: {
+  services: {
     title: "1. Services",
-    body: "Deev (Lux VR States Sàrl-s.) fournit des services d'agence numérique comprenant, sans s'y limiter : la conception et le développement web, l'intégration d'IA, le marketing numérique, les solutions d'e-commerce et le conseil associé. Tous les services font l'objet d'un contrat de prestation distinct entre Deev et le client.",
+    body: "DEEV est une marque de Lux VR States Sàrl-s et propose des services numériques, en particulier dans les domaines des sites web et de l\u2019e-commerce, des logiciels sur mesure et applications web, des solutions d\u2019IA et de l\u2019automatisation, ainsi que du marketing numérique.\n\nSelon le projet, la conception, la stratégie, le design, les contenus, la mise en place technique, les intégrations, le conseil, la formation, la maintenance et le suivi peuvent également être convenus.\n\nLes prestations incluses dans un projet donné dépendent de l\u2019accord conclu avec le client concerné.",
   },
-  s2: {
-    title: "2. Conditions d'accès",
-    body: "En faisant appel à nos services, vous confirmez être âgé d'au moins 18 ans et disposer de la capacité juridique de conclure des contrats. Les entreprises doivent être dûment immatriculées. Deev se réserve le droit de refuser toute demande de projet à sa seule discrétion.",
+  payment: {
+    title: "2. Devis, commande et paiement",
+    body: "Le périmètre, le prix et les modalités de paiement sont convenus individuellement pour chaque projet.\n\nSelon le projet, un acompte, un paiement intégral d\u2019avance, un paiement en plusieurs tranches ou une autre structure de paiement peuvent être convenus. Les éventuels délais de paiement résultent du devis, de la confirmation de commande, de la facture ou de tout autre accord relatif au projet.\n\nLorsque la TVA s\u2019applique, elle est indiquée conformément aux règles en vigueur.",
   },
-  s3: {
-    title: "3. Commandes et paiement",
-    body: "Tous les prix sont indiqués en euros et hors TVA, sauf mention contraire. Un acompte initial (généralement 50%) est exigé avant le début des travaux. Le solde est dû à l'achèvement du projet ou selon les modalités définies dans le contrat. Les factures sont payables sous 14 jours à compter de leur émission. Tout retard de paiement peut donner lieu à des intérêts conformément au droit luxembourgeois.",
+  changes: {
+    title: "3. Modifications et prestations supplémentaires",
+    body: "Le prix convenu se rapporte au périmètre convenu pour le projet concerné.\n\nLes demandes ultérieures, extensions ou prestations supplémentaires dépassant ce périmètre peuvent entraîner des coûts additionnels et avoir une incidence sur le calendrier. Le périmètre, les conséquences et, le cas échéant, la rémunération supplémentaire sont convenus avant la réalisation.",
   },
-  s4: {
-    title: "4. Aides SME Digital et SME AI",
-    body: "Les PME luxembourgeoises éligibles peuvent bénéficier d'aides publiques au titre des programmes SME Digital et SME AI, qui couvrent 70% des coûts d'investissement éligibles. Les projets doivent se situer dans la fourchette de coûts éligibles (3 000 € à 25 000 €). Deev peut vous accompagner dans la demande d'aide ; l'octroi relève toutefois de la seule appréciation de l'organisme public compétent. Deev ne garantit pas l'obtention de l'aide.",
+  funding: {
+    title: "4. Programmes d\u2019aides publiques",
+    body: "Des programmes d\u2019aides publiques peuvent être envisageables pour certaines entreprises et certains projets. L\u2019éligibilité, les conditions, la procédure et le montant d\u2019une aide relèvent exclusivement des conditions en vigueur auprès des organismes publics compétents.\n\nDes informations actualisées sont disponibles notamment auprès de Guichet.lu, de la House of Entrepreneurship de la Chambre de Commerce ainsi que — pour les entreprises artisanales — du service eHandwierk de la Chambre des Métiers.\n\nLorsque cela est convenu pour un projet donné, DEEV peut aider à préparer les informations relatives au projet. L\u2019éligibilité et l\u2019octroi relèvent de la seule décision de l\u2019organisme public compétent. DEEV ne peut garantir aucune promesse ni aucun octroi d\u2019aide.",
   },
-  s5: {
-    title: "5. Tarifs et modifications",
-    body: "Deev se réserve le droit de modifier ses tarifs à tout moment. Les changements de prix n'affectent pas les projets déjà sous contrat. Toute modification ou tout ajout de périmètre demandé par le client après la signature du contrat peut entraîner des frais supplémentaires, convenus par écrit avant leur mise en œuvre.",
-  },
-  s6: {
-    title: "6. Propriété intellectuelle",
-    body: "Après paiement intégral et définitif, le client acquiert la pleine propriété de tous les livrables sur mesure produits pour son projet. Deev conserve le droit de présenter le travail dans son portfolio, sauf accord écrit contraire. Tous les éléments, bibliothèques ou logiciels tiers utilisés restent soumis à leurs licences respectives.",
+  rights: {
+    title: "5. Droits sur les travaux réalisés",
+    body: "Les droits d\u2019utilisation, de modification et de remise que le client obtient sur les travaux réalisés dans le cadre d\u2019un projet sont convenus projet par projet.\n\nCela vaut en particulier pour le code source, les fichiers techniques, la documentation, les designs, les contenus et la possibilité d\u2019une reprise technique par un tiers.\n\nLes travaux spécifiques au client peuvent se distinguer des briques, outils et savoir-faire non confidentiels généraux de DEEV. L\u2019étendue précise des droits résulte de l\u2019accord de projet.\n\nLes logiciels, bibliothèques, plateformes, contenus et autres composants de tiers restent en outre soumis à leurs droits et conditions de licence respectifs.",
   },
 
   cookies: {
-    title: "7. Cookies, consentement et suivi",
+    title: "6. Cookies, consentement et suivi",
     intro:
-      "Ce site dépose un petit nombre de cookies internes et, uniquement avec votre consentement, des cookies de Google Analytics. Il n'y a pas de plateforme de consentement tierce : le bandeau, la fenêtre de préférences et la preuve de votre choix font partie de ce site, et rien vous concernant n'est transmis ailleurs pour vous poser la question.",
+      "Nous utilisons des stockages techniquement nécessaires pour que le site fonctionne et pour que votre choix de cookies puisse être conservé.\n\nGoogle Analytics n\u2019est activé que si vous consentez expressément aux services de mesure d\u2019audience. Sans ce consentement, la balise Google Analytics n\u2019est pas chargée.\n\nVous pouvez modifier ou retirer votre choix à tout moment via \u00ab Paramètres des cookies \u00bb dans le pied de page du site.",
     necessaryHead: "Strictement nécessaires",
     necessaryBody:
       "Déposés sur la base juridique de l'article 5(3) de la directive ePrivacy, qui n'exige pas de consentement pour ce qui est techniquement nécessaire à la fourniture du service que vous avez demandé.",
@@ -56,14 +60,14 @@ updated: "Dernière mise à jour : septembre 2026",
     lifeTheme: "Jusqu'à effacement",
     analyticsHead: "Mesure d'audience, uniquement avec consentement",
     analyticsBody:
-      "Nous utilisons Google Analytics 4, exploité dans l'UE par Google Ireland Limited, pour compter les visites et voir quelles pages sont lues. L'outil fonctionne sous Google Consent Mode. Avant votre choix, et si vous refusez, la balise reste en état de consentement refusé : aucun cookie n'est écrit, aucun identifiant n'est stocké sur votre appareil, et Google ne reçoit qu'un signal sans cookie, comprenant votre adresse IP et le type de navigateur, utilisé à des fins de statistiques agrégées. Si vous acceptez, les cookies ci-dessous sont déposés.",
+      "Google Analytics 4, exploité par Google Ireland Limited, identifiant de mesure G-K0T15PZHMN. Il compte les visites et montre quelles pages sont lues. Rien n\u2019est demandé à Google avant votre consentement : le script n\u2019est pas chargé, aucun événement n\u2019est envoyé et aucun cookie n\u2019est écrit. Consentement au titre de l\u2019article 6, paragraphe 1, point a du RGPD.",
     rowGa: "Distingue un visiteur d'un autre afin de pouvoir compter les visites.",
     rowGaProperty: "Conserve l'état de la visite en cours pour cette propriété.",
     lifeGa: "2 ans",
     linking:
       "Ce que nous ne faisons pas compte tout autant. Google Analytics ne reçoit aucun identifiant qui vous nomme : ni compte, ni adresse e-mail, ni User-ID, ni rien de ce que vous saisissez dans un formulaire. Nous n'y importons aucune donnée venue d'ailleurs et nous ne croisons ses données avec aucune autre en notre possession : ce qu'il enregistre est une visite sur ce site, rien de plus. Il ne constitue aucun profil multi-appareils ou multi-sites, et il ne sert ni aux audiences publicitaires, ni au reciblage, ni à la personnalisation des annonces. Google Analytics 4 ne conserve pas les adresses IP : l'adresse sert à déduire une localisation approximative, puis elle est supprimée. Google conserve les données pendant la durée définie sur notre propriété, puis les efface.",
     advertising:
-      "Le stockage publicitaire, la personnalisation des annonces et les données publicitaires utilisateur sont refusés en permanence, et nous n'utilisons aucun produit publicitaire ni de remarketing sur ce site. Google peut traiter les données en dehors de l'UE ; ces transferts s'appuient sur les clauses contractuelles types de la Commission européenne et sur les mesures supplémentaires de Google.",
+      "Le stockage publicitaire, la personnalisation des annonces et les données publicitaires utilisateur sont refusés en permanence, et nous n\u2019utilisons aucun produit publicitaire ni de remarketing sur ce site.",
     videoHead: "Vidéos intégrées",
     videoBody:
       "La section marketing contient des vidéos hébergées sur YouTube. Le lecteur n'est pas chargé tant que vous n'appuyez pas sur lecture : aucun script YouTube ne s'exécute et aucun stockage tiers n'est déposé sur votre appareil avant cela. L'image fixe affichée auparavant est la vignette de la vidéo elle-même, demandée au serveur d'images de Google (i.ytimg.com) lorsque cette partie de la page apparaît à l'écran : cette requête ne dépose aucun cookie, mais elle indique à Google qu'un navigateur a chargé cette page, y compris votre adresse IP. Lorsque vous appuyez sur lecture, le lecteur se charge depuis youtube-nocookie.com, qui diffuse la vidéo sans cookies publicitaires, et YouTube peut alors stocker ce qui lui est nécessaire pour la lire et comptabiliser la vue. Appuyer sur lecture relève de votre propre choix.",
@@ -83,7 +87,7 @@ updated: "Dernière mise à jour : septembre 2026",
   },
 
   gdpr: {
-    title: "8. Protection des données et RGPD",
+    title: "7. Protection des données et RGPD",
     body1:
       "Le responsable du traitement décrit ici est Lux VR States S.à r.l.-S, 17 rue de Sélange, L-4965 Clemency, Luxembourg. Nous traitons les données personnelles conformément au règlement (UE) 2016/679 (RGPD) et à la législation luxembourgeoise applicable. Les données ne sont jamais vendues, et elles ne servent jamais à établir un profil de vous.",
 
@@ -122,22 +126,9 @@ updated: "Dernière mise à jour : septembre 2026",
     body2b: ". Précisez le droit que vous exercez, afin que nous puissions le traiter correctement.",
   },
 
-  s9: {
-    title: "9. Limitation de responsabilité",
-    body: "La responsabilité totale de Deev envers un client, née d'un projet ou liée à celui-ci, ne peut excéder le montant total des honoraires versés par ce client au titre du contrat concerné. Deev n'est pas responsable des dommages indirects, consécutifs ou accessoires. Aucune disposition des présentes conditions ne limite la responsabilité de Deev en cas de fraude ou de faute lourde.",
-  },
-  s10: {
-    title: "10. Droit applicable et juridiction",
-    body: "Les présentes conditions et tout litige en découlant sont régis et interprétés conformément au droit du Grand-Duché de Luxembourg. Tout litige relève de la compétence exclusive des tribunaux de la Ville de Luxembourg.",
-  },
-  s11: {
-    title: "11. Contact",
-    body: "Pour toute question relative aux présentes conditions, veuillez contacter :",
-  },
-
-  prevails: {
-    title: "12. Langue",
-    body: "La présente traduction est fournie pour votre confort de lecture. En cas de divergence ou de contradiction entre cette version et la version anglaise, la version anglaise prévaut et constitue seule le texte contractuel. Ces conditions sont un document type et n'ont pas été revues par un conseil juridique ; nous vous invitons à les faire vérifier par un avocat avant de vous y fier.",
+  contact: {
+    title: "8. Contact",
+    body: "Pour toute question concernant cette page, veuillez nous contacter :",
   },
 
   back: "Retour à DEEV",

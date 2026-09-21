@@ -8,9 +8,13 @@
  */
 export const legal = {
   badge: "Legal Information",
-  title: "Terms &",
-  titleAccent: "Legal Notice",
+  title: "Legal",
+  titleAccent: "Information",
 updated: "Last updated: September 2026",
+
+  intro: "Company information, data protection and information about the use of our website.",
+  scope:
+    "This page carries general legal information about DEEV and about the use of this website. It is not a single set of terms and conditions covering every client project. Scope, prices, payment terms, rights and any other project conditions follow the agreement made with the client in question.",
 
   company: {
     heading: "Company Information",
@@ -22,37 +26,37 @@ updated: "Last updated: September 2026",
     phone: "Phone",
     vat: "VAT Number",
     register: "Trade Register",
+    authorisations: "Business permits",
+    qrAlt: "Official QR code for Lux VR States Sàrl-s",
+    qrCaption: "Official QR code",
+    qrNote: "Lux VR States Sàrl-s — business permit",
   },
 
-  s1: {
+  services: {
     title: "1. Services",
-    body: "Deev (Lux VR States Sàrl-s.) provides digital agency services including but not limited to: web design and development, AI integration, digital marketing, e-commerce solutions, and related consulting. All services are subject to a separate service agreement between Deev and the client.",
+    body: "DEEV is a brand of Lux VR States Sàrl-s and provides digital services, in particular websites and e-commerce, custom software and web applications, AI solutions and automation, and digital marketing.\n\nDepending on the project, concept work, strategy, design, content, technical setup, integrations, consulting, training, maintenance and support may also be agreed.\n\nWhich services a given project includes follows the agreement made with that client.",
   },
-  s2: {
-    title: "2. Eligibility",
-    body: "By engaging our services, you confirm that you are at least 18 years of age and have the legal capacity to enter into binding contracts. Businesses must be duly registered entities. Deev reserves the right to decline any project request at its sole discretion.",
+  payment: {
+    title: "2. Quotes, engagement and payment",
+    body: "Scope, price and payment terms are agreed individually for each project.\n\nDepending on the project, a deposit, full payment in advance, payment in instalments or another payment structure may be agreed. Any payment deadlines follow the relevant quote, order confirmation, invoice or other project agreement.\n\nWhere VAT applies, it is shown in accordance with the applicable rules.",
   },
-  s3: {
-    title: "3. Purchases & Payment",
-    body: "All prices are quoted in EUR and are exclusive of VAT unless otherwise stated. An initial deposit (typically 50%) is required before work commences. The remaining balance is due upon project completion or as defined in the project agreement. Invoices are payable within 14 days of issue. Late payments may incur interest charges in accordance with Luxembourg law.",
+  changes: {
+    title: "3. Changes and additional work",
+    body: "The agreed price relates to the scope agreed for that project.\n\nLater requests, extensions or additional work going beyond that scope can incur additional cost and affect the schedule. Scope, impact and any additional fee are agreed before the work is carried out.",
   },
-  s4: {
-    title: "4. SME Digital & SME AI Subsidies",
-    body: "Eligible Luxembourg-based SMEs may benefit from government subsidies under the SME Digital and SME AI programmes, which cover 70% of qualifying investment costs. Projects must fall within the eligible cost range (€3,000–€25,000). Deev can assist with the subsidy application process; however, approval is at the sole discretion of the relevant government body. Deev does not guarantee subsidy approval.",
+  funding: {
+    title: "4. Public funding programmes",
+    body: "Public funding programmes may be available for certain companies and projects. Eligibility, conditions, procedure and the amount of any funding follow solely the terms in force at the competent public bodies.\n\nCurrent information is available in particular from Guichet.lu, the House of Entrepreneurship at the Chambre de Commerce and — for craft businesses — the eHandwierk service at the Chambre des Métiers.\n\nWhere agreed for a specific project, DEEV can help prepare project-related information. Eligibility and approval are decided solely by the competent public body. DEEV cannot guarantee any funding commitment or approval.",
   },
-  s5: {
-    title: "5. Pricing & Changes",
-    body: "Deev reserves the right to update service pricing at any time. Price changes will not affect projects already under contract. Any scope changes or additions requested by the client after contract signing may result in additional charges, which will be agreed upon in writing before implementation.",
-  },
-  s6: {
-    title: "6. Intellectual Property",
-    body: "Upon full and final payment, the client receives full ownership of all custom deliverables produced for their project. Deev retains the right to display the work in its portfolio unless otherwise agreed in writing. All third-party assets, libraries, or software used remain subject to their respective licenses.",
+  rights: {
+    title: "5. Rights in work produced",
+    body: "The rights of use, modification and handover a client receives in work produced during a project are agreed for that project.\n\nThis applies in particular to source code, technical files, documentation, designs, content and the option of technical support by a third party.\n\nClient-specific work may be distinguishable from DEEV\u2019s general building blocks, tools and non-confidential know-how. The precise extent of the respective rights follows the project agreement.\n\nSoftware, libraries, platforms, content and other third-party components are additionally subject to their own rights and licence terms.",
   },
 
   cookies: {
-    title: "7. Cookies, Consent & Tracking",
+    title: "6. Cookies, consent and tracking",
     intro:
-      "This site sets a small number of first-party cookies, and, only with your consent, cookies from Google Analytics. There is no third-party consent platform: the banner, the preference dialog and the record of your choice are all part of this site and nothing about you is sent anywhere in order to ask you the question.",
+      "We use storage that is technically necessary for the site to work and for your cookie choice to be remembered.\n\nGoogle Analytics is only activated if you explicitly consent to statistics. Without that consent the Google Analytics tag is not loaded at all.\n\nYou can change or withdraw your choice at any time via \u201cCookie settings\u201d in the footer of the site.",
     necessaryHead: "Strictly necessary",
     necessaryBody:
       "Set on the legal basis of Article 5(3) of the ePrivacy Directive, which does not require consent for what is technically necessary to deliver the service you asked for.",
@@ -62,14 +66,14 @@ updated: "Last updated: September 2026",
     lifeTheme: "Until cleared",
     analyticsHead: "Analytics, only with consent",
     analyticsBody:
-      "We use Google Analytics 4, operated in the EU by Google Ireland Limited, to count visits and see which pages are read. It runs under Google Consent Mode. Before you choose, and if you decline, the tag stays in a consent-denied state: no cookie is written and no identifier is stored on your device, and Google receives only a cookieless signal, including your IP address and browser type, used for aggregated statistics. If you accept, the cookies below are set.",
+      "Google Analytics 4, operated by Google Ireland Limited, measurement ID G-K0T15PZHMN. It counts visits and shows which pages are read. Nothing is requested from Google before you consent: the script is not fetched, no event is sent and no cookie is written. Consent under Article 6(1)(a) GDPR.",
     rowGa: "Distinguishes one visitor from another so visits can be counted.",
     rowGaProperty: "Keeps the state of the current visit for this property.",
     lifeGa: "2 years",
     linking:
       "What we do not do matters as much. Google Analytics receives no identifier that names you: no account, no email address, no User-ID, and nothing you type into a form. We upload no data to it from anywhere else and we join its data with nothing else we hold, so what it records is a visit to this website and nothing more. It builds no cross-device or cross-site profile of you, and it is not used for advertising audiences, remarketing or ad personalisation. Google Analytics 4 does not store IP addresses; the address is used to derive an approximate location and then discarded. Google keeps the data for the retention period set on our property and deletes it afterwards.",
     advertising:
-      "Advertising storage, ad personalisation and ad user data are denied at all times and we run no advertising or remarketing products on this site. Google may process the data outside the EU; those transfers rely on the European Commission's standard contractual clauses and on Google's supplementary measures.",
+      "Advertising storage, ad personalisation and ad user data are denied at all times, and we run no advertising or remarketing products on this site.",
     videoHead: "Embedded video",
     videoBody:
       "The marketing section contains videos hosted on YouTube. The player itself is not loaded until you press play, so no YouTube script runs and no third-party storage is set on your device before that. The still frame you see beforehand is the video's own thumbnail, requested from Google's image host (i.ytimg.com) as that part of the page comes into view: that request sets no cookies, but it does tell Google that a browser loaded this page, including your IP address. When you press play, the player loads from youtube-nocookie.com, which serves the video without advertising cookies, and YouTube may then store what it needs to play it and count the view. Pressing play is your own choice.",
@@ -89,7 +93,7 @@ updated: "Last updated: September 2026",
   },
 
   gdpr: {
-    title: "8. Data Protection & GDPR",
+    title: "7. Data protection and GDPR",
     body1:
       "The controller for the processing described here is Lux VR States S.à r.l.-S, 17 rue de Sélange, L-4965 Clemency, Luxembourg. We process personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable Luxembourg legislation. Data is never sold, and it is never used to build a profile of you.",
 
@@ -128,23 +132,9 @@ updated: "Last updated: September 2026",
     body2b: ". Please tell us which right you are exercising, so we can deal with it properly.",
   },
 
-  s9: {
-    title: "9. Limitation of Liability",
-    body: "Deev's total liability to any client arising from or in connection with a project shall not exceed the total fees paid by that client under the relevant project agreement. Deev is not liable for any indirect, consequential, or incidental damages. Nothing in these terms limits Deev's liability for fraud or gross negligence.",
-  },
-  s10: {
-    title: "10. Governing Law & Jurisdiction",
-    body: "These terms and any disputes arising from them shall be governed by and construed in accordance with the laws of the Grand Duchy of Luxembourg. Any disputes shall be subject to the exclusive jurisdiction of the courts of Luxembourg City.",
-  },
-  s11: {
-    title: "11. Contact",
-    body: "For any questions regarding these terms, please contact:",
-  },
-
-  /** Rendered only on /fr and /de. */
-  prevails: {
-    title: "12. Language",
-    body: "",
+  contact: {
+    title: "8. Contact",
+    body: "For any questions about this page, please contact:",
   },
 
   back: "Back to DEEV",
