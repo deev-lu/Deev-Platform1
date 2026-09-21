@@ -17,7 +17,11 @@
 // survives a cookie purge that leaves site data intact). Either one is enough
 // to read the record back.
 
-export const CONSENT_VERSION = 1;
+// Version 2: bis dahin lud GA4 auf jeder Seite mit verweigerter
+// Speicherung. Wer damals zugestimmt oder abgelehnt hat, hat zu einer
+// anderen Beschreibung entschieden - deshalb wird einmal neu gefragt,
+// statt den alten Stand mit neuem Datum als neue Einwilligung zu fuehren.
+export const CONSENT_VERSION = 2;
 
 /** Twelve months. The EDPB treats a year as the outside limit for re-asking. */
 export const CONSENT_MAX_AGE_DAYS = 365;
@@ -91,23 +95,29 @@ function parse(raw: string | null): ConsentRecord | null {
   }
 }
 
-/** Visitors who answered the previous banner keep their answer. */
+/**
+ * The previous banner's answer is discarded, not carried over.
+ *
+ * It used to be turned into a fresh record with today's date and the method
+ * "legacy". That reads like an answer the visitor just gave, and it is not:
+ * they answered a different question. Back then the tag loaded either way
+ * and only storage depended on the choice; now the choice decides whether
+ * Google is contacted at all. An "accepted" given under the old description
+ * cannot stand in for consent to the new one, and a "rejected" was equally
+ * given to a different text.
+ *
+ * So the stale key is cleared and everyone is asked once more. The same
+ * applies to records written under CONSENT_VERSION 1, which `parse` already
+ * rejects on the version check above.
+ */
 function migrateLegacy(): ConsentRecord | null {
   if (!isBrowser()) return null;
-  let old: string | null = null;
-  try {
-    old = localStorage.getItem(LEGACY_KEY);
-  } catch {
-    return null;
-  }
-  if (old !== "accepted" && old !== "rejected") return null;
-  const record = save(old === "accepted", "legacy");
   try {
     localStorage.removeItem(LEGACY_KEY);
   } catch {
-    /* the mirror is already written */
+    /* nothing to clear, and nothing depends on it */
   }
-  return record;
+  return null;
 }
 
 /** The stored record, or null when we still have to ask. */

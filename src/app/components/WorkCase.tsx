@@ -551,6 +551,23 @@ function SitePreview({
           />
         )}
       </div>
+
+      {/* Der Hinweis steht da, solange die Vorschau geladen werden kann und
+          es noch nicht ist - also genau dann, wenn jemand vor der
+          Entscheidung steht. Danach verschwindet er: er beschreibt etwas,
+          das dann schon passiert ist.
+
+          Bewusst kein Kaestchen zum Ankreuzen und keine zweite
+          Einwilligungsebene. Der Klick auf den Knopf ist die Handlung; ein
+          Dialog davor waere eine Huerde, die nichts zusaetzlich schuetzt. */}
+      {allowed === true && !live && (
+        <p
+          className="px-4 py-2.5 border-t border-[var(--line)] text-[var(--text-low)]"
+          style={{ fontSize: "var(--t-label)", lineHeight: 1.45 }}
+        >
+          {t.pages.workCase.previewNotice}
+        </p>
+      )}
     </div>
   );
 }

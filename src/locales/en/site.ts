@@ -41,7 +41,7 @@ export const site = {
       ecommerce: "E-Commerce Systems",
       marketingSites: "Marketing Websites",
       portfolio: "Portfolio",
-      terms: "Terms & Legal",
+      terms: "Legal Information",
       privacy: "Privacy Policy",
       cookies: "Cookie Policy",
       cookieSettings: "Cookie settings",

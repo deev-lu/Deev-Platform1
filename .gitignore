@@ -45,3 +45,13 @@ dist-ssr/
 
 # Briefpaket: Arbeitsgrundlage, gehört nicht ins Deployment
 deev-website-brief/
+
+# Devis-/Rechnungsvorlage (deev-docs/)
+# deev-fonts.css entsteht aus deev-docs/assets/*.ttf (node make-fonts.mjs)
+# und waere sonst zwei Megabyte Base64 im Diff. Die Markenassets und
+# Schriftdateien selbst gehoeren ebenfalls nicht ins Repo - siehe
+# deev-docs/assets/README.md.
+deev-docs/deev-fonts.css
+deev-docs/out/
+deev-docs/assets/*.ttf
+deev-docs/assets/*.png

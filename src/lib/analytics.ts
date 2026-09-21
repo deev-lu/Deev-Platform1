@@ -8,38 +8,58 @@
 //     script loaded and then measured nothing. Keep the odd-looking
 //     `arguments` push below exactly as Google writes it.
 //
-//  2. Nothing was requested at all until someone pressed Accept. Visitors who
-//     ignored the banner, and there are always more of those than of the ones
-//     who press a button, were invisible. Consent Mode fixes that without
-//     storing anything on their device: the tag loads with every storage type
-//     denied, which sends cookieless pings that GA4 counts, and is upgraded to
-//     granted the moment consent is given. Advertising storage stays denied in
-//     both states because we run no ad products.
+//  2. The tag loaded on every visit with storage denied - Consent Mode's own
+//     design. It counted the visitors who ignore the banner, and it stored
+//     nothing on their device, but it still fetched gtag.js and still sent a
+//     ping carrying their IP address. "No cookie" is not "no request", and
+//     the operator decided that nothing may reach Google before a yes.
+//     Nothing is loaded now until analytics consent exists; advertising
+//     storage stays denied in every state, because we run no ad products.
 //
 // Which categories are allowed comes from lib/consent.ts, the site's own
 // consent store: this file only translates that into Consent Mode signals.
 
 import { hasAnalyticsConsent, onConsentChange } from "./consent";
 
-const GA_ID = "G-K0T15PZHMN";
+const PROD_HOST = "www.deev.lu";
+const PROD_ID = "G-K0T15PZHMN";
 
 /**
- * Gemessen wird nur auf der echten Seite.
+ * Auf einer Vorschau laeuft dieselbe Mechanik, aber unter einer Mess-ID, die
+ * es nicht gibt.
  *
- * Vorschauen und Testdomains laufen mit demselben Build und derselben
- * Mess-ID. Ohne diese Grenze zaehlt jeder eigene Klick auf einer
- * Vorschau-URL als Sitzung, und zwar in genau dem Konto, das gerade
- * aufgesetzt wird: Absprungrate, Sitzungsdauer und die Zahl der Anfragen
- * waeren von Anfang an mit unserer eigenen Abnahme vermischt. Nachtraeglich
- * laesst sich das in GA4 nicht sauber herausrechnen.
+ * Die Frage "laedt GA4 vor der Einwilligung?" laesst sich nur beantworten,
+ * indem man zusieht, ob die Anfrage an googletagmanager.com ausgeht. Vorher
+ * war das unmoeglich: die Messung war an `www.deev.lu` gebunden, eine
+ * Vorschau lud also nie etwas - und ein Test, der immer "keine Anfrage"
+ * sagt, beweist nichts.
  *
- * Auch `localhost` ist damit ausgenommen - in der Entwicklung soll ohnehin
- * nichts gesendet werden.
+ * Auf einer Vorschau laeuft deshalb derselbe Code mit derselben Reihenfolge,
+ * nur dass die ID ins Leere zeigt. Im Netzwerk-Tab ist genau dasselbe zu
+ * sehen: vor der Einwilligung keine Anfrage, danach eine. In GA4 kommt
+ * nichts an, weil die Property nicht existiert - die eigene Abnahme
+ * vermischt sich also nicht mit den echten Zahlen, was in GA4 nachtraeglich
+ * nicht sauber herauszurechnen waere.
  */
-const PROD_HOST = "www.deev.lu";
+const PREVIEW_ID = "G-PREVIEW0000";
+
+/** localhost bleibt aussen vor: in der Entwicklung wird nichts geladen. */
+const PREVIEW_HOST = /(^|\.)vercel\.app$|(^|\.)deev\.lu$/;
+
+function measurementHost(): "production" | "preview" | null {
+  if (typeof location === "undefined") return null;
+  const h = location.hostname;
+  if (h === PROD_HOST) return "production";
+  return PREVIEW_HOST.test(h) ? "preview" : null;
+}
 
 function onProduction(): boolean {
-  return typeof location !== "undefined" && location.hostname === PROD_HOST;
+  return measurementHost() !== null;
+}
+
+/** Die echte Property nur auf der echten Seite. */
+function measurementId(): string {
+  return measurementHost() === "production" ? PROD_ID : PREVIEW_ID;
 }
 
 declare global {
@@ -51,7 +71,20 @@ declare global {
 
 let started = false;
 
-/** Boot the tag with everything denied, then load the library. Idempotent. */
+/**
+ * Load the tag. Only ever called once analytics consent exists.
+ *
+ * This used to run on every page load with consent defaulted to denied -
+ * Consent Mode's own design, and defensible, but it still fetched gtag.js
+ * from googletagmanager.com and still sent a cookieless ping carrying the
+ * visitor's IP address and browser. "No cookie" is not "no request". The
+ * operator's decision is that nothing reaches Google until somebody says
+ * yes, so the script injection now lives behind that yes.
+ *
+ * The denied defaults are still queued first. The gap between injecting the
+ * script and the update arriving is small, but the first hit must not escape
+ * into it.
+ */
 function start(): void {
   if (started || typeof document === "undefined") return;
   if (!onProduction()) return;
@@ -63,8 +96,6 @@ function start(): void {
     window.dataLayer!.push(arguments);
   } as (...args: unknown[]) => void;
 
-  // Defaults must be queued before gtag.js runs, or the first hit escapes
-  // before consent state is known.
   window.gtag("consent", "default", {
     ad_storage: "denied",
     ad_user_data: "denied",
@@ -72,18 +103,42 @@ function start(): void {
     analytics_storage: "denied",
     functionality_storage: "granted",
     security_storage: "granted",
-    wait_for_update: 500,
   });
   window.gtag("set", "ads_data_redaction", true);
-  window.gtag("set", "url_passthrough", true);
+  // url_passthrough is gone. It appends click identifiers to internal links
+  // so measurement survives without cookies - useful only for advertising
+  // journeys, which this site does not run.
 
   window.gtag("js", new Date());
-  window.gtag("config", GA_ID);
+  const id = measurementId();
+  window.gtag("config", id);
 
   const s = document.createElement("script");
   s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
   document.head.appendChild(s);
+}
+
+/**
+ * Remove the analytics cookies this site can reach.
+ *
+ * On withdrawal, telling the tag to stop storing leaves what it already
+ * stored. GA writes `_ga` and `_ga_<measurement id>` on the registrable
+ * domain, so the deletion is attempted on the exact host and on the
+ * dot-prefixed parent - a cookie set on `.deev.lu` does not clear by
+ * expiring one named the same on `www.deev.lu`.
+ */
+function dropGaCookies(): void {
+  if (typeof document === "undefined") return;
+  const host = location.hostname;
+  const parent = host.split(".").slice(-2).join(".");
+  const past = "Thu, 01 Jan 1970 00:00:00 GMT";
+  for (const name of ["_ga", `_ga_${measurementId().replace(/^G-/, "")}`]) {
+    for (const domain of [undefined, host, `.${parent}`]) {
+      document.cookie =
+        `${name}=; Expires=${past}; Path=/` + (domain ? `; Domain=${domain}` : "");
+    }
+  }
 }
 
 /** Analytics storage on or off. Advertising storage is never granted. */
@@ -93,21 +148,45 @@ function setAnalyticsConsent(granted: boolean): void {
   });
 }
 
-/** Kept for callers that only want to know whether the tag is measuring. */
-export function loadAnalytics(): void {
+/** Turn measurement on. Loads the tag the first time, then grants storage. */
+function enable(): void {
   start();
   setAnalyticsConsent(true);
 }
 
 /**
- * Start measurement, apply whatever the visitor has already decided, and
- * follow the consent store live. Returns a cleanup fn.
+ * Turn measurement off.
+ *
+ * Two different situations, one function. If the tag is already running -
+ * consent given, then withdrawn in the same visit - it is told to stop
+ * storing and the cookies it wrote are cleared. If it never loaded, there is
+ * nothing to tell and nothing to clear, and the next page load will not load
+ * it either, because that now depends on the stored choice.
+ */
+function disable(): void {
+  if (started) setAnalyticsConsent(false);
+  dropGaCookies();
+}
+
+/** Kept for callers that only want to know whether the tag is measuring. */
+export function loadAnalytics(): void {
+  enable();
+}
+
+/**
+ * Apply whatever the visitor has already decided, then follow the consent
+ * store live. Returns a cleanup fn.
+ *
+ * Nothing is loaded here unconditionally any more. Without a stored yes this
+ * function does nothing at all, which is the whole point: no decision means
+ * no request to Google.
  */
 export function initAnalytics(): () => void {
-  start();
-  if (hasAnalyticsConsent()) setAnalyticsConsent(true);
+  if (hasAnalyticsConsent()) enable();
   // Covers acceptance, a narrowing of the choice, and withdrawal.
-  return onConsentChange((record) => setAnalyticsConsent(record?.categories.analytics === true));
+  return onConsentChange((record) =>
+    record?.categories.analytics === true ? enable() : disable()
+  );
 }
 
 // ── Ereignisse ──────────────────────────────────────────────────────────────
@@ -118,9 +197,9 @@ export function initAnalytics(): () => void {
 // Rechner ab, und wo? Und - der Punkt, der vorher voellig blind war - wie oft
 // scheitert ein Absenden, statt anzukommen.
 //
-// Unter Consent Mode duerfen diese Ereignisse auch ohne Einwilligung gesendet
-// werden: im verweigerten Zustand sind es cookielose Pings ohne Kennung. Was
-// die Einwilligung steuert, ist die Speicherung, nicht die Messung.
+// Gesendet wird nur mit Einwilligung. Unter Consent Mode waere auch der
+// verweigerte Zustand zulaessig - cookielose Pings ohne Kennung -, aber das
+// bleibt eine Anfrage an Google, und die soll ohne Ja nicht stattfinden.
 
 /** Die vollstaendige Liste. Ein Tippfehler waere sonst ein stilles Leck. */
 export type TrackEvent =
@@ -173,10 +252,12 @@ function safe(params: Record<string, Param>): Record<string, Param> {
  */
 export function track(event: TrackEvent, params: Record<string, Param> = {}): void {
   if (typeof window === "undefined" || typeof document === "undefined") return;
-  // Ausdruecklich, nicht nur als Nebenwirkung davon, dass `start()` auf einer
-  // Testdomain nichts aufsetzt: diese Zeile ist die Zusage, dass eine Vorschau
-  // keine Messdaten erzeugt, und sie laesst sich pruefen.
   if (!onProduction()) return;
+  // Ohne Einwilligung wird nicht gemessen - und zwar hier, nicht erst im Tag.
+  // Frueher schickte diese Funktion die Ereignisse auch im verweigerten
+  // Zustand als cookielose Pings; das war unter Consent Mode zulaessig, aber
+  // es blieb eine Anfrage an Google. Kein Ja, kein Ereignis.
+  if (!hasAnalyticsConsent()) return;
   start();
   window.gtag?.("event", event, safe(params));
 }

@@ -1,0 +1,361 @@
+/* ════════════════════════════════════════════════════════════════════════
+   DEEV — Devis & factures, Stylesheet
+   Jede Zahl hier stammt aus 03_specifications/SPECIFICATION.md bzw.
+   design-tokens.json des Brand-Template-Pakets. Nichts ist geschaetzt. Wo die
+   Spezifikation pt sagt, steht hier pt; wo sie mm sagt, steht mm. Es wird
+   nirgends in px gerechnet, damit der Druck 1:1 dem Gabarit entspricht.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* Die Schriften liegen eingebettet in deev-fonts.css. Sie zu verlinken
+   scheitert unter file:// lautlos und setzt das Dokument in einer
+   Ersatzschrift - siehe make-fonts.mjs. */
+@import url("deev-fonts.css");
+
+:root {
+  /* Farben — §2. Cyan und Gold stehen bewusst nicht hier: sie existieren
+     nur im Logo und duerfen im Satz nicht erreichbar sein. */
+  --navy: #000038;
+  --blue: #2563F6;
+  --slate: #8A93A8;
+  --mist: #F0F2F6;
+  --ttc: #E7EEFF;
+  --body: #1A1A22;
+  --border: #E2E6EE;
+  --green: #55D096;
+
+  /* Seite — §1 */
+  --page-w: 210mm;
+  --margin-x: 18mm;
+  --content-w: 174mm;
+
+  /* Tabellenspalten — §6 */
+  --col-qty: 14mm;
+  --col-designation: 97mm;
+  --col-unit: 31mm;
+  --col-total: 31mm;
+}
+
+/* ── Seite ───────────────────────────────────────────────────────────── */
+
+@page {
+  size: A4;
+  /* 12 mm, nicht 38 mm. Die Spezifikation nennt zwei verschiedene Masse:
+     der Seitenkopf beginnt 12 mm unter der Blattkante, der Textkoerper bei
+     38 mm. Im Word-Gabarit sind das zwei Zonen; hier laeuft der Kopf im
+     Fluss mit, also faengt die Seite bei 12 mm an und der Koerper landet
+     durch Logo (22,14 mm) und Filet von selbst bei rund 38 mm. */
+  margin: 12mm 18mm 24mm 18mm;
+}
+
+html { font-size: 12pt; }
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 9pt;
+  line-height: 1.17;
+  color: var(--body);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Am Bildschirm eine Seite zeigen, im Druck ist das @page-Modell zustaendig. */
+@media screen {
+  body { background: #55585f; padding: 10mm 0; }
+  .sheet {
+    width: var(--page-w);
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 12mm 18mm 24mm 18mm;
+    background: #fff;
+    box-shadow: 0 2mm 8mm rgba(0, 0, 0, 0.35);
+    position: relative;
+    box-sizing: border-box;
+  }
+}
+@media print {
+  .sheet { position: relative; }
+}
+
+/* ── Seitenkopf der ersten Seite — §4 ────────────────────────────────── */
+
+.doc-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* 19 mm breit, Seitenverhaeltnis 0,85795 → 22,14 mm hoch. Das Logo wird
+   platziert, nie gesetzt: "DEEV" ist hier eine Bilddatei, kein Text. */
+.doc-head__logo { width: 19mm; height: 22.14mm; display: block; }
+
+.doc-head__right { text-align: right; }
+
+.doc-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 26pt;
+  letter-spacing: 1pt;
+  color: var(--navy);
+  line-height: 1;
+  margin: 0;
+  /* CSS setzt die Laufweite auch hinter das letzte Zeichen. Ohne diese
+     Korrektur stuende der Titel 1 pt weiter rechts als im Gabarit. */
+  margin-right: -1pt;
+}
+
+/* 1 pt unter dem Titel. */
+.doc-subtitle {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 6.5pt;
+  letter-spacing: 1.5pt;
+  color: var(--blue);
+  margin: 1pt -1.5pt 0 0;
+  text-transform: uppercase;
+}
+
+/* Der blaue Filet quer ueber die Nutzbreite. */
+.rule {
+  border: 0;
+  border-top: 0.75pt solid var(--blue);
+  margin: 6pt 0 13pt;
+}
+
+/* ── Fusszeile ───────────────────────────────────────────────────────────
+   Im PDF uebernimmt Chromiums footerTemplate diese Zeilen samt Seitenzahl.
+   Am Bildschirm zeigt .doc-foot dasselbe, damit die Vorschau vollstaendig
+   ist. */
+.doc-foot {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 5.5pt;
+  letter-spacing: 0.6pt;
+  color: var(--slate);
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.doc-foot__row { display: flex; justify-content: space-between; }
+@media print { .doc-foot { display: none; } }
+@media screen {
+  .doc-foot { position: absolute; left: 18mm; right: 18mm; bottom: 10mm; }
+}
+
+/* ── Abschnittsmarke  // POUR ────────────────────────────────────────── */
+
+.label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 7pt;
+  letter-spacing: 1.5pt;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin: 0 0 3pt;
+}
+
+/* ── Identitaet und Referenz — §5.1 ──────────────────────────────────── */
+
+.ident { display: flex; gap: 0; margin-bottom: 11pt; }
+.ident__left { width: 93mm; }
+.ident__right { width: 81mm; }
+
+.ident__name { font-weight: 700; font-size: 9.5pt; color: var(--navy); margin: 0 0 1pt; }
+.ident__line { font-size: 8.5pt; margin: 0; line-height: 1.32; }
+.ident__line--slate { color: var(--slate); }
+
+/* Drei Zeilen: Referenz, Datum, Gueltigkeit. */
+.ref { display: flex; align-items: baseline; margin-bottom: 2.5pt; }
+.ref__label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 6pt;
+  letter-spacing: 1pt;
+  color: var(--blue);
+  text-transform: uppercase;
+  width: 30mm;
+  flex: none;
+}
+.ref__value { font-weight: 700; font-size: 9pt; color: var(--navy); }
+/* Nur die Gueltigkeit steht in Electric Blue — sie ist die einzige Angabe
+   im Kopf, die ablaeuft. */
+.ref__value--accent { color: var(--blue); }
+
+/* ── Empfaenger — §5.2 ───────────────────────────────────────────────── */
+
+.recipient { display: flex; margin-bottom: 11pt; }
+.recipient__left { width: 108mm; }
+.recipient__right { width: 66mm; }
+.recipient__name { font-weight: 700; font-size: 11pt; color: var(--navy); margin: 0 0 1pt; }
+.recipient__line { font-size: 8.5pt; margin: 0; line-height: 1.32; }
+.recipient__line--slate { color: var(--slate); }
+
+.detail { display: flex; align-items: baseline; margin-bottom: 1.5pt; }
+.detail__label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 6pt;
+  letter-spacing: 1pt;
+  color: var(--blue);
+  text-transform: uppercase;
+  width: 12mm;
+  flex: none;
+}
+.detail__value { font-size: 8pt; }
+
+/* ── Projekttitel und Chapeau — §5.3, §6 ────────────────────────────── */
+
+.project-title { font-weight: 700; font-size: 11pt; color: var(--navy); margin: 0; }
+/* Kurzer Filet, 14 mm, danach 7 pt Luft bis zum Chapeau. */
+.rule--short { width: 14mm; border-top: 0.75pt solid var(--blue); margin: 7pt 0; }
+.lead { font-size: 9pt; line-height: 1.17; margin: 0 0 11pt; }
+
+/* ── Leistungstabelle — §6 ───────────────────────────────────────────── */
+
+.items {
+  width: var(--content-w);
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-bottom: 11pt;
+}
+/* thead statt eines wiederholten Blocks: der Browser setzt die Kopfzeile
+   von selbst auf jede Folgeseite, genau wie es die Spezifikation verlangt. */
+.items thead { display: table-header-group; }
+.items tr { break-inside: avoid; }
+
+.items th {
+  background: var(--navy);
+  color: #fff;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 400;
+  font-size: 6.5pt;
+  letter-spacing: 0.7pt;
+  text-transform: uppercase;
+  padding: 6pt 3mm;
+  vertical-align: middle;
+  border: 0;
+}
+.items td {
+  padding: 5pt 3mm;
+  vertical-align: top;
+  /* Nur ein Filet unten. Senkrechte Linien gibt es in diesem System nicht. */
+  border: 0;
+  border-bottom: 0.25pt solid var(--border);
+}
+/* Jede zweite Zeile auf Mist. */
+.items tbody tr:nth-child(even) td { background: var(--mist); }
+
+.col-qty { width: var(--col-qty); text-align: center; }
+.col-designation { width: var(--col-designation); text-align: left; }
+.col-unit { width: var(--col-unit); text-align: right; }
+.col-total { width: var(--col-total); text-align: right; }
+
+.item__title { font-weight: 700; font-size: 9pt; color: var(--navy); margin: 0; }
+.item__desc { font-size: 8pt; line-height: 1.04; margin: 2pt 0 0; }
+.item__n { font-weight: 700; font-size: 9pt; color: var(--navy); }
+.item__unit { font-size: 8.5pt; }
+.item__total { font-weight: 700; font-size: 8.5pt; color: var(--navy); }
+
+/* ── Summenblock — §6 ────────────────────────────────────────────────── */
+
+/* Nie ueber einen Seitenumbruch hinweg. Ein halber Gesamtbetrag auf einer
+   Seite und die andere Haelfte auf der naechsten ist der eine Fehler, den
+   ein Angebot nicht machen darf. */
+.totals { break-inside: avoid; page-break-inside: avoid; }
+.totals table {
+  width: var(--content-w);
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-left: auto;
+}
+.totals .t-spacer { width: 93mm; }
+.totals .t-label { width: 50mm; text-align: right; font-weight: 700; font-size: 9pt; color: var(--navy); }
+.totals .t-value { width: 31mm; text-align: right; font-weight: 700; font-size: 9pt; color: var(--navy); }
+.totals td { padding: 4pt 3mm; border: 0; }
+.totals tr.ttc td { background: var(--ttc); padding: 7.5pt 3mm; font-size: 11pt; }
+
+.vat-note { font-size: 7.5pt; color: var(--slate); text-align: right; margin: 4pt 0 11pt; }
+
+/* ── Encarts — §6 ────────────────────────────────────────────────────── */
+
+.callout {
+  background: var(--mist);
+  padding: 10pt 10mm;
+  margin-bottom: 11pt;
+  break-inside: avoid;
+}
+.callout--payment { border-left: 1.1pt solid var(--blue); }
+.callout--sme { border-left: 1.1pt solid var(--green); }
+.callout p { margin: 0 0 3pt; font-size: 8.5pt; line-height: 1.2; }
+.callout p:last-child { margin-bottom: 0; }
+.callout .muted { color: var(--slate); }
+
+/* Trennlinie innerhalb eines Encarts (Zahlungsinformation). */
+.callout__rule { border: 0; border-top: 0.25pt solid var(--border); margin: 7pt 0; }
+
+/* Bon pour accord: zwei Felder, Datum und Unterschrift. */
+.accord { display: flex; gap: 12mm; margin-top: 8pt; }
+.accord__field { flex: 1; }
+.accord__line { border-bottom: 0.25pt solid var(--slate); height: 14mm; }
+.accord__caption {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 6pt;
+  letter-spacing: 1pt;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-top: 3pt;
+}
+
+/* ── Kartenraster — §6 ───────────────────────────────────────────────── */
+
+/* Die Trennung zwischen den Zellen ist weiss und 0,4 pt breit, nicht ein
+   Abstand: die Karten sollen als eine Flaeche lesen, die geteilt wurde. */
+.cards { display: flex; gap: 0.4pt; background: #fff; margin-bottom: 11pt; break-inside: avoid; }
+.card { flex: 1; background: var(--mist); padding: 7.5pt 8.5mm; }
+.card__label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 6pt;
+  letter-spacing: 1pt;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin: 0 0 3pt;
+}
+.card__text { font-size: 7.5pt; line-height: 1.25; margin: 0; }
+
+/* ── Aufzaehlung — §6 ────────────────────────────────────────────────── */
+
+.bullets { list-style: none; margin: 0 0 11pt; padding: 0; }
+.bullets li {
+  font-size: 8pt;
+  line-height: 1.10;
+  padding-left: 5.3mm;
+  text-indent: -3.9mm;
+  margin: 3pt 0;
+}
+.bullets li::before {
+  content: "\2022";
+  color: var(--blue);
+  font-size: 10pt;
+  padding-right: 2mm;
+}
+
+/* ── Rechtsartikel — §3 ──────────────────────────────────────────────── */
+
+.article { break-inside: avoid; margin-bottom: 6pt; }
+.article__title { font-weight: 700; font-size: 8.5pt; color: var(--navy); margin: 0 0 2pt; }
+.article__body { font-size: 8pt; line-height: 1.10; text-align: justify; margin: 0; }
+
+/* ── Filigran — §6 ───────────────────────────────────────────────────────
+   Die Spezifikation setzt es auf die LETZTE Seite, 156 mm von links und
+   250 mm von oben - also seitenbezogen. Im reinen Fliesssatz gibt es diesen
+   Bezug nicht: `position: fixed` wiederholt das Zeichen auf jeder Seite,
+   und eine "letzte Seite" laesst sich in CSS nicht ansprechen.
+
+   Deshalb laeuft es hier am Ende des Inhalts mit. Damit steht es sicher auf
+   der letzten Seite und nur dort, was die wichtigere der beiden Regeln ist.
+   Die exakte Position auf dem Blatt braucht eine Paged-Media-Engine. */
+.watermark {
+  display: block;
+  width: 36mm;
+  height: 29.56mm;
+  margin: 10mm 0 0 auto;
+  position: relative;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.break { break-before: page; page-break-before: always; }

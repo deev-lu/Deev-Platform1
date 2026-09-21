@@ -3,6 +3,7 @@ import { ArrowLeft, Cookie } from "lucide-react";
 import L from "./L";
 import { openCookieSettings } from "../../lib/consent";
 import { useT, useLocale } from "../../lib/useT";
+import qrCode from "../../assets/qrcode_btn_LuxVRStates_SARL-S_0.png";
 
 export default function Legal() {
   const t = useT();
@@ -28,7 +29,16 @@ export default function Legal() {
                 {g.titleAccent}
               </span>
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 text-lg">
+            <p className="text-slate-600 dark:text-slate-300 text-lg">
+              {g.intro}
+            </p>
+            {/* Der Geltungshinweis steht oben, nicht unten: wer diese Seite
+                fuer die AGB seines Projekts haelt, soll das erfahren, bevor
+                er etwas daraus liest. */}
+            <p className="text-slate-500 dark:text-slate-400 mt-4 max-w-3xl">
+              {g.scope}
+            </p>
+            <p className="text-slate-400 dark:text-slate-500 text-sm mt-6">
               {g.updated}
             </p>
           </div>
@@ -42,10 +52,10 @@ export default function Legal() {
                 {[
                   { label: g.company.tradeName, value: "Deev" },
                   { label: g.company.legalEntity, value: "Lux VR States Sàrl-s." },
-                  { label: g.company.directors, value: "FALCHERO Fabio & KETTEL Sven" },
+                  { label: g.company.directors, value: "Sven Kettel · Fabio Falchero" },
                   { label: g.company.address, value: "17, rue de Sélange, L-4965 Clemency, Luxembourg" },
                   { label: g.company.email, value: "contact@deev.lu" },
-                  { label: g.company.phone, value: "+352 691 786 002 / +352 691 388 887" },
+                  { label: g.company.phone, value: "Sven Kettel +352 691 388 887 · Fabio Falchero +352 621 779 802" },
                   { label: g.company.vat, value: "LU33936811" },
                   { label: g.company.register, value: "B266033" },
                 ].map((item) => (
@@ -57,34 +67,62 @@ export default function Legal() {
                   </div>
                 ))}
               </div>
+
+              {/* Drei Genehmigungen, nicht vier: die vierte betrifft eine
+                  Taetigkeit, die nicht mehr zum Angebot gehoert. */}
+              <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/[0.09]">
+                <span className="text-xs font-semibold uppercase tracking-widest text-[var(--text-mid)]">
+                  {g.company.authorisations}
+                </span>
+                <ul className="mt-2 space-y-1 text-sm text-slate-700 dark:text-slate-200">
+                  <li>N° 10139832/0 — activités et services commerciaux</li>
+                  <li>N° 10139832/1 — photographe - cadreur</li>
+                  <li>N° 10139832/2 — exploitant d'un atelier graphique</li>
+                </ul>
+
+                {/* Das Original aus der Guichet-Suche, unveraendert. 200 px
+                    nativ, deshalb in ganzzahliger Groesse dargestellt und mit
+                    pixelated gerendert - skaliert man ein QR-Bild krumm,
+                    verwischen die Modulkanten und der Scan scheitert. */}
+                <div className="mt-6 flex items-start gap-4">
+                  <img
+                    src={qrCode}
+                    alt={g.company.qrAlt}
+                    width={200}
+                    height={200}
+                    className="w-[120px] h-[120px] bg-white p-2 rounded-md shrink-0"
+                    style={{ imageRendering: "pixelated" }}
+                  />
+                  <div className="text-sm">
+                    <p className="font-medium text-slate-900 dark:text-white">{g.company.qrCaption}</p>
+                    <p className="text-[var(--text-mid)] mt-1">{g.company.qrNote}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Legal Content */}
           <div className="prose prose-slate dark:prose-invert max-w-none space-y-8">
 
-            <Section title={g.s1.title}>
-              <p>{g.s1.body}</p>
+            <Section title={g.services.title}>
+              <Paragraphs text={g.services.body} />
             </Section>
 
-            <Section title={g.s2.title}>
-              <p>{g.s2.body}</p>
+            <Section title={g.payment.title}>
+              <Paragraphs text={g.payment.body} />
             </Section>
 
-            <Section title={g.s3.title}>
-              <p>{g.s3.body}</p>
+            <Section title={g.changes.title}>
+              <Paragraphs text={g.changes.body} />
             </Section>
 
-            <Section title={g.s4.title}>
-              <p>{g.s4.body}</p>
+            <Section title={g.funding.title}>
+              <Paragraphs text={g.funding.body} />
             </Section>
 
-            <Section title={g.s5.title}>
-              <p>{g.s5.body}</p>
-            </Section>
-
-            <Section title={g.s6.title}>
-              <p>{g.s6.body}</p>
+            <Section title={g.rights.title}>
+              <Paragraphs text={g.rights.body} />
             </Section>
 
             <Section id="cookies" title={g.cookies.title}>
@@ -115,6 +153,15 @@ export default function Legal() {
               <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.videoHead}</p>
               <p className="mt-1">{g.cookies.videoBody}</p>
 
+              {/* Beide laden erst auf Klick, wie das Video darueber - und
+                  gehoeren aus demselben Grund hierher: wer klickt, verbindet
+                  sich mit einem Dritten, und das sollte er vorher wissen. */}
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.previewHead}</p>
+              <p className="mt-1">{g.cookies.previewBody}</p>
+
+              <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.whatsappHead}</p>
+              <p className="mt-1">{g.cookies.whatsappBody}</p>
+
               <p className="mt-6 font-medium text-slate-900 dark:text-white">{g.cookies.recordHead}</p>
               <p className="mt-1">
                 {g.cookies.recordBody1} <code>deev_consent</code> {g.cookies.recordBody2}
@@ -135,7 +182,29 @@ export default function Legal() {
 
             <Section id="data-protection" title={g.gdpr.title}>
               <p>{g.gdpr.body1}</p>
-              <p className="mt-3">
+
+              <SubHead>{g.gdpr.basisHead}</SubHead>
+              <Bullets items={g.gdpr.basis} />
+
+              <SubHead>{g.gdpr.processorsHead}</SubHead>
+              <p>{g.gdpr.processorsIntro}</p>
+              <Bullets items={g.gdpr.processors} />
+              <p className="mt-3">{g.gdpr.transfers}</p>
+
+              {/* Ein Grundsatz, keine Liste mit Fristen. Konkrete Zahlen
+                  standen hier, waren aber nicht durch eine Richtlinie des
+                  Unternehmens gedeckt - eine erfundene Frist ist auf einer
+                  Rechtsseite schlimmer als gar keine. */}
+              <SubHead>{g.gdpr.retentionHead}</SubHead>
+              <p>{g.gdpr.retention}</p>
+
+              <SubHead>{g.gdpr.rightsHead}</SubHead>
+              <p>{g.gdpr.rightsIntro}</p>
+
+              <SubHead>{g.gdpr.complaintHead}</SubHead>
+              <p>{g.gdpr.complaintBody}</p>
+
+              <p className="mt-4">
                 {g.gdpr.body2a}{" "}
                 <a href="mailto:contact@deev.lu" className="text-[#2563F6] dark:text-[var(--signal-text)] underline underline-offset-2 decoration-[#2563F6]/40 dark:decoration-[var(--signal-text)]/40 hover:decoration-current font-medium">
                   contact@deev.lu
@@ -144,16 +213,13 @@ export default function Legal() {
               </p>
             </Section>
 
-            <Section title={g.s9.title}>
-              <p>{g.s9.body}</p>
-            </Section>
+            {/* Haftungsbeschraenkung und Gerichtsstand standen hier als
+                allgemeine Klauseln fuer alle Kunden. Beides gehoert in den
+                jeweiligen Projektvertrag, nicht auf eine oeffentliche
+                Informationsseite, die niemand unterschreibt. */}
 
-            <Section title={g.s10.title}>
-              <p>{g.s10.body}</p>
-            </Section>
-
-            <Section title={g.s11.title}>
-              <p>{g.s11.body}</p>
+            <Section title={g.contact.title}>
+              <p>{g.contact.body}</p>
               <div className="mt-3 pl-4 border-l-2 border-[var(--signal-text)]/50 text-slate-700 dark:text-slate-300 space-y-1">
                 <p className="font-semibold">Lux VR States Sàrl-s. (Deev)</p>
                 <p>17, rue de Sélange, L-4965 Clemency</p>
@@ -163,18 +229,13 @@ export default function Legal() {
                     contact@deev.lu
                   </a>
                 </p>
-                <p>+352 691 786 002</p>
+                <p>+352 691 388 887</p>
               </div>
             </Section>
 
             {/* A translation is offered for comprehension; the binding text
                 stays the one the terms were drafted in. Only rendered on the
                 translated versions, where the question actually arises. */}
-            {locale !== "en" && (
-              <Section title={g.prevails.title}>
-                <p>{g.prevails.body}</p>
-              </Section>
-            )}
 
           </div>
 
@@ -213,6 +274,48 @@ function CookieTable({ rows }: { rows: [string, string, string, string][] }) {
             {life}
           </span>
         </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Eine Zwischenueberschrift im Fliesstext eines Abschnitts.
+ *
+ * Der Datenschutzteil beantwortet fuenf verschiedene Fragen - Rechtsgrundlage,
+ * Auftragsverarbeiter, Aufbewahrung, Rechte, Beschwerde. Als ein Block Text
+ * findet niemand die eine, die er sucht.
+ */
+/**
+ * Ein Abschnittstext kann mehrere Absaetze haben. Sie stehen im Sprachschatz
+ * durch Leerzeilen getrennt, nicht als Markup - damit eine Uebersetzung die
+ * Seite nicht zerlegen kann.
+ */
+function Paragraphs({ text }: { text: string }) {
+  return (
+    <>
+      {text.split("\n\n").map((para, i) => (
+        <p key={para.slice(0, 40)} className={i ? "mt-3" : undefined}>
+          {para}
+        </p>
+      ))}
+    </>
+  );
+}
+
+function SubHead({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-slate-900 dark:text-white font-medium mt-6 mb-2 text-[0.95rem]">
+      {children}
+    </h3>
+  );
+}
+
+function Bullets({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="list-disc pl-5 space-y-1.5 marker:text-[#2563F6] dark:marker:text-[var(--signal-text)]">
+      {items.map((t) => (
+        <li key={t}>{t}</li>
       ))}
     </ul>
   );

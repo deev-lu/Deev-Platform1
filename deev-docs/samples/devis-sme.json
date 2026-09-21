@@ -1,0 +1,84 @@
+{
+  "locale": "fr",
+  "filename": "Devis DEEV-2026-NOV-002",
+  "title": "DEVIS",
+  "subtitle": "// SME PACKAGE DIGITAL",
+  "refs": [
+    { "label": "RÉFÉRENCE", "value": "DEEV-2026-NOV-002" },
+    { "label": "DATE", "value": "18/09/2026" },
+    { "label": "VALIDITÉ", "value": "6 mois", "accent": true }
+  ],
+  "issuer": {
+    "name": "DEEV — Lux VR States S.à r.l.-S",
+    "lines": [
+      "17 Rue de Sélange",
+      "L-4965 Clemency (Kéinzig), Luxembourg",
+      "+352 691 388 887 · contact@deev.lu",
+      { "text": "RCS Luxembourg B266033 · TVA LU33936811", "slate": true }
+    ]
+  },
+  "recipient": {
+    "label": "// POUR",
+    "name": "NOVA IMMO S.à r.l.-S",
+    "lines": [
+      "À l’attention de la direction",
+      "25A, rue Basse",
+      { "text": "L-4415 Soleuvre · Luxembourg", "slate": true }
+    ],
+    "details": [
+      { "label": "RCS", "value": "B289335" },
+      { "label": "TVA", "value": "LU36608629" },
+      { "label": "TÉL.", "value": "+352 691 111 607" }
+    ]
+  },
+  "subject": {
+    "label": "// INTITULÉ",
+    "title": "Plateforme web immobilière, estimation en ligne & CRM",
+    "lead": "Développement sur mesure d’une plateforme immobilière complète pour NOVA IMMO : site et module annonces, outil d’estimation en ligne, espace propriétaire et CRM de qualification des leads. Projet éligible au SME Package Digital (cofinancement de 70 % des coûts admissibles)."
+  },
+  "blocks": [
+    { "cards": [
+      { "label": "EXISTER", "text": "Une présence propre à l’agence, indépendante des portails et de leurs commissions de visibilité." },
+      { "label": "CAPTER", "text": "L’estimation en ligne transforme une recherche anonyme en contact vendeur qualifié." },
+      { "label": "DURER", "text": "Un socle SEO et des contenus mensuels qui capitalisent mois après mois." }
+    ]},
+    {
+      "label": "// PRESTATIONS",
+      "note": "Développement sur mesure, sans constructeur de site ni abonnement propriétaire. L’agence reste propriétaire de son code, de ses données et de son contenu.",
+      "columns": ["N°", "DÉSIGNATION", "DÉTAIL", "MONTANT HT"],
+      "items": true,
+      "rows": [
+        { "n": "01", "title": "Analyse & stratégie digitale", "desc": "Analyse de l’état des lieux digital de l’agence, définition des objectifs, des audiences cibles et des parcours de conversion, arborescence et plan de contenus.", "unitText": "", "total": 600 },
+        { "n": "02", "title": "Design UI & design system", "desc": "Wireframes et maquettes haute-fidélité desktop et mobile, design system complet aux couleurs de NOVA IMMO (composants, états, typographie).", "unitText": "", "total": 900 },
+        { "n": "03", "title": "Développement front-end — Next.js 15", "desc": "App Router, React Server Components, rendu SSR/ISR, images AVIF/WebP, animations sobres, Core Web Vitals visés en zone verte.", "unitText": "", "total": 2200 },
+        { "n": "04", "title": "Back-office & base de données — Supabase", "desc": "Espace d’administration sur mesure : création et mise à jour des biens, gestion des médias, utilisateurs et droits, base PostgreSQL sécurisée (RLS), hébergement dans l’Union européenne.", "unitText": "", "total": 1700 }
+      ]
+    },
+    { "totals": true, "ht": 5400, "vatRate": 17, "vat": 918, "ttc": 6318,
+      "note": "TVA luxembourgeoise au taux normal de 17 %. Montants en euros." },
+    {
+      "label": "// AIDE SME PACKAGE DIGITAL",
+      "callout": true,
+      "variant": "sme",
+      "paragraphs": [
+        { "text": "Projet éligible au SME Package — Digital : cofinancement de 70 % des coûts admissibles, pour un investissement compris entre 3 000 € et 25 000 €." },
+        { "text": "DEEV accompagne le dossier de demande. L’octroi relève de la seule décision de l’organisme compétent ; DEEV ne garantit pas l’obtention de l’aide.", "muted": true }
+      ]
+    },
+    {
+      "label": "// CONDITIONS",
+      "bullets": [
+        "Acompte de 50 % à la commande, solde à la livraison.",
+        "Factures payables à 14 jours à compter de leur émission.",
+        "Toute demande hors périmètre fait l’objet d’un avenant écrit avant réalisation.",
+        "La propriété intellectuelle des livrables est transférée au client au paiement intégral."
+      ]
+    },
+    { "accord": true, "text": "Pour accord sur les prestations et les montants ci-dessus.",
+      "dateCaption": "DATE", "signCaption": "SIGNATURE ET CACHET" }
+  ],
+  "footer": [
+    "LUX VR STATES S.À R.L.-S · 17 RUE DE SÉLANGE, L-4965 CLEMENCY · RCS B266033 · TVA LU33936811",
+    "CONTACT@DEEV.LU · WWW.DEEV.LU · +352 691 388 887"
+  ]
+}

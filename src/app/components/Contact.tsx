@@ -371,8 +371,17 @@ export default function Contact() {
                     )}
                   </button>
 
+                  {/* Der Hinweis gehoert an die Stelle, an der die Daten
+                      erhoben werden, nicht nur auf die Rechtsseite - und er
+                      braucht den Weg dorthin. */}
                   <p className="text-xs text-center text-[var(--text-mid)]">
-                    {t.pages.contact.form.consent}
+                    {t.pages.contact.form.consent}{" "}
+                    <L
+                      to="/legal#data-protection"
+                      className="underline underline-offset-2 hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+                    >
+                      {t.pages.contact.form.consentLink}
+                    </L>
                   </p>
                 </form>
               )}

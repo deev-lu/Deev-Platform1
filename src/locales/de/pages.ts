@@ -35,6 +35,8 @@ export const pages: typeof En = {
     ownProduct: "Eigenes Produkt",
     snapshot: { industry: "Branche", audience: "Für wen", location: "Ort" },
     livePreview: "Live",
+    previewNotice:
+      "Beim Laden der Live-Vorschau wird die Website des Kunden in diese Seite eingebettet. Ihr Browser verbindet sich unmittelbar mit ihr, sodass Daten — darunter Ihre IP-Adresse — an deren Betreiber und an die dort eingesetzten Dienste übertragen werden können.",
     specOnly: "Für dieses Projekt sind die Eckdaten und die ausgelieferte Seite dokumentiert, die ausführliche Fallstudie noch nicht. Wir schreiben sie erst, wenn Aufgabe, Umfang und Ergebnis mit dem Kunden abgestimmt sind.",
     next: "Nächstes Projekt",
   },
@@ -190,7 +192,8 @@ export const pages: typeof En = {
       messagePlaceholder: "Erzählen Sie uns von Ihrem Projekt, Ihren Zielen und Ihrem Zeitrahmen…",
       submit: "Nachricht senden",
       submitting: "Wird gesendet…",
-      consent: "Mit dem Absenden erklären Sie sich damit einverstanden, dass wir Sie zu Ihrer Anfrage kontaktieren. Wir geben Ihre Daten niemals weiter.",
+      consent: "Wir verwenden Ihre Angaben, um Ihre Anfrage zu bearbeiten und Sie hierzu zu kontaktieren. Dafür setzen wir Dienstleister für Websitebetrieb und E-Mail-Verarbeitung ein.",
+      consentLink: "Mehr dazu in unserer Datenschutzerklärung.",
       errorLead: "Das Formular konnte gerade nicht gesendet werden.",
       errorAction: "Stattdessen per E-Mail senden",
     },
