@@ -74,10 +74,10 @@ export const pages: typeof En = {
         caps: ["Websites", "E-Commerce", "CMS und Integrationen", "SEO und Performance"],
       },
       ai: {
-        title: "KI und Automatisierung",
-        line: "Agenten, Assistenten und Abläufe, gebaut um die Arbeit herum, die Ihr Team wirklich Zeit kostet.",
-        cue: "Dieselbe Routine frisst jede Woche Stunden.",
-        caps: ["KI-Agenten", "Prozessautomatisierung", "Assistenten", "Systemanbindung"],
+        title: "KI & Daten",
+        line: "Individuelle RAG-Systeme, KI-Agenten und Datenanalyse, gebaut auf Ihren eigenen Daten und gemacht für den Produktivbetrieb.",
+        cue: "Wir wollen KI, die mit unseren Daten arbeitet, keine Demo.",
+        caps: ["Individuelle RAG", "KI-Agenten", "Datenanalyse", "Prognosen"],
       },
       software: {
         title: "Individuelle Software",
@@ -121,12 +121,12 @@ export const pages: typeof En = {
     },
     ai: {
       eyebrow: "KI & Daten",
-      title: "Weniger manuelle Routine. Mit Lösungen, die zu Ihren Abläufen passen.",
-      lead: "Wir schauen zuerst, wohin die Zeit tatsächlich geht. Nicht jedes Unternehmen braucht KI, und das sagen wir auch.",
+      title: "KI-Systeme auf Ihren Daten, gebaut für den Produktivbetrieb.",
+      lead: "Individuelle RAG-Systeme, KI-Agenten und Datenanalyse für Organisationen, die mehr wollen als einen Chatbot. Wir konzentrieren uns auf substanzielle Projekte, die produktiv laufen, auf Ihren eigenen Daten, über Jahre. Und wir sagen trotzdem, wo sich KI nicht lohnt.",
       problems: [
-        "Dieselben Anfragen werden jede Woche von Hand beantwortet.",
-        "Dokumente werden von einem Menschen gelesen, sortiert und abgetippt.",
-        "Daten liegen in drei Systemen und werden dazwischen kopiert.",
+        "Das Wissen steckt in Tausenden Dokumenten, und die richtige Antwort zu finden dauert Stunden.",
+        "Jahrelang gesammelte Daten und trotzdem keine verlässliche Antwort auf einfache Geschäftsfragen.",
+        "Fertigen KI-Werkzeugen können wir weder unsere Daten noch unsere Abläufe anvertrauen.",
       ],
     },
     software: {

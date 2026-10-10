@@ -74,10 +74,10 @@ export const pages: typeof En = {
         caps: ["Sites web", "E-commerce", "CMS et intégrations", "SEO et performance"],
       },
       ai: {
-        title: "IA et automatisation",
-        line: "Agents, assistants et flux conçus autour du travail qui coûte vraiment du temps à votre équipe.",
-        cue: "La même routine dévore des heures chaque semaine.",
-        caps: ["Agents IA", "Automatisation", "Assistants", "Intégration"],
+        title: "IA & Données",
+        line: "RAG sur mesure, agents IA et analyse de données, construits sur vos propres données et pensés pour la production.",
+        cue: "Nous voulons une IA qui travaille sur nos données, pas une démo.",
+        caps: ["RAG sur mesure", "Agents IA", "Analyse de données", "Prévisions"],
       },
       software: {
         title: "Logiciel sur mesure",
@@ -121,12 +121,12 @@ export const pages: typeof En = {
     },
     ai: {
       eyebrow: "IA & Données",
-      title: "Moins de routine manuelle, avec des solutions adaptées à vos processus.",
-      lead: "Nous commençons par regarder où le temps part réellement. Toutes les entreprises n’ont pas besoin d’IA, et nous le dirons.",
+      title: "Des systèmes d’IA construits sur vos données, pensés pour la production.",
+      lead: "RAG sur mesure, agents IA et analyse de données pour les organisations qui veulent plus qu’un chatbot. Nous nous concentrons sur des projets d’envergure qui tournent en production, sur vos propres données, pendant des années. Et nous vous dirons quand même où l’IA ne rapporte pas.",
       problems: [
-        "Les mêmes demandes reçoivent une réponse manuelle chaque semaine.",
-        "Des documents sont lus, triés et ressaisis par une personne.",
-        "Les données vivent dans trois systèmes et sont recopiées entre eux.",
+        "Le savoir est dispersé dans des milliers de documents, et trouver la bonne réponse prend des heures.",
+        "Des années de données, et toujours pas de réponse fiable aux questions simples de l’activité.",
+        "Nous ne pouvons confier ni nos données ni nos processus à des outils d’IA génériques.",
       ],
     },
     software: {
