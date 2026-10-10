@@ -227,6 +227,87 @@ export const home: typeof En = {
     ],
   },
 
+  dataFlow: {
+    eyebrow: "Von Daten zu Entscheidungen",
+    title: "Ihre Daten kennen die Antwort schon. Sie liegt nur an fünf Orten.",
+    lead:
+      "Den meisten Unternehmen fehlen keine Daten. Es fehlt der eine Ort, an dem sie übereinstimmen. So machen wir sie in vier Schritten von verstreut zu nützlich.",
+    steps: [
+      {
+        title: "Quellen verbinden",
+        copy: "Aufträge im ERP, Stunden in einer Tabelle, Anfragen im Postfach, Verträge als PDF. Wir verbinden die Systeme, die Sie schon nutzen, statt sie zu ersetzen.",
+      },
+      {
+        title: "Bereinigen und zusammenführen",
+        copy: "Ein Datensatz pro Kunde, nicht fünf. Dubletten werden zusammengeführt, Formate vereinheitlicht, und jede Zahl bleibt bis zu ihrer Quelle nachvollziehbar.",
+      },
+      {
+        title: "Auswerten, was zählt",
+        copy: "Trends, Ausreißer und Prognosen, die Ihre tatsächlichen Fragen beantworten. Wenige Dashboards, die geöffnet werden, statt vierzig, die keiner ansieht.",
+      },
+      {
+        title: "Mit KI automatisieren",
+        copy: "Sind die Daten sauber, kann KI damit arbeiten: Antworten vorbereiten, Belege verbuchen, Auffälliges markieren. Was wichtig ist, landet weiterhin bei einem Menschen.",
+      },
+    ],
+    labels: {
+      duplicates: "Dubletten zusammengeführt",
+      trend: "Trend",
+      anomaly: "Ausreißer",
+      forecast: "Prognose",
+      model: "KI",
+      outReply: "Antwortentwurf",
+      outBook: "Verbucht",
+      outReview: "Zur Prüfung",
+    },
+  },
+
+  docAi: {
+    eyebrow: "Vom Dokument zu Daten",
+    title: "Ein Dokument kommt an. Niemand tippt es ab.",
+    lead:
+      "Rechnungen, Lieferscheine, Formulare und Verträge werden gelesen, ihre Felder ausgelesen und geprüft, und das Ergebnis landet direkt in dem System, in das es gehört.",
+    points: [
+      "Liest PDFs, Scans und abfotografiertes Papier.",
+      "Jedes ausgelesene Feld trägt einen Sicherheitswert.",
+      "Unsichere Felder gehen an einen Menschen, bevor etwas verbucht wird.",
+    ],
+    demoLabel: "Beispiel zur Veranschaulichung",
+    recordLabel: "Ausgelesener Datensatz",
+    confidence: "Sicherheit",
+    doc: {
+      kind: "Rechnung",
+      supplier: "Musterlieferant Sàrl",
+      address: "L-1234 Luxemburg",
+      lines: [
+        { label: "Beratung, September", amount: "1.120,00" },
+        { label: "Reisekosten", amount: "120,00" },
+      ],
+    },
+    fields: {
+      supplier: "Lieferant",
+      number: "Rechnungsnr.",
+      date: "Datum",
+      net: "Netto",
+      vat: "MwSt. 17 %",
+      total: "Gesamt",
+      iban: "IBAN",
+    },
+    values: {
+      number: "2026-0412",
+      date: "14.09.2026",
+      net: "1.240,00 €",
+      vat: "210,80 €",
+      total: "1.450,80 €",
+    },
+    status: {
+      reading: "Dokument wird gelesen",
+      review: "1 Feld zur Prüfung",
+      approved: "Von einem Menschen geprüft",
+      done: "Bereit zur Buchung",
+    },
+  },
+
   billovio: {
     eyebrow: "Unser eigenes Produkt",
     by: "von DEEV",
