@@ -271,8 +271,14 @@ export default function CookieBanner() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: reduce ? 0 : 24 }}
               transition={fade}
-              className="relative w-full sm:max-w-[720px] max-h-[92vh] overflow-y-auto border border-[var(--line-strong)] bg-[var(--surface-0)]"
+              className="relative w-full sm:max-w-[720px] max-h-[92vh] overflow-y-auto overscroll-contain border border-[var(--line-strong)] bg-[var(--surface-0)]"
               style={{ borderRadius: "var(--radius-1)" }}
+              // Lenis ist waehrend des Dialogs gestoppt, und ein gestopptes
+              // Lenis verwirft jedes Radereignis per preventDefault - auch
+              // das, mit dem jemand diesen Kasten scrollen will. Die Markierung
+              // wird vorher geprueft, also scrollt der Browser hier wieder
+              // selbst, waehrend die Seite dahinter weiter stillsteht.
+              data-lenis-prevent
             >
               <div className="sticky top-0 z-10 flex items-start justify-between gap-6 px-7 sm:px-9 pt-8 pb-6 bg-[var(--surface-0)] border-b border-[var(--line)]">
                 <div>

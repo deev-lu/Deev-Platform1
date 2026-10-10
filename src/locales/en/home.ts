@@ -230,6 +230,91 @@ export const home = {
     ],
   },
 
+  /** The animated pipeline on the AI page. Method, not results: nothing here
+   *  claims a figure for any client. */
+  dataFlow: {
+    eyebrow: "From data to decisions",
+    title: "Your data already knows the answer. It is just in five places.",
+    lead:
+      "Most companies do not lack data. They lack one place where it agrees with itself. This is how we take it from scattered to useful, in four steps.",
+    steps: [
+      {
+        title: "Connect the sources",
+        copy: "Orders in the ERP, hours in a spreadsheet, requests in an inbox, contracts as PDFs. We connect the systems you already use instead of asking you to replace them.",
+      },
+      {
+        title: "Clean and unify",
+        copy: "One record per customer, not five. Duplicates are merged, formats aligned, and every figure stays traceable back to where it came from.",
+      },
+      {
+        title: "Analyse what matters",
+        copy: "Trends, outliers and forecasts that answer the questions you actually ask. A few dashboards people open, not forty that nobody does.",
+      },
+      {
+        title: "Automate with AI",
+        copy: "Once the data is sound, AI can work with it: drafting replies, booking documents, flagging what looks wrong. Anything that matters still goes to a person.",
+      },
+    ],
+    labels: {
+      duplicates: "duplicates merged",
+      trend: "Trend",
+      anomaly: "Anomaly",
+      forecast: "Forecast",
+      model: "AI",
+      outReply: "Draft reply",
+      outBook: "Booked",
+      outReview: "To review",
+    },
+  },
+
+  /** The self-playing extraction demo. Every value in it is invented and the
+   *  panel says so; the confidence figures illustrate the mechanism. */
+  docAi: {
+    eyebrow: "Documents to data",
+    title: "A document arrives. Nobody retypes it.",
+    lead:
+      "Invoices, delivery notes, forms and contracts are read, their fields extracted and checked, and the result written straight into the system it belongs in.",
+    points: [
+      "Reads PDFs, scans and photographed paper.",
+      "Every extracted field carries a confidence score.",
+      "Uncertain fields go to a person before anything is booked.",
+    ],
+    demoLabel: "Illustrative example",
+    recordLabel: "Extracted record",
+    confidence: "Confidence",
+    doc: {
+      kind: "Invoice",
+      supplier: "Sample Supplier Sàrl",
+      address: "L-1234 Luxembourg",
+      lines: [
+        { label: "Consulting, September", amount: "1,120.00" },
+        { label: "Travel expenses", amount: "120.00" },
+      ],
+    },
+    fields: {
+      supplier: "Supplier",
+      number: "Invoice no.",
+      date: "Date",
+      net: "Net",
+      vat: "VAT 17%",
+      total: "Total",
+      iban: "IBAN",
+    },
+    values: {
+      number: "2026-0412",
+      date: "14/09/2026",
+      net: "€1,240.00",
+      vat: "€210.80",
+      total: "€1,450.80",
+    },
+    status: {
+      reading: "Reading document",
+      review: "1 field sent to review",
+      approved: "Checked by a person",
+      done: "Ready to book",
+    },
+  },
+
   billovio: {
     eyebrow: "Our own product",
     by: "by DEEV",

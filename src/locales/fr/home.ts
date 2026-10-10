@@ -227,6 +227,87 @@ export const home: typeof En = {
     ],
   },
 
+  dataFlow: {
+    eyebrow: "Des données aux décisions",
+    title: "Vos données connaissent déjà la réponse. Elle est juste à cinq endroits.",
+    lead:
+      "La plupart des entreprises ne manquent pas de données. Il leur manque un endroit où elles concordent. Voici comment nous les rendons utiles, en quatre étapes.",
+    steps: [
+      {
+        title: "Connecter les sources",
+        copy: "Les commandes dans l’ERP, les heures dans un tableur, les demandes dans une boîte mail, les contrats en PDF. Nous connectons les systèmes que vous utilisez déjà, sans vous demander de les remplacer.",
+      },
+      {
+        title: "Nettoyer et unifier",
+        copy: "Une fiche par client, pas cinq. Les doublons sont fusionnés, les formats harmonisés, et chaque chiffre reste traçable jusqu’à sa source.",
+      },
+      {
+        title: "Analyser l’essentiel",
+        copy: "Tendances, anomalies et prévisions, pour répondre aux questions que vous vous posez vraiment. Quelques tableaux de bord que l’on ouvre, pas quarante que personne ne regarde.",
+      },
+      {
+        title: "Automatiser avec l’IA",
+        copy: "Une fois les données fiables, l’IA peut travailler avec : préparer des réponses, comptabiliser des pièces, signaler ce qui semble anormal. Ce qui compte passe toujours par une personne.",
+      },
+    ],
+    labels: {
+      duplicates: "doublons fusionnés",
+      trend: "Tendance",
+      anomaly: "Anomalie",
+      forecast: "Prévision",
+      model: "IA",
+      outReply: "Brouillon",
+      outBook: "Comptabilisé",
+      outReview: "À vérifier",
+    },
+  },
+
+  docAi: {
+    eyebrow: "Des documents aux données",
+    title: "Un document arrive. Personne ne le ressaisit.",
+    lead:
+      "Factures, bons de livraison, formulaires et contrats sont lus, leurs champs extraits et contrôlés, et le résultat est écrit directement dans le système auquel il appartient.",
+    points: [
+      "Lit les PDF, les scans et le papier photographié.",
+      "Chaque champ extrait porte un indice de fiabilité.",
+      "Les champs incertains passent par une personne avant toute comptabilisation.",
+    ],
+    demoLabel: "Exemple illustratif",
+    recordLabel: "Fiche extraite",
+    confidence: "Fiabilité",
+    doc: {
+      kind: "Facture",
+      supplier: "Fournisseur Exemple Sàrl",
+      address: "L-1234 Luxembourg",
+      lines: [
+        { label: "Conseil, septembre", amount: "1 120,00" },
+        { label: "Frais de déplacement", amount: "120,00" },
+      ],
+    },
+    fields: {
+      supplier: "Fournisseur",
+      number: "N° de facture",
+      date: "Date",
+      net: "Total HT",
+      vat: "TVA 17 %",
+      total: "Total TTC",
+      iban: "IBAN",
+    },
+    values: {
+      number: "2026-0412",
+      date: "14/09/2026",
+      net: "1 240,00 €",
+      vat: "210,80 €",
+      total: "1 450,80 €",
+    },
+    status: {
+      reading: "Lecture du document",
+      review: "1 champ envoyé en vérification",
+      approved: "Vérifié par une personne",
+      done: "Prêt à comptabiliser",
+    },
+  },
+
   billovio: {
     eyebrow: "Notre propre produit",
     by: "par DEEV",
