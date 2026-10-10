@@ -34,7 +34,7 @@ export const home = {
     areas: {
       web: { title: "Web", line: "Websites and online stores that turn visitors into enquiries." },
       software: { title: "Software", line: "Web applications, portals and internal tools built around your process." },
-      data: { title: "AI & Data", line: "Make sense of your data and hand the routine to AI." },
+      data: { title: "AI & Data", line: "Custom RAG, AI agents and data analysis for serious projects." },
     },
   },
 
@@ -50,10 +50,10 @@ export const home = {
         cta: "Websites",
       },
       ai: {
-        title: "AI and automation",
-        problem: "Repeat enquiries, documents and tasks eat our time.",
-        body: "We look at where the time actually goes, then automate the parts that repeat. Not every company needs AI, and we will say so.",
-        cta: "AI and automation",
+        title: "AI & Data",
+        problem: "Our knowledge and data should be working for us, and they are not.",
+        body: "Custom RAG over your documents, AI agents that take over whole workflows, and data analysis you can base decisions on. Built for production, not for a demo.",
+        cta: "AI & Data",
       },
       software: {
         title: "Custom software",
@@ -244,26 +244,26 @@ export const home = {
   /** The animated pipeline on the AI page. Method, not results: nothing here
    *  claims a figure for any client. */
   dataFlow: {
-    eyebrow: "From data to decisions",
+    eyebrow: "Data analysis",
     title: "Your data already knows the answer. It is just in five places.",
     lead:
-      "Most companies do not lack data. They lack one place where it agrees with itself. This is how we take it from scattered to useful, in four steps.",
+      "Most companies do not lack data. They lack a foundation they can trust. Before AI is worth anything, the data has to agree with itself. This is how we get there.",
     steps: [
       {
-        title: "Connect the sources",
-        copy: "Orders in the ERP, hours in a spreadsheet, requests in an inbox, contracts as PDFs. We connect the systems you already use instead of asking you to replace them.",
+        title: "Connect every source",
+        copy: "ERP, CRM, spreadsheets, inboxes, PDFs and APIs. Pipelines pull from the systems you already run, on a schedule or in real time, without replacing any of them.",
       },
       {
-        title: "Clean and unify",
-        copy: "One record per customer, not five. Duplicates are merged, formats aligned, and every figure stays traceable back to where it came from.",
+        title: "Clean and model",
+        copy: "Duplicates merged, formats aligned, and one agreed definition of what a customer or a sale is. The result is a versioned data foundation where every figure traces back to its source.",
       },
       {
-        title: "Analyse what matters",
-        copy: "Trends, outliers and forecasts that answer the questions you actually ask. A few dashboards people open, not forty that nobody does.",
+        title: "Analyse and forecast",
+        copy: "Dashboards built around the decisions you actually make, plus forecasting and anomaly detection on your own history. You see what is coming, not only what happened.",
       },
       {
-        title: "Automate with AI",
-        copy: "Once the data is sound, AI can work with it: drafting replies, booking documents, flagging what looks wrong. Anything that matters still goes to a person.",
+        title: "Act with AI",
+        copy: "On that foundation, RAG assistants and AI agents can work reliably: answering from your knowledge, drafting, booking, flagging. Anything that matters still goes to a person.",
       },
     ],
     labels: {
@@ -275,6 +275,68 @@ export const home = {
       outReply: "Draft reply",
       outBook: "Booked",
       outReview: "To review",
+    },
+  },
+
+  /** The services overview at the top of the AI page. What we build, not
+   *  what anyone achieved with it. */
+  aiCapabilities: {
+    eyebrow: "What we build",
+    title: "High-end AI, built to run for years.",
+    lead: "We take on fewer, larger AI projects: systems that sit inside how your organisation works, on your own data, with someone accountable for them after launch.",
+    items: [
+      { title: "Custom RAG and knowledge assistants", copy: "Answers from your own documents and systems, with sources, respecting who may see what. Evaluated against your real questions." },
+      { title: "AI agents and workflow automation", copy: "Agents that carry a task from inbox to system: read, decide within rules you set, act, and hand the exceptions to a person." },
+      { title: "Data platforms and pipelines", copy: "Your sources connected into one clean, versioned data foundation that analysis and AI can rely on." },
+      { title: "Analytics and forecasting", copy: "Dashboards around the decisions you make, plus forecasting and anomaly detection on your own history." },
+      { title: "Document intelligence", copy: "Invoices, contracts and forms read, extracted, checked and written into the system they belong in." },
+      { title: "Architecture, security and compliance", copy: "Model choice, hosting, access control, GDPR and the EU AI Act considered from the first day, not bolted on before launch." },
+    ],
+  },
+
+  /** The RAG demo. The question, the sources and the answer are invented and
+   *  the panel says so. */
+  rag: {
+    eyebrow: "Custom RAG",
+    title: "Ask your own knowledge. Get answers with sources.",
+    lead: "Retrieval-augmented generation connects a language model to what your organisation knows: contracts, manuals, tickets, wikis, reports. Instead of guessing, it finds the relevant passages first and answers from them, citing where every statement comes from.",
+    pointsLabel: "What makes ours custom",
+    points: [
+      { title: "Your sources, kept in sync", copy: "We index the systems you already use and keep the index current as documents change." },
+      { title: "Access rights carried through", copy: "People only get answers from documents they are allowed to open." },
+      { title: "Every answer cites its sources", copy: "Each statement links back to the passage it came from, so it can be checked in one click." },
+      { title: "Measured before launch", copy: "Answer quality is tested against a set of your real questions, before go-live and after every change." },
+      { title: "Hosting that fits your data", copy: "In the EU, or on your own infrastructure where the data must not leave." },
+    ],
+    demo: {
+      label: "Illustrative example",
+      askLabel: "Question",
+      indexLabel: "Your knowledge base",
+      answerLabel: "Answer",
+      locked: "No access",
+      question: "What notice period applies to our supplier contracts?",
+      sources: [
+        "Supplier contract template.pdf",
+        "Purchasing policy 2025.docx",
+        "Framework agreement.pdf",
+        "Board minutes Q2.pdf",
+        "Service SLA.pdf",
+        "Onboarding wiki",
+        "Ticket #4821",
+      ],
+      answer: [
+        { text: "Standard supplier contracts end with three months’ notice to the end of a quarter", cite: 1 },
+        { text: ". Framework agreements are the exception: six months, in writing", cite: 3 },
+        { text: ". Any shorter period needs approval from legal", cite: 2 },
+        { text: "." },
+      ],
+      status: {
+        typing: "Question",
+        searching: "Searching 7 sources",
+        found: "3 relevant passages · 1 source without access",
+        answering: "Writing the answer",
+        done: "Answer with sources",
+      },
     },
   },
 

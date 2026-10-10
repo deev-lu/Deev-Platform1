@@ -24,15 +24,17 @@ const SystemStack = lazy(() => import("./SystemStack"));
 const AiConcepts = lazy(() => import("./AiConcepts"));
 const DataFlow = lazy(() => import("./DataFlow"));
 const DocumentToData = lazy(() => import("./DocumentToData"));
+const AiCapabilities = lazy(() => import("./AiCapabilities"));
+const RagDemo = lazy(() => import("./RagDemo"));
 const BillovioFeature = lazy(() => import("./BillovioFeature"));
 const MarketingServices = lazy(() => import("./MarketingServices"));
 
 /** Welcher ausgelagerte Block auf welcher Seite landet. */
 const EXTRAS: Record<ServiceKey, ComponentType[]> = {
   websites: [],
-  // Erst zeigen, was mit Daten passiert, dann wie der Workshop den Ort
-  // findet, an dem es sich lohnt.
-  ai: [DataFlow, DocumentToData, AiConcepts],
+  // Erst was wir bauen, dann die drei Erklaerungen (RAG, Datenanalyse,
+  // Dokumente), zuletzt wie ein grosses Projekt geplant wird.
+  ai: [AiCapabilities, RagDemo, DataFlow, DocumentToData, AiConcepts],
   software: [SystemStack, BillovioFeature],
   // Der Marketingblock stand auf /services zwischen drei anderen
   // Uebersichten. Hier ist er der Inhalt der Seite, nicht ein Abschnitt

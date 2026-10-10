@@ -96,7 +96,7 @@ export default function DocumentToData() {
         style={{
           outline: held ? `1px solid ${AMBER}` : active ? `1px solid ${BLUE}` : "1px solid transparent",
           background: held ? "rgba(161,101,15,0.12)" : active ? "rgba(37,99,246,0.12)" : done ? "rgba(37,99,246,0.05)" : "transparent",
-          transition: "background 240ms, outline-color 240ms",
+          transition: "background 320ms cubic-bezier(0.16,1,0.3,1), outline-color 320ms cubic-bezier(0.16,1,0.3,1)",
         }}
       >
         {children}
@@ -105,7 +105,7 @@ export default function DocumentToData() {
   };
 
   return (
-    <Section index="02" eyebrow={d.eyebrow} tone={1}>
+    <Section index="04" eyebrow={d.eyebrow} tone={1}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12 items-start">
         <div className="lg:col-span-5">
           <SectionTitle>{d.title}</SectionTitle>
@@ -177,17 +177,24 @@ export default function DocumentToData() {
                   </div>
 
                   {/* Die Leselinie */}
-                  {reading && (
-                    <motion.div
-                      className="absolute inset-x-0 pointer-events-none"
-                      initial={{ top: "0%" }}
-                      animate={{ top: "100%" }}
-                      transition={{ duration: (duration(READ) * FIELDS.length) / 1000, ease: "linear" }}
-                    >
-                      <div style={{ height: 28, marginTop: -28, background: "rgba(37,99,246,0.07)" }} />
-                      <div style={{ height: 1, background: BLUE }} />
-                    </motion.div>
-                  )}
+                  {/* Immer da, nur ein- und ausgeblendet: sie gleitet Feld fuer
+                      Feld linear weiter, statt bei jedem Wechsel neu zu starten. */}
+                  <motion.div
+                    className="absolute inset-x-0 pointer-events-none"
+                    style={{ top: 0 }}
+                    initial={false}
+                    animate={{
+                      top: reading ? `${((phase - READ + 1) / FIELDS.length) * 100}%` : phase === IDLE ? "0%" : "100%",
+                      opacity: reading ? 1 : 0,
+                    }}
+                    transition={{
+                      top: { duration: reading ? duration(READ) / 1000 : 0, ease: "linear" },
+                      opacity: { duration: 0.4 },
+                    }}
+                  >
+                    <div style={{ height: 28, marginTop: -28, background: "rgba(37,99,246,0.07)" }} />
+                    <div style={{ height: 1, background: BLUE }} />
+                  </motion.div>
                 </div>
               </div>
 
@@ -219,33 +226,42 @@ export default function DocumentToData() {
                         <dt className="eyebrow-mono uppercase text-[var(--text-low)] truncate" style={{ fontSize: "var(--t-label)", letterSpacing: "0.1em" }}>
                           {d.fields[f]}
                         </dt>
-                        <dd className="min-w-0">
-                          {filled ? (
-                            <motion.span
-                              key={`${f}-v`}
-                              initial={{ opacity: 0, x: -6 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: reduce ? 0 : 0.32, ease: [0.16, 1, 0.3, 1] }}
-                              className="block break-words text-[var(--text-hi)] tabular-nums"
-                              style={{ fontSize: "var(--t-small)" }}
-                            >
-                              {value(f)}
-                            </motion.span>
-                          ) : (
-                            <span className="block h-2 w-24 bg-[var(--surface-2)]" />
-                          )}
+                        {/* Wert und Platzhalter stehen beide immer da und
+                            blenden ineinander: kein Springen der Zeile, und
+                            beim Neustart der Schleife verschwinden die Werte
+                            weich statt auf einen Schlag. */}
+                        <dd className="relative min-w-0">
+                          <span
+                            aria-hidden="true"
+                            className="absolute left-0 top-1/2 -translate-y-1/2 h-2 w-24 bg-[var(--surface-2)]"
+                            style={{ opacity: filled ? 0 : 1, transition: "opacity 420ms var(--ease-out)" }}
+                          />
+                          <motion.span
+                            initial={false}
+                            animate={
+                              filled
+                                ? { opacity: 1, clipPath: "inset(0 0% 0 0)" }
+                                : { opacity: 0, clipPath: "inset(0 100% 0 0)" }
+                            }
+                            transition={{ duration: reduce ? 0 : filled ? 0.6 : 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="relative block break-words text-[var(--text-hi)] tabular-nums"
+                            style={{ fontSize: "var(--t-small)" }}
+                          >
+                            {value(f)}
+                          </motion.span>
                         </dd>
                         <dd
                           className="eyebrow-mono tabular-nums text-right"
                           style={{
                             fontSize: "var(--t-label)",
                             letterSpacing: "0.06em",
-                            color: filled ? tone : "transparent",
-                            transition: "color 240ms",
+                            color: tone,
+                            opacity: filled ? 1 : 0,
+                            transition: "opacity 420ms var(--ease-out), color 320ms var(--ease-out)",
                             minWidth: "3.2rem",
                           }}
                         >
-                          {filled && (doubtful && phase >= APPROVED ? <Check className="w-3.5 h-3.5 inline" strokeWidth={2} /> : `${CONFIDENCE[f]}%`)}
+                          {doubtful && phase >= APPROVED ? <Check className="w-3.5 h-3.5 inline" strokeWidth={2} /> : `${CONFIDENCE[f]}%`}
                         </dd>
                       </div>
                     );

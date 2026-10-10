@@ -76,10 +76,10 @@ export const pages = {
         caps: ["Websites", "E-commerce", "CMS and integrations", "SEO and performance"],
       },
       ai: {
-        title: "AI and automation",
-        line: "Agents, assistants and workflows built around the work that actually costs your team time.",
-        cue: "The same routine eats hours every week.",
-        caps: ["AI agents", "Process automation", "Assistants", "System integration"],
+        title: "AI & Data",
+        line: "Custom RAG, AI agents and data analysis, built on your own data and made for production.",
+        cue: "We want AI that works on our data, not a demo.",
+        caps: ["Custom RAG", "AI agents", "Data analysis", "Forecasting"],
       },
       software: {
         title: "Custom software",
@@ -123,12 +123,12 @@ export const pages = {
     },
     ai: {
       eyebrow: "AI & Data",
-      title: "Less manual routine, with solutions that fit how you work.",
-      lead: "We start by looking at where the time actually goes. Not every company needs AI, and we will say so.",
+      title: "AI systems built on your data, made for production.",
+      lead: "Custom RAG, AI agents and data analysis for organisations that want more than a chatbot. We focus on substantial projects that run in production, on your own data, for years. And we will still tell you where AI does not pay.",
       problems: [
-        "The same enquiries get answered by hand every week.",
-        "Documents are read, sorted and retyped by a person.",
-        "Data lives in three systems and is copied between them.",
+        "Knowledge is spread across thousands of documents, and the right answer takes hours to find.",
+        "Years of data, and still no reliable answer to simple business questions.",
+        "Off-the-shelf AI tools cannot be trusted with our data or our processes.",
       ],
     },
     software: {

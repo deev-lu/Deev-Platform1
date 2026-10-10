@@ -30,7 +30,7 @@ export const home: typeof En = {
     areas: {
       web: { title: "Web", line: "Des sites et boutiques en ligne qui transforment les visiteurs en demandes." },
       software: { title: "Logiciel", line: "Applications web, portails et outils internes, construits autour de vos processus." },
-      data: { title: "IA & Données", line: "Comprendre vos données et confier la routine à l’IA." },
+      data: { title: "IA & Données", line: "RAG sur mesure, agents IA et analyse de données pour des projets exigeants." },
     },
   },
 
@@ -46,10 +46,10 @@ export const home: typeof En = {
         cta: "Sites web",
       },
       ai: {
-        title: "IA et automatisation",
-        problem: "Les demandes, documents et tâches répétitives nous prennent du temps.",
-        body: "Nous regardons où le temps part réellement, puis nous automatisons ce qui se répète. Toutes les entreprises n’ont pas besoin d’IA, et nous le dirons.",
-        cta: "IA et automatisation",
+        title: "IA & Données",
+        problem: "Notre savoir et nos données devraient travailler pour nous, et ce n’est pas le cas.",
+        body: "Un RAG sur mesure sur vos documents, des agents IA qui prennent en charge des processus entiers, et une analyse de données sur laquelle fonder vos décisions. Conçus pour la production, pas pour une démo.",
+        cta: "IA & Données",
       },
       software: {
         title: "Logiciel sur mesure",
@@ -238,26 +238,26 @@ export const home: typeof En = {
   },
 
   dataFlow: {
-    eyebrow: "Des données aux décisions",
+    eyebrow: "Analyse de données",
     title: "Vos données connaissent déjà la réponse. Elle est juste à cinq endroits.",
     lead:
-      "La plupart des entreprises ne manquent pas de données. Il leur manque un endroit où elles concordent. Voici comment nous les rendons utiles, en quatre étapes.",
+      "La plupart des entreprises ne manquent pas de données. Il leur manque un socle fiable. Avant que l’IA ne vaille quoi que ce soit, les données doivent concorder. Voici comment nous y arrivons.",
     steps: [
       {
-        title: "Connecter les sources",
-        copy: "Les commandes dans l’ERP, les heures dans un tableur, les demandes dans une boîte mail, les contrats en PDF. Nous connectons les systèmes que vous utilisez déjà, sans vous demander de les remplacer.",
+        title: "Connecter chaque source",
+        copy: "ERP, CRM, tableurs, boîtes mail, PDF et API. Des pipelines puisent dans les systèmes que vous utilisez déjà, à intervalles réguliers ou en temps réel, sans en remplacer aucun.",
       },
       {
-        title: "Nettoyer et unifier",
-        copy: "Une fiche par client, pas cinq. Les doublons sont fusionnés, les formats harmonisés, et chaque chiffre reste traçable jusqu’à sa source.",
+        title: "Nettoyer et modéliser",
+        copy: "Doublons fusionnés, formats harmonisés, et une définition commune de ce qu’est un client ou une vente. Le résultat\u00a0: un socle de données versionné où chaque chiffre reste traçable jusqu’à sa source.",
       },
       {
-        title: "Analyser l’essentiel",
-        copy: "Tendances, anomalies et prévisions, pour répondre aux questions que vous vous posez vraiment. Quelques tableaux de bord que l’on ouvre, pas quarante que personne ne regarde.",
+        title: "Analyser et prévoir",
+        copy: "Des tableaux de bord construits autour des décisions que vous prenez vraiment, avec des prévisions et une détection d’anomalies sur votre propre historique. Vous voyez ce qui arrive, pas seulement ce qui s’est passé.",
       },
       {
-        title: "Automatiser avec l’IA",
-        copy: "Une fois les données fiables, l’IA peut travailler avec : préparer des réponses, comptabiliser des pièces, signaler ce qui semble anormal. Ce qui compte passe toujours par une personne.",
+        title: "Agir avec l’IA",
+        copy: "Sur ce socle, assistants RAG et agents IA travaillent de façon fiable\u00a0: ils répondent à partir de votre savoir, rédigent, comptabilisent, signalent. Ce qui compte passe toujours par une personne.",
       },
     ],
     labels: {
@@ -269,6 +269,64 @@ export const home: typeof En = {
       outReply: "Brouillon",
       outBook: "Comptabilisé",
       outReview: "À vérifier",
+    },
+  },
+
+  aiCapabilities: {
+    eyebrow: "Ce que nous construisons",
+    title: "Une IA haut de gamme, construite pour durer des années.",
+    lead: "Nous prenons moins de projets d’IA, mais de plus grande envergure\u00a0: des systèmes intégrés au fonctionnement de votre organisation, sur vos propres données, avec quelqu’un qui en répond après la mise en service.",
+    items: [
+      { title: "RAG sur mesure et assistants de connaissances", copy: "Des réponses issues de vos propres documents et systèmes, sourcées, dans le respect des droits d’accès. Évaluées sur vos vraies questions." },
+      { title: "Agents IA et automatisation des processus", copy: "Des agents qui portent une tâche de la boîte mail jusqu’au système\u00a0: lire, décider selon vos règles, agir, et confier les exceptions à une personne." },
+      { title: "Plateformes et pipelines de données", copy: "Vos sources reliées en un socle de données propre et versionné, sur lequel l’analyse et l’IA peuvent compter." },
+      { title: "Analyse et prévisions", copy: "Des tableaux de bord construits autour de vos décisions, avec prévisions et détection d’anomalies sur votre propre historique." },
+      { title: "Intelligence documentaire", copy: "Factures, contrats et formulaires lus, extraits, contrôlés et inscrits dans le système auquel ils appartiennent." },
+      { title: "Architecture, sécurité et conformité", copy: "Choix des modèles, hébergement, contrôle d’accès, RGPD et AI Act européen pris en compte dès le premier jour, pas ajoutés juste avant le lancement." },
+    ],
+  },
+
+  rag: {
+    eyebrow: "RAG sur mesure",
+    title: "Interrogez votre propre savoir. Obtenez des réponses sourcées.",
+    lead: "La génération augmentée par récupération (RAG) relie un modèle de langage à ce que sait votre organisation\u00a0: contrats, manuels, tickets, wikis, rapports. Au lieu de deviner, il retrouve d’abord les passages pertinents et répond à partir d’eux, en indiquant d’où vient chaque affirmation.",
+    pointsLabel: "Ce qui rend les nôtres sur mesure",
+    points: [
+      { title: "Vos sources, toujours à jour", copy: "Nous indexons les systèmes que vous utilisez déjà et maintenons l’index à jour quand les documents changent." },
+      { title: "Les droits d’accès respectés", copy: "Chacun n’obtient des réponses qu’à partir des documents qu’il a le droit d’ouvrir." },
+      { title: "Chaque réponse cite ses sources", copy: "Chaque affirmation renvoie au passage d’où elle vient, vérifiable en un clic." },
+      { title: "Mesuré avant la mise en service", copy: "La qualité des réponses est testée sur un ensemble de vos vraies questions, avant la mise en production et après chaque modification." },
+      { title: "Un hébergement adapté à vos données", copy: "Dans l’UE, ou sur votre propre infrastructure lorsque les données ne doivent pas sortir." },
+    ],
+    demo: {
+      label: "Exemple illustratif",
+      askLabel: "Question",
+      indexLabel: "Votre base de connaissances",
+      answerLabel: "Réponse",
+      locked: "Sans accès",
+      question: "Quel préavis s’applique à nos contrats fournisseurs\u00a0?",
+      sources: [
+        "Modèle contrat fournisseur.pdf",
+        "Politique d’achats 2025.docx",
+        "Contrat-cadre.pdf",
+        "PV conseil T2.pdf",
+        "SLA de service.pdf",
+        "Wiki d’accueil",
+        "Ticket #4821",
+      ],
+      answer: [
+        { text: "Les contrats fournisseurs standard se résilient avec trois mois de préavis pour la fin d’un trimestre", cite: 1 },
+        { text: ". Les contrats-cadres font exception\u00a0: six mois, par écrit", cite: 3 },
+        { text: ". Tout délai plus court requiert l’accord du service juridique", cite: 2 },
+        { text: "." },
+      ],
+      status: {
+        typing: "Question",
+        searching: "Recherche dans 7 sources",
+        found: "3 passages pertinents \u00b7 1 source sans accès",
+        answering: "Rédaction de la réponse",
+        done: "Réponse sourcée",
+      },
     },
   },
 

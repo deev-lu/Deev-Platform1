@@ -30,7 +30,7 @@ export const home: typeof En = {
     areas: {
       web: { title: "Web", line: "Websites und Onlineshops, die aus Besuchern Anfragen machen." },
       software: { title: "Software", line: "Webanwendungen, Portale und interne Tools, gebaut um Ihren Ablauf." },
-      data: { title: "KI & Daten", line: "Ihre Daten verstehen und die Routine an KI abgeben." },
+      data: { title: "KI & Daten", line: "Individuelle RAG-Systeme, KI-Agenten und Datenanalyse für anspruchsvolle Projekte." },
     },
   },
 
@@ -46,10 +46,10 @@ export const home: typeof En = {
         cta: "Websites",
       },
       ai: {
-        title: "KI und Automatisierung",
-        problem: "Wiederkehrende Anfragen, Dokumente und Aufgaben kosten Zeit.",
-        body: "Wir schauen, wohin die Zeit tatsächlich geht, und automatisieren dann, was sich wiederholt. Nicht jedes Unternehmen braucht KI, und das sagen wir auch.",
-        cta: "KI und Automatisierung",
+        title: "KI & Daten",
+        problem: "Unser Wissen und unsere Daten sollten für uns arbeiten, und das tun sie nicht.",
+        body: "Individuelle RAG-Systeme über Ihren Dokumenten, KI-Agenten, die ganze Abläufe übernehmen, und Datenanalyse, auf die man Entscheidungen stützen kann. Gebaut für den Betrieb, nicht für eine Demo.",
+        cta: "KI & Daten",
       },
       software: {
         title: "Individuelle Software",
@@ -238,26 +238,26 @@ export const home: typeof En = {
   },
 
   dataFlow: {
-    eyebrow: "Von Daten zu Entscheidungen",
+    eyebrow: "Datenanalyse",
     title: "Ihre Daten kennen die Antwort schon. Sie liegt nur an fünf Orten.",
     lead:
-      "Den meisten Unternehmen fehlen keine Daten. Es fehlt der eine Ort, an dem sie übereinstimmen. So machen wir sie in vier Schritten von verstreut zu nützlich.",
+      "Den meisten Unternehmen fehlen keine Daten. Es fehlt ein Fundament, dem man trauen kann. Bevor KI etwas wert ist, müssen die Daten übereinstimmen. So kommen wir dahin.",
     steps: [
       {
-        title: "Quellen verbinden",
-        copy: "Aufträge im ERP, Stunden in einer Tabelle, Anfragen im Postfach, Verträge als PDF. Wir verbinden die Systeme, die Sie schon nutzen, statt sie zu ersetzen.",
+        title: "Jede Quelle anbinden",
+        copy: "ERP, CRM, Tabellen, Postfächer, PDFs und Schnittstellen. Datenstrecken holen aus den Systemen, die Sie schon betreiben, zeitgesteuert oder in Echtzeit, ohne eines davon zu ersetzen.",
       },
       {
-        title: "Bereinigen und zusammenführen",
-        copy: "Ein Datensatz pro Kunde, nicht fünf. Dubletten werden zusammengeführt, Formate vereinheitlicht, und jede Zahl bleibt bis zu ihrer Quelle nachvollziehbar.",
+        title: "Bereinigen und modellieren",
+        copy: "Dubletten zusammengeführt, Formate vereinheitlicht, und eine gemeinsame Definition dessen, was ein Kunde oder ein Umsatz ist. Das Ergebnis ist ein versioniertes Datenfundament, in dem jede Zahl bis zu ihrer Quelle nachvollziehbar bleibt.",
       },
       {
-        title: "Auswerten, was zählt",
-        copy: "Trends, Ausreißer und Prognosen, die Ihre tatsächlichen Fragen beantworten. Wenige Dashboards, die geöffnet werden, statt vierzig, die keiner ansieht.",
+        title: "Auswerten und vorhersagen",
+        copy: "Dashboards rund um die Entscheidungen, die Sie tatsächlich treffen, dazu Prognosen und Ausreißererkennung auf Ihrer eigenen Historie. Sie sehen, was kommt, nicht nur, was war.",
       },
       {
-        title: "Mit KI automatisieren",
-        copy: "Sind die Daten sauber, kann KI damit arbeiten: Antworten vorbereiten, Belege verbuchen, Auffälliges markieren. Was wichtig ist, landet weiterhin bei einem Menschen.",
+        title: "Mit KI handeln",
+        copy: "Auf diesem Fundament arbeiten RAG-Assistenten und KI-Agenten verlässlich: Sie antworten aus Ihrem Wissen, entwerfen, verbuchen, markieren. Was wichtig ist, landet weiterhin bei einem Menschen.",
       },
     ],
     labels: {
@@ -269,6 +269,64 @@ export const home: typeof En = {
       outReply: "Antwortentwurf",
       outBook: "Verbucht",
       outReview: "Zur Prüfung",
+    },
+  },
+
+  aiCapabilities: {
+    eyebrow: "Was wir bauen",
+    title: "Anspruchsvolle KI, gebaut, um jahrelang zu laufen.",
+    lead: "Wir übernehmen weniger, dafür größere KI-Projekte: Systeme, die in den Abläufen Ihrer Organisation sitzen, auf Ihren eigenen Daten, mit jemandem, der nach dem Start dafür geradesteht.",
+    items: [
+      { title: "Individuelle RAG und Wissensassistenten", copy: "Antworten aus Ihren eigenen Dokumenten und Systemen, mit Quellen, unter Wahrung der Zugriffsrechte. Geprüft an Ihren echten Fragen." },
+      { title: "KI-Agenten und Prozessautomatisierung", copy: "Agenten, die eine Aufgabe vom Postfach bis ins System tragen: lesen, nach Ihren Regeln entscheiden, handeln und Ausnahmen an einen Menschen geben." },
+      { title: "Datenplattformen und Datenstrecken", copy: "Ihre Quellen verbunden zu einem sauberen, versionierten Datenfundament, auf das sich Analyse und KI verlassen können." },
+      { title: "Analyse und Prognosen", copy: "Dashboards rund um Ihre Entscheidungen, dazu Prognosen und Ausreißererkennung auf Ihrer eigenen Historie." },
+      { title: "Dokumentenintelligenz", copy: "Rechnungen, Verträge und Formulare gelesen, ausgelesen, geprüft und in das System geschrieben, in das sie gehören." },
+      { title: "Architektur, Sicherheit und Compliance", copy: "Modellwahl, Hosting, Zugriffskontrolle, DSGVO und EU AI Act vom ersten Tag an mitgedacht, nicht kurz vor dem Start nachgerüstet." },
+    ],
+  },
+
+  rag: {
+    eyebrow: "Individuelle RAG",
+    title: "Fragen Sie Ihr eigenes Wissen. Antworten mit Quellen.",
+    lead: "Retrieval-Augmented Generation verbindet ein Sprachmodell mit dem, was Ihre Organisation weiß: Verträge, Handbücher, Tickets, Wikis, Berichte. Statt zu raten, sucht es zuerst die passenden Stellen und antwortet aus ihnen, mit Angabe, woher jede Aussage stammt.",
+    pointsLabel: "Was unsere individuell macht",
+    points: [
+      { title: "Ihre Quellen, immer aktuell", copy: "Wir indexieren die Systeme, die Sie schon nutzen, und halten den Index aktuell, wenn sich Dokumente ändern." },
+      { title: "Zugriffsrechte bleiben bestehen", copy: "Jeder bekommt nur Antworten aus Dokumenten, die er auch öffnen darf." },
+      { title: "Jede Antwort nennt ihre Quellen", copy: "Jede Aussage verweist auf die Stelle, aus der sie stammt, und lässt sich mit einem Klick prüfen." },
+      { title: "Gemessen vor dem Start", copy: "Die Antwortqualität wird an einer Reihe Ihrer echten Fragen getestet, vor dem Go-live und nach jeder Änderung." },
+      { title: "Betrieb passend zu Ihren Daten", copy: "In der EU oder auf Ihrer eigenen Infrastruktur, wenn die Daten das Haus nicht verlassen dürfen." },
+    ],
+    demo: {
+      label: "Beispiel zur Veranschaulichung",
+      askLabel: "Frage",
+      indexLabel: "Ihre Wissensbasis",
+      answerLabel: "Antwort",
+      locked: "Kein Zugriff",
+      question: "Welche Kündigungsfrist gilt für unsere Lieferantenverträge?",
+      sources: [
+        "Lieferantenvertrag Vorlage.pdf",
+        "Einkaufsrichtlinie 2025.docx",
+        "Rahmenvertrag.pdf",
+        "Vorstandsprotokoll Q2.pdf",
+        "Service-SLA.pdf",
+        "Onboarding-Wiki",
+        "Ticket #4821",
+      ],
+      answer: [
+        { text: "Standard-Lieferantenverträge enden mit drei Monaten Frist zum Quartalsende", cite: 1 },
+        { text: ". Ausnahme sind Rahmenverträge: sechs Monate, schriftlich", cite: 3 },
+        { text: ". Kürzere Fristen brauchen die Freigabe der Rechtsabteilung", cite: 2 },
+        { text: "." },
+      ],
+      status: {
+        typing: "Frage",
+        searching: "Durchsuche 7 Quellen",
+        found: "3 passende Stellen \u00b7 1 Quelle ohne Zugriff",
+        answering: "Antwort wird geschrieben",
+        done: "Antwort mit Quellen",
+      },
     },
   },
 
