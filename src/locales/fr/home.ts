@@ -24,6 +24,16 @@ export const home: typeof En = {
     cta: "Voir votre prix net",
   },
 
+  explore: {
+    label: "Par où voulez-vous commencer\u00a0?",
+    cta: "Découvrir",
+    areas: {
+      web: { title: "Web", line: "Des sites et boutiques en ligne qui transforment les visiteurs en demandes." },
+      software: { title: "Logiciel", line: "Applications web, portails et outils internes, construits autour de vos processus." },
+      data: { title: "IA & Données", line: "Comprendre vos données et confier la routine à l’IA." },
+    },
+  },
+
   paths: {
     eyebrow: "Ce que nous faisons",
     title: "Trois façons de travailler.",

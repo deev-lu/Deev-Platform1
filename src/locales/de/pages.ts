@@ -120,7 +120,7 @@ export const pages: typeof En = {
       ],
     },
     ai: {
-      eyebrow: "KI und Automatisierung",
+      eyebrow: "KI & Daten",
       title: "Weniger manuelle Routine. Mit Lösungen, die zu Ihren Abläufen passen.",
       lead: "Wir schauen zuerst, wohin die Zeit tatsächlich geht. Nicht jedes Unternehmen braucht KI, und das sagen wir auch.",
       problems: [

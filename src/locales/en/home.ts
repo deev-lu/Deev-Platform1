@@ -27,6 +27,17 @@ export const home = {
     cta: "See your net price",
   },
 
+  /** The chooser directly under the hero. */
+  explore: {
+    label: "Where do you want to start?",
+    cta: "Explore",
+    areas: {
+      web: { title: "Web", line: "Websites and online stores that turn visitors into enquiries." },
+      software: { title: "Software", line: "Web applications, portals and internal tools built around your process." },
+      data: { title: "AI & Data", line: "Make sense of your data and hand the routine to AI." },
+    },
+  },
+
   paths: {
     eyebrow: "What we do",
     title: "Three ways we work.",

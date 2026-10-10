@@ -7,6 +7,7 @@ import { WORK_CATEGORIES } from "../lib/workCategories";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ClientLogos from "./components/ClientLogos";
+import ExploreAreas from "./components/ExploreAreas";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
@@ -68,6 +69,8 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
 
       {/* 1. Angebot und naechster Schritt, mit einer echten Arbeitsprobe. */}
       <Hero />
+      {/* Gleich unter dem Angebot: Web, Software oder KI & Daten. */}
+      <ExploreAreas />
       <ClientLogos />
 
       <Suspense fallback={<SectionSkeleton />}>

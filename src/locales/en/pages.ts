@@ -122,7 +122,7 @@ export const pages = {
       ],
     },
     ai: {
-      eyebrow: "AI and automation",
+      eyebrow: "AI & Data",
       title: "Less manual routine, with solutions that fit how you work.",
       lead: "We start by looking at where the time actually goes. Not every company needs AI, and we will say so.",
       problems: [
