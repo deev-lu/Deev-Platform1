@@ -24,6 +24,16 @@ export const home: typeof En = {
     cta: "Nettopreis berechnen",
   },
 
+  explore: {
+    label: "Wo möchten Sie anfangen?",
+    cta: "Ansehen",
+    areas: {
+      web: { title: "Web", line: "Websites und Onlineshops, die aus Besuchern Anfragen machen." },
+      software: { title: "Software", line: "Webanwendungen, Portale und interne Tools, gebaut um Ihren Ablauf." },
+      data: { title: "KI & Daten", line: "Ihre Daten verstehen und die Routine an KI abgeben." },
+    },
+  },
+
   paths: {
     eyebrow: "Was wir machen",
     title: "Drei Wege, wie wir arbeiten.",

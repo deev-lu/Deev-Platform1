@@ -120,7 +120,7 @@ export const pages: typeof En = {
       ],
     },
     ai: {
-      eyebrow: "IA et automatisation",
+      eyebrow: "IA & Données",
       title: "Moins de routine manuelle, avec des solutions adaptées à vos processus.",
       lead: "Nous commençons par regarder où le temps part réellement. Toutes les entreprises n’ont pas besoin d’IA, et nous le dirons.",
       problems: [
