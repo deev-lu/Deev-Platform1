@@ -28,14 +28,19 @@ tarball upload is reliable. Deploys alias to www.deev.lu automatically.
 Vercel blocks deploys when the commit email doesn't match a GitHub account.
 
 ## Layout of the page (src/app/App.tsx)
-Navbar → Hero → ClientLogos → SmeGrantBanner → Portfolio (`WorkMoment`)
-→ FoundersNote ("About") → BenefitsPanel → Services (`ValueProposition`)
-→ SystemStack → MarketingServices → AiConcepts → BillovioFeature
-→ ProjectBuilder → EnterpriseTrust ("Why Deev") → NewsTeaser ("Blog")
-→ LuxembourgStrip → FinalCTA → Footer
+High-end positioning since October 2026: software and AI lead, websites are
+design "by invitation". No project budget figure is shown publicly.
+
+Navbar → Hero (incl. capability ticker) → AiFilm ("AI at work") →
+HomeDisciplines (01) → SelectedWork (02) → InMotion (03) →
+HomeOutro: engagements (04, carries the #pricing / #project-builder campaign
+anchors) · FoundersNote (05, #about) · closing invitation → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
+Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
+768px up; reduced motion shows the finished state). The film is a coded
+sequence, not a video file; its names and figures are invented and labelled.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
