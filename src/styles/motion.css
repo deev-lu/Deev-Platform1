@@ -25,6 +25,18 @@
 @keyframes m-rise {
   to { transform: none; }
 }
+/* On a phone the title wraps on its own; fixed lines would break twice.
+   The lines flow as one sentence there and fade in instead of rising. */
+@media (max-width: 767px) {
+  .m-rise { display: inline; overflow: visible; padding-bottom: 0; }
+  .m-rise > span {
+    display: inline;
+    transform: none;
+    opacity: 0;
+    animation: m-fade-in 0.8s ease-out forwards;
+  }
+}
+@keyframes m-fade-in { to { opacity: 1; } }
 
 .m-fade-up {
   opacity: 0;
@@ -176,4 +188,72 @@
   }
   .m-draw { transition: none; transform: none; }
   .m-beam { display: none; }
+}
+
+/* ── Hero composition ─────────────────────────────────────── */
+
+/* The accent words get a line that sweeps in after the title has risen. */
+.m-underline {
+  position: relative;
+  white-space: nowrap;
+}
+.m-underline::after {
+  content: "";
+  position: absolute;
+  left: 0.02em;
+  right: 0.02em;
+  height: 0.07em;
+  /* Above the bottom of the line mask, just under the baseline. */
+  bottom: 0.16em;
+  background: var(--signal);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: m-sweep 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.75s forwards;
+}
+@keyframes m-sweep { to { transform: scaleX(1); } }
+
+/* Mouse parallax: the hero sets --mx / --my (-1..1) on the stage; each layer
+   moves by its own depth. Desktop pointers only, see Hero.tsx. */
+.m-stage { --mx: 0; --my: 0; }
+.m-layer {
+  transform: translate3d(calc(var(--mx) * var(--depth, 10px)), calc(var(--my) * var(--depth, 10px)), 0);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The screenshot leans back into the page from tablet up. */
+@media (min-width: 768px) {
+  .m-tilt {
+    transform: perspective(1800px) rotateY(-13deg) rotateX(5deg);
+    transform-origin: 60% 50%;
+  }
+}
+
+/* Cards drift, each on its own beat. Desktop only. */
+@media (min-width: 1024px) {
+  .m-float-a { animation: m-float 6.5s ease-in-out 1.2s infinite; }
+  .m-float-b { animation: m-float 7.5s ease-in-out 1.6s infinite; }
+  .m-float-c { animation: m-float 8.5s ease-in-out 2s infinite; }
+}
+@keyframes m-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* The forecast draws itself once. */
+.m-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: m-line 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes m-line { to { stroke-dashoffset: 0; } }
+
+.m-pulse { animation: m-pulse 1.8s ease-in-out infinite; }
+@keyframes m-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@media (max-width: 767px) { .m-pulse { animation: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-underline::after { animation: none; transform: none; }
+  .m-layer { transition: none; transform: none; }
+  .m-float-a, .m-float-b, .m-float-c, .m-pulse { animation: none; }
+  .m-line { animation: none; stroke-dashoffset: 0; }
 }

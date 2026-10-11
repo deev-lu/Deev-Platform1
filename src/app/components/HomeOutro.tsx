@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { useInView } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import L from "./L";
@@ -10,7 +10,7 @@ import { useT } from "../../lib/useT";
  *
  * Die alten Kampagnenanker bleiben erreichbar: #pricing und
  * #project-builder stehen in Kampagnen und fremden Links und landen jetzt bei
- * den Projektphasen, #about beim Studio.
+ * den Projektphasen. #about liegt auf den Gruendern (06).
  */
 
 const eyebrow = "flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]";
@@ -18,7 +18,8 @@ const eyebrowStyle = { fontSize: "var(--t-label)", letterSpacing: "0.16em" } as 
 const h2Style = { fontSize: "clamp(2.5rem, 1.3rem + 3.8vw, 5.25rem)", lineHeight: 0.98, letterSpacing: "-0.04em" } as const;
 const wrap = { maxWidth: "var(--container)", paddingInline: "var(--gutter)" } as const;
 
-export default function HomeOutro() {
+/** `founders` wird nach dem Studio eingesetzt (06), vor der Einladung. */
+export default function HomeOutro({ founders }: { founders?: ReactNode }) {
   const t = useT();
   const e = t.home.engage;
   const s = t.home.studio;
@@ -71,7 +72,7 @@ export default function HomeOutro() {
       </section>
 
       {/* 05 · Das Studio */}
-      <section id="about" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
+      <section className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
         <div className="mx-auto" style={wrap}>
           <div className={eyebrow} style={eyebrowStyle}>
             <span className="h-px w-10 bg-[var(--line-strong)]" />
@@ -103,6 +104,8 @@ export default function HomeOutro() {
           </div>
         </div>
       </section>
+
+      {founders}
 
       {/* Einladung */}
       <section className="relative overflow-hidden bg-[var(--surface-0)] border-t border-[var(--line)]">

@@ -47,6 +47,18 @@ export const home = {
     lead: "Custom software, AI and data platforms for organisations with serious ambitions. And, for a select few, websites designed to the standard of the brand behind them.",
     primary: "Start a project",
     film: "Watch AI at work",
+    visual: {
+      illustrative: "Illustrative",
+      product: "Billovio · our own product",
+      agent: "Agent run",
+      steps: ["Email classified", "Contract C-2041 checked", "Reply drafted"],
+      waiting: "Waiting for approval",
+      rag: "Knowledge assistant",
+      question: "Notice period for supplier contracts?",
+      answer: "Three months to the end of a quarter; six for framework agreements.",
+      sources: "3 sources",
+      forecast: "Order intake · forecast",
+    },
   },
 
   ticker: ["Custom software", "AI agents", "Custom RAG", "Data platforms", "Forecasting", "Document AI", "Customer portals", "Brand websites"],

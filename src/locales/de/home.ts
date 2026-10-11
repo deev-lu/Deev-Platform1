@@ -41,6 +41,18 @@ export const home: typeof En = {
     lead: "Individuelle Software, KI und Datenplattformen für Organisationen mit großen Vorhaben. Und für einige wenige: Websites, gestaltet auf dem Niveau der Marke dahinter.",
     primary: "Projekt starten",
     film: "KI bei der Arbeit ansehen",
+    visual: {
+      illustrative: "Beispiel",
+      product: "Billovio · unser eigenes Produkt",
+      agent: "Agentenlauf",
+      steps: ["E-Mail eingeordnet", "Vertrag C-2041 geprüft", "Antwort entworfen"],
+      waiting: "Wartet auf Freigabe",
+      rag: "Wissensassistent",
+      question: "Kündigungsfrist für Lieferantenverträge?",
+      answer: "Drei Monate zum Quartalsende; sechs bei Rahmenverträgen.",
+      sources: "3 Quellen",
+      forecast: "Auftragseingang · Prognose",
+    },
   },
 
   ticker: ["Individuelle Software", "KI-Agenten", "Individuelle RAG", "Datenplattformen", "Prognosen", "Dokumenten-KI", "Kundenportale", "Markenwebsites"],

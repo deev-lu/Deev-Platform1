@@ -41,6 +41,18 @@ export const home: typeof En = {
     lead: "Logiciels sur mesure, IA et plateformes de données pour les organisations aux ambitions sérieuses. Et, pour quelques-unes, des sites web conçus à la hauteur de la marque qu’ils représentent.",
     primary: "Démarrer un projet",
     film: "Voir l’IA à l’œuvre",
+    visual: {
+      illustrative: "Exemple",
+      product: "Billovio · notre propre produit",
+      agent: "Exécution d\u2019agent",
+      steps: ["E-mail classé", "Contrat C-2041 vérifié", "Réponse rédigée"],
+      waiting: "En attente de validation",
+      rag: "Assistant de connaissances",
+      question: "Préavis des contrats fournisseurs\u00a0?",
+      answer: "Trois mois pour la fin d\u2019un trimestre\u00a0; six pour les contrats-cadres.",
+      sources: "3 sources",
+      forecast: "Prises de commande · prévision",
+    },
   },
 
   ticker: ["Logiciels sur mesure", "Agents IA", "RAG sur mesure", "Plateformes de données", "Prévisions", "IA documentaire", "Portails clients", "Sites de marque"],
