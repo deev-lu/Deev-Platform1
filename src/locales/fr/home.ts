@@ -272,24 +272,104 @@ export const home: typeof En = {
     },
   },
 
-  aiCapabilities: {
-    eyebrow: "Ce que nous construisons",
-    title: "Une IA haut de gamme, construite pour durer des années.",
-    lead: "Nous prenons moins de projets d’IA, mais de plus grande envergure\u00a0: des systèmes intégrés au fonctionnement de votre organisation, sur vos propres données, avec quelqu’un qui en répond après la mise en service.",
-    items: [
-      { title: "RAG sur mesure et assistants de connaissances", copy: "Des réponses issues de vos propres documents et systèmes, sourcées, dans le respect des droits d’accès. Évaluées sur vos vraies questions." },
-      { title: "Agents IA et automatisation des processus", copy: "Des agents qui portent une tâche de la boîte mail jusqu’au système\u00a0: lire, décider selon vos règles, agir, et confier les exceptions à une personne." },
-      { title: "Plateformes et pipelines de données", copy: "Vos sources reliées en un socle de données propre et versionné, sur lequel l’analyse et l’IA peuvent compter." },
-      { title: "Analyse et prévisions", copy: "Des tableaux de bord construits autour de vos décisions, avec prévisions et détection d’anomalies sur votre propre historique." },
-      { title: "Intelligence documentaire", copy: "Factures, contrats et formulaires lus, extraits, contrôlés et inscrits dans le système auquel ils appartiennent." },
-      { title: "Architecture, sécurité et conformité", copy: "Choix des modèles, hébergement, contrôle d’accès, RGPD et AI Act européen pris en compte dès le premier jour, pas ajoutés juste avant le lancement." },
+  aiHero: {
+    kicker: "Pour les organisations qui mettent l’IA en production",
+    title: "Une IA qui tourne sur vos opérations.",
+    lead: "Nous relions vos données, votre savoir et vos processus en une couche opérationnelle, puis nous construisons dessus les systèmes RAG, les agents et les analyses qui travaillent avec. Conçu pour tourner des années, pas pour impressionner en démo.",
+    primary: "Réserver une session de découverte",
+    secondary: "Voir l’architecture",
+    strip: "RAG · Agents · Plateformes de données · Analyse",
+    layer: {
+      label: "La couche opérationnelle",
+      note: "Vos systèmes restent. Nous construisons par-dessus.",
+      bands: [
+        { name: "Action", sub: "Retour dans vos systèmes", items: ["Écriture dans l’ERP et le CRM", "Validation humaine", "Notifications et tâches", "Journal d’audit"], note: "" },
+        { name: "Intelligence", sub: "Ce que nous construisons", items: ["RAG sur mesure", "Agents IA", "Prévisions", "IA documentaire"], note: "Évalué · gouverné · choix du modèle ouvert" },
+        { name: "Socle", sub: "Un modèle de votre entreprise", items: ["Client", "Contrat", "Commande", "Facture", "Actif"], note: "Objets · relations · droits · historique" },
+        { name: "Sources", sub: "Ce que vous utilisez déjà", items: ["ERP", "CRM", "SharePoint", "Boîtes mail", "PDF et scans", "Tableurs", "API"], note: "" },
+      ],
+    },
+    cta: "Apportez-nous le processus qui vous coûte le plus.",
+  },
+
+  aiFoundation: {
+    eyebrow: "Le socle",
+    title: "Vos données, modélisées comme fonctionne votre entreprise.",
+    lead: "Avant que l’IA ne vaille quoi que ce soit, elle doit savoir ce qu’est un client, un contrat ou une commande chez vous, et comment ils sont liés. Nous construisons ce modèle commun une fois. Chaque assistant, agent et tableau de bord travaille ensuite sur les mêmes faits, avec les mêmes droits.",
+    points: [
+      { title: "Objets et relations", copy: "Clients, contrats, actifs et commandes, liés comme dans la réalité." },
+      { title: "Des actions encadrées", copy: "Ce qui peut changer, qui peut le changer et ce qui requiert une validation." },
+      { title: "Traçabilité", copy: "Chaque chiffre remonte au système et à l’enregistrement dont il provient." },
+    ],
+    panel: {
+      label: "Objet · Contrat",
+      illustrative: "Exemple",
+      name: "C-2041 · Contrat d’approvisionnement",
+      party: "Fournisseur Exemple Sàrl",
+      status: "Actif",
+      fields: [
+        { k: "Préavis", v: "3 mois · fin de trimestre" },
+        { k: "Renouvellement", v: "Automatique, annuel" },
+        { k: "Plafond de prix", v: "+5 % par an" },
+        { k: "Responsable", v: "Achats" },
+      ],
+      linkedLabel: "Liés",
+      linked: ["Fournisseur · 1", "Commandes · 3", "Factures · 2", "PDF source · 1"],
+      actionsLabel: "Actions",
+      actions: ["Renouveler", "Ajuster le prix"],
+      gated: "Résilier · validation requise",
+    },
+  },
+
+  aiAgents: {
+    eyebrow: "Agents et processus",
+    title: "Des agents qui finissent le travail. Des personnes là où ça compte.",
+    lead: "Un agent lit ce qui arrive, cherche ce dont il a besoin dans votre socle et vos documents, applique vos règles et agit dans vos systèmes. Tout ce qui sort de ses règles s’arrête et attend une personne.",
+    points: ["Chaque étape journalisée et rejouable", "Des règles que vous fixez, pas des prompts qu’on espère", "Une validation avant tout ce qui est irréversible"],
+    panel: {
+      label: "Exécution d’agent · Hausse de prix fournisseur",
+      illustrative: "Exemple",
+      steps: [
+        { kind: "Déclencheur", text: "E-mail reçu : « Liste de prix T4 mise à jour »" },
+        { kind: "Classer", text: "Hausse de prix fournisseur · Fournisseur Exemple Sàrl" },
+        { kind: "Récupérer", text: "Contrat C-2041 · clause 7.2, plafond de prix" },
+        { kind: "Vérifier", text: "Hausse de 6,5 % au-delà du plafond convenu de 5 %" },
+        { kind: "Rédiger", text: "Réponse au fournisseur citant la clause 7.2" },
+        { kind: "Validation", text: "En attente de : responsable des achats" },
+        { kind: "Écrire", text: "Envoyer la réponse · ne pas modifier la grille tarifaire dans l’ERP" },
+      ],
+      approve: "Valider et envoyer",
+      edit: "Modifier le brouillon",
+      reject: "Refuser",
+    },
+  },
+
+  aiGovernance: {
+    eyebrow: "Évaluation et gouvernance",
+    title: "Mesuré avant la mise en service. Gouverné ensuite.",
+    evalLabel: "Jeu de tests · vos vraies questions",
+    illustrative: "Exemple",
+    running: "En cours",
+    cols: ["Question", "Source attendue", "Résultat"],
+    rows: [
+      { q: "Préavis des contrats fournisseurs ?", src: "Modèle de contrat §7", result: "Réussi · cité" },
+      { q: "Qui valide les commandes au-delà du plafond ?", src: "Politique d’achats §3", result: "Réussi · cité" },
+      { q: "Qu’a décidé le conseil au T2 ?", src: "PV du conseil · restreint", result: "Réussi · non divulgué" },
+      { q: "Congés des salariés à temps partiel ?", src: "Non indexé", result: "Réussi · « introuvable »" },
+      { q: "Délai de réponse pour un incident prioritaire ?", src: "SLA de service §2", result: "À revoir · mauvaise section" },
+    ],
+    points: [
+      { title: "Droits hérités", copy: "Les rôles et droits viennent de vos systèmes existants." },
+      { title: "Tout est journalisé", copy: "Chaque réponse, décision et action est traçable." },
+      { title: "RGPD et AI Act dès la conception", copy: "Pris en compte dès le premier jour, pas ajoutés juste avant le lancement." },
+      { title: "Choix du modèle ouvert", copy: "Changer de modèle sans reconstruire le système autour." },
     ],
   },
 
   rag: {
     eyebrow: "RAG sur mesure",
-    title: "Interrogez votre propre savoir. Obtenez des réponses sourcées.",
-    lead: "La génération augmentée par récupération (RAG) relie un modèle de langage à ce que sait votre organisation\u00a0: contrats, manuels, tickets, wikis, rapports. Au lieu de deviner, il retrouve d’abord les passages pertinents et répond à partir d’eux, en indiquant d’où vient chaque affirmation.",
+    title: "Des réponses fondées sur vos documents. Chaque source visible.",
+    lead: "La génération augmentée par récupération (RAG) relie un modèle de langage à ce que sait votre organisation\u00a0: contrats, manuels, tickets, wikis, rapports. Elle retrouve d’abord les passages pertinents et ne répond qu’à partir d’eux, en indiquant d’où vient chaque affirmation. Quand rien de pertinent n’existe, elle le dit au lieu de deviner.",
     pointsLabel: "Ce qui rend les nôtres sur mesure",
     points: [
       { title: "Vos sources, toujours à jour", copy: "Nous indexons les systèmes que vous utilisez déjà et maintenons l’index à jour quand les documents changent." },
