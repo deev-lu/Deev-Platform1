@@ -1,0 +1,179 @@
+/* ─────────────────────────────────────────────────────────────
+   Motion for the homepage since the high-end redesign.
+
+   Every animation here is CSS, so it runs without JavaScript and costs the
+   main thread nothing. The performance rules still hold:
+     - continuous loops (the dot field, the ticker) run from 768px up only;
+       a phone gets them standing still
+     - nothing here uses backdrop-filter or a large blur
+     - prefers-reduced-motion switches every one of them off and shows the
+       finished state
+   ───────────────────────────────────────────────────────────── */
+
+/* Hero: each title line rises out of its own mask. Short and early, so the
+   headline (the largest paint) is in place well inside a second. */
+.m-rise {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.m-rise > span {
+  display: block;
+  transform: translateY(105%);
+  animation: m-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes m-rise {
+  to { transform: none; }
+}
+
+.m-fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: m-fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes m-fade-up {
+  to { opacity: 1; transform: none; }
+}
+
+/* Hero dot field: a diagonal band of light passing through a grid. */
+.m-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--signal);
+  opacity: 0.14;
+}
+@media (min-width: 768px) {
+  .m-dot { animation: m-wave 4.8s ease-in-out infinite; }
+}
+@keyframes m-wave {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  18% { opacity: 0.95; transform: scale(1.9); }
+  36% { opacity: 0.1; transform: scale(1); }
+}
+
+/* Ticker: two identical runs, the track moves by one of them. */
+.m-ticker {
+  display: flex;
+  width: max-content;
+}
+@media (min-width: 768px) {
+  .m-ticker { animation: m-ticker 42s linear infinite; }
+}
+@keyframes m-ticker {
+  to { transform: translateX(-50%); }
+}
+
+/* Cards: a signal line draws across the top on hover. */
+.m-card { position: relative; transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.m-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 0;
+  background: var(--signal);
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m-card:hover::before { width: 100%; }
+
+.m-arrow svg { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.m-arrow:hover svg { transform: translateX(4px); }
+
+/* The engagement line draws itself once the section is in view. */
+.m-draw {
+  height: 1px;
+  background: var(--signal);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s;
+}
+.m-draw[data-on="true"] { transform: scaleX(1); }
+
+/* ── The film ─────────────────────────────────────────────── */
+.m-rec { animation: m-blink 1.4s steps(2, start) infinite; }
+@keyframes m-blink { to { visibility: hidden; } }
+
+.m-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: m-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.m-pop {
+  opacity: 0;
+  transform: scale(0.92);
+  animation: m-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes m-pop { to { opacity: 1; transform: none; } }
+
+/* Typed lines: a desktop effect. On a phone the line would have to stay on
+   one row to type, so there it simply fades in and wraps. */
+.m-type {
+  opacity: 0;
+  animation: m-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (min-width: 768px) {
+  .m-type {
+    opacity: 1;
+    display: inline-block;
+    overflow: hidden;
+    white-space: pre; /* the columns in the typed lines are spaces */
+    vertical-align: bottom;
+    max-width: 0;
+    animation: m-type 1.1s steps(36, end) forwards;
+  }
+}
+@keyframes m-type { to { max-width: 48em; } }
+
+.m-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #3ce7fc;
+  box-shadow: 0 0 18px 2px rgba(60, 231, 252, 0.55);
+  animation: m-beam 3.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes m-beam {
+  from { top: 6%; }
+  to { top: 94%; }
+}
+
+.m-box {
+  position: absolute;
+  border: 1.5px solid #3ce7fc;
+  opacity: 0;
+  animation: m-pop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.m-caret {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  vertical-align: -0.15em;
+  background: #3ce7fc;
+  animation: m-blink 1s steps(2, start) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-rise > span,
+  .m-fade-up,
+  .m-in,
+  .m-pop,
+  .m-box,
+  .m-type {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    max-width: none;
+  }
+  .m-dot,
+  .m-ticker,
+  .m-rec,
+  .m-caret {
+    animation: none;
+  }
+  .m-draw { transition: none; transform: none; }
+  .m-beam { display: none; }
+}

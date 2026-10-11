@@ -6,8 +6,6 @@ import { WORK_CATEGORIES } from "../lib/workCategories";
 // Critical above-the-fold — eager loaded
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import ClientLogos from "./components/ClientLogos";
-import ExploreAreas from "./components/ExploreAreas";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import RouteMeta from "./components/RouteMeta";
@@ -21,21 +19,17 @@ const GrantPage         = lazy(() => import("./components/GrantPage"));
 const ServiceDetail     = lazy(() => import("./components/ServiceDetail"));
 const ProjectPage       = lazy(() => import("./components/ProjectPage"));
 const SelectedWork      = lazy(() => import("./components/SelectedWork"));
-const ServicePaths      = lazy(() => import("./components/ServicePaths"));
+const AiFilm            = lazy(() => import("./components/AiFilm"));
+const HomeDisciplines   = lazy(() => import("./components/HomeDisciplines"));
+const HomeOutro         = lazy(() => import("./components/HomeOutro"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
 
 // Below-the-fold — lazy loaded for faster initial paint
-const BudgetTeaser      = lazy(() => import("./components/BudgetTeaser"));
-const FoundersNote      = lazy(() => import("./components/FoundersNote"));
-const HowWeWork         = lazy(() => import("./components/HowWeWork"));
 const InMotion          = lazy(() => import("./components/InMotion"));
-const NewsTeaser        = lazy(() => import("./components/NewsTeaser"));
-const LuxembourgStrip   = lazy(() => import("./components/LuxembourgStrip"));
 const NewsIndex         = lazy(() => import("./components/NewsIndex"));
 const NewsArticle       = lazy(() => import("./components/NewsArticle"));
-const FinalCTA          = lazy(() => import("./components/FinalCTA"));
 const Legal             = lazy(() => import("./components/Legal"));
 const Contact           = lazy(() => import("./components/Contact"));
 const NotFound          = lazy(() => import("./components/NotFound"));
@@ -57,53 +51,30 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
     <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Die Reihenfolge folgt der Frage, die der Besucher als naechstes
-          hat - nicht der Reihenfolge, in der die Bausteine entstanden sind.
+      {/* Seit der High-End-Ueberarbeitung: Software und KI vorn, Websites als
+          Design auf Einladung. Die Reihenfolge erzaehlt: was wir bauen (Hero),
+          wie es aussieht, wenn es laeuft (Film), was wir tun (01), was schon
+          laeuft (02, 03 - das Portfolio unveraendert), wie ein Projekt
+          ablaeuft (04), mit wem (05), und die Einladung zum Gespraech.
 
-          Der wichtigste Umzug: der Budgetblock stand hinter Gruendern und
-          Ablauf, also hinter zwei Abschnitten, die niemanden interessieren,
-          der gerade "was kostet das" denkt. Er steht jetzt direkt hinter den
-          Leistungswegen, wo die Frage entsteht. Gruender und Ablauf kommen
-          danach: sie beantworten "mit wem" und "wie", und das fragt man,
-          wenn der Preis einen nicht abgeschreckt hat. */}
-
-      {/* 1. Angebot und naechster Schritt, mit einer echten Arbeitsprobe. */}
+          Budgetrechner, Foerderbanner, Logoband, Ablauf, Blog-Teaser und
+          Luxemburg-Bild sind von der Startseite genommen: sie sprachen kleine
+          Projekte an. Die Seiten dahinter (/project, /sme-packages, /blog)
+          bleiben erreichbar. */}
       <Hero />
-      {/* Gleich unter dem Angebot: Web, Software oder KI & Daten. */}
-      <ExploreAreas />
-      <ClientLogos />
 
       <Suspense fallback={<SectionSkeleton />}>
-        {/* 01 Die Arbeit zuerst. Besucher kommen, um herauszufinden, ob wir
-            ihre Sache bauen koennen. */}
-        <div id="portfolio"><SelectedWork /></div>
+        <AiFilm />
 
-        {/* 02 Dieselbe Arbeit, eine Stufe tiefer: ein Screenshot beweist, dass
-            etwas existiert, eine Aufnahme, dass es sich gut anfuehlt. */}
+        {/* 01 Was wir tun */}
+        <HomeDisciplines />
+
+        {/* 02 und 03 - das Portfolio, wie es war */}
+        <div id="portfolio"><SelectedWork /></div>
         <InMotion />
 
-        {/* 03 Drei Leistungswege, jeder mit dem Problem in den Worten des
-            Kaeufers. */}
-        <ServicePaths />
-
-        {/* 04 Und was kostet das? Genau hier entsteht die Frage. Traegt
-            weiterhin die Kampagnenanker #pricing und #project-builder. */}
-        <div id="pricing"><BudgetTeaser /></div>
-
-        {/* 05 Mit wem. Erst jetzt, wenn der Preis nicht abgeschreckt hat. */}
-        <div id="about"><FoundersNote /></div>
-
-        {/* 06 Und wie laeuft das ab. */}
-        <HowWeWork />
-
-        {/* 07 Was zuletzt entstanden ist. */}
-        <NewsTeaser />
-
-        {/* Ein Bild, das die Seite atmen laesst, direkt vor dem Abschluss. */}
-        <LuxembourgStrip />
-
-        {/* 08 Ein Abschluss, keine vierte Zusammenfassung. */}
-        <FinalCTA />
+        {/* 04 Wie Projekte laufen, 05 Studio, Einladung */}
+        <HomeOutro />
       </Suspense>
 
       <Footer />

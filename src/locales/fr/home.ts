@@ -34,6 +34,116 @@ export const home: typeof En = {
     },
   },
 
+  intro: {
+    kicker: "Ingénierie logicielle et IA · Luxembourg",
+    lines: ["Nous construisons", "les systèmes qui", "font tourner"],
+    accent: "votre entreprise.",
+    lead: "Logiciels sur mesure, IA et plateformes de données pour les organisations aux ambitions sérieuses. Et, pour quelques-unes, des sites web conçus à la hauteur de la marque qu’ils représentent.",
+    primary: "Démarrer un projet",
+    film: "Voir l’IA à l’œuvre",
+  },
+
+  ticker: ["Logiciels sur mesure", "Agents IA", "RAG sur mesure", "Plateformes de données", "Prévisions", "IA documentaire", "Portails clients", "Sites de marque"],
+
+  film: {
+    eyebrow: "L’IA à l’œuvre",
+    title: "Seize secondes d’un agent qui fait un vrai travail.",
+    lead: "Un e-mail arrive, un document est lu, un contrat est vérifié, une personne valide, le système est mis à jour. C’est ce que nous construisons : une IA qui travaille dans vos opérations, avec des personnes là où ça compte.",
+    frame: "DEEV · Exécution d’agent · Exemple",
+    live: "Direct",
+    play: "Lire",
+    pause: "Pause",
+    chapters: ["Réception", "Lecture", "Raisonnement", "Action"],
+    intake: {
+      head: "01 · Réception · 3 nouveaux messages",
+      mails: [
+        { subject: "Liste de prix T4 mise à jour", from: "Fournisseur Exemple Sàrl", tag: "Hausse de prix" },
+        { subject: "Facture 4471", from: "Logistique Exemple SA", tag: "Facture" },
+        { subject: "Renouvellement de contrat", from: "Partenaire Exemple SA", tag: "Contrat" },
+      ],
+    },
+    read: {
+      head: "02 · Lecture · extraction des champs",
+      docTitle: "Fournisseur Exemple Sàrl",
+      docSub: "Liste de prix · T4",
+      rows: [
+        { doc: "Prix unitaire, nouveau", key: "Nouveau prix", value: "42,60 €", conf: "99 %" },
+        { doc: "Prix unitaire, actuel", key: "Actuel", value: "40,00 €", conf: "99 %" },
+        { doc: "Valable dès", key: "Valable dès", value: "01/10/2026", conf: "98 %" },
+      ],
+    },
+    reason: {
+      head: "03 · Raisonnement · vérification du contrat",
+      lines: [
+        "récupérer contrat C-2041 · §7.2 révision de prix",
+        "plafond convenu   +5,0 % par an",
+        "demandé           +6,5 %",
+        "au-delà du plafond  →  objection, transmise aux Achats",
+      ],
+    },
+    act: {
+      head: "04 · Action · avec une personne dans la boucle",
+      requested: "Validation demandée",
+      task: "Réponse à Fournisseur Exemple Sàrl citant le §7.2",
+      approved: "Validé par les Achats",
+      done: ["Réponse envoyée", "Grille tarifaire de l’ERP inchangée", "Chaque étape journalisée"],
+    },
+  },
+
+  disciplines: {
+    eyebrow: "Ce que nous faisons",
+    title: "L’ingénierie d’abord. Le design là où il compte.",
+    core: "Cœur",
+    invitation: "Sur invitation",
+    software: {
+      title: "Logiciels sur mesure",
+      copy: "Plateformes, portails et systèmes internes construits autour de la façon dont votre organisation fonctionne vraiment, et conçus pour être maintenus pendant des années.",
+      list: ["Plateformes web et SaaS", "Portails clients et partenaires", "Outils et processus internes", "Intégrations ERP et CRM"],
+      cta: "Découvrir le logiciel",
+    },
+    ai: {
+      title: "IA et données",
+      copy: "RAG sur mesure, agents IA et plateformes de données qui tournent en production sur vos propres données, avec évaluation et gouvernance dès le premier jour.",
+      list: ["RAG sur mesure et assistants de connaissances", "Agents IA et automatisation des processus", "Plateformes et pipelines de données", "Analyse et prévisions"],
+      cta: "Découvrir l’IA et les données",
+    },
+    design: {
+      title: "Design",
+      copy: "Sites web et identités numériques pour un nombre limité de clients, conçus à la hauteur de la marque qu’ils représentent.",
+      list: ["Sites de marque", "Identité numérique", "E-commerce premium"],
+      cta: "Demander un projet de design",
+    },
+  },
+
+  engage: {
+    eyebrow: "Comment se déroulent nos projets",
+    title: "De grands programmes. Livrés par phases.",
+    lead: "Les grands systèmes ne se construisent pas d’un seul bond. Chaque phase a son propre périmètre, son budget et son résultat, et la première se termine par quelque chose qui tourne en production.",
+    phase: "Phase",
+    phases: [
+      { title: "Découverte et architecture", copy: "Sur place avec les personnes qui font tourner les processus. Goulots chiffrés, architecture et feuille de route validées." },
+      { title: "Première version en production", copy: "Un processus, de vrais utilisateurs, de vraies données, mesuré par rapport au point de départ." },
+      { title: "Montée en charge", copy: "D’autres modules et processus sur le même socle, chacun moins coûteux que le précédent." },
+      { title: "Exploitation et évolution", copy: "Supervision, maintenance et une équipe qui reste responsable après le lancement." },
+    ],
+  },
+
+  studio: {
+    eyebrow: "Le studio",
+    title: "Petit par choix. Senior par défaut.",
+    points: [
+      { title: "Une ligne directe avec les fondateurs", copy: "Vous travaillez avec Sven et Fabio du premier appel au lancement, et au-delà." },
+      { title: "Design et ingénierie en interne", copy: "Pas de sous-traitance, pas de chaîne où personne n’est responsable au bout." },
+      { title: "Responsables après le lancement", copy: "Ce que nous construisons, nous en restons responsables : maintenance, supervision, évolution." },
+      { title: "Basés au Luxembourg", copy: "Proches de votre équipe, en français, en allemand et en anglais." },
+    ],
+  },
+
+  closing: {
+    title: "Dites-nous ce que vous construisez.",
+    lead: "Un premier échange ne coûte rien et ne vous engage à rien. Si nous ne sommes pas la bonne équipe, nous vous le dirons.",
+  },
+
   paths: {
     eyebrow: "Ce que nous faisons",
     title: "Trois façons de travailler.",

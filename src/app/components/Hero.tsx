@@ -1,111 +1,144 @@
 import { ArrowRight } from "lucide-react";
 import L from "./L";
-import HeroWork from "./HeroWork";
 import { useT } from "../../lib/useT";
+import { scrollToId } from "../../lib/smoothScroll";
 
 /**
- * Der Hero.
+ * Der Hero, seit der High-End-Ueberarbeitung.
  *
- * Aufgabe laut Brief: ohne Scrollen muss klar sein, dass DEEV Websites,
- * KI-Lösungen und individuelle Anwendungen baut, wem das hilft, und wie der
- * nächste Schritt aussieht.
+ * Eine Aussage, gross gesetzt, und zwei Wege: ein Projekt beginnen oder
+ * zuerst sehen, was wir bauen (der Film direkt darunter). Software und KI
+ * stehen vorn, Websites als Design auf Einladung im Nachsatz.
  *
- * Drei Entscheidungen, die vom alten Hero abweichen:
+ * Bewegung ist reines CSS (src/styles/motion.css), damit nichts auf
+ * JavaScript wartet: die Titelzeilen steigen nacheinander aus ihrer Maske,
+ * dahinter laeuft eine Lichtwelle durch ein Punktraster. Das Raster ist
+ * auf dem Telefon ausgeblendet, die Welle laeuft erst ab 768px, und unter
+ * reduzierter Bewegung steht alles sofort.
  *
- *   Die Überschrift nennt einen Nutzen, keine Kategorie. „Platforms that
- *   convert. Systems that scale." war eine Selbstbeschreibung in Fachsprache;
- *   ein Handwerksbetrieb konnte daraus nicht ableiten, ob er hier richtig ist.
- *   Der Fließtext darunter nennt die drei Leistungen ausdrücklich, damit die
- *   Überschrift nicht allein abstrakt bleibt.
- *
- *   Rechts stehen echte Projekte im Wechsel, keine Dekoration. Ein
- *   Screenshot einer ausgelieferten Seite belegt, dass wir liefern; eine
- *   Illustration belegt nichts. Anklickbar und verlinkt, damit der Besucher
- *   selbst wählen und nachsehen kann.
- *
- *   Nichts wartet. Überschrift, Text, beide Aktionen und die erste
- *   Arbeitsprobe stehen im HTML und werden nicht eingeblendet; ohne
- *   JavaScript bliebe sonst die halbe Fläche leer.
+ * Darunter das Laufband mit den Leistungen.
  */
+
+const COLS = 26;
+const ROWS = 12;
+const DOTS = Array.from({ length: COLS * ROWS }, (_, i) => (Math.floor(i / COLS) + (i % COLS)) * 70);
+
 export default function Hero() {
   const t = useT();
-
+  const h = t.home.intro;
+  const run = (
+    <span
+      className="display text-[var(--text-hi)] whitespace-nowrap pr-12"
+      style={{ fontSize: "clamp(1.375rem, 1rem + 1vw, 1.875rem)", letterSpacing: "-0.02em" }}
+    >
+      {t.home.ticker.map((item) => (
+        <span key={item}>
+          {item} <span className="text-[var(--signal)]">/</span>{" "}
+        </span>
+      ))}
+    </span>
+  );
 
   return (
-    <section
-      className="relative bg-[var(--surface-0)] overflow-hidden"
-      style={{ paddingTop: "calc(68px + clamp(48px, 7vw, 96px))", paddingBottom: "clamp(56px, 8vw, 112px)" }}
-    >
-      <div
-        className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-14 items-center"
-        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
-      >
-        {/* ── Angebot und nächster Schritt ──────────────────────────────── */}
-        <div className="lg:col-span-6">
-          <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--signal-text)]" aria-hidden="true" />
-            <span
-              className="eyebrow-mono uppercase text-[var(--text-low)]"
-              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-            >
-              {t.home.hero.eyebrow}
-            </span>
+    <>
+      <section className="relative bg-[var(--surface-0)] overflow-hidden" style={{ paddingTop: "calc(68px + clamp(56px, 8vw, 128px))" }}>
+        {/* Punktraster, nur ab Tablet */}
+        <div
+          aria-hidden="true"
+          className="hidden md:grid absolute top-0 right-0 h-full pointer-events-none"
+          style={{
+            width: "62%",
+            gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
+            alignContent: "start",
+            rowGap: 34,
+            padding: "120px 40px 0 0",
+          }}
+        >
+          {DOTS.map((delay, i) => (
+            <div key={i} className="flex justify-center">
+              <div className="m-dot" style={{ animationDelay: `${delay}ms` }} />
+            </div>
+          ))}
+        </div>
+        <div
+          aria-hidden="true"
+          className="hidden md:block absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--surface-0) 30%, color-mix(in srgb, var(--surface-0) 55%, transparent) 60%, color-mix(in srgb, var(--surface-0) 20%, transparent))",
+          }}
+        />
+
+        <div className="relative mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
+          <div
+            className="m-fade-up flex items-center gap-3.5 eyebrow-mono uppercase text-[var(--text-low)]"
+            style={{ fontSize: "var(--t-label)", letterSpacing: "0.18em" }}
+          >
+            <span className="w-2 h-2 bg-[var(--signal)]" aria-hidden="true" />
+            {h.kicker}
           </div>
 
           <h1
-            className="text-[var(--text-hi)] font-medium mt-7"
-            style={{
-              fontSize: "clamp(2.25rem, 1rem + 3.4vw, 3.75rem)",
-              lineHeight: 1.04,
-              letterSpacing: "-0.035em",
-            }}
+            className="text-[var(--text-hi)] font-medium mt-10"
+            style={{ fontSize: "clamp(3rem, 1.2rem + 6.6vw, 8.75rem)", lineHeight: 0.95, letterSpacing: "-0.045em", maxWidth: "13ch" }}
           >
-            {t.home.hero.title[0]}
-            <br />
-            <span className="text-[var(--text-low)]">{t.home.hero.title[1]}</span>
+            {h.lines.map((line, i) => (
+              <span key={line} className="m-rise">
+                <span style={{ animationDelay: `${0.08 + i * 0.12}s` }}>
+                  {line}
+                  {i === h.lines.length - 1 && (
+                    <>
+                      {" "}
+                      <span className="text-[var(--signal-text)]">{h.accent}</span>
+                    </>
+                  )}
+                </span>
+              </span>
+            ))}
           </h1>
 
-          <p
-            className="text-[var(--text-mid)] mt-7"
-            style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "48ch" }}
+          <div
+            className="m-fade-up flex flex-wrap items-end justify-between gap-10 mt-12 lg:mt-14"
+            style={{ animationDelay: "0.55s" }}
           >
-            {t.home.hero.lead}
-          </p>
-
-          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3">
-            <L
-              to="/contact"
-              className="group inline-flex items-center justify-center gap-2 h-13 px-7 bg-[var(--signal)] text-white font-medium"
-              style={{ fontSize: "var(--t-small)", height: "52px", borderRadius: "var(--radius-1)" }}
-            >
-              {t.home.hero.ctaPrimary}
-              <ArrowRight
-                className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1"
-                strokeWidth={1.5}
-              />
-            </L>
-            <L
-              to="/project"
-              className="inline-flex items-center justify-center h-13 px-7 border border-[var(--line-strong)] text-[var(--text-hi)] font-medium hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
-              style={{ fontSize: "var(--t-small)", height: "52px", borderRadius: "var(--radius-1)" }}
-            >
-              {t.home.hero.ctaSecondary}
-            </L>
+            <p className="text-[var(--text-mid)] m-0" style={{ flex: "1 1 420px", maxWidth: "54ch", fontSize: "var(--t-lead)", lineHeight: 1.5 }}>
+              {h.lead}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <L
+                to="/contact"
+                className="m-arrow inline-flex items-center gap-3 px-7 bg-[var(--text-hi)] text-[var(--surface-0)] font-medium"
+                style={{ height: 56, fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+              >
+                {h.primary}
+                <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
+              </L>
+              <a
+                href="#film"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToId("film");
+                }}
+                className="inline-flex items-center gap-3 px-6 border border-[var(--line-strong)] text-[var(--text-hi)] font-medium hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
+                style={{ height: 56, fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M7 4.5v15l13-7.5z" />
+                </svg>
+                {h.film}
+              </a>
+            </div>
           </div>
-
-          {/* Der Vertrauensanker: es sind zwei Menschen, keine Agenturhotline. */}
-          <p className="text-[var(--text-low)] mt-6" style={{ fontSize: "var(--t-small)" }}>
-            {t.home.hero.founders}
-          </p>
         </div>
 
-        {/* ── Echte Arbeit, im Wechsel ──────────────────────────────────
-            Drei ausgelieferte Projekte statt einer Illustration. Anklickbar,
-            damit man selbst wählen kann, und verlinkt, damit es nachprüfbar
-            bleibt. */}
-        <HeroWork />
-
-      </div>
-    </section>
+        {/* Laufband */}
+        <div aria-hidden="true" className="mt-24 lg:mt-28 border-y border-[var(--line)] py-5 overflow-hidden">
+          <div className="m-ticker">
+            {run}
+            {run}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

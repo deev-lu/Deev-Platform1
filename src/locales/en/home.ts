@@ -38,6 +38,120 @@ export const home = {
     },
   },
 
+  /** The homepage's opening, since the high-end redesign. The last title line
+   *  carries the accent. */
+  intro: {
+    kicker: "Software and AI engineering · Luxembourg",
+    lines: ["We build the", "systems your", "business"],
+    accent: "runs on.",
+    lead: "Custom software, AI and data platforms for organisations with serious ambitions. And, for a select few, websites designed to the standard of the brand behind them.",
+    primary: "Start a project",
+    film: "Watch AI at work",
+  },
+
+  ticker: ["Custom software", "AI agents", "Custom RAG", "Data platforms", "Forecasting", "Document AI", "Customer portals", "Brand websites"],
+
+  /** The "AI at work" film. Every name and figure in it is invented and the
+   *  frame says so. */
+  film: {
+    eyebrow: "AI at work",
+    title: "Sixteen seconds of an agent doing real work.",
+    lead: "An email arrives, a document is read, a contract is checked, a person approves, the system is updated. This is what we build: AI that runs inside your operations, with people where it matters.",
+    frame: "DEEV · Agent run · Illustrative",
+    live: "Live",
+    play: "Play",
+    pause: "Pause",
+    chapters: ["Intake", "Read", "Reason", "Act"],
+    intake: {
+      head: "01 · Intake · 3 new messages",
+      mails: [
+        { subject: "Updated price list Q4", from: "Sample Supplier Sàrl", tag: "Price change" },
+        { subject: "Invoice 4471", from: "Sample Logistics SA", tag: "Invoice" },
+        { subject: "Contract renewal", from: "Sample Partner SA", tag: "Contract" },
+      ],
+    },
+    read: {
+      head: "02 · Read · extracting fields",
+      docTitle: "Sample Supplier Sàrl",
+      docSub: "Price list · Q4",
+      rows: [
+        { doc: "Unit price, new", key: "New price", value: "€42.60", conf: "99%" },
+        { doc: "Unit price, current", key: "Current", value: "€40.00", conf: "99%" },
+        { doc: "Valid from", key: "Valid from", value: "01.10.2026", conf: "98%" },
+      ],
+    },
+    reason: {
+      head: "03 · Reason · checking against the contract",
+      lines: [
+        "retrieve  contract C-2041 · §7.2 price adjustment",
+        "agreed cap        +5.0 % per year",
+        "requested         +6.5 %",
+        "exceeds cap  →  draft objection, route to Purchasing",
+      ],
+    },
+    act: {
+      head: "04 · Act · with a person in the loop",
+      requested: "Approval requested",
+      task: "Reply to Sample Supplier Sàrl, citing §7.2",
+      approved: "Approved by Purchasing",
+      done: ["Reply sent", "ERP price table left unchanged", "Every step logged"],
+    },
+  },
+
+  disciplines: {
+    eyebrow: "What we do",
+    title: "Engineering first. Design where it counts.",
+    core: "Core",
+    invitation: "By invitation",
+    software: {
+      title: "Custom software",
+      copy: "Platforms, portals and internal systems built around how your organisation actually works, and engineered to be maintained for years.",
+      list: ["Web platforms and SaaS", "Customer and partner portals", "Internal tools and workflows", "Integrations with ERP and CRM"],
+      cta: "Explore software",
+    },
+    ai: {
+      title: "AI and data",
+      copy: "Custom RAG, AI agents and data platforms that run in production on your own data, with evaluation and governance from the first day.",
+      list: ["Custom RAG and knowledge assistants", "AI agents and workflow automation", "Data platforms and pipelines", "Analytics and forecasting"],
+      cta: "Explore AI and data",
+    },
+    design: {
+      title: "Design",
+      copy: "Websites and digital identities for a limited number of clients, designed to the standard of the brand behind them.",
+      list: ["Brand websites", "Digital identity", "Premium e-commerce"],
+      cta: "Request a design commission",
+    },
+  },
+
+  engage: {
+    eyebrow: "How engagements run",
+    title: "Large programmes. Delivered in phases.",
+    lead: "Large systems are not built in one leap. Every phase has its own scope, budget and outcome, and the first one ends with something running in production.",
+    phase: "Phase",
+    phases: [
+      { title: "Discovery and architecture", copy: "On site with the people who run the processes. Bottlenecks costed, architecture and roadmap agreed." },
+      { title: "First release in production", copy: "One workflow, real users, real data, measured against where you started." },
+      { title: "Scale", copy: "More modules and workflows on the same foundation, each one cheaper than the last." },
+      { title: "Operate and evolve", copy: "Monitoring, maintenance and a team that stays accountable after launch." },
+    ],
+  },
+
+  studio: {
+    eyebrow: "The studio",
+    title: "Small by design. Senior by default.",
+    points: [
+      { title: "Direct line to the founders", copy: "You work with Sven and Fabio from the first call to launch and after." },
+      { title: "Design and engineering in-house", copy: "No outsourcing, no chain with nobody accountable at the end." },
+      { title: "Accountable after launch", copy: "What we build, we stay responsible for: maintenance, monitoring, evolution." },
+      { title: "Based in Luxembourg", copy: "Close to your team, working in English, French and German." },
+    ],
+  },
+
+  closing: {
+    title: "Tell us what you are building.",
+    lead: "A first conversation costs nothing and commits you to nothing. If we are not the right team for it, we will say so.",
+  },
+
   paths: {
     eyebrow: "What we do",
     title: "Three ways we work.",

@@ -34,6 +34,116 @@ export const home: typeof En = {
     },
   },
 
+  intro: {
+    kicker: "Software- und KI-Engineering · Luxemburg",
+    lines: ["Wir bauen die", "Systeme, auf denen", "Ihr Unternehmen"],
+    accent: "läuft.",
+    lead: "Individuelle Software, KI und Datenplattformen für Organisationen mit großen Vorhaben. Und für einige wenige: Websites, gestaltet auf dem Niveau der Marke dahinter.",
+    primary: "Projekt starten",
+    film: "KI bei der Arbeit ansehen",
+  },
+
+  ticker: ["Individuelle Software", "KI-Agenten", "Individuelle RAG", "Datenplattformen", "Prognosen", "Dokumenten-KI", "Kundenportale", "Markenwebsites"],
+
+  film: {
+    eyebrow: "KI bei der Arbeit",
+    title: "Sechzehn Sekunden, in denen ein Agent echte Arbeit erledigt.",
+    lead: "Eine E-Mail kommt an, ein Dokument wird gelesen, ein Vertrag geprüft, ein Mensch gibt frei, das System wird aktualisiert. Das bauen wir: KI, die in Ihren Abläufen arbeitet, mit Menschen dort, wo es zählt.",
+    frame: "DEEV · Agentenlauf · Beispiel",
+    live: "Live",
+    play: "Abspielen",
+    pause: "Pausieren",
+    chapters: ["Eingang", "Lesen", "Prüfen", "Handeln"],
+    intake: {
+      head: "01 · Eingang · 3 neue Nachrichten",
+      mails: [
+        { subject: "Aktualisierte Preisliste Q4", from: "Musterlieferant Sàrl", tag: "Preisänderung" },
+        { subject: "Rechnung 4471", from: "Muster Logistik SA", tag: "Rechnung" },
+        { subject: "Vertragsverlängerung", from: "Musterpartner SA", tag: "Vertrag" },
+      ],
+    },
+    read: {
+      head: "02 · Lesen · Felder werden ausgelesen",
+      docTitle: "Musterlieferant Sàrl",
+      docSub: "Preisliste · Q4",
+      rows: [
+        { doc: "Stückpreis neu", key: "Neuer Preis", value: "42,60 €", conf: "99 %" },
+        { doc: "Stückpreis aktuell", key: "Aktuell", value: "40,00 €", conf: "99 %" },
+        { doc: "Gültig ab", key: "Gültig ab", value: "01.10.2026", conf: "98 %" },
+      ],
+    },
+    reason: {
+      head: "03 · Prüfen · Abgleich mit dem Vertrag",
+      lines: [
+        "abrufen   Vertrag C-2041 · §7.2 Preisanpassung",
+        "vereinbart        +5,0 % pro Jahr",
+        "gefordert         +6,5 %",
+        "über der Grenze  →  Widerspruch entwerfen, an den Einkauf",
+      ],
+    },
+    act: {
+      head: "04 · Handeln · mit einem Menschen im Ablauf",
+      requested: "Freigabe angefragt",
+      task: "Antwort an Musterlieferant Sàrl mit Verweis auf §7.2",
+      approved: "Vom Einkauf freigegeben",
+      done: ["Antwort gesendet", "Preistabelle im ERP unverändert", "Jeder Schritt protokolliert"],
+    },
+  },
+
+  disciplines: {
+    eyebrow: "Was wir tun",
+    title: "Zuerst Engineering. Design, wo es zählt.",
+    core: "Kern",
+    invitation: "Auf Einladung",
+    software: {
+      title: "Individuelle Software",
+      copy: "Plattformen, Portale und interne Systeme, gebaut um die Art, wie Ihre Organisation wirklich arbeitet, und so entwickelt, dass sie über Jahre gepflegt werden können.",
+      list: ["Webplattformen und SaaS", "Kunden- und Partnerportale", "Interne Tools und Abläufe", "Anbindung an ERP und CRM"],
+      cta: "Software ansehen",
+    },
+    ai: {
+      title: "KI und Daten",
+      copy: "Individuelle RAG-Systeme, KI-Agenten und Datenplattformen, die produktiv auf Ihren eigenen Daten laufen, mit Evaluation und Governance vom ersten Tag an.",
+      list: ["Individuelle RAG und Wissensassistenten", "KI-Agenten und Prozessautomatisierung", "Datenplattformen und Datenstrecken", "Analyse und Prognosen"],
+      cta: "KI und Daten ansehen",
+    },
+    design: {
+      title: "Design",
+      copy: "Websites und digitale Auftritte für eine begrenzte Zahl von Kunden, gestaltet auf dem Niveau der Marke dahinter.",
+      list: ["Markenwebsites", "Digitale Identität", "Premium-E-Commerce"],
+      cta: "Designauftrag anfragen",
+    },
+  },
+
+  engage: {
+    eyebrow: "Wie Projekte laufen",
+    title: "Große Vorhaben. In Phasen geliefert.",
+    lead: "Große Systeme entstehen nicht in einem Sprung. Jede Phase hat ihren eigenen Umfang, ihr eigenes Budget und ihr eigenes Ergebnis, und die erste endet mit etwas, das produktiv läuft.",
+    phase: "Phase",
+    phases: [
+      { title: "Discovery und Architektur", copy: "Vor Ort mit den Menschen, die die Prozesse führen. Engpässe beziffert, Architektur und Fahrplan vereinbart." },
+      { title: "Erste Version im Betrieb", copy: "Ein Ablauf, echte Nutzer, echte Daten, gemessen am Ausgangspunkt." },
+      { title: "Ausbauen", copy: "Weitere Module und Abläufe auf demselben Fundament, jedes günstiger als das vorige." },
+      { title: "Betreiben und weiterentwickeln", copy: "Monitoring, Wartung und ein Team, das nach dem Start verantwortlich bleibt." },
+    ],
+  },
+
+  studio: {
+    eyebrow: "Das Studio",
+    title: "Bewusst klein. Durchweg erfahren.",
+    points: [
+      { title: "Direkter Draht zu den Gründern", copy: "Sie arbeiten mit Sven und Fabio, vom ersten Gespräch bis zum Start und darüber hinaus." },
+      { title: "Design und Engineering im Haus", copy: "Kein Outsourcing, keine Kette, an deren Ende niemand verantwortlich ist." },
+      { title: "Verantwortlich nach dem Start", copy: "Was wir bauen, verantworten wir weiter: Wartung, Monitoring, Weiterentwicklung." },
+      { title: "In Luxemburg ansässig", copy: "Nah an Ihrem Team, auf Deutsch, Französisch und Englisch." },
+    ],
+  },
+
+  closing: {
+    title: "Erzählen Sie uns, was Sie bauen.",
+    lead: "Ein erstes Gespräch kostet nichts und verpflichtet zu nichts. Wenn wir nicht das richtige Team dafür sind, sagen wir es.",
+  },
+
   paths: {
     eyebrow: "Was wir machen",
     title: "Drei Wege, wie wir arbeiten.",
