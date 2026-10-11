@@ -4,6 +4,7 @@ import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import { PROJECTS, sectorOf } from "../../lib/projects";
 import { track } from "../../lib/analytics";
+import AiHero from "./AiHero";
 
 /**
  * Die drei Leistungsseiten, aus einer Vorlage.
@@ -24,7 +25,9 @@ const SystemStack = lazy(() => import("./SystemStack"));
 const AiConcepts = lazy(() => import("./AiConcepts"));
 const DataFlow = lazy(() => import("./DataFlow"));
 const DocumentToData = lazy(() => import("./DocumentToData"));
-const AiCapabilities = lazy(() => import("./AiCapabilities"));
+const AiFoundation = lazy(() => import("./AiFoundation"));
+const AgentRun = lazy(() => import("./AgentRun"));
+const AiGovernance = lazy(() => import("./AiGovernance"));
 const RagDemo = lazy(() => import("./RagDemo"));
 const BillovioFeature = lazy(() => import("./BillovioFeature"));
 const MarketingServices = lazy(() => import("./MarketingServices"));
@@ -32,9 +35,10 @@ const MarketingServices = lazy(() => import("./MarketingServices"));
 /** Welcher ausgelagerte Block auf welcher Seite landet. */
 const EXTRAS: Record<ServiceKey, ComponentType[]> = {
   websites: [],
-  // Erst was wir bauen, dann die drei Erklaerungen (RAG, Datenanalyse,
-  // Dokumente), zuletzt wie ein grosses Projekt geplant wird.
-  ai: [AiCapabilities, RagDemo, DataFlow, DocumentToData, AiConcepts],
+  // Die Reihenfolge folgt der Schicht im Kopf von unten nach oben: erst
+  // das Fundament, dann was darauf laeuft (RAG, Agenten, Analyse, Dokumente),
+  // dann wie es kontrolliert wird, zuletzt wie ein Projekt geplant wird.
+  ai: [AiFoundation, RagDemo, AgentRun, DataFlow, DocumentToData, AiGovernance, AiConcepts],
   software: [SystemStack, BillovioFeature],
   // Der Marketingblock stand auf /services zwischen drei anderen
   // Uebersichten. Hier ist er der Inhalt der Seite, nicht ein Abschnitt
@@ -69,7 +73,8 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
 
   return (
     <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
-      <header
+      {/* Die KI-Seite hat ihren eigenen Kopf mit der operativen Schicht. */}
+      {service === "ai" ? <AiHero /> : <header
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}
       >
@@ -117,7 +122,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
             ))}
           </ul>
         </div>
-      </header>
+      </header>}
 
       {/* Die von der Startseite ausgelagerten Blöcke. */}
       {EXTRAS[service].map((Block, i) => (
@@ -192,7 +197,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
             className="text-[var(--text-hi)] font-medium"
             style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em", maxWidth: "24ch" }}
           >
-            {t.pages.servicePages.cta}
+            {service === "ai" ? t.home.aiHero.cta : t.pages.servicePages.cta}
           </h2>
           <L
             to="/contact"

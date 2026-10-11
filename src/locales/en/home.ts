@@ -278,19 +278,101 @@ export const home = {
     },
   },
 
-  /** The services overview at the top of the AI page. What we build, not
-   *  what anyone achieved with it. */
-  aiCapabilities: {
-    eyebrow: "What we build",
-    title: "High-end AI, built to run for years.",
-    lead: "We take on fewer, larger AI projects: systems that sit inside how your organisation works, on your own data, with someone accountable for them after launch.",
-    items: [
-      { title: "Custom RAG and knowledge assistants", copy: "Answers from your own documents and systems, with sources, respecting who may see what. Evaluated against your real questions." },
-      { title: "AI agents and workflow automation", copy: "Agents that carry a task from inbox to system: read, decide within rules you set, act, and hand the exceptions to a person." },
-      { title: "Data platforms and pipelines", copy: "Your sources connected into one clean, versioned data foundation that analysis and AI can rely on." },
-      { title: "Analytics and forecasting", copy: "Dashboards around the decisions you make, plus forecasting and anomaly detection on your own history." },
-      { title: "Document intelligence", copy: "Invoices, contracts and forms read, extracted, checked and written into the system they belong in." },
-      { title: "Architecture, security and compliance", copy: "Model choice, hosting, access control, GDPR and the EU AI Act considered from the first day, not bolted on before launch." },
+  /** The AI page's own hero and the operational-layer diagram under it. */
+  aiHero: {
+    kicker: "For organisations taking AI into production",
+    title: "AI that runs on your operations.",
+    lead: "We connect your data, your knowledge and your processes into one operational layer, then build the RAG systems, agents and analytics that work on top of it. Built to run for years, not to impress in a demo.",
+    primary: "Book a discovery session",
+    secondary: "See the architecture",
+    strip: "RAG · Agents · Data platforms · Analytics",
+    layer: {
+      label: "The operational layer",
+      note: "Your systems stay. We build on top.",
+      bands: [
+        { name: "Action", sub: "Back into your systems", items: ["Write-back to ERP and CRM", "Human approval", "Notifications and tasks", "Audit log"], note: "" },
+        { name: "Intelligence", sub: "What we build", items: ["Custom RAG", "AI agents", "Forecasting", "Document AI"], note: "Evaluated · governed · model choice stays open" },
+        { name: "Foundation", sub: "A model of your business", items: ["Customer", "Contract", "Order", "Invoice", "Asset"], note: "Objects · relationships · permissions · history" },
+        { name: "Sources", sub: "What you already run", items: ["ERP", "CRM", "SharePoint", "Mailboxes", "PDF and scans", "Spreadsheets", "APIs"], note: "" },
+      ],
+    },
+    cta: "Bring us the process that costs you most.",
+  },
+
+  /** 01 on the AI page. The contract shown is invented and labelled so. */
+  aiFoundation: {
+    eyebrow: "The foundation",
+    title: "Your data, modelled the way your business works.",
+    lead: "Before AI is worth anything, it needs to know what a customer, a contract or an order is in your company, and how they connect. We build that shared model once. Every assistant, agent and dashboard then works on the same facts, with the same permissions.",
+    points: [
+      { title: "Objects and relationships", copy: "Customers, contracts, assets and orders, linked as they are in reality." },
+      { title: "Actions with rules", copy: "What may change, who may change it, and what needs approval." },
+      { title: "Lineage", copy: "Every figure traces back to the system and the record it came from." },
+    ],
+    panel: {
+      label: "Object · Contract",
+      illustrative: "Illustrative",
+      name: "C-2041 · Supply agreement",
+      party: "Sample Supplier Sàrl",
+      status: "Active",
+      fields: [
+        { k: "Notice period", v: "3 months · end of quarter" },
+        { k: "Renewal", v: "Automatic, yearly" },
+        { k: "Price cap", v: "+5% per year" },
+        { k: "Owner", v: "Purchasing" },
+      ],
+      linkedLabel: "Linked",
+      linked: ["Supplier · 1", "Orders · 3", "Invoices · 2", "Source PDF · 1"],
+      actionsLabel: "Actions",
+      actions: ["Renew", "Adjust price"],
+      gated: "Terminate · needs approval",
+    },
+  },
+
+  /** 03 on the AI page. The run is invented and labelled so. */
+  aiAgents: {
+    eyebrow: "Agents and workflows",
+    title: "Agents that finish the work. People where it matters.",
+    lead: "An agent reads what comes in, looks up what it needs in your foundation and your documents, applies your rules, and acts in your systems. Anything outside its rules stops and waits for a person.",
+    points: ["Every step logged and replayable", "Rules you set, not prompts you hope for", "Approval gates on anything irreversible"],
+    panel: {
+      label: "Agent run · Supplier price change",
+      illustrative: "Illustrative",
+      steps: [
+        { kind: "Trigger", text: "Email received: “Updated price list Q4”" },
+        { kind: "Classify", text: "Supplier price change · Sample Supplier Sàrl" },
+        { kind: "Retrieve", text: "Contract C-2041 · clause 7.2, price cap" },
+        { kind: "Check", text: "Increase of 6.5% exceeds the agreed 5% cap" },
+        { kind: "Draft", text: "Reply to supplier citing clause 7.2" },
+        { kind: "Approval", text: "Waiting for: Head of Purchasing" },
+        { kind: "Write", text: "Send reply · keep price table unchanged in ERP" },
+      ],
+      approve: "Approve and send",
+      edit: "Edit draft",
+      reject: "Reject",
+    },
+  },
+
+  /** 06 on the AI page. The evaluation rows are invented and labelled so. */
+  aiGovernance: {
+    eyebrow: "Evaluation and governance",
+    title: "Measured before it ships. Governed after.",
+    evalLabel: "Evaluation set · your real questions",
+    illustrative: "Illustrative",
+    running: "Running",
+    cols: ["Question", "Expected source", "Result"],
+    rows: [
+      { q: "Notice period for supplier contracts?", src: "Contract template §7", result: "Pass · cited" },
+      { q: "Who approves orders above the limit?", src: "Purchasing policy §3", result: "Pass · cited" },
+      { q: "What did the board decide in Q2?", src: "Board minutes · restricted", result: "Pass · withheld" },
+      { q: "Holiday entitlement for part-time staff?", src: "Not indexed", result: "Pass · said “not found”" },
+      { q: "Response time for priority 1 incidents?", src: "Service SLA §2", result: "Review · wrong section" },
+    ],
+    points: [
+      { title: "Access inherited", copy: "Roles and rights come from your existing systems." },
+      { title: "Everything logged", copy: "Every answer, decision and action can be traced." },
+      { title: "GDPR and EU AI Act by design", copy: "Considered from the first day, not bolted on before launch." },
+      { title: "Model choice stays open", copy: "Change the model without rebuilding the system around it." },
     ],
   },
 
@@ -298,8 +380,8 @@ export const home = {
    *  the panel says so. */
   rag: {
     eyebrow: "Custom RAG",
-    title: "Ask your own knowledge. Get answers with sources.",
-    lead: "Retrieval-augmented generation connects a language model to what your organisation knows: contracts, manuals, tickets, wikis, reports. Instead of guessing, it finds the relevant passages first and answers from them, citing where every statement comes from.",
+    title: "Answers grounded in your documents. Every source shown.",
+    lead: "Retrieval-augmented generation connects a language model to what your organisation knows: contracts, manuals, tickets, wikis, reports. It finds the relevant passages first and answers from them only, citing where every statement comes from. When nothing relevant exists, it says so instead of guessing.",
     pointsLabel: "What makes ours custom",
     points: [
       { title: "Your sources, kept in sync", copy: "We index the systems you already use and keep the index current as documents change." },

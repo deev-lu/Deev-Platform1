@@ -105,7 +105,7 @@ export default function DocumentToData() {
   };
 
   return (
-    <Section index="04" eyebrow={d.eyebrow} tone={1}>
+    <Section index="05" eyebrow={d.eyebrow} tone={0}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12 items-start">
         <div className="lg:col-span-5">
           <SectionTitle>{d.title}</SectionTitle>

@@ -404,7 +404,7 @@ export default function DataFlow() {
   // vier Schritte sagen dasselbe.
   const heading = (pinned: boolean) => (
     <>
-      <Eyebrow index="03">{d.eyebrow}</Eyebrow>
+      <Eyebrow index="04">{d.eyebrow}</Eyebrow>
       <h2
         className="text-[var(--text-hi)] font-medium"
         style={{

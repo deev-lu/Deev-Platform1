@@ -272,24 +272,104 @@ export const home: typeof En = {
     },
   },
 
-  aiCapabilities: {
-    eyebrow: "Was wir bauen",
-    title: "Anspruchsvolle KI, gebaut, um jahrelang zu laufen.",
-    lead: "Wir übernehmen weniger, dafür größere KI-Projekte: Systeme, die in den Abläufen Ihrer Organisation sitzen, auf Ihren eigenen Daten, mit jemandem, der nach dem Start dafür geradesteht.",
-    items: [
-      { title: "Individuelle RAG und Wissensassistenten", copy: "Antworten aus Ihren eigenen Dokumenten und Systemen, mit Quellen, unter Wahrung der Zugriffsrechte. Geprüft an Ihren echten Fragen." },
-      { title: "KI-Agenten und Prozessautomatisierung", copy: "Agenten, die eine Aufgabe vom Postfach bis ins System tragen: lesen, nach Ihren Regeln entscheiden, handeln und Ausnahmen an einen Menschen geben." },
-      { title: "Datenplattformen und Datenstrecken", copy: "Ihre Quellen verbunden zu einem sauberen, versionierten Datenfundament, auf das sich Analyse und KI verlassen können." },
-      { title: "Analyse und Prognosen", copy: "Dashboards rund um Ihre Entscheidungen, dazu Prognosen und Ausreißererkennung auf Ihrer eigenen Historie." },
-      { title: "Dokumentenintelligenz", copy: "Rechnungen, Verträge und Formulare gelesen, ausgelesen, geprüft und in das System geschrieben, in das sie gehören." },
-      { title: "Architektur, Sicherheit und Compliance", copy: "Modellwahl, Hosting, Zugriffskontrolle, DSGVO und EU AI Act vom ersten Tag an mitgedacht, nicht kurz vor dem Start nachgerüstet." },
+  aiHero: {
+    kicker: "Für Organisationen, die KI in den Betrieb bringen",
+    title: "KI, die auf Ihren Abläufen läuft.",
+    lead: "Wir verbinden Ihre Daten, Ihr Wissen und Ihre Prozesse zu einer operativen Schicht und bauen darauf die RAG-Systeme, Agenten und Analysen, die damit arbeiten. Gebaut, um jahrelang zu laufen, nicht um in einer Demo zu beeindrucken.",
+    primary: "Discovery-Termin vereinbaren",
+    secondary: "Zur Architektur",
+    strip: "RAG · Agenten · Datenplattformen · Analyse",
+    layer: {
+      label: "Die operative Schicht",
+      note: "Ihre Systeme bleiben. Wir bauen darauf auf.",
+      bands: [
+        { name: "Aktion", sub: "Zurück in Ihre Systeme", items: ["Rückschreiben in ERP und CRM", "Freigabe durch Menschen", "Benachrichtigungen und Aufgaben", "Audit-Log"], note: "" },
+        { name: "Intelligenz", sub: "Was wir bauen", items: ["Individuelle RAG", "KI-Agenten", "Prognosen", "Dokumenten-KI"], note: "Evaluiert · kontrolliert · Modellwahl bleibt offen" },
+        { name: "Fundament", sub: "Ein Modell Ihres Unternehmens", items: ["Kunde", "Vertrag", "Auftrag", "Rechnung", "Anlage"], note: "Objekte · Beziehungen · Rechte · Historie" },
+        { name: "Quellen", sub: "Was Sie schon betreiben", items: ["ERP", "CRM", "SharePoint", "Postfächer", "PDF und Scans", "Tabellen", "APIs"], note: "" },
+      ],
+    },
+    cta: "Bringen Sie uns den Prozess, der Sie am meisten kostet.",
+  },
+
+  aiFoundation: {
+    eyebrow: "Das Fundament",
+    title: "Ihre Daten, modelliert wie Ihr Unternehmen arbeitet.",
+    lead: "Bevor KI etwas wert ist, muss sie wissen, was in Ihrem Unternehmen ein Kunde, ein Vertrag oder ein Auftrag ist und wie sie zusammenhängen. Dieses gemeinsame Modell bauen wir einmal. Jeder Assistent, jeder Agent und jedes Dashboard arbeitet danach mit denselben Fakten und denselben Rechten.",
+    points: [
+      { title: "Objekte und Beziehungen", copy: "Kunden, Verträge, Anlagen und Aufträge, verknüpft wie in der Wirklichkeit." },
+      { title: "Aktionen mit Regeln", copy: "Was sich ändern darf, wer es ändern darf und was eine Freigabe braucht." },
+      { title: "Herkunft", copy: "Jede Zahl lässt sich bis zu dem System und dem Datensatz zurückverfolgen, aus dem sie stammt." },
+    ],
+    panel: {
+      label: "Objekt · Vertrag",
+      illustrative: "Beispiel",
+      name: "C-2041 · Liefervertrag",
+      party: "Musterlieferant Sàrl",
+      status: "Aktiv",
+      fields: [
+        { k: "Kündigungsfrist", v: "3 Monate · zum Quartalsende" },
+        { k: "Verlängerung", v: "Automatisch, jährlich" },
+        { k: "Preisobergrenze", v: "+5 % pro Jahr" },
+        { k: "Verantwortlich", v: "Einkauf" },
+      ],
+      linkedLabel: "Verknüpft",
+      linked: ["Lieferant · 1", "Aufträge · 3", "Rechnungen · 2", "Quell-PDF · 1"],
+      actionsLabel: "Aktionen",
+      actions: ["Verlängern", "Preis anpassen"],
+      gated: "Kündigen · braucht Freigabe",
+    },
+  },
+
+  aiAgents: {
+    eyebrow: "Agenten und Abläufe",
+    title: "Agenten, die die Arbeit zu Ende bringen. Menschen, wo es zählt.",
+    lead: "Ein Agent liest, was hereinkommt, holt sich aus Ihrem Fundament und Ihren Dokumenten, was er braucht, wendet Ihre Regeln an und handelt in Ihren Systemen. Alles außerhalb seiner Regeln hält an und wartet auf einen Menschen.",
+    points: ["Jeder Schritt protokolliert und nachvollziehbar", "Regeln, die Sie festlegen, statt Prompts, auf die man hofft", "Freigabe vor allem, was sich nicht rückgängig machen lässt"],
+    panel: {
+      label: "Agentenlauf · Preisänderung eines Lieferanten",
+      illustrative: "Beispiel",
+      steps: [
+        { kind: "Auslöser", text: "E-Mail eingegangen: „Aktualisierte Preisliste Q4“" },
+        { kind: "Einordnen", text: "Preisänderung Lieferant · Musterlieferant Sàrl" },
+        { kind: "Abrufen", text: "Vertrag C-2041 · Klausel 7.2, Preisobergrenze" },
+        { kind: "Prüfen", text: "Erhöhung um 6,5 % überschreitet die vereinbarten 5 %" },
+        { kind: "Entwurf", text: "Antwort an den Lieferanten mit Verweis auf Klausel 7.2" },
+        { kind: "Freigabe", text: "Wartet auf: Leitung Einkauf" },
+        { kind: "Schreiben", text: "Antwort senden · Preistabelle im ERP unverändert lassen" },
+      ],
+      approve: "Freigeben und senden",
+      edit: "Entwurf bearbeiten",
+      reject: "Ablehnen",
+    },
+  },
+
+  aiGovernance: {
+    eyebrow: "Evaluation und Governance",
+    title: "Gemessen, bevor es live geht. Kontrolliert danach.",
+    evalLabel: "Testsatz · Ihre echten Fragen",
+    illustrative: "Beispiel",
+    running: "Läuft",
+    cols: ["Frage", "Erwartete Quelle", "Ergebnis"],
+    rows: [
+      { q: "Kündigungsfrist für Lieferantenverträge?", src: "Vertragsvorlage §7", result: "Bestanden · zitiert" },
+      { q: "Wer gibt Bestellungen über dem Limit frei?", src: "Einkaufsrichtlinie §3", result: "Bestanden · zitiert" },
+      { q: "Was hat der Vorstand in Q2 beschlossen?", src: "Vorstandsprotokoll · gesperrt", result: "Bestanden · zurückgehalten" },
+      { q: "Urlaubsanspruch für Teilzeitkräfte?", src: "Nicht indexiert", result: "Bestanden · „nicht gefunden“" },
+      { q: "Reaktionszeit bei Störungen mit Priorität 1?", src: "Service-SLA §2", result: "Prüfen · falscher Abschnitt" },
+    ],
+    points: [
+      { title: "Rechte übernommen", copy: "Rollen und Berechtigungen kommen aus Ihren bestehenden Systemen." },
+      { title: "Alles protokolliert", copy: "Jede Antwort, Entscheidung und Aktion lässt sich nachvollziehen." },
+      { title: "DSGVO und EU AI Act von Anfang an", copy: "Vom ersten Tag an mitgedacht, nicht kurz vor dem Start nachgerüstet." },
+      { title: "Modellwahl bleibt offen", copy: "Das Modell wechseln, ohne das System darum herum neu zu bauen." },
     ],
   },
 
   rag: {
     eyebrow: "Individuelle RAG",
-    title: "Fragen Sie Ihr eigenes Wissen. Antworten mit Quellen.",
-    lead: "Retrieval-Augmented Generation verbindet ein Sprachmodell mit dem, was Ihre Organisation weiß: Verträge, Handbücher, Tickets, Wikis, Berichte. Statt zu raten, sucht es zuerst die passenden Stellen und antwortet aus ihnen, mit Angabe, woher jede Aussage stammt.",
+    title: "Antworten aus Ihren Dokumenten. Jede Quelle sichtbar.",
+    lead: "Retrieval-Augmented Generation verbindet ein Sprachmodell mit dem, was Ihre Organisation weiß: Verträge, Handbücher, Tickets, Wikis, Berichte. Es sucht zuerst die passenden Stellen und antwortet nur aus ihnen, mit Angabe, woher jede Aussage stammt. Gibt es nichts Passendes, sagt es das, statt zu raten.",
     pointsLabel: "Was unsere individuell macht",
     points: [
       { title: "Ihre Quellen, immer aktuell", copy: "Wir indexieren die Systeme, die Sie schon nutzen, und halten den Index aktuell, wenn sich Dokumente ändern." },
