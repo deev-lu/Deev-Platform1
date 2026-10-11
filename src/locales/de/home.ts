@@ -41,6 +41,7 @@ export const home: typeof En = {
     lead: "Individuelle Software, KI und Datenplattformen für Organisationen mit großen Vorhaben. Und für einige wenige: Websites, gestaltet auf dem Niveau der Marke dahinter.",
     primary: "Projekt starten",
     film: "KI bei der Arbeit ansehen",
+    specs: ["Entwickelt in Luxemburg", "Hosting in der EU oder bei Ihnen", "Design und Engineering im Haus"],
     visual: {
       illustrative: "Beispiel",
       product: "Billovio · unser eigenes Produkt",
@@ -137,17 +138,6 @@ export const home: typeof En = {
       { title: "Erste Version im Betrieb", copy: "Ein Ablauf, echte Nutzer, echte Daten, gemessen am Ausgangspunkt." },
       { title: "Ausbauen", copy: "Weitere Module und Abläufe auf demselben Fundament, jedes günstiger als das vorige." },
       { title: "Betreiben und weiterentwickeln", copy: "Monitoring, Wartung und ein Team, das nach dem Start verantwortlich bleibt." },
-    ],
-  },
-
-  studio: {
-    eyebrow: "Das Studio",
-    title: "Bewusst klein. Durchweg erfahren.",
-    points: [
-      { title: "Direkter Draht zu den Gründern", copy: "Sie arbeiten mit Sven und Fabio, vom ersten Gespräch bis zum Start und darüber hinaus." },
-      { title: "Design und Engineering im Haus", copy: "Kein Outsourcing, keine Kette, an deren Ende niemand verantwortlich ist." },
-      { title: "Verantwortlich nach dem Start", copy: "Was wir bauen, verantworten wir weiter: Wartung, Monitoring, Weiterentwicklung." },
-      { title: "In Luxemburg ansässig", copy: "Nah an Ihrem Team, auf Deutsch, Französisch und Englisch." },
     ],
   },
 

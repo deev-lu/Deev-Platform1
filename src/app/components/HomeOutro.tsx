@@ -5,12 +5,12 @@ import L from "./L";
 import { useT } from "../../lib/useT";
 
 /**
- * Der Schluss der Startseite: wie Projekte laufen (04), das Studio (05) und
- * die Einladung zum Gespraech.
+ * Der Schluss der Startseite: wie Projekte laufen (04), die Gruender (05,
+ * von aussen eingesetzt) und die Einladung zum Gespraech.
  *
  * Die alten Kampagnenanker bleiben erreichbar: #pricing und
  * #project-builder stehen in Kampagnen und fremden Links und landen jetzt bei
- * den Projektphasen. #about liegt auf den Gruendern (06).
+ * den Projektphasen. #about liegt auf den Gruendern (05).
  */
 
 const eyebrow = "flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]";
@@ -18,11 +18,10 @@ const eyebrowStyle = { fontSize: "var(--t-label)", letterSpacing: "0.16em" } as 
 const h2Style = { fontSize: "clamp(2.5rem, 1.3rem + 3.8vw, 5.25rem)", lineHeight: 0.98, letterSpacing: "-0.04em" } as const;
 const wrap = { maxWidth: "var(--container)", paddingInline: "var(--gutter)" } as const;
 
-/** `founders` wird nach dem Studio eingesetzt (06), vor der Einladung. */
+/** `founders` wird nach den Projektphasen eingesetzt (05), vor der Einladung. */
 export default function HomeOutro({ founders }: { founders?: ReactNode }) {
   const t = useT();
   const e = t.home.engage;
-  const s = t.home.studio;
   const c = t.home.closing;
   const lineRef = useRef<HTMLDivElement>(null);
   const lineOn = useInView(lineRef, { once: true, amount: 1 });
@@ -68,40 +67,6 @@ export default function HomeOutro({ founders }: { founders?: ReactNode }) {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* 05 · Das Studio */}
-      <section className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
-        <div className="mx-auto" style={wrap}>
-          <div className={eyebrow} style={eyebrowStyle}>
-            <span className="h-px w-10 bg-[var(--line-strong)]" />
-            <span>
-              <span className="text-[var(--signal-text)]">05</span> / {s.eyebrow}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-x-24 gap-y-14 mt-9">
-            <h2 className="text-[var(--text-hi)] font-medium" style={{ ...h2Style, flex: "1 1 520px", maxWidth: "13ch" }}>
-              {s.title}
-            </h2>
-            <ul className="min-w-0 border-t border-[var(--line-strong)]" style={{ flex: "1 1 420px" }}>
-              {s.points.map((p, i) => (
-                <li key={p.title} className="grid grid-cols-[56px_minmax(0,1fr)] py-7 border-b border-[var(--line)]">
-                  <span className="eyebrow-mono text-[var(--signal-text)] pt-1" style={eyebrowStyle}>
-                    {String.fromCharCode(65 + i)}
-                  </span>
-                  <div>
-                    <h3 className="text-[var(--text-hi)] font-medium" style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)" }}>
-                      {p.title}
-                    </h3>
-                    <p className="text-[var(--text-low)] mt-1.5" style={{ fontSize: "var(--t-small)", lineHeight: 1.6 }}>
-                      {p.copy}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 

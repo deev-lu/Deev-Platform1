@@ -36,11 +36,12 @@ export const home: typeof En = {
 
   intro: {
     kicker: "Ingénierie logicielle et IA · Luxembourg",
-    lines: ["Nous construisons", "les systèmes qui", "font tourner"],
-    accent: "votre entreprise.",
+    lines: ["Nous construisons", "les systèmes qui", "font tourner votre"],
+    accent: "entreprise.",
     lead: "Logiciels sur mesure, IA et plateformes de données pour les organisations aux ambitions sérieuses. Et, pour quelques-unes, des sites web conçus à la hauteur de la marque qu’ils représentent.",
     primary: "Démarrer un projet",
     film: "Voir l’IA à l’œuvre",
+    specs: ["Conçu au Luxembourg", "Hébergement UE ou sur site", "Design et ingénierie en interne"],
     visual: {
       illustrative: "Exemple",
       product: "Billovio · notre propre produit",
@@ -137,17 +138,6 @@ export const home: typeof En = {
       { title: "Première version en production", copy: "Un processus, de vrais utilisateurs, de vraies données, mesuré par rapport au point de départ." },
       { title: "Montée en charge", copy: "D’autres modules et processus sur le même socle, chacun moins coûteux que le précédent." },
       { title: "Exploitation et évolution", copy: "Supervision, maintenance et une équipe qui reste responsable après le lancement." },
-    ],
-  },
-
-  studio: {
-    eyebrow: "Le studio",
-    title: "Petit par choix. Senior par défaut.",
-    points: [
-      { title: "Une ligne directe avec les fondateurs", copy: "Vous travaillez avec Sven et Fabio du premier appel au lancement, et au-delà." },
-      { title: "Design et ingénierie en interne", copy: "Pas de sous-traitance, pas de chaîne où personne n’est responsable au bout." },
-      { title: "Responsables après le lancement", copy: "Ce que nous construisons, nous en restons responsables : maintenance, supervision, évolution." },
-      { title: "Basés au Luxembourg", copy: "Proches de votre équipe, en français, en allemand et en anglais." },
     ],
   },
 

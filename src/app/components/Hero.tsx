@@ -16,20 +16,17 @@ import billovio from "../../assets/work/billovio.jpg";
  * Beispiele und als solche gekennzeichnet; das Bildschirmfoto ist echt.
  *
  * Bewegung (src/styles/motion.css): die Titelzeilen steigen aus ihrer Maske,
- * die Akzentworte bekommen eine Linie, dahinter eine Lichtwelle durch ein
- * Punktraster. Auf dem Desktop schweben die Karten und folgen der Maus in
+ * die Akzentworte bekommen eine Linie, dahinter ein technisches Raster mit
+ * einer langsamen Scanlinie. Gestrichelte Leitungen fuehren von den Karten
+ * ins Produkt, Daten laufen darauf entlang. Auf dem Desktop schweben die Karten und folgen der Maus in
  * eigener Tiefe. Telefon: keine Neigung, kein Schweben, keine Parallaxe,
  * kein Raster (Performance-Regeln 1-3). Reduzierte Bewegung: alles steht.
  *
  * Darunter das Laufband mit den Leistungen.
  */
 
-const COLS = 26;
-const ROWS = 12;
-const DOTS = Array.from({ length: COLS * ROWS }, (_, i) => (Math.floor(i / COLS) + (i % COLS)) * 70);
-
 const card =
-  "border border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)]";
+  "m-edge border border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)]";
 const label = "eyebrow-mono uppercase text-[var(--text-low)]";
 const labelStyle = { fontSize: "var(--t-label)", letterSpacing: "0.14em" } as const;
 
@@ -82,26 +79,24 @@ export default function Hero() {
 
   return (
     <section className="relative bg-[var(--surface-0)] overflow-hidden" style={{ paddingTop: "calc(68px + clamp(40px, 6vw, 96px))" }}>
-      {/* Punktraster, nur ab Tablet */}
-      <div
-        aria-hidden="true"
-        className="hidden md:grid absolute top-0 left-0 w-full h-full pointer-events-none opacity-70"
-        style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`, alignContent: "start", rowGap: 34, padding: "110px 40px 0" }}
-      >
-        {DOTS.map((delay, i) => (
-          <div key={i} className="flex justify-center">
-            <div className="m-dot" style={{ animationDelay: `${delay}ms` }} />
-          </div>
-        ))}
+      {/* Technisches Raster, zu den Raendern hin ausgeblendet; darueber eine
+          langsame Scanlinie (Desktop) und ein blauer Schein hinter der
+          Komposition. Alles statisch bis auf die Linie. */}
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+        <div className="m-grid absolute inset-0" />
+        {/* Nur ueber der Komposition, nie quer durch den Titel. */}
+        <div className="m-scan" style={{ top: 80, left: "52%" }} />
+        <div
+          className="hidden lg:block absolute"
+          style={{
+            right: "-8%",
+            top: "8%",
+            width: 820,
+            height: 720,
+            background: "radial-gradient(closest-side, color-mix(in srgb, var(--signal) 18%, transparent), transparent)",
+          }}
+        />
       </div>
-      <div
-        aria-hidden="true"
-        className="hidden md:block absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(90deg, var(--surface-0) 25%, color-mix(in srgb, var(--surface-0) 70%, transparent) 50%, color-mix(in srgb, var(--surface-0) 40%, transparent))",
-        }}
-      />
 
       <div
         className="relative mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-16 items-center"
@@ -169,6 +164,23 @@ export default function Hero() {
               {h.film}
             </a>
           </div>
+
+          {/* Drei Fakten, technisch gesetzt */}
+          <ul
+            className="m-fade-up mt-12 grid grid-cols-1 sm:grid-cols-3 border-t border-[var(--line)] eyebrow-mono uppercase text-[var(--text-low)]"
+            style={{ fontSize: "var(--t-label)", letterSpacing: "0.14em", animationDelay: "0.75s", maxWidth: 640 }}
+          >
+            {h.specs.map((spec, i) => (
+              <li
+                key={spec}
+                className={`pt-4 pb-1 sm:pr-4 ${i > 0 ? "sm:pl-4 sm:border-l border-[var(--line)]" : ""}`}
+                style={{ lineHeight: 1.6 }}
+              >
+                <span className="block text-[var(--signal-text)]">{String(i + 1).padStart(2, "0")}</span>
+                {spec}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* ── Komposition ─────────────────────────────────────────── */}
@@ -181,7 +193,12 @@ export default function Hero() {
           <div className="relative md:h-[540px] lg:h-[580px]">
             {/* Das echte Produkt */}
             <div className="m-layer md:absolute md:right-0 md:top-[56px] md:w-[86%]" style={{ ["--depth" as string]: "6px" }}>
-              <div className={`m-tilt overflow-hidden ${card}`} style={{ borderRadius: "var(--radius-2)" }}>
+              <div className="m-tilt relative">
+              {/* Passermarken an den Ecken */}
+              {["left-[-10px] top-[-10px] border-l border-t", "right-[-10px] top-[-10px] border-r border-t", "left-[-10px] bottom-[-10px] border-l border-b", "right-[-10px] bottom-[-10px] border-r border-b"].map((pos) => (
+                <span key={pos} className={`hidden md:block absolute w-4 h-4 border-[var(--signal)] ${pos}`} />
+              ))}
+              <div className={`overflow-hidden ${card}`} style={{ borderRadius: "var(--radius-2)" }}>
                 <div className="flex justify-between items-center gap-3 px-4 py-2.5 border-b border-[var(--line)]">
                   <span className="flex gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-[var(--line-strong)]" />
@@ -201,14 +218,40 @@ export default function Hero() {
                   style={{ aspectRatio: "1000 / 600" }}
                 />
               </div>
+              </div>
             </div>
+
+            {/* Leitungen: Daten laufen von den Karten ins Produkt */}
+            <svg
+              className="hidden md:block absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              fill="none"
+            >
+              {/* Ein Datenbus links: vom Agenten zur Prognose, mit einem Abzweig
+                  an die Kante des Produkts. */}
+              {["M4 33 V77", "M4 55 H14"].map((d) => (
+                <path key={d} d={d} className="m-wire" stroke="var(--signal)" strokeWidth="1.25" vectorEffect="non-scaling-stroke" />
+              ))}
+            </svg>
+            {[
+              ["4%", "33%"],
+              ["4%", "77%"],
+              ["14%", "55%"],
+            ].map(([x, y]) => (
+              <span
+                key={x + y}
+                className="hidden md:block absolute w-2 h-2 bg-[var(--signal)] m-pulse"
+                style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
+              />
+            ))}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 md:mt-0">
               {/* Agent */}
               <div className="m-layer md:absolute md:left-0 md:top-0 md:w-[290px]" style={{ ["--depth" as string]: "20px" }}>
                 <div className={`m-float-a p-4 ${card}`} style={{ borderRadius: "var(--radius-2)" }}>
                   <div className="flex justify-between gap-3">
-                    <span className={label} style={labelStyle}>{v.agent}</span>
+                    <span className={label} style={labelStyle}><span className="text-[var(--signal-text)]">01</span> · {v.agent}</span>
                     <span className={label} style={labelStyle}>{v.illustrative}</span>
                   </div>
                   <ul className="mt-3 space-y-2">
@@ -236,7 +279,7 @@ export default function Hero() {
               {/* Wissensassistent */}
               <div className="m-layer md:absolute md:right-[-2%] md:top-[50%] md:w-[320px]" style={{ ["--depth" as string]: "30px" }}>
                 <div className={`m-float-b p-4 ${card}`} style={{ borderRadius: "var(--radius-2)" }}>
-                  <span className={label} style={labelStyle}>{v.rag}</span>
+                  <span className={label} style={labelStyle}><span className="text-[var(--signal-text)]">02</span> · {v.rag}</span>
                   <p className="mt-2 text-[var(--text-low)]" style={{ fontSize: "var(--t-small)" }}>
                     {v.question}
                   </p>
@@ -262,7 +305,7 @@ export default function Hero() {
               {/* Prognose */}
               <div className="hidden md:block m-layer md:absolute md:left-[6%] md:bottom-0 md:w-[280px]" style={{ ["--depth" as string]: "14px" }}>
                 <div className={`m-float-c p-4 ${card}`} style={{ borderRadius: "var(--radius-2)" }}>
-                  <span className={label} style={labelStyle}>{v.forecast}</span>
+                  <span className={label} style={labelStyle}><span className="text-[var(--signal-text)]">03</span> · {v.forecast}</span>
                   <svg viewBox="0 0 240 72" className="mt-3 w-full h-auto block" fill="none">
                     <line x1="0" y1="70" x2="240" y2="70" stroke="var(--line)" />
                     <path

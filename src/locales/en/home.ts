@@ -47,6 +47,7 @@ export const home = {
     lead: "Custom software, AI and data platforms for organisations with serious ambitions. And, for a select few, websites designed to the standard of the brand behind them.",
     primary: "Start a project",
     film: "Watch AI at work",
+    specs: ["Built in Luxembourg", "EU or on-premise hosting", "Design and engineering in-house"],
     visual: {
       illustrative: "Illustrative",
       product: "Billovio · our own product",
@@ -145,17 +146,6 @@ export const home = {
       { title: "First release in production", copy: "One workflow, real users, real data, measured against where you started." },
       { title: "Scale", copy: "More modules and workflows on the same foundation, each one cheaper than the last." },
       { title: "Operate and evolve", copy: "Monitoring, maintenance and a team that stays accountable after launch." },
-    ],
-  },
-
-  studio: {
-    eyebrow: "The studio",
-    title: "Small by design. Senior by default.",
-    points: [
-      { title: "Direct line to the founders", copy: "You work with Sven and Fabio from the first call to launch and after." },
-      { title: "Design and engineering in-house", copy: "No outsourcing, no chain with nobody accountable at the end." },
-      { title: "Accountable after launch", copy: "What we build, we stay responsible for: maintenance, monitoring, evolution." },
-      { title: "Based in Luxembourg", copy: "Close to your team, working in English, French and German." },
     ],
   },
 

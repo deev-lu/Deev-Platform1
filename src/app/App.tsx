@@ -56,8 +56,8 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
           Design auf Einladung. Die Reihenfolge erzaehlt: was wir bauen (Hero),
           wie es aussieht, wenn es laeuft (Film), was wir tun (01), was schon
           laeuft (02, 03 - das Portfolio unveraendert), wie ein Projekt
-          ablaeuft (04), wie wir arbeiten (05), mit wem (06, die Gruender), und
-          die Einladung zum Gespraech.
+          ablaeuft (04), mit wem (05, die Gruender), und die Einladung zum
+          Gespraech.
 
           Budgetrechner, Foerderbanner, Logoband, Ablauf, Blog-Teaser und
           Luxemburg-Bild sind von der Startseite genommen: sie sprachen kleine
@@ -75,7 +75,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <div id="portfolio"><SelectedWork /></div>
         <InMotion />
 
-        {/* 04 Wie Projekte laufen, 05 Studio, 06 die Gruender, Einladung */}
+        {/* 04 Wie Projekte laufen, 05 die Gruender, Einladung */}
         <HomeOutro founders={<div id="about"><FoundersNote /></div>} />
       </Suspense>
 

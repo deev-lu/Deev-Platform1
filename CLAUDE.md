@@ -34,7 +34,7 @@ design "by invitation". No project budget figure is shown publicly.
 Navbar → Hero (incl. capability ticker) → AiFilm ("AI at work") →
 HomeDisciplines (01) → SelectedWork (02) → InMotion (03) →
 HomeOutro: engagements (04, carries the #pricing / #project-builder campaign
-anchors) · studio (05) · FoundersNote (06, #about) · closing invitation → Footer
+anchors) · FoundersNote (05, #about) · closing invitation → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.

@@ -257,3 +257,62 @@
   .m-float-a, .m-float-b, .m-float-c, .m-pulse { animation: none; }
   .m-line { animation: none; stroke-dashoffset: 0; }
 }
+
+/* ── Hero, technical layer ────────────────────────────────── */
+
+/* An engineering grid that fades out toward the edges. */
+.m-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 62% 42%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 65% at 62% 42%, #000 30%, transparent 100%);
+}
+
+/* A slow scan line over the grid. Desktop only. */
+.m-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--signal) 70%, transparent), transparent);
+  opacity: 0;
+}
+@media (min-width: 1024px) {
+  .m-scan { animation: m-scan 9s cubic-bezier(0.65, 0, 0.35, 1) 1.5s infinite; }
+}
+@keyframes m-scan {
+  0% { transform: translateY(0); opacity: 0; }
+  8% { opacity: 1; }
+  60% { opacity: 1; }
+  70%, 100% { transform: translateY(720px); opacity: 0; }
+}
+
+/* Connectors: data travelling along a dashed path into the product. */
+.m-wire {
+  stroke-dasharray: 3 5;
+}
+@media (min-width: 1024px) {
+  .m-wire { animation: m-wire 1.6s linear infinite; }
+}
+@keyframes m-wire { to { stroke-dashoffset: -16; } }
+
+/* Fine highlight along the top edge of a card. */
+.m-edge { position: relative; }
+.m-edge::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--signal) 80%, white 20%), transparent);
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-scan, .m-wire { animation: none; }
+}
