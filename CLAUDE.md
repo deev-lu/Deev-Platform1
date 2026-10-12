@@ -48,7 +48,8 @@ Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
 sequence, not a video file; its names and figures are invented and labelled.
 
 **The photographs in `src/assets/photos` are free Unsplash stand-ins** until
-our own shoot: Luxembourg (hero, night band), a meeting, a screen, a workshop
+our own shoot: Luxembourg (hero: Pont Rouge and the Kirchberg towers at dusk;
+night band), a meeting, a screen, a workshop
 wall, office windows at night. No face in them could pass for our team. Swap
 the files when the shoot lands; keep the names or update the imports. They
 were sized and compressed at download (WebP); keep any replacement under

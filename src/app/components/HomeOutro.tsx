@@ -25,9 +25,25 @@ const eyebrow = "flex items-center gap-4 eyebrow-mono uppercase text-[var(--text
 const eyebrowStyle = { fontSize: "var(--t-label)", letterSpacing: "0.16em" } as const;
 const wrap = { maxWidth: "var(--container)", paddingInline: "var(--gutter)" } as const;
 
-function Photo({ src, w, h, className = "" }: { src: string; w: number; h: number; className?: string }) {
+function Photo({
+  src,
+  w,
+  h,
+  label,
+  caption,
+  small = false,
+  className = "",
+}: {
+  src: string;
+  w: number;
+  h: number;
+  label: string;
+  caption: string;
+  small?: boolean;
+  className?: string;
+}) {
   return (
-    <div className={`m-zoom relative overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] ${className}`}>
+    <figure className={`m-zoom relative m-0 overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] ${className}`}>
       <img
         src={src}
         alt=""
@@ -37,7 +53,27 @@ function Photo({ src, w, h, className = "" }: { src: string; w: number; h: numbe
         decoding="async"
         className="m-grade absolute inset-0 w-full h-full object-cover"
       />
-    </div>
+      {/* Bildunterschrift auf dem Bild, ueber einem Verlauf nach Schwarz. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-2/3 pointer-events-none"
+        style={{ background: "linear-gradient(0deg, rgba(6,6,10,0.85), rgba(6,6,10,0))" }}
+      />
+      <figcaption className={`absolute left-0 right-0 bottom-0 ${small ? "p-4 sm:p-5" : "p-5 sm:p-7"}`}>
+        <span
+          className="block eyebrow-mono uppercase text-[var(--text)]"
+          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+        >
+          {label}
+        </span>
+        <span
+          className={`${small ? "hidden md:block" : "block"} mt-2 text-[var(--text-hi)]`}
+          style={{ fontSize: small ? "var(--t-small)" : "var(--t-body)", lineHeight: 1.45, maxWidth: "40ch" }}
+        >
+          {caption}
+        </span>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -46,8 +82,8 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
   const t = useT();
   const e = t.home.engage;
   const c = t.home.closing;
-  const lineRef = useRef<HTMLDivElement>(null);
-  const lineOn = useInView(lineRef, { once: true, amount: 1 });
+  const lineRef = useRef<HTMLOListElement>(null);
+  const lineOn = useInView(lineRef, { once: true, amount: 0.3 });
 
   return (
     <>
@@ -77,26 +113,39 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
 
           {/* Die Arbeit, bevor das Diagramm sie ordnet */}
           <div className="dark grid grid-cols-1 md:grid-cols-12 gap-4 mt-16 lg:mt-20">
-            <Photo src={meeting} w={1400} h={933} className="md:col-span-7 aspect-[16/9]" />
+            <Photo src={meeting} w={1400} h={933} {...e.photos[0]} className="md:col-span-7 aspect-[16/9]" />
             <div className="md:col-span-5 grid grid-cols-2 md:grid-cols-1 md:grid-rows-2 gap-4">
-              <Photo src={screen} w={900} h={600} className="aspect-[4/3] md:aspect-auto" />
-              <Photo src={wall} w={900} h={596} className="aspect-[4/3] md:aspect-auto" />
+              <Photo src={screen} w={900} h={600} {...e.photos[1]} small className="aspect-[4/3] md:aspect-auto" />
+              <Photo src={wall} w={900} h={596} {...e.photos[2]} small className="aspect-[4/3] md:aspect-auto" />
             </div>
           </div>
 
-          {/* Eine Linie, vier Knoten */}
-          <div ref={lineRef} className="relative mt-16 lg:mt-20 h-px bg-[var(--line-strong)]">
-            <div className="m-draw absolute left-0 top-0 w-full lg:w-1/4" data-on={lineOn ? "true" : "false"} />
-          </div>
-          <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8">
+          {/* Eine Linie durch alle vier Phasen. Sie zeichnet sich Abschnitt fuer
+              Abschnitt, und jede Phase leuchtet auf, wenn die Linie sie
+              erreicht. Desktop waagrecht ueber den vier Spalten, darunter
+              senkrecht an der linken Kante (Brief §6 E). Reduzierte
+              Bewegung: alles steht fertig da. */}
+          <ol
+            ref={lineRef}
+            data-on={lineOn ? "true" : "false"}
+            className="m-phases relative grid grid-cols-1 lg:grid-cols-4 lg:gap-x-8 mt-16 lg:mt-20 lg:border-t border-[var(--line-strong)]"
+          >
             {e.phases.map((p, i) => (
-              <li key={p.title} className="relative min-w-0 pt-9 pb-4">
+              <li
+                key={p.title}
+                className="relative min-w-0 pl-9 lg:pl-0 pt-1 lg:pt-10 pb-10 lg:pb-4"
+                style={{ ["--i" as string]: i }}
+              >
+                {/* Grundlinie senkrecht (nur unter lg) und der blaue Abschnitt */}
+                {i < e.phases.length - 1 && (
+                  <span aria-hidden="true" className="lg:hidden absolute left-[4px] top-0 bottom-0 w-px bg-[var(--line-strong)]" />
+                )}
                 <span
                   aria-hidden="true"
-                  className={`hidden lg:block absolute left-0 w-[9px] h-[9px] ${i === 0 ? "bg-[var(--signal)]" : "bg-[var(--surface-1)] border border-[var(--line-strong)]"}`}
-                  style={{ top: -4 }}
+                  className={`m-seg absolute left-[4px] top-0 bottom-0 w-px lg:left-0 lg:bottom-auto lg:w-auto lg:h-px lg:top-[-1px] ${i < e.phases.length - 1 ? "lg:-right-8" : "hidden lg:block lg:right-0"}`}
                 />
-                <div className={`eyebrow-mono uppercase ${i === 0 ? "text-[var(--signal-text)]" : "text-[var(--text-low)]"}`} style={eyebrowStyle}>
+                <span aria-hidden="true" className="m-node absolute left-0 top-0 lg:top-[-5px] w-[9px] h-[9px]" />
+                <div className="m-phase-label eyebrow-mono uppercase" style={eyebrowStyle}>
                   {e.phase} 0{i + 1}
                 </div>
                 <h3

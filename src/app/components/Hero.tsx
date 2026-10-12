@@ -2,13 +2,14 @@ import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
-import heroWide from "../../assets/photos/hero-grund-1920.webp";
-import heroNarrow from "../../assets/photos/hero-grund-900.webp";
+import heroWide from "../../assets/photos/hero-kirchberg-1920.webp";
+import heroNarrow from "../../assets/photos/hero-kirchberg-900.webp";
 
 /**
  * Der Hero nach dem Brand Book: ein Bild, das die ganze Breite nimmt.
  *
- * Luxemburg in der Abenddaemmerung, kuehl und ruhig gegradet, mit einem
+ * Luxemburg in der Abenddaemmerung - die Rote Bruecke, dahinter die Tuerme
+ * auf dem Kirchberg -, kuehl und ruhig gegradet, mit einem
  * schwarzen Verlauf von links, damit die Schrift auf dem Bild steht und nicht
  * auf einer Flaeche daneben. Darauf nur die Aussage, zwei Wege und drei
  * Fakten. Akzent ist ein einziges Wort in Sky; Electric Blue fuellt nur den
@@ -36,18 +37,22 @@ export default function Hero() {
       style={{ minHeight: "max(640px, min(100svh, 980px))" }}
     >
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-        <img
-          src={heroWide}
-          srcSet={`${heroNarrow} 900w, ${heroWide} 1920w`}
-          sizes="100vw"
-          alt=""
-          width={1920}
-          height={1280}
-          {...({ fetchpriority: "high" } as Record<string, string>)}
-          decoding="async"
-          className="m-grade m-drift absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "60% 55%" }}
-        />
+        {/* Ab 1024px groesser als die Flaeche und links angeschlagen: so
+            stehen die Tuerme rechts neben dem Titel statt darunter. */}
+        <div className="absolute left-0 top-[-8%] w-full h-[116%] lg:w-[132%]">
+          <img
+            src={heroWide}
+            srcSet={`${heroNarrow} 900w, ${heroWide} 1920w`}
+            sizes="(min-width: 1024px) 132vw, 100vw"
+            alt=""
+            width={1920}
+            height={1280}
+            {...({ fetchpriority: "high" } as Record<string, string>)}
+            decoding="async"
+            className="m-drift absolute inset-0 w-full h-full object-cover object-[58%_40%] lg:object-[0%_40%]"
+            style={{ filter: "saturate(0.55) contrast(1.05) brightness(0.88)" }}
+          />
+        </div>
         {/* Verlaeufe nur von Schwarz nach klar: Lesbarkeit, keine Farbe. */}
         <div
           className="absolute inset-0"
@@ -82,7 +87,7 @@ export default function Hero() {
 
         <h1
           className="text-[var(--text-hi)] font-medium mt-8"
-          style={{ fontSize: "clamp(2.875rem, 1.2rem + 6vw, 7.5rem)", lineHeight: 0.92, letterSpacing: "-0.035em", maxWidth: "13ch" }}
+          style={{ fontSize: "clamp(2.5rem, 1.1rem + 4.4vw, 5.75rem)", lineHeight: 0.95, letterSpacing: "-0.03em", maxWidth: "14ch" }}
         >
           {h.lines.map((line, i) => (
             <span key={line} className="m-rise">

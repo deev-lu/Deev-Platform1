@@ -341,3 +341,36 @@
   .m-drift { animation: none; }
   .m-zoom img { transition: none; }
 }
+
+/* ── The phases line (homepage 04) ───────────────────────────
+   One segment per phase, drawn one after another (--i is the phase index):
+   each segment runs from its node to the next, and each node and label
+   lights up as the line reaches it. Horizontal from 1024px, vertical below,
+   where the phases stack. */
+.m-phases .m-seg {
+  background: var(--signal);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.55s linear calc(var(--i) * 0.55s);
+}
+.m-phases .m-node {
+  background: var(--surface-1);
+  border: 1px solid var(--line-strong);
+  transition: background-color 0.3s ease-out calc(var(--i) * 0.55s), border-color 0.3s ease-out calc(var(--i) * 0.55s);
+}
+.m-phases .m-phase-label {
+  color: var(--text-low);
+  transition: color 0.3s ease-out calc(var(--i) * 0.55s);
+}
+.m-phases[data-on="true"] .m-seg { transform: none; }
+.m-phases[data-on="true"] .m-node { background: var(--signal); border-color: var(--signal); }
+.m-phases[data-on="true"] .m-phase-label { color: var(--signal-text); }
+@media (min-width: 1024px) {
+  .m-phases .m-seg { transform: scaleX(0); transform-origin: left; }
+  .m-phases[data-on="true"] .m-seg { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-phases .m-seg,
+  .m-phases .m-node,
+  .m-phases .m-phase-label { transition: none; }
+}
