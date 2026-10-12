@@ -22,7 +22,9 @@ const SelectedWork      = lazy(() => import("./components/SelectedWork"));
 const AiFilm            = lazy(() => import("./components/AiFilm"));
 const HomeDisciplines   = lazy(() => import("./components/HomeDisciplines"));
 const HomeOutro         = lazy(() => import("./components/HomeOutro"));
-const FoundersNote      = lazy(() => import("./components/FoundersNote"));
+const HomeClients       = lazy(() => import("./components/HomeClients"));
+const HomeInside        = lazy(() => import("./components/HomeInside"));
+const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
@@ -52,31 +54,36 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
     <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Seit der High-End-Ueberarbeitung: Software und KI vorn, Websites als
-          Design auf Einladung. Die Reihenfolge erzaehlt: was wir bauen (Hero),
-          wie es aussieht, wenn es laeuft (Film), was wir tun (01), was schon
+      {/* Nach dem Brand Book (Oktober 2026): dunkel, Haarlinien, ein Akzent,
+          echte Fotografie. Drei grosse Momente - der Hero, Luxemburg bei
+          Nacht vor dem Film, die Einladung am Schluss -, alles andere ruhig.
+          Die Reihenfolge: was wir bauen (Hero), wer uns vertraut (Kunden),
+          was wir tun (01), wie es aussieht, wenn es laeuft (Film), was schon
           laeuft (02, 03 - das Portfolio unveraendert), wie ein Projekt
-          ablaeuft (04), mit wem (05, die Gruender), und die Einladung zum
-          Gespraech.
+          ablaeuft (04), wer wir sind (05, das Unternehmen), die Einladung (06).
 
-          Budgetrechner, Foerderbanner, Logoband, Ablauf, Blog-Teaser und
-          Luxemburg-Bild sind von der Startseite genommen: sie sprachen kleine
-          Projekte an. Die Seiten dahinter (/project, /sme-packages, /blog)
-          bleiben erreichbar. */}
+          Die Fotos sind Unsplash-Platzhalter bis zum eigenen Shooting.
+          Budgetrechner, Foerderbanner und Blog-Teaser bleiben von der
+          Startseite genommen; /project, /sme-packages und /blog bleiben
+          erreichbar. */}
       <Hero />
 
       <Suspense fallback={<SectionSkeleton />}>
-        <AiFilm />
+        <HomeClients />
 
         {/* 01 Was wir tun */}
         <HomeDisciplines />
+
+        {/* Luxemburg bei Nacht, dann der Film */}
+        <HomeInside />
+        <AiFilm />
 
         {/* 02 und 03 - das Portfolio, wie es war */}
         <div id="portfolio"><SelectedWork /></div>
         <InMotion />
 
-        {/* 04 Wie Projekte laufen, 05 die Gruender, Einladung */}
-        <HomeOutro founders={<div id="about"><FoundersNote /></div>} />
+        {/* 04 Wie Projekte laufen, 05 das Unternehmen, 06 Einladung */}
+        <HomeOutro company={<HomeCompany />} />
       </Suspense>
 
       <Footer />

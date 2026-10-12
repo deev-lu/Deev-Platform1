@@ -5,88 +5,89 @@ import { useT } from "../../lib/useT";
 /**
  * 01 auf der Startseite: was wir tun.
  *
- * Drei Bereiche nebeneinander, aber nicht gleich gewichtet: Software und KI
- * sind der Kern und breiter, Design steht als Auftrag auf Einladung daneben.
- * Jede Karte fuehrt auf ihre Leistungsseite. Ersetzt die fruehere
- * Bereichswahl unter dem Hero und die drei Leistungswege.
+ * Nach dem Brand Book: Haarlinien statt Karten. Links die Aussage, rechts die
+ * drei Bereiche als Liste - Index, Titel, zwei Zeilen, und ob es Kern ist
+ * oder Design auf Einladung. Jede Zeile fuehrt auf ihre Leistungsseite; beim
+ * Darueberfahren steigt sie eine Flaechenstufe, sonst passiert nichts.
  */
 
 export default function HomeDisciplines() {
   const t = useT();
   const d = t.home.disciplines;
-  const cards = [
-    { key: "software", data: d.software, to: "/services/custom-software", tag: d.core, grow: 1.25, tint: false },
-    { key: "ai", data: d.ai, to: "/services/ai-automation", tag: d.core, grow: 1.25, tint: true },
-    { key: "design", data: d.design, to: "/services/websites", tag: d.invitation, grow: 1, tint: false },
+  const rows = [
+    { key: "software", data: d.software, to: "/services/custom-software", tag: d.core, core: true },
+    { key: "ai", data: d.ai, to: "/services/ai-automation", tag: d.core, core: true },
+    { key: "design", data: d.design, to: "/services/websites", tag: d.invitation, core: false },
   ];
 
   return (
-    <section id="services" className="bg-[var(--surface-0)]" style={{ paddingBottom: "var(--section-y-lg)" }}>
-      <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
-        <div
-          className="flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]"
-          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-        >
-          <span className="h-px w-10 bg-[var(--line-strong)]" />
-          <span>
-            <span className="text-[var(--signal-text)]">01</span> / {d.eyebrow}
-          </span>
+    <section id="services" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
+      <div
+        className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14"
+        style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
+      >
+        <div className="lg:col-span-5">
+          <div
+            className="flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]"
+            style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+          >
+            <span className="h-px w-10 bg-[var(--line-strong)]" />
+            <span>
+              <span className="text-[var(--metal)]">01</span> / {d.eyebrow}
+            </span>
+          </div>
+          <h2
+            className="text-[var(--text-hi)] font-medium mt-8"
+            style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: "11ch" }}
+          >
+            {d.title}
+          </h2>
         </div>
-        <h2
-          className="text-[var(--text-hi)] font-medium mt-9"
-          style={{ fontSize: "clamp(2.5rem, 1.3rem + 3.8vw, 5.25rem)", lineHeight: 0.98, letterSpacing: "-0.04em", maxWidth: "16ch" }}
-        >
-          {d.title}
-        </h2>
 
-        <div className="flex flex-wrap gap-px mt-16 lg:mt-20 bg-[var(--line)] border border-[var(--line)]">
-          {cards.map((c, i) => (
-            <article
-              key={c.key}
-              className="m-card min-w-0 px-7 sm:px-10 pt-10 pb-11"
-              style={{
-                flex: `${c.grow} 1 ${c.grow > 1 ? 380 : 320}px`,
-                background: c.tint ? "color-mix(in srgb, var(--signal) 6%, var(--surface-0))" : "var(--surface-0)",
-              }}
-            >
-              <div className="flex justify-between items-baseline">
-                <span className="eyebrow-mono text-[var(--signal-text)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+        <ul className="lg:col-span-7 border-t border-[var(--line)]">
+          {rows.map((r, i) => (
+            <li key={r.key} className="border-b border-[var(--line)]">
+              <L
+                to={r.to}
+                className="group grid grid-cols-[40px_minmax(0,1fr)] sm:grid-cols-[64px_minmax(0,1fr)_auto] gap-x-4 sm:gap-x-6 gap-y-4 py-9 sm:py-11 pr-2 sm:pr-6 hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-2)]"
+              >
+                <span
+                  className="eyebrow-mono text-[var(--text-low)] pt-2.5"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                >
                   0{i + 1}
                 </span>
-                <span
-                  className="eyebrow-mono uppercase"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", color: c.tint ? "var(--signal-text)" : "var(--text-low)" }}
-                >
-                  {c.tag}
+                <span className="min-w-0">
+                  <span
+                    className="display block text-[var(--text-hi)]"
+                    style={{ fontSize: "var(--t-h3)", lineHeight: 1.15, letterSpacing: "-0.01em" }}
+                  >
+                    {r.data.title}
+                  </span>
+                  <span
+                    className="block mt-3 text-[var(--text-mid)]"
+                    style={{ fontSize: "var(--t-body)", lineHeight: 1.55, maxWidth: "46ch" }}
+                  >
+                    {r.data.copy}
+                  </span>
+                  <span
+                    className="inline-flex items-center gap-2 mt-5 text-[var(--text-hi)] font-medium group-hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
+                    style={{ fontSize: "var(--t-small)" }}
+                  >
+                    {r.data.cta}
+                    <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-2)] group-hover:translate-x-1" strokeWidth={1.5} />
+                  </span>
                 </span>
-              </div>
-              <h3
-                className="display text-[var(--text-hi)] mt-14 lg:mt-[72px]"
-                style={{ fontSize: "clamp(2rem, 1.5rem + 1vw, 2.5rem)", lineHeight: 1.02, letterSpacing: "-0.03em" }}
-              >
-                {c.data.title}
-              </h3>
-              <p className="text-[var(--text-mid)] mt-4" style={{ fontSize: "var(--t-body)", lineHeight: 1.6, maxWidth: "40ch" }}>
-                {c.data.copy}
-              </p>
-              <ul className="mt-9 border-t border-[var(--line)]">
-                {c.data.list.map((item) => (
-                  <li key={item} className="py-3 border-b border-[var(--line-faint)] text-[var(--text)]" style={{ fontSize: "var(--t-small)" }}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <L
-                to={c.to}
-                className="m-arrow inline-flex items-center gap-2.5 mt-9 font-medium text-[var(--text-hi)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
-                style={{ fontSize: "var(--t-small)" }}
-              >
-                {c.data.cta}
-                <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
+                <span
+                  className={`col-start-2 sm:col-start-3 row-start-2 sm:row-start-1 eyebrow-mono uppercase sm:pt-2.5 ${r.core ? "text-[var(--signal-text)]" : "text-[var(--text-low)]"}`}
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                >
+                  {r.tag}
+                </span>
               </L>
-            </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

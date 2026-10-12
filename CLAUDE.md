@@ -30,17 +30,29 @@ Vercel blocks deploys when the commit email doesn't match a GitHub account.
 ## Layout of the page (src/app/App.tsx)
 High-end positioning since October 2026: software and AI lead, websites are
 design "by invitation". No project budget figure is shown publicly.
+The homepage follows the brand book (DEEV-REDESIGN-BRIEF.md, tokens.css):
+dark, hairlines instead of cards, one accent (Electric Blue fills, Sky for
+accent type), real photography in full bleed or square corners, graded with
+`.m-grade`.
 
-Navbar → Hero (incl. capability ticker) → AiFilm ("AI at work") →
-HomeDisciplines (01) → SelectedWork (02) → InMotion (03) →
-HomeOutro: engagements (04, carries the #pricing / #project-builder campaign
-anchors) · FoundersNote (05, #about) · closing invitation → Footer
+Navbar → Hero (full-bleed photo) → HomeClients (real logos, one hairline row)
+→ HomeDisciplines (01) → HomeInside (Luxembourg at night) → AiFilm ("AI at
+work") → SelectedWork (02) → InMotion (03) → HomeOutro: engagements (04, with
+three photos; carries the #pricing / #project-builder campaign anchors) ·
+HomeCompany (05, #about) · closing invitation (06) → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
 Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
 768px up; reduced motion shows the finished state). The film is a coded
 sequence, not a video file; its names and figures are invented and labelled.
+
+**The photographs in `src/assets/photos` are free Unsplash stand-ins** until
+our own shoot: Luxembourg (hero, night band), a meeting, a screen, a workshop
+wall, office windows at night. No face in them could pass for our team. Swap
+the files when the shoot lands; keep the names or update the imports. They
+were sized and compressed at download (WebP); keep any replacement under
+~250KB for the hero and ~150KB elsewhere.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
@@ -68,7 +80,8 @@ Mobile load was a real problem and these fixed it:
 3. **Continuous animations are disabled on mobile** via `useIsMobile()`.
 4. **Images must be resized before committing.** Client logos were 200KB+ each
    until they were downscaled to display size.
-5. Hero background video is **desktop-only** (poster image on phones),
+5. The hero photo ships a 900px WebP to phones (`srcSet`). If it becomes a
+   video, the video is **desktop-only** (poster image on phones),
    `preload="none"`.
 
 ## Theme
@@ -78,12 +91,12 @@ applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
 
 ## Content that needs real assets (do not invent)
-- `src/app/components/FoundersNote.tsx` ("02 / Who you'll work with") is wired
-  into App.tsx directly after the portfolio. It finds its photos by
-  filename: drop `fabio.*` and `sven.*` into `src/assets/team` and they appear,
-  no import needed. Until **both** files land the section is not in the page
-  at all and the navbar drops its "About" link with it (`TEAM_READY` in
-  `src/lib/team.ts`): one real portrait beside an empty frame reads worse than
+- The founders appear as one "Leadership" row in `HomeCompany.tsx` (05): we
+  present a company, not a two-person show. `FoundersNote.tsx` is no longer
+  on the homepage. The portraits are found by filename: drop `fabio.*` and
+  `sven.*` into `src/assets/team` and they appear, no import needed. Until
+  **both** files land the row is left out and the navbar drops its "About"
+  link (`TEAM_READY` in `src/lib/team.ts`): one real portrait beside an empty frame reads worse than
   no section, and a stand-in silhouette would be inventing a person. The portraits are cutouts on a
   transparent ground, so they are `object-contain object-bottom` on a surface
   panel, never cropped into a square.

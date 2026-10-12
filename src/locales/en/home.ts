@@ -149,7 +149,28 @@ export const home = {
     ],
   },
 
+  /** The client row under the hero: real logos, one hairline row. */
+  clients: { label: "Trusted in Luxembourg" },
+
+  /** The full-bleed night photograph that leads into the film. */
+  inside: {
+    eyebrow: "Inside DEEV",
+    title: "From the client's table to a release going live.",
+  },
+
+  /** 05 on the homepage: the company, with its leadership as one line. */
+  company: {
+    eyebrow: "The company",
+    title: "Built in Luxembourg. Close to your team.",
+    lead: "We meet you in person, in English, French or German, and the people who scope your project are the people who build it.",
+    labels: { company: "Company", office: "Office", languages: "Languages", leadership: "Leadership" },
+    entity: "DEEV, a brand of Lux VR States Sàrl-s",
+    office: "17 rue de Sélange, L-4965 Clemency",
+    languages: "English · Français · Deutsch",
+  },
+
   closing: {
+    eyebrow: "Contact",
     title: "Tell us what you are building.",
     lead: "A first conversation costs nothing and commits you to nothing. If we are not the right team for it, we will say so.",
   },
