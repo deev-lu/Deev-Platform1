@@ -29,7 +29,7 @@ import stoffel     from "../../assets/clients/stoffel.png";
 /** Black silhouette on light, white silhouette on dark. */
 const MONO = "brightness-0 dark:brightness-0 dark:invert";
 
-const clients = [
+export const clients = [
   { name: "Bureau Immobilier Feltes", src: feltes, filter: MONO, w: 280, h: 150 },
   { name: "Melly's", src: mellys, filter: "grayscale invert dark:grayscale-0 dark:invert-0", w: 280, h: 91 },
   { name: "Net & Clean", src: netclean, filter: MONO, w: 280, h: 103 },

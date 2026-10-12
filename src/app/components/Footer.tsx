@@ -70,7 +70,10 @@ export default function Footer() {
   const t = useT();
   const localePath = useLocalePath();
   const linkClass =
-    "text-slate-600 dark:text-slate-400 hover:text-[var(--signal-text)] dark:hover:text-[var(--signal-text)] font-medium transition-colors duration-200";
+    "text-[var(--text)] hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]";
+  const colLabel = "eyebrow-mono uppercase text-[var(--text-low)] mb-5 font-normal";
+  const colLabelStyle = { fontSize: "var(--t-label)", letterSpacing: "0.16em" } as const;
+  const col = "py-8 md:py-10 md:px-8 border-t md:border-t-0 md:border-l border-[var(--line)] min-w-0";
 
   /** "/#services" has to become "/fr/#services", not "/#fr/services". */
   const href = (h: string) => {
@@ -82,22 +85,22 @@ export default function Footer() {
     (t.site.footer.links as Record<string, string>)[k] ??
     (t.site.nav as unknown as Record<string, string>)[k];
 
+  // Brand Book: tief, Haarlinienraster, Mono-Beschriftungen, die Wortmarke
+  // gross und kaum sichtbar als Grafik, darunter die Koordinaten.
   return (
-    <footer className="relative bg-white dark:bg-[#06060a] border-t border-slate-200 dark:border-white/[0.07]">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+    <footer className="relative overflow-hidden bg-[var(--surface-0)] border-t border-[var(--line)]" style={{ fontSize: "var(--t-small)" }}>
+      <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingTop: "clamp(56px, 7vw, 96px)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] border-t border-[var(--line)]">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <img src={logo} alt="DEEV" width={256} height={256} className="h-9 w-auto object-contain" />
-              <span className="text-xl font-brand tracking-[0.015em] text-[#0a0f2e] dark:text-white">
-                DEEV
-              </span>
+          <div className="py-8 md:py-10 md:pr-8 min-w-0">
+            <div className="flex items-center gap-2.5">
+              <img src={logo} alt="DEEV" width={256} height={256} className="h-8 w-auto object-contain" />
+              <span className="text-lg font-brand tracking-[0.04em] text-[var(--text-hi)]">DEEV</span>
             </div>
-            <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-sm">
+            <p className="text-[var(--text-mid)] mt-5 max-w-sm" style={{ lineHeight: 1.6 }}>
               {t.site.footer.blurb}
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-2 mt-7">
               {socials.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -106,10 +109,11 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-all duration-300 hover:bg-[#2563F6] hover:border-[#2563F6] hover:text-white /30"
+                    className="w-10 h-10 border border-[var(--line)] flex items-center justify-center text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
+                    style={{ borderRadius: "var(--radius-2)" }}
                     aria-label={social.name}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-[18px] h-[18px]" />
                   </a>
                 );
               })}
@@ -117,17 +121,17 @@ export default function Footer() {
 
             {/* Made in Luxembourg, certified label */}
             <div className="mt-8 flex items-center gap-3">
-              <MadeInLuxembourg className="h-16 w-20 text-slate-800 dark:text-white/90 shrink-0" />
+              <MadeInLuxembourg className="h-14 w-[70px] text-[var(--text-hi)] shrink-0" />
               <div className="text-xs leading-relaxed text-[var(--text-mid)]">
-                <div className="font-semibold text-slate-700 dark:text-slate-300">{t.site.footer.certified}</div>
+                <div className="text-[var(--text)]">{t.site.footer.certified}</div>
                 {t.site.footer.certifiedNote}
               </div>
             </div>
           </div>
 
           {/* Services */}
-          <div>
-            <h2 className="text-slate-900 dark:text-white font-medium mb-6">{t.site.footer.services}</h2>
+          <div className={col}>
+            <h2 className={colLabel} style={colLabelStyle}>{t.site.footer.services}</h2>
             <ul className="space-y-3">
               {NAV.services.map((item) => (
                 <li key={item.key}>
@@ -140,8 +144,8 @@ export default function Footer() {
           </div>
 
           {/* Company */}
-          <div>
-            <h2 className="text-slate-900 dark:text-white font-medium mb-6">{t.site.footer.company}</h2>
+          <div className={col}>
+            <h2 className={colLabel} style={colLabelStyle}>{t.site.footer.company}</h2>
             <ul className="space-y-3">
               {NAV.company.map((item) => {
                 const isRoute = !item.href.includes("#");
@@ -163,8 +167,8 @@ export default function Footer() {
           </div>
 
           {/* Legal */}
-          <div>
-            <h2 className="text-slate-900 dark:text-white font-medium mb-6">{t.site.footer.legal}</h2>
+          <div className={col}>
+            <h2 className={colLabel} style={colLabelStyle}>{t.site.footer.legal}</h2>
             <ul className="space-y-3">
               {NAV.legal.map((item) => (
                 <li key={item.key}>
@@ -179,7 +183,8 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={openCookieSettings}
-                  className={`${linkClass} cursor-pointer`}
+                  className={`${linkClass} cursor-pointer text-left`}
+                  style={{ font: "inherit" }}
                 >
                   {t.site.footer.links.cookieSettings}
                 </button>
@@ -188,16 +193,23 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Die Wortmarke als Grafik: gross, kaum Kontrast, unten angeschnitten. */}
+        <div aria-hidden="true" className="select-none pointer-events-none mt-8 overflow-hidden" style={{ height: "clamp(69px, 24.5vw, 360px)" }}>
+          <span
+            className="block font-brand text-[var(--text-hi)] whitespace-nowrap"
+            style={{ fontSize: "clamp(96px, 34vw, 500px)", lineHeight: 0.82, letterSpacing: "-0.04em", opacity: 0.05, marginLeft: "-0.04em" }}
+          >
+            DEEV
+          </span>
+        </div>
+
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-slate-200 dark:border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[var(--text-mid)] text-sm font-medium">
-              {t.site.footer.rights(new Date().getFullYear())}
-            </p>
-            <p className="text-[var(--text-mid)] text-sm font-medium">
-              {t.site.footer.madeIn}
-            </p>
-          </div>
+        <div className="flex flex-col md:flex-row justify-between gap-3 py-7 border-t border-[var(--line)] text-[var(--text-low)]">
+          <span className="eyebrow-mono" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+            {t.home.luxembourg.coords}
+          </span>
+          <span>{t.site.footer.rights(new Date().getFullYear())}</span>
+          <span>{t.site.footer.madeIn}</span>
         </div>
       </div>
     </footer>

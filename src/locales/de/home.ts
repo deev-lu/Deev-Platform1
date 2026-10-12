@@ -141,7 +141,25 @@ export const home: typeof En = {
     ],
   },
 
+  clients: { label: "Vertrauen in Luxemburg" },
+
+  inside: {
+    eyebrow: "Einblick in DEEV",
+    title: "Vom Tisch des Kunden bis zum Release, das live geht.",
+  },
+
+  company: {
+    eyebrow: "Das Unternehmen",
+    title: "In Luxemburg gebaut. Nah an Ihrem Team.",
+    lead: "Wir treffen Sie persönlich, auf Deutsch, Französisch oder Englisch, und wer Ihr Projekt plant, baut es auch.",
+    labels: { company: "Unternehmen", office: "Büro", languages: "Sprachen", leadership: "Leitung" },
+    entity: "DEEV, eine Marke der Lux VR States Sàrl-s",
+    office: "17 rue de Sélange, L-4965 Clemency",
+    languages: "Deutsch · Français · English",
+  },
+
   closing: {
+    eyebrow: "Kontakt",
     title: "Erzählen Sie uns, was Sie bauen.",
     lead: "Ein erstes Gespräch kostet nichts und verpflichtet zu nichts. Wenn wir nicht das richtige Team dafür sind, sagen wir es.",
   },

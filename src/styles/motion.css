@@ -316,3 +316,28 @@
 @media (prefers-reduced-motion: reduce) {
   .m-scan, .m-wire { animation: none; }
 }
+
+/* ── Photography (brand book: full bleed, square corners, graded) ── */
+
+/* Cool and quiet: the city lights carry the picture, the sky never goes
+   purple. One filter for every photograph so they read as one set. */
+.m-grade { filter: saturate(0.4) contrast(1.06) brightness(0.72); }
+
+/* A slow drift on the hero photograph. Desktop only, never under reduced
+   motion; a phone gets the still. */
+@media (min-width: 768px) {
+  .m-drift { animation: m-drift 26s ease-in-out infinite alternate; will-change: transform; }
+}
+@keyframes m-drift {
+  from { transform: scale(1); }
+  to { transform: scale(1.06) translate3d(-1%, -1%, 0); }
+}
+
+/* Image tiles lift by scale on hover, nothing else. */
+.m-zoom img { transition: transform 0.64s cubic-bezier(0.16, 1, 0.3, 1); }
+.m-zoom:hover img { transform: scale(1.03); }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-drift { animation: none; }
+  .m-zoom img { transition: none; }
+}
