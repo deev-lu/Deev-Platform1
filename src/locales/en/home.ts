@@ -147,6 +147,12 @@ export const home = {
       { title: "Scale", copy: "More modules and workflows on the same foundation, each one cheaper than the last." },
       { title: "Operate and evolve", copy: "Monitoring, maintenance and a team that stays accountable after launch." },
     ],
+    /** Captions on the three photographs above the phases. */
+    photos: [
+      { label: "Workshop", caption: "On site with the people who run the process." },
+      { label: "Build", caption: "Design and engineering, in-house." },
+      { label: "Process", caption: "The workflow mapped before anything is built." },
+    ],
   },
 
   /** The client row under the hero: real logos, one hairline row. */
@@ -162,11 +168,11 @@ export const home = {
   company: {
     eyebrow: "The company",
     title: "Built in Luxembourg. Close to your team.",
-    lead: "We meet you in person, in English, French or German, and the people who scope your project are the people who build it.",
+    lead: "We meet you in person, in Luxembourgish, French, German or English, and the people who scope your project are the people who build it.",
     labels: { company: "Company", office: "Office", languages: "Languages", leadership: "Leadership" },
     entity: "DEEV, a brand of Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
-    languages: "English · Français · Deutsch",
+    languages: "Lëtzebuergesch · Français · Deutsch · English",
   },
 
   closing: {

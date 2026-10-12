@@ -139,6 +139,11 @@ export const home: typeof En = {
       { title: "Ausbauen", copy: "Weitere Module und Abläufe auf demselben Fundament, jedes günstiger als das vorige." },
       { title: "Betreiben und weiterentwickeln", copy: "Monitoring, Wartung und ein Team, das nach dem Start verantwortlich bleibt." },
     ],
+    photos: [
+      { label: "Workshop", caption: "Vor Ort mit den Menschen, die den Prozess tragen." },
+      { label: "Entwicklung", caption: "Design und Engineering im eigenen Haus." },
+      { label: "Prozess", caption: "Der Ablauf, aufgezeichnet, bevor etwas gebaut wird." },
+    ],
   },
 
   clients: { label: "Vertrauen in Luxemburg" },
@@ -151,11 +156,11 @@ export const home: typeof En = {
   company: {
     eyebrow: "Das Unternehmen",
     title: "In Luxemburg gebaut. Nah an Ihrem Team.",
-    lead: "Wir treffen Sie persönlich, auf Deutsch, Französisch oder Englisch, und wer Ihr Projekt plant, baut es auch.",
+    lead: "Wir treffen Sie persönlich, auf Luxemburgisch, Deutsch, Französisch oder Englisch, und wer Ihr Projekt plant, baut es auch.",
     labels: { company: "Unternehmen", office: "Büro", languages: "Sprachen", leadership: "Leitung" },
     entity: "DEEV, eine Marke der Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
-    languages: "Deutsch · Français · English",
+    languages: "Lëtzebuergesch · Deutsch · Français · English",
   },
 
   closing: {

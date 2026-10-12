@@ -139,6 +139,11 @@ export const home: typeof En = {
       { title: "Montée en charge", copy: "D’autres modules et processus sur le même socle, chacun moins coûteux que le précédent." },
       { title: "Exploitation et évolution", copy: "Supervision, maintenance et une équipe qui reste responsable après le lancement." },
     ],
+    photos: [
+      { label: "Atelier", caption: "Sur place, avec ceux qui font tourner le processus." },
+      { label: "Développement", caption: "Design et ingénierie en interne." },
+      { label: "Processus", caption: "Le flux cartographié avant de construire quoi que ce soit." },
+    ],
   },
 
   clients: { label: "Ils nous font confiance au Luxembourg" },
@@ -151,11 +156,11 @@ export const home: typeof En = {
   company: {
     eyebrow: "L'entreprise",
     title: "Conçu au Luxembourg. Proche de votre équipe.",
-    lead: "Nous vous rencontrons en personne, en français, en allemand ou en anglais, et ceux qui cadrent votre projet sont ceux qui le réalisent.",
+    lead: "Nous vous rencontrons en personne, en luxembourgeois, en français, en allemand ou en anglais, et ceux qui cadrent votre projet sont ceux qui le réalisent.",
     labels: { company: "Entreprise", office: "Bureau", languages: "Langues", leadership: "Direction" },
     entity: "DEEV, une marque de Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
-    languages: "Français · Deutsch · English",
+    languages: "Lëtzebuergesch · Français · Deutsch · English",
   },
 
   closing: {
