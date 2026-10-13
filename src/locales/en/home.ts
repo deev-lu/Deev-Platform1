@@ -136,6 +136,37 @@ export const home = {
     },
   },
 
+  /** 02 on the homepage: workshops and consulting, sold as a service in their
+   *  own right. Every claim here repeats the AI page (home.ai): the method,
+   *  the recent concept and the funding path. */
+  workshops: {
+    eyebrow: "Workshops & consulting",
+    title: "Start with a workshop. Leave with a plan.",
+    lead:
+      "Before anything is built, we sit down with the people who run your processes and work out where software and AI actually pay. You leave with arithmetic and a roadmap, not a pitch deck.",
+    offers: [
+      {
+        title: "Discovery workshop",
+        copy: "A working session on site with your operations team. We walk every workflow with the person who lives in it and record where work stalls.",
+      },
+      {
+        title: "Executive concept",
+        copy: "Each bottleneck costed from your own volumes, an architecture that sits on your existing systems, and a phased roadmap. A document you can take to a board.",
+      },
+      {
+        title: "Architecture & roadmap",
+        copy: "Independent advice on what to build, buy or leave alone, and in which order, so each phase ships something usable in production.",
+      },
+    ],
+    proofLabel: "A recent concept",
+    proof:
+      "For a Luxembourg property-management group: seven business processes mapped end to end, seven bottlenecks individually costed, a thirty-page executive concept.",
+    funding: "Eligible for the SME Packages: the state reimburses up to 70% of eligible costs. Eligibility is decided at the pre-analysis.",
+    primary: "Book a workshop",
+    secondary: "How the workshop runs",
+    photoAlt: "The Gëlle Fra in Luxembourg City against a deep blue sky",
+  },
+
   engage: {
     eyebrow: "How engagements run",
     title: "Large programmes. Delivered in phases.",
@@ -149,7 +180,7 @@ export const home = {
     ],
     /** Captions on the three photographs above the phases. */
     photos: [
-      { label: "Workshop", caption: "On site with the people who run the process." },
+      { label: "On site", caption: "With the people who run the process." },
       { label: "Delivery", caption: "Many inputs, four phases, one release." },
     ],
   },

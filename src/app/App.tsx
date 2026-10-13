@@ -23,6 +23,7 @@ const AiFilm            = lazy(() => import("./components/AiFilm"));
 const HomeDisciplines   = lazy(() => import("./components/HomeDisciplines"));
 const HomeOutro         = lazy(() => import("./components/HomeOutro"));
 const HomeClients       = lazy(() => import("./components/HomeClients"));
+const HomeWorkshops     = lazy(() => import("./components/HomeWorkshops"));
 const HomeInside        = lazy(() => import("./components/HomeInside"));
 const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
@@ -71,18 +72,19 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Suspense fallback={<SectionSkeleton />}>
         <HomeClients />
 
-        {/* 01 Was wir tun */}
+        {/* 01 Was wir tun, 02 Workshops und Beratung */}
         <HomeDisciplines />
+        <HomeWorkshops />
 
         {/* Luxemburg bei Nacht, dann der Film */}
         <HomeInside />
         <AiFilm />
 
-        {/* 02 und 03 - das Portfolio, wie es war */}
+        {/* 03 und 04 - das Portfolio */}
         <div id="portfolio"><SelectedWork /></div>
         <InMotion />
 
-        {/* 04 Wie Projekte laufen, 05 das Unternehmen, 06 Einladung */}
+        {/* 05 Wie Projekte laufen, 06 das Unternehmen, 07 Einladung */}
         <HomeOutro company={<HomeCompany />} />
       </Suspense>
 

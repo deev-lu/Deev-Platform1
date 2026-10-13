@@ -2,16 +2,15 @@ import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
-import heroWide from "../../assets/photos/hero-grund-day-1920.webp";
-import heroNarrow from "../../assets/photos/hero-grund-day-900.webp";
+import heroWide from "../../assets/photos/hero-adolphe-1920.webp";
+import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
 
 /**
  * Der Hero, seit dem 13.10.2026 heller und ruhiger.
  *
- * Das Bild: der Grund bei Tag, dahinter die Tuerme auf dem Kirchberg -
- * Altstadt und Geschaeftsviertel in einem Blick, blauer Himmel. Ein freies
- * Unsplash-Foto (photo-1728029157984). Kaum gegradet; ein Verlauf von links
- * haelt die Schrift lesbar.
+ * Das Bild: die Adolphe-Bruecke ueber dem gruenen Petrusstal, dahinter die
+ * Spuerkees mit ihrem Turm, blauer Himmel - vom Inhaber geliefert. Kaum
+ * gegradet; ein Verlauf von links haelt die Schrift lesbar.
  *
  * Der Titel ist kleiner als zuvor und laeuft farblich von fast Weiss ueber
  * Hellblau ins Electric Blue (`.m-flow`, motion.css); "runs on." endet im
@@ -45,7 +44,7 @@ export default function Hero() {
           sizes="100vw"
           alt=""
           width={1920}
-          height={1080}
+          height={1280}
           {...({ fetchpriority: "high" } as Record<string, string>)}
           decoding="async"
           className="m-drift absolute inset-0 w-full h-full object-cover object-[60%_50%]"
