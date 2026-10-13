@@ -24,7 +24,6 @@ const HomeDisciplines   = lazy(() => import("./components/HomeDisciplines"));
 const HomeOutro         = lazy(() => import("./components/HomeOutro"));
 const HomeClients       = lazy(() => import("./components/HomeClients"));
 const HomeWorkshops     = lazy(() => import("./components/HomeWorkshops"));
-const HomeInside        = lazy(() => import("./components/HomeInside"));
 const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
@@ -56,8 +55,8 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       {/* Nach dem Brand Book (Oktober 2026): dunkel, Haarlinien, ein Akzent,
-          echte Fotografie. Drei grosse Momente - der Hero, Luxemburg bei
-          Nacht vor dem Film, die Einladung am Schluss -, alles andere ruhig.
+          echte Fotografie. Grosse Momente: der Hero, der
+          Workshop-Abschnitt, die Einladung am Schluss; alles andere ruhig.
           Die Reihenfolge: was wir bauen (Hero), wer uns vertraut (Kunden),
           was wir tun (01), wie es aussieht, wenn es laeuft (Film), was schon
           laeuft (02, 03 - das Portfolio unveraendert), wie ein Projekt
@@ -76,8 +75,6 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <HomeDisciplines />
         <HomeWorkshops />
 
-        {/* Luxemburg bei Nacht, dann der Film */}
-        <HomeInside />
         <AiFilm />
 
         {/* 03 und 04 - das Portfolio */}

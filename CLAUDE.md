@@ -38,8 +38,7 @@ accent type), real photography in full bleed or square corners, graded with
 Navbar → Hero (full-bleed photo) → HomeClients (real logos, one hairline row)
 → HomeDisciplines (01, three cards with plates) → HomeWorkshops (02,
 workshops & consulting sold as a service of their own — the entry to most
-projects; every claim repeats the AI page) → HomeInside (Luxembourg at night)
-→ AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each
+projects; every claim repeats the AI page) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each
 screenshot in a browser frame with its domain) → InMotion (04) → HomeOutro:
 engagements (05, a photo and the flow plate; carries the #pricing /
 #project-builder campaign anchors) · HomeCompany (06, #about) · closing
@@ -55,8 +54,7 @@ sequence, not a video file; its names and figures are invented and labelled.
 (hero: the Adolphe bridge and the Spuerkeess tower), `adolphe-tram-*` (05, a
 tram on the same bridge), `gelle-fra-*` (02, workshops), `philharmonie-*`
 (06, the company) and `kirchberg-aerial-*` (the earlier hero, rooftop
-lettering retouched out; kept, not used). Still a free Unsplash stand-in:
-`lux-night-*` (the night band). They were sized and compressed at export
+lettering retouched out; kept, not used). They were sized and compressed at export
 (WebP); keep any replacement under ~250KB for the hero and ~150KB elsewhere.
 
 **Hero (since 13 Oct 2026):** a smaller title whose fill flows from
@@ -88,7 +86,7 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - Corners are **soft and measured** since 13 Oct 2026 (the owner retired the
   brief's 4px cap): `--radius-1` 12px for buttons and inputs, `--radius-2`
   20px for cards and images, `--radius-3` 28px for full-width panels (the hero
-  and the night band are inset panels). Main CTAs are pills. `tokens.css`
+  and the workshops band are inset panels). Main CTAs are pills. `tokens.css`
   maps `rounded-md` / `rounded-lg` / `rounded-sm` onto the same scale.
 - **Signal Lumen plates** (`src/assets/visuals/*.svg`, rendered by
   `Plate.tsx`): four drawings made by rule — strata (software), retrieval (AI

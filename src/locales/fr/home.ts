@@ -175,11 +175,6 @@ export const home: typeof En = {
 
   clients: { label: "Ils nous font confiance au Luxembourg" },
 
-  inside: {
-    eyebrow: "Chez DEEV",
-    title: "De la table du client à la mise en production.",
-  },
-
   company: {
     eyebrow: "L'entreprise",
     title: "Conçu au Luxembourg. Proche de votre équipe.",

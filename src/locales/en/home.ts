@@ -188,12 +188,6 @@ export const home = {
   /** The client row under the hero: real logos, one hairline row. */
   clients: { label: "Trusted in Luxembourg" },
 
-  /** The full-bleed night photograph that leads into the film. */
-  inside: {
-    eyebrow: "Inside DEEV",
-    title: "From the client's table to a release going live.",
-  },
-
   /** 05 on the homepage: the company, with its leadership as one line. */
   company: {
     eyebrow: "The company",
