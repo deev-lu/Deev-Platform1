@@ -141,8 +141,7 @@ export const home: typeof En = {
     ],
     photos: [
       { label: "Atelier", caption: "Sur place, avec ceux qui font tourner le processus." },
-      { label: "Développement", caption: "Design et ingénierie en interne." },
-      { label: "Processus", caption: "Le flux cartographié avant de construire quoi que ce soit." },
+      { label: "Livraison", caption: "De nombreuses entrées, quatre phases, une mise en production." },
     ],
   },
 
@@ -161,6 +160,7 @@ export const home: typeof En = {
     entity: "DEEV, une marque de Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
     languages: "Lëtzebuergesch · Français · Deutsch · English",
+    photoAlt: "Kirchberg, Luxembourg : tours de bureaux et la Philharmonie au-dessus des marches peintes",
   },
 
   closing: {
@@ -207,7 +207,7 @@ export const home: typeof En = {
 
   selected: {
     eyebrow: "Réalisations",
-    title: "Des projets que nous avons livrés.",
+    title: "Livrés. En ligne et utilisés.",
     lead: () => "Une sélection de notre travail. Chaque projet est en ligne, et chacun renvoie à ce que nous avons réellement livré.",
     all: "Voir toutes les réalisations",
     view: "Voir l’étude de cas",

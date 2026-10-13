@@ -109,8 +109,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 border border-[var(--line)] flex items-center justify-center text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
-                    style={{ borderRadius: "var(--radius-2)" }}
+                    className="w-10 h-10 rounded-full border border-[var(--line)] flex items-center justify-center text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
                     aria-label={social.name}
                   >
                     <Icon className="w-[18px] h-[18px]" />

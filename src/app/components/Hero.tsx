@@ -2,25 +2,27 @@ import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
-import heroWide from "../../assets/photos/hero-kirchberg-1920.webp";
-import heroNarrow from "../../assets/photos/hero-kirchberg-900.webp";
+import heroWide from "../../assets/photos/kirchberg-aerial-1920.webp";
+import heroNarrow from "../../assets/photos/kirchberg-aerial-900.webp";
 
 /**
  * Der Hero nach dem Brand Book: ein Bild, das die ganze Breite nimmt.
  *
- * Luxemburg in der Abenddaemmerung - die Rote Bruecke, dahinter die Tuerme
- * auf dem Kirchberg -, kuehl und ruhig gegradet, mit einem
+ * Der Kirchberg von oben, bei Tag - unser eigenes Foto. Die Schriftzuege
+ * auf dem Dach des mittleren Turms sind retuschiert: ein fremdes Logo ueber
+ * unserem Titel laese sich wie eine Referenz. Kuehl und ruhig gegradet, mit einem
  * schwarzen Verlauf von links, damit die Schrift auf dem Bild steht und nicht
  * auf einer Flaeche daneben. Darauf nur die Aussage, zwei Wege und drei
  * Fakten. Akzent ist ein einziges Wort in Sky; Electric Blue fuellt nur den
  * Hauptknopf.
  *
- * Das Foto ist ein Platzhalter von Unsplash (freie Lizenz), bis das eigene
- * Shooting da ist. Es ist das groesste Element der Seite und deshalb mit
- * hoher Prioritaet geladen; auf dem Telefon die 900er-Fassung.
+ * Es ist das groesste Element der Seite und deshalb mit hoher Prioritaet
+ * geladen; auf dem Telefon die 900er-Fassung.
  *
  * Bewegung: die Titelzeilen steigen aus ihrer Maske, das Bild treibt langsam
  * (nur ab 768px, src/styles/motion.css). Reduzierte Bewegung: alles steht.
+ *
+ * Seit dem 13.10.2026 eingelassen mit runden Ecken (--radius-3).
  *
  * Der Abschnitt ist in beiden Themen dunkel (`dark`, data-surface), weil die
  * Schrift auf einem Foto steht und nicht auf der Seitenflaeche.
@@ -31,28 +33,27 @@ export default function Hero() {
   const h = t.home.intro;
 
   return (
-    <section
+    <section className="bg-[var(--surface-0)] p-2 lg:p-3">
+    {/* Das Bild als eingelassene Flaeche mit runden Ecken, in beiden Themen
+        dunkel; drumherum ein schmaler Rand der Seitenfarbe. */}
+    <div
       data-surface="dark"
-      className="dark relative overflow-hidden bg-[var(--surface-0)] border-b border-[var(--line)] flex flex-col"
-      style={{ minHeight: "max(640px, min(100svh, 980px))" }}
+      className="dark relative overflow-hidden bg-[var(--surface-0)] flex flex-col"
+      style={{ minHeight: "max(624px, min(calc(100svh - 24px), 960px))", borderRadius: "var(--radius-3)" }}
     >
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-        {/* Ab 1024px groesser als die Flaeche und links angeschlagen: so
-            stehen die Tuerme rechts neben dem Titel statt darunter. */}
-        <div className="absolute left-0 top-[-8%] w-full h-[116%] lg:w-[132%]">
-          <img
-            src={heroWide}
-            srcSet={`${heroNarrow} 900w, ${heroWide} 1920w`}
-            sizes="(min-width: 1024px) 132vw, 100vw"
-            alt=""
-            width={1920}
-            height={1280}
-            {...({ fetchpriority: "high" } as Record<string, string>)}
-            decoding="async"
-            className="m-drift absolute inset-0 w-full h-full object-cover object-[58%_40%] lg:object-[0%_40%]"
-            style={{ filter: "saturate(0.55) contrast(1.05) brightness(0.88)" }}
-          />
-        </div>
+        <img
+          src={heroWide}
+          srcSet={`${heroNarrow} 900w, ${heroWide} 1920w`}
+          sizes="100vw"
+          alt=""
+          width={1920}
+          height={1080}
+          {...({ fetchpriority: "high" } as Record<string, string>)}
+          decoding="async"
+          className="m-drift absolute inset-0 w-full h-full object-cover object-[62%_60%]"
+          style={{ filter: "saturate(0.7) contrast(1.06) brightness(0.86)" }}
+        />
         {/* Verlaeufe nur von Schwarz nach klar: Lesbarkeit, keine Farbe. */}
         <div
           className="absolute inset-0"
@@ -116,7 +117,7 @@ export default function Hero() {
               <L
                 to="/contact"
                 className="inline-flex items-center px-6 bg-[var(--signal)] hover:bg-[#1747c4] text-white font-medium transition-colors duration-[var(--dur-1)]"
-                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-2)" }}
+                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
               >
                 {h.primary}
               </L>
@@ -159,6 +160,7 @@ export default function Hero() {
           </ul>
         </div>
       </div>
+    </div>
     </section>
   );
 }
