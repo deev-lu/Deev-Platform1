@@ -3,7 +3,8 @@ import { useInView } from "motion/react";
 import { useT } from "../../lib/useT";
 import { FOUNDERS, TEAM_READY } from "../../lib/team";
 import { TwoTone } from "./Plate";
-import office from "../../assets/photos/office-night-1400.webp";
+import placeWide from "../../assets/photos/philharmonie-1200.webp";
+import placeNarrow from "../../assets/photos/philharmonie-700.webp";
 
 /**
  * 05 auf der Startseite: das Unternehmen.
@@ -19,13 +20,14 @@ import office from "../../assets/photos/office-night-1400.webp";
  * hier nicht, siehe FoundersNote. Fehlt eine der beiden Dateien, entfaellt
  * die Zeile (TEAM_READY).
  *
- * Das Foto ist ein Unsplash-Platzhalter (freie Lizenz) bis zum Shooting:
- * Buerofenster bei Nacht, die Menschen darin zu klein, um jemand zu sein.
+ * Das Foto ist unser eigenes: der Kirchberg mit der Philharmonie und den
+ * bemalten Stufen, hochkant, so wie aufgenommen. Die Gruender stehen seit
+ * dem 13.10.2026 als zwei Portraetkarten da statt als Avatare.
  */
 export default function HomeCompany() {
   const t = useT();
   const c = t.home.company;
-  const ref = useRef<HTMLDListElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const near = useInView(ref, { once: true, margin: "600px" });
 
   const facts = [
@@ -40,7 +42,7 @@ export default function HomeCompany() {
         className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
       >
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-5 min-w-0">
           <div
             className="flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]"
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
@@ -56,27 +58,13 @@ export default function HomeCompany() {
           >
             <TwoTone text={c.title} />
           </h2>
-          <p className="text-[var(--text-mid)] mt-7" style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "36ch" }}>
+          <p className="text-[var(--text-mid)] mt-7" style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "40ch" }}>
             {c.lead}
           </p>
-        </div>
 
-        <div className="lg:col-span-7 min-w-0">
-          <div className="dark relative overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] aspect-[16/9]" style={{ borderRadius: "var(--radius-2)" }}>
-            <img
-              src={office}
-              alt=""
-              width={1400}
-              height={526}
-              loading="lazy"
-              decoding="async"
-              className="m-grade absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-
-          <dl ref={ref} className="mt-10 border-t border-[var(--line)]">
+          <dl className="mt-10 border-t border-[var(--line)]">
             {facts.map((f) => (
-              <div key={f.label} className="grid grid-cols-1 sm:grid-cols-[200px_minmax(0,1fr)] gap-x-6 gap-y-1 py-5 border-b border-[var(--line)]">
+              <div key={f.label} className="grid grid-cols-1 sm:grid-cols-[150px_minmax(0,1fr)] gap-x-6 gap-y-1 py-4 border-b border-[var(--line)]">
                 <dt
                   className="eyebrow-mono uppercase text-[var(--text-low)] sm:pt-1"
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
@@ -88,40 +76,73 @@ export default function HomeCompany() {
                 </dd>
               </div>
             ))}
-
-            {TEAM_READY && (
-              <div className="grid grid-cols-1 sm:grid-cols-[200px_minmax(0,1fr)] gap-x-6 gap-y-3 py-5 border-b border-[var(--line)] sm:items-center">
-                <dt
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {c.labels.leadership}
-                </dt>
-                <dd className="m-0 flex flex-wrap gap-x-8 gap-y-4">
-                  {FOUNDERS.map((f) => (
-                    <span key={f.key} className="inline-flex items-center gap-3">
-                      <span className="w-11 h-11 shrink-0 overflow-hidden rounded-full bg-[var(--surface-2)] flex items-end justify-center">
-                        {near && (
-                          <img
-                            src={f.photo}
-                            alt={t.home.founders.photoAlt(f.name, t.home.founders.role)}
-                            width={800}
-                            height={800}
-                            decoding="async"
-                            className="w-full h-full object-contain object-bottom"
-                          />
-                        )}
-                      </span>
-                      <span style={{ fontSize: "var(--t-small)", lineHeight: 1.35 }}>
-                        <span className="block text-[var(--text-hi)]">{f.name}</span>
-                        <span className="block text-[var(--text-mid)]">{t.home.founders.role}</span>
-                      </span>
-                    </span>
-                  ))}
-                </dd>
-              </div>
-            )}
           </dl>
+
+          {/* Die Leitung: zwei Portraetkarten. Freisteller, also contain und
+              unten ausgerichtet auf einer Flaechenstufe - nie beschnitten. */}
+          {TEAM_READY && (
+            <div ref={ref} className="mt-12">
+              <div
+                className="eyebrow-mono uppercase text-[var(--text-low)]"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+              >
+                {c.labels.leadership}
+              </div>
+              <ul className="grid grid-cols-2 gap-4 mt-5">
+                {FOUNDERS.map((f) => (
+                  <li
+                    key={f.key}
+                    className="overflow-hidden border border-[var(--line)] bg-[var(--surface-1)]"
+                    style={{ borderRadius: "var(--radius-2)" }}
+                  >
+                    <div className="relative aspect-square bg-[var(--surface-2)] flex items-end justify-center overflow-hidden">
+                      {near && (
+                        <img
+                          src={f.photo}
+                          alt={t.home.founders.photoAlt(f.name, t.home.founders.role)}
+                          width={800}
+                          height={800}
+                          decoding="async"
+                          className="w-full h-full object-contain object-bottom"
+                        />
+                      )}
+                    </div>
+                    <div className="px-4 sm:px-5 py-4">
+                      <div className="display text-[var(--text-hi)]" style={{ fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.25rem)", letterSpacing: "-0.01em" }}>
+                        {f.name}
+                      </div>
+                      <div
+                        className="eyebrow-mono uppercase text-[var(--text-low)] mt-1.5"
+                        style={{ fontSize: "var(--t-label)", letterSpacing: "0.14em" }}
+                      >
+                        {t.home.founders.role}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div className="lg:col-span-7 min-w-0">
+          <div
+            className="relative overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] aspect-[4/5] lg:sticky lg:top-24"
+            style={{ borderRadius: "var(--radius-2)" }}
+          >
+            <img
+              src={placeWide}
+              srcSet={`${placeNarrow} 700w, ${placeWide} 1200w`}
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              alt={c.photoAlt}
+              width={1200}
+              height={1476}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ filter: "saturate(0.8) contrast(1.04)" }}
+            />
+          </div>
         </div>
       </div>
     </section>

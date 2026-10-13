@@ -37,7 +37,8 @@ accent type), real photography in full bleed or square corners, graded with
 
 Navbar → Hero (full-bleed photo) → HomeClients (real logos, one hairline row)
 → HomeDisciplines (01, three cards with plates) → HomeInside (Luxembourg at night) → AiFilm ("AI at
-work") → SelectedWork (02) → InMotion (03) → HomeOutro: engagements (04, a photo and
+work") → SelectedWork (02, a bento of five projects: each screenshot in a
+browser frame with its domain) → InMotion (03) → HomeOutro: engagements (04, a photo and
 the flow plate; carries the #pricing / #project-builder campaign anchors) ·
 HomeCompany (05, #about) · closing invitation (06) → Footer
 
@@ -47,12 +48,13 @@ Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
 768px up; reduced motion shows the finished state). The film is a coded
 sequence, not a video file; its names and figures are invented and labelled.
 
-**The photographs in `src/assets/photos` are free Unsplash stand-ins** until
-our own shoot: Luxembourg (hero: Pont Rouge and the Kirchberg towers at dusk;
-night band), a meeting, office windows at night. No face in them could pass for our team. Swap
-the files when the shoot lands; keep the names or update the imports. They
-were sized and compressed at download (WebP); keep any replacement under
-~250KB for the hero and ~150KB elsewhere.
+**Photographs in `src/assets/photos`.** Our own: `kirchberg-aerial-*` (hero;
+the rooftop lettering on the central tower is retouched out, so no other
+company's name sits behind our headline) and `philharmonie-*` (05, the
+company). Still free Unsplash stand-ins until the shoot: `lux-night-*` (the
+night band) and `meeting-room-*` (04). No face in them could pass for our
+team. They were sized and compressed at export (WebP); keep any replacement
+under ~250KB for the hero and ~150KB elsewhere.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
@@ -103,8 +105,9 @@ applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
 
 ## Content that needs real assets (do not invent)
-- The founders appear as one "Leadership" row in `HomeCompany.tsx` (05): we
-  present a company, not a two-person show. `FoundersNote.tsx` is no longer
+- The founders appear as two portrait cards under "Leadership" in
+  `HomeCompany.tsx` (05), beside the company facts: a company, not a
+  two-person show, but with real faces. `FoundersNote.tsx` is no longer
   on the homepage. The portraits are found by filename: drop `fabio.*` and
   `sven.*` into `src/assets/team` and they appear, no import needed. Until
   **both** files land the row is left out and the navbar drops its "About"

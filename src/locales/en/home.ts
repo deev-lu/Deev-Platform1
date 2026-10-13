@@ -172,6 +172,7 @@ export const home = {
     entity: "DEEV, a brand of Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
     languages: "Lëtzebuergesch · Français · Deutsch · English",
+    photoAlt: "Kirchberg, Luxembourg: office towers and the Philharmonie above the painted steps",
   },
 
   closing: {
@@ -218,7 +219,7 @@ export const home = {
 
   selected: {
     eyebrow: "Selected work",
-    title: "Work we have shipped.",
+    title: "Work we have shipped. Live, and in use.",
     lead: () => "A selection of our work. Every project is live, and each links to what we actually delivered.",
     all: "See all work",
     view: "View case study",
