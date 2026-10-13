@@ -36,9 +36,9 @@ accent type), real photography in full bleed or square corners, graded with
 `.m-grade`.
 
 Navbar → Hero (full-bleed photo) → HomeClients (real logos, one hairline row)
-→ HomeDisciplines (01) → HomeInside (Luxembourg at night) → AiFilm ("AI at
-work") → SelectedWork (02) → InMotion (03) → HomeOutro: engagements (04, with
-three photos; carries the #pricing / #project-builder campaign anchors) ·
+→ HomeDisciplines (01, three cards with plates) → HomeInside (Luxembourg at night) → AiFilm ("AI at
+work") → SelectedWork (02) → InMotion (03) → HomeOutro: engagements (04, a photo and
+the flow plate; carries the #pricing / #project-builder campaign anchors) ·
 HomeCompany (05, #about) · closing invitation (06) → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
@@ -49,8 +49,7 @@ sequence, not a video file; its names and figures are invented and labelled.
 
 **The photographs in `src/assets/photos` are free Unsplash stand-ins** until
 our own shoot: Luxembourg (hero: Pont Rouge and the Kirchberg towers at dusk;
-night band), a meeting, a screen, a workshop
-wall, office windows at night. No face in them could pass for our team. Swap
+night band), a meeting, office windows at night. No face in them could pass for our team. Swap
 the files when the shoot lands; keep the names or update the imports. They
 were sized and compressed at download (WebP); keep any replacement under
 ~250KB for the hero and ~150KB elsewhere.
@@ -70,7 +69,19 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - `.eyebrow-mono` — numbered section markers (`01 / What we build`)
 - `.stat-outline` — big hollow outlined numerals
 - `.animate-drift` — slow Ken Burns motion for full-bleed photography
-- Corners are deliberately sharp: `rounded-lg` / `rounded-md`, not `rounded-3xl`
+- Corners are **soft and measured** since 13 Oct 2026 (the owner retired the
+  brief's 4px cap): `--radius-1` 12px for buttons and inputs, `--radius-2`
+  20px for cards and images, `--radius-3` 28px for full-width panels (the hero
+  and the night band are inset panels). Main CTAs are pills. `tokens.css`
+  maps `rounded-md` / `rounded-lg` / `rounded-sm` onto the same scale.
+- **Signal Lumen plates** (`src/assets/visuals/*.svg`, rendered by
+  `Plate.tsx`): four drawings made by rule — strata (software), retrieval (AI
+  and data), proportion (design), flow (delivery) — each with one point of
+  light. They are drawn for a dark ground; keep the panel around them dark in
+  both themes. Inlined, not `<img>`, so their mono labels use the site font.
+- Headlines of two sentences are two-tone (`TwoTone` in `Plate.tsx`): the
+  claim in full white, the rest a step quieter. `h1`–`h3` use
+  `text-wrap: balance`.
 - Headings are `font-medium`, not bold — restrained/premium, not shouty
 
 ## Performance rules — please don't undo these

@@ -20,11 +20,11 @@ export default function HomeInside() {
   const s = t.home.inside;
 
   return (
-    <section
+    <section aria-label={s.eyebrow} className="bg-[var(--surface-0)] p-2 lg:p-3">
+    <div
       data-surface="dark"
-      aria-label={s.eyebrow}
-      className="dark relative overflow-hidden bg-[var(--surface-0)] border-y border-[var(--line)]"
-      style={{ minHeight: "clamp(520px, 62vw, 820px)" }}
+      className="dark relative overflow-hidden bg-[var(--surface-0)]"
+      style={{ minHeight: "clamp(520px, 62vw, 820px)", borderRadius: "var(--radius-3)" }}
     >
       <img
         src={nightWide}
@@ -77,13 +77,14 @@ export default function HomeInside() {
             className="group inline-flex items-center gap-4 text-[var(--text-hi)] font-medium"
             style={{ fontSize: "var(--t-small)" }}
           >
-            <span className="w-14 h-14 border border-white/40 group-hover:border-white/80 flex items-center justify-center transition-colors duration-[var(--dur-2)]">
+            <span className="w-14 h-14 rounded-full border border-white/40 group-hover:border-white/80 group-hover:bg-white/10 flex items-center justify-center transition-colors duration-[var(--dur-2)]">
               <ArrowDown className="w-4 h-4" strokeWidth={1.5} />
             </span>
             {t.home.intro.film}
           </a>
         </div>
       </div>
+    </div>
     </section>
   );
 }

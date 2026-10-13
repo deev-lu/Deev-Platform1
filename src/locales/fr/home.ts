@@ -141,8 +141,7 @@ export const home: typeof En = {
     ],
     photos: [
       { label: "Atelier", caption: "Sur place, avec ceux qui font tourner le processus." },
-      { label: "Développement", caption: "Design et ingénierie en interne." },
-      { label: "Processus", caption: "Le flux cartographié avant de construire quoi que ce soit." },
+      { label: "Livraison", caption: "De nombreuses entrées, quatre phases, une mise en production." },
     ],
   },
 

@@ -141,8 +141,7 @@ export const home: typeof En = {
     ],
     photos: [
       { label: "Workshop", caption: "Vor Ort mit den Menschen, die den Prozess tragen." },
-      { label: "Entwicklung", caption: "Design und Engineering im eigenen Haus." },
-      { label: "Prozess", caption: "Der Ablauf, aufgezeichnet, bevor etwas gebaut wird." },
+      { label: "Lieferung", caption: "Viele Eingänge, vier Phasen, ein Release." },
     ],
   },
 

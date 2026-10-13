@@ -61,6 +61,13 @@ h2,
   letter-spacing: -0.02em;
 }
 
+/* Headlines break into even lines rather than leaving one word alone. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
 /* Premium typographic detail: avoid orphans / awkward wraps */
 p,
 li {

@@ -22,6 +22,8 @@ import heroNarrow from "../../assets/photos/hero-kirchberg-900.webp";
  * Bewegung: die Titelzeilen steigen aus ihrer Maske, das Bild treibt langsam
  * (nur ab 768px, src/styles/motion.css). Reduzierte Bewegung: alles steht.
  *
+ * Seit dem 13.10.2026 eingelassen mit runden Ecken (--radius-3).
+ *
  * Der Abschnitt ist in beiden Themen dunkel (`dark`, data-surface), weil die
  * Schrift auf einem Foto steht und nicht auf der Seitenflaeche.
  */
@@ -31,10 +33,13 @@ export default function Hero() {
   const h = t.home.intro;
 
   return (
-    <section
+    <section className="bg-[var(--surface-0)] p-2 lg:p-3">
+    {/* Das Bild als eingelassene Flaeche mit runden Ecken, in beiden Themen
+        dunkel; drumherum ein schmaler Rand der Seitenfarbe. */}
+    <div
       data-surface="dark"
-      className="dark relative overflow-hidden bg-[var(--surface-0)] border-b border-[var(--line)] flex flex-col"
-      style={{ minHeight: "max(640px, min(100svh, 980px))" }}
+      className="dark relative overflow-hidden bg-[var(--surface-0)] flex flex-col"
+      style={{ minHeight: "max(624px, min(calc(100svh - 24px), 960px))", borderRadius: "var(--radius-3)" }}
     >
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
         {/* Ab 1024px groesser als die Flaeche und links angeschlagen: so
@@ -116,7 +121,7 @@ export default function Hero() {
               <L
                 to="/contact"
                 className="inline-flex items-center px-6 bg-[var(--signal)] hover:bg-[#1747c4] text-white font-medium transition-colors duration-[var(--dur-1)]"
-                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-2)" }}
+                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
               >
                 {h.primary}
               </L>
@@ -159,6 +164,7 @@ export default function Hero() {
           </ul>
         </div>
       </div>
+    </div>
     </section>
   );
 }

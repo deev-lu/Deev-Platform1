@@ -4,8 +4,7 @@ import L from "./L";
 import { ArrowRight } from "lucide-react";
 import { useT } from "../../lib/useT";
 import meeting from "../../assets/photos/meeting-room-1400.webp";
-import screen from "../../assets/photos/code-screen-900.webp";
-import wall from "../../assets/photos/process-wall-900.webp";
+import Plate, { TwoTone } from "./Plate";
 
 /**
  * Der Schluss der Startseite: wie Projekte laufen (04), das Unternehmen (05,
@@ -27,6 +26,7 @@ const wrap = { maxWidth: "var(--container)", paddingInline: "var(--gutter)" } as
 
 function Photo({
   src,
+  plate,
   w,
   h,
   label,
@@ -34,25 +34,35 @@ function Photo({
   small = false,
   className = "",
 }: {
-  src: string;
-  w: number;
-  h: number;
+  src?: string;
+  plate?: "flow";
+  w?: number;
+  h?: number;
   label: string;
   caption: string;
   small?: boolean;
   className?: string;
 }) {
   return (
-    <figure className={`m-zoom relative m-0 overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] ${className}`}>
-      <img
-        src={src}
-        alt=""
-        width={w}
-        height={h}
-        loading="lazy"
-        decoding="async"
-        className="m-grade absolute inset-0 w-full h-full object-cover"
-      />
+    <figure
+      className={`m-zoom relative m-0 overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] ${className}`}
+      style={{ borderRadius: "var(--radius-2)" }}
+    >
+      {plate ? (
+        <div className="absolute inset-0 bg-[#0B0E1C] flex items-center justify-center">
+          <Plate name={plate} className="w-full aspect-[4/3] max-h-full" />
+        </div>
+      ) : (
+        <img
+          src={src}
+          alt=""
+          width={w}
+          height={h}
+          loading="lazy"
+          decoding="async"
+          className="m-grade absolute inset-0 w-full h-full object-cover"
+        />
+      )}
       {/* Bildunterschrift auf dem Bild, ueber einem Verlauf nach Schwarz. */}
       <div
         aria-hidden="true"
@@ -103,7 +113,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
                 className="text-[var(--text-hi)] font-medium mt-8"
                 style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: "15ch" }}
               >
-                {e.title}
+                <TwoTone text={e.title} />
               </h2>
             </div>
             <p className="lg:col-span-5 text-[var(--text-mid)] m-0" style={{ maxWidth: "46ch", fontSize: "var(--t-lead)", lineHeight: 1.45 }}>
@@ -114,10 +124,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
           {/* Die Arbeit, bevor das Diagramm sie ordnet */}
           <div className="dark grid grid-cols-1 md:grid-cols-12 gap-4 mt-16 lg:mt-20">
             <Photo src={meeting} w={1400} h={933} {...e.photos[0]} className="md:col-span-7 aspect-[16/9]" />
-            <div className="md:col-span-5 grid grid-cols-2 md:grid-cols-1 md:grid-rows-2 gap-4">
-              <Photo src={screen} w={900} h={600} {...e.photos[1]} small className="aspect-[4/3] md:aspect-auto" />
-              <Photo src={wall} w={900} h={596} {...e.photos[2]} small className="aspect-[4/3] md:aspect-auto" />
-            </div>
+            <Photo plate="flow" {...e.photos[1]} className="md:col-span-5 aspect-[4/3] md:aspect-auto" />
           </div>
 
           {/* Eine Linie durch alle vier Phasen. Sie zeichnet sich Abschnitt fuer
@@ -144,7 +151,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
                   aria-hidden="true"
                   className={`m-seg absolute left-[4px] top-0 bottom-0 w-px lg:left-0 lg:bottom-auto lg:w-auto lg:h-px lg:top-[-1px] ${i < e.phases.length - 1 ? "lg:-right-8" : "hidden lg:block lg:right-0"}`}
                 />
-                <span aria-hidden="true" className="m-node absolute left-0 top-0 lg:top-[-5px] w-[9px] h-[9px]" />
+                <span aria-hidden="true" className="m-node absolute left-0 top-0 lg:top-[-5px] w-[9px] h-[9px] rounded-full" />
                 <div className="m-phase-label eyebrow-mono uppercase" style={eyebrowStyle}>
                   {e.phase} 0{i + 1}
                 </div>
@@ -187,7 +194,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
             <L
               to="/contact"
               className="inline-flex items-center px-6 bg-[var(--signal)] hover:bg-[#1747c4] text-white font-medium transition-colors duration-[var(--dur-1)]"
-              style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-2)" }}
+              style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
             >
               {t.home.intro.primary}
             </L>

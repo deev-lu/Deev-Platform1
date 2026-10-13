@@ -150,8 +150,7 @@ export const home = {
     /** Captions on the three photographs above the phases. */
     photos: [
       { label: "Workshop", caption: "On site with the people who run the process." },
-      { label: "Build", caption: "Design and engineering, in-house." },
-      { label: "Process", caption: "The workflow mapped before anything is built." },
+      { label: "Delivery", caption: "Many inputs, four phases, one release." },
     ],
   },
 

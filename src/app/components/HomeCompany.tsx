@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useInView } from "motion/react";
 import { useT } from "../../lib/useT";
 import { FOUNDERS, TEAM_READY } from "../../lib/team";
+import { TwoTone } from "./Plate";
 import office from "../../assets/photos/office-night-1400.webp";
 
 /**
@@ -51,9 +52,9 @@ export default function HomeCompany() {
           </div>
           <h2
             className="text-[var(--text-hi)] font-medium mt-8"
-            style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: "11ch" }}
+            style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: "13ch" }}
           >
-            {c.title}
+            <TwoTone text={c.title} />
           </h2>
           <p className="text-[var(--text-mid)] mt-7" style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "36ch" }}>
             {c.lead}
@@ -61,7 +62,7 @@ export default function HomeCompany() {
         </div>
 
         <div className="lg:col-span-7 min-w-0">
-          <div className="dark relative overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] aspect-[16/9]">
+          <div className="dark relative overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] aspect-[16/9]" style={{ borderRadius: "var(--radius-2)" }}>
             <img
               src={office}
               alt=""
@@ -99,7 +100,7 @@ export default function HomeCompany() {
                 <dd className="m-0 flex flex-wrap gap-x-8 gap-y-4">
                   {FOUNDERS.map((f) => (
                     <span key={f.key} className="inline-flex items-center gap-3">
-                      <span className="w-11 h-11 shrink-0 overflow-hidden bg-[var(--surface-2)] flex items-end justify-center">
+                      <span className="w-11 h-11 shrink-0 overflow-hidden rounded-full bg-[var(--surface-2)] flex items-end justify-center">
                         {near && (
                           <img
                             src={f.photo}
