@@ -128,6 +128,34 @@ export const home: typeof En = {
     },
   },
 
+  workshops: {
+    eyebrow: "Ateliers & conseil",
+    title: "Commencez par un atelier. Repartez avec un plan.",
+    lead:
+      "Avant de construire quoi que ce soit, nous nous asseyons avec ceux qui font tourner vos processus et établissons où le logiciel et l'IA rapportent vraiment. Vous repartez avec des chiffres et une feuille de route, pas une présentation commerciale.",
+    offers: [
+      {
+        title: "Atelier de découverte",
+        copy: "Une séance de travail sur place avec votre équipe opérationnelle. Nous parcourons chaque flux avec la personne qui le vit et notons où le travail bloque.",
+      },
+      {
+        title: "Concept exécutif",
+        copy: "Chaque goulot chiffré à partir de vos propres volumes, une architecture posée sur vos systèmes existants et une feuille de route par phases. Un document à présenter à un conseil d'administration.",
+      },
+      {
+        title: "Architecture & feuille de route",
+        copy: "Un conseil indépendant sur ce qu'il faut construire, acheter ou laisser de côté, et dans quel ordre, pour que chaque phase livre quelque chose d'utilisable en production.",
+      },
+    ],
+    proofLabel: "Un concept récent",
+    proof:
+      "Pour un groupe luxembourgeois de gestion immobilière : sept processus cartographiés de bout en bout, sept goulots chiffrés un à un, un concept exécutif de trente pages.",
+    funding: "Éligible aux SME Packages : l'État rembourse jusqu'à 70 % des coûts éligibles. L'éligibilité est décidée lors de la pré-analyse.",
+    primary: "Réserver un atelier",
+    secondary: "Le déroulé de l'atelier",
+    photoAlt: "La Gëlle Fra à Luxembourg-Ville sur un ciel bleu profond",
+  },
+
   engage: {
     eyebrow: "Comment se déroulent nos projets",
     title: "De grands programmes. Livrés par phases.",
@@ -140,17 +168,12 @@ export const home: typeof En = {
       { title: "Exploitation et évolution", copy: "Supervision, maintenance et une équipe qui reste responsable après le lancement." },
     ],
     photos: [
-      { label: "Atelier", caption: "Sur place, avec ceux qui font tourner le processus." },
+      { label: "Sur place", caption: "Avec ceux qui font tourner le processus." },
       { label: "Livraison", caption: "De nombreuses entrées, quatre phases, une mise en production." },
     ],
   },
 
   clients: { label: "Ils nous font confiance au Luxembourg" },
-
-  inside: {
-    eyebrow: "Chez DEEV",
-    title: "De la table du client à la mise en production.",
-  },
 
   company: {
     eyebrow: "L'entreprise",

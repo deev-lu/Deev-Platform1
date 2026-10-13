@@ -23,7 +23,7 @@ const AiFilm            = lazy(() => import("./components/AiFilm"));
 const HomeDisciplines   = lazy(() => import("./components/HomeDisciplines"));
 const HomeOutro         = lazy(() => import("./components/HomeOutro"));
 const HomeClients       = lazy(() => import("./components/HomeClients"));
-const HomeInside        = lazy(() => import("./components/HomeInside"));
+const HomeWorkshops     = lazy(() => import("./components/HomeWorkshops"));
 const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
@@ -55,8 +55,8 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       {/* Nach dem Brand Book (Oktober 2026): dunkel, Haarlinien, ein Akzent,
-          echte Fotografie. Drei grosse Momente - der Hero, Luxemburg bei
-          Nacht vor dem Film, die Einladung am Schluss -, alles andere ruhig.
+          echte Fotografie. Grosse Momente: der Hero, der
+          Workshop-Abschnitt, die Einladung am Schluss; alles andere ruhig.
           Die Reihenfolge: was wir bauen (Hero), wer uns vertraut (Kunden),
           was wir tun (01), wie es aussieht, wenn es laeuft (Film), was schon
           laeuft (02, 03 - das Portfolio unveraendert), wie ein Projekt
@@ -71,18 +71,17 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Suspense fallback={<SectionSkeleton />}>
         <HomeClients />
 
-        {/* 01 Was wir tun */}
+        {/* 01 Was wir tun, 02 Workshops und Beratung */}
         <HomeDisciplines />
+        <HomeWorkshops />
 
-        {/* Luxemburg bei Nacht, dann der Film */}
-        <HomeInside />
         <AiFilm />
 
-        {/* 02 und 03 - das Portfolio, wie es war */}
+        {/* 03 und 04 - das Portfolio */}
         <div id="portfolio"><SelectedWork /></div>
         <InMotion />
 
-        {/* 04 Wie Projekte laufen, 05 das Unternehmen, 06 Einladung */}
+        {/* 05 Wie Projekte laufen, 06 das Unternehmen, 07 Einladung */}
         <HomeOutro company={<HomeCompany />} />
       </Suspense>
 

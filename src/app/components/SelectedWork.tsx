@@ -18,6 +18,10 @@ import { PROJECTS, sectorOf, type Project } from "../../lib/projects";
  * Reihenfolge: 7/5 in der ersten Reihe, drei gleiche in der zweiten. Auf dem
  * Telefon gestapelt.
  *
+ * Beim Darueberfahren fuellt sich die Karte mit einem blauen Verlauf
+ * (`.m-flowcard`), Titel und Pillen werden weiss, der Pfeilknopf weiss mit
+ * blauem Pfeil und dreht sich, das Bildschirmfoto steigt.
+ *
  * Was bewusst fehlt: Ergebniszahlen. Fuer keines der Projekte liegt eine
  * bestaetigte Kennzahl vor, und eine erfundene waere in einer Referenz die
  * teuerste Art von Fehler. Gezeigt wird, was geliefert wurde.
@@ -50,7 +54,7 @@ export default function SelectedWork() {
             >
               <span className="h-px w-10 bg-[var(--line-strong)]" />
               <span>
-                <span className="text-[var(--metal)]">02</span> / {t.home.selected.eyebrow}
+                <span className="text-[var(--metal)]">03</span> / {t.home.selected.eyebrow}
               </span>
             </div>
             <h2
@@ -110,19 +114,19 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
        ungueltiges HTML. Der Link zur Fallstudie deckt die ganze Karte ab (sein
        Text ist der Titel), der Link zur echten Website liegt darueber. */
     <article
-      className={`group relative flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)] ${large ? "h-[480px] sm:h-[560px]" : "h-[440px] sm:h-[480px]"}`}
-      style={{ borderRadius: "var(--radius-2)" }}
+      className={`m-flowcard group relative flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[#7faeff]/60 focus-within:border-[#7faeff]/60 hover:-translate-y-1 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${large ? "h-[480px] sm:h-[560px]" : "h-[440px] sm:h-[480px]"}`}
+      style={{ borderRadius: 24 }}
     >
       {/* Punktraster als Buehne, wie auf den Signal-Lumen-Tafeln */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none opacity-60"
+        className="absolute inset-0 pointer-events-none opacity-60 group-hover:opacity-40 transition-opacity duration-500"
         style={{ backgroundImage: "radial-gradient(var(--line-strong) 1px, transparent 1.2px)", backgroundSize: "18px 18px", backgroundPosition: "9px 9px" }}
       />
 
       <div className={`relative z-[1] ${large ? "p-6 sm:p-8" : "p-6"}`}>
         <div className="flex items-center justify-between gap-4">
-          <span className="eyebrow-mono uppercase text-[var(--text-low)] truncate" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+          <span className="eyebrow-mono uppercase text-[var(--text-low)] group-hover:text-white/75 transition-colors duration-500 truncate" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
             {sectorOf(project, locale)} · {project.year}
           </span>
           {project.link && (
@@ -130,7 +134,7 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
               href={project.link}
               target="_blank"
               rel="noreferrer noopener"
-              className="relative z-20 shrink-0 inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-[var(--line)] bg-[var(--surface-0)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
+              className="relative z-20 shrink-0 inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-[var(--line)] bg-[var(--surface-0)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] group-hover:bg-white/10 group-hover:border-white/40 group-hover:text-white transition-colors duration-500"
               style={{ fontSize: "0.75rem" }}
             >
               {t.pages.workCase.visit}
@@ -141,7 +145,7 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
 
         <div className="flex items-start justify-between gap-4 mt-4">
           <h3
-            className="display text-[var(--text-hi)] m-0"
+            className="display text-[var(--text-hi)] group-hover:text-white transition-colors duration-500 m-0"
             style={{ fontSize: large ? "clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem)" : "var(--t-h3)", lineHeight: 1.1, letterSpacing: "-0.02em" }}
           >
             <L to={`/work/${project.slug}`} className="after:absolute after:inset-0 after:z-10">
@@ -150,7 +154,7 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
           </h3>
           <span
             aria-hidden="true"
-            className="shrink-0 w-10 h-10 rounded-full border border-[var(--line-strong)] flex items-center justify-center text-[var(--text-hi)] group-hover:bg-[var(--signal)] group-hover:border-[var(--signal)] group-hover:text-white transition-colors duration-[var(--dur-2)]"
+            className="shrink-0 w-11 h-11 rounded-full border border-[var(--line-strong)] flex items-center justify-center text-[var(--text-hi)] group-hover:bg-white group-hover:border-white group-hover:text-[#123a9e] group-hover:rotate-45 transition-[background-color,border-color,color,transform] duration-500"
           >
             <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
           </span>
@@ -161,7 +165,7 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
             {scope.map((s) => (
               <li
                 key={s}
-                className="px-2.5 py-1 rounded-full border border-[var(--line)] text-[var(--text-mid)]"
+                className="px-2.5 py-1 rounded-full border border-[var(--line)] text-[var(--text-mid)] group-hover:border-white/40 group-hover:text-white group-hover:bg-white/10 transition-colors duration-500"
                 style={{ fontSize: "0.75rem", lineHeight: 1.2 }}
               >
                 {s}
@@ -174,8 +178,8 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
       {/* Das Bildschirmfoto im Browserrahmen, unten angeschnitten */}
       <div className={`relative flex-1 ${large ? "mx-6 sm:mx-10" : "mx-6"}`}>
         <div
-          className="absolute inset-x-0 top-2 -bottom-12 flex flex-col border border-[var(--line-strong)] bg-[var(--surface-0)] overflow-hidden transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2"
-          style={{ borderRadius: "14px 14px 0 0" }}
+          className="absolute inset-x-0 top-2 -bottom-12 flex flex-col border border-[var(--line-strong)] bg-[var(--surface-0)] overflow-hidden transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2.5"
+          style={{ borderRadius: "16px 16px 0 0" }}
         >
           <div className="shrink-0 flex items-center gap-1.5 h-8 px-3 border-b border-[var(--line)]">
             <span className="w-2 h-2 rounded-full bg-[var(--line-strong)]" />

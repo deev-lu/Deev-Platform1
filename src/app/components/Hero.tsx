@@ -2,30 +2,28 @@ import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
-import heroWide from "../../assets/photos/kirchberg-aerial-1920.webp";
-import heroNarrow from "../../assets/photos/kirchberg-aerial-900.webp";
+import heroWide from "../../assets/photos/hero-adolphe-1920.webp";
+import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
 
 /**
- * Der Hero nach dem Brand Book: ein Bild, das die ganze Breite nimmt.
+ * Der Hero, seit dem 13.10.2026 heller und ruhiger.
  *
- * Der Kirchberg von oben, bei Tag - unser eigenes Foto. Die Schriftzuege
- * auf dem Dach des mittleren Turms sind retuschiert: ein fremdes Logo ueber
- * unserem Titel laese sich wie eine Referenz. Kuehl und ruhig gegradet, mit einem
- * schwarzen Verlauf von links, damit die Schrift auf dem Bild steht und nicht
- * auf einer Flaeche daneben. Darauf nur die Aussage, zwei Wege und drei
- * Fakten. Akzent ist ein einziges Wort in Sky; Electric Blue fuellt nur den
- * Hauptknopf.
+ * Das Bild: die Adolphe-Bruecke ueber dem gruenen Petrusstal, dahinter die
+ * Spuerkees mit ihrem Turm, blauer Himmel - vom Inhaber geliefert. Kaum
+ * gegradet; ein Verlauf von links haelt die Schrift lesbar.
  *
- * Es ist das groesste Element der Seite und deshalb mit hoher Prioritaet
- * geladen; auf dem Telefon die 900er-Fassung.
+ * Der Titel ist kleiner als zuvor und laeuft farblich von fast Weiss ueber
+ * Hellblau ins Electric Blue (`.m-flow`, motion.css); "runs on." endet im
+ * tieferen Blau. Darueber ein Label als Pille, darunter zwei Pillen-Knoepfe;
+ * die drei Fakten stehen ab 1024px in einer kleinen Karte rechts.
  *
- * Bewegung: die Titelzeilen steigen aus ihrer Maske, das Bild treibt langsam
- * (nur ab 768px, src/styles/motion.css). Reduzierte Bewegung: alles steht.
+ * Auf dem Telefon randlos: das Bild geht bis an die Kanten, nur die unteren
+ * Ecken sind rund. Der schmale Rand in Seitenfarbe sah dort wie ein Fehler
+ * aus. Ab 768px eingelassen mit --radius-3.
  *
- * Seit dem 13.10.2026 eingelassen mit runden Ecken (--radius-3).
- *
- * Der Abschnitt ist in beiden Themen dunkel (`dark`, data-surface), weil die
- * Schrift auf einem Foto steht und nicht auf der Seitenflaeche.
+ * In beiden Themen dunkel (`dark`, data-surface), weil die Schrift auf einem
+ * Foto steht. Groesstes Element der Seite, daher mit hoher Prioritaet; auf
+ * dem Telefon die 900er-Fassung.
  */
 
 export default function Hero() {
@@ -33,13 +31,11 @@ export default function Hero() {
   const h = t.home.intro;
 
   return (
-    <section className="bg-[var(--surface-0)] p-2 lg:p-3">
-    {/* Das Bild als eingelassene Flaeche mit runden Ecken, in beiden Themen
-        dunkel; drumherum ein schmaler Rand der Seitenfarbe. */}
+    <section className="bg-[var(--surface-0)] md:p-2 lg:p-3">
     <div
       data-surface="dark"
-      className="dark relative overflow-hidden bg-[var(--surface-0)] flex flex-col"
-      style={{ minHeight: "max(624px, min(calc(100svh - 24px), 960px))", borderRadius: "var(--radius-3)" }}
+      className="dark relative overflow-hidden bg-[var(--surface-0)] flex flex-col rounded-b-[28px] md:rounded-[28px]"
+      style={{ minHeight: "max(624px, min(calc(100svh - 24px), 940px))" }}
     >
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
         <img
@@ -48,24 +44,25 @@ export default function Hero() {
           sizes="100vw"
           alt=""
           width={1920}
-          height={1080}
+          height={1280}
           {...({ fetchpriority: "high" } as Record<string, string>)}
           decoding="async"
-          className="m-drift absolute inset-0 w-full h-full object-cover object-[62%_60%]"
-          style={{ filter: "saturate(0.7) contrast(1.06) brightness(0.86)" }}
+          className="m-drift absolute inset-0 w-full h-full object-cover object-[60%_50%]"
+          style={{ filter: "saturate(0.92) contrast(1.02)" }}
         />
-        {/* Verlaeufe nur von Schwarz nach klar: Lesbarkeit, keine Farbe. */}
+        {/* Verlaeufe nur fuer die Lesbarkeit: links und unten, oben ein
+            Hauch fuer die Navigation. Rechts bleibt das Bild hell. */}
         <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(90deg, rgba(6,6,10,0.92) 0%, rgba(6,6,10,0.66) 42%, rgba(6,6,10,0.2) 80%)" }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-1/2"
-          style={{ background: "linear-gradient(0deg, rgba(6,6,10,1), rgba(6,6,10,0))" }}
+          className="absolute inset-0 hidden md:block"
+          style={{ background: "linear-gradient(90deg, rgba(6,10,26,0.9) 0%, rgba(6,10,26,0.66) 42%, rgba(6,10,26,0) 70%)" }}
         />
         <div
-          className="absolute inset-x-0 top-0 h-40"
-          style={{ background: "linear-gradient(180deg, rgba(6,6,10,0.6), rgba(6,6,10,0))" }}
+          className="absolute inset-x-0 bottom-0 h-[78%] md:h-[30%]"
+          style={{ background: "linear-gradient(0deg, rgba(6,10,26,0.97) 0%, rgba(6,10,26,0.88) 55%, rgba(6,10,26,0) 100%)" }}
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-32"
+          style={{ background: "linear-gradient(180deg, rgba(6,10,26,0.55), rgba(6,10,26,0))" }}
         />
       </div>
 
@@ -78,48 +75,39 @@ export default function Hero() {
           paddingBottom: "clamp(48px, 7vw, 88px)",
         }}
       >
-        <div
-          className="m-fade-up flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-mid)]"
-          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-        >
-          <span className="h-px w-10 bg-[var(--line-strong)]" aria-hidden="true" />
-          {h.kicker}
-        </div>
+        <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-10">
+          <div className="min-w-0" style={{ maxWidth: 760 }}>
+            <div
+              className="m-fade-up inline-flex items-center gap-2.5 h-8 pl-2.5 pr-3.5 rounded-full border eyebrow-mono uppercase whitespace-nowrap text-[#c7dcff] text-[0.5625rem] tracking-[0.08em] sm:text-[length:var(--t-label)] sm:tracking-[0.16em]"
+              style={{ background: "rgba(10,20,52,0.55)", borderColor: "rgba(127,174,255,0.32)" }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3ce7fc]" aria-hidden="true" />
+              {h.kicker}
+            </div>
 
-        <h1
-          className="text-[var(--text-hi)] font-medium mt-8"
-          style={{ fontSize: "clamp(2.5rem, 1.1rem + 4.4vw, 5.75rem)", lineHeight: 0.95, letterSpacing: "-0.03em", maxWidth: "14ch" }}
-        >
-          {h.lines.map((line, i) => (
-            <span key={line} className="m-rise">
-              <span style={{ animationDelay: `${0.08 + i * 0.08}s` }}>
-                {line}
-                {i === h.lines.length - 1 && (
-                  <>
-                    {" "}
-                    <span className="text-[var(--signal-text)]">{h.accent}</span>
-                  </>
-                )}
-              </span>{" "}
-            </span>
-          ))}
-        </h1>
+            {/* Der Verlauf liegt auf dem ganzen Block, nicht pro Zeile: jede
+                Zeile laeuft von hell (links) nach blau (rechts). */}
+            <h1
+              className="m-flow w-fit font-medium mt-7 mb-0"
+              style={{ fontSize: "clamp(2.375rem, 1.3rem + 3.2vw, 4.25rem)", lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: "15ch" }}
+            >
+              {h.lines.join(" ")} <span className="m-flow-deep">{h.accent}</span>
+            </h1>
 
-        <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-12 mt-10">
-          <div className="min-w-0">
             <p
-              className="m-fade-up text-[var(--text)] m-0"
-              style={{ maxWidth: "48ch", fontSize: "var(--t-lead)", lineHeight: 1.45, animationDelay: "0.4s" }}
+              className="m-fade-up text-[var(--text)] mt-6 mb-0"
+              style={{ maxWidth: "50ch", fontSize: "var(--t-lead)", lineHeight: 1.5, animationDelay: "0.3s" }}
             >
               {h.lead}
             </p>
-            <div className="m-fade-up mt-9 flex flex-wrap items-center gap-x-8 gap-y-4" style={{ animationDelay: "0.5s" }}>
+            <div className="m-fade-up mt-9 flex flex-col sm:flex-row sm:items-center gap-3" style={{ animationDelay: "0.4s" }}>
               <L
                 to="/contact"
-                className="inline-flex items-center px-6 bg-[var(--signal)] hover:bg-[#1747c4] text-white font-medium transition-colors duration-[var(--dur-1)]"
-                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
+                className="m-arrow inline-flex items-center justify-center gap-2.5 px-6 text-white font-semibold transition-[filter] duration-[var(--dur-1)] hover:brightness-110"
+                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)", background: "linear-gradient(100deg, #4c8dff, #2563f6)" }}
               >
                 {h.primary}
+                <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
               </L>
               <a
                 href="#film"
@@ -127,37 +115,51 @@ export default function Hero() {
                   e.preventDefault();
                   scrollToId("film");
                 }}
-                className="m-arrow inline-flex items-center gap-2.5 text-[var(--text-hi)] font-medium"
-                style={{ fontSize: "var(--t-small)" }}
+                className="inline-flex items-center justify-center gap-2.5 pl-2 pr-5 border border-white/15 bg-white/[0.06] hover:bg-white/[0.12] text-[var(--text-hi)] font-medium transition-colors duration-[var(--dur-1)]"
+                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
               >
+                <span className="w-9 h-9 rounded-full bg-white/[0.14] flex items-center justify-center" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 4.5v15l13-7.5z" />
+                  </svg>
+                </span>
                 {h.film}
-                <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
               </a>
             </div>
+
+            {/* Unter 1024px: die drei Fakten als Zeile */}
+            <ul className="lg:hidden m-fade-up grid grid-cols-3 mt-8 pt-4 border-t border-white/10 text-[var(--text)]" style={{ fontSize: "0.75rem", lineHeight: 1.35, animationDelay: "0.5s" }}>
+              {h.specs.map((spec, i) => (
+                <li key={spec} className={i > 0 ? "pl-3 border-l border-white/10" : "pr-3"}>
+                  {spec}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Drei Fakten auf einer Haarlinie */}
-          <ul
-            className="m-fade-up grid grid-cols-1 sm:grid-cols-3 border-t border-[var(--line)] w-full sm:w-auto"
-            style={{ animationDelay: "0.6s" }}
+          {/* Ab 1024px: die Fakten als kleine Karte */}
+          <div
+            className="hidden lg:flex m-fade-up flex-col gap-4 w-[300px] p-6 border border-white/10"
+            style={{ borderRadius: "var(--radius-2)", background: "rgba(11,14,28,0.72)", animationDelay: "0.5s" }}
           >
-            {h.specs.map((spec, i) => (
-              <li
-                key={spec}
-                className={`pt-4 pb-1 sm:pr-7 ${i > 0 ? "sm:pl-7 sm:border-l border-[var(--line)]" : ""}`}
-              >
-                <span
-                  className="block eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            <div className="flex justify-between eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
+              <span>Studio</span>
+              <span>{t.home.luxembourg.coords}</span>
+            </div>
+            <ul className="flex flex-col gap-3 m-0 p-0" style={{ fontSize: "var(--t-small)" }}>
+              {h.specs.map((spec, i) => (
+                <li
+                  key={spec}
+                  className={`flex items-center gap-3 text-[var(--text-hi)] ${i < h.specs.length - 1 ? "pb-3 border-b border-white/[0.08]" : ""}`}
                 >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="block mt-1.5 text-[var(--text-hi)]" style={{ fontSize: "var(--t-small)" }}>
+                  <span className="eyebrow-mono text-[#7faeff]" style={{ fontSize: "var(--t-label)" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {spec}
-                </span>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

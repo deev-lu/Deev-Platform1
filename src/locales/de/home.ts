@@ -128,6 +128,34 @@ export const home: typeof En = {
     },
   },
 
+  workshops: {
+    eyebrow: "Workshops & Beratung",
+    title: "Mit einem Workshop beginnen. Mit einem Plan gehen.",
+    lead:
+      "Bevor etwas gebaut wird, setzen wir uns mit den Menschen zusammen, die Ihre Prozesse tragen, und klären, wo sich Software und KI wirklich rechnen. Sie gehen mit Zahlen und einer Roadmap, nicht mit einer Verkaufspräsentation.",
+    offers: [
+      {
+        title: "Discovery-Workshop",
+        copy: "Eine Arbeitssitzung vor Ort mit Ihrem operativen Team. Wir gehen jeden Ablauf mit der Person durch, die ihn täglich erlebt, und halten fest, wo Arbeit stockt.",
+      },
+      {
+        title: "Executive-Konzept",
+        copy: "Jeder Engpass aus Ihren eigenen Volumen beziffert, eine Architektur auf Ihren bestehenden Systemen und eine Roadmap in Phasen. Ein Dokument, mit dem Sie in den Vorstand gehen können.",
+      },
+      {
+        title: "Architektur & Roadmap",
+        copy: "Unabhängige Beratung, was gebaut, gekauft oder gelassen wird und in welcher Reihenfolge, damit jede Phase etwas produktiv Nutzbares liefert.",
+      },
+    ],
+    proofLabel: "Ein aktuelles Konzept",
+    proof:
+      "Für eine Luxemburger Immobilienverwaltungsgruppe: sieben Geschäftsprozesse durchgängig aufgezeichnet, sieben Engpässe einzeln beziffert, ein dreißigseitiges Executive-Konzept.",
+    funding: "Förderfähig über die SME Packages: Der Staat erstattet bis zu 70 % der förderfähigen Kosten. Über die Förderfähigkeit entscheidet die Voranalyse.",
+    primary: "Workshop anfragen",
+    secondary: "So läuft der Workshop",
+    photoAlt: "Die Gëlle Fra in Luxemburg-Stadt vor tiefblauem Himmel",
+  },
+
   engage: {
     eyebrow: "Wie Projekte laufen",
     title: "Große Vorhaben. In Phasen geliefert.",
@@ -140,17 +168,12 @@ export const home: typeof En = {
       { title: "Betreiben und weiterentwickeln", copy: "Monitoring, Wartung und ein Team, das nach dem Start verantwortlich bleibt." },
     ],
     photos: [
-      { label: "Workshop", caption: "Vor Ort mit den Menschen, die den Prozess tragen." },
+      { label: "Vor Ort", caption: "Mit den Menschen, die den Prozess tragen." },
       { label: "Lieferung", caption: "Viele Eingänge, vier Phasen, ein Release." },
     ],
   },
 
   clients: { label: "Vertrauen in Luxemburg" },
-
-  inside: {
-    eyebrow: "Einblick in DEEV",
-    title: "Vom Tisch des Kunden bis zum Release, das live geht.",
-  },
 
   company: {
     eyebrow: "Das Unternehmen",

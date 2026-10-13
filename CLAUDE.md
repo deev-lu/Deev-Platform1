@@ -36,11 +36,13 @@ accent type), real photography in full bleed or square corners, graded with
 `.m-grade`.
 
 Navbar → Hero (full-bleed photo) → HomeClients (real logos, one hairline row)
-→ HomeDisciplines (01, three cards with plates) → HomeInside (Luxembourg at night) → AiFilm ("AI at
-work") → SelectedWork (02, a bento of five projects: each screenshot in a
-browser frame with its domain) → InMotion (03) → HomeOutro: engagements (04, a photo and
-the flow plate; carries the #pricing / #project-builder campaign anchors) ·
-HomeCompany (05, #about) · closing invitation (06) → Footer
+→ HomeDisciplines (01, three cards with plates) → HomeWorkshops (02,
+workshops & consulting sold as a service of their own — the entry to most
+projects; every claim repeats the AI page) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each
+screenshot in a browser frame with its domain) → InMotion (04) → HomeOutro:
+engagements (05, a photo and the flow plate; carries the #pricing /
+#project-builder campaign anchors) · HomeCompany (06, #about) · closing
+invitation (07) → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
@@ -48,13 +50,23 @@ Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
 768px up; reduced motion shows the finished state). The film is a coded
 sequence, not a video file; its names and figures are invented and labelled.
 
-**Photographs in `src/assets/photos`.** Our own: `kirchberg-aerial-*` (hero;
-the rooftop lettering on the central tower is retouched out, so no other
-company's name sits behind our headline) and `philharmonie-*` (05, the
-company). Still free Unsplash stand-ins until the shoot: `lux-night-*` (the
-night band) and `meeting-room-*` (04). No face in them could pass for our
-team. They were sized and compressed at export (WebP); keep any replacement
-under ~250KB for the hero and ~150KB elsewhere.
+**Photographs in `src/assets/photos`.** From the owner: `hero-adolphe-*`
+(hero: the Adolphe bridge and the Spuerkeess tower), `adolphe-tram-*` (05, a
+tram on the same bridge), `gelle-fra-*` (02, workshops), `philharmonie-*`
+(06, the company) and `kirchberg-aerial-*` (the earlier hero, rooftop
+lettering retouched out; kept, not used). They were sized and compressed at export
+(WebP); keep any replacement under ~250KB for the hero and ~150KB elsewhere.
+
+**Hero (since 13 Oct 2026):** a smaller title whose fill flows from
+near-white into Electric Blue (`.m-flow` / `.m-flow-deep` in motion.css — the
+owner asked for it, so the brief's "no gradient text" is lifted for the hero
+title and, in the dark theme only, the claim of two-tone section headings via
+`.m-flow-dark`). Full bleed on phones (only the bottom corners round), an
+inset rounded panel from 768px.
+
+**Card hover:** service (01) and portfolio (02) cards fill with a blue flow on
+hover (`.m-flowcard`), text and pills turn white, the button turns white with
+blue text.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
@@ -74,7 +86,7 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - Corners are **soft and measured** since 13 Oct 2026 (the owner retired the
   brief's 4px cap): `--radius-1` 12px for buttons and inputs, `--radius-2`
   20px for cards and images, `--radius-3` 28px for full-width panels (the hero
-  and the night band are inset panels). Main CTAs are pills. `tokens.css`
+  and the workshops band are inset panels). Main CTAs are pills. `tokens.css`
   maps `rounded-md` / `rounded-lg` / `rounded-sm` onto the same scale.
 - **Signal Lumen plates** (`src/assets/visuals/*.svg`, rendered by
   `Plate.tsx`): four drawings made by rule — strata (software), retrieval (AI

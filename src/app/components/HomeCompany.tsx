@@ -49,7 +49,7 @@ export default function HomeCompany() {
           >
             <span className="h-px w-10 bg-[var(--line-strong)]" />
             <span>
-              <span className="text-[var(--metal)]">05</span> / {c.eyebrow}
+              <span className="text-[var(--metal)]">06</span> / {c.eyebrow}
             </span>
           </div>
           <h2

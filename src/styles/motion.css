@@ -374,3 +374,50 @@
   .m-phases .m-node,
   .m-phases .m-phase-label { transition: none; }
 }
+
+/* ── Hero title: light into Electric Blue (owner's request, 13 Oct 2026) ──
+   A text fill that flows from near-white through light blue to the brand
+   blue; the accent words run on into a deeper blue. Fixed colours: the hero
+   is dark in both themes. Not `.bg-clip-text`, which tokens.css neutralises. */
+.m-flow {
+  background-image: linear-gradient(100deg, #f4f8ff 0%, #d6e5ff 30%, #9cc1ff 62%, #6aa0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.m-flow-deep {
+  background-image: linear-gradient(100deg, #8fb8ff 0%, #4c8dff 55%, #2f6bf7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Card hover: the surface fills with a blue flow, text turns white. Used by
+   the service cards (01) and the portfolio cards (02). */
+.m-flowcard { position: relative; isolation: isolate; }
+.m-flowcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(120% 90% at 0% 0%, #4c8dff 0%, #2563f6 42%, #0e2a7a 100%);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m-flowcard:hover::before, .m-flowcard:focus-within::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .m-flowcard::before { transition: none; }
+}
+
+/* Section headlines: the claim (first sentence, TwoTone) takes the same flow,
+   in the dark theme only. On a light page a near-white start would vanish,
+   so there it stays solid ink. */
+.dark .m-flow-dark {
+  background-image: linear-gradient(100deg, #f4f8ff 0%, #c7dcff 45%, #7faeff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}

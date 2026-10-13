@@ -3,7 +3,7 @@ import { useInView } from "motion/react";
 import L from "./L";
 import { ArrowRight } from "lucide-react";
 import { useT } from "../../lib/useT";
-import meeting from "../../assets/photos/meeting-room-1400.webp";
+import onSite from "../../assets/photos/adolphe-tram-1200.webp";
 import Plate, { TwoTone } from "./Plate";
 
 /**
@@ -60,7 +60,7 @@ function Photo({
           height={h}
           loading="lazy"
           decoding="async"
-          className="m-grade absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-[50%_62%]"
         />
       )}
       {/* Bildunterschrift auf dem Bild, ueber einem Verlauf nach Schwarz. */}
@@ -106,7 +106,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
               <div className={eyebrow} style={eyebrowStyle}>
                 <span className="h-px w-10 bg-[var(--line-strong)]" />
                 <span>
-                  <span className="text-[var(--metal)]">04</span> / {e.eyebrow}
+                  <span className="text-[var(--metal)]">05</span> / {e.eyebrow}
                 </span>
               </div>
               <h2
@@ -123,7 +123,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
 
           {/* Die Arbeit, bevor das Diagramm sie ordnet */}
           <div className="dark grid grid-cols-1 md:grid-cols-12 gap-4 mt-16 lg:mt-20">
-            <Photo src={meeting} w={1400} h={933} {...e.photos[0]} className="md:col-span-7 aspect-[16/9]" />
+            <Photo src={onSite} w={1100} h={1264} {...e.photos[0]} className="md:col-span-7 aspect-[16/9]" />
             <Photo plate="flow" {...e.photos[1]} className="md:col-span-5 aspect-[4/3] md:aspect-auto" />
           </div>
 
@@ -178,7 +178,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
           <div className={eyebrow} style={eyebrowStyle}>
             <span className="h-px w-10 bg-[var(--line-strong)]" />
             <span>
-              <span className="text-[var(--metal)]">06</span> / {c.eyebrow}
+              <span className="text-[var(--metal)]">07</span> / {c.eyebrow}
             </span>
           </div>
           <h2
