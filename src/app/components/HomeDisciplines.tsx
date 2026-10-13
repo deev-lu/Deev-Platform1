@@ -10,8 +10,9 @@ import { useT } from "../../lib/useT";
  * Software, ein Feld von Quellen fuer KI und Daten, Radien im Verhaeltnis
  * fuer Design. Die Tafel steht auf einer dunklen Flaeche (in beiden Themen),
  * darunter Index, Titel, zwei Zeilen und der Weg zur Leistungsseite. Beim
- * Darueberfahren hebt sich die Karte um eine Flaechenstufe und die Tafel
- * waechst um drei Prozent.
+ * Darueberfahren fuellt sich die Karte mit einem blauen Verlauf (`.m-flowcard`),
+ * die Schrift wird weiss, der Knopf weiss mit blauer Schrift, die Tafel waechst
+ * leicht und die Karte hebt sich um 4px.
  */
 
 export default function HomeDisciplines() {
@@ -47,42 +48,52 @@ export default function HomeDisciplines() {
             <li key={c.key} className="min-w-0">
               <L
                 to={c.to}
-                className="group h-full flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)] transition-colors duration-[var(--dur-2)]"
-                style={{ borderRadius: "var(--radius-2)" }}
+                className="m-flowcard group h-full flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[#7faeff]/60 focus-within:border-[#7faeff]/60 hover:-translate-y-1 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{ borderRadius: 24 }}
               >
-                <div className="dark relative bg-[#0B0E1C] border-b border-[var(--line)] overflow-hidden aspect-[4/3]">
+                <div className="dark relative m-2.5 mb-0 bg-[#0B0E1C] overflow-hidden aspect-[4/3]" style={{ borderRadius: 16 }}>
                   <Plate
                     name={c.plate}
-                    className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                    className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="flex-1 flex flex-col p-6 sm:p-8">
-                  <div className="flex justify-between items-baseline gap-4">
-                    <span className="eyebrow-mono text-[var(--text-low)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+                <div className="flex-1 flex flex-col px-6 sm:px-7 pt-6 pb-7">
+                  <div className="flex justify-between items-center gap-4">
+                    <span
+                      className="eyebrow-mono text-[var(--text-low)] group-hover:text-white/70 transition-colors duration-500"
+                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                    >
                       0{i + 1}
                     </span>
                     <span
-                      className={`eyebrow-mono uppercase ${c.core ? "text-[var(--signal-text)]" : "text-[var(--text-low)]"}`}
-                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                      className={`inline-flex items-center h-[26px] px-3 rounded-full border eyebrow-mono uppercase transition-colors duration-500 group-hover:text-white group-hover:border-white/50 group-hover:bg-white/10 ${c.core ? "text-[var(--signal-text)] border-[var(--signal-text)]/35" : "text-[var(--text-low)] border-[var(--line-strong)]"}`}
+                      style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}
                     >
                       {c.tag}
                     </span>
                   </div>
                   <h3
-                    className="display text-[var(--text-hi)] mt-6"
-                    style={{ fontSize: "var(--t-h3)", lineHeight: 1.12, letterSpacing: "-0.015em" }}
+                    className="display text-[var(--text-hi)] group-hover:text-white mt-5 transition-colors duration-500"
+                    style={{ fontSize: "var(--t-h3)", lineHeight: 1.12, letterSpacing: "-0.02em" }}
                   >
                     {c.data.title}
                   </h3>
-                  <p className="text-[var(--text-mid)] mt-3 mb-0" style={{ fontSize: "var(--t-body)", lineHeight: 1.55 }}>
+                  <p
+                    className="text-[var(--text-mid)] group-hover:text-white/85 mt-2.5 mb-0 transition-colors duration-500"
+                    style={{ fontSize: "var(--t-body)", lineHeight: 1.55 }}
+                  >
                     {c.data.copy}
                   </p>
                   <span
-                    className="mt-auto pt-7 inline-flex items-center gap-2 text-[var(--text-hi)] font-medium group-hover:text-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
-                    style={{ fontSize: "var(--t-small)" }}
+                    className="mt-auto pt-7 self-start"
                   >
-                    {c.data.cta}
-                    <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-2)] group-hover:translate-x-1" strokeWidth={1.5} />
+                    <span
+                      className="inline-flex items-center gap-2 h-[42px] px-[18px] rounded-full border border-[var(--line-strong)] bg-[var(--surface-0)]/40 text-[var(--text-hi)] font-semibold transition-colors duration-500 group-hover:bg-white group-hover:border-white group-hover:text-[#123a9e]"
+                      style={{ fontSize: "var(--t-small)" }}
+                    >
+                      {c.data.cta}
+                      <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-2)] group-hover:translate-x-1" strokeWidth={1.75} />
+                    </span>
                   </span>
                 </div>
               </L>

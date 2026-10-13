@@ -27,13 +27,14 @@ export default function Plate({ name, className = "" }: { name: PlateName; class
 }
 
 /** Splits a headline after its first sentence: the claim in full white, the
- *  rest a step quieter. "Large programmes. Delivered in phases." */
+ *  rest a step quieter. "Large programmes. Delivered in phases." In the dark
+ *  theme the claim flows from near-white into light blue (`.m-flow-dark`). */
 export function TwoTone({ text }: { text: string }) {
   const m = text.match(/^(.+?[.!?])\s+(.+)$/);
   if (!m) return <>{text}</>;
   return (
     <>
-      {m[1]} <span className="text-[var(--text-mid)]">{m[2]}</span>
+      <span className="m-flow-dark">{m[1]}</span> <span className="text-[var(--text-mid)]">{m[2]}</span>
     </>
   );
 }

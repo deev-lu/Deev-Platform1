@@ -48,13 +48,26 @@ Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
 768px up; reduced motion shows the finished state). The film is a coded
 sequence, not a video file; its names and figures are invented and labelled.
 
-**Photographs in `src/assets/photos`.** Our own: `kirchberg-aerial-*` (hero;
-the rooftop lettering on the central tower is retouched out, so no other
-company's name sits behind our headline) and `philharmonie-*` (05, the
-company). Still free Unsplash stand-ins until the shoot: `lux-night-*` (the
-night band) and `meeting-room-*` (04). No face in them could pass for our
-team. They were sized and compressed at export (WebP); keep any replacement
-under ~250KB for the hero and ~150KB elsewhere.
+**Photographs in `src/assets/photos`.** Hero: `hero-grund-day-*`, the Grund
+by day with the Kirchberg towers behind (free Unsplash, photo-1728029157984;
+the owner asked for something friendly and bright). Our own:
+`philharmonie-*` (05, the company) and `kirchberg-aerial-*` (the previous
+hero, rooftop lettering retouched out; kept, not used). Still free Unsplash
+stand-ins until the shoot: `lux-night-*` (the night band) and `meeting-room-*`
+(04). No face in them could pass for our team. They were sized and compressed
+at export (WebP); keep any replacement under ~250KB for the hero and ~150KB
+elsewhere.
+
+**Hero (since 13 Oct 2026):** a smaller title whose fill flows from
+near-white into Electric Blue (`.m-flow` / `.m-flow-deep` in motion.css — the
+owner asked for it, so the brief's "no gradient text" is lifted for the hero
+title and, in the dark theme only, the claim of two-tone section headings via
+`.m-flow-dark`). Full bleed on phones (only the bottom corners round), an
+inset rounded panel from 768px.
+
+**Card hover:** service (01) and portfolio (02) cards fill with a blue flow on
+hover (`.m-flowcard`), text and pills turn white, the button turns white with
+blue text.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
