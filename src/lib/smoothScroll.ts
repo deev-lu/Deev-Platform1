@@ -57,10 +57,15 @@ export function initSmoothScroll(): () => void {
 
 export function scrollToTop(immediate = false) {
   if (lenis) {
-    lenis.scrollTo(0, immediate ? { immediate: true } : undefined);
-    return;
+    // `force`: a paused Lenis (cookie dialog open) ignores scrollTo otherwise.
+    lenis.scrollTo(0, immediate ? { immediate: true, force: true } : undefined);
+    if (!immediate) return;
   }
-  window.scrollTo({ top: 0, behavior: immediate ? "auto" : "smooth" });
+  // "instant", not "auto": `html { scroll-behavior: smooth }` turns "auto"
+  // into an animation, and a new page then opened at the old position (often
+  // the footer) and glided up for half a second. Phones have no Lenis, so
+  // this line was the whole reset there.
+  window.scrollTo({ top: 0, left: 0, behavior: immediate ? "instant" : "smooth" });
 }
 
 /** Hold the page still while a modal is open, then let it move again. */
@@ -94,7 +99,7 @@ export function scrollToIdWhenReady(id: string, timeout = 4000) {
   const correct = () => {
     const el = document.getElementById(key);
     if (!el) return;
-    if (Math.abs(el.getBoundingClientRect().top + NAV_OFFSET) > 4) scrollToId(key);
+    if (Math.abs(el.getBoundingClientRect().top + NAV_OFFSET) > 4) scrollToId(key, true);
   };
 
   const tick = () => {
@@ -108,7 +113,7 @@ export function scrollToIdWhenReady(id: string, timeout = 4000) {
       lastHeight = height;
 
       if (stable >= 5 && performance.now() - started > 400) {
-        scrollToId(key);
+        scrollToId(key, true);
         window.setTimeout(correct, 900);
         return;
       }
@@ -119,7 +124,7 @@ export function scrollToIdWhenReady(id: string, timeout = 4000) {
     if (performance.now() - started < timeout) {
       requestAnimationFrame(tick);
     } else if (el) {
-      scrollToId(key);
+      scrollToId(key, true);
       window.setTimeout(correct, 900);
     }
   };
@@ -127,12 +132,19 @@ export function scrollToIdWhenReady(id: string, timeout = 4000) {
   requestAnimationFrame(tick);
 }
 
-/** Accepts "#id" or a bare id. */
-export function scrollToId(id: string) {
+/** Accepts "#id" or a bare id. `immediate` jumps instead of gliding: used
+ *  when arriving from another page, so the section is simply where you
+ *  start rather than somewhere the page scrolls to. */
+export function scrollToId(id: string, immediate = false) {
   const target = document.getElementById(id.replace(/^#/, ""));
   if (!target) return;
   if (lenis) {
-    lenis.scrollTo(target, { offset: NAV_OFFSET });
+    lenis.scrollTo(target, { offset: NAV_OFFSET, ...(immediate ? { immediate: true, force: true } : {}) });
+    return;
+  }
+  if (immediate) {
+    const top = target.getBoundingClientRect().top + window.scrollY + NAV_OFFSET;
+    window.scrollTo({ top: Math.max(0, top), left: 0, behavior: "instant" });
     return;
   }
   target.scrollIntoView({ behavior: "smooth" });

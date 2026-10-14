@@ -86,7 +86,7 @@ export default function Footer() {
     (t.site.nav as unknown as Record<string, string>)[k];
 
   // Brand Book: tief, Haarlinienraster, Mono-Beschriftungen, die Wortmarke
-  // gross und kaum sichtbar als Grafik, darunter die Koordinaten.
+  // gross und kaum sichtbar als Grafik.
   return (
     <footer className="relative overflow-hidden bg-[var(--surface-0)] border-t border-[var(--line)]" style={{ fontSize: "var(--t-small)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingTop: "clamp(56px, 7vw, 96px)" }}>
@@ -204,9 +204,6 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between gap-3 py-7 border-t border-[var(--line)] text-[var(--text-low)]">
-          <span className="eyebrow-mono" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
-            {t.home.luxembourg.coords}
-          </span>
           <span>{t.site.footer.rights(new Date().getFullYear())}</span>
           <span>{t.site.footer.madeIn}</span>
         </div>
