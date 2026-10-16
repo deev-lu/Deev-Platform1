@@ -142,9 +142,8 @@ export default function Hero() {
             className="hidden lg:flex m-fade-up flex-col gap-4 w-[300px] p-6 border border-white/10"
             style={{ borderRadius: "var(--radius-2)", background: "rgba(11,14,28,0.72)", animationDelay: "0.5s" }}
           >
-            <div className="flex justify-between eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
-              <span>Studio</span>
-              <span>{t.home.luxembourg.coords}</span>
+            <div className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
+              Studio
             </div>
             <ul className="flex flex-col gap-3 m-0 p-0" style={{ fontSize: "var(--t-small)" }}>
               {h.specs.map((spec, i) => (
