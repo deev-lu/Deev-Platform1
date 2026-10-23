@@ -33,8 +33,9 @@ import mbm         from "../../assets/clients/mbm.svg";
  * confirmed MBM as a client.
  *
  * Five came from the owner on 23 Oct 2026 (a sixth, F.I.T., was taken off
- * again at the owner's request). GeoPlus3D arrived on an opaque white ground, which a silhouette filter turns into a black slab, so
- * its white was keyed out to alpha before committing. The rest are cut-outs.
+ * again at the owner's request). GeoPlus3D arrived on an opaque white
+ * ground, which a silhouette filter turns into a black slab, so its white
+ * was keyed out to alpha before committing. The rest are cut-outs.
  * Order alternates wide marks with tall ones so the strip keeps a rhythm.
  */
 /** Black silhouette on light, white silhouette on dark. */
