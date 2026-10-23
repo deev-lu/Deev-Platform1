@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
+import HeroVideo from "./HeroVideo";
 import heroWide from "../../assets/photos/hero-adolphe-1920.webp";
 import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
 
@@ -50,6 +51,8 @@ export default function Hero() {
           className="m-drift absolute inset-0 w-full h-full object-cover object-[60%_50%]"
           style={{ filter: "saturate(0.92) contrast(1.02)" }}
         />
+        {/* Ab 768px laeuft darueber der Film von YouTube, ab 0:10 (HeroVideo). */}
+        <HeroVideo />
         {/* Verlaeufe nur fuer die Lesbarkeit: links und unten, oben ein
             Hauch fuer die Navigation. Rechts bleibt das Bild hell. */}
         <div

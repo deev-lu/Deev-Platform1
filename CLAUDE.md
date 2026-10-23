@@ -108,9 +108,12 @@ Mobile load was a real problem and these fixed it:
 3. **Continuous animations are disabled on mobile** via `useIsMobile()`.
 4. **Images must be resized before committing.** Client logos were 200KB+ each
    until they were downscaled to display size.
-5. The hero photo ships a 900px WebP to phones (`srcSet`). If it becomes a
-   video, the video is **desktop-only** (poster image on phones),
-   `preload="none"`.
+5. The hero photo ships a 900px WebP to phones (`srcSet`). The hero film
+   (`HeroVideo.tsx`, YouTube 3j4eSVrLtmw from 0:10, muted, looping back to
+   0:10) is **768px and up only**, never under reduced motion; phones keep the
+   photo and load nothing from YouTube. It autoplays for every visitor without
+   consent — the owner's decision on 23 Oct 2026 — and the cookie policy
+   ("Embedded video", all three languages) says so. Change one, change both.
 
 ## Theme
 Dark is the default since the redesign; light is available via the navbar
