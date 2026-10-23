@@ -35,7 +35,9 @@ dark, hairlines instead of cards, one accent (Electric Blue fills, Sky for
 accent type), real photography in full bleed or square corners, graded with
 `.m-grade`.
 
-Navbar → Hero (full-bleed photo) → HomeClients (real logos, one hairline row)
+Navbar (with phone number and a Contact button) → Hero (full-bleed photo) →
+HomeClients (a marquee of clients: real logos, and names set as wordmarks for
+clients whose logo file we do not have yet — `WORDMARKS` in HomeClients.tsx)
 → HomeDisciplines (01, three cards with plates) → HomeWorkshops (02,
 workshops & consulting sold as a service of their own — the entry to most
 projects; every claim repeats the AI page) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each

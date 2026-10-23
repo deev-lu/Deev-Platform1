@@ -421,3 +421,18 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+/* Client marquee (homepage, under the hero). Desktop and tablet only; on a
+   phone the row is swiped instead, and the duplicate run is hidden. Pauses
+   on hover so a name can be read. */
+.m-marquee-track > ul:last-child { display: none; }
+@media (min-width: 768px) {
+  .m-marquee-track > ul:last-child { display: flex; }
+  .m-marquee-track { animation: m-ticker 60s linear infinite; }
+  .m-marquee:hover .m-marquee-track { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-marquee-track { animation: none; }
+  .m-marquee { overflow-x: auto; }
+  .m-marquee-track > ul:last-child { display: none; }
+}

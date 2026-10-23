@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Phone } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
@@ -9,6 +9,7 @@ import { TEAM_READY } from "../../lib/team";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
 import { stripLocale } from "../../lib/i18n";
+import { WHATSAPP_NUMBER, WHATSAPP_DISPLAY } from "../../lib/whatsapp";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MegaMenu, { type PanelId } from "./MegaMenu";
 import { ChevronDown } from "lucide-react";
@@ -161,6 +162,26 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 )}
               </button>
             )}
+
+            {/* Telefon: die Nummer ab 1280px, darunter nur das Symbol. Auf
+                dem Telefon waehlt ein Tippen direkt. */}
+            <a
+              href={`tel:+${WHATSAPP_NUMBER}`}
+              aria-label={`${t.site.nav.call}: ${WHATSAPP_DISPLAY}`}
+              className="inline-flex items-center gap-2 h-9 px-2.5 xl:px-3.5 rounded-full border border-[var(--line-strong)] text-[var(--text-hi)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)] whitespace-nowrap"
+              style={{ fontSize: "0.8125rem" }}
+            >
+              <Phone className="w-4 h-4" strokeWidth={1.5} />
+              <span className="hidden xl:inline">{WHATSAPP_DISPLAY}</span>
+            </a>
+
+            {/* Kontakt */}
+            <L
+              to="/contact"
+              className="hidden lg:inline-flex items-center h-9 px-4 rounded-full border border-[var(--line-strong)] text-sm font-semibold text-[var(--text-hi)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
+            >
+              {t.site.nav.contact}
+            </L>
 
             {/* CTA */}
             <L
