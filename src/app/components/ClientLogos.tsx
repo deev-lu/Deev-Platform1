@@ -13,6 +13,7 @@ import ucclervaux  from "../../assets/clients/ucclervaux.png";
 import vinoamore   from "../../assets/clients/vino-amore.png";
 import supasaya    from "../../assets/clients/supa-saya-gin.png";
 import geoplus     from "../../assets/clients/geoplus3d.png";
+import mbm         from "../../assets/clients/mbm.svg";
 
 /**
  * Logos are single-tone silhouettes: black on light, white on dark. That is
@@ -27,10 +28,10 @@ import geoplus     from "../../assets/clients/geoplus3d.png";
  * which is the pair that keeps it readable. All five were compared in both
  * themes across five filter combinations before this was settled.
  *
- * assets/clients/oscarsbar.png is not Oscar's Bar: the file holds the MBM
- * Group Real Estate mark, and the strip was showing it labelled Oscar's Bar.
- * Rather than caption someone else's logo with the wrong name, it is out
- * until we know whose it is and whether they belong on the wall.
+ * MBM Group Real Estate is the owner's SVG (the black one; the filter makes
+ * the white). It replaces assets/clients/oscarsbar.png, which held the MBM
+ * mark under the wrong name and was kept off the wall until the owner
+ * confirmed MBM as a client.
  *
  * The six added on 23 Oct 2026 came from the owner. GeoPlus3D arrived on an
  * opaque white ground, which a silhouette filter turns into a black slab, so
@@ -51,6 +52,7 @@ export const clients = [
   { name: "Melly's", src: mellys, filter: "grayscale invert dark:grayscale-0 dark:invert-0", w: 280, h: 91 },
   { name: "Supa Saya Gin", src: supasaya, filter: MONO, w: 65, h: 160 },
   { name: "GeoPlus3D", src: geoplus, filter: MONO, w: 347, h: 82 },
+  { name: "MBM Group Real Estate", src: mbm, filter: MONO, w: 280, h: 131 },
   { name: "Picadilly", src: picadilly, filter: MONO, w: 280, h: 144 },
 ];
 
