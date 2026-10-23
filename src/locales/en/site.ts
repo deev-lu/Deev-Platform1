@@ -18,6 +18,7 @@ export const site = {
     about: "About",
     contact: "Contact",
     cta: "Get a quote",
+    call: "Call us",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     toLight: "Switch to light mode",

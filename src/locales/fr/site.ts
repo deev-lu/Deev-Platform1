@@ -11,6 +11,7 @@ export const site: typeof En = {
     about: "À propos",
     contact: "Contact",
     cta: "Demander un devis",
+    call: "Appelez-nous",
     openMenu: "Ouvrir le menu",
     closeMenu: "Fermer le menu",
     toLight: "Passer en mode clair",

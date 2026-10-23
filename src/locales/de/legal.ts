@@ -4,7 +4,7 @@ export const legal: typeof En = {
   badge: "Rechtliche Hinweise",
   title: "Rechtliche",
   titleAccent: "Hinweise",
-updated: "Zuletzt aktualisiert: September 2026",
+updated: "Zuletzt aktualisiert: Oktober 2026",
 
   intro: "Unternehmensangaben, Datenschutz und Informationen zur Nutzung unserer Website.",
   scope:
@@ -70,7 +70,7 @@ updated: "Zuletzt aktualisiert: September 2026",
       "Werbespeicherung, Anzeigenpersonalisierung und Nutzerdaten für Werbung sind dauerhaft abgelehnt, und wir setzen auf dieser Website keine Werbe- oder Remarketing-Produkte ein.",
     videoHead: "Eingebettete Videos",
     videoBody:
-      "Der Marketingbereich enthält Videos, die bei YouTube gehostet werden. Der Player selbst wird erst geladen, wenn Sie auf Wiedergabe drücken, sodass vorher kein YouTube-Skript ausgeführt und kein Speicher Dritter auf Ihrem Gerät gesetzt wird. Das Standbild, das Sie zuvor sehen, ist das Vorschaubild des Videos selbst, das beim Erscheinen dieses Seitenbereichs vom Bildhost von Google (i.ytimg.com) angefordert wird: Diese Anfrage setzt keine Cookies, teilt Google aber mit, dass ein Browser diese Seite geladen hat, einschließlich Ihrer IP-Adresse. Wenn Sie auf Wiedergabe drücken, wird der Player von youtube-nocookie.com geladen, das das Video ohne Werbecookies ausliefert; YouTube kann dann speichern, was zur Wiedergabe und zur Zählung des Aufrufs nötig ist. Auf Wiedergabe zu drücken ist Ihre eigene Entscheidung.",
+      "Im Eröffnungsbereich der Startseite läuft im Hintergrund ein bei YouTube gehostetes Video, auf Bildschirmen ab 768 Pixel Breite und sofern Ihr Gerät nicht um reduzierte Bewegung bittet. Es startet beim Laden der Seite von selbst, stumm, von youtube-nocookie.com, das es ohne Werbe-Cookies ausliefert. Dabei verbindet sich Ihr Browser mit Google (YouTube): Google erhält Ihre IP-Adresse und technische Angaben zu Ihrem Browser, und YouTube kann speichern, was es zum Abspielen und zum Zählen des Aufrufs braucht. Auf kleineren Bildschirmen wird stattdessen ein Foto gezeigt, und dafür wird nichts von YouTube geladen. Der Marketingbereich enthält Videos, die bei YouTube gehostet werden. Der Player selbst wird erst geladen, wenn Sie auf Wiedergabe drücken, sodass vorher kein YouTube-Skript ausgeführt und kein Speicher Dritter auf Ihrem Gerät gesetzt wird. Das Standbild, das Sie zuvor sehen, ist das Vorschaubild des Videos selbst, das beim Erscheinen dieses Seitenbereichs vom Bildhost von Google (i.ytimg.com) angefordert wird: Diese Anfrage setzt keine Cookies, teilt Google aber mit, dass ein Browser diese Seite geladen hat, einschließlich Ihrer IP-Adresse. Wenn Sie auf Wiedergabe drücken, wird der Player von youtube-nocookie.com geladen, das das Video ohne Werbecookies ausliefert; YouTube kann dann speichern, was zur Wiedergabe und zur Zählung des Aufrufs nötig ist. Auf Wiedergabe zu drücken ist Ihre eigene Entscheidung.",
     previewHead: "Live-Vorschau von Kundenwebsites",
     previewBody:
       "In einer Fallstudie können Sie die echte Website des Kunden in einem Rahmen auf der Seite öffnen. Vorher wird nichts geladen. Drücken Sie den Knopf, verbindet sich Ihr Browser unmittelbar mit dieser Website, genau als hätten Sie ihre Adresse eingegeben: sie erhält Ihre IP-Adresse, kann eigene Cookies setzen, und was sie damit tut, richtet sich nach ihrer eigenen Erklärung, nicht nach unserer. Das Bild, das Sie vorher sehen, kommt von dieser Seite und verbindet sich mit niemandem.",
