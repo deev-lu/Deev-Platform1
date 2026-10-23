@@ -36,8 +36,8 @@ accent type), real photography in full bleed or square corners, graded with
 `.m-grade`.
 
 Navbar (with phone number and a Contact button) → Hero (full-bleed photo) →
-HomeClients (a marquee of clients: real logos, and names set as wordmarks for
-clients whose logo file we do not have yet — `WORDMARKS` in HomeClients.tsx)
+HomeClients (a marquee of real client logos only; the list and each logo's
+filter live in `clients` in ClientLogos.tsx — a new client comes with its file)
 → HomeDisciplines (01, three cards with plates) → HomeWorkshops (02,
 workshops & consulting sold as a service of their own — the entry to most
 projects; every claim repeats the AI page) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each

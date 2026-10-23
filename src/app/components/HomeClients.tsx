@@ -4,72 +4,35 @@ import { clients } from "./ClientLogos";
 /**
  * Die Kundenreihe direkt unter dem Hero, seit dem 23.10.2026 als Laufband.
  *
- * Echte Logos, wo wir die Datei haben (dieselben Dateien und Filter wie
- * ClientLogos, dort ist geklaert, welche Datei welchen Filter braucht). Fuer
- * Kunden ohne Logodatei steht ihr Name als Wortmarke in einheitlicher Schrift,
- * bis die Datei da ist: dann wandert der Eintrag von WORDMARKS nach
- * ClientLogos. Nur echte Kunden - Projekte aus dem Portfolio und die, die der
- * Inhaber nennt.
+ * Nur echte Logos aus ClientLogos (dort ist geklaert, welche Datei welchen
+ * Filter braucht). Nur echte Kunden; ein neuer Kunde kommt mit seiner
+ * Logodatei dort hinein, nicht als Name hier.
  *
  * Bewegung: ab 768px laeuft das Band (CSS, `.m-ticker`-Prinzip, pausiert beim
  * Darueberfahren); darunter laesst es sich wischen, nach den Leistungsregeln
  * laeuft auf dem Telefon nichts dauerhaft. Reduzierte Bewegung: steht.
  */
 
-/** Clients without a logo file yet. Real names only. */
-const WORDMARKS = [
-  "F.I.T. Fachinstitut für Tierheilkunde",
-  "Loredana Candles & Co",
-  "UCClervaux",
-  "Vino Amore",
-  "Supa Saya Gin",
-  "Aurora Experience",
-  "Laser Center",
-  "Geoplus 3D",
-];
+type Client = (typeof clients)[number];
 
-type Item = { kind: "logo"; c: (typeof clients)[number] } | { kind: "name"; name: string };
+/** Tall marks (taller than wide) get more height so they read as large as the wide ones. */
+const tall = (c: Client) => c.h > c.w * 0.9;
 
-/** Alternate logos and wordmarks so neither clumps. */
-function interleave(): Item[] {
-  const a: Item[] = clients.map((c) => ({ kind: "logo", c }));
-  const b: Item[] = WORDMARKS.map((name) => ({ kind: "name", name }));
-  const out: Item[] = [];
-  for (let i = 0; i < Math.max(a.length, b.length); i++) {
-    if (a[i]) out.push(a[i]);
-    if (b[i]) out.push(b[i]);
-  }
-  return out;
-}
-
-function Run({ items, hidden }: { items: Item[]; hidden?: boolean }) {
+function Run({ hidden }: { hidden?: boolean }) {
   return (
     <ul className="flex items-center shrink-0 m-0 p-0" aria-hidden={hidden || undefined}>
-      {items.map((it) => (
-        <li
-          key={it.kind === "logo" ? it.c.name : it.name}
-          className="shrink-0 flex items-center justify-center h-16 px-8 md:px-11 snap-start"
-          title={it.kind === "logo" ? it.c.name : it.name}
-        >
-          {it.kind === "logo" ? (
-            <img
-              src={it.c.src}
-              alt={hidden ? "" : it.c.name}
-              width={it.c.w}
-              height={it.c.h}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-              className={`h-8 md:h-10 w-auto max-w-[130px] md:max-w-[150px] object-contain opacity-60 dark:opacity-70 ${it.c.filter}`}
-            />
-          ) : (
-            <span
-              className="font-brand whitespace-nowrap text-[var(--text-hi)] opacity-55 dark:opacity-65"
-              style={{ fontSize: "1.0625rem", letterSpacing: "-0.01em" }}
-            >
-              {it.name}
-            </span>
-          )}
+      {clients.map((c) => (
+        <li key={c.name} className="shrink-0 flex items-center justify-center h-16 px-8 md:px-11 snap-start" title={c.name}>
+          <img
+            src={c.src}
+            alt={hidden ? "" : c.name}
+            width={c.w}
+            height={c.h}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            className={`${tall(c) ? "h-12 md:h-14" : "h-8 md:h-10"} w-auto max-w-[130px] md:max-w-[150px] object-contain opacity-60 dark:opacity-70 ${c.filter}`}
+          />
         </li>
       ))}
     </ul>
@@ -78,7 +41,6 @@ function Run({ items, hidden }: { items: Item[]; hidden?: boolean }) {
 
 export default function HomeClients() {
   const t = useT();
-  const items = interleave();
 
   return (
     <section aria-label={t.home.clients.label} className="bg-[var(--surface-0)] border-b border-[var(--line)] py-8 md:py-10">
@@ -101,8 +63,8 @@ export default function HomeClients() {
         }}
       >
         <div className="m-marquee-track flex w-max">
-          <Run items={items} />
-          <Run items={items} hidden />
+          <Run />
+          <Run hidden />
         </div>
       </div>
     </section>

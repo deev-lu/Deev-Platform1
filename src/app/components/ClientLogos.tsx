@@ -7,6 +7,12 @@ import mellys      from "../../assets/clients/mellys.png";
 import netclean    from "../../assets/clients/netclean.png";
 import picadilly   from "../../assets/clients/picadilly.png";
 import stoffel     from "../../assets/clients/stoffel.png";
+import fit         from "../../assets/clients/fit.png";
+import loredana    from "../../assets/clients/loredana-candles.png";
+import ucclervaux  from "../../assets/clients/ucclervaux.png";
+import vinoamore   from "../../assets/clients/vino-amore.png";
+import supasaya    from "../../assets/clients/supa-saya-gin.png";
+import geoplus     from "../../assets/clients/geoplus3d.png";
 
 /**
  * Logos are single-tone silhouettes: black on light, white on dark. That is
@@ -25,16 +31,27 @@ import stoffel     from "../../assets/clients/stoffel.png";
  * Group Real Estate mark, and the strip was showing it labelled Oscar's Bar.
  * Rather than caption someone else's logo with the wrong name, it is out
  * until we know whose it is and whether they belong on the wall.
+ *
+ * The six added on 23 Oct 2026 came from the owner. GeoPlus3D arrived on an
+ * opaque white ground, which a silhouette filter turns into a black slab, so
+ * its white was keyed out to alpha before committing. The rest are cut-outs.
+ * Order alternates wide marks with tall ones so the strip keeps a rhythm.
  */
 /** Black silhouette on light, white silhouette on dark. */
 const MONO = "brightness-0 dark:brightness-0 dark:invert";
 
 export const clients = [
   { name: "Bureau Immobilier Feltes", src: feltes, filter: MONO, w: 280, h: 150 },
-  { name: "Melly's", src: mellys, filter: "grayscale invert dark:grayscale-0 dark:invert-0", w: 280, h: 91 },
-  { name: "Net & Clean", src: netclean, filter: MONO, w: 280, h: 103 },
-  { name: "Picadilly", src: picadilly, filter: MONO, w: 280, h: 144 },
+  { name: "F.I.T. Fachinstitut für Tierheilkunde", src: fit, filter: MONO, w: 400, h: 149 },
   { name: "Stoffel Immobilier", src: stoffel, filter: MONO, w: 186, h: 280 },
+  { name: "Loredana Candles & Co", src: loredana, filter: MONO, w: 330, h: 124 },
+  { name: "Cliärrwer Geschäftslekt (UCClervaux)", src: ucclervaux, filter: MONO, w: 121, h: 151 },
+  { name: "Net & Clean", src: netclean, filter: MONO, w: 280, h: 103 },
+  { name: "Vino Amore", src: vinoamore, filter: MONO, w: 180, h: 154 },
+  { name: "Melly's", src: mellys, filter: "grayscale invert dark:grayscale-0 dark:invert-0", w: 280, h: 91 },
+  { name: "Supa Saya Gin", src: supasaya, filter: MONO, w: 65, h: 160 },
+  { name: "GeoPlus3D", src: geoplus, filter: MONO, w: 347, h: 82 },
+  { name: "Picadilly", src: picadilly, filter: MONO, w: 280, h: 144 },
 ];
 
 function LogoGroup({ ariaHidden }: { ariaHidden?: boolean }) {
