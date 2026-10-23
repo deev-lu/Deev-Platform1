@@ -7,7 +7,6 @@ import mellys      from "../../assets/clients/mellys.png";
 import netclean    from "../../assets/clients/netclean.png";
 import picadilly   from "../../assets/clients/picadilly.png";
 import stoffel     from "../../assets/clients/stoffel.png";
-import fit         from "../../assets/clients/fit.png";
 import loredana    from "../../assets/clients/loredana-candles.png";
 import ucclervaux  from "../../assets/clients/ucclervaux.png";
 import vinoamore   from "../../assets/clients/vino-amore.png";
@@ -33,8 +32,8 @@ import mbm         from "../../assets/clients/mbm.svg";
  * mark under the wrong name and was kept off the wall until the owner
  * confirmed MBM as a client.
  *
- * The six added on 23 Oct 2026 came from the owner. GeoPlus3D arrived on an
- * opaque white ground, which a silhouette filter turns into a black slab, so
+ * Five came from the owner on 23 Oct 2026 (a sixth, F.I.T., was taken off
+ * again at the owner's request). GeoPlus3D arrived on an opaque white ground, which a silhouette filter turns into a black slab, so
  * its white was keyed out to alpha before committing. The rest are cut-outs.
  * Order alternates wide marks with tall ones so the strip keeps a rhythm.
  */
@@ -43,7 +42,6 @@ const MONO = "brightness-0 dark:brightness-0 dark:invert";
 
 export const clients = [
   { name: "Bureau Immobilier Feltes", src: feltes, filter: MONO, w: 280, h: 150 },
-  { name: "F.I.T. Fachinstitut für Tierheilkunde", src: fit, filter: MONO, w: 400, h: 149 },
   { name: "Stoffel Immobilier", src: stoffel, filter: MONO, w: 186, h: 280 },
   { name: "Loredana Candles & Co", src: loredana, filter: MONO, w: 330, h: 124 },
   { name: "Cliärrwer Geschäftslekt (UCClervaux)", src: ucclervaux, filter: MONO, w: 121, h: 151 },
