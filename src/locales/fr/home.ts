@@ -41,6 +41,8 @@ export const home: typeof En = {
     lead: "Logiciels sur mesure, IA et plateformes de données pour les organisations aux ambitions sérieuses. Et, pour quelques-unes, des sites web conçus à la hauteur de la marque qu’ils représentent.",
     primary: "Demander un échange gratuit",
     film: "Voir l’IA à l’œuvre",
+    reviews: (rating: string, count: number) => `${rating} · ${count} avis Google`,
+    reviewsAria: (rating: string, count: number) => `Noté ${rating} sur 5 d’après ${count} avis Google`,
     specs: ["Conçu au Luxembourg", "Hébergement UE ou sur site", "Design et ingénierie en interne"],
     visual: {
       illustrative: "Exemple",

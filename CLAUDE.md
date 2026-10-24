@@ -163,6 +163,11 @@ If you change the default, change it in **both** `index.html` and `App.tsx`.
   and his photo appears; until then his card shows his initials, a
   typographic placeholder rather than a stand-in face. The homepage company
   section (06) links to it ("Meet the team").
+- **Google rating in the hero** (`HeroReviews` in Hero.tsx): stars, the
+  average and the review count, linking to the Google profile. Shown only
+  once `GOOGLE_REVIEWS` in `src/lib/reviews.ts` holds the real figures from
+  the owner's Google Business Profile; never estimated. Static, so update it
+  when the rating changes.
 - Testimonials: not built. Only add **real** client quotes — never write
   placeholder testimonials with real names attached.
 
