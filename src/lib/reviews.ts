@@ -21,4 +21,9 @@ export interface GoogleReviews {
   asOf: string;
 }
 
-export const GOOGLE_REVIEWS: GoogleReviews | null = null;
+export const GOOGLE_REVIEWS: GoogleReviews | null = {
+  rating: 5,
+  count: 9,
+  url: "https://share.google/zkPrjH3vHyumhLKxb",
+  asOf: "2026-10-24",
+};
