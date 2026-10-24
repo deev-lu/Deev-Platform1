@@ -5,7 +5,6 @@ import { Menu, X, Sun, Moon, Phone } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
-import { TEAM_READY } from "../../lib/team";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
 import { stripLocale } from "../../lib/i18n";
@@ -16,12 +15,16 @@ import { ChevronDown } from "lucide-react";
 
 interface NavbarProps {}
 
-/** The drawer's flat list. #about only exists while both founder portraits do.
- *  Desktop navigation lives in MegaMenu; this is the phone. */
+/** The drawer's flat list. Desktop navigation lives in MegaMenu; this is the
+ *  phone. "About" is a page of its own since 24 Oct 2026, so it sits here and
+ *  is left out of the services accordion below. */
 const DRAWER_LINKS = [
-  { key: "work" as const,    href: "/work" },
-  { key: "journal" as const, href: "/blog" },
-  { key: "contact" as const, href: "/contact" },
+  { key: "workshops" as const, href: "/workshops" },
+  { key: "funding" as const,   href: "/sme-packages" },
+  { key: "work" as const,      href: "/work" },
+  { key: "about" as const,     href: "/about" },
+  { key: "journal" as const,   href: "/blog" },
+  { key: "contact" as const,   href: "/contact" },
 ];
 
 /** The same sections the Services panel holds, as an accordion on a phone.
@@ -29,7 +32,7 @@ const DRAWER_LINKS = [
 const DRAWER_SECTIONS = Object.values(SERVICE_GROUPS)
   .flat()
   .map((key) => ({ key, href: SERVICE_HREF[key] }))
-  .filter((l) => l.href !== "#about" || TEAM_READY);
+  .filter((l) => l.href !== "/about");
 
 interface NavbarProps {
   theme?: "light" | "dark";
@@ -175,18 +178,13 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               <span className="hidden xl:inline">{WHATSAPP_DISPLAY}</span>
             </a>
 
-            {/* Kontakt */}
+            {/* Ein Hauptknopf, ueberall derselbe (seit dem 24.10.2026): das
+                kostenlose Erstgespraech. Der Preisrechner bleibt ueber die
+                Leistungsseiten und den Footer erreichbar; "Kontakt" steht
+                bereits als Textlink in der Navigation. */}
             <L
-              to="/contact"
-              className="hidden lg:inline-flex items-center h-9 px-4 rounded-full border border-[var(--line-strong)] text-sm font-semibold text-[var(--text-hi)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
-            >
-              {t.site.nav.contact}
-            </L>
-
-            {/* CTA */}
-            <L
-              to="/project"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px "
+              to="/contact?interest=call"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px "
               style={{ background: "var(--signal)" }}
             >
               {t.site.nav.cta}
@@ -269,7 +267,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               ))}
 
               <L
-                to="/project"
+                to="/contact?interest=call"
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90 text-center"
                 style={{ background: "var(--signal)" }}

@@ -20,14 +20,21 @@ import "./styles/index.css";
 
 export function render(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    let html = "";
+    // Collect bytes and decode once: decoding chunk by chunk breaks any
+    // multi-byte character that straddles a chunk boundary. NUL bytes are
+    // dropped: when a multi-byte character does not fit the end of React's
+    // 2KB write buffer, React 18.3 flushes the buffer with the unused bytes
+    // still zero, and browsers show them as "\uFFFD" (the contact form's
+    // placeholder read "timeline\uFFFD\uFFFD…"). No character is lost, the
+    // padding is only extra, and a NUL never belongs in an HTML document.
+    const chunks: Buffer[] = [];
     const sink = new Writable({
       write(chunk, _enc, cb) {
-        html += chunk.toString();
+        chunks.push(Buffer.from(chunk));
         cb();
       },
     });
-    sink.on("finish", () => resolve(html));
+    sink.on("finish", () => resolve(Buffer.concat(chunks).toString("utf8").replace(/\0/g, "")));
 
     const stream = renderToPipeableStream(
       <StaticRouter location={url}>

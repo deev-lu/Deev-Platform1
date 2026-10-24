@@ -45,7 +45,7 @@ export const home = {
     lines: ["We build the", "systems your", "business"],
     accent: "runs on.",
     lead: "Custom software, AI and data platforms for organisations with serious ambitions. And, for a select few, websites designed to the standard of the brand behind them.",
-    primary: "Start a project",
+    primary: "Request a free intro call",
     film: "Watch AI at work",
     specs: ["Built in Luxembourg", "EU or on-premise hosting", "Design and engineering in-house"],
     visual: {
@@ -161,7 +161,7 @@ export const home = {
     proofLabel: "A recent concept",
     proof:
       "For a Luxembourg property-management group: seven business processes mapped end to end, seven bottlenecks individually costed, a thirty-page executive concept.",
-    funding: "Eligible for the SME Packages: the state reimburses up to 70% of eligible costs. Eligibility is decided at the pre-analysis.",
+    funding: "Can qualify for the SME AI package: the state reimburses 70% of eligible costs on a project of €3,000 to €25,000 ex. VAT, so at most €17,500. Eligibility is decided at the pre-analysis.",
     primary: "Book a workshop",
     secondary: "How the workshop runs",
     photoAlt: "The Gëlle Fra in Luxembourg City against a deep blue sky",
@@ -197,6 +197,7 @@ export const home = {
     entity: "DEEV, a brand of Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
     languages: "Lëtzebuergesch · Français · Deutsch · English",
+    teamLink: "Meet the team",
     photoAlt: "Kirchberg, Luxembourg: office towers and the Philharmonie above the painted steps",
   },
 
@@ -694,7 +695,7 @@ export const home = {
     body2:
       "A small studio in Luxembourg with a team behind it. That is deliberate: fewer projects, run properly, by the people whose names are on them.",
     cta: "Talk to us directly",
-    role: "Founder & CEO",
+    role: "Co-founder",
     photoAlt: (name: string, role: string) => `${name}, ${role} at DEEV`,
   },
 

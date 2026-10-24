@@ -168,7 +168,7 @@ export const pages: typeof En = {
     grant: {
       badge: "70% financés",
       body:
-        "Les PME luxembourgeoises récupèrent 70% sur les sites web, applications web, projets IA et le marketing associé via les programmes SME Digital et SME AI. Signalez-le et nous structurerons votre projet pour maximiser l'aide.",
+        "Via les SME Packages Digital et AI, l'État rembourse aux PME luxembourgeoises 70 % des coûts éligibles, au maximum 17 500 € par projet. Signalez-le et nous cadrerons le projet pour qu'il corresponde au programme.",
       cta: "Estimer votre prix net",
     },
     details: {
@@ -190,18 +190,23 @@ export const pages: typeof En = {
       interest: "Comment pouvons-nous vous aider ?",
       message: "Message",
       messagePlaceholder: "Parlez-nous de votre projet, de vos objectifs et de vos délais…",
+      callback: "Rappelez-moi plutôt que de répondre par e-mail",
       submit: "Envoyer le message",
       submitting: "Envoi…",
-      consent: "Nous utilisons les informations que vous nous transmettez afin de traiter votre demande et de vous contacter à ce sujet. Nous faisons appel à des prestataires pour l'exploitation du site web et le traitement des e-mails.",
+      consent: "Nous utilisons les informations que vous nous transmettez afin de traiter votre demande et de vous contacter à ce sujet. Nous faisons appel à des prestataires pour l'exploitation du site web et le traitement des e-mails. Avec votre message, nous recevons aussi la page depuis laquelle vous l'envoyez et, si vous êtes arrivé par un lien de campagne, le nom de cette campagne.",
       consentLink: "Plus d'informations dans notre politique de confidentialité.",
       errorLead: "Nous n'avons pas pu envoyer le formulaire pour le moment.",
       errorAction: "Envoyez-le par e-mail",
     },
+    // Same order in every language: Contact.tsx maps ?interest=<key> by position.
     interests: [
       "Demande générale",
-      "Nouveau site web",
-      "Application web / plateforme SaaS",
+      "Premier échange gratuit",
+      "Atelier / conseil",
       "Projet IA / automatisation",
+      "Logiciel sur mesure / application web",
+      "SME Package / financement",
+      "Nouveau site web",
       "Campagnes de prospection / marketing",
       "Autre",
     ],
@@ -211,5 +216,57 @@ export const pages: typeof En = {
         `Merci${firstName ? ` ${firstName}` : ""}. Nous avons enregistré votre demande et reviendrons vers vous sous un jour ouvré.`,
       cta: "Retour à l'accueil",
     },
+  },
+
+  /** /workshops: the workshop as its own page and the way into most projects.
+   *  Only what home.workshops, home.ai and the workshop article already claim;
+   *  no price and no duration, those belong in the conversation. */
+  workshopsPage: {
+    formatsLabel: "Trois façons de commencer",
+    methodLabel: "Comment se déroule l'atelier",
+    methodTitle: "De l'endroit où le travail bloque. À un plan daté.",
+    deliverablesLabel: "Ce que vous emportez",
+    deliverablesTitle: "Un document présentable à un conseil d'administration.",
+    deliverables: ["Chaque goulet d'étranglement identifié et chiffré individuellement", "Une architecture posée sur les systèmes existants", "Une feuille de route par phases précisant ce qui est livré à chaque étape", "Les coûts éligibles et le parcours de subvention cartographiés par phase"],
+    honest: "Si la conclusion est que l'IA n'est pas rentable pour un processus donné, elle figure aussi dans le document, et elle vaut le même prix qu'un oui.",
+    faqLabel: "Questions",
+    faq: [
+      { q: "Qui doit participer ?", a: "Les personnes qui font tourner les processus, pas seulement la direction. Celle qui vit un flux au quotidien sait quelle étape tout le monde contourne en silence, et c'est rarement celle de l'organigramme." },
+      { q: "Où se déroule-t-il ?", a: "Sur site, avec votre équipe opérationnelle. Nous parcourons chaque flux avec la personne qui le vit et notons où il bloque." },
+      { q: "Et si l'IA n'est pas rentable pour un processus ?", a: "Alors le concept le dit. Cette conclusion figure dans le document, et elle vaut le même prix qu'un oui." },
+      { q: "Peut-il être financé ?", a: "Il peut relever du SME Package AI : l'État rembourse 70 % des coûts éligibles sur un projet de 3 000 à 25 000 € HT. Les travaux commencés avant l'accord ne sont pas couverts, la pré-analyse vient donc en premier." },
+      { q: "Que se passe-t-il après l'atelier ?", a: "Si vous poursuivez, la feuille de route devient le projet. Chaque phase a son propre périmètre, budget et résultat, et la première se termine par quelque chose qui tourne en production." },
+    ],
+    formLabel: "Demander un atelier",
+    formTitle: "Dites-nous où votre travail bloque.",
+    formLead: "Nous répondons sous un jour ouvré pour convenir d'une date et des participants.",
+    processes: "Quels processus vous coûtent le plus de temps ?",
+    processesPlaceholder: "Par exemple factures entrantes, e-mails fournisseurs, contrôle de contrats",
+    submit: "Demander un atelier",
+    bookingCta: "Ou choisissez directement un créneau",
+    successTitle: "Demande reçue.",
+    successBody: "Merci. Nous revenons vers vous sous un jour ouvré pour convenir d'une date.",
+  },
+
+  /** /about: the team and how we work. Names and roles are facts; the
+   *  principles repeat what the rest of the site already promises. */
+  aboutPage: {
+    eyebrow: "À propos",
+    title: "Les personnes derrière DEEV. Et notre façon de travailler.",
+    teamLabel: "L'équipe",
+    teamTitle: "Les personnes avec qui vous travaillerez vraiment.",
+    roles: { founder: "Cofondateur", securityData: "Cybersécurité et données" },
+    principlesLabel: "Notre façon de travailler",
+    principlesTitle: "Cinq principes que nous tenons.",
+    principles: [
+      { title: "Ceux qui cadrent réalisent.", copy: "Pas de passage de relais entre la discussion et la réalisation : ceux qui cadrent votre projet sont ceux qui le réalisent." },
+      { title: "Design et ingénierie en interne.", copy: "Les deux sont réunis dans la même équipe au Luxembourg : le système qu'on vous présente est celui qui est construit." },
+      { title: "Vos données restent là où elles doivent.", copy: "Hébergement dans l'UE, ou sur votre propre infrastructure lorsque les données ne doivent pas en sortir. Les droits d'accès s'appliquent à chaque réponse." },
+      { title: "Les chiffres avant la technologie.", copy: "Chaque goulet est chiffré à partir de vos propres volumes avant toute proposition. Si l'IA n'est pas rentable pour un processus, nous le disons." },
+      { title: "Responsables après la mise en ligne.", copy: "Supervision, maintenance et une équipe qui reste responsable une fois le système en production." },
+    ],
+    factsLabel: "L'entreprise",
+    phone: "Téléphone",
+    email: "E-mail",
   },
 };

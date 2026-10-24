@@ -9,8 +9,10 @@ export const site: typeof En = {
     journal: "Blog",
     whyDeev: "Warum Deev",
     about: "Über uns",
+    workshops: "Workshops",
+    funding: "KMU-Förderung",
     contact: "Kontakt",
-    cta: "Angebot anfordern",
+    cta: "Kostenloses Erstgespräch",
     call: "Anrufen",
     openMenu: "Menü öffnen",
     closeMenu: "Menü schließen",
@@ -22,7 +24,7 @@ export const site: typeof En = {
 
   footer: {
     blurb:
-      "Ein unabhängiges, inhabergeführtes Studio in Luxemburg. Wir bauen digitale Systeme, die Ihr Unternehmen unübersehbar machen.",
+      "Software- und KI-Entwicklung aus Luxemburg. Wir bauen die Systeme, auf denen Ihr Unternehmen läuft, und bleiben nach dem Start verantwortlich.",
     certified: "Zertifiziertes Label",
     certifiedNote: "In Luxemburg entworfen und entwickelt.",
     services: "Leistungen",
@@ -30,10 +32,10 @@ export const site: typeof En = {
     legal: "Rechtliches",
     links: {
       grant: "SME Packages",
-      webApps: "Webanwendungen",
-      aiAgents: "KI-Agenten",
-      ecommerce: "E-Commerce-Systeme",
-      marketingSites: "Marketing-Websites",
+      webApps: "Individualsoftware",
+      aiAgents: "KI und Daten",
+      ecommerce: "Websites, auf Einladung",
+      marketingSites: "Marketing",
       portfolio: "Referenzen",
       terms: "Rechtliche Hinweise",
       privacy: "Datenschutzerklärung",

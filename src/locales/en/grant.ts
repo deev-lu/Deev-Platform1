@@ -28,6 +28,14 @@ export const grant = {
     some: (n: number) =>
       `${n} of 4. Anything unticked would need to change before an application. Tell us which and we will say whether it is workable.`,
     none: "Nothing ticked yet.",
+    sendTitle: "Want this in writing, with the next steps?",
+    sendEmail: "Work email",
+    sendCompany: "Company (optional)",
+    send: "Send me the result",
+    sending: "Sending…",
+    sent: "Sent. We will reply within one business day with the next steps for your company.",
+    sendError: "That did not go through. Write to contact@deev.lu and we will pick it up.",
+    sendNote: "We use your email only to answer this request.",
     caveat:
       "This is an indication, not a decision. Eligibility is confirmed at the pre-analysis appointment, and the Ministry of the Economy decides the application.",
   },

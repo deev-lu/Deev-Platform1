@@ -97,8 +97,11 @@ export default async function handler(req: Request): Promise<Response> {
   if (replyToRaw && !looksLikeEmail(replyToRaw)) {
     return json(422, { success: false, error: "invalid-email" });
   }
+  // Die Herkunftsfelder (lib/leadSource.ts) setzt der Browser selbst; sie
+  // allein machen noch keine Anfrage.
+  const META = ["subject", "from_name", "replyto", "request_id", "sent_from", "landing_page", "came_from", "campaign"];
   const hasContent = Object.entries(payload).some(
-    ([k, v]) => !["subject", "from_name", "replyto", "request_id"].includes(k) && typeof v === "string" && v.trim(),
+    ([k, v]) => !META.includes(k) && typeof v === "string" && v.trim(),
   );
   if (!hasContent) return json(422, { success: false, error: "empty" });
 

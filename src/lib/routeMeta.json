@@ -4,16 +4,16 @@
       "file": "index.html",
       "meta": {
         "en": {
-          "title": "DEEV: AI-Native Digital Agency in Luxembourg",
-          "description": "AI-native web systems, web apps and lead campaigns engineered in Luxembourg to convert, automate and scale. 70% funded by the SME state grant."
+          "title": "DEEV: Custom Software and AI Development in Luxembourg",
+          "description": "Custom software, AI agents and RAG on your own data, built in Luxembourg. Start with a workshop; Luxembourg SMEs can get 70% of eligible costs back."
         },
         "fr": {
-          "title": "DEEV : agence digitale AI-native au Luxembourg",
-          "description": "Systèmes web, applications et campagnes AI-native conçus au Luxembourg pour convertir, automatiser et grandir. 70% financés par l'aide d'État aux PME."
+          "title": "DEEV : logiciel sur mesure et IA au Luxembourg",
+          "description": "Logiciels sur mesure, agents IA et RAG sur vos propres données, conçus au Luxembourg. Commencez par un atelier ; les PME luxembourgeoises peuvent récupérer 70 % des coûts éligibles."
         },
         "de": {
-          "title": "DEEV: AI-native Digitalagentur in Luxemburg",
-          "description": "AI-native Websysteme, Webanwendungen und Lead-Kampagnen, entwickelt in Luxemburg für Conversion, Automatisierung und Wachstum. 70% staatlich gefördert."
+          "title": "DEEV: Individualsoftware und KI-Entwicklung in Luxemburg",
+          "description": "Individualsoftware, KI-Agenten und RAG auf Ihren eigenen Daten, entwickelt in Luxemburg. Starten Sie mit einem Workshop; Luxemburger KMU erhalten 70 % der förderfähigen Kosten zurück."
         }
       }
     },
@@ -116,6 +116,40 @@
         "de": {
           "title": "SME Packages Luxemburg: 70 % gefördert, bis zu 17.500 € | DEEV",
           "description": "Luxemburgische KMU erhalten 70 % eines förderfähigen Digital- oder KI-Projekts über die SME Packages zurück, bis zu 17.500 €. Was zählt, die sechs Schritte und Ihre Nettokosten."
+        }
+      }
+    },
+    "/workshops": {
+      "file": "workshops.html",
+      "meta": {
+        "en": {
+          "title": "AI and software workshops in Luxembourg | DEEV",
+          "description": "A discovery workshop on site with your operations team: every bottleneck costed from your own volumes, an architecture on your existing systems and a phased roadmap. Can qualify for the SME AI package."
+        },
+        "fr": {
+          "title": "Ateliers IA et logiciel au Luxembourg | DEEV",
+          "description": "Un atelier de découverte sur site avec votre équipe opérationnelle : chaque goulet chiffré à partir de vos volumes, une architecture sur vos systèmes existants et une feuille de route par phases. Peut relever du SME Package AI."
+        },
+        "de": {
+          "title": "KI- und Software-Workshops in Luxemburg | DEEV",
+          "description": "Ein Discovery-Workshop vor Ort mit Ihrem operativen Team: jeder Engpass aus Ihren eigenen Mengen beziffert, eine Architektur auf Ihren bestehenden Systemen und ein Fahrplan in Phasen. Kann über das SME Package AI gefördert werden."
+        }
+      }
+    },
+    "/about": {
+      "file": "about.html",
+      "meta": {
+        "en": {
+          "title": "About DEEV: the team behind the software | DEEV",
+          "description": "Who we are: Fabio Falchero and Sven Kettel, co-founders, and Noah Stelmes for cybersecurity and data. A software and AI company in Luxembourg, and how we work."
+        },
+        "fr": {
+          "title": "À propos de DEEV : l'équipe | DEEV",
+          "description": "Qui nous sommes : Fabio Falchero et Sven Kettel, cofondateurs, et Noah Stelmes pour la cybersécurité et les données. Une entreprise de logiciel et d'IA au Luxembourg, et notre façon de travailler."
+        },
+        "de": {
+          "title": "Über DEEV: das Team | DEEV",
+          "description": "Wer wir sind: Fabio Falchero und Sven Kettel, Mitgründer, und Noah Stelmes für Cybersecurity und Daten. Ein Software- und KI-Unternehmen in Luxemburg, und wie wir arbeiten."
         }
       }
     },

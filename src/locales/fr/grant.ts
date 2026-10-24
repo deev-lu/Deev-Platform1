@@ -27,6 +27,14 @@ export const grant = {
     some: (n) =>
       `${n} sur 4. Ce qui n'est pas coché devrait changer avant une demande. Dites-nous lequel et nous vous dirons si c'est jouable.`,
     none: "Rien de coché pour l'instant.",
+    sendTitle: "Vous voulez ce résultat par écrit, avec les prochaines étapes ?",
+    sendEmail: "E-mail professionnel",
+    sendCompany: "Entreprise (facultatif)",
+    send: "Recevoir le résultat",
+    sending: "Envoi…",
+    sent: "Envoyé. Nous répondons sous un jour ouvré avec les prochaines étapes pour votre entreprise.",
+    sendError: "L'envoi n'a pas abouti. Écrivez à contact@deev.lu et nous prendrons le relais.",
+    sendNote: "Nous utilisons votre e-mail uniquement pour répondre à cette demande.",
     caveat:
       "Ceci est une indication, pas une décision. L'éligibilité est confirmée lors du rendez-vous de pré-analyse, et c'est le ministère de l'Économie qui tranche la demande.",
   },

@@ -1,5 +1,302 @@
 [
   {
+    "slug": "ai-in-property-management",
+    "date": "2026-10-24",
+    "minutes": 5,
+    "topic": "ai",
+    "en": {
+      "title": "AI in property management: where to look first",
+      "excerpt": "Property management runs on documents, requests and deadlines. That is where AI earns its keep, and where a badly scoped pilot quietly dies. Here is where we look first.",
+      "body": [
+        {
+          "p": "Property management is a business of documents and deadlines: leases, contractor invoices, minutes of owners' meetings, tenant requests by email and phone, indexations and renewals that must not slip. Much of that work is reading, checking and carrying information from one system to another. It is the kind of work AI now does well, under supervision."
+        },
+        {
+          "h": "Start from where the work waits"
+        },
+        {
+          "p": "When we ran a discovery workshop for a Luxembourg property-management group, we mapped seven business processes end to end before talking about any technology. The useful question is never where AI could be used, but where work sits waiting for someone. Waiting is usually the expensive part, and it is rarely what anyone names first."
+        },
+        {
+          "h": "Four places we look first"
+        },
+        {
+          "list": [
+            "Incoming invoices from contractors and suppliers: read, matched to the building and the job, checked against what was agreed, and only then sent for approval.",
+            "Tenant and owner requests: sorted on arrival, routed to the right person with the lease and the history attached, and answered from your own documents where the answer is already written down.",
+            "Leases and their deadlines: notice periods, indexation dates and renewals read out of the contracts and turned into tasks before they become emergencies.",
+            "Questions about your own documents: a search over leases, house rules and minutes that answers with the passage it came from, and only from documents the person may open."
+          ]
+        },
+        {
+          "h": "People stay where it matters"
+        },
+        {
+          "p": "None of this means letting a model pay invoices or write to an owner on its own. Every step that cannot be undone waits for a person to approve it, and every step is logged. The person reviews a prepared case instead of assembling it."
+        },
+        {
+          "h": "Your systems stay"
+        },
+        {
+          "p": "Most property managers already run a management system, accounting and email. We do not replace them. The AI layer sits on top, reads from them and writes back to them, so adoption can be gradual instead of a migration."
+        },
+        {
+          "h": "What to do first"
+        },
+        {
+          "p": "Sit down with the people who handle these flows every day, cost each bottleneck from your own volumes, and start with the one that pays first. For a Luxembourg SME this can qualify for the SME AI package, which reimburses 70% of eligible costs on a project of €3,000 to €25,000 ex. VAT. If the arithmetic says a process is not worth automating, that is a result too."
+        }
+      ]
+    },
+    "fr": {
+      "title": "L'IA dans la gestion immobilière : par où commencer",
+      "excerpt": "La gestion immobilière vit de documents, de demandes et d'échéances. C'est là que l'IA est rentable, et là qu'un pilote mal cadré s'éteint sans bruit. Voici où nous regardons en premier.",
+      "body": [
+        {
+          "p": "La gestion immobilière est un métier de documents et d'échéances : baux, factures d'artisans, procès-verbaux d'assemblées de copropriétaires, demandes de locataires par e-mail et par téléphone, indexations et renouvellements qui ne doivent pas glisser. Une grande partie de ce travail consiste à lire, vérifier et reporter des informations d'un système à l'autre. C'est précisément le type de travail que l'IA fait bien aujourd'hui, sous supervision."
+        },
+        {
+          "h": "Partir de l'endroit où le travail attend"
+        },
+        {
+          "p": "Lors d'un atelier de découverte pour un groupe luxembourgeois de gestion immobilière, nous avons cartographié sept processus métier de bout en bout avant de parler de la moindre technologie. La bonne question n'est jamais de savoir où l'on pourrait utiliser l'IA, mais où le travail attend quelqu'un. L'attente est généralement ce qui coûte cher, et c'est rarement ce que l'on cite en premier."
+        },
+        {
+          "h": "Quatre endroits où nous regardons d'abord"
+        },
+        {
+          "list": [
+            "Les factures entrantes d'artisans et de fournisseurs : lues, rattachées à l'immeuble et à l'intervention, comparées à ce qui avait été convenu, et seulement ensuite soumises à validation.",
+            "Les demandes de locataires et de propriétaires : triées à l'arrivée, transmises à la bonne personne avec le bail et l'historique, et traitées à partir de vos propres documents lorsque la réponse y figure déjà.",
+            "Les baux et leurs échéances : préavis, dates d'indexation et renouvellements extraits des contrats et transformés en tâches avant de devenir des urgences.",
+            "Les questions sur vos propres documents : une recherche dans les baux, règlements et procès-verbaux qui répond avec le passage d'origine, et uniquement à partir des documents que la personne a le droit d'ouvrir."
+          ]
+        },
+        {
+          "h": "L'humain reste là où cela compte"
+        },
+        {
+          "p": "Rien de tout cela ne consiste à laisser un modèle payer des factures ou écrire seul à un propriétaire. Chaque étape irréversible attend la validation d'une personne, et chaque étape est journalisée. La personne vérifie un dossier préparé au lieu de le constituer."
+        },
+        {
+          "h": "Vos systèmes restent en place"
+        },
+        {
+          "p": "La plupart des gestionnaires utilisent déjà un logiciel de gestion, une comptabilité et une messagerie. Nous ne les remplaçons pas. La couche d'IA se pose par-dessus, lit dans ces systèmes et y réécrit, ce qui permet une adoption progressive plutôt qu'une migration."
+        },
+        {
+          "h": "Par quoi commencer"
+        },
+        {
+          "p": "Asseyez-vous avec les personnes qui traitent ces flux chaque jour, chiffrez chaque goulet à partir de vos propres volumes, et commencez par celui qui rapporte en premier. Pour une PME luxembourgeoise, cela peut relever du SME Package AI, qui rembourse 70 % des coûts éligibles sur un projet de 3 000 à 25 000 € HT. Si le calcul montre qu'un processus ne vaut pas la peine d'être automatisé, c'est aussi un résultat."
+        }
+      ]
+    },
+    "de": {
+      "title": "KI in der Immobilienverwaltung: wo man zuerst hinschaut",
+      "excerpt": "Immobilienverwaltung lebt von Dokumenten, Anfragen und Fristen. Genau dort rechnet sich KI, und genau dort stirbt ein schlecht geschnittenes Pilotprojekt leise. Hier schauen wir zuerst hin.",
+      "body": [
+        {
+          "p": "Immobilienverwaltung ist ein Geschäft aus Dokumenten und Fristen: Mietverträge, Handwerkerrechnungen, Protokolle von Eigentümerversammlungen, Mieteranfragen per E-Mail und Telefon, Indexierungen und Verlängerungen, die nicht durchrutschen dürfen. Ein großer Teil dieser Arbeit besteht darin, zu lesen, zu prüfen und Informationen von einem System ins nächste zu tragen. Genau diese Arbeit erledigt KI heute gut, unter Aufsicht."
+        },
+        {
+          "h": "Dort anfangen, wo die Arbeit wartet"
+        },
+        {
+          "p": "Als wir für eine Luxemburger Immobilienverwaltungsgruppe einen Discovery-Workshop durchgeführt haben, haben wir sieben Geschäftsprozesse von Anfang bis Ende kartiert, bevor überhaupt über Technik gesprochen wurde. Die nützliche Frage ist nie, wo man KI einsetzen könnte, sondern wo Arbeit auf jemanden wartet. Das Warten ist meist der teure Teil, und es wird selten zuerst genannt."
+        },
+        {
+          "h": "Vier Stellen, an denen wir zuerst hinschauen"
+        },
+        {
+          "list": [
+            "Eingangsrechnungen von Handwerkern und Lieferanten: gelesen, dem Gebäude und dem Auftrag zugeordnet, mit dem Vereinbarten abgeglichen und erst dann zur Freigabe weitergegeben.",
+            "Anfragen von Mietern und Eigentümern: beim Eingang sortiert, mit Mietvertrag und Vorgeschichte an die richtige Person geleitet und aus Ihren eigenen Unterlagen beantwortet, wo die Antwort schon steht.",
+            "Mietverträge und ihre Fristen: Kündigungsfristen, Indexierungstermine und Verlängerungen aus den Verträgen gelesen und zu Aufgaben gemacht, bevor sie zu Notfällen werden.",
+            "Fragen zu Ihren eigenen Dokumenten: eine Suche über Mietverträge, Hausordnungen und Protokolle, die mit der Fundstelle antwortet, und nur aus Dokumenten, die die Person öffnen darf."
+          ]
+        },
+        {
+          "h": "Der Mensch bleibt, wo es zählt"
+        },
+        {
+          "p": "Nichts davon heißt, ein Modell allein Rechnungen bezahlen oder Eigentümern schreiben zu lassen. Jeder Schritt, der sich nicht rückgängig machen lässt, wartet auf die Freigabe eines Menschen, und jeder Schritt wird protokolliert. Die Person prüft einen vorbereiteten Vorgang, statt ihn zusammenzusuchen."
+        },
+        {
+          "h": "Ihre Systeme bleiben"
+        },
+        {
+          "p": "Die meisten Verwaltungen arbeiten bereits mit einer Verwaltungssoftware, einer Buchhaltung und E-Mail. Wir ersetzen sie nicht. Die KI-Schicht liegt darüber, liest aus ihnen und schreibt in sie zurück, sodass die Einführung schrittweise geschehen kann statt als Migration."
+        },
+        {
+          "h": "Womit anfangen"
+        },
+        {
+          "p": "Setzen Sie sich mit den Menschen zusammen, die diese Abläufe jeden Tag erledigen, beziffern Sie jeden Engpass aus Ihren eigenen Mengen, und beginnen Sie mit dem, der sich zuerst rechnet. Für ein Luxemburger KMU kann das über das SME Package AI gefördert werden, das 70 % der förderfähigen Kosten bei einem Projekt von 3.000 bis 25.000 € netto erstattet. Ergibt die Rechnung, dass sich ein Prozess nicht lohnt, ist auch das ein Ergebnis."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "custom-rag-explained",
+    "date": "2026-10-24",
+    "minutes": 5,
+    "topic": "ai",
+    "en": {
+      "title": "Custom RAG, explained: answers from your own documents",
+      "excerpt": "A language model that answers from your contracts, manuals and tickets, cites every source and respects who may read what. What custom RAG is, and what separates one that works from a demo.",
+      "body": [
+        {
+          "p": "Ask a general chatbot about your supplier contracts and it will answer confidently, from nothing. Retrieval-augmented generation, RAG, changes the order. It first finds the passages in your own documents that are relevant, then answers from those only, citing where each statement comes from. When nothing relevant is found, it says so."
+        },
+        {
+          "h": "Why custom matters"
+        },
+        {
+          "p": "Pointing a model at a folder of PDFs makes a convincing demo. Making it reliable enough that people stop double-checking it is engineering. Four things separate the two."
+        },
+        {
+          "h": "Your sources, kept in sync"
+        },
+        {
+          "p": "Knowledge lives in SharePoint, mailboxes, ticket systems, wikis and scanned PDFs. We index the systems you already use and keep the index current as documents change, so an answer does not come from last year's version."
+        },
+        {
+          "h": "Access rights carried through"
+        },
+        {
+          "p": "If a person may not open the board minutes, the assistant must not quote them. Permissions are carried into the search itself, so people only get answers from documents they are allowed to read."
+        },
+        {
+          "h": "Every answer cites its sources"
+        },
+        {
+          "p": "Each statement links back to the passage it came from. The answer becomes something that can be checked in one click, and that is what makes people rely on it in daily work."
+        },
+        {
+          "h": "Measured before launch"
+        },
+        {
+          "p": "Answer quality is tested against a set of your real questions, before go-live and after every change. Without that, nobody can say whether a change made the system better or worse."
+        },
+        {
+          "h": "Where the data lives"
+        },
+        {
+          "p": "Hosting follows the data: in the EU, or on your own infrastructure where the data must not leave. The choice of model stays open, so you are not tied to one provider."
+        },
+        {
+          "h": "Where to start"
+        },
+        {
+          "p": "Pick one body of documents people search every day, collect the questions they actually ask, and build from there. A discovery workshop is the usual first step, and for a Luxembourg SME it can qualify for the SME AI package."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Le RAG sur mesure, expliqué : des réponses tirées de vos propres documents",
+      "excerpt": "Un modèle de langage qui répond à partir de vos contrats, manuels et tickets, cite chaque source et respecte qui peut lire quoi. Ce qu'est un RAG sur mesure, et ce qui distingue celui qui fonctionne d'une démo.",
+      "body": [
+        {
+          "p": "Interrogez un chatbot généraliste sur vos contrats fournisseurs : il répondra avec assurance, à partir de rien. La génération augmentée par récupération, le RAG, inverse l'ordre. Elle trouve d'abord, dans vos propres documents, les passages pertinents, puis répond uniquement à partir de ceux-ci, en citant l'origine de chaque affirmation. Quand rien de pertinent n'est trouvé, elle le dit."
+        },
+        {
+          "h": "Pourquoi le sur-mesure compte"
+        },
+        {
+          "p": "Brancher un modèle sur un dossier de PDF donne une démo convaincante. Le rendre assez fiable pour que l'on cesse de tout revérifier relève de l'ingénierie. Quatre points font la différence."
+        },
+        {
+          "h": "Vos sources, tenues à jour"
+        },
+        {
+          "p": "Le savoir se trouve dans SharePoint, les boîtes mail, les outils de tickets, les wikis et les PDF numérisés. Nous indexons les systèmes que vous utilisez déjà et maintenons l'index à jour au fil des changements, pour qu'une réponse ne vienne pas de la version de l'an dernier."
+        },
+        {
+          "h": "Les droits d'accès respectés"
+        },
+        {
+          "p": "Si une personne n'a pas le droit d'ouvrir les procès-verbaux du conseil, l'assistant ne doit pas les citer. Les droits sont appliqués dans la recherche elle-même : chacun n'obtient des réponses qu'à partir des documents qu'il est autorisé à lire."
+        },
+        {
+          "h": "Chaque réponse cite ses sources"
+        },
+        {
+          "p": "Chaque affirmation renvoie au passage dont elle provient. La réponse se vérifie en un clic, et c'est ce qui permet de s'y fier au quotidien."
+        },
+        {
+          "h": "Mesuré avant la mise en service"
+        },
+        {
+          "p": "La qualité des réponses est testée sur un ensemble de vos vraies questions, avant la mise en service et après chaque modification. Sans cela, personne ne peut dire si un changement a amélioré ou dégradé le système."
+        },
+        {
+          "h": "Où vivent les données"
+        },
+        {
+          "p": "L'hébergement suit les données : dans l'UE, ou sur votre propre infrastructure lorsque les données ne doivent pas en sortir. Le choix du modèle reste ouvert, vous n'êtes donc pas lié à un seul fournisseur."
+        },
+        {
+          "h": "Par où commencer"
+        },
+        {
+          "p": "Choisissez un ensemble de documents que l'on consulte chaque jour, rassemblez les questions réellement posées, et partez de là. Un atelier de découverte est la première étape habituelle, et pour une PME luxembourgeoise il peut relever du SME Package AI."
+        }
+      ]
+    },
+    "de": {
+      "title": "Individuelles RAG erklärt: Antworten aus Ihren eigenen Dokumenten",
+      "excerpt": "Ein Sprachmodell, das aus Ihren Verträgen, Handbüchern und Tickets antwortet, jede Quelle nennt und respektiert, wer was lesen darf. Was individuelles RAG ist und was ein funktionierendes von einer Demo unterscheidet.",
+      "body": [
+        {
+          "p": "Fragen Sie einen allgemeinen Chatbot nach Ihren Lieferantenverträgen, und er antwortet selbstsicher, aus dem Nichts. Retrieval-Augmented Generation, kurz RAG, dreht die Reihenfolge um. Es sucht zuerst die passenden Stellen in Ihren eigenen Dokumenten und antwortet dann nur daraus, mit Angabe, woher jede Aussage stammt. Findet es nichts Passendes, sagt es das."
+        },
+        {
+          "h": "Warum individuell den Unterschied macht"
+        },
+        {
+          "p": "Ein Modell auf einen Ordner voller PDFs zu richten, ergibt eine überzeugende Demo. Es so zuverlässig zu machen, dass niemand mehr alles nachprüft, ist Ingenieursarbeit. Vier Dinge machen den Unterschied."
+        },
+        {
+          "h": "Ihre Quellen, immer aktuell"
+        },
+        {
+          "p": "Wissen steckt in SharePoint, Postfächern, Ticketsystemen, Wikis und gescannten PDFs. Wir indexieren die Systeme, die Sie bereits nutzen, und halten den Index aktuell, wenn sich Dokumente ändern, damit eine Antwort nicht aus der Fassung vom letzten Jahr stammt."
+        },
+        {
+          "h": "Zugriffsrechte, die gelten"
+        },
+        {
+          "p": "Darf jemand die Protokolle des Verwaltungsrats nicht öffnen, darf der Assistent sie auch nicht zitieren. Die Rechte greifen schon in der Suche, sodass jeder nur Antworten aus Dokumenten erhält, die er lesen darf."
+        },
+        {
+          "h": "Jede Antwort nennt ihre Quellen"
+        },
+        {
+          "p": "Jede Aussage verweist auf die Stelle, aus der sie stammt. Die Antwort lässt sich mit einem Klick prüfen, und genau das macht sie im Alltag verlässlich."
+        },
+        {
+          "h": "Gemessen vor dem Start"
+        },
+        {
+          "p": "Die Antwortqualität wird an einer Sammlung Ihrer echten Fragen getestet, vor dem Livegang und nach jeder Änderung. Ohne das kann niemand sagen, ob eine Änderung das System besser oder schlechter gemacht hat."
+        },
+        {
+          "h": "Wo die Daten liegen"
+        },
+        {
+          "p": "Das Hosting folgt den Daten: in der EU oder auf Ihrer eigenen Infrastruktur, wenn die Daten sie nicht verlassen dürfen. Die Wahl des Modells bleibt offen, Sie sind also nicht an einen Anbieter gebunden."
+        },
+        {
+          "h": "Womit anfangen"
+        },
+        {
+          "p": "Wählen Sie einen Dokumentenbestand, in dem jeden Tag gesucht wird, sammeln Sie die Fragen, die tatsächlich gestellt werden, und bauen Sie von dort aus. Ein Discovery-Workshop ist der übliche erste Schritt, und für ein Luxemburger KMU kann er über das SME Package AI gefördert werden."
+        }
+      ]
+    }
+  },
+  {
     "slug": "sme-package-in-plain-numbers",
     "date": "2026-07-14",
     "minutes": 6,

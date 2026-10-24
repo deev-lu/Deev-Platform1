@@ -15,6 +15,8 @@
 // Zustelldienst angenommen. Es heißt nicht „in einem CRM gespeichert" und nicht
 // „im Postfach zugestellt". Siehe docs/CONTENT_GAPS.md.
 
+import { leadSource } from "./leadSource";
+
 export type LeadStatus =
   /** Die Benachrichtigung wurde angenommen. */
   | "accepted"
@@ -76,7 +78,8 @@ export async function sendLead(
         // zweites Mal zu melden.
         "Idempotency-Key": requestId,
       },
-      body: JSON.stringify({ ...fields, request_id: requestId }),
+      // Every form reports where the enquiry came from (page, campaign).
+      body: JSON.stringify({ ...fields, ...leadSource(), request_id: requestId }),
       signal: controller.signal,
     });
 

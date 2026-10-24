@@ -39,7 +39,7 @@ export const home: typeof En = {
     lines: ["Nous construisons", "les systèmes qui", "font tourner votre"],
     accent: "entreprise.",
     lead: "Logiciels sur mesure, IA et plateformes de données pour les organisations aux ambitions sérieuses. Et, pour quelques-unes, des sites web conçus à la hauteur de la marque qu’ils représentent.",
-    primary: "Démarrer un projet",
+    primary: "Demander un échange gratuit",
     film: "Voir l’IA à l’œuvre",
     specs: ["Conçu au Luxembourg", "Hébergement UE ou sur site", "Design et ingénierie en interne"],
     visual: {
@@ -150,7 +150,7 @@ export const home: typeof En = {
     proofLabel: "Un concept récent",
     proof:
       "Pour un groupe luxembourgeois de gestion immobilière : sept processus cartographiés de bout en bout, sept goulots chiffrés un à un, un concept exécutif de trente pages.",
-    funding: "Éligible aux SME Packages : l'État rembourse jusqu'à 70 % des coûts éligibles. L'éligibilité est décidée lors de la pré-analyse.",
+    funding: "Peut relever du SME Package AI : l'État rembourse 70 % des coûts éligibles sur un projet de 3 000 à 25 000 € HT, soit au maximum 17 500 €. L'éligibilité est décidée lors de la pré-analyse.",
     primary: "Réserver un atelier",
     secondary: "Le déroulé de l'atelier",
     photoAlt: "La Gëlle Fra à Luxembourg-Ville sur un ciel bleu profond",
@@ -183,6 +183,7 @@ export const home: typeof En = {
     entity: "DEEV, une marque de Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
     languages: "Lëtzebuergesch · Français · Deutsch · English",
+    teamLink: "Découvrir l'équipe",
     photoAlt: "Kirchberg, Luxembourg : tours de bureaux et la Philharmonie au-dessus des marches peintes",
   },
 
@@ -670,7 +671,7 @@ export const home: typeof En = {
     body2:
       "Un petit studio au Luxembourg, avec une équipe derrière. C'est délibéré : moins de projets, menés correctement, par les personnes dont le nom est dessus.",
     cta: "Parlez-nous directement",
-    role: "Fondateur et CEO",
+    role: "Cofondateur",
     photoAlt: (name: string, role: string) => `${name}, ${role} chez DEEV`,
   },
 

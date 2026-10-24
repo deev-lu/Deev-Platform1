@@ -27,6 +27,14 @@ export const grant = {
     some: (n) =>
       `${n} von 4. Was nicht angehakt ist, müsste sich vor einem Antrag ändern. Sagen Sie uns, welcher Punkt es ist, und wir sagen Ihnen, ob es machbar ist.`,
     none: "Noch nichts angehakt.",
+    sendTitle: "Möchten Sie das schriftlich, mit den nächsten Schritten?",
+    sendEmail: "Geschäftliche E-Mail",
+    sendCompany: "Unternehmen (optional)",
+    send: "Ergebnis zusenden",
+    sending: "Wird gesendet…",
+    sent: "Gesendet. Wir antworten innerhalb eines Werktags mit den nächsten Schritten für Ihr Unternehmen.",
+    sendError: "Das hat nicht geklappt. Schreiben Sie an contact@deev.lu, wir kümmern uns darum.",
+    sendNote: "Wir verwenden Ihre E-Mail nur, um diese Anfrage zu beantworten.",
     caveat:
       "Das ist ein Hinweis, keine Entscheidung. Die Förderfähigkeit wird beim Vorprüfungstermin bestätigt, und über den Antrag entscheidet das Wirtschaftsministerium.",
   },
