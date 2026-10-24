@@ -41,6 +41,8 @@ export const home: typeof En = {
     lead: "Individuelle Software, KI und Datenplattformen für Organisationen mit großen Vorhaben. Und für einige wenige: Websites, gestaltet auf dem Niveau der Marke dahinter.",
     primary: "Kostenloses Erstgespräch anfragen",
     film: "KI bei der Arbeit ansehen",
+    reviews: (rating: string, count: number) => `${rating} · ${count} Google-Bewertungen`,
+    reviewsAria: (rating: string, count: number) => `Mit ${rating} von 5 bewertet, aus ${count} Google-Bewertungen`,
     specs: ["Entwickelt in Luxemburg", "Hosting in der EU oder bei Ihnen", "Design und Engineering im Haus"],
     visual: {
       illustrative: "Beispiel",

@@ -47,6 +47,8 @@ export const home = {
     lead: "Custom software, AI and data platforms for organisations with serious ambitions. And, for a select few, websites designed to the standard of the brand behind them.",
     primary: "Request a free intro call",
     film: "Watch AI at work",
+    reviews: (rating: string, count: number) => `${rating} · ${count} Google reviews`,
+    reviewsAria: (rating: string, count: number) => `Rated ${rating} out of 5 from ${count} Google reviews`,
     specs: ["Built in Luxembourg", "EU or on-premise hosting", "Design and engineering in-house"],
     visual: {
       illustrative: "Illustrative",
