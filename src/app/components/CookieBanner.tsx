@@ -180,64 +180,58 @@ export default function CookieBanner() {
             role="dialog"
             aria-modal="false"
             aria-labelledby="consent-title"
-            className="fixed z-[60] bottom-5 left-5 right-5 sm:right-auto sm:max-w-[440px]"
+            className="fixed z-[60] bottom-0 inset-x-0 sm:bottom-4 sm:inset-x-4"
           >
+            {/* Seit dem 24.10.2026 eine schmale Leiste statt einer Karte: die
+                Karte lag beim ersten Besuch ueber Titel und Knoepfen des Hero,
+                also ueber dem Angebot selbst. Die Leiste belegt nur den
+                unteren Rand. Ablehnen und Annehmen bleiben gleich gewichtet. */}
             <div
-              className="border border-[var(--line-strong)] bg-[var(--surface-1)] p-7"
-              style={{ borderRadius: "var(--radius-1)" }}
+              className="mx-auto max-w-[1180px] border-t sm:border border-[var(--line-strong)] bg-[var(--surface-1)] px-5 py-4 sm:px-6 sm:py-4 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-8 shadow-[0_-12px_40px_rgba(0,0,0,0.25)] rounded-t-[20px] sm:rounded-[20px]"
             >
-              <div className="flex items-center gap-4 mb-5">
-                <span className="h-px w-8 bg-[var(--line-strong)]" />
-                <span
-                  className="eyebrow-mono uppercase text-[var(--text-low)]"
-                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
-                >
-                  {t.consent.banner.eyebrow}
-                </span>
-              </div>
-
-              <h2
-                id="consent-title"
-                className="text-[var(--text-hi)] font-medium mb-3"
-                style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, letterSpacing: "-0.015em" }}
-              >
-                {t.consent.banner.title}
-              </h2>
-
               <p
-                className="text-[var(--text-mid)] mb-7"
-                style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}
+                id="consent-title"
+                className="m-0 flex-1 text-[var(--text-mid)]"
+                style={{ fontSize: "0.8125rem", lineHeight: 1.5 }}
               >
+                <span className="text-[var(--text-hi)] font-medium">{t.consent.banner.title}</span>{" "}
                 {t.consent.banner.body}{" "}
                 <L to="/legal" className="text-[var(--signal-text)] underline underline-offset-2 decoration-[var(--signal-text)]/40 hover:decoration-[var(--signal-text)]">
                   {t.consent.banner.policyLink}
                 </L>
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <button
+                  type="button"
+                  onClick={openPrefs}
+                  className="hidden sm:inline-flex eyebrow-mono uppercase h-10 px-2 items-center text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] cursor-pointer"
+                  style={{ fontSize: "var(--t-label)", letterSpacing: "0.14em" }}
+                >
+                  {t.consent.banner.customise}
+                </button>
                 <button
                   type="button"
                   onClick={() => decide(false, "reject-all")}
-                  className="h-11 px-5 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)] cursor-pointer"
-                  style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+                  className="flex-1 sm:flex-none h-10 px-4 border border-[var(--line-strong)] text-[var(--text-hi)] hover:border-[var(--text-low)] transition-colors duration-[var(--dur-1)] cursor-pointer whitespace-nowrap"
+                  style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
                 >
                   {t.consent.banner.reject}
                 </button>
                 <button
                   type="button"
                   onClick={() => decide(true, "accept-all")}
-                  className="h-11 px-5 bg-[var(--signal)] text-white hover:opacity-90 transition-opacity duration-[var(--dur-1)] cursor-pointer"
-                  style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
+                  className="flex-1 sm:flex-none h-10 px-5 bg-[var(--signal)] text-white hover:opacity-90 transition-opacity duration-[var(--dur-1)] cursor-pointer whitespace-nowrap"
+                  style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
                 >
                   {t.consent.banner.accept}
                 </button>
               </div>
-
               <button
                 type="button"
                 onClick={openPrefs}
-                className="eyebrow-mono uppercase mt-5 text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)] cursor-pointer"
-                style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+                className="sm:hidden self-start eyebrow-mono uppercase text-[var(--text-low)] hover:text-[var(--text-hi)] cursor-pointer"
+                style={{ fontSize: "var(--t-label)", letterSpacing: "0.14em" }}
               >
                 {t.consent.banner.customise}
               </button>

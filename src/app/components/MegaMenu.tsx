@@ -154,6 +154,26 @@ export default function MegaMenu({
           );
         })}
 
+        {/* Workshops und Foerderung: die zwei Wege, ueber die die meisten
+            Projekte beginnen. Erst ab 1280px, weil die deutsche Zeile bei
+            1024px umbricht. Darunter fuehren das Telefonmenue, die
+            Startseite und der Footer zu beiden Seiten. */}
+        {([["workshops", "/workshops"], ["funding", "/sme-packages"]] as const).map(([key, to]) => (
+          <L
+            key={key}
+            to={to}
+            className="group relative hidden xl:block px-3 py-2 text-sm font-medium whitespace-nowrap text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+            onMouseEnter={hoverClose}
+            onFocus={() => setOpen(null)}
+          >
+            {t.site.nav[key]}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left scale-x-0 bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-x-100"
+            />
+          </L>
+        ))}
+
         <L
           to="/contact"
           className="group relative px-3 py-2 text-sm font-medium text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"

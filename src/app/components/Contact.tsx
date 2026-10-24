@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router";
 import { motion } from "motion/react";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
@@ -22,6 +23,15 @@ const CONTACT_EMAIL = "contact@deev.lu";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+/**
+ * The interest options in the order of `pages.contact.interests` (the same
+ * in every language). A button elsewhere links to `/contact?interest=<key>`
+ * and the form opens on the matching option: "Book a workshop" lands on
+ * "Workshop / consulting", not on "General enquiry".
+ */
+export const INTEREST_KEYS = ["general", "call", "workshop", "ai", "software", "funding", "website", "marketing", "other"] as const;
+export type InterestKey = (typeof INTEREST_KEYS)[number];
+
 const initialForm = {
   name: "",
   email: "",
@@ -30,6 +40,7 @@ const initialForm = {
   interest: "",
   message: "",
   website: "", // honeypot, humans never see this
+  callback: false,
 };
 
 export default function Contact() {
@@ -46,11 +57,20 @@ export default function Contact() {
   // the default cannot live in the module-level initial form.
   const interest = form.interest || INTERESTS[0];
 
-  const update = (key: keyof typeof form, value: string) =>
+  const update = (key: keyof typeof form, value: string | boolean) =>
     setForm((f) => ({ ...f, [key]: value }));
 
+  // Preselect from ?interest=. After mount, so the prerendered markup (which
+  // has no query string) and the first client render agree.
+  const { search } = useLocation();
+  useEffect(() => {
+    const key = new URLSearchParams(search).get("interest");
+    const i = INTEREST_KEYS.indexOf(key as InterestKey);
+    if (i >= 0 && INTERESTS[i]) setForm((f) => (f.interest ? f : { ...f, interest: INTERESTS[i] }));
+  }, [search, INTERESTS]);
+
   const mailtoFallback = () => {
-    const subject = encodeURIComponent(`Contact, ${interest}`);
+    const subject = encodeURIComponent(`Contact, ${interest}${form.callback ? ", call back" : ""}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${
         form.company || "n/a"
@@ -79,7 +99,7 @@ export default function Contact() {
 
     const result = await sendLead(
       {
-        subject: `New contact enquiry, ${interest}`,
+        subject: `New contact enquiry, ${interest}${form.callback ? " (call back)" : ""}`,
         from_name: form.name || "Website contact form",
         replyto: form.email,
         name: form.name,
@@ -87,6 +107,7 @@ export default function Contact() {
         company: form.company || "n/a",
         phone: form.phone || "n/a",
         interest,
+        ...(form.callback ? { call_back: "Yes, please call back" } : {}),
         message: form.message,
       },
       id,
@@ -136,7 +157,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-2 space-y-4"
+            className="lg:col-span-2 space-y-4 order-2 lg:order-1"
           >
             {/* SME grant card */}
             <div className="relative overflow-hidden rounded-lg p-5 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/40 dark:to-[#08080c] border border-emerald-300/60 dark:border-emerald-500/30">
@@ -223,7 +244,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-3"
+            className="lg:col-span-3 order-1 lg:order-2"
           >
             <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden dark:shadow-none">
               <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[var(--signal-text)]" />
@@ -290,9 +311,10 @@ export default function Contact() {
                         className={inputCls}
                       />
                     </Field>
-                    <Field label={t.pages.contact.form.phone}>
+                    <Field label={t.pages.contact.form.phone} required={form.callback}>
                       <input
                         type="tel"
+                        required={form.callback}
                         value={form.phone}
                         onChange={(e) => update("phone", e.target.value)}
                         placeholder={t.pages.contact.form.phonePlaceholder}
@@ -300,6 +322,18 @@ export default function Contact() {
                       />
                     </Field>
                   </div>
+
+                  {/* Manche rufen lieber an, als zu schreiben. Ein Rueckruf
+                      braucht eine Nummer, also wird das Feld dann Pflicht. */}
+                  <label className="flex items-start gap-3 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={form.callback}
+                      onChange={(e) => update("callback", e.target.checked)}
+                      className="mt-1 w-4 h-4 accent-[#2563F6]"
+                    />
+                    <span className="text-sm text-slate-700 dark:text-slate-300">{t.pages.contact.form.callback}</span>
+                  </label>
 
                   <Field label={t.pages.contact.form.interest}>
                     <select

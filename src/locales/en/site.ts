@@ -16,8 +16,10 @@ export const site = {
     journal: "Blog",
     whyDeev: "Why Deev",
     about: "About",
+    workshops: "Workshops",
+    funding: "SME funding",
     contact: "Contact",
-    cta: "Get a quote",
+    cta: "Free intro call",
     call: "Call us",
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -29,7 +31,7 @@ export const site = {
 
   footer: {
     blurb:
-      "An independent, founder-led studio in Luxembourg. We build digital systems that make your business impossible to ignore.",
+      "Software and AI engineering from Luxembourg. We build the systems your business runs on, and stay accountable after launch.",
     certified: "Certified label",
     certifiedNote: "Proudly designed & engineered in Luxembourg.",
     services: "Services",
@@ -37,10 +39,10 @@ export const site = {
     legal: "Legal",
     links: {
       grant: "SME Packages",
-      webApps: "Web Applications",
-      aiAgents: "AI Agents",
-      ecommerce: "E-Commerce Systems",
-      marketingSites: "Marketing Websites",
+      webApps: "Custom software",
+      aiAgents: "AI and data",
+      ecommerce: "Websites, by invitation",
+      marketingSites: "Marketing",
       portfolio: "Portfolio",
       terms: "Legal Information",
       privacy: "Privacy Policy",

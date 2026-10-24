@@ -39,7 +39,7 @@ export const home: typeof En = {
     lines: ["Wir bauen die", "Systeme, auf denen", "Ihr Unternehmen"],
     accent: "läuft.",
     lead: "Individuelle Software, KI und Datenplattformen für Organisationen mit großen Vorhaben. Und für einige wenige: Websites, gestaltet auf dem Niveau der Marke dahinter.",
-    primary: "Projekt starten",
+    primary: "Kostenloses Erstgespräch anfragen",
     film: "KI bei der Arbeit ansehen",
     specs: ["Entwickelt in Luxemburg", "Hosting in der EU oder bei Ihnen", "Design und Engineering im Haus"],
     visual: {
@@ -150,7 +150,7 @@ export const home: typeof En = {
     proofLabel: "Ein aktuelles Konzept",
     proof:
       "Für eine Luxemburger Immobilienverwaltungsgruppe: sieben Geschäftsprozesse durchgängig aufgezeichnet, sieben Engpässe einzeln beziffert, ein dreißigseitiges Executive-Konzept.",
-    funding: "Förderfähig über die SME Packages: Der Staat erstattet bis zu 70 % der förderfähigen Kosten. Über die Förderfähigkeit entscheidet die Voranalyse.",
+    funding: "Kann über das SME Package AI gefördert werden: Der Staat erstattet 70 % der förderfähigen Kosten bei einem Projekt von 3.000 bis 25.000 € netto, also höchstens 17.500 €. Über die Förderfähigkeit entscheidet die Voranalyse.",
     primary: "Workshop anfragen",
     secondary: "So läuft der Workshop",
     photoAlt: "Die Gëlle Fra in Luxemburg-Stadt vor tiefblauem Himmel",
@@ -674,7 +674,7 @@ export const home: typeof En = {
     body2:
       "Ein kleines Studio in Luxemburg mit einem Team dahinter. Das ist Absicht: weniger Projekte, ordentlich geführt, von den Menschen, deren Namen darauf stehen.",
     cta: "Sprechen Sie uns direkt an",
-    role: "Gründer und CEO",
+    role: "Mitgründer",
     photoAlt: (name: string, role: string) => `${name}, ${role} bei DEEV`,
   },
 

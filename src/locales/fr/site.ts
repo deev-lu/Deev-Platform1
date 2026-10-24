@@ -9,8 +9,10 @@ export const site: typeof En = {
     journal: "Blog",
     whyDeev: "Pourquoi Deev",
     about: "À propos",
+    workshops: "Ateliers",
+    funding: "Aides PME",
     contact: "Contact",
-    cta: "Demander un devis",
+    cta: "Échange gratuit",
     call: "Appelez-nous",
     openMenu: "Ouvrir le menu",
     closeMenu: "Fermer le menu",
@@ -22,7 +24,7 @@ export const site: typeof En = {
 
   footer: {
     blurb:
-      "Un studio indépendant, dirigé par ses fondateurs, au Luxembourg. Nous construisons des systèmes numériques qui rendent votre entreprise impossible à ignorer.",
+      "Ingénierie logicielle et IA au Luxembourg. Nous construisons les systèmes sur lesquels repose votre entreprise, et nous en restons responsables après la mise en ligne.",
     certified: "Label certifié",
     certifiedNote: "Conçu et développé au Luxembourg.",
     services: "Services",
@@ -30,10 +32,10 @@ export const site: typeof En = {
     legal: "Mentions légales",
     links: {
       grant: "SME Packages",
-      webApps: "Applications web",
-      aiAgents: "Agents IA",
-      ecommerce: "Systèmes e-commerce",
-      marketingSites: "Sites vitrines",
+      webApps: "Logiciel sur mesure",
+      aiAgents: "IA et données",
+      ecommerce: "Sites web, sur invitation",
+      marketingSites: "Marketing",
       portfolio: "Réalisations",
       terms: "Informations légales",
       privacy: "Politique de confidentialité",

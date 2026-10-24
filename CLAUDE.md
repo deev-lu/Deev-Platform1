@@ -6,8 +6,9 @@ Live: **https://www.deev.lu** (Vercel). Single-page React app.
 - **React 18 + TypeScript + Vite**
 - **Tailwind CSS v4** (`@tailwindcss/vite`, no tailwind.config — utilities only)
 - **motion/react** (Framer Motion) for animation
-- **react-router** — routes: `/`, `/work`, `/work/:slug`, `/blog`,
-  `/blog/:slug`, `/contact`, `/legal`, each also under `/fr` and `/de`
+- **react-router** — routes: `/`, `/services/*`, `/workshops`, `/sme-packages`,
+  `/project`, `/work`, `/work/:slug`, `/blog`, `/blog/:slug`, `/contact`,
+  `/legal`, each also under `/fr` and `/de`
 - No backend. Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
 
 ## Commands
@@ -40,7 +41,8 @@ HomeClients (a marquee of real client logos only; the list and each logo's
 filter live in `clients` in ClientLogos.tsx — a new client comes with its file)
 → HomeDisciplines (01, three cards with plates) → HomeWorkshops (02,
 workshops & consulting sold as a service of their own — the entry to most
-projects; every claim repeats the AI page) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each
+projects; every claim repeats the AI page) → HomeFunding (an unnumbered band
+with the three SME Package figures, linking to /sme-packages) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each
 screenshot in a browser frame with its domain) → InMotion (04) → HomeOutro:
 engagements (05, a photo and the flow plate; carries the #pricing /
 #project-builder campaign anchors) · HomeCompany (06, #about) · closing
@@ -71,6 +73,28 @@ hover (`.m-flowcard`), text and pills turn white, the button turns white with
 blue text.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
+
+## Leads (since 24 Oct 2026, "a lead machine")
+- **One main button everywhere: the free intro call** (`nav.cta`, hero), to
+  `/contact?interest=call`. Every other contact button opens the form on its
+  own option: `?interest=workshop|ai|software|funding|website|marketing`
+  (`INTEREST_KEYS` in Contact.tsx maps a key to `pages.contact.interests` by
+  position — keep the arrays in the same order in all three languages).
+- **`/workshops`** (WorkshopsPage.tsx) is the landing page for the workshop
+  offer, with its own request form. Only claims the homepage, the AI page and
+  the workshop article already make; no price or duration until the owner
+  gives them.
+- **`BOOKING_URL`** in `src/lib/booking.ts`: empty until the owner creates a
+  Cal.com/Calendly link; set it and "pick a time" buttons appear on /workshops.
+- **Every enquiry reports its origin** (`src/lib/leadSource.ts`, added inside
+  `sendLead`): the page it was sent from, the landing page, the outside
+  referrer and UTM tags. Held in memory only, no storage, no consent needed;
+  the form notice and the privacy policy say so.
+- **Clicks on phone, WhatsApp and email links** are a GA event
+  (`contact_click`), consent permitting, from one listener in analytics.ts.
+- The `/sme-packages` eligibility check ends in a "send me the result" form.
+- The cookie banner's first layer is a slim bottom bar: the old card covered
+  the hero headline and buttons on every first visit.
 
 ## Brand (from the brand book — do not drift)
 - **Blue `#2563F6`**, **Cyan `#3CE7FC`**. Never purple (that's a competitor).

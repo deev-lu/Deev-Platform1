@@ -1,6 +1,7 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./app/App.tsx";
 import { localeFromPath } from "./lib/i18n";
+import { captureLanding } from "./lib/leadSource";
 import "./styles/index.css";
 
 /**
@@ -26,6 +27,10 @@ import "./styles/index.css";
  *   umspringen zu lassen. Neu rendern ist in diesem Fall genau das Verhalten
  *   von vorher und faellt nicht auf.
  */
+// Before the router can rewrite the address: the first URL of the visit
+// carries the campaign tags an enquiry reports (lib/leadSource.ts).
+captureLanding();
+
 const root = document.getElementById("root")!;
 const rendered = root.dataset.ssr;
 

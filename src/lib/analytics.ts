@@ -184,9 +184,37 @@ export function loadAnalytics(): void {
 export function initAnalytics(): () => void {
   if (hasAnalyticsConsent()) enable();
   // Covers acceptance, a narrowing of the choice, and withdrawal.
-  return onConsentChange((record) =>
+  const off = onConsentChange((record) =>
     record?.categories.analytics === true ? enable() : disable()
   );
+  const offClicks = watchContactClicks();
+  return () => {
+    off();
+    offClicks();
+  };
+}
+
+/**
+ * Anruf, WhatsApp und E-Mail sind Anfragen, die nie durch ein Formular gehen.
+ * Ohne diese Messung sah eine Seite, die zum Anrufen bringt, genauso aus wie
+ * eine, die niemanden ueberzeugt. Ein Listener fuer alle Links, damit kein
+ * neuer Telefonknopf vergessen wird; `track` prueft die Einwilligung.
+ */
+function watchContactClicks(): () => void {
+  // Ohne echtes DOM (Server, Tests mit nachgebautem document) nichts tun.
+  if (typeof document === "undefined" || typeof document.addEventListener !== "function") return () => {};
+  const onClick = (e: MouseEvent) => {
+    const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+    if (!a) return;
+    const href = a.getAttribute("href") ?? "";
+    const method = href.startsWith("tel:") ? "phone"
+      : href.startsWith("mailto:") ? "email"
+      : /(^|\/\/)(wa\.me|api\.whatsapp\.com)\//.test(href) ? "whatsapp"
+      : null;
+    if (method) track("contact_click", { method, page: location.pathname });
+  };
+  document.addEventListener("click", onClick, { capture: true });
+  return () => document.removeEventListener("click", onClick, { capture: true });
 }
 
 // ── Ereignisse ──────────────────────────────────────────────────────────────
@@ -209,7 +237,8 @@ export type TrackEvent =
   | "calculator_step"
   | "calculator_complete"
   | "lead_accepted"
-  | "lead_error";
+  | "lead_error"
+  | "contact_click";
 
 type Param = string | number | boolean;
 

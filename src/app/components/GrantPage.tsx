@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, type MotionProps } from "motion/react";
 import {
   ArrowRight,
@@ -16,6 +16,8 @@ import {
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
 import { mark } from "../../lib/i18nMark";
+import { newRequestId, sendLead } from "../../lib/leadEmail";
+import { track } from "../../lib/analytics";
 import {
   GRANT_CAP,
   GRANT_MAX,
@@ -117,7 +119,7 @@ export default function GrantPage() {
             <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
           </a>
           <L
-            to="/contact"
+            to="/contact?interest=funding"
             className="inline-flex items-center h-12 px-6 border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] font-medium transition-colors duration-[var(--dur-1)]"
             style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
           >
@@ -294,7 +296,7 @@ export default function GrantPage() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <L
-              to="/contact"
+              to="/contact?interest=funding"
               className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--signal)] text-white font-medium"
               style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
             >
@@ -437,12 +439,109 @@ function EligibilityCheck() {
           >
             {verdict}
           </p>
+          {count > 0 && <SendResult ticked={CHECKS.filter((k) => ticked[k]).map((k) => c.items[k])} count={count} />}
           <p className="text-[var(--text-low)] mt-auto pt-6" style={{ fontSize: "var(--t-label)", lineHeight: 1.55 }}>
             {c.caveat}
           </p>
         </div>
       </div>
     </Section>
+  );
+}
+
+/**
+ * Das Ergebnis der Pruefung per E-Mail (seit dem 24.10.2026).
+ *
+ * Wer die Pruefung macht, hat ein konkretes Vorhaben und ist der wertvollste
+ * Besucher der Seite, ging aber bisher ohne Spur. Nur E-Mail, Firma optional:
+ * jedes weitere Feld kostet Absendungen. Die Anfrage enthaelt, was angekreuzt
+ * wurde, damit die Antwort darauf eingehen kann.
+ */
+function SendResult({ ticked, count }: { ticked: string[]; count: number }) {
+  const t = useT();
+  const c = t.grant.check;
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const requestId = useRef<string | null>(null);
+
+  if (state === "sent") {
+    return (
+      <p role="status" className="mt-6 pt-6 border-t border-[var(--line)] text-[var(--text-hi)] m-0" style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}>
+        {c.sent}
+      </p>
+    );
+  }
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (state === "sending") return;
+    setState("sending");
+    const id = requestId.current ?? (requestId.current = newRequestId());
+    const result = await sendLead(
+      {
+        subject: `SME package check, ${count}/4${company ? `, ${company}` : ""}`,
+        from_name: company || "SME package check",
+        replyto: email,
+        email,
+        company: company || "n/a",
+        interest: "SME package / funding",
+        eligibility: `${count} of 4 ticked`,
+        ticked: ticked.join("\n"),
+      },
+      id,
+    );
+    setState(result.ok ? "sent" : "error");
+    if (result.ok) track("lead_accepted", { source: "grant_check", ticked: count });
+    else track("lead_error", { source: "grant_check", reason: result.status });
+  };
+
+  return (
+    <form onSubmit={submit} className="mt-6 pt-6 border-t border-[var(--line)] flex flex-col gap-3">
+      <p className="text-[var(--text-hi)] font-medium m-0" style={{ fontSize: "var(--t-small)" }}>
+        {c.sendTitle}
+      </p>
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder={c.sendEmail}
+        aria-label={c.sendEmail}
+        autoComplete="email"
+        className="h-11 px-4 bg-[var(--surface-0)] border border-[var(--line-strong)] text-[var(--text-hi)] placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+        style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-small)" }}
+      />
+      <input
+        type="text"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        placeholder={c.sendCompany}
+        aria-label={c.sendCompany}
+        autoComplete="organization"
+        className="h-11 px-4 bg-[var(--surface-0)] border border-[var(--line-strong)] text-[var(--text-hi)] placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+        style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-small)" }}
+      />
+      <button
+        type="submit"
+        disabled={state === "sending"}
+        className="h-11 px-5 bg-[var(--signal)] text-white font-medium disabled:opacity-60"
+        style={{ borderRadius: "var(--radius-pill)", fontSize: "var(--t-small)" }}
+      >
+        {state === "sending" ? c.sending : c.send}
+      </button>
+      {state === "error" && (
+        <p role="alert" className="text-amber-600 dark:text-amber-300 m-0" style={{ fontSize: "var(--t-small)" }}>
+          {c.sendError}
+        </p>
+      )}
+      <p className="text-[var(--text-low)] m-0" style={{ fontSize: "var(--t-label)", lineHeight: 1.5 }}>
+        {c.sendNote}{" "}
+        <L to="/legal#data-protection" className="underline underline-offset-2">
+          {t.pages.contact.form.consentLink}
+        </L>
+      </p>
+    </form>
   );
 }
 

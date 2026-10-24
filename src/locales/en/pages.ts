@@ -170,7 +170,7 @@ export const pages = {
     grant: {
       badge: "70% funded",
       body:
-        "Luxembourg SMEs recover 70% on websites, web-apps, AI and bundled marketing through the SME Digital & SME AI packages. Mention it and we'll structure your project to maximise the grant.",
+        "Through the SME Digital and SME AI packages the state reimburses Luxembourg SMEs 70% of eligible costs, at most €17,500 per project. Mention it and we will scope the project to fit the programme.",
       cta: "Estimate your net price",
     },
     details: {
@@ -192,18 +192,23 @@ export const pages = {
       interest: "What can we help with?",
       message: "Message",
       messagePlaceholder: "Tell us about your project, goals and timeline…",
+      callback: "Call me back instead of replying by email",
       submit: "Send message",
       submitting: "Sending…",
-      consent: "We use the information you provide to handle your enquiry and contact you about it. We use service providers for website operation and email processing.",
+      consent: "We use the information you provide to handle your enquiry and contact you about it. We use service providers for website operation and email processing. With your message we also receive the page you sent it from and, if you arrived through a campaign link, the campaign's name.",
       consentLink: "Learn more in our Privacy Policy.",
       errorLead: "We couldn't submit the form right now.",
       errorAction: "Send it by email instead",
     },
+    // Same order in every language: Contact.tsx maps ?interest=<key> by position.
     interests: [
       "General enquiry",
-      "New website",
-      "Web app / SaaS platform",
+      "Free intro call",
+      "Workshop / consulting",
       "AI project / automation",
+      "Custom software / web app",
+      "SME package / funding",
+      "New website",
       "Lead campaigns / Marketing",
       "Other",
     ],
@@ -213,5 +218,35 @@ export const pages = {
         `Thanks${firstName ? `, ${firstName}` : ""}. We've logged your enquiry and will get back to you within one business day.`,
       cta: "Back to homepage",
     },
+  },
+
+  /** /workshops: the workshop as its own page and the way into most projects.
+   *  Only what home.workshops, home.ai and the workshop article already claim;
+   *  no price and no duration, those belong in the conversation. */
+  workshopsPage: {
+    formatsLabel: "Three ways in",
+    methodLabel: "How the workshop runs",
+    methodTitle: "From where the work stalls. To a plan with dates.",
+    deliverablesLabel: "What you leave with",
+    deliverablesTitle: "A document you can take to a board.",
+    deliverables: ["Each bottleneck identified and individually costed", "An architecture layered over the existing systems", "A phased roadmap with what ships in each phase", "Eligible cost and the grant path mapped per phase"],
+    honest: "If the conclusion is that AI does not pay for a given process, that is in the document too, and it is worth the same money as a yes.",
+    faqLabel: "Questions",
+    faq: [
+      { q: "Who should be in the room?", a: "The people who run the processes, not only management. The person who lives inside a workflow knows which step everyone quietly works around, and that step is rarely the one on the org chart." },
+      { q: "Where does it take place?", a: "On site, with your operations team. We walk each workflow with the person who lives in it and record where it stalls." },
+      { q: "What if AI does not pay for a process?", a: "Then the concept says so. That conclusion is in the document, and it is worth the same money as a yes." },
+      { q: "Can it be funded?", a: "It can qualify for the SME AI package: the state reimburses 70% of eligible costs on a project of €3,000 to €25,000 ex. VAT. Work started before approval is not covered, so the pre-analysis comes first." },
+      { q: "What happens after the workshop?", a: "If you go ahead, the roadmap becomes the project. Every phase has its own scope, budget and outcome, and the first one ends with something running in production." },
+    ],
+    formLabel: "Request a workshop",
+    formTitle: "Tell us where your work stalls.",
+    formLead: "We reply within one business day to agree a date and who should take part.",
+    processes: "Which processes cost you the most time?",
+    processesPlaceholder: "For example incoming invoices, supplier emails, contract checks",
+    submit: "Request a workshop",
+    bookingCta: "Or pick a time directly",
+    successTitle: "Request received.",
+    successBody: "Thank you. We will be in touch within one business day to agree a date.",
   },
 };

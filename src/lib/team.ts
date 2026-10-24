@@ -30,8 +30,8 @@ export interface Founder {
 }
 
 export const FOUNDERS: Founder[] = [
-  { key: "fabio", name: "Fabio Falchero", role: "Founder & CEO" },
-  { key: "sven", name: "Sven Kettel", role: "Founder & CEO" },
+  { key: "fabio", name: "Fabio Falchero", role: "Co-founder" },
+  { key: "sven", name: "Sven Kettel", role: "Co-founder" },
 ].map((f) => ({ ...f, photo: byBasename[f.key] }));
 
 export const TEAM_READY = FOUNDERS.every((f) => Boolean(f.photo));

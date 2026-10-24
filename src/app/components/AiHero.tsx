@@ -96,7 +96,7 @@ export default function AiHero() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <L
-                to="/contact"
+                to="/contact?interest=workshop"
                 className="group inline-flex items-center gap-2 px-6 bg-[var(--signal)] text-white font-medium"
                 style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
               >

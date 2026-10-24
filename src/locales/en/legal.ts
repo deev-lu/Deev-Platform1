@@ -100,6 +100,7 @@ updated: "Last updated: October 2026",
     basisHead: "What we process, and on what legal basis",
     basis: [
       "An enquiry you send us — your name, email address, and whatever you write in the message or on the phone. We use it to answer you and, if it leads to work, to prepare and perform the contract. Article 6(1)(b) GDPR.",
+      "With an enquiry the site also sends the page it was sent from and, if you arrived through a campaign link, that campaign's name, so we can tell which pages and campaigns bring enquiries. Nothing for this is stored on your device. Article 6(1)(f) GDPR, our legitimate interest in knowing what works.",
       "Measurement of how this site is used, only after you allow it. Article 6(1)(a) GDPR — your consent, which you can withdraw at any time.",
       "Server logs kept by our host, including IP addresses, to keep the site available and to defend it against abuse. Article 6(1)(f) GDPR — our legitimate interest in a site that stays up.",
       "Contracts, invoices and accounting records, which Luxembourg commercial law requires us to keep. Article 6(1)(c) GDPR.",

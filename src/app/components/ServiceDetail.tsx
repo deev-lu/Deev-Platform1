@@ -47,6 +47,14 @@ const EXTRAS: Record<ServiceKey, ComponentType[]> = {
 };
 
 /** Welche Projekte als Beleg zu welchem Weg passen. */
+/** Which option the contact form opens on from each service page. */
+const CONTACT_INTEREST: Record<ServiceKey, string> = {
+  websites: "website",
+  ai: "ai",
+  software: "software",
+  marketing: "marketing",
+};
+
 const MATCHES: Record<ServiceKey, string[]> = {
   websites: ["website", "branding"],
   ai: ["platform"],
@@ -200,7 +208,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
             {service === "ai" ? t.home.aiHero.cta : t.pages.servicePages.cta}
           </h2>
           <L
-            to="/contact"
+            to={`/contact?interest=${CONTACT_INTEREST[service]}`}
             className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--signal)] text-white font-medium"
             style={{ fontSize: "var(--t-small)", borderRadius: "var(--radius-1)" }}
           >

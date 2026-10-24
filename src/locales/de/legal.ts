@@ -94,6 +94,7 @@ updated: "Zuletzt aktualisiert: Oktober 2026",
     basisHead: "Was wir verarbeiten und auf welcher Rechtsgrundlage",
     basis: [
       "Ihre Anfrage — Name, E-Mail-Adresse und das, was Sie uns schreiben oder am Telefon sagen. Wir nutzen das, um Ihnen zu antworten, und, wenn daraus ein Auftrag wird, um den Vertrag vorzubereiten und zu erfüllen. Artikel 6 Absatz 1 Buchstabe b DSGVO.",
+      "Mit einer Anfrage übermittelt die Seite auch die Seite, von der sie gesendet wurde, und, falls Sie über einen Kampagnenlink gekommen sind, den Namen dieser Kampagne, damit wir wissen, welche Seiten und Kampagnen Anfragen bringen. Dafür wird auf Ihrem Gerät nichts gespeichert. Artikel 6 Absatz 1 Buchstabe f DSGVO, unser berechtigtes Interesse daran, zu wissen, was wirkt.",
       "Die Messung, wie diese Seite genutzt wird — erst, wenn Sie es erlauben. Artikel 6 Absatz 1 Buchstabe a DSGVO, Ihre Einwilligung, die Sie jederzeit widerrufen können.",
       "Server-Protokolle unseres Hosters, einschließlich IP-Adressen, damit die Seite erreichbar bleibt und gegen Missbrauch geschützt ist. Artikel 6 Absatz 1 Buchstabe f DSGVO, unser berechtigtes Interesse an einer Seite, die läuft.",
       "Verträge, Rechnungen und Buchhaltungsunterlagen, zu deren Aufbewahrung uns das luxemburgische Handelsrecht verpflichtet. Artikel 6 Absatz 1 Buchstabe c DSGVO.",

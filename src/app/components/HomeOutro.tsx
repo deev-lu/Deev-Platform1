@@ -192,7 +192,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-10">
             <L
-              to="/contact"
+              to="/contact?interest=call"
               className="inline-flex items-center px-6 bg-[var(--signal)] hover:bg-[#1747c4] text-white font-medium transition-colors duration-[var(--dur-1)]"
               style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
             >

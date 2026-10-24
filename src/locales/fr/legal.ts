@@ -94,6 +94,7 @@ updated: "Dernière mise à jour : octobre 2026",
     basisHead: "Ce que nous traitons, et sur quelle base légale",
     basis: [
       "La demande que vous nous adressez — votre nom, votre adresse e-mail et ce que vous écrivez dans le message ou dites au téléphone. Nous l'utilisons pour vous répondre et, si elle débouche sur une mission, pour préparer et exécuter le contrat. Article 6, paragraphe 1, point b du RGPD.",
+      "Avec une demande, le site transmet aussi la page depuis laquelle elle a été envoyée et, si vous êtes arrivé par un lien de campagne, le nom de cette campagne, afin que nous sachions quelles pages et quelles campagnes amènent des demandes. Rien n'est enregistré pour cela sur votre appareil. Article 6, paragraphe 1, point f du RGPD, notre intérêt légitime à savoir ce qui fonctionne.",
       "La mesure de l'usage de ce site, uniquement après votre accord. Article 6, paragraphe 1, point a du RGPD — votre consentement, révocable à tout moment.",
       "Les journaux de notre hébergeur, adresses IP comprises, pour que le site reste disponible et protégé contre les abus. Article 6, paragraphe 1, point f du RGPD — notre intérêt légitime à un site qui fonctionne.",
       "Les contrats, factures et pièces comptables, que le droit commercial luxembourgeois nous oblige à conserver. Article 6, paragraphe 1, point c du RGPD.",

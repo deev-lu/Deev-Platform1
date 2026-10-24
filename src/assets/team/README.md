@@ -4,8 +4,8 @@ Drop the two files here and the About section ("10 / Who you'll work with")
 appears on the homepage, along with its "About" link in the navbar. Nothing
 else has to change: they are discovered by filename.
 
-    fabio.webp  Fabio Falchero, Founder & CEO
-    sven.webp   Sven Kettel,    Founder & CEO
+    fabio.webp  Fabio Falchero, Co-founder
+    sven.webp   Sven Kettel,    Co-founder
 
 `.jpg`, `.jpeg`, `.png` and `.webp` all work. Both files have to be present:
 `TEAM_READY` in `src/lib/team.ts` keeps the section out of the page until they

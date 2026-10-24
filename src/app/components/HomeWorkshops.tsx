@@ -81,7 +81,7 @@ export default function HomeWorkshops() {
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-10">
               <L
-                to="/contact"
+                to="/contact?interest=workshop"
                 className="m-arrow inline-flex items-center justify-center gap-2.5 px-6 text-white font-semibold hover:brightness-110 transition-[filter] duration-[var(--dur-1)]"
                 style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)", background: "linear-gradient(100deg, #4c8dff, #2563f6)" }}
               >
@@ -89,7 +89,7 @@ export default function HomeWorkshops() {
                 <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
               </L>
               <L
-                to="/services/ai-automation"
+                to="/workshops"
                 className="inline-flex items-center justify-center px-6 border border-white/20 bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium transition-colors duration-[var(--dur-1)]"
                 style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
               >

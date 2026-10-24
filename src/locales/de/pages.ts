@@ -168,7 +168,7 @@ export const pages: typeof En = {
     grant: {
       badge: "70% gefördert",
       body:
-        "Luxemburger KMU können über die Programme SME Digital und SME AI 70% für Websites, Webanwendungen, KI und begleitendes Marketing zurückerhalten. Sagen Sie uns Bescheid, und wir strukturieren Ihr Projekt so, dass die Förderung maximal ausfällt.",
+        "Über die SME Packages Digital und AI erstattet der Staat Luxemburger KMU 70 % der förderfähigen Kosten, höchstens 17.500 € pro Projekt. Sagen Sie es uns, dann schneiden wir das Projekt auf das Programm zu.",
       cta: "Nettopreis schätzen",
     },
     details: {
@@ -190,18 +190,23 @@ export const pages: typeof En = {
       interest: "Wobei können wir helfen?",
       message: "Nachricht",
       messagePlaceholder: "Erzählen Sie uns von Ihrem Projekt, Ihren Zielen und Ihrem Zeitrahmen…",
+      callback: "Lieber zurückrufen statt per E-Mail antworten",
       submit: "Nachricht senden",
       submitting: "Wird gesendet…",
-      consent: "Wir verwenden Ihre Angaben, um Ihre Anfrage zu bearbeiten und Sie hierzu zu kontaktieren. Dafür setzen wir Dienstleister für Websitebetrieb und E-Mail-Verarbeitung ein.",
+      consent: "Wir verwenden Ihre Angaben, um Ihre Anfrage zu bearbeiten und Sie hierzu zu kontaktieren. Dafür setzen wir Dienstleister für Websitebetrieb und E-Mail-Verarbeitung ein. Mit Ihrer Nachricht erhalten wir auch die Seite, von der aus Sie sie senden, und, falls Sie über einen Kampagnenlink gekommen sind, den Namen der Kampagne.",
       consentLink: "Mehr dazu in unserer Datenschutzerklärung.",
       errorLead: "Das Formular konnte gerade nicht gesendet werden.",
       errorAction: "Stattdessen per E-Mail senden",
     },
+    // Same order in every language: Contact.tsx maps ?interest=<key> by position.
     interests: [
       "Allgemeine Anfrage",
-      "Neue Website",
-      "Webanwendung / SaaS-Plattform",
+      "Kostenloses Erstgespräch",
+      "Workshop / Beratung",
       "KI-Projekt / Automatisierung",
+      "Individualsoftware / Webanwendung",
+      "SME Package / Förderung",
+      "Neue Website",
       "Lead-Kampagnen / Marketing",
       "Sonstiges",
     ],
@@ -211,5 +216,35 @@ export const pages: typeof En = {
         `Danke${firstName ? `, ${firstName}` : ""}. Wir haben Ihre Anfrage aufgenommen und melden uns meist innerhalb eines Werktags.`,
       cta: "Zurück zur Startseite",
     },
+  },
+
+  /** /workshops: the workshop as its own page and the way into most projects.
+   *  Only what home.workshops, home.ai and the workshop article already claim;
+   *  no price and no duration, those belong in the conversation. */
+  workshopsPage: {
+    formatsLabel: "Drei Wege hinein",
+    methodLabel: "Wie der Workshop abläuft",
+    methodTitle: "Von dort, wo die Arbeit stockt. Zu einem Plan mit Daten.",
+    deliverablesLabel: "Was Sie mitnehmen",
+    deliverablesTitle: "Ein Dokument für den Aufsichtsrat.",
+    deliverables: ["Jeder Engpass identifiziert und einzeln beziffert", "Eine Architektur über den bestehenden Systemen", "Ein Fahrplan in Phasen mit dem, was je Phase ausgeliefert wird", "Förderfähige Kosten und Förderweg je Phase kartiert"],
+    honest: "Wenn das Ergebnis lautet, dass KI sich für einen bestimmten Prozess nicht rechnet, steht auch das im Dokument, und es ist dasselbe Geld wert wie ein Ja.",
+    faqLabel: "Fragen",
+    faq: [
+      { q: "Wer sollte dabei sein?", a: "Die Menschen, die die Prozesse tragen, nicht nur die Geschäftsleitung. Wer einen Ablauf täglich lebt, weiß, um welchen Schritt alle still herumarbeiten, und das ist selten der aus dem Organigramm." },
+      { q: "Wo findet er statt?", a: "Vor Ort, mit Ihrem operativen Team. Wir gehen jeden Ablauf mit der Person durch, die ihn lebt, und halten fest, wo er stockt." },
+      { q: "Und wenn sich KI für einen Prozess nicht rechnet?", a: "Dann sagt das Konzept es. Dieses Ergebnis steht im Dokument und ist dasselbe Geld wert wie ein Ja." },
+      { q: "Kann er gefördert werden?", a: "Er kann über das SME Package AI gefördert werden: Der Staat erstattet 70 % der förderfähigen Kosten bei einem Projekt von 3.000 bis 25.000 € netto. Arbeit, die vor der Bewilligung beginnt, ist nicht gedeckt, deshalb kommt die Voranalyse zuerst." },
+      { q: "Was passiert nach dem Workshop?", a: "Wenn Sie weitermachen, wird der Fahrplan zum Projekt. Jede Phase hat eigenen Umfang, eigenes Budget und eigenes Ergebnis, und die erste endet mit etwas, das in Produktion läuft." },
+    ],
+    formLabel: "Workshop anfragen",
+    formTitle: "Sagen Sie uns, wo Ihre Arbeit stockt.",
+    formLead: "Wir antworten innerhalb eines Werktags, um einen Termin und die Teilnehmenden abzustimmen.",
+    processes: "Welche Prozesse kosten Sie am meisten Zeit?",
+    processesPlaceholder: "Zum Beispiel Eingangsrechnungen, Lieferanten-E-Mails, Vertragsprüfungen",
+    submit: "Workshop anfragen",
+    bookingCta: "Oder direkt einen Termin wählen",
+    successTitle: "Anfrage erhalten.",
+    successBody: "Danke. Wir melden uns innerhalb eines Werktags, um einen Termin abzustimmen.",
   },
 };
