@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { useInView } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import L from "./L";
 import { useT } from "../../lib/useT";
 import { FOUNDERS, TEAM_READY } from "../../lib/team";
 import { TwoTone } from "./Plate";
@@ -123,6 +125,16 @@ export default function HomeCompany() {
               </ul>
             </div>
           )}
+
+          {/* Die ganze Mannschaft und wie wir arbeiten: /about. */}
+          <L
+            to="/about"
+            className="group mt-10 inline-flex items-center gap-2 h-11 px-5 rounded-full border border-[var(--line-strong)] text-[var(--text-hi)] font-medium hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
+            style={{ fontSize: "var(--t-small)" }}
+          >
+            {c.teamLink}
+            <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
+          </L>
         </div>
 
         <div className="lg:col-span-7 min-w-0">

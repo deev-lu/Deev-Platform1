@@ -17,6 +17,7 @@ const WorkIndex         = lazy(() => import("./components/WorkIndex"));
 const ServicesIndex     = lazy(() => import("./components/ServicesIndex"));
 const GrantPage         = lazy(() => import("./components/GrantPage"));
 const WorkshopsPage     = lazy(() => import("./components/WorkshopsPage"));
+const AboutPage         = lazy(() => import("./components/AboutPage"));
 const ServiceDetail     = lazy(() => import("./components/ServiceDetail"));
 const ProjectPage       = lazy(() => import("./components/ProjectPage"));
 const SelectedWork      = lazy(() => import("./components/SelectedWork"));
@@ -215,6 +216,8 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       {/* Workshops und Beratung: der Einstieg in die meisten Projekte, mit
           eigener Adresse fuer Anzeigen, Beitraege und die Suche. */}
       <Route path="workshops" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkshopsPage /></Suspense>)} />
+      {/* Wer wir sind: das Team und wie wir arbeiten. */}
+      <Route path="about" element={chrome(<Suspense fallback={<SectionSkeleton />}><AboutPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
       {/* Each portfolio category is its own page, so it can be linked to,
           shared and indexed. Declared before work/:slug: a static segment

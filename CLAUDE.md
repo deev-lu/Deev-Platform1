@@ -6,7 +6,7 @@ Live: **https://www.deev.lu** (Vercel). Single-page React app.
 - **React 18 + TypeScript + Vite**
 - **Tailwind CSS v4** (`@tailwindcss/vite`, no tailwind.config — utilities only)
 - **motion/react** (Framer Motion) for animation
-- **react-router** — routes: `/`, `/services/*`, `/workshops`, `/sme-packages`,
+- **react-router** — routes: `/`, `/services/*`, `/workshops`, `/about`, `/sme-packages`,
   `/project`, `/work`, `/work/:slug`, `/blog`, `/blog/:slug`, `/contact`,
   `/legal`, each also under `/fr` and `/de`
 - No backend. Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
@@ -132,11 +132,12 @@ Mobile load was a real problem and these fixed it:
 3. **Continuous animations are disabled on mobile** via `useIsMobile()`.
 4. **Images must be resized before committing.** Client logos were 200KB+ each
    until they were downscaled to display size.
-5. The hero photo ships a 900px WebP to phones (`srcSet`). The hero film
-   (`HeroVideo.tsx`, YouTube 3j4eSVrLtmw from 0:10, muted, looping back to
-   0:10) is **768px and up only**, never under reduced motion; phones keep the
-   photo and load nothing from YouTube. It autoplays for every visitor without
-   consent — the owner's decision on 23 Oct 2026 — and the cookie policy
+5. The hero photo ships a 900px WebP to phones (`srcSet`) and stays under
+   the hero film as its poster. The film (`HeroVideo.tsx`, YouTube
+   3j4eSVrLtmw, muted, 0:10 to 1:10 and then back to 0:10) plays on **every
+   screen size** since 24 Oct 2026 — the owner's decision, which lifts the old
+   desktop-only rule — and never under reduced motion. It autoplays for every
+   visitor without consent (owner, 23 Oct 2026), and the cookie policy
    ("Embedded video", all three languages) says so. Change one, change both.
 
 ## Theme
@@ -156,6 +157,12 @@ If you change the default, change it in **both** `index.html` and `App.tsx`.
   no section, and a stand-in silhouette would be inventing a person. The portraits are cutouts on a
   transparent ground, so they are `object-contain object-bottom` on a surface
   panel, never cropped into a square.
+- **/about** (AboutPage.tsx) shows everyone in `TEAM` (`src/lib/team.ts`):
+  Fabio Falchero and Sven Kettel (co-founders) and Noah Stelmes
+  (cybersecurity and data). Same filename rule: `noah.*` in `src/assets/team`
+  and his photo appears; until then his card shows his initials, a
+  typographic placeholder rather than a stand-in face. The homepage company
+  section (06) links to it ("Meet the team").
 - Testimonials: not built. Only add **real** client quotes — never write
   placeholder testimonials with real names attached.
 

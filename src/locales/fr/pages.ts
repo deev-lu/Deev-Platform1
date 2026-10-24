@@ -247,4 +247,26 @@ export const pages: typeof En = {
     successTitle: "Demande reçue.",
     successBody: "Merci. Nous revenons vers vous sous un jour ouvré pour convenir d'une date.",
   },
+
+  /** /about: the team and how we work. Names and roles are facts; the
+   *  principles repeat what the rest of the site already promises. */
+  aboutPage: {
+    eyebrow: "À propos",
+    title: "Les personnes derrière DEEV. Et notre façon de travailler.",
+    teamLabel: "L'équipe",
+    teamTitle: "Les personnes avec qui vous travaillerez vraiment.",
+    roles: { founder: "Cofondateur", securityData: "Cybersécurité et données" },
+    principlesLabel: "Notre façon de travailler",
+    principlesTitle: "Cinq principes que nous tenons.",
+    principles: [
+      { title: "Ceux qui cadrent réalisent.", copy: "Pas de passage de relais entre la discussion et la réalisation : ceux qui cadrent votre projet sont ceux qui le réalisent." },
+      { title: "Design et ingénierie en interne.", copy: "Les deux sont réunis dans la même équipe au Luxembourg : le système qu'on vous présente est celui qui est construit." },
+      { title: "Vos données restent là où elles doivent.", copy: "Hébergement dans l'UE, ou sur votre propre infrastructure lorsque les données ne doivent pas en sortir. Les droits d'accès s'appliquent à chaque réponse." },
+      { title: "Les chiffres avant la technologie.", copy: "Chaque goulet est chiffré à partir de vos propres volumes avant toute proposition. Si l'IA n'est pas rentable pour un processus, nous le disons." },
+      { title: "Responsables après la mise en ligne.", copy: "Supervision, maintenance et une équipe qui reste responsable une fois le système en production." },
+    ],
+    factsLabel: "L'entreprise",
+    phone: "Téléphone",
+    email: "E-mail",
+  },
 };

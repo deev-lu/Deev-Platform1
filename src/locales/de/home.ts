@@ -183,6 +183,7 @@ export const home: typeof En = {
     entity: "DEEV, eine Marke der Lux VR States Sàrl-s",
     office: "17 rue de Sélange, L-4965 Clemency",
     languages: "Lëtzebuergesch · Deutsch · Français · English",
+    teamLink: "Das Team kennenlernen",
     photoAlt: "Kirchberg, Luxemburg: Bürotürme und die Philharmonie über den bemalten Stufen",
   },
 

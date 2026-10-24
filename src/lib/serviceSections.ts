@@ -39,5 +39,5 @@ export const SERVICE_HREF: Record<string, string> = {
   ai: "/services/ai-automation",
   billovio: "/work/billovio",
   "why-deev": "/services#why-deev",
-  about: "/#about",
+  about: "/about",
 };

@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
  * plays for every visitor, without asking first; the cookie policy says so
  * under "Embedded video").
  *
- * - Desktop and tablet only (>= 768px) and never under reduced motion, per
- *   the performance rules: a phone keeps the photograph and loads nothing
- *   from YouTube. Decided after mount, so the prerendered page is the photo.
- * - Muted, no controls, from youtube-nocookie.com, starting at 0:10. YouTube's
- *   own loop would restart at 0:00, so the end is caught over the iframe API's
- *   postMessage channel (no API script loaded) and the film seeks back to 10.
+ * - Every screen size since 24 Oct 2026 (the owner's decision; phones used
+ *   to keep the photograph), never under reduced motion. Decided after
+ *   mount, so the prerendered page is the photo.
+ * - Muted, no controls, from youtube-nocookie.com. It plays one minute, 0:10
+ *   to 1:10, then starts again at 0:10 (owner's decision, 24 Oct 2026). The
+ *   embed's `end` stops it at 1:10; the stop, and the playback time as a
+ *   second guard (YouTube applies `end` only to the first pass), are caught
+ *   over the iframe API's postMessage channel (no API script loaded).
  * - The photo stays underneath; the film fades in only once YouTube reports
  *   it is playing, so there is never a black frame or a player UI flash. If
  *   YouTube never answers (blocked network, ad blocker), the photo simply
@@ -20,6 +22,8 @@ import { useEffect, useRef, useState } from "react";
 
 const ID = "3j4eSVrLtmw";
 const START = 10;
+/** One minute of film, then back to START. */
+const END = START + 60;
 const ORIGIN_RE = /^https:\/\/www\.youtube(-nocookie)?\.com$/;
 
 export default function HeroVideo() {
@@ -28,9 +32,8 @@ export default function HeroVideo() {
   const ref = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    const wide = window.matchMedia("(min-width: 768px)");
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (wide.matches && !still.matches) setOn(true);
+    if (!still.matches) setOn(true);
   }, []);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export default function HeroVideo() {
     let heard = false;
     const onMessage = (e: MessageEvent) => {
       if (!ORIGIN_RE.test(e.origin)) return;
-      let data: { event?: string; info?: { playerState?: number } } | null = null;
+      let data: { event?: string; info?: { playerState?: number; currentTime?: number } } | null = null;
       try {
         data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
       } catch {
@@ -49,8 +52,9 @@ export default function HeroVideo() {
       }
       heard = true;
       const state = data?.info?.playerState;
+      const time = data?.info?.currentTime;
       if (state === 1) setPlaying(true);
-      if (state === 0) {
+      if (state === 0 || (typeof time === "number" && time >= END)) {
         command("seekTo", [START, true]);
         command("playVideo");
       }
@@ -73,7 +77,7 @@ export default function HeroVideo() {
   if (!on) return null;
 
   const src =
-    `https://www.youtube-nocookie.com/embed/${ID}?autoplay=1&mute=1&controls=0&start=${START}` +
+    `https://www.youtube-nocookie.com/embed/${ID}?autoplay=1&mute=1&controls=0&start=${START}&end=${END}` +
     `&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1` +
     `&origin=${encodeURIComponent(window.location.origin)}`;
 

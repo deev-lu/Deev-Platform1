@@ -247,4 +247,26 @@ export const pages: typeof En = {
     successTitle: "Anfrage erhalten.",
     successBody: "Danke. Wir melden uns innerhalb eines Werktags, um einen Termin abzustimmen.",
   },
+
+  /** /about: the team and how we work. Names and roles are facts; the
+   *  principles repeat what the rest of the site already promises. */
+  aboutPage: {
+    eyebrow: "Über uns",
+    title: "Die Menschen hinter DEEV. Und wie wir arbeiten.",
+    teamLabel: "Das Team",
+    teamTitle: "Die Menschen, mit denen Sie wirklich arbeiten.",
+    roles: { founder: "Mitgründer", securityData: "Cybersecurity und Daten" },
+    principlesLabel: "Wie wir arbeiten",
+    principlesTitle: "Fünf Dinge, an die wir uns halten.",
+    principles: [
+      { title: "Wer plant, baut auch.", copy: "Keine Übergabe zwischen Gespräch und Umsetzung: Wer Ihr Projekt plant, baut es auch." },
+      { title: "Design und Entwicklung im Haus.", copy: "Beides sitzt im selben Team in Luxemburg, sodass das System, das Sie gezeigt bekommen, auch das System ist, das gebaut wird." },
+      { title: "Ihre Daten bleiben, wo sie müssen.", copy: "Hosting in der EU oder auf Ihrer eigenen Infrastruktur, wenn die Daten sie nicht verlassen dürfen. Zugriffsrechte gelten bis in jede Antwort." },
+      { title: "Rechnung vor Technik.", copy: "Jeder Engpass wird aus Ihren eigenen Mengen beziffert, bevor etwas vorgeschlagen wird. Rechnet sich KI für einen Prozess nicht, sagen wir das." },
+      { title: "Verantwortlich nach dem Start.", copy: "Monitoring, Wartung und ein Team, das verantwortlich bleibt, wenn das System live ist." },
+    ],
+    factsLabel: "Das Unternehmen",
+    phone: "Telefon",
+    email: "E-Mail",
+  },
 };

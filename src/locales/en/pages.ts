@@ -249,4 +249,26 @@ export const pages = {
     successTitle: "Request received.",
     successBody: "Thank you. We will be in touch within one business day to agree a date.",
   },
+
+  /** /about: the team and how we work. Names and roles are facts; the
+   *  principles repeat what the rest of the site already promises. */
+  aboutPage: {
+    eyebrow: "About us",
+    title: "The people behind DEEV. And how we work.",
+    teamLabel: "The team",
+    teamTitle: "The people you will actually work with.",
+    roles: { founder: "Co-founder", securityData: "Cybersecurity & Data" },
+    principlesLabel: "How we work",
+    principlesTitle: "Five things we hold to.",
+    principles: [
+      { title: "The people who scope it build it.", copy: "No hand-off between the conversation and the delivery: the people who scope your project are the people who build it." },
+      { title: "Design and engineering in-house.", copy: "Both sit in the same team in Luxembourg, so the system you are shown is the system that gets built." },
+      { title: "Your data stays where it must.", copy: "Hosting in the EU, or on your own infrastructure where the data must not leave. Access rights carried through to every answer." },
+      { title: "Arithmetic before technology.", copy: "Each bottleneck is costed from your own volumes before anything is proposed. If AI does not pay for a process, we say so." },
+      { title: "Accountable after launch.", copy: "Monitoring, maintenance and a team that stays accountable once the system is live." },
+    ],
+    factsLabel: "The company",
+    phone: "Phone",
+    email: "Email",
+  },
 };

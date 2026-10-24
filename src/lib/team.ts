@@ -35,3 +35,26 @@ export const FOUNDERS: Founder[] = [
 ].map((f) => ({ ...f, photo: byBasename[f.key] }));
 
 export const TEAM_READY = FOUNDERS.every((f) => Boolean(f.photo));
+
+/**
+ * Everyone on /about: the founders, then the team. `role` is a key into
+ * `pages.aboutPage.roles`, so the title follows the reader's language.
+ *
+ * Same filename rule: `noah.*` in src/assets/team and the photo appears.
+ * Until it does, the card shows the initials on the surface panel - a
+ * typographic placeholder, not a stand-in face (see the note above).
+ */
+export interface Member {
+  key: string;
+  name: string;
+  role: "founder" | "securityData";
+  photo?: string;
+}
+
+export const TEAM: Member[] = (
+  [
+    { key: "fabio", name: "Fabio Falchero", role: "founder" },
+    { key: "sven", name: "Sven Kettel", role: "founder" },
+    { key: "noah", name: "Noah Stelmes", role: "securityData" },
+  ] as Member[]
+).map((m) => ({ ...m, photo: byBasename[m.key] }));

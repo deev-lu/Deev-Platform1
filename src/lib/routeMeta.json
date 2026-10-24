@@ -136,6 +136,23 @@
         }
       }
     },
+    "/about": {
+      "file": "about.html",
+      "meta": {
+        "en": {
+          "title": "About DEEV: the team behind the software | DEEV",
+          "description": "Who we are: Fabio Falchero and Sven Kettel, co-founders, and Noah Stelmes for cybersecurity and data. A software and AI company in Luxembourg, and how we work."
+        },
+        "fr": {
+          "title": "À propos de DEEV : l'équipe | DEEV",
+          "description": "Qui nous sommes : Fabio Falchero et Sven Kettel, cofondateurs, et Noah Stelmes pour la cybersécurité et les données. Une entreprise de logiciel et d'IA au Luxembourg, et notre façon de travailler."
+        },
+        "de": {
+          "title": "Über DEEV: das Team | DEEV",
+          "description": "Wer wir sind: Fabio Falchero und Sven Kettel, Mitgründer, und Noah Stelmes für Cybersecurity und Daten. Ein Software- und KI-Unternehmen in Luxemburg, und wie wir arbeiten."
+        }
+      }
+    },
     "/project": {
       "file": "project.html",
       "meta": {
