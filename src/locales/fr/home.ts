@@ -35,7 +35,6 @@ export const home: typeof En = {
   },
 
   intro: {
-    kicker: "Ingénierie logicielle et IA · Luxembourg",
     lines: ["Logiciels sur mesure et IA"],
     accent: "pour les entreprises luxembourgeoises.",
     lead: "Applications web, portails et outils internes, ainsi que des agents et assistants IA qui travaillent sur vos propres données. Conçus, développés et exploités par une seule équipe au Luxembourg, le plus souvent à partir d’un atelier.",

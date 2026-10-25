@@ -16,7 +16,8 @@ import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
  *
  * Der Titel ist kleiner als zuvor und laeuft farblich von fast Weiss ueber
  * Hellblau ins Electric Blue (`.m-flow`, motion.css); der Akzent endet im
- * tieferen Blau. Darueber ein Label als Pille, darunter zwei Pillen-Knoepfe.
+ * tieferen Blau. Darunter zwei Pillen-Knoepfe; das Label darueber ist seit
+ * dem 25.10.2026 weg (der Titel sagt es schon).
  *
  * Seit dem 25.10.2026 sagt der Hero konkret, was wir machen: der Titel nennt
  * Angebot und Kunden ("Individualsoftware und KI fuer Luxemburger
@@ -68,8 +69,11 @@ export default function Hero() {
           className="absolute inset-0 hidden md:block"
           style={{ background: "linear-gradient(90deg, rgba(6,10,26,0.9) 0%, rgba(6,10,26,0.66) 42%, rgba(6,10,26,0) 70%)" }}
         />
+        {/* Auf dem Telefon steht der Text hoeher, ueber dem hellen Himmel:
+            dort reicht der Verlauf ueber die ganze Hoehe, dazu ein Schleier. */}
+        <div className="absolute inset-0 md:hidden" style={{ background: "rgba(6,10,26,0.32)" }} />
         <div
-          className="absolute inset-x-0 bottom-0 h-[78%] md:h-[30%]"
+          className="absolute inset-x-0 bottom-0 h-full md:h-[30%]"
           style={{ background: "linear-gradient(0deg, rgba(6,10,26,0.97) 0%, rgba(6,10,26,0.88) 55%, rgba(6,10,26,0) 100%)" }}
         />
         <div
@@ -89,18 +93,11 @@ export default function Hero() {
       >
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-10">
           <div className="min-w-0" style={{ maxWidth: 760 }}>
-            <div
-              className="m-fade-up inline-flex items-center gap-2.5 h-8 pl-2.5 pr-3.5 rounded-full border eyebrow-mono uppercase whitespace-nowrap text-[#c7dcff] text-[0.5625rem] tracking-[0.08em] sm:text-[length:var(--t-label)] sm:tracking-[0.16em]"
-              style={{ background: "rgba(10,20,52,0.55)", borderColor: "rgba(127,174,255,0.32)" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3ce7fc]" aria-hidden="true" />
-              {h.kicker}
-            </div>
 
             {/* Der Verlauf liegt auf dem ganzen Block, nicht pro Zeile: jede
                 Zeile laeuft von hell (links) nach blau (rechts). */}
             <h1
-              className="m-flow w-fit font-medium mt-7 mb-0"
+              className="m-flow w-fit font-medium mt-0 mb-0"
               style={{ fontSize: "clamp(2.25rem, 1.3rem + 3vw, 4rem)", lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: "17ch" }}
             >
               {h.lines.join(" ")} <span className="m-flow-deep">{h.accent}</span>

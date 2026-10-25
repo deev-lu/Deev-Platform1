@@ -35,7 +35,6 @@ export const home: typeof En = {
   },
 
   intro: {
-    kicker: "Software- und KI-Engineering · Luxemburg",
     lines: ["Individualsoftware und KI"],
     accent: "für Luxemburger Unternehmen.",
     lead: "Webanwendungen, Portale und interne Werkzeuge, dazu KI-Agenten und Assistenten, die mit Ihren eigenen Daten arbeiten. Entworfen, gebaut und betrieben von einem Team in Luxemburg, meist beginnend mit einem Workshop.",

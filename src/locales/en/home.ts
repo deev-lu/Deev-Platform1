@@ -41,7 +41,6 @@ export const home = {
   /** The homepage's opening, since the high-end redesign. The last title line
    *  carries the accent. */
   intro: {
-    kicker: "Software and AI engineering · Luxembourg",
     lines: ["Custom software and AI"],
     accent: "for Luxembourg businesses.",
     lead: "Web apps, portals and internal tools, and AI agents and assistants that work on your own data. Designed, built and run by one team in Luxembourg, usually starting with a workshop.",
