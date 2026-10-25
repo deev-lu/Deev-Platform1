@@ -422,13 +422,13 @@
   box-decoration-break: clone;
 }
 
-/* Client marquee (homepage, under the hero). Desktop and tablet only; on a
-   phone the row is swiped instead, and the duplicate run is hidden. Pauses
-   on hover so a name can be read. */
-.m-marquee-track > ul:last-child { display: none; }
+/* Client marquee (homepage, under the hero). Runs on every screen size
+   since 25 Oct 2026 (the owner's decision; phones used to swipe it). A
+   transform on one layer, so it costs the compositor, not the main thread.
+   Faster on a phone, where the logos are smaller. Pauses on hover. */
+.m-marquee-track { animation: m-ticker 40s linear infinite; }
 @media (min-width: 768px) {
-  .m-marquee-track > ul:last-child { display: flex; }
-  .m-marquee-track { animation: m-ticker 60s linear infinite; }
+  .m-marquee-track { animation-duration: 60s; }
   .m-marquee:hover .m-marquee-track { animation-play-state: paused; }
 }
 @media (prefers-reduced-motion: reduce) {

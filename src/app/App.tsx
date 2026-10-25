@@ -42,6 +42,9 @@ const NotFound          = lazy(() => import("./components/NotFound"));
 // The floating WhatsApp button. Lazy: it does not appear until the visitor
 // has scrolled past the first screen, so it never competes for the load.
 const WhatsAppButton    = lazy(() => import("./components/WhatsAppButton"));
+// On a phone the WhatsApp button gives way to a contact bar along the bottom:
+// call, WhatsApp, free intro call.
+const MobileActionBar   = lazy(() => import("./components/MobileActionBar"));
 
 // Minimal section skeleton while lazy chunks load
 function SectionSkeleton() {
@@ -171,7 +174,11 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
       <CookieBanner />
       <Suspense fallback={null}>
         <WhatsAppButton />
+        <MobileActionBar />
       </Suspense>
+      {/* Room under the footer on phones, so the contact bar never covers
+          the last links. */}
+      <div aria-hidden="true" className="md:hidden h-[84px] bg-[var(--surface-0)]" />
     </>
   );
 }
