@@ -35,15 +35,22 @@ export const home: typeof En = {
   },
 
   intro: {
-    kicker: "Software- und KI-Engineering · Luxemburg",
-    lines: ["Wir bauen die", "Systeme, auf denen", "Ihr Unternehmen"],
-    accent: "läuft.",
-    lead: "Individuelle Software, KI und Datenplattformen für Organisationen mit großen Vorhaben. Und für einige wenige: Websites, gestaltet auf dem Niveau der Marke dahinter.",
+    lines: ["Individualsoftware und KI"],
+    accent: "für Luxemburger Unternehmen.",
+    lead: "Webanwendungen, Portale und interne Werkzeuge, dazu KI-Agenten und Assistenten, die mit Ihren eigenen Daten arbeiten. Entworfen, gebaut und betrieben von einem Team in Luxemburg, meist beginnend mit einem Workshop.",
     primary: "Kostenloses Erstgespräch anfragen",
     film: "KI bei der Arbeit ansehen",
     reviews: (rating: string, count: number) => `${rating} · ${count} Google-Bewertungen`,
     reviewsAria: (rating: string, count: number) => `Mit ${rating} von 5 bewertet, aus ${count} Google-Bewertungen`,
-    specs: ["Entwickelt in Luxemburg", "Hosting in der EU oder bei Ihnen", "Design und Engineering im Haus"],
+    /** The hero's service list, in the order of HERO_OFFER_LINKS in Hero.tsx. */
+    offersLabel: "Was wir machen",
+    offers: [
+      { title: "Individualsoftware", sub: "Webanwendungen, Portale, interne Systeme" },
+      { title: "KI und Automatisierung", sub: "Agenten und Assistenten für Ihre Daten" },
+      { title: "Workshops und Beratung", sub: "Wo sich Software und KI wirklich rechnen" },
+      { title: "Websites", sub: "Auf Einladung" },
+    ],
+    funding: "Luxemburger KMU: 70 % der förderfähigen Kosten zurück",
     visual: {
       illustrative: "Beispiel",
       product: "Billovio · unser eigenes Produkt",
@@ -107,7 +114,7 @@ export const home: typeof En = {
 
   disciplines: {
     eyebrow: "Was wir tun",
-    title: "Zuerst Engineering. Design, wo es zählt.",
+    title: "Software und KI, die in Produktion laufen. Design, wo es zählt.",
     core: "Kern",
     invitation: "Auf Einladung",
     software: {

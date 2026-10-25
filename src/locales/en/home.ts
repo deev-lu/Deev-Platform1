@@ -41,15 +41,22 @@ export const home = {
   /** The homepage's opening, since the high-end redesign. The last title line
    *  carries the accent. */
   intro: {
-    kicker: "Software and AI engineering · Luxembourg",
-    lines: ["We build the", "systems your", "business"],
-    accent: "runs on.",
-    lead: "Custom software, AI and data platforms for organisations with serious ambitions. And, for a select few, websites designed to the standard of the brand behind them.",
+    lines: ["Custom software and AI"],
+    accent: "for Luxembourg businesses.",
+    lead: "Web apps, portals and internal tools, and AI agents and assistants that work on your own data. Designed, built and run by one team in Luxembourg, usually starting with a workshop.",
     primary: "Request a free intro call",
     film: "Watch AI at work",
     reviews: (rating: string, count: number) => `${rating} · ${count} Google reviews`,
     reviewsAria: (rating: string, count: number) => `Rated ${rating} out of 5 from ${count} Google reviews`,
-    specs: ["Built in Luxembourg", "EU or on-premise hosting", "Design and engineering in-house"],
+    /** The hero's service list, in the order of HERO_OFFER_LINKS in Hero.tsx. */
+    offersLabel: "What we do",
+    offers: [
+      { title: "Custom software", sub: "Web apps, portals, internal systems" },
+      { title: "AI and automation", sub: "Agents and assistants on your data" },
+      { title: "Workshops and consulting", sub: "Where software and AI actually pay" },
+      { title: "Websites", sub: "By invitation" },
+    ],
+    funding: "Luxembourg SMEs: 70% of eligible costs back",
     visual: {
       illustrative: "Illustrative",
       product: "Billovio · our own product",
@@ -115,7 +122,7 @@ export const home = {
 
   disciplines: {
     eyebrow: "What we do",
-    title: "Engineering first. Design where it counts.",
+    title: "Software and AI that run in production. Design where it counts.",
     core: "Core",
     invitation: "By invitation",
     software: {

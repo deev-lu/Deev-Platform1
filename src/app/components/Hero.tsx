@@ -15,9 +15,15 @@ import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
  * gegradet; ein Verlauf von links haelt die Schrift lesbar.
  *
  * Der Titel ist kleiner als zuvor und laeuft farblich von fast Weiss ueber
- * Hellblau ins Electric Blue (`.m-flow`, motion.css); "runs on." endet im
- * tieferen Blau. Darueber ein Label als Pille, darunter zwei Pillen-Knoepfe;
- * die drei Fakten stehen ab 1024px in einer kleinen Karte rechts.
+ * Hellblau ins Electric Blue (`.m-flow`, motion.css); der Akzent endet im
+ * tieferen Blau. Darunter zwei Pillen-Knoepfe; das Label darueber ist seit
+ * dem 25.10.2026 weg (der Titel sagt es schon).
+ *
+ * Seit dem 25.10.2026 sagt der Hero konkret, was wir machen: der Titel nennt
+ * Angebot und Kunden ("Individualsoftware und KI fuer Luxemburger
+ * Unternehmen"), und wo vorher drei Fakten standen, steht das Angebot - vier
+ * Leistungen, jede verlinkt, dazu die Foerderung. Ab 1024px als Karte rechts,
+ * darunter als 2x2-Raster unter den Knoepfen.
  *
  * Auf dem Telefon randlos: das Bild geht bis an die Kanten, nur die unteren
  * Ecken sind rund. Der schmale Rand in Seitenfarbe sah dort wie ein Fehler
@@ -27,6 +33,9 @@ import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
  * Foto steht. Groesstes Element der Seite, daher mit hoher Prioritaet; auf
  * dem Telefon die 900er-Fassung.
  */
+
+/** Where each entry of `home.intro.offers` leads, in the same order. */
+const HERO_OFFER_LINKS = ["/services/custom-software", "/services/ai-automation", "/workshops", "/services/websites"] as const;
 
 export default function Hero() {
   const t = useT();
@@ -60,8 +69,11 @@ export default function Hero() {
           className="absolute inset-0 hidden md:block"
           style={{ background: "linear-gradient(90deg, rgba(6,10,26,0.9) 0%, rgba(6,10,26,0.66) 42%, rgba(6,10,26,0) 70%)" }}
         />
+        {/* Auf dem Telefon steht der Text hoeher, ueber dem hellen Himmel:
+            dort reicht der Verlauf ueber die ganze Hoehe, dazu ein Schleier. */}
+        <div className="absolute inset-0 md:hidden" style={{ background: "rgba(6,10,26,0.32)" }} />
         <div
-          className="absolute inset-x-0 bottom-0 h-[78%] md:h-[30%]"
+          className="absolute inset-x-0 bottom-0 h-full md:h-[30%]"
           style={{ background: "linear-gradient(0deg, rgba(6,10,26,0.97) 0%, rgba(6,10,26,0.88) 55%, rgba(6,10,26,0) 100%)" }}
         />
         <div
@@ -81,19 +93,12 @@ export default function Hero() {
       >
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-10">
           <div className="min-w-0" style={{ maxWidth: 760 }}>
-            <div
-              className="m-fade-up inline-flex items-center gap-2.5 h-8 pl-2.5 pr-3.5 rounded-full border eyebrow-mono uppercase whitespace-nowrap text-[#c7dcff] text-[0.5625rem] tracking-[0.08em] sm:text-[length:var(--t-label)] sm:tracking-[0.16em]"
-              style={{ background: "rgba(10,20,52,0.55)", borderColor: "rgba(127,174,255,0.32)" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3ce7fc]" aria-hidden="true" />
-              {h.kicker}
-            </div>
 
             {/* Der Verlauf liegt auf dem ganzen Block, nicht pro Zeile: jede
                 Zeile laeuft von hell (links) nach blau (rechts). */}
             <h1
-              className="m-flow w-fit font-medium mt-7 mb-0"
-              style={{ fontSize: "clamp(2.375rem, 1.3rem + 3.2vw, 4.25rem)", lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: "15ch" }}
+              className="m-flow w-fit font-medium mt-0 mb-0"
+              style={{ fontSize: "clamp(2.25rem, 1.3rem + 3vw, 4rem)", lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: "17ch" }}
             >
               {h.lines.join(" ")} <span className="m-flow-deep">{h.accent}</span>
             </h1>
@@ -134,38 +139,68 @@ export default function Hero() {
             {/* Google-Bewertung, sobald die echten Zahlen in lib/reviews.ts stehen. */}
             <HeroReviews />
 
-            {/* Unter 1024px: die drei Fakten als Zeile */}
-            <ul className="lg:hidden m-fade-up grid grid-cols-3 mt-8 pt-4 border-t border-white/10 text-[var(--text)]" style={{ fontSize: "0.75rem", lineHeight: 1.35, animationDelay: "0.5s" }}>
-              {h.specs.map((spec, i) => (
-                <li key={spec} className={i > 0 ? "pl-3 border-l border-white/10" : "pr-3"}>
-                  {spec}
-                </li>
-              ))}
-            </ul>
+            {/* Unter 1024px: das Angebot als 2x2-Raster, darunter die Foerderung. */}
+            <div className="lg:hidden m-fade-up mt-8" style={{ animationDelay: "0.5s" }}>
+              <div className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
+                {h.offersLabel}
+              </div>
+              <ul className="grid grid-cols-2 gap-2 mt-3 m-0 p-0">
+                {h.offers.map((o, i) => (
+                  <li key={o.title} className="list-none">
+                    <L
+                      to={HERO_OFFER_LINKS[i]}
+                      className="flex h-full flex-col gap-1 p-3.5 border border-white/10 hover:border-white/25 transition-colors duration-[var(--dur-1)]"
+                      style={{ borderRadius: "var(--radius-1)", background: "rgba(11,14,28,0.6)" }}
+                    >
+                      <span className="text-[var(--text-hi)] font-medium" style={{ fontSize: "0.875rem", lineHeight: 1.25 }}>
+                        {o.title}
+                      </span>
+                      <span className="text-[var(--text-low)]" style={{ fontSize: "0.75rem", lineHeight: 1.35 }}>
+                        {o.sub}
+                      </span>
+                    </L>
+                  </li>
+                ))}
+              </ul>
+              <FundingLine text={h.funding} />
+            </div>
           </div>
 
-          {/* Ab 1024px: die Fakten als kleine Karte */}
-          <div
-            className="hidden lg:flex m-fade-up flex-col gap-4 w-[300px] p-6 border border-white/10"
-            style={{ borderRadius: "var(--radius-2)", background: "rgba(11,14,28,0.72)", animationDelay: "0.5s" }}
+          {/* Ab 1024px: das Angebot als Karte rechts. Jede Zeile fuehrt zur
+              Leistungsseite; so steht schon im ersten Bild, was wir machen. */}
+          <nav
+            aria-label={h.offersLabel}
+            className="hidden lg:flex m-fade-up flex-col w-[340px] p-6 border border-white/10"
+            style={{ borderRadius: "var(--radius-2)", background: "rgba(11,14,28,0.78)", animationDelay: "0.5s" }}
           >
             <div className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
-              Studio
+              {h.offersLabel}
             </div>
-            <ul className="flex flex-col gap-3 m-0 p-0" style={{ fontSize: "var(--t-small)" }}>
-              {h.specs.map((spec, i) => (
-                <li
-                  key={spec}
-                  className={`flex items-center gap-3 text-[var(--text-hi)] ${i < h.specs.length - 1 ? "pb-3 border-b border-white/[0.08]" : ""}`}
-                >
-                  <span className="eyebrow-mono text-[#7faeff]" style={{ fontSize: "var(--t-label)" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {spec}
+            <ul className="flex flex-col mt-3 m-0 p-0">
+              {h.offers.map((o, i) => (
+                <li key={o.title} className="list-none border-b border-white/[0.08] last:border-b-0">
+                  <L to={HERO_OFFER_LINKS[i]} className="group flex items-center gap-3 py-3">
+                    <span className="eyebrow-mono text-[#7faeff] shrink-0" style={{ fontSize: "var(--t-label)" }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="flex-1 min-w-0">
+                      <span className="block text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
+                        {o.title}
+                      </span>
+                      <span className="block text-[var(--text-low)]" style={{ fontSize: "0.75rem", lineHeight: 1.4 }}>
+                        {o.sub}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      className="w-4 h-4 shrink-0 text-[var(--text-low)] group-hover:text-white group-hover:translate-x-0.5 transition-[color,transform] duration-[var(--dur-1)]"
+                      strokeWidth={1.5}
+                    />
+                  </L>
                 </li>
               ))}
             </ul>
-          </div>
+            <FundingLine text={h.funding} />
+          </nav>
         </div>
       </div>
     </div>
@@ -230,5 +265,20 @@ function GoogleG() {
       <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
       <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.3-.4-3.5z" />
     </svg>
+  );
+}
+
+/** Die Foerderung als eine Zeile, verlinkt auf /sme-packages. */
+function FundingLine({ text }: { text: string }) {
+  return (
+    <L
+      to="/sme-packages"
+      className="group mt-4 pt-4 border-t border-white/10 flex items-center gap-2 text-[var(--text)] hover:text-white transition-colors duration-[var(--dur-1)]"
+      style={{ fontSize: "0.8125rem", lineHeight: 1.4 }}
+    >
+      <span className="w-1.5 h-1.5 rounded-full bg-[#3ce7fc] shrink-0" aria-hidden="true" />
+      <span className="flex-1">{text}</span>
+      <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5" strokeWidth={1.5} />
+    </L>
   );
 }

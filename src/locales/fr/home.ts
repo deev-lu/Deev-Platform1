@@ -35,15 +35,22 @@ export const home: typeof En = {
   },
 
   intro: {
-    kicker: "Ingénierie logicielle et IA · Luxembourg",
-    lines: ["Nous construisons", "les systèmes qui", "font tourner votre"],
-    accent: "entreprise.",
-    lead: "Logiciels sur mesure, IA et plateformes de données pour les organisations aux ambitions sérieuses. Et, pour quelques-unes, des sites web conçus à la hauteur de la marque qu’ils représentent.",
+    lines: ["Logiciels sur mesure et IA"],
+    accent: "pour les entreprises luxembourgeoises.",
+    lead: "Applications web, portails et outils internes, ainsi que des agents et assistants IA qui travaillent sur vos propres données. Conçus, développés et exploités par une seule équipe au Luxembourg, le plus souvent à partir d’un atelier.",
     primary: "Demander un échange gratuit",
     film: "Voir l’IA à l’œuvre",
     reviews: (rating: string, count: number) => `${rating} · ${count} avis Google`,
     reviewsAria: (rating: string, count: number) => `Noté ${rating} sur 5 d’après ${count} avis Google`,
-    specs: ["Conçu au Luxembourg", "Hébergement UE ou sur site", "Design et ingénierie en interne"],
+    /** The hero's service list, in the order of HERO_OFFER_LINKS in Hero.tsx. */
+    offersLabel: "Ce que nous faisons",
+    offers: [
+      { title: "Logiciel sur mesure", sub: "Applications web, portails, systèmes internes" },
+      { title: "IA et automatisation", sub: "Agents et assistants sur vos données" },
+      { title: "Ateliers et conseil", sub: "Là où le logiciel et l’IA rapportent vraiment" },
+      { title: "Sites web", sub: "Sur invitation" },
+    ],
+    funding: "PME luxembourgeoises : 70 % des coûts éligibles remboursés",
     visual: {
       illustrative: "Exemple",
       product: "Billovio · notre propre produit",
@@ -107,7 +114,7 @@ export const home: typeof En = {
 
   disciplines: {
     eyebrow: "Ce que nous faisons",
-    title: "L’ingénierie d’abord. Le design là où il compte.",
+    title: "Du logiciel et de l’IA qui tournent en production. Le design là où il compte.",
     core: "Cœur",
     invitation: "Sur invitation",
     software: {
