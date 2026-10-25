@@ -51,7 +51,8 @@ invitation (07) → Footer
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
 Homepage motion lives in `src/styles/motion.css` (CSS only; loops run from
-768px up; reduced motion shows the finished state). The film is a coded
+768px up, except the client marquee, which runs everywhere; reduced motion
+shows the finished state). The film is a coded
 sequence, not a video file; its names and figures are invented and labelled.
 
 **Photographs in `src/assets/photos`.** From the owner: `hero-adolphe-*`
@@ -93,6 +94,13 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - **Clicks on phone, WhatsApp and email links** are a GA event
   (`contact_click`), consent permitting, from one listener in analytics.ts.
 - The `/sme-packages` eligibility check ends in a "send me the result" form.
+- **Phones get a contact bar along the bottom** (`MobileActionBar.tsx`):
+  call, WhatsApp and the free intro call, after about one screen of
+  scrolling and once the cookie choice is made; not on /contact. It replaces
+  the floating WhatsApp button below 768px, and an 84px spacer under the
+  footer keeps the last links clear of it.
+- The contact form autofills on phones, and a call-back request needs no
+  message.
 - The cookie banner's first layer is a slim bottom bar: the old card covered
   the hero headline and buttons on every first visit.
 
@@ -130,6 +138,8 @@ Mobile load was a real problem and these fixed it:
    cost on iOS Safari. `fonts.css` force-disables it on mobile.
 2. **Decorative blur radii are capped to 50px on mobile.**
 3. **Continuous animations are disabled on mobile** via `useIsMobile()`.
+   One exception, the owner's decision on 25 Oct 2026: the client marquee
+   (`.m-marquee-track`) runs on phones too. It is a single CSS transform.
 4. **Images must be resized before committing.** Client logos were 200KB+ each
    until they were downscaled to display size.
 5. The hero photo ships a 900px WebP to phones (`srcSet`) and stays under

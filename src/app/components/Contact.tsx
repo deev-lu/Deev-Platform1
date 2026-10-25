@@ -108,7 +108,7 @@ export default function Contact() {
         phone: form.phone || "n/a",
         interest,
         ...(form.callback ? { call_back: "Yes, please call back" } : {}),
-        message: form.message,
+        message: form.message || "n/a",
       },
       id,
     );
@@ -288,6 +288,7 @@ export default function Contact() {
                         required
                         value={form.name}
                         onChange={(e) => update("name", e.target.value)}
+                        autoComplete="name"
                         placeholder={t.pages.contact.form.namePlaceholder}
                         className={inputCls}
                       />
@@ -298,6 +299,8 @@ export default function Contact() {
                         required
                         value={form.email}
                         onChange={(e) => update("email", e.target.value)}
+                        autoComplete="email"
+                        inputMode="email"
                         placeholder={t.pages.contact.form.emailPlaceholder}
                         className={inputCls}
                       />
@@ -307,6 +310,7 @@ export default function Contact() {
                         type="text"
                         value={form.company}
                         onChange={(e) => update("company", e.target.value)}
+                        autoComplete="organization"
                         placeholder={t.pages.contact.form.companyPlaceholder}
                         className={inputCls}
                       />
@@ -317,6 +321,8 @@ export default function Contact() {
                         required={form.callback}
                         value={form.phone}
                         onChange={(e) => update("phone", e.target.value)}
+                        autoComplete="tel"
+                        inputMode="tel"
                         placeholder={t.pages.contact.form.phonePlaceholder}
                         className={inputCls}
                       />
@@ -349,9 +355,11 @@ export default function Contact() {
                     </select>
                   </Field>
 
-                  <Field label={t.pages.contact.form.message} required>
+                  {/* Wer einen Rueckruf will, muss nicht auch noch schreiben:
+                      auf dem Telefon ist das Tippen die groesste Huerde. */}
+                  <Field label={t.pages.contact.form.message} required={!form.callback}>
                     <textarea
-                      required
+                      required={!form.callback}
                       rows={5}
                       value={form.message}
                       onChange={(e) => update("message", e.target.value)}

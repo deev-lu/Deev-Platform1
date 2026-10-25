@@ -8,9 +8,10 @@ import { clients } from "./ClientLogos";
  * Filter braucht). Nur echte Kunden; ein neuer Kunde kommt mit seiner
  * Logodatei dort hinein, nicht als Name hier.
  *
- * Bewegung: ab 768px laeuft das Band (CSS, `.m-ticker`-Prinzip, pausiert beim
- * Darueberfahren); darunter laesst es sich wischen, nach den Leistungsregeln
- * laeuft auf dem Telefon nichts dauerhaft. Reduzierte Bewegung: steht.
+ * Bewegung: das Band laeuft auf jeder Bildschirmgroesse (CSS, `.m-ticker`-
+ * Prinzip, pausiert beim Darueberfahren); seit dem 25.10.2026 auch auf dem
+ * Telefon, auf Wunsch des Inhabers. Reduzierte Bewegung: steht und laesst
+ * sich wischen.
  */
 
 type Client = (typeof clients)[number];
@@ -22,7 +23,7 @@ function Run({ hidden }: { hidden?: boolean }) {
   return (
     <ul className="flex items-center shrink-0 m-0 p-0" aria-hidden={hidden || undefined}>
       {clients.map((c) => (
-        <li key={c.name} className="shrink-0 flex items-center justify-center h-16 px-8 md:px-11 snap-start" title={c.name}>
+        <li key={c.name} className="shrink-0 flex items-center justify-center h-16 px-8 md:px-11" title={c.name}>
           <img
             src={c.src}
             alt={hidden ? "" : c.name}
@@ -53,10 +54,10 @@ export default function HomeClients() {
         </span>
       </div>
 
-      {/* Phone: swipe. From 768px: a marquee, two identical runs, the track
-          moves by one of them. Edges fade into the page. */}
+      {/* A marquee on every screen: two identical runs, the track moves by
+          one of them. Edges fade into the page. */}
       <div
-        className="m-marquee relative mt-5 overflow-x-auto md:overflow-hidden snap-x snap-mandatory md:snap-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="m-marquee relative mt-5 overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{
           WebkitMaskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
           maskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",

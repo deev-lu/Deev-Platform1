@@ -66,7 +66,9 @@ export default function WhatsAppButton() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const visible = consented && scrolled && !hidden;
+  // Phones get MobileActionBar instead, which carries WhatsApp with a call
+  // button and the intro-call button.
+  const visible = consented && scrolled && !hidden && !isMobile;
 
   // On a phone there is no hover, so the label introduces itself once and
   // then gets out of the way.
