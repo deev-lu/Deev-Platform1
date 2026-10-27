@@ -29,7 +29,7 @@ type Status = "idle" | "submitting" | "success" | "error";
  * and the form opens on the matching option: "Book a workshop" lands on
  * "Workshop / consulting", not on "General enquiry".
  */
-export const INTEREST_KEYS = ["general", "call", "workshop", "ai", "software", "funding", "website", "marketing", "other"] as const;
+export const INTEREST_KEYS = ["general", "call", "workshop", "ai", "software", "funding", "website", "marketing", "security", "other"] as const;
 export type InterestKey = (typeof INTEREST_KEYS)[number];
 
 const initialForm = {

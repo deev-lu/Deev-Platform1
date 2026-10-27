@@ -49,6 +49,7 @@ export const home: typeof En = {
       { title: "IA et automatisation", sub: "Agents et assistants sur vos données" },
       { title: "Ateliers et conseil", sub: "Là où le logiciel et l’IA rapportent vraiment" },
       { title: "Sites web", sub: "Sur invitation" },
+      { title: "Cybersécurité & NIS2", sub: "Sensibilisation des équipes et de la direction" },
     ],
     funding: "PME luxembourgeoises : 70 % des coûts éligibles remboursés",
     visual: {
@@ -162,7 +163,42 @@ export const home: typeof En = {
     funding: "Peut relever du SME Package AI : l'État rembourse 70 % des coûts éligibles sur un projet de 3 000 à 25 000 € HT, soit au maximum 17 500 €. L'éligibilité est décidée lors de la pré-analyse.",
     primary: "Réserver un atelier",
     secondary: "Le déroulé de l'atelier",
+    conceptLabel: "Le livrable",
+    doc: { kicker: "Concept exécutif", title: "Là où le logiciel et l’IA rapportent dans votre activité", toc: ["Processus cartographiés de bout en bout", "Goulets d’étranglement, chacun chiffré sur vos volumes", "Architecture sur vos systèmes existants", "Feuille de route en quatre phases de production", "Coûts éligibles et parcours de financement"] },
+    illustrative: "Exemple",
+    /** Figures of the property-management concept, as home.ai.example states them. */
+    proofStats: [
+      { value: "7", label: "processus cartographiés de bout en bout" },
+      { value: "7", label: "goulets chiffrés individuellement" },
+      { value: "30", label: "pages de concept exécutif" },
+    ],
+    proofCaption: "Un concept récent pour un groupe luxembourgeois de gestion immobilière",
     photoAlt: "La Gëlle Fra à Luxembourg-Ville sur un ciel bleu profond",
+  },
+
+  /** 03 on the homepage: cybersecurity awareness and NIS2. Directive-level
+   *  facts only (Directive (EU) 2022/2555); no national dates or deadlines. */
+  security: {
+    eyebrow: "Cybersécurité & NIS2",
+    title: "La sécurité commence par les personnes. NIS2 le dit aussi.",
+    lead: "Beaucoup d’incidents commencent par un e-mail, un mot de passe ou un clic. Nous formons vos équipes et votre direction à reconnaître les risques, et vous aidons à voir ce que NIS2 demande à votre entreprise.",
+    offers: [
+      { title: "Sensibilisation de vos équipes", copy: "Hameçonnage, mots de passe et authentification à plusieurs facteurs, gestion des données, signalement d’un incident : des séances concrètes pour celles et ceux qui reçoivent les e-mails, en luxembourgeois, français, allemand ou anglais." },
+      { title: "Formation de la direction", copy: "Ce que NIS2 attend de l’organe de direction, et comment juger si les mesures en place suffisent." },
+      { title: "Un premier bilan NIS2", copy: "Si NIS2 est susceptible de vous concerner, directement ou en tant que fournisseur, et quelles mesures manquent encore. Un point de départ, pas un avis juridique." },
+    ],
+    glanceLabel: "NIS2 en bref",
+    glance: [
+      { ref: "Art. 20(2)", text: "Les membres de l’organe de direction doivent suivre une formation en cybersécurité." },
+      { ref: "Art. 21(2)(g)", text: "Les pratiques de base en matière de cyberhygiène et la formation à la cybersécurité font partie des mesures de gestion des risques exigées." },
+      { ref: "Art. 21(2)(d)", text: "La sécurité de la chaîne d’approvisionnement en fait aussi partie : la question remonte donc jusqu’aux fournisseurs." },
+    ],
+    glanceSource: "Directive (UE) 2022/2555 (NIS2). Nous formons et conseillons ; nous ne donnons pas d’avis juridique. L’application de NIS2 à une entreprise est fixée par la loi.",
+    ledBy: "Sous la responsabilité de Noah Stelmes, cybersécurité et données",
+    /** The training visual: an invented phishing email, labelled as an example. */
+    mock: { label: "Repérer l’hameçonnage", from: "it-support@micros0ft-security.co", subject: "Votre mot de passe expire aujourd’hui", flags: ["Domaine qui imite", "Pression pour agir vite", "Lien vers un site inconnu"] },
+    primary: "Planifier une sensibilisation",
+    secondary: "Découvrir l’équipe",
   },
 
   engage: {

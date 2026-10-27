@@ -55,6 +55,7 @@ export const home = {
       { title: "AI and automation", sub: "Agents and assistants on your data" },
       { title: "Workshops and consulting", sub: "Where software and AI actually pay" },
       { title: "Websites", sub: "By invitation" },
+      { title: "Cybersecurity & NIS2", sub: "Awareness training for teams and management" },
     ],
     funding: "Luxembourg SMEs: 70% of eligible costs back",
     visual: {
@@ -173,7 +174,42 @@ export const home = {
     funding: "Can qualify for the SME AI package: the state reimburses 70% of eligible costs on a project of €3,000 to €25,000 ex. VAT, so at most €17,500. Eligibility is decided at the pre-analysis.",
     primary: "Book a workshop",
     secondary: "How the workshop runs",
+    conceptLabel: "The deliverable",
+    doc: { kicker: "Executive concept", title: "Where software and AI pay in your operation", toc: ["Processes mapped end to end", "Bottlenecks, each costed from your volumes", "Architecture on your existing systems", "Roadmap in four production phases", "Eligible cost and funding path"] },
+    illustrative: "Illustrative",
+    /** Figures of the property-management concept, as home.ai.example states them. */
+    proofStats: [
+      { value: "7", label: "processes mapped end to end" },
+      { value: "7", label: "bottlenecks individually costed" },
+      { value: "30", label: "pages of executive concept" },
+    ],
+    proofCaption: "A recent concept for a Luxembourg property-management group",
     photoAlt: "The Gëlle Fra in Luxembourg City against a deep blue sky",
+  },
+
+  /** 03 on the homepage: cybersecurity awareness and NIS2. Directive-level
+   *  facts only (Directive (EU) 2022/2555); no national dates or deadlines. */
+  security: {
+    eyebrow: "Cybersecurity & NIS2",
+    title: "Security starts with people. NIS2 says so too.",
+    lead: "Many incidents begin with an email, a password or a click. We train your teams and your management to recognise the risks, and help you see what NIS2 asks of your company.",
+    offers: [
+      { title: "Awareness training for your team", copy: "Phishing, passwords and multi-factor sign-in, handling data, reporting an incident: practical sessions for the people who receive the emails, in Luxembourgish, French, German or English." },
+      { title: "Training for management", copy: "What NIS2 expects of the management body, and how to judge whether the measures in place are enough." },
+      { title: "A first NIS2 check", copy: "Whether NIS2 is likely to concern you, directly or as a supplier, and which measures are still missing. A starting point, not a legal opinion." },
+    ],
+    glanceLabel: "NIS2 at a glance",
+    glance: [
+      { ref: "Art. 20(2)", text: "Members of the management body must follow cybersecurity training." },
+      { ref: "Art. 21(2)(g)", text: "Basic cyber hygiene practices and cybersecurity training are among the required risk-management measures." },
+      { ref: "Art. 21(2)(d)", text: "Supply-chain security is one of them too, so the question reaches suppliers." },
+    ],
+    glanceSource: "Directive (EU) 2022/2555 (NIS2). We train and advise; we do not give legal advice. Whether NIS2 applies to a company is set by law.",
+    ledBy: "Led by Noah Stelmes, cybersecurity and data",
+    /** The training visual: an invented phishing email, labelled as an example. */
+    mock: { label: "Spot the phish", from: "it-support@micros0ft-security.co", subject: "Your password expires today", flags: ["Look-alike domain", "Pressure to act now", "Link to an unknown site"] },
+    primary: "Plan an awareness training",
+    secondary: "Meet the team",
   },
 
   engage: {

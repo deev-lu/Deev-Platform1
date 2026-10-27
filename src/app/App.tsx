@@ -27,6 +27,7 @@ const HomeOutro         = lazy(() => import("./components/HomeOutro"));
 const HomeClients       = lazy(() => import("./components/HomeClients"));
 const HomeWorkshops     = lazy(() => import("./components/HomeWorkshops"));
 const HomeFunding       = lazy(() => import("./components/HomeFunding"));
+const HomeSecurity      = lazy(() => import("./components/HomeSecurity"));
 const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
@@ -77,9 +78,11 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Suspense fallback={<SectionSkeleton />}>
         <HomeClients />
 
-        {/* 01 Was wir tun, 02 Workshops und Beratung */}
-        <HomeDisciplines />
+        {/* 01 Workshops und Beratung (seit dem 27.10.2026 zuerst), 02 was
+            wir bauen, 03 Cybersecurity und NIS2, dann die Foerderung. */}
         <HomeWorkshops />
+        <HomeDisciplines />
+        <HomeSecurity />
         {/* Ohne Nummer: ein Weg zur Foerderseite, kein eigener Abschnitt. */}
         <HomeFunding />
 

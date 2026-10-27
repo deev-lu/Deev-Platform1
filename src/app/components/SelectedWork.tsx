@@ -54,7 +54,7 @@ export default function SelectedWork() {
             >
               <span className="h-px w-10 bg-[var(--line-strong)]" />
               <span>
-                <span className="text-[var(--metal)]">03</span> / {t.home.selected.eyebrow}
+                <span className="text-[var(--metal)]">04</span> / {t.home.selected.eyebrow}
               </span>
             </div>
             <h2

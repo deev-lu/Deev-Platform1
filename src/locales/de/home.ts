@@ -49,6 +49,7 @@ export const home: typeof En = {
       { title: "KI und Automatisierung", sub: "Agenten und Assistenten für Ihre Daten" },
       { title: "Workshops und Beratung", sub: "Wo sich Software und KI wirklich rechnen" },
       { title: "Websites", sub: "Auf Einladung" },
+      { title: "Cybersecurity & NIS2", sub: "Awareness-Schulung für Teams und Leitung" },
     ],
     funding: "Luxemburger KMU: 70 % der förderfähigen Kosten zurück",
     visual: {
@@ -162,7 +163,42 @@ export const home: typeof En = {
     funding: "Kann über das SME Package AI gefördert werden: Der Staat erstattet 70 % der förderfähigen Kosten bei einem Projekt von 3.000 bis 25.000 € netto, also höchstens 17.500 €. Über die Förderfähigkeit entscheidet die Voranalyse.",
     primary: "Workshop anfragen",
     secondary: "So läuft der Workshop",
+    conceptLabel: "Das Ergebnis",
+    doc: { kicker: "Executive-Konzept", title: "Wo sich Software und KI in Ihrem Betrieb rechnen", toc: ["Prozesse von Anfang bis Ende kartiert", "Engpässe, jeder aus Ihren Mengen beziffert", "Architektur auf Ihren bestehenden Systemen", "Fahrplan in vier Produktionsphasen", "Förderfähige Kosten und Förderweg"] },
+    illustrative: "Beispiel",
+    /** Figures of the property-management concept, as home.ai.example states them. */
+    proofStats: [
+      { value: "7", label: "Prozesse von Anfang bis Ende kartiert" },
+      { value: "7", label: "Engpässe einzeln beziffert" },
+      { value: "30", label: "Seiten Executive-Konzept" },
+    ],
+    proofCaption: "Ein aktuelles Konzept für eine Luxemburger Immobilienverwaltungsgruppe",
     photoAlt: "Die Gëlle Fra in Luxemburg-Stadt vor tiefblauem Himmel",
+  },
+
+  /** 03 on the homepage: cybersecurity awareness and NIS2. Directive-level
+   *  facts only (Directive (EU) 2022/2555); no national dates or deadlines. */
+  security: {
+    eyebrow: "Cybersecurity & NIS2",
+    title: "Sicherheit beginnt beim Menschen. Das sagt auch NIS2.",
+    lead: "Viele Vorfälle beginnen mit einer E-Mail, einem Passwort oder einem Klick. Wir schulen Ihre Teams und Ihre Geschäftsleitung darin, Risiken zu erkennen, und helfen Ihnen zu sehen, was NIS2 von Ihrem Unternehmen verlangt.",
+    offers: [
+      { title: "Awareness-Schulung für Ihr Team", copy: "Phishing, Passwörter und Mehr-Faktor-Anmeldung, Umgang mit Daten, einen Vorfall melden: praktische Einheiten für die Menschen, die die E-Mails bekommen, auf Luxemburgisch, Deutsch, Französisch oder Englisch." },
+      { title: "Schulung für die Geschäftsleitung", copy: "Was NIS2 von den Leitungsorganen erwartet und wie man beurteilt, ob die vorhandenen Maßnahmen ausreichen." },
+      { title: "Ein erster NIS2-Check", copy: "Ob NIS2 Sie voraussichtlich betrifft, direkt oder als Zulieferer, und welche Maßnahmen noch fehlen. Ein Ausgangspunkt, keine Rechtsberatung." },
+    ],
+    glanceLabel: "NIS2 auf einen Blick",
+    glance: [
+      { ref: "Art. 20 Abs. 2", text: "Mitglieder der Leitungsorgane müssen an Cybersicherheitsschulungen teilnehmen." },
+      { ref: "Art. 21 Abs. 2 lit. g", text: "Grundlegende Cyberhygiene und Schulungen zur Cybersicherheit gehören zu den verlangten Risikomanagementmaßnahmen." },
+      { ref: "Art. 21 Abs. 2 lit. d", text: "Auch die Sicherheit der Lieferkette gehört dazu, die Frage erreicht also auch Zulieferer." },
+    ],
+    glanceSource: "Richtlinie (EU) 2022/2555 (NIS2). Wir schulen und beraten; wir erteilen keine Rechtsberatung. Ob NIS2 für ein Unternehmen gilt, legt das Gesetz fest.",
+    ledBy: "Verantwortet von Noah Stelmes, Cybersecurity und Daten",
+    /** The training visual: an invented phishing email, labelled as an example. */
+    mock: { label: "Phishing erkennen", from: "it-support@micros0ft-security.co", subject: "Ihr Passwort läuft heute ab", flags: ["Nachgeahmte Domain", "Druck, sofort zu handeln", "Link auf eine unbekannte Seite"] },
+    primary: "Awareness-Schulung planen",
+    secondary: "Das Team kennenlernen",
   },
 
   engage: {
