@@ -208,6 +208,7 @@ export const pages: typeof En = {
       "SME Package / Förderung",
       "Neue Website",
       "Lead-Kampagnen / Marketing",
+      "Cybersecurity / NIS2-Awareness",
       "Sonstiges",
     ],
     success: {

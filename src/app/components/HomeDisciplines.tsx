@@ -33,7 +33,7 @@ export default function HomeDisciplines() {
         >
           <span className="h-px w-10 bg-[var(--line-strong)]" />
           <span>
-            <span className="text-[var(--metal)]">01</span> / {d.eyebrow}
+            <span className="text-[var(--metal)]">02</span> / {d.eyebrow}
           </span>
         </div>
         <h2

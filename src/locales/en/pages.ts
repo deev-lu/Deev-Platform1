@@ -210,6 +210,7 @@ export const pages = {
       "SME package / funding",
       "New website",
       "Lead campaigns / Marketing",
+      "Cybersecurity / NIS2 awareness",
       "Other",
     ],
     success: {

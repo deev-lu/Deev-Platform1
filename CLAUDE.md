@@ -39,14 +39,21 @@ accent type), real photography in full bleed or square corners, graded with
 Navbar (with phone number and a Contact button) → Hero (full-bleed photo) →
 HomeClients (a marquee of real client logos only; the list and each logo's
 filter live in `clients` in ClientLogos.tsx — a new client comes with its file)
-→ HomeDisciplines (01, three cards with plates) → HomeWorkshops (02,
-workshops & consulting sold as a service of their own — the entry to most
-projects; every claim repeats the AI page) → HomeFunding (an unnumbered band
-with the three SME Package figures, linking to /sme-packages) → AiFilm ("AI at work") → SelectedWork (03, a bento of five projects: each
-screenshot in a browser frame with its domain) → InMotion (04) → HomeOutro:
-engagements (05, a photo and the flow plate; carries the #pricing /
-#project-builder campaign anchors) · HomeCompany (06, #about) · closing
-invitation (07) → Footer
+→ HomeWorkshops (01, since 27 Oct 2026 the first section: workshops &
+consulting sold as a service of their own and the entry to most projects —
+an inset blue panel with the executive concept drawn as a document, the
+three formats on hairlines and the property-management concept as 7 / 7 / 30;
+every claim repeats the AI page) → HomeDisciplines (02, three cards with
+plates) → HomeSecurity (03, #cybersecurity: awareness training for teams and
+management and a first NIS2 check, led by Noah Stelmes; NIS2 is cited by
+article from Directive (EU) 2022/2555 only — no Luxembourg dates, deadlines
+or authorities, the sources disagreed when it was written) → HomeFunding (an
+unnumbered band with the three SME Package figures, linking to /sme-packages)
+→ AiFilm ("AI at work") → SelectedWork (04, a bento of five projects: each
+screenshot in a browser frame with its domain) → InMotion (05) → HomeOutro:
+engagements (06, a photo and the flow plate; carries the #pricing /
+#project-builder campaign anchors) · HomeCompany (07, #about) · closing
+invitation (08) → Footer
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
@@ -78,7 +85,7 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 ## Leads (since 24 Oct 2026, "a lead machine")
 - **One main button everywhere: the free intro call** (`nav.cta`, hero), to
   `/contact?interest=call`. Every other contact button opens the form on its
-  own option: `?interest=workshop|ai|software|funding|website|marketing`
+  own option: `?interest=workshop|ai|software|funding|website|marketing|security`
   (`INTEREST_KEYS` in Contact.tsx maps a key to `pages.contact.interests` by
   position — keep the arrays in the same order in all three languages).
 - **`/workshops`** (WorkshopsPage.tsx) is the landing page for the workshop

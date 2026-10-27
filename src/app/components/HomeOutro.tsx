@@ -106,7 +106,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
               <div className={eyebrow} style={eyebrowStyle}>
                 <span className="h-px w-10 bg-[var(--line-strong)]" />
                 <span>
-                  <span className="text-[var(--metal)]">05</span> / {e.eyebrow}
+                  <span className="text-[var(--metal)]">06</span> / {e.eyebrow}
                 </span>
               </div>
               <h2
@@ -178,7 +178,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
           <div className={eyebrow} style={eyebrowStyle}>
             <span className="h-px w-10 bg-[var(--line-strong)]" />
             <span>
-              <span className="text-[var(--metal)]">07</span> / {c.eyebrow}
+              <span className="text-[var(--metal)]">08</span> / {c.eyebrow}
             </span>
           </div>
           <h2

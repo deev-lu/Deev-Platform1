@@ -35,7 +35,7 @@ import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
  */
 
 /** Where each entry of `home.intro.offers` leads, in the same order. */
-const HERO_OFFER_LINKS = ["/services/custom-software", "/services/ai-automation", "/workshops", "/services/websites"] as const;
+const HERO_OFFER_LINKS = ["/services/custom-software", "/services/ai-automation", "/workshops", "/services/websites", "/#cybersecurity"] as const;
 
 export default function Hero() {
   const t = useT();
@@ -146,7 +146,7 @@ export default function Hero() {
               </div>
               <ul className="grid grid-cols-2 gap-2 mt-3 m-0 p-0">
                 {h.offers.map((o, i) => (
-                  <li key={o.title} className="list-none">
+                  <li key={o.title} className={`list-none ${h.offers.length % 2 && i === h.offers.length - 1 ? "col-span-2" : ""}`}>
                     <L
                       to={HERO_OFFER_LINKS[i]}
                       className="flex h-full flex-col gap-1 p-3.5 border border-white/10 hover:border-white/25 transition-colors duration-[var(--dur-1)]"
