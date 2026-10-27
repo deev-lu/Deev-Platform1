@@ -71,6 +71,11 @@
   /* Space / grid */
   --section-y: clamp(96px, 10vw, 200px);
   --section-y-lg: clamp(140px, 14vw, 280px);
+  /* The homepage rhythm (since 27 Oct 2026): every section pads its content
+     by this above and below, so two neighbours sit exactly 2x apart, the
+     same everywhere (96px on a phone, 144px at 1440, 176px at most).
+     Coloured panels pad 1.25x inside, half-height bands 0.5x. */
+  --section-pad: clamp(48px, 5vw, 88px);
   --container: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
 }

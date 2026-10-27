@@ -25,7 +25,7 @@ export default function HomeDisciplines() {
   ];
 
   return (
-    <section id="services" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
+    <section id="services" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div
           className="flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]"

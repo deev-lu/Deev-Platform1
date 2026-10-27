@@ -28,7 +28,7 @@ export default function HomeSecurity() {
       id="cybersecurity"
       aria-labelledby="security-title"
       className="bg-[var(--surface-0)]"
-      style={{ paddingBlock: "var(--section-y-lg)" }}
+      style={{ paddingBlock: "var(--section-pad)" }}
     >
       <div
         className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14"

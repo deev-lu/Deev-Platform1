@@ -98,7 +98,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
   return (
     <>
       {/* 04 · Wie Projekte laufen */}
-      <section id="pricing" className="relative bg-[var(--surface-1)] border-y border-[var(--line)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
+      <section id="pricing" className="relative bg-[var(--surface-1)] border-y border-[var(--line)]" style={{ paddingBlock: "calc(var(--section-pad) * 1.25)" }}>
         <span id="project-builder" className="absolute top-0" aria-hidden="true" />
         <div className="mx-auto" style={wrap}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-8 items-end">
@@ -173,7 +173,7 @@ export default function HomeOutro({ company }: { company?: ReactNode }) {
       {company}
 
       {/* 06 · Einladung. Fast leer: die Sicherheit liegt im Weglassen. */}
-      <section className="bg-[var(--surface-0)] border-t border-[var(--line)]" style={{ paddingBlock: "calc(var(--section-y-lg) * 0.9)" }}>
+      <section className="bg-[var(--surface-0)] border-t border-[var(--line)]" style={{ paddingBlock: "var(--section-pad)" }}>
         <div className="mx-auto" style={wrap}>
           <div className={eyebrow} style={eyebrowStyle}>
             <span className="h-px w-10 bg-[var(--line-strong)]" />

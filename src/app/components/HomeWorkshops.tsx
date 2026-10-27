@@ -48,7 +48,7 @@ export default function HomeWorkshops() {
 
         <div
           className="relative mx-auto"
-          style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y-lg)" }}
+          style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "calc(var(--section-pad) * 1.25)" }}
         >
           {/* ── Kopf und Ergebnis ─────────────────────────────────────────── */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-14 gap-y-14 items-center">

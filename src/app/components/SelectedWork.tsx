@@ -44,7 +44,7 @@ export default function SelectedWork() {
   const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-4", "lg:col-span-4", "lg:col-span-4"];
 
   return (
-    <section className="bg-[var(--surface-0)]" style={{ paddingTop: "var(--section-y)", paddingBottom: "var(--section-y-lg)" }}>
+    <section className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-8 items-end">
           <div className="lg:col-span-7">

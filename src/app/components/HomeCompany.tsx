@@ -39,7 +39,7 @@ export default function HomeCompany() {
   ];
 
   return (
-    <section id="about" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y-lg)" }}>
+    <section id="about" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)" }}>
       <div
         className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}

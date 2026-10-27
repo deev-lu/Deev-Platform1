@@ -30,7 +30,7 @@ export default function InMotion() {
     <section
       id="in-motion"
       className="bg-[var(--surface-0)] border-t border-[var(--line-faint)]"
-      style={{ paddingBlock: "var(--section-y)" }}
+      style={{ paddingBlock: "var(--section-pad)" }}
     >
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6 mb-12">

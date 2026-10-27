@@ -121,6 +121,11 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
 ## Design system (src/styles/fonts.css)
 - `.glass` / `.glass-edge` / `.glass-sheen` — Apple-style clear glass surfaces
+- **Homepage spacing:** every homepage section pads by `--section-pad`
+  (tokens.css) above and below, so neighbours always sit the same distance
+  apart; coloured panels use 1.25x inside, the funding band 0.5x. Don't put
+  `--section-y-lg` back on homepage sections: two of them back to back made
+  gaps of up to 560px.
 - `.eyebrow-mono` — numbered section markers (`01 / What we build`)
 - `.stat-outline` — big hollow outlined numerals
 - `.animate-drift` — slow Ken Burns motion for full-bleed photography
