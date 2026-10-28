@@ -20,7 +20,7 @@ export default function Legal() {
         >
           {/* Header */}
           <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 mb-6">
               {g.badge}
             </div>
             <h1 className="text-4xl md:text-5xl font-medium text-slate-900 dark:text-white mb-4 tracking-tight">
@@ -38,7 +38,7 @@ export default function Legal() {
             <p className="text-slate-500 dark:text-slate-400 mt-4 max-w-3xl">
               {g.scope}
             </p>
-            <p className="text-slate-400 dark:text-slate-500 text-sm mt-6">
+            <p className="text-slate-600 dark:text-[var(--text-mid)] text-sm mt-6">
               {g.updated}
             </p>
           </div>

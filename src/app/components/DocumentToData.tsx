@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { Check } from "lucide-react";
 import { Section, SectionTitle } from "./Section";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Vom Dokument zu Daten - die zweite Erklaerung auf der KI-Seite.
@@ -37,14 +38,15 @@ const duration = (p: number) => (p === IDLE ? 700 : p < REVIEW ? 620 : p === REV
 
 // Papier bleibt in beiden Themen Papier.
 const INK = "#33383f";
-const INK_LOW = "#7a8088";
+// #5f656d: 5,9:1 auf Papier (vorher #7a8088, 3,98:1 - zu wenig fuer kleinen Text).
+const INK_LOW = "#5f656d";
 const BLUE = "#2563f6";
-const AMBER = "#a1650f";
+const AMBER = "#8f5a0d";
 
 export default function DocumentToData() {
   const t = useT();
   const d = t.home.docAi;
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const isMobile = useIsMobile();
   const panelRef = useRef<HTMLDivElement>(null);
   const inView = useInView(panelRef, { amount: 0.4 });
@@ -173,7 +175,7 @@ export default function DocumentToData() {
 
                   <div className="mt-6 pt-3 border-t" style={{ borderColor: "rgba(0,0,0,0.12)", color: INK_LOW, fontSize: 11 }}>
                     {/* Unscharf gedruckt: deshalb das unsichere Feld. */}
-                    IBAN <Mark f="iban"><span style={{ filter: "blur(0.6px)", opacity: 0.8 }}>{IBAN}</span></Mark>
+                    IBAN <Mark f="iban"><span style={{ filter: "blur(0.5px)" }}>{IBAN}</span></Mark>
                   </div>
 
                   {/* Die Leselinie */}
@@ -219,11 +221,14 @@ export default function DocumentToData() {
                         className="relative grid grid-cols-[6.5rem_1fr_auto] items-center gap-x-3 py-2.5 border-b border-[var(--line)]"
                         style={{ background: held ? "color-mix(in srgb, var(--warn) 10%, transparent)" : "transparent", transition: "background 240ms" }}
                       >
-                        <span
-                          className="absolute left-0 top-0 bottom-0 w-[2px] -translate-x-3"
-                          style={{ background: held ? "var(--warn)" : "transparent", transition: "background 240ms" }}
-                        />
+                        {/* Der Markierungsstrich sitzt im dt: ein <dl> darf direkt
+                            nur dt/dd-Gruppen enthalten (WCAG 1.3.1). */}
                         <dt className="eyebrow-mono uppercase text-[var(--text-low)] truncate" style={{ fontSize: "var(--t-label)", letterSpacing: "0.1em" }}>
+                          <span
+                            aria-hidden="true"
+                            className="absolute left-0 top-0 bottom-0 w-[2px] -translate-x-3"
+                            style={{ background: held ? "var(--warn)" : "transparent", transition: "background 240ms" }}
+                          />
                           {d.fields[f]}
                         </dt>
                         {/* Wert und Platzhalter stehen beide immer da und

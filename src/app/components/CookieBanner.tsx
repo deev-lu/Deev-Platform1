@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import type { Dict } from "../../locales";
@@ -15,6 +15,7 @@ import {
   withdrawConsent,
 } from "../../lib/consent";
 import { pauseSmoothScroll, resumeSmoothScroll } from "../../lib/smoothScroll";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Consent banner and preferences dialog.
@@ -68,7 +69,7 @@ export default function CookieBanner() {
   const locale = useLocale();
   const ROWS = rowsFor(t);
   const fmt = (iso: string) => fmtDate(iso, locale);
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const [record, setRecord] = useState<ConsentRecord | null>(null);
   const [showBanner, setShowBanner] = useState(false);
   const [showPrefs, setShowPrefs] = useState(false);

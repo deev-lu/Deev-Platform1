@@ -177,14 +177,17 @@ export default function WorkCase() {
                     key={label}
                     className="flex items-baseline gap-4 py-4 border-b border-[var(--line)]"
                   >
-                    <Icon
-                      className="w-4 h-4 shrink-0 translate-y-[3px] text-[var(--signal-text)]"
-                      strokeWidth={1.5}
-                    />
+                    {/* Das Symbol sitzt im dt: ein <dl> darf direkt nur dt/dd-
+                        Gruppen enthalten (WCAG 1.3.1). */}
                     <dt
-                      className="eyebrow-mono uppercase text-[var(--text-low)] shrink-0"
-                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", width: "9rem" }}
+                      className="flex items-baseline gap-4 eyebrow-mono uppercase text-[var(--text-low)] shrink-0"
+                      style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", width: "calc(9rem + 2rem)" }}
                     >
+                      <Icon
+                        aria-hidden="true"
+                        className="w-4 h-4 shrink-0 translate-y-[3px] text-[var(--signal-text)]"
+                        strokeWidth={1.5}
+                      />
                       {label}
                     </dt>
                     <dd className="text-[var(--text-hi)] min-w-0" style={{ fontSize: "var(--t-small)" }}>
@@ -486,7 +489,7 @@ function SitePreview({
           ))}
         </span>
         <span
-          className="eyebrow-mono lowercase text-[var(--text-low)] truncate"
+          className="eyebrow-mono lowercase text-[var(--text-mid)] truncate"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.08em" }}
         >
           {domain}

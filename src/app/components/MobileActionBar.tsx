@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Phone, ArrowRight } from "lucide-react";
 import L from "./L";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -8,6 +8,7 @@ import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { getConsent, onConsentChange } from "../../lib/consent";
 import { whatsappHref, WHATSAPP_NUMBER } from "../../lib/whatsapp";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Die Kontaktleiste am unteren Rand, nur auf dem Telefon (seit dem 25.10.2026).
@@ -48,7 +49,7 @@ export function useActionBarVisible(): boolean {
 
 export default function MobileActionBar() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const visible = useActionBarVisible();
 
   return (

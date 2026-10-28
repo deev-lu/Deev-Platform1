@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useLocation } from "react-router";
 import { ArrowRight, ArrowUpRight, BadgeEuro, ChevronDown } from "lucide-react";
 import L from "./L";
@@ -8,6 +8,7 @@ import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategor
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
 import { ARTICLES, formatDate } from "../../lib/news";
 import { useT, useLocale, useLocalePath } from "../../lib/useT";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * The desktop navigation panels.
@@ -37,7 +38,6 @@ import { useT, useLocale, useLocalePath } from "../../lib/useT";
  * touch; the drawer in Navbar carries the same links as an accordion.
  */
 
-
 export type PanelId = "services" | "work" | "journal";
 
 export default function MegaMenu({
@@ -51,7 +51,7 @@ export default function MegaMenu({
   onAnchor: (href: string) => void;
 }) {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const { pathname } = useLocation();
   const wrap = useRef<HTMLDivElement>(null);
   const timer = useRef<number | undefined>(undefined);

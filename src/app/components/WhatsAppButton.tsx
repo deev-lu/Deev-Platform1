@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import WhatsAppIcon from "./WhatsAppIcon";
 import { whatsappHref } from "../../lib/whatsapp";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { getConsent, onConsentChange } from "../../lib/consent";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * The floating WhatsApp button.
@@ -40,7 +41,7 @@ const SHOW_AFTER = 0.8;
 
 export default function WhatsAppButton() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const isMobile = useIsMobile();
 
   const [consented, setConsented] = useState(() => Boolean(getConsent()));
