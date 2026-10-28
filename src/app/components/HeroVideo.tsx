@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useMotionPaused } from "../../lib/motionPref";
 
 /**
  * The hero's background film, from YouTube (owner's decision, 23 Oct 2026:
  * plays for every visitor, without asking first; the cookie policy says so
  * under "Embedded video").
  *
+ * - Stops when the visitor presses "Pause motion" (lib/motionPref.ts).
  * - Every screen size since 24 Oct 2026 (the owner's decision; phones used
  *   to keep the photograph), never under reduced motion. Decided after
  *   mount, so the prerendered page is the photo.
@@ -27,14 +29,21 @@ const END = START + 60;
 const ORIGIN_RE = /^https:\/\/www\.youtube(-nocookie)?\.com$/;
 
 export default function HeroVideo() {
-  const [on, setOn] = useState(false);
+  const [allowed, setAllowed] = useState(false);
   const [playing, setPlaying] = useState(false);
   const ref = useRef<HTMLIFrameElement>(null);
+  // "Pause motion" (WCAG 2.2.2) removes the film; the photo underneath stays.
+  const paused = useMotionPaused();
 
   useEffect(() => {
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!still.matches) setOn(true);
+    if (!still.matches) setAllowed(true);
   }, []);
+
+  const on = allowed && !paused;
+  useEffect(() => {
+    if (!on) setPlaying(false);
+  }, [on]);
 
   useEffect(() => {
     if (!on) return;

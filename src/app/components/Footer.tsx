@@ -2,6 +2,7 @@ import { Linkedin } from "lucide-react";
 import logo from "../../assets/logo.png";
 import MadeInLuxembourg from "./MadeInLuxembourg";
 import L from "./L";
+import MotionToggle from "./MotionToggle";
 import { openCookieSettings } from "../../lib/consent";
 import { useT, useLocalePath } from "../../lib/useT";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -189,18 +190,29 @@ export default function Footer() {
                   {t.site.footer.links.cookieSettings}
                 </button>
               </li>
+              {/* Pause motion (WCAG 2.2.2), from every page. */}
+              <li>
+                <MotionToggle variant="text" className={linkClass} />
+              </li>
+              <li>
+                <L to="/accessibility" className={linkClass}>
+                  {t.site.footer.links.accessibility}
+                </L>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Die Wortmarke als Grafik: gross, kaum Kontrast, unten angeschnitten. */}
         <div aria-hidden="true" className="select-none pointer-events-none mt-8 overflow-hidden" style={{ height: "clamp(69px, 24.5vw, 360px)" }}>
+          {/* Als CSS-Inhalt, nicht als Text: eine Wortmarke ist von der
+              Kontrastregel ausgenommen (WCAG 1.4.3, "Logotypes"), aber Pruef-
+              werkzeuge melden sie sonst trotzdem. Fuer Screenreader ohnehin
+              verborgen. */}
           <span
-            className="block font-brand text-[var(--text-hi)] whitespace-nowrap"
+            className="block font-brand text-[var(--text-hi)] whitespace-nowrap before:content-['DEEV']"
             style={{ fontSize: "clamp(96px, 34vw, 500px)", lineHeight: 0.82, letterSpacing: "-0.04em", opacity: 0.05, marginLeft: "-0.04em" }}
-          >
-            DEEV
-          </span>
+          />
         </div>
 
         {/* Bottom bar */}

@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import { PROJECTS, type Project, sectorOf } from "../../lib/projects";
 import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategories";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * /work — the portfolio as a page of its own.
@@ -26,7 +27,7 @@ const domainOf = (link?: string) =>
 export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string }) {
   const t = useT();
   const locale = useLocale();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
 
   // The category comes from the route, so the URL is always the truth about
   // what is on screen and every category can be linked to directly.

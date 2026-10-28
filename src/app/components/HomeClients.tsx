@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Pause, Play } from "lucide-react";
 import { useT } from "../../lib/useT";
 import { clients } from "./ClientLogos";
 
@@ -42,22 +44,35 @@ function Run({ hidden }: { hidden?: boolean }) {
 
 export default function HomeClients() {
   const t = useT();
+  // WCAG 2.2.2: anything that moves for more than five seconds needs a way to
+  // stop it. Hover pauses too, but a phone and a keyboard have no hover.
+  const [paused, setPaused] = useState(false);
 
   return (
     <section aria-label={t.home.clients.label} className="bg-[var(--surface-0)] border-b border-[var(--line)] py-8 md:py-10">
-      <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
+      <div className="mx-auto flex items-center justify-between gap-4" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <span
           className="eyebrow-mono uppercase text-[var(--text-low)]"
           style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
         >
           {t.home.clients.label}
         </span>
+        <button
+          type="button"
+          onClick={() => setPaused((p) => !p)}
+          aria-pressed={paused}
+          aria-label={paused ? t.site.a11y.playLogos : t.site.a11y.pauseLogos}
+          title={paused ? t.site.a11y.playLogos : t.site.a11y.pauseLogos}
+          className="motion-reduce:hidden shrink-0 grid place-items-center w-8 h-8 rounded-full border border-[var(--line-strong)] text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+        >
+          {paused ? <Play className="w-3.5 h-3.5" strokeWidth={1.75} /> : <Pause className="w-3.5 h-3.5" strokeWidth={1.75} />}
+        </button>
       </div>
 
       {/* A marquee on every screen: two identical runs, the track moves by
           one of them. Edges fade into the page. */}
       <div
-        className="m-marquee relative mt-5 overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className={`m-marquee ${paused ? "is-paused " : ""}relative mt-5 overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
         style={{
           WebkitMaskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
           maskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",

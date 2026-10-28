@@ -22,6 +22,21 @@ export const site: typeof En = {
     languageOf: (name: string) => `Passer en ${name}`,
   },
 
+  /** Accessibility labels (WCAG 2.1 AA): skip link, pause controls. */
+  a11y: {
+    skip: "Aller au contenu",
+    pauseLogos: "Mettre en pause les logos clients",
+    playLogos: "Relancer les logos clients",
+    pauseVideo: "Mettre en pause la vidéo d’arrière-plan",
+    playVideo: "Lire la vidéo d’arrière-plan",
+    pauseFilm: "Mettre l’animation en pause",
+    playFilm: "Relancer l’animation",
+    newTab: "(s’ouvre dans un nouvel onglet)",
+    pauseMotion: "Mettre les animations en pause",
+    playMotion: "Relancer les animations",
+    motionLabel: "Animations",
+  },
+
   footer: {
     blurb:
       "Ingénierie logicielle et IA au Luxembourg. Nous construisons les systèmes sur lesquels repose votre entreprise, et nous en restons responsables après la mise en ligne.",
@@ -41,6 +56,7 @@ export const site: typeof En = {
       privacy: "Politique de confidentialité",
       cookies: "Politique de cookies",
       cookieSettings: "Paramètres des cookies",
+      accessibility: "Accessibilité",
     },
     rights: (year: number) => `© ${year} Deev / Lux VR States Sàrl-s. Tous droits réservés.`,
     madeIn: "Conçu avec précision au Luxembourg",

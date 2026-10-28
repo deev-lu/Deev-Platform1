@@ -1,7 +1,8 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import billovioShot from "../../assets/work/billovio.jpg";
 import { useT } from "../../lib/useT";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * §07 — Billovio.
@@ -29,7 +30,7 @@ const BLEED_RIGHT = "calc(-1 * (var(--gutter) + max(0px, (100vw - var(--containe
 export default function BillovioFeature() {
   const t = useT();
   const FEATURES = t.home.billovio.features;
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["4%", "-4%"]);
@@ -153,7 +154,7 @@ export default function BillovioFeature() {
                   <span className="w-[6px] h-[6px] rounded-full bg-black/20" />
                 </span>
                 <span
-                  className="eyebrow-mono lowercase text-black/45"
+                  className="eyebrow-mono lowercase text-black/65"
                   style={{ fontSize: "var(--t-label)", letterSpacing: "0.08em" }}
                 >
                   billovio.com

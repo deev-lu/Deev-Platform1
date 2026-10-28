@@ -159,7 +159,7 @@ function PhishingExample() {
         {m.flags.map((f) => (
           <li
             key={f}
-            className="list-none inline-flex items-center gap-1.5 px-2.5 py-1 border border-amber-500/35 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+            className="list-none inline-flex items-center gap-1.5 px-2.5 py-1 border border-amber-500/35 bg-amber-500/10 text-amber-800 dark:text-amber-300"
             style={{ fontSize: "0.75rem", borderRadius: 999 }}
           >
             <AlertTriangle className="w-3.5 h-3.5" strokeWidth={1.75} />

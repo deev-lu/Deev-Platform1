@@ -396,6 +396,7 @@ console.log(`prerender: ${written} route documents verified and written`);
     line("/", "Home: custom software, AI and data, workshops, selected work"),
     line("/services", "Services: everything Deev builds and runs"),
     line("/sme-packages", "SME Packages: how Luxembourg's 70% digital and AI funding works, what qualifies, and an eligibility check"),
+    line("/accessibility", "Accessibility statement: WCAG 2.1 AA / EN 301 549, known limitations, how to report a problem"),
     line("/about", "About: the team (Fabio Falchero, Sven Kettel, Noah Stelmes), how we work, company facts"),
     line("/workshops", "Workshops and consulting: the on-site discovery workshop, what it produces, and how to request one"),
     line("/work", "Work: every project, filterable by type"),

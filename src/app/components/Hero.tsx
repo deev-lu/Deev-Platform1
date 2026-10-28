@@ -4,6 +4,7 @@ import { useT, useLocale } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
 import { GOOGLE_REVIEWS } from "../../lib/reviews";
 import HeroVideo from "./HeroVideo";
+import MotionToggle from "./MotionToggle";
 import heroWide from "../../assets/photos/hero-adolphe-1920.webp";
 import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
 
@@ -81,6 +82,9 @@ export default function Hero() {
           style={{ background: "linear-gradient(180deg, rgba(6,10,26,0.55), rgba(6,10,26,0))" }}
         />
       </div>
+
+      {/* Pause fuer Film und alle Bewegung (WCAG 2.2.2), unten rechts im Bild. */}
+      <MotionToggle className="absolute z-10 right-4 bottom-4 md:right-5 md:bottom-5" />
 
       <div
         className="relative mx-auto w-full flex-1 flex flex-col justify-end"
@@ -223,13 +227,17 @@ function HeroReviews() {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={t.home.intro.reviewsAria(r, count)}
       className="m-fade-up mt-6 inline-flex items-center gap-3 text-[var(--text)] hover:text-white transition-colors duration-[var(--dur-1)]"
       style={{ fontSize: "var(--t-small)", animationDelay: "0.45s" }}
     >
       <GoogleG />
       <Stars rating={rating} />
-      <span>{t.home.intro.reviews(r, count)}</span>
+      {/* Der sichtbare Text ist der Name des Links (WCAG 2.5.3); "von 5"
+          kommt fuer Screenreader dazu, die Sterne sind Grafik. */}
+      <span>
+        {t.home.intro.reviews(r, count)}
+        <span className="sr-only"> ({t.home.intro.reviewsAria(r, count)})</span>
+      </span>
     </a>
   );
 }

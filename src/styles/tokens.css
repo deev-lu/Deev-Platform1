@@ -27,7 +27,9 @@
   --text-hi: #0a0b0d;
   --text: #33383f;
   --text-mid: #565c64;
-  --text-low: #6b7178;
+  /* #5c6269 since 28 Oct 2026: >= 4.9:1 on every light surface, tinted
+     panels included (#6b7178 fell to 3.9:1 on #dfe6f7, WCAG 1.4.3). */
+  --text-low: #5c6269;
   --text-inv: #f2f4f6;
 
   /* Signal — the fill keeps the brand blue; accent type darkens to clear 7:1 */
@@ -36,10 +38,10 @@
   --signal-text: #1747c4;
   --signal-dim: rgba(37, 99, 246, 0.10);
 
-  --metal: #6b7178;
+  --metal: #5c6269;
 
   --positive: #1f7a4d;
-  --warn: #a1650f;
+  --warn: #8f5a0d;
 
   /* Shape — soft, measured corners (changed 13 Oct 2026 at the owner's
      request; the brief's 4px cap is retired). Three steps, so a button, a
@@ -102,8 +104,9 @@
   --text-mid: #8b929b;
   /* Auf der alten, helleren Fläche trug #767d87 noch. Auf Void Black/Surface
      fällt es auf 4,39:1 und reicht für Text nicht mehr. Gleicher Farbton, eine
-     Stufe heller: 4,84:1 auf Surface, 5,25:1 auf Void Black. */
-  --text-low: #7d848e;
+     Stufe heller. Seit dem 28.10.2026 #858c96: mindestens 4,7:1 auch auf den
+     getoenten Flaechen (#131f43, #171c33), WCAG 1.4.3. */
+  --text-low: #858c96;
   --text-inv: #0a0b0d;
 
   /* Electric Blue und Sky, beide aus dem Brand Book, Seite 7.

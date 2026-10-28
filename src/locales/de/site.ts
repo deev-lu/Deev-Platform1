@@ -22,6 +22,21 @@ export const site: typeof En = {
     languageOf: (name: string) => `Zu ${name} wechseln`,
   },
 
+  /** Accessibility labels (WCAG 2.1 AA): skip link, pause controls. */
+  a11y: {
+    skip: "Zum Inhalt springen",
+    pauseLogos: "Kundenlogos anhalten",
+    playLogos: "Kundenlogos abspielen",
+    pauseVideo: "Hintergrundvideo anhalten",
+    playVideo: "Hintergrundvideo abspielen",
+    pauseFilm: "Animation anhalten",
+    playFilm: "Animation abspielen",
+    newTab: "(öffnet in einem neuen Tab)",
+    pauseMotion: "Bewegung anhalten",
+    playMotion: "Bewegung abspielen",
+    motionLabel: "Animationen",
+  },
+
   footer: {
     blurb:
       "Software- und KI-Entwicklung aus Luxemburg. Wir bauen die Systeme, auf denen Ihr Unternehmen läuft, und bleiben nach dem Start verantwortlich.",
@@ -41,6 +56,7 @@ export const site: typeof En = {
       privacy: "Datenschutzerklärung",
       cookies: "Cookie-Richtlinie",
       cookieSettings: "Cookie-Einstellungen",
+      accessibility: "Barrierefreiheit",
     },
     rights: (year: number) => `© ${year} Deev / Lux VR States Sàrl-s. Alle Rechte vorbehalten.`,
     madeIn: "Mit Präzision in Luxemburg entwickelt",

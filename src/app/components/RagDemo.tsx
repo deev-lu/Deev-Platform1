@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "motion/react";
+import { useInView } from "motion/react";
 import { FileText, Lock } from "lucide-react";
 import { Section, SectionTitle } from "./Section";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Individuelle RAG - die Demo auf der KI-Seite.
@@ -45,7 +46,7 @@ export default function RagDemo() {
   const t = useT();
   const r = t.home.rag;
   const d = r.demo;
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const isMobile = useIsMobile();
   const panelRef = useRef<HTMLDivElement>(null);
   const inView = useInView(panelRef, { amount: 0.35 });
@@ -202,8 +203,7 @@ export default function RagDemo() {
                         className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-2.5 py-2 px-2 -mx-2"
                         style={{
                           background: scanning ? "var(--signal-dim)" : hit ? "color-mix(in srgb, var(--signal) 6%, transparent)" : "transparent",
-                          opacity: dim ? 0.42 : 1,
-                          transition: `background 260ms ${ease}, opacity 600ms ${ease}`,
+                          transition: `background 260ms ${ease}`,
                           borderRadius: "var(--radius-1)",
                         }}
                       >
@@ -228,7 +228,12 @@ export default function RagDemo() {
                             </>
                           )}
                         </span>
-                        <span className="truncate text-[var(--text)]" style={{ fontSize: "var(--t-small)" }}>
+                        {/* Nicht getroffene Quellen treten per Farbe zurueck, nicht per
+                            Deckkraft: 42 % Deckkraft lag unter 4,5:1 (WCAG 1.4.3). */}
+                        <span
+                          className={`truncate ${dim ? "text-[var(--text-low)] line-through decoration-[var(--line-strong)]" : "text-[var(--text)]"}`}
+                          style={{ fontSize: "var(--t-small)", transition: `color 600ms ${ease}` }}
+                        >
                           {name}
                         </span>
                         {locked ? (
