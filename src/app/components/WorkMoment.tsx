@@ -1,12 +1,18 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import { AnimatePresence, motion, useInView, useScroll, useTransform } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import L from "./L";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project, sectorOf } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { useT, useLocale } from "../../lib/useT";
 import { LOCALES } from "../../lib/i18n";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * §01 — Selected work.
@@ -62,10 +68,11 @@ const LONGEST_META = SLIDES.reduce((a, p) => {
 const domainOf = (link?: string) =>
   link ? link.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "") : "";
 
+
 export default function WorkMoment() {
   const t = useT();
   const locale = useLocale();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { margin: "-15% 0px -15% 0px" });

@@ -1,10 +1,19 @@
 import { useRef, useState, useEffect, type ReactNode, type CSSProperties } from "react";
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useMotionValueEvent, useInView, type MotionValue } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  useInView,
+  type MotionValue,
+} from "motion/react";
 import { Eyebrow } from "./Section";
 import { useT } from "../../lib/useT";
 import type { Dict } from "../../locales";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Von Daten zu Entscheidungen - die Pipeline auf der KI-Seite.
@@ -376,7 +385,7 @@ function Stage({
 export default function DataFlow() {
   const t = useT();
   const d = t.home.dataFlow;
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);

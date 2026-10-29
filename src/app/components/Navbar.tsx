@@ -59,30 +59,21 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       // The page alternates light and dark acts, so a bar styled for light
       // surfaces ends up floating over black. Ask what is actually under the
       // bar and follow it. Hit-tested per animation frame, not per event.
-      // Hit-tested behind the bar itself (its middle, 34px), skipping the bar.
-      // Testing just below it (76px) misread pages whose dark panel starts
-      // right under the bar: on /workshops in the light theme the links went
-      // white on white (WCAG 1.4.3).
-      const under = document
-        .elementsFromPoint(window.innerWidth / 2, 34)
-        .find((el) => !el.closest("header"));
+      const under = document.elementFromPoint(window.innerWidth / 2, 76);
       setOverDark(Boolean(under?.closest('[data-surface="dark"]')));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(measure);
     };
     measure();
-    // Pages load lazily: measure again once the new page has painted.
-    const late = window.setTimeout(measure, 400);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
-      window.clearTimeout(late);
     };
-  }, [pathname]);
+  }, []);
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);

@@ -29,21 +29,6 @@ export const site = {
     languageOf: (name: string) => `Switch to ${name}`,
   },
 
-  /** Accessibility labels (WCAG 2.1 AA): skip link, pause controls. */
-  a11y: {
-    skip: "Skip to content",
-    pauseLogos: "Pause the client logos",
-    playLogos: "Play the client logos",
-    pauseVideo: "Pause the background video",
-    playVideo: "Play the background video",
-    pauseFilm: "Pause the animation",
-    playFilm: "Play the animation",
-    newTab: "(opens in a new tab)",
-    pauseMotion: "Pause motion",
-    playMotion: "Play motion",
-    motionLabel: "Animations",
-  },
-
   footer: {
     blurb:
       "Software and AI engineering from Luxembourg. We build the systems your business runs on, and stay accountable after launch.",
@@ -63,7 +48,6 @@ export const site = {
       privacy: "Privacy Policy",
       cookies: "Cookie Policy",
       cookieSettings: "Cookie settings",
-      accessibility: "Accessibility",
     },
     rights: (year: number) => `© ${year} Deev / Lux VR States Sàrl-s. All rights reserved.`,
     madeIn: "Engineered with precision in Luxembourg",

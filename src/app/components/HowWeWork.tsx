@@ -1,10 +1,9 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Abschnitt 4: wie ein Projekt abläuft.
@@ -36,7 +35,7 @@ import { useReduceMotion } from "../../lib/motionPref";
  */
 export default function HowWeWork() {
   const t = useT();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile("(max-width: 1023px)");
 
   const steps = t.home.values.steps;

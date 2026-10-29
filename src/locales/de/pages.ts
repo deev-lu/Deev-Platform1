@@ -270,26 +270,4 @@ export const pages: typeof En = {
     phone: "Telefon",
     email: "E-Mail",
   },
-
-  /** /accessibility: the accessibility statement (WCAG 2.1 AA / EN 301 549).
-   *  Self-assessment; keep it true when the site changes. */
-  accessibilityPage: {
-    eyebrow: "Barrierefreiheit",
-    title: "Erklärung zur Barrierefreiheit",
-    intro: "www.deev.lu soll für alle funktionieren, auch für Menschen, die einen Screenreader, nur die Tastatur, eine Bildschirmlupe oder Sprachsteuerung nutzen.",
-    standardTitle: "Der Standard, dem wir folgen",
-    standard: "Wir gestalten und prüfen diese Website nach den Web Content Accessibility Guidelines (WCAG) 2.1, Stufe AA. Sie sind die Web-Anforderungen der europäischen Norm EN 301 549, auf die der European Accessibility Act verweist.",
-    statusTitle: "Wie weit wir ihn erfüllen",
-    status: "Teilweise konform. Nach unserer eigenen Bewertung erfüllen die Seiten, die wir bauen, WCAG 2.1 Stufe AA; die Ausnahmen betreffen Inhalte Dritter und stehen unten.",
-    measuresTitle: "Was wir getan haben",
-    measures: ["Jede Seitenart mit der Prüf-Engine axe-core gegen WCAG 2.1 A und AA getestet, im hellen und im dunklen Design, in Desktop- und Telefonbreite.", "Textkontrast von mindestens 4,5:1 überall und ein deutlicher, sichtbarer Fokusrahmen für die Tastatur.", "Ein Link „Zum Inhalt springen“ auf jeder Seite, und jedes Bedienelement mit der Tastatur erreichbar und nutzbar.", "Ein Schalter „Bewegung anhalten“ im Kopfbereich und im Footer, der das Hintergrundvideo und alle Animationen stoppt und die Wahl speichert. Die Einstellung „Bewegung reduzieren“ Ihres Geräts wird ebenfalls berücksichtigt.", "Die Seiten passen sich bis 320 Pixel Breite ohne seitliches Scrollen an, sodass Text bis 400 % vergrößert werden kann.", "Jedes Formularfeld hat eine sichtbare Beschriftung, und Fehler werden Screenreadern angesagt.", "Jede Seite gibt ihre Sprache an (Englisch, Französisch oder Deutsch), und Bilder haben eine Textalternative oder sind als dekorativ gekennzeichnet."],
-    limitsTitle: "Bekannte Einschränkungen",
-    limits: ["Das Hintergrundvideo auf der Startseite und die Videos im Bereich „In Bewegung“ werden von YouTube abgespielt. Die Barrierefreiheit des YouTube-Players liegt nicht in unserer Hand. Das Hintergrundvideo trägt keine Information und lässt sich anhalten.", "Referenzen zeigen Bildschirmfotos von Kundenwebsites. Die verlinkten Websites werden von ihren Inhabern betrieben, nicht von uns.", "Die animierten Beispiele (der KI-Film, das Lesen eines Dokuments und der Agentenlauf) sind Illustrationen. Was sie zeigen, steht auch als Text auf derselben Seite."],
-    feedbackTitle: "Ein Problem melden",
-    feedback: "Wenn Ihnen etwas auf dieser Website schwer fällt oder nicht gelingt, sagen Sie es uns: Wir helfen Ihnen und beheben es, wo wir können. Wir antworten innerhalb eines Werktags, wie bei jeder Anfrage.",
-    emailLabel: "E-Mail",
-    phoneLabel: "Telefon",
-    preparedTitle: "Zu dieser Erklärung",
-    prepared: "Erstellt am 28. Oktober 2026 auf Grundlage einer Selbstbewertung durch DEEV und überprüft, wann immer sich die Website wesentlich ändert.",
-  },
 };

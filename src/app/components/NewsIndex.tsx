@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { ARTICLES, formatDate, type Article } from "../../lib/news";
 import { useT, useLocale } from "../../lib/useT";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * /blog — the blog.
@@ -22,7 +21,7 @@ type Topic = (typeof TOPICS)[number];
 export default function NewsIndex() {
   const t = useT();
   const locale = useLocale();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const [topic, setTopic] = useState<Topic>("all");
 
   const all = useMemo(() => ARTICLES, []);

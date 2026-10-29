@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "motion/react";
+import { useInView, useReducedMotion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
 import { useT } from "../../lib/useT";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * 06 auf der KI-Seite: Evaluation und Governance.
@@ -24,7 +23,7 @@ const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
 export default function AiGovernance() {
   const t = useT();
   const g = t.home.aiGovernance;
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.35 });
   const [done, setDone] = useState(g.rows.length);
@@ -65,9 +64,7 @@ export default function AiGovernance() {
             <span>{g.evalLabel}</span>
             <span>{g.illustrative}</span>
           </div>
-          {/* Scrolls sideways on a phone: focusable and named, so a keyboard
-              can reach it (WCAG 2.1.1). */}
-          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={g.evalLabel}>
+          <div className="overflow-x-auto">
             <table className="w-full border-collapse" style={{ minWidth: 520, fontSize: "var(--t-small)" }}>
               <thead>
                 <tr>

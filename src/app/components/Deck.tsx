@@ -85,10 +85,7 @@ export function Deck({
       <ul
         ref={ref}
         aria-label={label}
-        // On a phone this row scrolls sideways; tabIndex lets a keyboard
-        // reach and scroll it (WCAG 2.1.1). From 768px it does not scroll.
-        tabIndex={0}
-        className={`flex overflow-x-auto no-scrollbar snap-x snap-mandatory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--signal-text)]
+        className={`flex overflow-x-auto no-scrollbar snap-x snap-mandatory
                     -mx-[var(--gutter)] px-[var(--gutter)] gap-4 pb-1
                     md:mx-0 md:px-0 md:gap-0 md:overflow-visible md:snap-none ${className}`}
       >

@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "motion/react";
+import { useInView, useReducedMotion } from "motion/react";
 import { Section, SectionTitle } from "./Section";
 import { useT } from "../../lib/useT";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * 03 auf der KI-Seite: Agenten und Ablaeufe.
@@ -31,7 +30,7 @@ export default function AgentRun() {
   const t = useT();
   const a = t.home.aiAgents;
   const steps = a.panel.steps;
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.35 });
   const [shown, setShown] = useState(steps.length);
@@ -101,7 +100,7 @@ export default function AgentRun() {
                   key={s.kind}
                   className="relative grid gap-x-4 gap-y-1 px-5 py-3.5 grid-cols-[auto_minmax(0,1fr)] sm:grid-cols-[84px_112px_minmax(0,1fr)] items-baseline"
                   style={{
-                    opacity: visible ? 1 : 0,
+                    opacity: visible ? (i === PENDING ? 0.5 : 1) : 0,
                     transform: visible ? "none" : "translateY(4px)",
                     background: check
                       ? "color-mix(in srgb, var(--warn) 9%, transparent)"
@@ -125,9 +124,7 @@ export default function AgentRun() {
                     {approval && <span className="w-1.5 h-1.5 rounded-full bg-[#3CE7FC] md:motion-safe:animate-pulse" />}
                     {s.kind}
                   </span>
-                  {/* Der wartende Schritt tritt per Farbe zurueck, nicht per halber
-                      Deckkraft (die lag unter 4,5:1, WCAG 1.4.3). */}
-                  <span className={check || approval ? "text-[var(--text-hi)]" : i === PENDING ? "text-[var(--text-low)]" : "text-[var(--text)]"} style={{ fontSize: "var(--t-small)" }}>
+                  <span className={check || approval ? "text-[var(--text-hi)]" : "text-[var(--text)]"} style={{ fontSize: "var(--t-small)" }}>
                     {s.text}
                     {i === RETRIEVE && (
                       <span

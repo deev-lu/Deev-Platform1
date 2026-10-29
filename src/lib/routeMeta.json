@@ -153,23 +153,6 @@
         }
       }
     },
-    "/accessibility": {
-      "file": "accessibility.html",
-      "meta": {
-        "en": {
-          "title": "Accessibility statement | DEEV",
-          "description": "How www.deev.lu meets WCAG 2.1 Level AA (EN 301 549): what we have done, the known limitations, and how to report a problem."
-        },
-        "fr": {
-          "title": "Déclaration d’accessibilité | DEEV",
-          "description": "Comment www.deev.lu respecte les WCAG 2.1 niveau AA (EN 301 549) : ce que nous avons fait, les limites connues et comment signaler un problème."
-        },
-        "de": {
-          "title": "Erklärung zur Barrierefreiheit | DEEV",
-          "description": "Wie www.deev.lu WCAG 2.1 Stufe AA (EN 301 549) erfüllt: was wir getan haben, bekannte Einschränkungen und wie Sie ein Problem melden."
-        }
-      }
-    },
     "/project": {
       "file": "project.html",
       "meta": {

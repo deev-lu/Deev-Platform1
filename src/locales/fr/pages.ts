@@ -270,26 +270,4 @@ export const pages: typeof En = {
     phone: "Téléphone",
     email: "E-mail",
   },
-
-  /** /accessibility: the accessibility statement (WCAG 2.1 AA / EN 301 549).
-   *  Self-assessment; keep it true when the site changes. */
-  accessibilityPage: {
-    eyebrow: "Accessibilité",
-    title: "Déclaration d’accessibilité",
-    intro: "Nous voulons que www.deev.lu fonctionne pour tout le monde, y compris pour les personnes qui utilisent un lecteur d’écran, uniquement un clavier, un agrandissement d’écran ou la commande vocale.",
-    standardTitle: "La norme que nous suivons",
-    standard: "Nous concevons et testons ce site selon les Règles pour l’accessibilité des contenus web (WCAG) 2.1, niveau AA. Ce sont les exigences web de la norme européenne EN 301 549, à laquelle renvoie l’Acte européen sur l’accessibilité.",
-    statusTitle: "Dans quelle mesure nous la respectons",
-    status: "Partiellement conforme. Selon notre propre évaluation, les pages que nous réalisons respectent les WCAG 2.1 niveau AA ; les exceptions concernent des contenus de tiers, listés ci-dessous.",
-    measuresTitle: "Ce que nous avons fait",
-    measures: ["Chaque type de page testé avec le moteur axe-core selon les WCAG 2.1 A et AA, en thème clair et sombre, en largeur ordinateur et téléphone.", "Un contraste du texte d’au moins 4,5:1 partout, et un contour de focus net et visible pour la navigation au clavier.", "Un lien « Aller au contenu » sur chaque page, et chaque commande accessible et utilisable au clavier.", "Un interrupteur « Mettre les animations en pause » dans l’en-tête et le pied de page, qui arrête la vidéo d’arrière-plan et toutes les animations, et mémorise ce choix. Le réglage « réduire les animations » de votre appareil est également respecté.", "Les pages s’adaptent à une largeur de 320 pixels sans défilement horizontal, ce qui permet d’agrandir le texte jusqu’à 400 %.", "Chaque champ de formulaire a un intitulé visible, et les erreurs sont annoncées aux lecteurs d’écran.", "Chaque page indique sa langue (anglais, français ou allemand), et les images ont une alternative textuelle ou sont marquées comme décoratives."],
-    limitsTitle: "Limites connues",
-    limits: ["La vidéo d’arrière-plan de la page d’accueil et les vidéos de la section « En mouvement » sont lues par YouTube. Nous ne maîtrisons pas l’accessibilité du lecteur YouTube. La vidéo d’arrière-plan ne porte aucune information et peut être mise en pause.", "Les références présentent des captures d’écran de sites clients. Les sites en ligne vers lesquels elles renvoient sont gérés par leurs propriétaires, pas par nous.", "Les exemples animés (le film IA, la lecture de document et l’exécution d’agent) sont des illustrations. Ce qu’ils montrent est aussi décrit en texte sur la même page."],
-    feedbackTitle: "Signaler un problème",
-    feedback: "Si un élément de ce site vous est difficile ou impossible à utiliser, dites-le-nous : nous vous aiderons et corrigerons ce qui peut l’être. Nous répondons sous un jour ouvré, comme pour toute demande.",
-    emailLabel: "E-mail",
-    phoneLabel: "Téléphone",
-    preparedTitle: "À propos de cette déclaration",
-    prepared: "Établie le 28 octobre 2026 sur la base d’une auto-évaluation par DEEV, et revue à chaque évolution importante du site.",
-  },
 };

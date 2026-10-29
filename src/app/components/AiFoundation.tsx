@@ -1,8 +1,7 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Lock } from "lucide-react";
 import { Section, SectionTitle } from "./Section";
 import { useT } from "../../lib/useT";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * 01 auf der KI-Seite: das Fundament.
@@ -22,7 +21,7 @@ export default function AiFoundation() {
   const t = useT();
   const f = t.home.aiFoundation;
   const p = f.panel;
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const appear = (i: number) => ({
     initial: { opacity: 0, y: reduce ? 0 : 8 },
     whileInView: { opacity: 1, y: 0 },

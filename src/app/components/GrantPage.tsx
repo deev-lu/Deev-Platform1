@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { motion, type MotionProps } from "motion/react";
+import { motion, useReducedMotion, type MotionProps } from "motion/react";
 import {
   ArrowRight,
   BadgeEuro,
@@ -18,7 +18,6 @@ import { useT, useLocalePath } from "../../lib/useT";
 import { mark } from "../../lib/i18nMark";
 import { newRequestId, sendLead } from "../../lib/leadEmail";
 import { track } from "../../lib/analytics";
-import { useReduceMotion } from "../../lib/motionPref";
 import {
   GRANT_CAP,
   GRANT_MAX,
@@ -61,7 +60,7 @@ const CHECKS = ["sme", "seat", "auth", "size"] as const;
 export default function GrantPage() {
   const t = useT();
   const localePath = useLocalePath();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const g = t.grant;
   const home = localePath("/");
 

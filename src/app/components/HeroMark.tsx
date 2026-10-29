@@ -1,7 +1,6 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import logo from "../../assets/logo.png";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Die Illustration im Hero: konzentrische Ringe um die Wortmarke.
@@ -29,7 +28,7 @@ const RINGS = [
 ];
 
 export default function HeroMark() {
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const still = reduce || isMobile;
 

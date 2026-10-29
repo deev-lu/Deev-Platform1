@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "motion/react";
-import { useReduceMotion } from "../../lib/motionPref";
+import { useInView, useReducedMotion } from "motion/react";
 
 interface CountUpProps {
   /** The full display value, e.g. "50+", "100%", "In-house" */
@@ -20,7 +19,7 @@ export default function CountUp({ value, duration = 1600, className }: CountUpPr
   // Grow the root by 120px on all sides so elements sitting at the viewport
   // edge (e.g. hero stats) still trigger their count-up on load.
   const inView = useInView(ref, { once: true, margin: "120px" });
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const [display, setDisplay] = useState<string>(value); // final value from first paint
 
   // Parse "  prefix  NUMBER  suffix " → keep surrounding text intact

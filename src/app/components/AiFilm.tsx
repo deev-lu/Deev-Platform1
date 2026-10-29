@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "motion/react";
+import { useInView, useReducedMotion } from "motion/react";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * "KI bei der Arbeit" - der Film auf der Startseite.
@@ -30,7 +29,7 @@ const LAST = LENGTH - 10;
 export default function AiFilm() {
   const t = useT();
   const f = t.home.film;
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
@@ -186,7 +185,7 @@ export default function AiFilm() {
                       className="absolute left-0 top-0 h-[2px] bg-[var(--signal)]"
                       style={{ width: `${fill}%`, transition: "width 120ms linear" }}
                     />
-                    <span className="block eyebrow-mono" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", color: on ? "#F2F4F6" : "#8B929B" }}>
+                    <span className="block eyebrow-mono" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", color: on ? "#F2F4F6" : "#6E757E" }}>
                       0{i + 1}
                     </span>
                     <span className="hidden sm:block mt-1 font-medium truncate" style={{ fontSize: "var(--t-small)", color: on ? "#F2F4F6" : "#8B929B" }}>
