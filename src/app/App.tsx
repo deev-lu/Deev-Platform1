@@ -32,6 +32,8 @@ const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
+import { MotionConfig } from "motion/react";
+import { loadKlarAccess, useKlarMotion } from "../lib/klarAccess";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const InMotion          = lazy(() => import("./components/InMotion"));
@@ -117,6 +119,9 @@ export default function App() {
   // when it declines to run.
   useEffect(() => initSmoothScroll(), []);
 
+  // Klar Access (accessibility menu), once, after hydration. lib/klarAccess.ts
+  useEffect(() => loadKlarAccess(), []);
+
 
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
@@ -157,8 +162,10 @@ export default function App() {
  * the server and the browser cannot drift.
  */
 export function SiteTree({ theme, toggleTheme }: ThemeProps) {
+  // Klar Access "Bewegung reduzieren": motion components stay still too.
+  const klarMotion = useKlarMotion();
   return (
-    <>
+    <MotionConfig reducedMotion={klarMotion ? "always" : "user"}>
       <ScrollReset />
       <RouteMeta />
       <Routes>
@@ -182,7 +189,7 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
       {/* Room under the footer on phones, so the contact bar never covers
           the last links. */}
       <div aria-hidden="true" className="md:hidden h-[84px] bg-[var(--surface-0)]" />
-    </>
+    </MotionConfig>
   );
 }
 

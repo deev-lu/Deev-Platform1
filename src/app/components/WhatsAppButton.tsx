@@ -37,6 +37,8 @@ import { getConsent, onConsentChange } from "../../lib/consent";
 const DISMISSED_KEY = "deev_wa_hidden";
 /** Roughly one screen. Past this the visitor is reading, not landing. */
 const SHOW_AFTER = 0.8;
+/* Sits 96px from the right: the corner itself belongs to the Klar Access
+   button (lib/klarAccess.ts), 56px wide at 24px from the edge. */
 
 export default function WhatsAppButton() {
   const t = useT();
@@ -110,7 +112,7 @@ export default function WhatsAppButton() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.9 }}
           transition={{ duration: reduce ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed z-50 bottom-5 right-5 flex items-center gap-2"
+          className="fixed z-50 bottom-5 right-[96px] flex items-center gap-2"
           onMouseEnter={() => !isMobile && setExpanded(true)}
           onMouseLeave={() => !isMobile && setExpanded(false)}
         >

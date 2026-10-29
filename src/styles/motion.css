@@ -436,3 +436,39 @@
   .m-marquee { overflow-x: auto; }
   .m-marquee-track > ul:last-child { display: none; }
 }
+
+/* ── Klar Access "Bewegung reduzieren" ──────────────────────────────────────
+   The accessibility menu (public/klar-access/) marks <html data-ka-motion>
+   and *pauses* every CSS animation. Several elements here start invisible
+   and fade in by animation, so a pause would freeze them invisible. Under
+   the attribute the site therefore shows the finished state, exactly as it
+   does for prefers-reduced-motion above. */
+html[data-ka-motion] .m-rise > span,
+html[data-ka-motion] .m-fade-up,
+html[data-ka-motion] .m-in,
+html[data-ka-motion] .m-pop,
+html[data-ka-motion] .m-box,
+html[data-ka-motion] .m-type {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  max-width: none !important;
+}
+html[data-ka-motion] .m-dot,
+html[data-ka-motion] .m-ticker,
+html[data-ka-motion] .m-rec,
+html[data-ka-motion] .m-caret,
+html[data-ka-motion] .m-float-a,
+html[data-ka-motion] .m-float-b,
+html[data-ka-motion] .m-float-c,
+html[data-ka-motion] .m-pulse,
+html[data-ka-motion] .m-scan,
+html[data-ka-motion] .m-wire,
+html[data-ka-motion] .m-drift,
+html[data-ka-motion] .m-marquee-track { animation: none !important; }
+html[data-ka-motion] .m-underline::after { animation: none !important; transform: none !important; }
+html[data-ka-motion] .m-line { animation: none !important; stroke-dashoffset: 0 !important; }
+html[data-ka-motion] .m-draw { transform: none !important; }
+html[data-ka-motion] .m-beam { display: none !important; }
+html[data-ka-motion] .m-marquee { overflow-x: auto; }
+html[data-ka-motion] .m-marquee-track > ul:last-child { display: none; }

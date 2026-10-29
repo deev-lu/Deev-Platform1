@@ -38,6 +38,7 @@ export const consent: typeof En = {
   cookies: {
     consent: "Conserve vos choix de cookies et leur preuve (identifiant et date).",
     theme: "Retient si vous avez choisi l'apparence claire ou sombre.",
+    klar: "Mémorise les réglages d’affichage choisis dans le menu d’accessibilité (taille du texte, contraste, etc.).",
     ga: "Distingue un visiteur d'un autre afin de pouvoir compter les visites.",
     gaProperty: "Conserve l'état de la visite en cours pour cette propriété.",
     months12: "12 mois",

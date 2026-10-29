@@ -37,6 +37,7 @@ export const consent = {
   cookies: {
     consent: "Stores your cookie choices and the record of them (id and date).",
     theme: "Remembers whether you chose the light or the dark appearance.",
+    klar: "Remembers the display settings you chose in the accessibility menu (text size, contrast and the like).",
     ga: "Distinguishes one visitor from another so visits can be counted.",
     gaProperty: "Keeps the state of the current visit for this property.",
     months12: "12 months",

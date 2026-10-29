@@ -1,0 +1,72 @@
+:host { all: initial; }
+.ka-ui { --accent:#b43d26; font:400 16px/1.5 Arial, Helvetica, sans-serif; color:#202722; color-scheme:light; text-align:left; }
+*,*::before,*::after { box-sizing:border-box; }
+[hidden] { display:none !important; }
+button,input,a { -webkit-tap-highlight-color:transparent; }
+button { font:inherit; color:inherit; cursor:pointer; }
+button:disabled { cursor:default; }
+svg { width:22px; height:22px; flex-shrink:0; }
+button:focus-visible,a:focus-visible,input:focus-visible+span { outline:3px solid #126347; outline-offset:4px; }
+.ka-launcher { position:fixed; right:max(24px,env(safe-area-inset-right)); bottom:max(24px,env(safe-area-inset-bottom)); width:56px; height:56px; border:2px solid #fff; border-radius:50%; color:#fff; background:#202722; box-shadow:0 5px 20px #18221c30; display:grid; place-items:center; z-index:2147483600; }
+.ka-launcher::after { content:''; position:absolute; inset:-5px; border:2px solid var(--accent); border-radius:50%; pointer-events:none; }
+.ka-launcher svg { width:29px; height:29px; }
+.ka-launcher:hover { background:#39483d; }
+[data-side="left"] .ka-launcher { right:auto; left:max(24px,env(safe-area-inset-left)); }
+dialog { width:400px; max-width:calc(100vw - 32px); max-height:calc(100dvh - 32px); position:fixed; inset:16px 16px 16px auto; margin:auto 0; padding:0; border:1px solid #dce2dc; border-radius:22px; background:#fff; color:#202722; box-shadow:0 24px 90px #12271930; font:inherit; overflow:hidden; }
+dialog[open] { display:flex; flex-direction:column; }
+dialog::backdrop { background:#15251c24; }
+[data-side="left"] dialog { inset:16px auto 16px 16px; }
+.ka-header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:24px 20px 20px; border-bottom:1px solid #e6e9e4; flex-shrink:0; }
+.ka-heading { display:flex; align-items:center; gap:12px; min-width:0; }
+.ka-symbol { width:42px; height:42px; border-radius:13px; background:#f7eee9; color:var(--accent); display:grid; place-items:center; flex-shrink:0; }
+.ka-symbol svg { width:26px; height:26px; }
+.ka-eyebrow { display:block; font-size:10px; letter-spacing:1.8px; font-weight:700; color:#546159; margin-bottom:3px; }
+h2 { font:700 21px/1.25 Arial,Helvetica,sans-serif; letter-spacing:-.5px; margin:0; overflow-wrap:anywhere; }
+.ka-icon-button { width:44px; height:44px; border:1px solid #dce2dc; border-radius:12px; display:grid; place-items:center; background:#fff; flex-shrink:0; }
+.ka-close { border-color:transparent; background:#f3f5f1; }
+.ka-icon-button:hover:not(:disabled) { background:#e9eee7; }
+.ka-icon-button:disabled { color:#7a847b; background:#f6f7f4; }
+.ka-content { padding:0 24px 20px; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; min-height:0; }
+.ka-intro { color:#566158; font-size:14px; line-height:1.55; margin:20px 0 23px; }
+h3 { margin:24px 0 13px; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#5b675e; font-weight:700; }
+.ka-size { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:14px; font-weight:600; }
+.ka-stepper { display:flex; align-items:center; gap:4px; }
+output { font-size:14px; width:48px; text-align:center; font-variant-numeric:tabular-nums; }
+.ka-contrast { border:0; padding:0; margin:20px 0 9px; min-width:0; }
+legend { font-size:14px; font-weight:600; margin-bottom:10px; padding:0; }
+.ka-segments { padding:4px; display:grid; grid-template-columns:repeat(3,1fr); gap:4px; background:#f0f3ed; border-radius:13px; }
+.ka-segments label { position:relative; min-width:0; cursor:pointer; }
+.ka-segments input { position:absolute; opacity:0; width:1px; height:1px; }
+.ka-segments span { display:flex; align-items:center; justify-content:center; gap:6px; padding:11px 3px; font-size:12px; font-weight:600; border-radius:9px; border:1px solid transparent; min-height:44px; }
+.ka-segments input:checked+span { background:#fff; border-color:#a7b5a8; box-shadow:0 2px 4px #1e30230b; }
+.ka-swatch { display:block; width:13px; height:13px; border-radius:50%; border:1px solid #606c62; flex-shrink:0; }
+.ka-swatch.off { background:linear-gradient(90deg,#fff 50%,#29372d 50%); }
+.ka-swatch.light { background:#fff; }.ka-swatch.dark { background:#202722; }
+.ka-row { display:flex; align-items:center; gap:10px; padding:15px 0; border-bottom:1px solid #edf0ea; }
+.ka-row:last-child { border:0; }
+.ka-row-icon { color:#526056; display:flex; }
+.ka-row-icon svg { width:20px; height:20px; }
+.ka-row-copy { flex:1; min-width:0; font-size:14px; font-weight:600; line-height:1.3; }
+small { display:block; margin-top:4px; color:#5d685f; font-size:11px; line-height:1.45; font-weight:400; }
+.ka-switch { width:48px; min-height:44px; border:0; padding:0; background:transparent; position:relative; flex-shrink:0; border-radius:8px; }
+.ka-switch::before { content:''; position:absolute; left:1px; right:1px; height:26px; top:9px; border:1px solid #7d8a80; background:#e6ebe4; border-radius:30px; }
+.ka-switch>span { width:20px; height:20px; position:absolute; top:12px; left:4px; border-radius:50%; background:#fff; box-shadow:0 1px 3px #15251c30; display:grid; place-items:center; color:transparent; transition:transform .15s; }
+.ka-switch svg { width:13px; height:13px; }
+.ka-switch[aria-checked="true"]::before { background:#24563d; border-color:#24563d; }
+.ka-switch[aria-checked="true"]>span { transform:translateX(20px); color:#24563d; }
+.ka-switch:disabled { opacity:.75; }
+.ka-note { font-size:11px; color:#626d64; margin:18px 0 0; }
+.ka-statement { display:flex; gap:8px; align-items:center; min-height:44px; font-size:12px; color:#22523a; text-decoration:underline; text-underline-offset:3px; }
+.ka-statement svg { width:16px; height:16px; }
+footer { border-top:1px solid #e6e9e4; padding:15px 24px 13px; background:#f8f9f6; flex-shrink:0; }
+.ka-reset { width:100%; min-height:44px; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; border:1px solid #bbc6bb; border-radius:10px; font-size:13px; font-weight:600; }
+.ka-reset:hover { background:#e9eee7; }.ka-reset svg { width:16px; height:16px; }
+.ka-storage { text-align:center; color:#5c685e; font-size:10px; margin:10px 0 0; }
+.ka-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+.ka-skip { position:fixed; top:12px; left:12px; transform:translateY(-200%); z-index:2147483601; color:#fff; background:#202722; padding:14px 20px; border:2px solid #fff; border-radius:10px; font:700 16px/1.4 Arial,sans-serif; }
+.ka-skip:focus { transform:none; }
+.ka-guide { position:fixed; left:0; right:0; height:4px; background:#111; border-top:2px solid #fff; box-shadow:0 1px 0 #111; z-index:2147483599; pointer-events:none; }
+.ka-ui[data-motion="true"] * { transition:none !important; }
+@media(max-width:440px) { dialog,[data-side="left"] dialog { inset:8px; width:auto; max-width:calc(100vw - 16px); max-height:calc(100dvh - 16px); border-radius:18px; } .ka-header { padding:16px; }.ka-content { padding:0 16px 16px; } footer { padding:12px 16px; } .ka-launcher { right:20px; bottom:20px; } }
+@media(prefers-reduced-motion:reduce) { * { transition:none !important; scroll-behavior:auto !important; } }
+@media(forced-colors:active) { .ka-switch::before,.ka-swatch,.ka-icon-button,.ka-reset,.ka-launcher,.ka-segments span { border:1px solid ButtonText; } .ka-switch[aria-checked="true"]::before { background:Highlight; } .ka-switch>span { background:ButtonText; } .ka-segments input:checked+span { outline:2px solid Highlight; } }

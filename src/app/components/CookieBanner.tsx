@@ -46,6 +46,9 @@ const rowsFor = (t: Dict) => ({
   necessary: [
     { name: "deev_consent", provider: "deev.lu", purpose: t.consent.cookies.consent, life: t.consent.cookies.months12 },
     { name: "theme", provider: "deev.lu", purpose: t.consent.cookies.theme, life: t.consent.cookies.untilCleared },
+    // Klar Access, the accessibility menu (public/klar-access/): only written
+    // once a visitor changes a setting there.
+    { name: "klar-access:v1", provider: "deev.lu", purpose: t.consent.cookies.klar, life: t.consent.cookies.untilCleared },
   ] as Row[],
   analytics: [
     { name: "_ga", provider: "Google Ireland Limited", purpose: t.consent.cookies.ga, life: t.consent.cookies.years2 },
@@ -180,14 +183,14 @@ export default function CookieBanner() {
             role="dialog"
             aria-modal="false"
             aria-labelledby="consent-title"
-            className="fixed z-[60] bottom-0 inset-x-0 sm:bottom-4 sm:inset-x-4"
+            className="fixed z-[60] bottom-0 inset-x-0 sm:bottom-4 sm:left-4 sm:right-[96px]"
           >
             {/* Seit dem 24.10.2026 eine schmale Leiste statt einer Karte: die
                 Karte lag beim ersten Besuch ueber Titel und Knoepfen des Hero,
                 also ueber dem Angebot selbst. Die Leiste belegt nur den
                 unteren Rand. Ablehnen und Annehmen bleiben gleich gewichtet. */}
             <div
-              className="mx-auto max-w-[1180px] border-t sm:border border-[var(--line-strong)] bg-[var(--surface-1)] px-5 py-4 sm:px-6 sm:py-4 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-8 shadow-[0_-12px_40px_rgba(0,0,0,0.25)] rounded-t-[20px] sm:rounded-[20px]"
+              className="mx-auto max-w-[1180px] border-t sm:border border-[var(--line-strong)] bg-[var(--surface-1)] pl-5 pr-[96px] py-4 sm:px-6 sm:py-4 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-8 shadow-[0_-12px_40px_rgba(0,0,0,0.25)] rounded-t-[20px] sm:rounded-[20px]"
             >
               <p
                 id="consent-title"
@@ -361,7 +364,9 @@ export default function CookieBanner() {
                 </div>
               </div>
 
-              <div className="sticky bottom-0 flex flex-col sm:flex-row gap-3 px-7 sm:px-9 py-6 bg-[var(--surface-0)] border-t border-[var(--line)]">
+              {/* Rechts frei fuer den Knopf von Klar Access unten rechts, solange der
+                  Dialog bis in diese Ecke reicht (unter 1024px). */}
+              <div className="sticky bottom-0 flex flex-col sm:flex-row gap-3 pl-7 sm:pl-9 pr-[96px] lg:pr-9 py-6 bg-[var(--surface-0)] border-t border-[var(--line)]">
                 <button
                   type="button"
                   onClick={() => decide(false, "reject-all")}

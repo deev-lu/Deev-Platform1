@@ -111,6 +111,24 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - The cookie banner's first layer is a slim bottom bar: the old card covered
   the hero headline and buttons on every first visit.
 
+## Klar Access (accessibility menu, the owner's own tool, since 29 Oct 2026)
+- The four files live in `public/klar-access/` (served at `/klar-access/`).
+  They are the owner's tool: replace them as a set, don't edit them here.
+- Loaded once, after hydration, from App's first effect (`loadKlarAccess` in
+  `src/lib/klarAccess.ts`): German menu (`data-lang="de"`), bottom right,
+  decorative accent Electric Blue (`data-color`). It mounts outside #root and
+  guards itself via `window.KlarAccess`.
+- **The bottom-right corner belongs to its button** (56px, 24px from the
+  edge; 20px on phones). Floating UI keeps clear of it: the WhatsApp button
+  sits at `right-[96px]`, the phone contact bar reserves `pr-[92px]` and is
+  tall enough to hold it, the cookie bar and dialog footer reserve the corner.
+- Its "Bewegung reduzieren" sets `html[data-ka-motion]` and pauses CSS
+  animations; motion.css then shows finished states (fade-ins would otherwise
+  freeze invisible), `useKlarMotion()` stops the hero's YouTube film and puts
+  motion components into reduced motion (MotionConfig in App).
+- It stores `klar-access:v1` in localStorage; the cookie dialog lists it.
+- Never present the widget as making the site accessible or compliant.
+
 ## Brand (from the brand book — do not drift)
 - **Blue `#2563F6`**, **Cyan `#3CE7FC`**. Never purple (that's a competitor).
 - **Typold Bold** — display headings + the DEEV wordmark (`.font-brand`)

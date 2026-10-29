@@ -61,9 +61,12 @@ export default function MobileActionBar() {
           exit={reduce ? { opacity: 0 } : { y: "100%" }}
           transition={{ duration: reduce ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}
           className="md:hidden fixed z-50 inset-x-0 bottom-0 border-t border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_-10px_30px_rgba(0,0,0,0.25)]"
-          style={{ paddingBottom: "max(10px, env(safe-area-inset-bottom))" }}
+          style={{ paddingBottom: "max(18px, env(safe-area-inset-bottom))" }}
         >
-          <div className="flex items-center gap-2.5 px-4 pt-2.5">
+          {/* Rechts bleibt Platz fuer den Knopf von Klar Access (lib/klarAccess.ts),
+              der in dieser Ecke sitzt; die Leiste ist hoch genug, dass er ganz
+              in ihr liegt. */}
+          <div className="flex items-center gap-2.5 pl-4 pr-[92px] pt-[18px]">
             <a
               href={`tel:+${WHATSAPP_NUMBER}`}
               aria-label={t.site.nav.call}
