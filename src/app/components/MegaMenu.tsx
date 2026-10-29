@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useLocation } from "react-router";
 import { ArrowRight, ArrowUpRight, BadgeEuro, ChevronDown } from "lucide-react";
 import L from "./L";
@@ -8,6 +8,7 @@ import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategor
 import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
 import { ARTICLES, formatDate } from "../../lib/news";
 import { useT, useLocale, useLocalePath } from "../../lib/useT";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * The desktop navigation panels.
@@ -23,9 +24,12 @@ import { useT, useLocale, useLocalePath } from "../../lib/useT";
  * Behaviour, in the order it matters:
  *   - Opens on hover after a short delay and on click, because a panel that
  *     opens the instant a cursor crosses it fires while someone is travelling
- *     to the button next to it.
- *   - Closes on Escape, on outside click, on route change and when focus
- *     leaves the panel.
+ *     to the button next to it. From the keyboard it opens only from its
+ *     chevron button (Enter or Space), never on focus alone.
+ *   - Each panel sits in the DOM straight after its chevron, so the next Tab
+ *     goes into the panel, not past it to the next trigger.
+ *   - Closes on Escape (focus returns to the chevron), on outside click, on
+ *     route change and when focus leaves the trigger and its panel.
  *   - Every trigger is a link to a real page (/services, /work, /blog) with a
  *     separate chevron button carrying aria-expanded for the panel, so the
  *     menu is a shortcut into a destination rather than the only route to it.
@@ -36,7 +40,6 @@ import { useT, useLocale, useLocalePath } from "../../lib/useT";
  * Below md this component renders nothing. A hover panel is unusable on
  * touch; the drawer in Navbar carries the same links as an accordion.
  */
-
 
 export type PanelId = "services" | "work" | "journal";
 
@@ -51,7 +54,7 @@ export default function MegaMenu({
   onAnchor: (href: string) => void;
 }) {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const { pathname } = useLocation();
   const wrap = useRef<HTMLDivElement>(null);
   const timer = useRef<number | undefined>(undefined);
@@ -69,7 +72,15 @@ export default function MegaMenu({
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      // Focus inside the panel would fall to <body> when it unmounts.
+      const panel = document.getElementById(`mega-${open}`);
+      if (panel?.contains(document.activeElement)) {
+        document.querySelector<HTMLButtonElement>(`[aria-controls="mega-${open}"]`)?.focus();
+      }
+      setOpen(null);
+    };
     const onDown = (e: MouseEvent) => {
       if (!wrap.current?.contains(e.target as Node)) setOpen(null);
     };
@@ -99,21 +110,23 @@ export default function MegaMenu({
       onMouseLeave={hoverClose}
       onMouseEnter={() => window.clearTimeout(timer.current)}
     >
-      <nav className="flex items-center gap-1">
+      <nav aria-label={t.site.nav.mainNav} className="flex items-center gap-1">
         {TRIGGERS.map((trigger) => {
           const on = open === trigger.id;
           return (
             <div
               key={trigger.id}
-              className="group relative flex items-center"
+              className="group/trigger relative flex items-center"
               onMouseEnter={() => hoverOpen(trigger.id)}
+              onBlur={(e) => {
+                if (on && !e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(null);
+              }}
             >
               {/* The label navigates. Clicking "Blog" goes to the blog; it
                   does not merely open a panel about it, and a crawler now
                   finds a real href where there used to be a bare button. */}
               <L
                 to={trigger.to}
-                onFocus={() => setOpen(trigger.id)}
                 className={`relative pl-3 pr-1 py-2 text-sm font-medium transition-colors duration-[var(--dur-1)] ${
                   on
                     ? "text-slate-900 dark:text-[var(--text-hi)]"
@@ -131,7 +144,6 @@ export default function MegaMenu({
                 aria-controls={`mega-${trigger.id}`}
                 aria-label={t.site.mega.toggle(trigger.label)}
                 onClick={() => setOpen(on ? null : trigger.id)}
-                onFocus={() => setOpen(trigger.id)}
                 className={`relative pr-3 pl-0.5 py-2 transition-colors duration-[var(--dur-1)] ${
                   on
                     ? "text-slate-900 dark:text-[var(--text-hi)]"
@@ -147,9 +159,32 @@ export default function MegaMenu({
               <span
                 aria-hidden="true"
                 className={`pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] ${
-                  on ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  on ? "scale-x-100" : "scale-x-0 group-hover/trigger:scale-x-100"
                 }`}
               />
+
+              <AnimatePresence>
+                {on && (
+                  <motion.div
+                    key={trigger.id}
+                    id={`mega-${trigger.id}`}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                    transition={{ duration: reduce ? 0 : 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    className="fixed left-0 right-0 top-[68px] z-40 border-y border-[var(--line)] bg-[var(--surface-0)]"
+                  >
+                    <div
+                      className="mx-auto"
+                      style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "44px" }}
+                    >
+                      {trigger.id === "services" && <ServicesPanel onAnchor={onAnchor} />}
+                      {trigger.id === "work" && <WorkPanel />}
+                      {trigger.id === "journal" && <JournalPanel />}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}
@@ -164,7 +199,6 @@ export default function MegaMenu({
             to={to}
             className="group relative hidden xl:block px-3 py-2 text-sm font-medium whitespace-nowrap text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
             onMouseEnter={hoverClose}
-            onFocus={() => setOpen(null)}
           >
             {t.site.nav[key]}
             <span
@@ -178,7 +212,6 @@ export default function MegaMenu({
           to="/contact"
           className="group relative px-3 py-2 text-sm font-medium text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
           onMouseEnter={hoverClose}
-          onFocus={() => setOpen(null)}
         >
           {t.site.nav.contact}
           <span
@@ -188,28 +221,6 @@ export default function MegaMenu({
         </L>
       </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            key={open}
-            id={`mega-${open}`}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
-            transition={{ duration: reduce ? 0 : 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed left-0 right-0 top-[68px] z-40 border-y border-[var(--line)] bg-[var(--surface-0)]"
-          >
-            <div
-              className="mx-auto"
-              style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "44px" }}
-            >
-              {open === "services" && <ServicesPanel onAnchor={onAnchor} />}
-              {open === "work" && <WorkPanel />}
-              {open === "journal" && <JournalPanel />}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

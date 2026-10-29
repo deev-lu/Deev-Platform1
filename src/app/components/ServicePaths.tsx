@@ -1,7 +1,8 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowRight, Globe, LayoutDashboard, Sparkles } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Abschnitt 3: die drei Leistungswege.
@@ -25,7 +26,7 @@ const PATHS = [
 
 export default function ServicePaths() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const p = t.home.paths;
 
   return (

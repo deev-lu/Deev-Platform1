@@ -32,8 +32,10 @@ const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
+import SkipLink, { MainAnchor, RouteAnnouncer } from "./components/SkipLink";
 import { MotionConfig } from "motion/react";
-import { loadKlarAccess, useKlarMotion } from "../lib/klarAccess";
+import { useMotionPaused } from "../lib/motionPref";
+import { loadKlarAccess } from "../lib/klarAccess";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const InMotion          = lazy(() => import("./components/InMotion"));
@@ -62,6 +64,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <MainAnchor />
 
       {/* Nach dem Brand Book (Oktober 2026): dunkel, Haarlinien, ein Akzent,
           echte Fotografie. Grosse Momente: der Hero, der
@@ -75,28 +78,30 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
           Budgetrechner, Foerderbanner und Blog-Teaser bleiben von der
           Startseite genommen; /project, /sme-packages und /blog bleiben
           erreichbar. */}
-      <Hero />
+      <main>
+        <Hero />
 
-      <Suspense fallback={<SectionSkeleton />}>
-        <HomeClients />
+        <Suspense fallback={<SectionSkeleton />}>
+          <HomeClients />
 
-        {/* 01 Workshops und Beratung (seit dem 27.10.2026 zuerst), 02 was
-            wir bauen, 03 Cybersecurity und NIS2, dann die Foerderung. */}
-        <HomeWorkshops />
-        <HomeDisciplines />
-        <HomeSecurity />
-        {/* Ohne Nummer: ein Weg zur Foerderseite, kein eigener Abschnitt. */}
-        <HomeFunding />
+          {/* 01 Workshops und Beratung (seit dem 27.10.2026 zuerst), 02 was
+              wir bauen, 03 Cybersecurity und NIS2, dann die Foerderung. */}
+          <HomeWorkshops />
+          <HomeDisciplines />
+          <HomeSecurity />
+          {/* Ohne Nummer: ein Weg zur Foerderseite, kein eigener Abschnitt. */}
+          <HomeFunding />
 
-        <AiFilm />
+          <AiFilm />
 
-        {/* 03 und 04 - das Portfolio */}
-        <div id="portfolio"><SelectedWork /></div>
-        <InMotion />
+          {/* 03 und 04 - das Portfolio */}
+          <div id="portfolio"><SelectedWork /></div>
+          <InMotion />
 
-        {/* 05 Wie Projekte laufen, 06 das Unternehmen, 07 Einladung */}
-        <HomeOutro company={<HomeCompany />} />
-      </Suspense>
+          {/* 05 Wie Projekte laufen, 06 das Unternehmen, 07 Einladung */}
+          <HomeOutro company={<HomeCompany />} />
+        </Suspense>
+      </main>
 
       <Footer />
     </div>
@@ -162,10 +167,13 @@ export default function App() {
  * the server and the browser cannot drift.
  */
 export function SiteTree({ theme, toggleTheme }: ThemeProps) {
-  // Klar Access "Bewegung reduzieren": motion components stay still too.
-  const klarMotion = useKlarMotion();
+  // "Pause motion", from the site's switch or from Klar Access, also reaches
+  // motion components that do not ask for it themselves (WCAG 2.2.2).
+  const motionPaused = useMotionPaused();
   return (
-    <MotionConfig reducedMotion={klarMotion ? "always" : "user"}>
+    <MotionConfig reducedMotion={motionPaused ? "always" : "user"}>
+      <SkipLink />
+      <RouteAnnouncer />
       <ScrollReset />
       <RouteMeta />
       <Routes>
@@ -198,6 +206,7 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
   const chrome = (children: ReactNode) => (
     <>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <MainAnchor />
       {children}
       <Footer />
     </>

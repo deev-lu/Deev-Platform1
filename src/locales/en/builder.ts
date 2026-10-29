@@ -93,6 +93,14 @@ export const builder = {
     plain: "Estimated investment",
     included: "Included features",
     reconfigure: "Reconfigure",
+    exVatShort: "Ex. VAT",
+    timeline: "Timeline",
+    weeks: (n: string) => `${n} weeks`,
+    addons: "Add-ons",
+    featureCount: (n: number) => `${n} features`,
+    quality: "Quality",
+    topTier: "Top tier",
+    start: "Start my project",
   },
 
   grant: {

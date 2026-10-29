@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { useKlarMotion } from "../../lib/klarAccess";
+import { useMotionPaused } from "../../lib/motionPref";
 
 /**
  * The hero's background film, from YouTube (owner's decision, 23 Oct 2026:
  * plays for every visitor, without asking first; the cookie policy says so
  * under "Embedded video").
  *
+ * - Stops when the visitor presses "Pause motion" or turns on Klar Access's
+ *   "Bewegung reduzieren" (lib/motionPref.ts; the widget itself pauses only
+ *   <video> elements, and this is a YouTube iframe).
  * - Every screen size since 24 Oct 2026 (the owner's decision; phones used
  *   to keep the photograph), never under reduced motion. Decided after
  *   mount, so the prerendered page is the photo.
@@ -31,17 +34,15 @@ export default function HeroVideo() {
   const [allowed, setAllowed] = useState(false);
   const [playing, setPlaying] = useState(false);
   const ref = useRef<HTMLIFrameElement>(null);
-  // Klar Access "Bewegung reduzieren" stops the film as well: the widget
-  // pauses <video> elements, and this one is a YouTube iframe. The photo
-  // underneath stays.
-  const klarMotion = useKlarMotion();
+  // "Pause motion" (WCAG 2.2.2) removes the film; the photo underneath stays.
+  const paused = useMotionPaused();
 
   useEffect(() => {
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!still.matches) setAllowed(true);
   }, []);
 
-  const on = allowed && !klarMotion;
+  const on = allowed && !paused;
   useEffect(() => {
     if (!on) setPlaying(false);
   }, [on]);

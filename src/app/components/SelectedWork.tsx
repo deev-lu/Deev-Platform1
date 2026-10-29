@@ -1,9 +1,10 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { TwoTone } from "./Plate";
 import { useT, useLocale } from "../../lib/useT";
 import { PROJECTS, sectorOf, type Project } from "../../lib/projects";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * 02 auf der Startseite: ausgewaehlte Arbeit.
@@ -28,7 +29,7 @@ import { PROJECTS, sectorOf, type Project } from "../../lib/projects";
  */
 export default function SelectedWork() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
 
   // PROJECTS ist screenshots-first sortiert.
   const picks = PROJECTS.filter((p) => p.image).slice(0, 5);

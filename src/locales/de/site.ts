@@ -20,6 +20,23 @@ export const site: typeof En = {
     toDark: "Zum dunklen Modus wechseln",
     language: "Sprache",
     languageOf: (name: string) => `Zu ${name} wechseln`,
+    mainNav: "Hauptnavigation",
+  },
+
+  /** Accessibility labels (WCAG 2.2 AA): skip link, pause controls. */
+  a11y: {
+    skip: "Zum Inhalt springen",
+    pauseLogos: "Kundenlogos anhalten",
+    playLogos: "Kundenlogos abspielen",
+    pauseVideo: "Hintergrundvideo anhalten",
+    playVideo: "Hintergrundvideo abspielen",
+    pauseFilm: "Animation anhalten",
+    playFilm: "Animation abspielen",
+    newTab: "(öffnet in einem neuen Tab)",
+    pauseMotion: "Bewegung anhalten",
+    playMotion: "Bewegung abspielen",
+    motionLabel: "Animationen",
+    requiredNote: "Mit * markierte Felder sind Pflichtfelder.",
   },
 
   footer: {

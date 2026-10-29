@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "motion/react";
+import { useInView } from "motion/react";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * "KI bei der Arbeit" - der Film auf der Startseite.
@@ -29,7 +30,7 @@ const LAST = LENGTH - 10;
 export default function AiFilm() {
   const t = useT();
   const f = t.home.film;
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
@@ -177,7 +178,6 @@ export default function AiFilm() {
                       setDone(false);
                     }}
                     aria-current={on ? "step" : undefined}
-                    aria-label={`0${i + 1} ${name}`}
                     className="relative text-left px-3 sm:px-5 pt-4 pb-4 cursor-pointer min-w-0"
                     style={{ background: "transparent", border: 0, borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : 0 }}
                   >
@@ -185,10 +185,12 @@ export default function AiFilm() {
                       className="absolute left-0 top-0 h-[2px] bg-[var(--signal)]"
                       style={{ width: `${fill}%`, transition: "width 120ms linear" }}
                     />
-                    <span className="block eyebrow-mono" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", color: on ? "#F2F4F6" : "#6E757E" }}>
+                    <span className="block eyebrow-mono" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", color: on ? "#F2F4F6" : "#8B929B" }}>
                       0{i + 1}
-                    </span>
-                    <span className="hidden sm:block mt-1 font-medium truncate" style={{ fontSize: "var(--t-small)", color: on ? "#F2F4F6" : "#8B929B" }}>
+                    </span>{" "}
+                    {/* Hidden on a phone, but still the button's name there:
+                        the visible "01" plus the chapter (WCAG 2.5.3). */}
+                    <span className="sr-only sm:not-sr-only sm:block mt-1 font-medium truncate" style={{ fontSize: "var(--t-small)", color: on ? "#F2F4F6" : "#8B929B" }}>
                       {name}
                     </span>
                   </button>

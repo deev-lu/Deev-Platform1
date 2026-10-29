@@ -61,21 +61,20 @@ function brandKlarAccess(theme: Promise<string>): void {
 }
 
 /**
- * True while the widget's "Bewegung reduzieren" is on (it sets
- * data-ka-motion on <html>, also when the system asks for reduced motion).
- * The widget pauses CSS animations and <video> elements; the site uses this
- * to do the rest: show finished states instead of frozen ones (motion.css),
- * stop the hero's YouTube film, and tell motion components to stay still.
+ * True while Klar Access's "Textgröße" has enlarged the root font size. The
+ * navbar then switches to its compact form (logo, phone, theme, menu button,
+ * everything else in the drawer) at every width: the desktop row does not
+ * fit once its text is 125% or more.
  */
-export function useKlarMotion(): boolean {
-  const [on, setOn] = useState(false);
+export function useLargeText(): boolean {
+  const [large, setLarge] = useState(false);
   useEffect(() => {
     const root = document.documentElement;
-    const read = () => setOn(root.hasAttribute("data-ka-motion"));
+    const read = () => setLarge(root.hasAttribute("data-ka-size"));
     read();
     const mo = new MutationObserver(read);
-    mo.observe(root, { attributes: true, attributeFilter: ["data-ka-motion"] });
+    mo.observe(root, { attributes: true, attributeFilter: ["data-ka-size"] });
     return () => mo.disconnect();
   }, []);
-  return on;
+  return large;
 }

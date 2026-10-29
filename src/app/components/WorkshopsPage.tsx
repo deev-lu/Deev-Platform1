@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, useReducedMotion, type MotionProps } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, type MotionProps } from "motion/react";
 import { ArrowRight, CheckCircle2, Loader2, AlertCircle, CalendarClock } from "lucide-react";
 import L from "./L";
 import { TwoTone } from "./Plate";
@@ -10,6 +10,7 @@ import { track } from "../../lib/analytics";
 import { BOOKING_URL } from "../../lib/booking";
 import { scrollToId } from "../../lib/smoothScroll";
 import photo from "../../assets/photos/gelle-fra-900.webp";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * /workshops - Workshops und Beratung als eigene Seite (seit dem 24.10.2026).
@@ -29,7 +30,7 @@ import photo from "../../assets/photos/gelle-fra-900.webp";
  */
 export default function WorkshopsPage() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const w = t.home.workshops;
   const ai = t.home.ai;
   const p = t.pages.workshopsPage;
@@ -264,7 +265,7 @@ export default function WorkshopsPage() {
 }
 
 const inputCls =
-  "w-full px-4 py-3 rounded-[var(--radius-1)] bg-[var(--surface-0)] border border-[var(--line-strong)] text-[var(--text-hi)] placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]";
+  "w-full px-4 py-3 rounded-[var(--radius-1)] bg-[var(--surface-0)] border border-[var(--line-control)] text-[var(--text-hi)] placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]";
 
 /** Das kurze Anfrageformular. Dieselbe Strecke wie /contact (sendLead). */
 function WorkshopRequest() {
@@ -274,6 +275,12 @@ function WorkshopRequest() {
   const [form, setForm] = useState({ name: "", email: "", company: "", phone: "", processes: "", website: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const requestId = useRef<string | null>(null);
+  // The form is replaced by the confirmation; focus follows it there instead
+  // of dropping to the page (WCAG 2.4.3, 4.1.3).
+  const done = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (status === "success") done.current?.focus();
+  }, [status]);
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((s) => ({ ...s, [k]: e.target.value }));
 
@@ -340,11 +347,12 @@ function WorkshopRequest() {
         {status === "success" ? (
           <div role="status" className="h-full flex flex-col items-start justify-center gap-3">
             <CheckCircle2 className="w-8 h-8 text-[var(--positive)]" strokeWidth={1.5} />
-            <h3 className="text-[var(--text-hi)] font-medium m-0" style={{ fontSize: "var(--t-h3)" }}>{p.successTitle}</h3>
+            <h3 ref={done} tabIndex={-1} className="text-[var(--text-hi)] font-medium m-0 outline-none" style={{ fontSize: "var(--t-h3)" }}>{p.successTitle}</h3>
             <p className="text-[var(--text-mid)] m-0">{p.successBody}</p>
           </div>
         ) : (
           <form onSubmit={submit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <p className="sm:col-span-2 text-xs text-[var(--text-mid)] m-0">{t.site.a11y.requiredNote}</p>
             <input type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} className="hidden" aria-hidden="true" />
             <Field label={f.name} required>
               <input required value={form.name} onChange={set("name")} placeholder={f.namePlaceholder} className={inputCls} autoComplete="name" />
@@ -406,7 +414,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
     <label className="block">
       <span className="block text-sm font-medium text-[var(--text-hi)] mb-2">
         {label}
-        {required && <span className="text-[var(--signal-text)]"> *</span>}
+        {required && <span className="text-[var(--signal-text)]" aria-hidden="true"> *</span>}
       </span>
       {children}
     </label>

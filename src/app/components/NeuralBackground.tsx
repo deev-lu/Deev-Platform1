@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Animated AI "neural network" layer for the Hero background.
@@ -20,7 +21,7 @@ const edges: [number, number][] = [
 ];
 
 export default function NeuralBackground() {
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
 
   return (
     <svg

@@ -410,10 +410,8 @@
   .m-flowcard::before { transition: none; }
 }
 
-/* Section headlines: the claim (first sentence, TwoTone) takes the same flow,
-   in the dark theme only. On a light page a near-white start would vanish,
-   so there it stays solid ink. */
-/* Light theme (since 29 Oct 2026): the claim flows from navy ink into
+/* Section headlines: the claim (first sentence, TwoTone) takes the same flow.
+   Light theme (since 29 Oct 2026): the claim flows from navy ink into
    Electric Blue, the same gesture as the dark theme in daylight colours.
    Large type, so 3:1 is the floor; the lightest stop is 4.4:1 on paper. */
 :where(:root:not(.dark)) .m-flow-dark {
@@ -445,44 +443,53 @@
   .m-marquee-track { animation-duration: 60s; }
   .m-marquee:hover .m-marquee-track { animation-play-state: paused; }
 }
+/* Paused by the visitor (the pause button, WCAG 2.2.2). */
+.m-marquee.is-paused .m-marquee-track { animation-play-state: paused; }
+/* Reduced motion: no band at all, the logos wrap into rows. (A sideways
+   scroller here had no keyboard access, WCAG 2.1.1.) */
 @media (prefers-reduced-motion: reduce) {
-  .m-marquee-track { animation: none; }
-  .m-marquee { overflow-x: auto; }
+  .m-marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .m-marquee-track > ul:first-child { flex-wrap: wrap; justify-content: center; }
+  .m-marquee { overflow: visible; -webkit-mask-image: none !important; mask-image: none !important; }
   .m-marquee-track > ul:last-child { display: none; }
 }
 
-/* ── Klar Access "Bewegung reduzieren" ──────────────────────────────────────
-   The accessibility menu (public/klar-access/) marks <html data-ka-motion>
-   and *pauses* every CSS animation. Several elements here start invisible
-   and fade in by animation, so a pause would freeze them invisible. Under
-   the attribute the site therefore shows the finished state, exactly as it
-   does for prefers-reduced-motion above. */
-html[data-ka-motion] .m-rise > span,
-html[data-ka-motion] .m-fade-up,
-html[data-ka-motion] .m-in,
-html[data-ka-motion] .m-pop,
-html[data-ka-motion] .m-box,
-html[data-ka-motion] .m-type {
+/* ── Pause motion (WCAG 2.2.2) ───────────────────────────────────────────
+   Two switches stop the same thing: the site's own (MotionToggle, the class
+   `motion-paused` on <html>, lib/motionPref.ts) and Klar Access's
+   "Bewegung reduzieren" (<html data-ka-motion>; the widget pauses every CSS
+   animation where it stands). A pause would freeze entrance fades
+   invisible, so under either switch every animation instead runs to its
+   end at once and stops: the widget's pause is lifted (the doubled
+   attribute outranks its rule) and the duration shrinks to nothing.
+   Transitions stay with the site's switch; they answer the visitor's own
+   actions. */
+html.motion-paused *,
+html.motion-paused *::before,
+html.motion-paused *::after,
+html[data-ka-motion][data-ka-motion] body *:not([data-ka-ignore], [data-ka-ignore] *),
+html[data-ka-motion][data-ka-motion] body *:not([data-ka-ignore], [data-ka-ignore] *)::before,
+html[data-ka-motion][data-ka-motion] body *:not([data-ka-ignore], [data-ka-ignore] *)::after {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  animation-play-state: running !important;
+}
+/* The finished state, spelled out for the entrance classes, so it holds
+   whatever a keyframe's fill mode says. */
+:is(html.motion-paused, html[data-ka-motion]) :is(.m-rise > span, .m-fade-up, .m-in, .m-pop, .m-box, .m-type) {
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
   max-width: none !important;
 }
-html[data-ka-motion] .m-dot,
-html[data-ka-motion] .m-ticker,
-html[data-ka-motion] .m-rec,
-html[data-ka-motion] .m-caret,
-html[data-ka-motion] .m-float-a,
-html[data-ka-motion] .m-float-b,
-html[data-ka-motion] .m-float-c,
-html[data-ka-motion] .m-pulse,
-html[data-ka-motion] .m-scan,
-html[data-ka-motion] .m-wire,
-html[data-ka-motion] .m-drift,
-html[data-ka-motion] .m-marquee-track { animation: none !important; }
-html[data-ka-motion] .m-underline::after { animation: none !important; transform: none !important; }
-html[data-ka-motion] .m-line { animation: none !important; stroke-dashoffset: 0 !important; }
-html[data-ka-motion] .m-draw { transform: none !important; }
-html[data-ka-motion] .m-beam { display: none !important; }
-html[data-ka-motion] .m-marquee { overflow-x: auto; }
-html[data-ka-motion] .m-marquee-track > ul:last-child { display: none; }
+:is(html.motion-paused, html[data-ka-motion]) .m-underline::after { animation: none !important; transform: none !important; }
+:is(html.motion-paused, html[data-ka-motion]) .m-line { animation: none !important; stroke-dashoffset: 0 !important; }
+:is(html.motion-paused, html[data-ka-motion]) .m-draw { transform: none !important; }
+:is(html.motion-paused, html[data-ka-motion]) .m-beam { display: none !important; }
+/* The client band stops as rows, as under reduced motion: no sideways
+   scroller without keyboard access. */
+:is(html.motion-paused, html[data-ka-motion]) .m-marquee-track { animation: none !important; width: auto; flex-wrap: wrap; justify-content: center; }
+:is(html.motion-paused, html[data-ka-motion]) .m-marquee-track > ul:first-child { flex-wrap: wrap; justify-content: center; }
+:is(html.motion-paused, html[data-ka-motion]) .m-marquee { overflow: visible; -webkit-mask-image: none !important; mask-image: none !important; }
+:is(html.motion-paused, html[data-ka-motion]) .m-marquee-track > ul:last-child { display: none; }

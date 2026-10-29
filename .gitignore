@@ -40,6 +40,10 @@ yarn-error.log*
 .claude/
 .vercel
 
+# Playwright (npm run test:a11y)
+test-results/
+playwright-report/
+
 # SSR bundle: build-time only, never served
 dist-ssr/
 

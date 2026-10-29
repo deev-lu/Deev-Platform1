@@ -129,11 +129,58 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
   sits at `right-[96px]`, the phone contact bar reserves `pr-[92px]` and is
   tall enough to hold it, the cookie bar and dialog footer reserve the corner.
 - Its "Bewegung reduzieren" sets `html[data-ka-motion]` and pauses CSS
-  animations; motion.css then shows finished states (fade-ins would otherwise
-  freeze invisible), `useKlarMotion()` stops the hero's YouTube film and puts
-  motion components into reduced motion (MotionConfig in App).
+  animations; it is the same state as the site's own "Pause motion"
+  (`lib/motionPref.ts`, see Accessibility below): motion.css runs every
+  animation to its end instead of freezing fade-ins invisible, and
+  `useMotionPaused()` stops the hero's YouTube film and puts motion
+  components into reduced motion (MotionConfig in App).
+- Its "Textgröße" scales the root font size. Under `html[data-ka-size]`
+  Tailwind's `--spacing` is pinned to 4px (fonts.css) so gaps do not grow
+  off the screen, and the navbar switches to its compact form
+  (`useLargeText()`).
+- Its own "skip to main content" button is hidden by the theme sheet: the
+  site's SkipLink does that job, in the page language and without the
+  widget.
 - It stores `klar-access:v1` in localStorage; the cookie dialog lists it.
 - Never present the widget as making the site accessible or compliant.
+
+## Accessibility (target: WCAG 2.2 AA, since 29 Oct 2026)
+The site has to be accessible as it is; Klar Access is a comfort on top,
+never the reason something passes. ACCESSIBILITY.md holds the audit: what
+was checked, fixed and tested, and what is still open (a screen-reader pass
+among them). Do not claim conformance on the site; no statement page exists,
+that is the owner's call.
+- **Contrast:** text 4.5:1 on every surface it sits on, both themes;
+  `--text-low` is the quietest text colour. Dim by colour, never by opacity.
+  Form fields, switches and checkboxes outline in `--line-control` (3:1,
+  WCAG 1.4.11); `--line`/`--line-strong` are decorative hairlines only.
+  Focus ring: Electric Blue on light, Cyan on dark (`:focus-visible`).
+- **Landmarks and keyboard:** every page has `<header>`, one `<main>`,
+  `<footer>`. SkipLink (first in the site's tab order) lands on `#main`;
+  after a route change RouteAnnouncer moves focus there and announces the
+  title. `html` carries `scroll-padding` so the navbar, the cookie bar and
+  the phone contact bar never cover the focused element (`--fixed-bottom`).
+- **Menus:** desktop panels open from their chevron button only (never on
+  focus), sit in the DOM right after it, close on Escape with focus back on
+  the button. The phone drawer is a disclosure (`aria-expanded`, Escape).
+  Pages in menus are links, not buttons.
+- **Modals** use `lib/useModal.ts` (focus in, Tab trapped, Escape, focus
+  back): the cookie preferences and the calculator's lead form. New modals
+  use it too, with role="dialog", aria-modal and a label.
+- **Forms:** a visible `<label>` for every field (placeholders are examples,
+  never the label), `autoComplete`, "* required" explained above the form
+  (`site.a11y.requiredNote`), errors in `role="alert"`, and focus moves to
+  the confirmation when a form is replaced by it.
+- **Motion (2.2.2):** anything that moves by itself for more than five
+  seconds stops with "Pause motion" (MotionToggle: hero top right and
+  footer; `motion-paused` on <html>, applied before paint in index.html).
+  Components use `useReduceMotion()` from motionPref, never motion's
+  `useReducedMotion()` directly.
+- **Names (2.5.3):** an `aria-label` starts with the visible text, or the
+  visible text is the name. A `<dl>` holds only dt/dd groups.
+- **Tests:** `npm run build && npm run test:a11y` (Playwright + axe-core,
+  tests/e2e, desktop and phone; first time `npx playwright install
+  chromium`). Zero violations is the bar; it is not a conformance proof.
 
 ## Brand (from the brand book — do not drift)
 - **Blue `#2563F6`**, **Cyan `#3CE7FC`**. Never purple (that's a competitor).

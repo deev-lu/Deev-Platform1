@@ -143,16 +143,14 @@ export const KLAR_ACCESS_THEME = `
   .ka-reset:hover { background: var(--k-raise-2); }
   .ka-storage { color: var(--k-ink-low); }
 
-  .ka-skip {
-    background: #0b1530;
-    border: 2px solid #2563f6;
-    border-radius: 12px;
-    font: 600 15px/1.4 "Inter", sans-serif;
-  }
-
   @media (max-width: 440px) {
     dialog, [data-side="left"] dialog { border-radius: 20px; }
     .ka-header { padding: 16px 16px 14px; }
   }
 }
+
+/* The site has its own "Skip to content" in the page language (SkipLink),
+   present without the widget too; a second, German one right before it
+   would only add a Tab stop. */
+.ka-skip { display: none !important; }
 `;

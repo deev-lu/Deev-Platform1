@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
 import { useNavigate } from "react-router";
 import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
+import { useModal } from "../../lib/useModal";
 import { track } from "../../lib/analytics";
 import NoiseOverlay from "./NoiseOverlay";
 import { scrollToTop } from "../../lib/smoothScroll";
@@ -239,6 +240,10 @@ export default function ProjectBuilder() {
   const [capabilities, setCapabilities] = useState<Set<Capability>>(new Set());
 
   const [showLeadCapture, setShowLeadCapture] = useState(false);
+  // The lead form is a modal: focus in, Tab kept inside, Escape closes, focus
+  // back to the button that opened it (lib/useModal.ts).
+  const leadDialog = useRef<HTMLDivElement>(null);
+  useModal(leadDialog, showLeadCapture, () => setShowLeadCapture(false));
   const [leadForm, setLeadForm] = useState({
     name: "",
     email: "",
@@ -677,6 +682,7 @@ export default function ProjectBuilder() {
                       return (
                         <button
                           key={sys.id}
+                          aria-pressed={isSelected}
                           onClick={() => {
                             // Die erste Auswahl ist der Beginn. Ein Aufruf der
                             // Seite ist nur ein Aufruf; hier faengt jemand
@@ -698,11 +704,11 @@ export default function ProjectBuilder() {
                             <Icon className="w-6 h-6" />
                           </div>
                           <div className="flex-1">
-                            <h3
-                              className={`text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
+                            <span
+                              className={`block text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                             >
                               {sys.label}
-                            </h3>
+                            </span>
                             <p
                               className={`mt-0.5 text-sm ${ isSelected ? "text-[var(--text-mid)]" : "text-[var(--text-mid)]" }`}
                             >
@@ -735,16 +741,17 @@ export default function ProjectBuilder() {
                       return (
                         <button
                           key={lvl.id}
+                          aria-pressed={isSelected}
                           onClick={() => setScale(lvl.id)}
                           className={`w-full flex items-center justify-between p-5 border text-left transition-all duration-300 ${ isSelected ? "border-[var(--line-strong)] border-l-2 border-l-[var(--signal)] bg-[var(--surface-2)]" : "border-[var(--line)] border-l-2 border-l-transparent bg-[var(--surface-1)] hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]" }`}
                         >
                           <div>
                             <div className="flex items-center gap-3 mb-1">
-                              <h3
-                                className={`text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
+                              <span
+                                className={`block text-lg font-medium ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                               >
                                 {lvl.label}
-                              </h3>
+                              </span>
                               <span
                                 className={`text-xs font-semibold px-2 py-0.5 rounded-[2px] ${ isSelected ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[var(--signal-text)]/10 dark:text-[var(--signal-text)]" : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400" }`}
                               >
@@ -785,6 +792,7 @@ export default function ProjectBuilder() {
                         return (
                           <button
                             key={cap.id}
+                            aria-pressed={isSelected}
                             onClick={() => toggleCapability(cap.id)}
                             className={`group flex items-start p-4 border text-left transition-all duration-300 ${ isSelected ? "border-[var(--line-strong)] border-l-2 border-l-[var(--signal)] bg-[var(--surface-2)]" : "border-[var(--line)] border-l-2 border-l-transparent bg-[var(--surface-1)] hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]" }`}
                           >
@@ -795,11 +803,11 @@ export default function ProjectBuilder() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-2">
-                                <h3
-                                  className={`text-sm font-medium leading-tight ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
+                                <span
+                                  className={`block text-sm font-medium leading-tight ${ isSelected ? "text-[var(--text-hi)]" : "text-[var(--text-hi)]" }`}
                                 >
                                   {capText(cap.id).label}
-                                </h3>
+                                </span>
                                 {isSelected && (
                                   <Check className="w-4 h-4 text-[var(--signal-text)] flex-shrink-0" />
                                 )}
@@ -904,24 +912,24 @@ export default function ProjectBuilder() {
                               <span className="text-white/30 mx-2 font-light">–</span>
                               €<AnimatedNumber value={estimate.rawMax} />
                             </div>
-                            <p className="text-white/50 text-xs">Ex. VAT</p>
+                            <p className="text-white/50 text-xs">{t.builder.estimate.exVatShort}</p>
                           </>
                         )}
 
                         {/* Meta row */}
                         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/10 mt-6 pt-5">
                           <div>
-                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Timeline</div>
-                            <div className="font-medium text-lg text-white">{estimate.weeks} weeks</div>
+                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">{t.builder.estimate.timeline}</div>
+                            <div className="font-medium text-lg text-white">{t.builder.estimate.weeks(estimate.weeks)}</div>
                           </div>
                           <div>
-                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Add-ons</div>
-                            <div className="font-medium text-lg text-white">{capabilities.size} features</div>
+                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">{t.builder.estimate.addons}</div>
+                            <div className="font-medium text-lg text-white">{t.builder.estimate.featureCount(capabilities.size)}</div>
                           </div>
                           <div>
-                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">Quality</div>
+                            <div className="text-xs text-white/50 uppercase tracking-wider mb-1">{t.builder.estimate.quality}</div>
                             <div className="font-medium text-lg text-white flex items-center gap-1">
-                              <Sparkles className="w-4 h-4 text-[var(--signal-text)]" /> Top tier
+                              <Sparkles className="w-4 h-4 text-[var(--signal-text)]" aria-hidden="true" /> {t.builder.estimate.topTier}
                             </div>
                           </div>
                         </div>
@@ -1064,7 +1072,7 @@ export default function ProjectBuilder() {
                         href="mailto:contact@deev.lu?subject=Start%20my%20project%20%E2%80%94%20Deev%20simulator&body=Hi%20Deev%20team%2C%0D%0A%0D%0AI%27ve%20configured%20my%20project%20in%20the%20simulator%20and%20I%27d%20like%20to%20start.%0D%0A"
                         className="flex-1 py-4 text-white font-medium text-base transition-colors duration-[var(--dur-1)] hover:bg-[var(--signal-hi)] flex items-center justify-center gap-2" style={{ background: "var(--signal)", borderRadius: "var(--radius-2)" }}
                       >
-                        Start my project <ArrowRight className="w-5 h-5" />
+                        {t.builder.estimate.start} <ArrowRight className="w-5 h-5" aria-hidden="true" />
                       </a>
                       <button
                         onClick={reset}
@@ -1119,10 +1127,14 @@ export default function ProjectBuilder() {
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 "
           >
             <motion.div
+              ref={leadDialog}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="lead-dialog-title"
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="w-full max-w-md p-8 rounded-lg bg-white dark:bg-[#0a0a0f] border border-slate-200 dark:border-white/10"
+              className="w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto p-8 rounded-lg bg-white dark:bg-[#0a0a0f] border border-slate-200 dark:border-white/10"
             >
               {!submitted ? (
                 <>
@@ -1130,9 +1142,9 @@ export default function ProjectBuilder() {
                     <div className="w-14 h-14 bg-[var(--signal-text)]/10 dark:bg-[var(--signal-text)]/20 rounded-[2px] flex items-center justify-center mx-auto mb-4">
                       <Sparkles className="w-7 h-7 text-[var(--signal-text)]" />
                     </div>
-                    <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
+                    <h2 id="lead-dialog-title" className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                       {t.builder.leadForm.title}
-                    </h3>
+                    </h2>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
                       {t.builder.leadForm.body}
                     </p>
@@ -1208,56 +1220,74 @@ export default function ProjectBuilder() {
                     }}
                     className="space-y-4"
                   >
-                    <input
-                      type="text"
-                      value={leadForm.name}
-                      onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                      placeholder={t.builder.leadForm.name}
-                      required
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-                    />
-                    <input
-                      type="email"
-                      value={leadForm.email}
-                      onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                      placeholder={t.builder.leadForm.email}
-                      required
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-                    />
+                    <p className="text-xs text-[var(--text-mid)] m-0">{t.site.a11y.requiredNote}</p>
+                    <label className="block">
+                      <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.name} <span className="text-[var(--signal-text)]" aria-hidden="true">*</span></span>
+                      <input
+                        type="text"
+                        value={leadForm.name}
+                        onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                        required
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+                        autoComplete="name"
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.email} <span className="text-[var(--signal-text)]" aria-hidden="true">*</span></span>
+                      <input
+                        type="email"
+                        value={leadForm.email}
+                        onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                        required
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+                        autoComplete="email"
+                      />
+                    </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input
-                        type="text"
-                        value={leadForm.company}
-                        onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
-                        placeholder={t.builder.leadForm.company}
-                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-                      />
-                      <input
-                        type="text"
-                        value={leadForm.website}
-                        onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
-                        placeholder={t.builder.leadForm.website}
-                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-                      />
+                      <label className="block">
+                        <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.company}</span>
+                        <input
+                          type="text"
+                          value={leadForm.company}
+                          onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
+                          className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+                          autoComplete="organization"
+                        />
+                      </label>
+                      <label className="block">
+                        <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.website}</span>
+                        <input
+                          type="text"
+                          value={leadForm.website}
+                          onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
+                          className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+                          autoComplete="url"
+                        />
+                      </label>
                     </div>
-                    <select
-                      value={leadForm.timeline}
-                      onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
-                      className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] ${ leadForm.timeline ? "text-[var(--text-hi)]" : "text-slate-400" }`}
-                    >
-                      <option value="">{t.builder.leadForm.timelinePlaceholder}</option>
-                      <option value="ASAP">{t.builder.leadForm.timelines.asap}</option>
-                      <option value="1-3 months">{t.builder.leadForm.timelines.m1_3}</option>
-                      <option value="3-6 months">{t.builder.leadForm.timelines.m3_6}</option>
-                      <option value="Just exploring">{t.builder.leadForm.timelines.exploring}</option>
-                    </select>
-                    <textarea
-                      value={leadForm.goals}
-                      onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
-                      placeholder={t.builder.leadForm.goals}
-                      rows={3}
-                      className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] resize-none"
-                    />
+                    <label className="block">
+                      <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.timelinePlaceholder}</span>
+                      <select
+                        value={leadForm.timeline}
+                        onChange={(e) => setLeadForm({ ...leadForm, timeline: e.target.value })}
+                        className={`w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] ${ leadForm.timeline ? "text-[var(--text-hi)]" : "text-[var(--text-low)]" }`}
+                      >
+                        <option value="">{t.builder.leadForm.timelinePlaceholder}</option>
+                        <option value="ASAP">{t.builder.leadForm.timelines.asap}</option>
+                        <option value="1-3 months">{t.builder.leadForm.timelines.m1_3}</option>
+                        <option value="3-6 months">{t.builder.leadForm.timelines.m3_6}</option>
+                        <option value="Just exploring">{t.builder.leadForm.timelines.exploring}</option>
+                      </select>
+                    </label>
+                    <label className="block">
+                      <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.goals}</span>
+                      <textarea
+                        value={leadForm.goals}
+                        onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
+                        rows={3}
+                        className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] resize-none"
+                      />
+                    </label>
                     {/* Fehlschlag sichtbar machen, statt den Erfolgsschritt zu
                         zeigen. role=alert, damit ein Screenreader es meldet. */}
                     {leadError && (
@@ -1294,9 +1324,9 @@ export default function ProjectBuilder() {
                   <div className="w-14 h-14 bg-green-500/10 rounded-[2px] flex items-center justify-center mx-auto mb-4">
                     <Check className="w-7 h-7 text-green-500" />
                   </div>
-                  <h3 className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
+                  <h2 id="lead-dialog-title" className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                     {t.builder.done.title}
-                  </h3>
+                  </h2>
                   <p className="text-slate-500 dark:text-slate-400 text-sm">
                     {t.builder.done.body(leadForm.email)}
                   </p>

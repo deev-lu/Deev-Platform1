@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import type { Dict } from "../../locales";
@@ -15,6 +15,8 @@ import {
   withdrawConsent,
 } from "../../lib/consent";
 import { pauseSmoothScroll, resumeSmoothScroll } from "../../lib/smoothScroll";
+import { useReduceMotion } from "../../lib/motionPref";
+import { focusablesIn, useModal } from "../../lib/useModal";
 
 /**
  * Consent banner and preferences dialog.
@@ -71,14 +73,14 @@ export default function CookieBanner() {
   const locale = useLocale();
   const ROWS = rowsFor(t);
   const fmt = (iso: string) => fmtDate(iso, locale);
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const [record, setRecord] = useState<ConsentRecord | null>(null);
   const [showBanner, setShowBanner] = useState(false);
   const [showPrefs, setShowPrefs] = useState(false);
   const [analytics, setAnalytics] = useState(false);
 
   const dialogRef = useRef<HTMLDivElement>(null);
-  const restoreFocusTo = useRef<HTMLElement | null>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   // ── initial read ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -94,7 +96,6 @@ export default function CookieBanner() {
   // ── open from anywhere: footer link, policy page ────────────────────────
   useEffect(() => {
     const open = () => {
-      restoreFocusTo.current = document.activeElement as HTMLElement | null;
       const stored = getConsent();
       setRecord(stored);
       setAnalytics(stored?.categories.analytics ?? false);
@@ -115,45 +116,39 @@ export default function CookieBanner() {
     [],
   );
 
-  // ── dialog: scroll lock, escape, focus trap ─────────────────────────────
+  // ── dialog: scroll lock; focus in, trapped, Escape, focus back (useModal) ──
   useEffect(() => {
     if (!showPrefs) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     pauseSmoothScroll();
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setShowPrefs(false);
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), a[href], input, [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusables?.length) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", onKey);
-    const t = setTimeout(() => dialogRef.current?.querySelector<HTMLElement>("button")?.focus(), 60);
-
     return () => {
-      document.removeEventListener("keydown", onKey);
-      clearTimeout(t);
       document.body.style.overflow = previousOverflow;
       resumeSmoothScroll();
-      restoreFocusTo.current?.focus?.();
     };
   }, [showPrefs]);
+  // Opened from the banner, the dialog hides the banner's "Customise" button.
+  // If that is not back when the dialog closes, focus goes to the banner's
+  // first visible button, or to the start of the page once a choice is made,
+  // instead of falling to <body>.
+  useModal(dialogRef, showPrefs, () => setShowPrefs(false), () => {
+    const banner = document.querySelector<HTMLElement>('[aria-labelledby="consent-title"]');
+    return (banner && focusablesIn(banner)[0]) || document.getElementById("main");
+  });
+
+  // While the bar shows, focused elements scroll into view above it rather
+  // than behind it (WCAG 2.4.11; fonts.css reads --fixed-bottom).
+  useEffect(() => {
+    const el = bannerRef.current;
+    if (!showBanner || showPrefs || !el) return;
+    const root = document.documentElement;
+    const ro = new ResizeObserver(() => root.style.setProperty("--fixed-bottom", `${el.offsetHeight + 24}px`));
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--fixed-bottom");
+    };
+  }, [showBanner, showPrefs]);
 
   const decide = useCallback((allowAnalytics: boolean, method: "accept-all" | "reject-all" | "custom") => {
     const r = save(allowAnalytics, method);
@@ -163,10 +158,7 @@ export default function CookieBanner() {
     setShowPrefs(false);
   }, []);
 
-  const openPrefs = () => {
-    restoreFocusTo.current = document.activeElement as HTMLElement | null;
-    setShowPrefs(true);
-  };
+  const openPrefs = () => setShowPrefs(true);
 
   const fade = { duration: reduce ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -180,6 +172,7 @@ export default function CookieBanner() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={fade}
+            ref={bannerRef}
             role="dialog"
             aria-modal="false"
             aria-labelledby="consent-title"
@@ -488,7 +481,7 @@ function Category({
             className="shrink-0 relative w-[52px] h-8 border transition-colors duration-[var(--dur-1)] cursor-pointer"
             style={{
               borderRadius: "var(--radius-1)",
-              borderColor: on ? "var(--signal)" : "var(--line-strong)",
+              borderColor: on ? "var(--signal)" : "var(--line-control)",
               background: on ? "var(--signal)" : "transparent",
             }}
           >
@@ -497,7 +490,7 @@ function Category({
               style={{
                 left: on ? 26 : 4,
                 borderRadius: "var(--radius-1)",
-                background: on ? "#ffffff" : "var(--line-strong)",
+                background: on ? "#ffffff" : "var(--line-control)",
               }}
             />
           </button>

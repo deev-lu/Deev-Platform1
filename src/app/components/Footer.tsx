@@ -2,6 +2,7 @@ import { Linkedin } from "lucide-react";
 import logo from "../../assets/logo.png";
 import MadeInLuxembourg from "./MadeInLuxembourg";
 import L from "./L";
+import MotionToggle from "./MotionToggle";
 import { openCookieSettings } from "../../lib/consent";
 import { useT, useLocalePath } from "../../lib/useT";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -95,7 +96,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="py-8 md:py-10 md:pr-8 min-w-0">
             <div className="flex items-center gap-2.5">
-              <img src={logo} alt="DEEV" width={256} height={256} className="h-8 w-auto object-contain" />
+              <img src={logo} alt="" width={256} height={256} className="h-8 w-auto object-contain" />
               <span className="text-lg font-brand tracking-[0.04em] text-[var(--text-hi)]">DEEV</span>
             </div>
             <p className="text-[var(--text-mid)] mt-5 max-w-sm" style={{ lineHeight: 1.6 }}>
@@ -189,18 +190,24 @@ export default function Footer() {
                   {t.site.footer.links.cookieSettings}
                 </button>
               </li>
+              {/* Pause motion (WCAG 2.2.2), from every page. */}
+              <li>
+                <MotionToggle variant="text" className={linkClass} />
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Die Wortmarke als Grafik: gross, kaum Kontrast, unten angeschnitten. */}
         <div aria-hidden="true" className="select-none pointer-events-none mt-8 overflow-hidden" style={{ height: "clamp(69px, 24.5vw, 360px)" }}>
+          {/* Als CSS-Inhalt, nicht als Text: eine Wortmarke ist von der
+              Kontrastregel ausgenommen (WCAG 1.4.3, "Logotypes"), aber Pruef-
+              werkzeuge melden sie sonst trotzdem. Fuer Screenreader ohnehin
+              verborgen. */}
           <span
-            className="block font-brand text-[var(--text-hi)] whitespace-nowrap"
+            className="block font-brand text-[var(--text-hi)] whitespace-nowrap before:content-['DEEV']"
             style={{ fontSize: "clamp(96px, 34vw, 500px)", lineHeight: 0.82, letterSpacing: "-0.04em", opacity: 0.05, marginLeft: "-0.04em" }}
-          >
-            DEEV
-          </span>
+          />
         </div>
 
         {/* Bottom bar */}
