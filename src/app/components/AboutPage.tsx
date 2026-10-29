@@ -1,4 +1,4 @@
-import { motion, type MotionProps } from "motion/react";
+import { motion, useReducedMotion, type MotionProps } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { TwoTone } from "./Plate";
@@ -7,7 +7,6 @@ import { TEAM } from "../../lib/team";
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from "../../lib/whatsapp";
 import placeWide from "../../assets/photos/philharmonie-1200.webp";
 import placeNarrow from "../../assets/photos/philharmonie-700.webp";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * /about - wer wir sind (seit dem 24.10.2026).
@@ -24,7 +23,7 @@ import { useReduceMotion } from "../../lib/motionPref";
  */
 export default function AboutPage() {
   const t = useT();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const a = t.pages.aboutPage;
   const c = t.home.company;
 

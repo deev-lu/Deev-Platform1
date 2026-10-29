@@ -431,26 +431,8 @@
   .m-marquee-track { animation-duration: 60s; }
   .m-marquee:hover .m-marquee-track { animation-play-state: paused; }
 }
-/* Paused by the visitor (the pause button, WCAG 2.2.2). */
-.m-marquee.is-paused .m-marquee-track { animation-play-state: paused; }
-/* Reduced motion: no band at all, the logos wrap into rows. (A sideways
-   scroller here had no keyboard access, WCAG 2.1.1.) */
 @media (prefers-reduced-motion: reduce) {
-  .m-marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
-  .m-marquee-track > ul:first-child { flex-wrap: wrap; justify-content: center; }
-  .m-marquee { overflow: visible; -webkit-mask-image: none !important; mask-image: none !important; }
+  .m-marquee-track { animation: none; }
+  .m-marquee { overflow-x: auto; }
   .m-marquee-track > ul:last-child { display: none; }
-}
-
-/* ── Pause motion (WCAG 2.2.2) ───────────────────────────────────────────
-   Set by the visitor's switch (lib/motionPref.ts) as a class on <html>.
-   Every CSS animation runs to its end state at once and stops; entrance
-   fades therefore show their content instead of freezing it invisible.
-   Transitions stay, they are responses to the visitor's own actions. */
-.motion-paused *,
-.motion-paused *::before,
-.motion-paused *::after {
-  animation-duration: 0.001ms !important;
-  animation-delay: 0s !important;
-  animation-iteration-count: 1 !important;
 }

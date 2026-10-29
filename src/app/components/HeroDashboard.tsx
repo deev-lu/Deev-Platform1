@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Sparkles, TrendingUp, ArrowUpRight, Bot } from "lucide-react";
 import CountUp from "./CountUp";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 const PROMPTS = [
   "Qualify this inbound lead and draft a reply",
@@ -71,7 +70,7 @@ function MetricBars({ reduce }: { reduce: boolean }) {
 
 export default function HeroDashboard() {
   // Treat mobile as reduced-motion: no per-frame typewriter re-renders, no bar animation
-  const reduce = (useReduceMotion() ?? false) || useIsMobile();
+  const reduce = (useReducedMotion() ?? false) || useIsMobile();
   const { idx, text, done } = useTypewriter(reduce);
 
   return (

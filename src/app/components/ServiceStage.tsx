@@ -1,6 +1,5 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { PathKey } from "./ServicesIndex";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Die Bühne neben dem Leistungsnavigator.
@@ -14,7 +13,7 @@ import { useReduceMotion } from "../../lib/motionPref";
  * dauerhaft - gewechselt wird nur, wenn ein anderer Weg aktiv wird.
  */
 export default function ServiceStage({ active }: { active: PathKey }) {
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const line = "var(--line-strong)";
   const signal = "var(--signal)";
 

@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-
+import { useReducedMotion } from "motion/react";
 import L from "./L";
 import { useLocale, useT } from "../../lib/useT";
 import { HOMEPAGE_FEATURED, PROJECTS, sectorOf, type Project } from "../../lib/projects";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Die Arbeitsprobe im Hero: echte Projekte, die einander ablösen.
@@ -23,7 +22,7 @@ const INTERVAL = 5200;
 export default function HeroWork() {
   const locale = useLocale();
   const t = useT();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const [index, setIndex] = useState(0);
   // Nach einem Klick hört die Rotation auf. Wer selbst gewählt hat, will nicht

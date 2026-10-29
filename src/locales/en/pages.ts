@@ -272,26 +272,4 @@ export const pages = {
     phone: "Phone",
     email: "Email",
   },
-
-  /** /accessibility: the accessibility statement (WCAG 2.1 AA / EN 301 549).
-   *  Self-assessment; keep it true when the site changes. */
-  accessibilityPage: {
-    eyebrow: "Accessibility",
-    title: "Accessibility statement",
-    intro: "We want www.deev.lu to work for everyone, including people who use a screen reader, only a keyboard, screen magnification or voice control.",
-    standardTitle: "The standard we follow",
-    standard: "We design and test this website against the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA. They are the web requirements of the European standard EN 301 549, which the European Accessibility Act refers to.",
-    statusTitle: "How far we meet it",
-    status: "Partially compliant. In our own assessment the pages we build meet WCAG 2.1 Level AA; the exceptions are content from third parties, listed below.",
-    measuresTitle: "What we have done",
-    measures: ["Every page type tested with the axe-core engine against WCAG 2.1 A and AA, in the light and the dark theme, on desktop and phone width.", "Text contrast of at least 4.5:1 throughout, and a solid, visible focus ring for keyboard use.", "A “Skip to content” link on every page, and every control reachable and usable with a keyboard.", "A “Pause motion” switch in the hero and in the footer that stops the background video and every animation, and remembers the choice. Your device’s “reduce motion” setting is respected as well.", "Pages reflow to a width of 320 pixels without sideways scrolling, so text can be enlarged to 400%.", "Every form field has a visible label, and errors are announced to screen readers.", "Each page declares its language (English, French or German), and images carry a text alternative or are marked as decorative."],
-    limitsTitle: "Known limitations",
-    limits: ["The background video on the homepage and the videos in the “In motion” section are played by YouTube. We do not control the accessibility of the YouTube player. The background video carries no information and can be paused.", "Portfolio entries show screenshots of client websites. The live websites they link to are run by their owners, not by us.", "The animated examples (the AI film, the document reading and the agent run) are illustrations. What they show is also described in text on the same page."],
-    feedbackTitle: "Report a problem",
-    feedback: "If something on this website is hard or impossible for you to use, tell us and we will help, and fix it where we can. We reply within one business day, as with any enquiry.",
-    emailLabel: "Email",
-    phoneLabel: "Phone",
-    preparedTitle: "About this statement",
-    prepared: "Prepared on 28 October 2026 from a self-assessment by DEEV, and reviewed whenever the website changes significantly.",
-  },
 };

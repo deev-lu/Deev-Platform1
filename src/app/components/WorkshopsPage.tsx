@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, type MotionProps } from "motion/react";
+import { motion, useReducedMotion, type MotionProps } from "motion/react";
 import { ArrowRight, CheckCircle2, Loader2, AlertCircle, CalendarClock } from "lucide-react";
 import L from "./L";
 import { TwoTone } from "./Plate";
@@ -10,7 +10,6 @@ import { track } from "../../lib/analytics";
 import { BOOKING_URL } from "../../lib/booking";
 import { scrollToId } from "../../lib/smoothScroll";
 import photo from "../../assets/photos/gelle-fra-900.webp";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * /workshops - Workshops und Beratung als eigene Seite (seit dem 24.10.2026).
@@ -30,7 +29,7 @@ import { useReduceMotion } from "../../lib/motionPref";
  */
 export default function WorkshopsPage() {
   const t = useT();
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const w = t.home.workshops;
   const ai = t.home.ai;
   const p = t.pages.workshopsPage;

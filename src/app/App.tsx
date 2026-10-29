@@ -18,7 +18,6 @@ const ServicesIndex     = lazy(() => import("./components/ServicesIndex"));
 const GrantPage         = lazy(() => import("./components/GrantPage"));
 const WorkshopsPage     = lazy(() => import("./components/WorkshopsPage"));
 const AboutPage         = lazy(() => import("./components/AboutPage"));
-const AccessibilityPage = lazy(() => import("./components/AccessibilityPage"));
 const ServiceDetail     = lazy(() => import("./components/ServiceDetail"));
 const ProjectPage       = lazy(() => import("./components/ProjectPage"));
 const SelectedWork      = lazy(() => import("./components/SelectedWork"));
@@ -33,9 +32,6 @@ const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
-import SkipLink, { MainAnchor } from "./components/SkipLink";
-import { MotionConfig } from "motion/react";
-import { useMotionPaused } from "../lib/motionPref";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const InMotion          = lazy(() => import("./components/InMotion"));
@@ -64,7 +60,6 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <MainAnchor />
 
       {/* Nach dem Brand Book (Oktober 2026): dunkel, Haarlinien, ein Akzent,
           echte Fotografie. Grosse Momente: der Hero, der
@@ -162,12 +157,8 @@ export default function App() {
  * the server and the browser cannot drift.
  */
 export function SiteTree({ theme, toggleTheme }: ThemeProps) {
-  // "Pause motion" also reaches motion components that do not ask for it
-  // themselves (WCAG 2.2.2).
-  const motionPaused = useMotionPaused();
   return (
-    <MotionConfig reducedMotion={motionPaused ? "always" : "user"}>
-      <SkipLink />
+    <>
       <ScrollReset />
       <RouteMeta />
       <Routes>
@@ -191,7 +182,7 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
       {/* Room under the footer on phones, so the contact bar never covers
           the last links. */}
       <div aria-hidden="true" className="md:hidden h-[84px] bg-[var(--surface-0)]" />
-    </MotionConfig>
+    </>
   );
 }
 
@@ -200,7 +191,6 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
   const chrome = (children: ReactNode) => (
     <>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <MainAnchor />
       {children}
       <Footer />
     </>
@@ -238,8 +228,6 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       <Route path="workshops" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkshopsPage /></Suspense>)} />
       {/* Wer wir sind: das Team und wie wir arbeiten. */}
       <Route path="about" element={chrome(<Suspense fallback={<SectionSkeleton />}><AboutPage /></Suspense>)} />
-      {/* Die Erklaerung zur Barrierefreiheit (WCAG 2.1 AA / EN 301 549). */}
-      <Route path="accessibility" element={chrome(<Suspense fallback={<SectionSkeleton />}><AccessibilityPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />
       {/* Each portfolio category is its own page, so it can be linked to,
           shared and indexed. Declared before work/:slug: a static segment

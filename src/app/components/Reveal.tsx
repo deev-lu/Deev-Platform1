@@ -1,7 +1,6 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Ein Abschnitt, der beim Hereinscrollen ankommt.
@@ -40,7 +39,7 @@ export default function Reveal({
   className?: string;
   id?: string;
 }) {
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const M = motion[Tag];
 

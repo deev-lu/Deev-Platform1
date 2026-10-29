@@ -183,7 +183,6 @@ function Rendered({ block }: { block: Block }) {
   if ("code" in block) {
     return (
       <pre
-        tabIndex={0}
         className="my-6 overflow-x-auto border border-[var(--line)] bg-[var(--surface-1)] p-5"
         style={{ borderRadius: "var(--radius-1)" }}
       >

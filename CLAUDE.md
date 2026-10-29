@@ -111,26 +111,6 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - The cookie banner's first layer is a slim bottom bar: the old card covered
   the hero headline and buttons on every first visit.
 
-## Accessibility (WCAG 2.1 AA / EN 301 549, since 28 Oct 2026)
-The site is built and tested to WCAG 2.1 Level AA, the web requirements of
-EN 301 549 that the European Accessibility Act refers to. The statement is at
-`/accessibility` (AccessibilityPage.tsx, `pages.accessibilityPage`); it is a
-self-assessment, so keep it true when the site changes.
-- **Contrast:** text at least 4.5:1 on every surface it sits on, both themes.
-  `--text-low` is the quietest colour text may use; dim things by colour,
-  never by opacity (opacity pushed demo text under 4.5:1). Focus ring is
-  solid Electric Blue on light, Cyan on dark (`:focus-visible`, fonts.css).
-- **Motion (2.2.2):** anything that moves by itself for more than five
-  seconds must stop with "Pause motion" (`lib/motionPref.ts`, the
-  `motion-paused` class on <html>, applied before paint in index.html).
-  Components use `useReduceMotion()` from motionPref, never motion's
-  `useReducedMotion()` directly. Switches: hero (MotionToggle) and footer.
-- **Keyboard:** "Skip to content" (SkipLink.tsx) lands on `#main` after the
-  navbar on every page. A sideways-scrolling region gets `tabIndex={0}` and
-  a name. A `<dl>` holds only dt/dd groups (put icons inside the dt).
-- **Before shipping UI:** run axe-core (wcag2a, wcag2aa, wcag21a, wcag21aa)
-  over the page in both themes at 1440 and 390px; zero violations is the bar.
-
 ## Brand (from the brand book — do not drift)
 - **Blue `#2563F6`**, **Cyan `#3CE7FC`**. Never purple (that's a competitor).
 - **Typold Bold** — display headings + the DEEV wordmark (`.font-brand`)

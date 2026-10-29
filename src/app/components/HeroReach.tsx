@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Hero background: the work leaving Luxembourg.
@@ -77,7 +76,7 @@ function arc(O: { x: number; y: number }, d: { x: number; y: number; bow: number
 
 export default function HeroReach() {
   const isMobile = useIsMobile();
-  const still = useReduceMotion() || isMobile;
+  const still = useReducedMotion() || isMobile;
   const ref = useRef<SVGSVGElement>(null);
   const [frac, setFrac] = useState({ x: O_FALLBACK.x / VB.w, y: O_FALLBACK.y / VB.h });
 

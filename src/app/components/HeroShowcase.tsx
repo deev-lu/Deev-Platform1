@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { useIsMobile } from "../../lib/useIsMobile";
 
@@ -8,7 +8,6 @@ import shotAurora from "../../assets/work/aurora.jpg";
 import shotOscars from "../../assets/work/oscarsbar.jpg";
 import shotMellys from "../../assets/work/mellys.jpg";
 import shotGeoplus from "../../assets/work/geoplus.jpg";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /** Real, shipped client work — cycled in a browser frame. */
 const WORK = [
@@ -22,7 +21,7 @@ const WORK = [
 const INTERVAL = 4200;
 
 export default function HeroShowcase() {
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const [i, setI] = useState(0);
 

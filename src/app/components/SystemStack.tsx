@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "motion/react";
+import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react";
 import NoiseOverlay from "./NoiseOverlay";
 import { useT } from "../../lib/useT";
 import type { Dict } from "../../locales";
 import { useIsMobile } from "../../lib/useIsMobile";
-import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * §6F — System layers.
@@ -27,7 +26,7 @@ import { useReduceMotion } from "../../lib/motionPref";
 export default function SystemStack() {
   const t = useT();
   const LAYERS = t.home.stack.layers.map((l, i) => ({ ...l, n: String(i + 1).padStart(2, "0") }));
-  const reduce = useReduceMotion();
+  const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);

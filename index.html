@@ -233,11 +233,6 @@
         } catch (e) {
           document.documentElement.classList.add("dark");
         }
-        /* "Pause motion" (lib/motionPref.ts), applied before paint too. */
-        try {
-          if (localStorage.getItem("motion") === "paused")
-            document.documentElement.classList.add("motion-paused");
-        } catch (e) {}
       })();
     </script>
   </head>
