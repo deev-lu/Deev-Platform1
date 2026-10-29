@@ -413,6 +413,20 @@
 /* Section headlines: the claim (first sentence, TwoTone) takes the same flow,
    in the dark theme only. On a light page a near-white start would vanish,
    so there it stays solid ink. */
+/* Light theme (since 29 Oct 2026): the claim flows from navy ink into
+   Electric Blue, the same gesture as the dark theme in daylight colours.
+   Large type, so 3:1 is the floor; the lightest stop is 4.4:1 on paper. */
+:where(:root:not(.dark)) .m-flow-dark {
+  background-image: linear-gradient(100deg, #0b1530 0%, #1d3fae 55%, #2563f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+/* Inside a dark panel on a light page (data-surface="dark" with .dark),
+   the dark rule below wins: :where() keeps the light rule above at a
+   single class of specificity. */
 .dark .m-flow-dark {
   background-image: linear-gradient(100deg, #f4f8ff 0%, #c7dcff 45%, #7faeff 100%);
   -webkit-background-clip: text;

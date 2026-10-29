@@ -118,6 +118,12 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
   `src/lib/klarAccess.ts`): German menu (`data-lang="de"`), bottom right,
   decorative accent Electric Blue (`data-color`). It mounts outside #root and
   guards itself via `window.KlarAccess`.
+- **The DEEV look** (`src/lib/klarAccessTheme.ts`) is a stylesheet appended to
+  the widget's shadow root on `klar-access:ready`, after its own sheet: brand
+  fonts, the site's surfaces and ink, Electric Blue fills, radii 12/20, a navy
+  button with the blue ring. `data-deev-theme` on the host follows the site
+  theme. It restyles only; the button's size and corner offsets stay the
+  widget's, and under forced colours the widget's own rules apply.
 - **The bottom-right corner belongs to its button** (56px, 24px from the
   edge; 20px on phones). Floating UI keeps clear of it: the WhatsApp button
   sits at `right-[96px]`, the phone contact bar reserves `pr-[92px]` and is
@@ -185,6 +191,12 @@ Dark is the default since the redesign; light is available via the navbar
 toggle and the choice is stored in `localStorage` under `theme`. The theme is
 applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
+Light (reworked 29 Oct 2026): a cool paper ground (`--surface-0` #f6f7fb)
+under white cards, navy ink (`--text-hi` #0b1530) instead of black, and the
+two-tone claim flowing from navy into Electric Blue (`.m-flow-dark` in
+motion.css). Dark panels on a light page (`data-surface="dark"` plus
+`.dark`) keep the dark rules. The navbar reads the surface under it at
+y=34, skipping itself, so it turns light over a dark panel only.
 
 ## Content that needs real assets (do not invent)
 - The founders appear as two portrait cards under "Leadership" in

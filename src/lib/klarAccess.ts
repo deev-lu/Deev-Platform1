@@ -14,6 +14,10 @@ import { useEffect, useState } from "react";
  *
  * Settings: German menu, the button bottom right, the decorative accent in
  * Electric Blue. The script reads them from its own data- attributes.
+ *
+ * Once it is ready, the DEEV look (klarAccessTheme.ts, its own chunk) goes
+ * into the widget's shadow root, and the host's data-deev-theme follows the
+ * site theme (the .dark class on <html>).
  */
 const SRC = "/klar-access/klar-access.js";
 
@@ -26,6 +30,9 @@ declare global {
 export function loadKlarAccess(): void {
   if (typeof document === "undefined") return;
   if (window.KlarAccess || document.querySelector("script[data-klar-access]")) return;
+  // Fetched alongside the widget so its first paint is already in DEEV dress.
+  const theme = import("./klarAccessTheme").then((m) => m.KLAR_ACCESS_THEME);
+  document.addEventListener("klar-access:ready", () => brandKlarAccess(theme), { once: true });
   const s = document.createElement("script");
   s.src = SRC;
   s.async = true;
@@ -34,6 +41,23 @@ export function loadKlarAccess(): void {
   s.dataset.position = "right";
   s.dataset.color = "#2563F6";
   document.body.appendChild(s);
+}
+
+function brandKlarAccess(theme: Promise<string>): void {
+  const host = document.querySelector("klar-access");
+  const shadow = host?.shadowRoot;
+  if (!host || !shadow || shadow.querySelector("style[data-deev]")) return;
+  const root = document.documentElement;
+  const sync = () => host.setAttribute("data-deev-theme", root.classList.contains("dark") ? "dark" : "light");
+  sync();
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["class"] });
+  theme.then((css) => {
+    if (shadow.querySelector("style[data-deev]")) return;
+    const style = document.createElement("style");
+    style.dataset.deev = "";
+    style.textContent = css;
+    shadow.append(style);
+  });
 }
 
 /**

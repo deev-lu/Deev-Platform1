@@ -7,27 +7,31 @@
    is measured against the brief's floors by scripts/check-contrast.mjs —
    7:1 for headline type, 4.5:1 for body and labels, in both themes. */
 :root {
-  /* Surfaces — paper, with elevation as a darker step */
-  --surface-0: #ffffff;
-  --surface-1: #f4f5f7;
-  --surface-2: #edeef1;
-  --surface-3: #e4e6ea;
+  /* Surfaces. Since 29 Oct 2026 the light theme is DEEV's own, not the dark
+     one inverted: a cool paper for the page and white for what sits on it
+     (cards, panels), so raised things read lighter, as in daylight. */
+  --surface-0: #f6f7fb;
+  --surface-1: #ffffff;
+  --surface-2: #eef1f6;
+  --surface-3: #e3e7ef;
   --surface-inv: #08090b;
   /* The Billovio room. Its own tone rather than another step of the page's
      greys: cool and a shade deeper than paper, so the section reads as a
      different space without going to full black or full white. */
   --surface-product: #e7ecf3;
 
-  /* Hairlines */
-  --line-faint: rgba(0, 0, 0, 0.06);
-  --line: rgba(0, 0, 0, 0.10);
-  --line-strong: rgba(0, 0, 0, 0.18);
+  /* Hairlines, tinted with the brand navy instead of neutral black */
+  --line-faint: rgba(11, 21, 48, 0.06);
+  --line: rgba(11, 21, 48, 0.10);
+  --line-strong: rgba(11, 21, 48, 0.18);
 
-  /* Text */
-  --text-hi: #0a0b0d;
-  --text: #33383f;
-  --text-mid: #565c64;
-  --text-low: #6b7178;
+  /* Text: DEEV navy ink instead of near-black. Measured on every light
+     surface by scripts/check-contrast.mjs (hi 14.5:1 or more, low 4.6:1 or
+     more). */
+  --text-hi: #0b1530;
+  --text: #2b3550;
+  --text-mid: #4a556d;
+  --text-low: #5b6680;
   --text-inv: #f2f4f6;
 
   /* Signal — the fill keeps the brand blue; accent type darkens to clear 7:1 */
@@ -36,10 +40,10 @@
   --signal-text: #1747c4;
   --signal-dim: rgba(37, 99, 246, 0.10);
 
-  --metal: #6b7178;
+  --metal: #5b6680;
 
   --positive: #1f7a4d;
-  --warn: #a1650f;
+  --warn: #95590a;
 
   /* Shape — soft, measured corners (changed 13 Oct 2026 at the owner's
      request; the brief's 4px cap is retired). Three steps, so a button, a
