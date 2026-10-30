@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon, Phone } from "lucide-react";
@@ -11,6 +11,7 @@ import { stripLocale } from "../../lib/i18n";
 import { WHATSAPP_NUMBER, WHATSAPP_DISPLAY } from "../../lib/whatsapp";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MegaMenu, { type PanelId } from "./MegaMenu";
+import { useLargeText } from "../../lib/klarAccess";
 import { ChevronDown } from "lucide-react";
 
 interface NavbarProps {}
@@ -50,6 +51,23 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const atHome = stripLocale(pathname) === "/";
   const [panel, setPanel] = useState<PanelId | null>(null);
   const [sectionsOpen, setSectionsOpen] = useState(false);
+  const burger = useRef<HTMLButtonElement>(null);
+  // Enlarged text (Klar Access): the compact bar at every width, so no
+  // control is pushed off the screen.
+  const compact = useLargeText();
+
+  // The phone drawer is a disclosure: Escape closes it and hands focus back
+  // to the button that opened it (WCAG 2.1.2, 2.4.3).
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMenuOpen(false);
+      burger.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
 
   useEffect(() => {
     let frame = 0;
@@ -59,21 +77,30 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       // The page alternates light and dark acts, so a bar styled for light
       // surfaces ends up floating over black. Ask what is actually under the
       // bar and follow it. Hit-tested per animation frame, not per event.
-      const under = document.elementFromPoint(window.innerWidth / 2, 76);
+      // Hit-tested behind the bar itself (its middle, 34px), skipping the bar.
+      // Testing just below it (76px) misread pages whose dark panel starts
+      // right under the bar: on /workshops in the light theme the links went
+      // white on white (WCAG 1.4.3).
+      const under = document
+        .elementsFromPoint(window.innerWidth / 2, 34)
+        .find((el) => !el.closest("header"));
       setOverDark(Boolean(under?.closest('[data-surface="dark"]')));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(measure);
     };
     measure();
+    // Pages load lazily: measure again once the new page has painted.
+    const late = window.setTimeout(measure, 400);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
+      window.clearTimeout(late);
     };
-  }, []);
+  }, [pathname]);
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
@@ -131,7 +158,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           >
             <img
               src={logo}
-              alt="DEEV"
+              alt=""
               width={256}
               height={256}
               className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
@@ -142,11 +169,11 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           </L>
 
           {/* Desktop navigation: three panels and a link. See MegaMenu. */}
-          <MegaMenu open={panel} setOpen={setPanel} onAnchor={scrollTo} />
+          {!compact && <MegaMenu open={panel} setOpen={setPanel} onAnchor={scrollTo} />}
 
           {/* Right side: language, theme, CTA, burger */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:block">
+            <div className={compact ? "hidden" : "hidden sm:block"}>
               <LanguageSwitcher />
             </div>
 
@@ -175,7 +202,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               style={{ fontSize: "0.8125rem" }}
             >
               <Phone className="w-4 h-4" strokeWidth={1.5} />
-              <span className="hidden xl:inline">{WHATSAPP_DISPLAY}</span>
+              <span className={compact ? "hidden" : "hidden xl:inline"}>{WHATSAPP_DISPLAY}</span>
             </a>
 
             {/* Ein Hauptknopf, ueberall derselbe (seit dem 24.10.2026): das
@@ -184,7 +211,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 bereits als Textlink in der Navigation. */}
             <L
               to="/contact?interest=call"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px "
+              className={`${compact ? "hidden" : "hidden sm:inline-flex"} items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px`}
               style={{ background: "var(--signal)" }}
             >
               {t.site.nav.cta}
@@ -192,8 +219,12 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
             {/* Mobile burger */}
             <button
+              ref={burger}
+              type="button"
               onClick={() => setMenuOpen((v) => !v)}
-              className={`md:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${ scrolled ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]" : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]" }`}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className={`${compact ? "" : "md:hidden "}w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${ scrolled ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]" : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]" }`}
               aria-label={menuOpen ? t.site.nav.closeMenu : t.site.nav.openMenu}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -210,9 +241,11 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[68px] left-0 right-0 z-30 bg-white/97 dark:bg-[#08080c]/97 border-b border-slate-200 dark:border-white/[0.08] md:hidden "
+            id="mobile-menu"
+            data-lenis-prevent
+            className={`fixed top-[68px] left-0 right-0 z-30 max-h-[calc(100dvh-68px)] overflow-y-auto overscroll-contain bg-white/97 dark:bg-[#08080c]/97 border-b border-slate-200 dark:border-white/[0.08] ${compact ? "" : "md:hidden"}`}
           >
-            <nav className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
+            <nav aria-label={t.site.nav.mainNav} className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
               {/* A hover panel is unusable on touch, so the same sections are
                   an accordion here rather than a second dropdown. */}
               <div className="flex items-center rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all">
@@ -243,27 +276,30 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 <ul className="mb-1 ml-4 pl-4 border-l border-[var(--line)] flex flex-col">
                   {DRAWER_SECTIONS.map((item) => (
                     <li key={item.key}>
-                      <button
-                        type="button"
-                        onClick={() => scrollTo(item.href)}
+                      <L
+                        to={item.href}
+                        onClick={() => setMenuOpen(false)}
                         className="block w-full text-left py-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                         style={{ fontSize: "var(--t-small)" }}
                       >
                         {t.site.mega.items[item.key as keyof typeof t.site.mega.items].label}
-                      </button>
+                      </L>
                     </li>
                   ))}
                 </ul>
               )}
 
+              {/* Pages are links, so they announce as links and open in a new
+                  tab like any other. */}
               {DRAWER_LINKS.map((link) => (
-                <button
+                <L
                   key={link.href}
-                  onClick={() => scrollTo(link.href)}
+                  to={link.href}
+                  onClick={() => setMenuOpen(false)}
                   className="text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all"
                 >
                   {t.site.nav[link.key]}
-                </button>
+                </L>
               ))}
 
               <L

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Phone, ArrowRight } from "lucide-react";
 import L from "./L";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -8,6 +8,7 @@ import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { getConsent, onConsentChange } from "../../lib/consent";
 import { whatsappHref, WHATSAPP_NUMBER } from "../../lib/whatsapp";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Die Kontaktleiste am unteren Rand, nur auf dem Telefon (seit dem 25.10.2026).
@@ -48,8 +49,19 @@ export function useActionBarVisible(): boolean {
 
 export default function MobileActionBar() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const visible = useActionBarVisible();
+
+  // Keep focused elements clear of the bar when the browser scrolls them
+  // into view (WCAG 2.4.11; fonts.css reads --fixed-bottom).
+  useEffect(() => {
+    if (!visible) return;
+    const root = document.documentElement;
+    root.style.setProperty("--fixed-bottom", "100px");
+    return () => {
+      root.style.removeProperty("--fixed-bottom");
+    };
+  }, [visible]);
 
   return (
     <AnimatePresence>
@@ -61,9 +73,12 @@ export default function MobileActionBar() {
           exit={reduce ? { opacity: 0 } : { y: "100%" }}
           transition={{ duration: reduce ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}
           className="md:hidden fixed z-50 inset-x-0 bottom-0 border-t border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_-10px_30px_rgba(0,0,0,0.25)]"
-          style={{ paddingBottom: "max(10px, env(safe-area-inset-bottom))" }}
+          style={{ paddingBottom: "max(18px, env(safe-area-inset-bottom))" }}
         >
-          <div className="flex items-center gap-2.5 px-4 pt-2.5">
+          {/* Rechts bleibt Platz fuer den Knopf von Klar Access (lib/klarAccess.ts),
+              der in dieser Ecke sitzt; die Leiste ist hoch genug, dass er ganz
+              in ihr liegt. */}
+          <div className="flex items-center gap-2.5 pl-4 pr-[92px] pt-[18px]">
             <a
               href={`tel:+${WHATSAPP_NUMBER}`}
               aria-label={t.site.nav.call}

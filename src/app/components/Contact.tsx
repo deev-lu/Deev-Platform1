@@ -52,6 +52,12 @@ export default function Contact() {
   /** Welche Art Fehler, damit die Meldung konkret sein kann. */
   const [failure, setFailure] = useState<LeadStatus | null>(null);
   const requestId = useRef<string | null>(null);
+  // The form is replaced by the confirmation; focus follows it there instead
+  // of dropping to the page (WCAG 2.4.3, 4.1.3).
+  const done = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (status === "success") done.current?.focus();
+  }, [status]);
 
   // The select starts on the first option, which is a translated string, so
   // the default cannot live in the module-level initial form.
@@ -126,7 +132,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300 pt-[68px]">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300 pt-[68px]">
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
         {/* Header */}
         <motion.div
@@ -135,7 +141,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-12 md:mb-16 max-w-2xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             {t.pages.contact.badge}
           </div>
@@ -250,11 +256,11 @@ export default function Contact() {
               <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[var(--signal-text)]" />
 
               {status === "success" ? (
-                <div className="p-10 md:p-14 text-center">
+                <div role="status" className="p-10 md:p-14 text-center">
                   <div className="inline-flex w-16 h-16 rounded-lg bg-emerald-500/10 items-center justify-center mb-6">
-                    <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                    <CheckCircle2 className="w-8 h-8 text-emerald-500" aria-hidden="true" />
                   </div>
-                  <h2 className="text-2xl font-medium text-slate-900 dark:text-white mb-3">
+                  <h2 ref={done} tabIndex={-1} className="text-2xl font-medium text-slate-900 dark:text-white mb-3 outline-none">
                     {t.pages.contact.success.title}
                   </h2>
                   <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-8">
@@ -270,6 +276,7 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="p-7 md:p-9 space-y-5">
+                  <p className="text-xs text-[var(--text-mid)] m-0">{t.site.a11y.requiredNote}</p>
                   {/* Honeypot, hidden from users */}
                   <input
                     type="text"
@@ -431,12 +438,12 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
 const inputCls =
-  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] transition-shadow";
+  "w-full px-5 py-3.5 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)] transition-shadow";
 
 function Field({
   label,
@@ -451,7 +458,7 @@ function Field({
     <label className="block">
       <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
         {label}
-        {required && <span className="text-[#2563F6] dark:text-[var(--signal-text)]"> *</span>}
+        {required && <span className="text-[#2563F6] dark:text-[var(--signal-text)]" aria-hidden="true"> *</span>}
       </span>
       {children}
     </label>

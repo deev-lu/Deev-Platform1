@@ -20,6 +20,23 @@ export const site: typeof En = {
     toDark: "Passer en mode sombre",
     language: "Langue",
     languageOf: (name: string) => `Passer en ${name}`,
+    mainNav: "Principale",
+  },
+
+  /** Accessibility labels (WCAG 2.2 AA): skip link, pause controls. */
+  a11y: {
+    skip: "Aller au contenu",
+    pauseLogos: "Mettre en pause les logos clients",
+    playLogos: "Relancer les logos clients",
+    pauseVideo: "Mettre en pause la vidéo d’arrière-plan",
+    playVideo: "Lire la vidéo d’arrière-plan",
+    pauseFilm: "Mettre l’animation en pause",
+    playFilm: "Relancer l’animation",
+    newTab: "(s’ouvre dans un nouvel onglet)",
+    pauseMotion: "Mettre les animations en pause",
+    playMotion: "Relancer les animations",
+    motionLabel: "Animations",
+    requiredNote: "Les champs marqués * sont obligatoires.",
   },
 
   footer: {

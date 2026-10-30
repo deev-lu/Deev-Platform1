@@ -27,6 +27,23 @@ export const site = {
     toDark: "Switch to dark mode",
     language: "Language",
     languageOf: (name: string) => `Switch to ${name}`,
+    mainNav: "Main",
+  },
+
+  /** Accessibility labels (WCAG 2.2 AA): skip link, pause controls. */
+  a11y: {
+    skip: "Skip to content",
+    pauseLogos: "Pause the client logos",
+    playLogos: "Play the client logos",
+    pauseVideo: "Pause the background video",
+    playVideo: "Play the background video",
+    pauseFilm: "Pause the animation",
+    playFilm: "Play the animation",
+    newTab: "(opens in a new tab)",
+    pauseMotion: "Pause motion",
+    playMotion: "Play motion",
+    motionLabel: "Animations",
+    requiredNote: "Fields marked * are required.",
   },
 
   footer: {

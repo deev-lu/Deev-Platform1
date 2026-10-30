@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowRight, BadgeEuro } from "lucide-react";
 import L from "./L";
 import ServiceStage from "./ServiceStage";
 import { useT } from "../../lib/useT";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * /services — der Wegweiser, nicht der Inhalt.
@@ -37,7 +38,7 @@ const PATHS: { key: PathKey; to: string }[] = [
 
 export default function ServicesIndex() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const n = t.pages.servicesNav;
   const [active, setActive] = useState<PathKey>("websites");
 

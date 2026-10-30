@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState } from "react";
-import { motion, useReducedMotion, type MotionProps } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, type MotionProps } from "motion/react";
 import {
   ArrowRight,
   BadgeEuro,
@@ -18,6 +18,7 @@ import { useT, useLocalePath } from "../../lib/useT";
 import { mark } from "../../lib/i18nMark";
 import { newRequestId, sendLead } from "../../lib/leadEmail";
 import { track } from "../../lib/analytics";
+import { useReduceMotion } from "../../lib/motionPref";
 import {
   GRANT_CAP,
   GRANT_MAX,
@@ -60,7 +61,7 @@ const CHECKS = ["sme", "seat", "auth", "size"] as const;
 export default function GrantPage() {
   const t = useT();
   const localePath = useLocalePath();
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const g = t.grant;
   const home = localePath("/");
 
@@ -400,7 +401,7 @@ function EligibilityCheck() {
                     className={`grid place-items-center w-5 h-5 shrink-0 mt-0.5 border transition-colors duration-[var(--dur-1)] ${
                       on
                         ? "border-[var(--positive)] bg-[var(--positive)] text-white"
-                        : "border-[var(--line-strong)] text-transparent"
+                        : "border-[var(--line-control)] text-transparent"
                     }`}
                     style={{ borderRadius: "4px" }}
                   >
@@ -464,10 +465,15 @@ function SendResult({ ticked, count }: { ticked: string[]; count: number }) {
   const [company, setCompany] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const requestId = useRef<string | null>(null);
+  // The form gives way to the confirmation; focus follows (WCAG 2.4.3).
+  const sent = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (state === "sent") sent.current?.focus();
+  }, [state]);
 
   if (state === "sent") {
     return (
-      <p role="status" className="mt-6 pt-6 border-t border-[var(--line)] text-[var(--text-hi)] m-0" style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}>
+      <p ref={sent} tabIndex={-1} role="status" className="mt-6 pt-6 border-t border-[var(--line)] text-[var(--text-hi)] m-0 outline-none" style={{ fontSize: "var(--t-small)", lineHeight: 1.55 }}>
         {c.sent}
       </p>
     );
@@ -501,27 +507,35 @@ function SendResult({ ticked, count }: { ticked: string[]; count: number }) {
       <p className="text-[var(--text-hi)] font-medium m-0" style={{ fontSize: "var(--t-small)" }}>
         {c.sendTitle}
       </p>
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder={c.sendEmail}
-        aria-label={c.sendEmail}
-        autoComplete="email"
-        className="h-11 px-4 bg-[var(--surface-0)] border border-[var(--line-strong)] text-[var(--text-hi)] placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-        style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-small)" }}
-      />
-      <input
-        type="text"
-        value={company}
-        onChange={(e) => setCompany(e.target.value)}
-        placeholder={c.sendCompany}
-        aria-label={c.sendCompany}
-        autoComplete="organization"
-        className="h-11 px-4 bg-[var(--surface-0)] border border-[var(--line-strong)] text-[var(--text-hi)] placeholder:text-[var(--text-low)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-        style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-small)" }}
-      />
+      {/* Labels stay visible above the fields; a placeholder vanishes as
+          soon as someone types (WCAG 3.3.2). */}
+      <label className="flex flex-col gap-1.5">
+        <span className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-label)" }}>
+          {c.sendEmail} <span aria-hidden="true">*</span>
+        </span>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+          className="h-11 px-4 bg-[var(--surface-0)] border border-[var(--line-control)] text-[var(--text-hi)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+          style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-small)" }}
+        />
+      </label>
+      <label className="flex flex-col gap-1.5">
+        <span className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-label)" }}>
+          {c.sendCompany}
+        </span>
+        <input
+          type="text"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          autoComplete="organization"
+          className="h-11 px-4 bg-[var(--surface-0)] border border-[var(--line-control)] text-[var(--text-hi)] focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
+          style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-small)" }}
+        />
+      </label>
       <button
         type="submit"
         disabled={state === "sending"}

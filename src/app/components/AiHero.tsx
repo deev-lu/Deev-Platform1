@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "motion/react";
+import { useInView } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { useIsMobile } from "../../lib/useIsMobile";
 import { scrollToId } from "../../lib/smoothScroll";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
  * Der Kopf der KI-Seite - ersetzt dort die allgemeine Leistungskopfzeile.
@@ -26,7 +27,7 @@ export default function AiHero() {
   const t = useT();
   const h = t.home.aiHero;
   const eyebrow = t.pages.servicePages.ai.eyebrow;
-  const reduce = useReducedMotion();
+  const reduce = useReduceMotion();
   const isMobile = useIsMobile();
   const layerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(layerRef, { amount: 0.3 });
@@ -165,7 +166,7 @@ export default function AiHero() {
                       {n}
                     </div>
                     <div className="text-[var(--text-hi)] font-medium mt-1.5">{band.name}</div>
-                    <div className="text-[var(--text-low)]" style={{ fontSize: "var(--t-small)" }}>
+                    <div className="text-[var(--text-mid)]" style={{ fontSize: "var(--t-small)" }}>
                       {band.sub}
                     </div>
                   </div>
@@ -193,7 +194,7 @@ export default function AiHero() {
                     ))}
                     {band.note && (
                       <span
-                        className="eyebrow-mono uppercase text-[var(--text-low)] sm:ml-1.5"
+                        className="eyebrow-mono uppercase text-[var(--text-mid)] sm:ml-1.5"
                         style={{ fontSize: "var(--t-label)", letterSpacing: "0.12em" }}
                       >
                         {band.note}

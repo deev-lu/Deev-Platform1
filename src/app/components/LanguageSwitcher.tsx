@@ -21,13 +21,18 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
 
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
+  const button = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
       if (!wrap.current?.contains(e.target as Node)) setOpen(false);
     };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (wrap.current?.contains(document.activeElement)) button.current?.focus();
+      setOpen(false);
+    };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     return () => {
@@ -64,6 +69,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
             style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em", borderRadius: "var(--radius-1)" }}
           >
             {LOCALE_SHORT[l]}
+            <span className="sr-only"> {LOCALE_NAMES[l]}</span>
           </a>
         ))}
       </div>
@@ -72,12 +78,15 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
 
   return (
     <div className="relative" ref={wrap}>
+      {/* A disclosure of plain links, so no aria-haspopup (that promises a
+          menu widget). The name starts with the visible "EN" (WCAG 2.5.3). */}
       <button
+        ref={button}
         type="button"
         onClick={() => setOpen((o) => !o)}
-        aria-haspopup="true"
         aria-expanded={open}
-        aria-label={t.site.nav.language}
+        aria-controls="language-list"
+        aria-label={`${LOCALE_SHORT[current]}, ${t.site.nav.language}`}
         title={t.site.nav.language}
         className="eyebrow-mono uppercase w-9 h-9 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
         style={{ fontSize: "var(--t-label)", letterSpacing: "0.1em", borderRadius: "var(--radius-1)" }}
@@ -87,6 +96,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
 
       {open && (
         <ul
+          id="language-list"
           className="absolute right-0 top-full mt-2 min-w-[9.5rem] border border-[var(--line-strong)] bg-[var(--surface-1)] py-1 z-50"
           style={{ borderRadius: "var(--radius-1)" }}
         >

@@ -93,6 +93,14 @@ export const builder: typeof En = {
     plain: "Geschätzte Investition",
     included: "Enthaltene Funktionen",
     reconfigure: "Neu konfigurieren",
+    exVatShort: "zzgl. MwSt.",
+    timeline: "Zeitrahmen",
+    weeks: (n: string) => `${n} Wochen`,
+    addons: "Zusatzfunktionen",
+    featureCount: (n: number) => `${n} Funktionen`,
+    quality: "Qualität",
+    topTier: "Spitzenklasse",
+    start: "Projekt starten",
   },
 
   grant: {

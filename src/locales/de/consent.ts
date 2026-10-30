@@ -38,6 +38,7 @@ export const consent: typeof En = {
   cookies: {
     consent: "Speichert Ihre Cookie-Auswahl und deren Nachweis (Kennung und Datum).",
     theme: "Merkt sich, ob Sie die helle oder die dunkle Darstellung gewählt haben.",
+    klar: "Speichert die Darstellungseinstellungen, die Sie im Barrierefreiheits-Menü gewählt haben (Textgröße, Kontrast und Ähnliches).",
     ga: "Unterscheidet einen Besucher vom anderen, damit Besuche gezählt werden können.",
     gaProperty: "Hält den Zustand des aktuellen Besuchs für diese Property fest.",
     months12: "12 Monate",

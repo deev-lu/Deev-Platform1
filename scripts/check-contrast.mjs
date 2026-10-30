@@ -12,7 +12,7 @@ const ratio = (a, b) => {
 
 // Both themes, each token in the role it is actually used in.
 const DARK_0 = "#08090b", DARK_2 = "#121519", DARK_PRODUCT = "#0d1421";
-const LIGHT_0 = "#ffffff", LIGHT_1 = "#f4f5f7", LIGHT_PRODUCT = "#e7ecf3";
+const LIGHT_0 = "#f6f7fb", LIGHT_1 = "#ffffff", LIGHT_2 = "#eef1f6", LIGHT_PRODUCT = "#e7ecf3";
 const checks = [
   // ── dark ──
   ["dark  --text-hi     on surface-0", "#f2f4f6", DARK_0, 7],
@@ -28,16 +28,17 @@ const checks = [
   ["dark  --text-mid on product",     "#8b929b", DARK_PRODUCT, 4.5],
   ["dark  white on --signal fill",     "#ffffff", "#2e6bff", 4.5],
   // ── light ──
-  ["light --text-hi     on surface-0", "#0a0b0d", LIGHT_0, 7],
-  ["light --text        on surface-0", "#33383f", LIGHT_0, 4.5],
-  ["light --text-mid    on surface-0", "#565c64", LIGHT_0, 4.5],
-  ["light --text-low    on surface-1", "#6b7178", LIGHT_1, 4.5],
-  ["light --signal-text on surface-1", "#1747c4", LIGHT_1, 7],
+  ["light --text-hi     on surface-0", "#0b1530", LIGHT_0, 7],
+  ["light --text        on surface-0", "#2b3550", LIGHT_0, 4.5],
+  ["light --text-mid    on surface-0", "#4a556d", LIGHT_0, 4.5],
+  ["light --text-low    on surface-0", "#5b6680", LIGHT_0, 4.5],
+  ["light --text-low    on surface-2", "#5b6680", LIGHT_2, 4.5],
+  ["light --signal-text on surface-0", "#1747c4", LIGHT_0, 7],
   ["light --positive    on surface-0", "#1f7a4d", LIGHT_0, 4.5],
-  ["light --metal       on surface-1", "#6b7178", LIGHT_1, 4.5],
-  ["light --text-hi  on product",     "#0a0b0d", LIGHT_PRODUCT, 7],
-  ["light --text     on product",     "#33383f", LIGHT_PRODUCT, 4.5],
-  ["light --text-mid on product",     "#565c64", LIGHT_PRODUCT, 4.5],
+  ["light --metal       on surface-0", "#5b6680", LIGHT_0, 4.5],
+  ["light --text-hi  on product",     "#0b1530", LIGHT_PRODUCT, 7],
+  ["light --text     on product",     "#2b3550", LIGHT_PRODUCT, 4.5],
+  ["light --text-mid on product",     "#4a556d", LIGHT_PRODUCT, 4.5],
   ["light white on --signal fill",     "#ffffff", "#2563f6", 4.5],
 ];
 let fails = 0;

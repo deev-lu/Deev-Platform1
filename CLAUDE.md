@@ -111,6 +111,77 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 - The cookie banner's first layer is a slim bottom bar: the old card covered
   the hero headline and buttons on every first visit.
 
+## Klar Access (accessibility menu, the owner's own tool, since 29 Oct 2026)
+- The four files live in `public/klar-access/` (served at `/klar-access/`).
+  They are the owner's tool: replace them as a set, don't edit them here.
+- Loaded once, after hydration, from App's first effect (`loadKlarAccess` in
+  `src/lib/klarAccess.ts`): German menu (`data-lang="de"`), bottom right,
+  decorative accent Electric Blue (`data-color`). It mounts outside #root and
+  guards itself via `window.KlarAccess`.
+- **The DEEV look** (`src/lib/klarAccessTheme.ts`) is a stylesheet appended to
+  the widget's shadow root on `klar-access:ready`, after its own sheet: brand
+  fonts, the site's surfaces and ink, Electric Blue fills, radii 12/20, a navy
+  button with the blue ring. `data-deev-theme` on the host follows the site
+  theme. It restyles only; the button's size and corner offsets stay the
+  widget's, and under forced colours the widget's own rules apply.
+- **The bottom-right corner belongs to its button** (56px, 24px from the
+  edge; 20px on phones). Floating UI keeps clear of it: the WhatsApp button
+  sits at `right-[96px]`, the phone contact bar reserves `pr-[92px]` and is
+  tall enough to hold it, the cookie bar and dialog footer reserve the corner.
+- Its "Bewegung reduzieren" sets `html[data-ka-motion]` and pauses CSS
+  animations; it is the same state as the site's own "Pause motion"
+  (`lib/motionPref.ts`, see Accessibility below): motion.css runs every
+  animation to its end instead of freezing fade-ins invisible, and
+  `useMotionPaused()` stops the hero's YouTube film and puts motion
+  components into reduced motion (MotionConfig in App).
+- Its "Textgröße" scales the root font size. Under `html[data-ka-size]`
+  Tailwind's `--spacing` is pinned to 4px (fonts.css) so gaps do not grow
+  off the screen, and the navbar switches to its compact form
+  (`useLargeText()`).
+- Its own "skip to main content" button is hidden by the theme sheet: the
+  site's SkipLink does that job, in the page language and without the
+  widget.
+- It stores `klar-access:v1` in localStorage; the cookie dialog lists it.
+- Never present the widget as making the site accessible or compliant.
+
+## Accessibility (target: WCAG 2.2 AA, since 29 Oct 2026)
+The site has to be accessible as it is; Klar Access is a comfort on top,
+never the reason something passes. ACCESSIBILITY.md holds the audit: what
+was checked, fixed and tested, and what is still open (a screen-reader pass
+among them). Do not claim conformance on the site; no statement page exists,
+that is the owner's call.
+- **Contrast:** text 4.5:1 on every surface it sits on, both themes;
+  `--text-low` is the quietest text colour. Dim by colour, never by opacity.
+  Form fields, switches and checkboxes outline in `--line-control` (3:1,
+  WCAG 1.4.11); `--line`/`--line-strong` are decorative hairlines only.
+  Focus ring: Electric Blue on light, Cyan on dark (`:focus-visible`).
+- **Landmarks and keyboard:** every page has `<header>`, one `<main>`,
+  `<footer>`. SkipLink (first in the site's tab order) lands on `#main`;
+  after a route change RouteAnnouncer moves focus there and announces the
+  title. `html` carries `scroll-padding` so the navbar, the cookie bar and
+  the phone contact bar never cover the focused element (`--fixed-bottom`).
+- **Menus:** desktop panels open from their chevron button only (never on
+  focus), sit in the DOM right after it, close on Escape with focus back on
+  the button. The phone drawer is a disclosure (`aria-expanded`, Escape).
+  Pages in menus are links, not buttons.
+- **Modals** use `lib/useModal.ts` (focus in, Tab trapped, Escape, focus
+  back): the cookie preferences and the calculator's lead form. New modals
+  use it too, with role="dialog", aria-modal and a label.
+- **Forms:** a visible `<label>` for every field (placeholders are examples,
+  never the label), `autoComplete`, "* required" explained above the form
+  (`site.a11y.requiredNote`), errors in `role="alert"`, and focus moves to
+  the confirmation when a form is replaced by it.
+- **Motion (2.2.2):** anything that moves by itself for more than five
+  seconds stops with "Pause motion" (MotionToggle: hero top right and
+  footer; `motion-paused` on <html>, applied before paint in index.html).
+  Components use `useReduceMotion()` from motionPref, never motion's
+  `useReducedMotion()` directly.
+- **Names (2.5.3):** an `aria-label` starts with the visible text, or the
+  visible text is the name. A `<dl>` holds only dt/dd groups.
+- **Tests:** `npm run build && npm run test:a11y` (Playwright + axe-core,
+  tests/e2e, desktop and phone; first time `npx playwright install
+  chromium`). Zero violations is the bar; it is not a conformance proof.
+
 ## Brand (from the brand book — do not drift)
 - **Blue `#2563F6`**, **Cyan `#3CE7FC`**. Never purple (that's a competitor).
 - **Typold Bold** — display headings + the DEEV wordmark (`.font-brand`)
@@ -167,6 +238,12 @@ Dark is the default since the redesign; light is available via the navbar
 toggle and the choice is stored in `localStorage` under `theme`. The theme is
 applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
+Light (reworked 29 Oct 2026): a cool paper ground (`--surface-0` #f6f7fb)
+under white cards, navy ink (`--text-hi` #0b1530) instead of black, and the
+two-tone claim flowing from navy into Electric Blue (`.m-flow-dark` in
+motion.css). Dark panels on a light page (`data-surface="dark"` plus
+`.dark`) keep the dark rules. The navbar reads the surface under it at
+y=34, skipping itself, so it turns light over a dark panel only.
 
 ## Content that needs real assets (do not invent)
 - The founders appear as two portrait cards under "Leadership" in
