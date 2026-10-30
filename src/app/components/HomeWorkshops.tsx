@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import CountUp from "./CountUp";
 import L from "./L";
 import { TwoTone } from "./Plate";
 import { useT } from "../../lib/useT";
@@ -133,7 +134,7 @@ export default function HomeWorkshops() {
                       className="m-0 text-white font-medium tabular-nums"
                       style={{ fontSize: "clamp(3rem, 2rem + 4vw, 5.5rem)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
                     >
-                      {s.value}
+                      <CountUp value={s.value} from={0.3} duration={1400} />
                     </dd>
                   </div>
                 ))}

@@ -100,6 +100,19 @@ gradient, its name on hover/focus; real links in a named nav.
 hover (`.m-flowcard`) and glow (`.card-glow`); other cards glow and draw the
 edge. Founders' cutouts stand in front of two blue/cyan rounded shapes.
 
+**Effects added 30 Oct 2026** (design.css, "More motion"; all off under
+reduced motion, "Pause motion" and Klar Access): a pointer light that follows
+the mouse across every `.card-glow` and a slight tilt of the portfolio
+screenshots (`[data-tilt]`), both fed by `lib/pointerFx.ts` (one listener,
+mouse/pen only); the main `.btn-grad` leans a few px towards the pointer and
+a band of light crosses it on hover; a 2px reading-progress line along the
+top (`.scroll-progress` in OrbField, scroll-driven); from 768px section
+headings sharpen from a slight blur as they rise and the eyebrow rule draws
+in; the hero's "We build" and accent lines rise out of a mask once on load;
+`HeroNetwork.tsx` (from 1024px) draws nodes and links behind the hero with
+packets of light running along them; the workshop proof figures and the
+funding figures count up (`CountUp`, never from zero).
+
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
 ## Leads (since 24 Oct 2026, "a lead machine")
