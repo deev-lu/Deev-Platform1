@@ -411,3 +411,213 @@ button[style*="background: var(--signal)"]:hover {
   opacity: 1;
   transform: none;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   More motion (30 Oct 2026, "cool and clean, fitting the business").
+   Each effect is small, answers the visitor or plays once, and is gone
+   under reduced motion, "Pause motion" and Klar Access.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Pointer light (lib/pointerFx.ts) ──────────────────────── */
+/* A soft blue light follows the pointer across a card, like a torch on a
+   circuit board. Low enough that the text over it keeps its contrast. */
+@property --spot {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .card-glow {
+    background-image: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(60 140 255 / calc(var(--spot) * 0.16)), transparent 65%);
+    transition: transform var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out), border-color var(--dur-2) var(--ease-out), --spot var(--dur-3) var(--ease-out) !important;
+  }
+  :where(:root:not(.dark)) .card-glow {
+    background-image: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(37 99 246 / calc(var(--spot) * 0.07)), transparent 65%);
+  }
+  .card-glow:hover { --spot: 1; }
+}
+
+/* The screenshot in a portfolio card (SelectedWork) leans a little after
+   the pointer: --px/--py come from pointerFx and fall back to rest. */
+[data-tilt] {
+  transform: perspective(1100px) rotateX(calc(var(--py, 0) * -5deg)) rotateY(calc(var(--px, 0) * 7deg));
+  transform-origin: 50% 100%;
+}
+
+/* ── Buttons: magnet and shine ─────────────────────────────── */
+/* The main button leans a few pixels towards the pointer, and a band of
+   light runs across it on hover. */
+.btn-grad,
+a.rounded-full.bg-\[var\(--signal\)\],
+button.rounded-full.bg-\[var\(--signal\)\] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  translate: var(--mag-x, 0) var(--mag-y, 0);
+  transition: background-position var(--dur-3) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), translate 0.35s var(--ease-out) !important;
+}
+.btn-grad::after,
+a.rounded-full.bg-\[var\(--signal\)\]::after,
+button.rounded-full.bg-\[var\(--signal\)\]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 48%, rgba(160, 240, 255, 0.18) 54%, transparent 70%);
+  transform: translateX(-120%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-grad:hover::after,
+  a.rounded-full.bg-\[var\(--signal\)\]:hover::after,
+  button.rounded-full.bg-\[var\(--signal\)\]:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.85s var(--ease-out);
+  }
+}
+
+/* ── Reading progress ──────────────────────────────────────── */
+/* A 2px blue-to-cyan line along the top edge that fills as the page is
+   read. Scroll-driven: it moves only when the visitor scrolls. */
+.scroll-progress {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 2px;
+      z-index: 60;
+      pointer-events: none;
+      background: linear-gradient(90deg, #2563f6, #3ce7fc);
+      box-shadow: 0 0 12px rgba(60, 231, 252, 0.55);
+      transform-origin: 0 50%;
+      animation: progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+@keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ── Section headings come into focus ──────────────────────── */
+/* From 768px a heading also sharpens from a slight blur as it rises,
+   like a lens finding focus. The eyebrow's short rule draws itself in. */
+@keyframes reveal-focus {
+  0% { opacity: 0; translate: 0 36px; filter: blur(10px); }
+  22% { opacity: 1; translate: none; filter: none; }
+  84% { opacity: 1; }
+  100% { opacity: 0.25; }
+}
+@keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@supports (animation-timeline: view()) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    main h2:not(.no-reveal) {
+      animation-name: reveal-focus;
+    }
+    main .eyebrow-mono > .h-px:first-child {
+      transform-origin: left;
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 35%;
+    }
+  }
+}
+
+/* ── Hero: lines rise out of their own mask, once ──────────── */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.line-mask > span {
+  display: block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .line-mask > span {
+    transform: translate3d(0, 105%, 0);
+    animation: line-in 1s var(--ease-out) forwards;
+  }
+}
+@keyframes line-in { to { transform: none; } }
+
+/* ── Hero: the network ─────────────────────────────────────── */
+/* HeroNetwork.tsx: nodes and links that draw themselves in, with packets of
+   light travelling along a few links - systems talking to each other. From
+   1024px, behind the headline's free corner. */
+.net {
+  position: absolute;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+}
+.net__link {
+  stroke: rgba(108, 184, 255, 0.28);
+  stroke-width: 1;
+  fill: none;
+}
+:where(:root:not(.dark)) .net__link { stroke: rgba(37, 99, 246, 0.22); }
+.net__node { fill: #6cb8ff; }
+:where(:root:not(.dark)) .net__node { fill: #2563f6; }
+.net__halo { fill: none; stroke: #3ce7fc; stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.net__packet { fill: #3ce7fc; opacity: 0; }
+:where(:root:not(.dark)) .net__packet { fill: #0a6fb0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .net__link {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 1;
+    animation: net-draw 1.6s var(--ease-out) forwards;
+  }
+  .net__node {
+    opacity: 0;
+    animation: net-pop 0.6s var(--ease-out) forwards;
+  }
+}
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .net__packet {
+    animation: net-packet var(--dur, 4s) linear infinite;
+  }
+  .net__halo {
+    animation: net-halo 4.8s var(--ease-out) infinite;
+  }
+}
+@keyframes net-draw { to { stroke-dashoffset: 0; } }
+@keyframes net-pop { to { opacity: 1; } }
+@keyframes net-packet {
+  0% { transform: translate(var(--x1), var(--y1)); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translate(var(--x2), var(--y2)); opacity: 0; }
+}
+@keyframes net-halo {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  70%, 100% { transform: scale(3.2); opacity: 0; }
+}
+
+/* ── Paused: everything above at rest ──────────────────────── */
+:is(html.motion-paused, html[data-ka-motion]) :is(.btn-grad, a.rounded-full.bg-\[var\(--signal\)\], button.rounded-full.bg-\[var\(--signal\)\], [data-tilt], .line-mask > span) {
+  translate: none !important;
+}
+:is(html.motion-paused, html[data-ka-motion]) :is([data-tilt], .line-mask > span) {
+  transform: none !important;
+}
+:is(html.motion-paused, html[data-ka-motion]) .btn-grad::after,
+:is(html.motion-paused, html[data-ka-motion]) a.rounded-full.bg-\[var\(--signal\)\]::after,
+:is(html.motion-paused, html[data-ka-motion]) button.rounded-full.bg-\[var\(--signal\)\]::after { display: none; }
+:is(html.motion-paused, html[data-ka-motion]) :is(.net__link, .net__node) {
+  animation: none !important;
+  opacity: 1 !important;
+  stroke-dashoffset: 0 !important;
+}
+:is(html.motion-paused, html[data-ka-motion]) :is(.net__packet, .net__halo, .scroll-progress) {
+  display: none !important;
+}
+:is(html.motion-paused, html[data-ka-motion]) main h2 { filter: none !important; }
+:is(html.motion-paused, html[data-ka-motion]) main .eyebrow-mono > .h-px { animation: none !important; transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt] { transform: none !important; }
+  .btn-grad, a.rounded-full.bg-\[var\(--signal\)\], button.rounded-full.bg-\[var\(--signal\)\] { translate: none !important; }
+}

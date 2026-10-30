@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT } from "../../lib/useT";
 import { mark } from "../../lib/i18nMark";
+import CountUp from "./CountUp";
 
 /**
  * Das Foerderband auf der Startseite (seit dem 24.10.2026), direkt nach den
@@ -70,7 +71,7 @@ export default function HomeFunding() {
                   className="m-0 text-[var(--text-hi)] font-medium tabular-nums"
                   style={{ fontSize: "clamp(1.5rem, 1rem + 2.2vw, 2.75rem)", lineHeight: 1, letterSpacing: "-0.03em" }}
                 >
-                  {g.stats[k].value}
+                  <CountUp value={g.stats[k].value} from={0.6} />
                 </dd>
               </div>
             ))}

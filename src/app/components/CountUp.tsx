@@ -8,6 +8,8 @@ interface CountUpProps {
   /** Animation duration in ms */
   duration?: number;
   className?: string;
+  /** Where the count starts, as a share of the target (never zero). */
+  from?: number;
 }
 
 /**
@@ -15,7 +17,7 @@ interface CountUpProps {
  * If the value has no leading number (e.g. "In-house") it renders as-is.
  * Preserves any prefix/suffix around the number (e.g. "+", "%", "k").
  */
-export default function CountUp({ value, duration = 1600, className }: CountUpProps) {
+export default function CountUp({ value, duration = 1600, className, from: fromShare = 0.88 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   // Grow the root by 120px on all sides so elements sitting at the viewport
   // edge (e.g. hero stats) still trigger their count-up on load.
@@ -45,7 +47,7 @@ export default function CountUp({ value, duration = 1600, className }: CountUpPr
       return;
     }
 
-    const FROM = 0.88; // start within sight of the target
+    const FROM = Math.max(fromShare, 0.1); // start within sight of the target
 
     let raf = 0;
     const start = performance.now();
@@ -53,14 +55,14 @@ export default function CountUp({ value, duration = 1600, className }: CountUpPr
       const t = Math.min((now - start) / duration, 1);
       // easeOutExpo for a punchy settle
       const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-      const from = target * FROM;
+      const from = Math.max(target * FROM, target >= 1 ? 1 : 0);
       const current = (from + (target - from) * eased).toFixed(decimals);
       setDisplay(`${prefix}${current}${suffix}`);
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, target, value, prefix, suffix, decimals, duration, reduce]);
+  }, [inView, target, value, prefix, suffix, decimals, duration, reduce, fromShare]);
 
   return (
     <span ref={ref} className={className}>

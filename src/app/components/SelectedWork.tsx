@@ -179,6 +179,7 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
       {/* Das Bildschirmfoto im Browserrahmen, unten angeschnitten */}
       <div className={`relative flex-1 ${large ? "mx-6 sm:mx-10" : "mx-6"}`}>
         <div
+          data-tilt
           className="absolute inset-x-0 top-2 -bottom-12 flex flex-col border border-[var(--line-strong)] bg-[var(--surface-0)] overflow-hidden transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2.5"
           style={{ borderRadius: "16px 16px 0 0" }}
         >

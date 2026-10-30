@@ -38,6 +38,7 @@ import SkipLink, { MainAnchor, RouteAnnouncer } from "./components/SkipLink";
 import { MotionConfig } from "motion/react";
 import { useMotionPaused } from "../lib/motionPref";
 import { loadKlarAccess } from "../lib/klarAccess";
+import { initPointerFx } from "../lib/pointerFx";
 
 // Below-the-fold — lazy loaded for faster initial paint
 const InMotion          = lazy(() => import("./components/InMotion"));
@@ -129,6 +130,10 @@ export default function App() {
 
   // Klar Access (accessibility menu), once, after hydration. lib/klarAccess.ts
   useEffect(() => loadKlarAccess(), []);
+
+  // Pointer light on cards, the leaning main button and the portfolio tilt
+  // (design.css). Mouse and pen only, off whenever motion is reduced.
+  useEffect(() => initPointerFx(), []);
 
 
   const [theme, setTheme] = useState<"light" | "dark">("dark");

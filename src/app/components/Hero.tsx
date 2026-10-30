@@ -6,6 +6,7 @@ import { scrollToId } from "../../lib/smoothScroll";
 import { GOOGLE_REVIEWS } from "../../lib/reviews";
 import { useReduceMotion } from "../../lib/motionPref";
 import MotionToggle from "./MotionToggle";
+import HeroNetwork from "./HeroNetwork";
 
 /**
  * Der Hero, seit dem 30.10.2026 im Stil von nvision.lu in DEEV-Farben (der
@@ -39,6 +40,9 @@ export default function Hero() {
       {/* Pause fuer alle Bewegung (WCAG 2.2.2), oben rechts unter der
           Navigation. */}
       <MotionToggle className="absolute z-10 right-4 top-[84px] md:right-6 md:top-[96px]" />
+
+      {/* Das Netz hinter der freien Ecke oben rechts (ab 1024px). */}
+      <HeroNetwork className="hidden lg:block right-[2%] top-[12%] w-[min(46vw,620px)] h-auto" />
 
       <div
         className="relative mx-auto w-full flex flex-col justify-end"
@@ -196,7 +200,9 @@ function HeroTitle({ build, words, accent }: { build: string; words: readonly st
       className="display text-[var(--text-hi)] m-0"
       style={{ fontSize: "clamp(2.6rem, 1rem + 4.6vw, 5.5rem)", lineHeight: 1.02, letterSpacing: "-0.04em" }}
     >
-      <span className="m-fade-up block">{build}</span>
+      <span className="line-mask">
+        <span>{build}</span>
+      </span>
       <span className="rotator" style={{ paddingBlock: "0.06em" }}>
         {words.map((w, n) => (
           <span key={w} className="g-text pb-[0.08em]" data-on={n === i} data-out={n === prev && !reduce}>
@@ -204,7 +210,9 @@ function HeroTitle({ build, words, accent }: { build: string; words: readonly st
           </span>
         ))}
       </span>
-      <span className="m-fade-up block" style={{ animationDelay: "0.15s" }}>{accent}</span>
+      <span className="line-mask">
+        <span style={{ animationDelay: "0.18s" }}>{accent}</span>
+      </span>
     </p>
   );
 }
