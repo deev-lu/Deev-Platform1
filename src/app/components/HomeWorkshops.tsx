@@ -28,7 +28,7 @@ export default function HomeWorkshops() {
   const w = t.home.workshops;
 
   return (
-    <section id="workshops" aria-labelledby="workshops-title" className="bg-[var(--surface-0)] md:px-2 lg:px-3">
+    <section id="workshops" aria-labelledby="workshops-title" className="md:px-2 lg:px-3">
       <div
         data-surface="dark"
         className="dark relative overflow-hidden md:rounded-[28px]"

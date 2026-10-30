@@ -39,7 +39,7 @@ export default function ValueProposition() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className={`${CARD_BASE} group relative border border-[var(--line)] bg-[var(--surface-1)]
+            className={`card-glow ${CARD_BASE} group relative border border-[var(--line)] bg-[var(--surface-1)]
                        md:border-0 md:border-r md:border-b
                        hover:bg-[var(--surface-2)] hover:border-[var(--line-strong)]
                        transition-colors duration-[240ms] p-7 sm:p-12 flex flex-col

@@ -250,6 +250,41 @@ TalkBack.
 
 ---
 
+### 3b. Nachprüfung nach dem Redesign (30. Oktober 2026)
+
+Das Design wurde im Stil von nvision.lu in DEEV-Farben neu gebaut:
+
+- dunkler Grund mit Licht-Orbs
+- Verlaufsschrift, Verlaufs-Pillen und Glow-Karten
+- Scroll-Einblendungen
+- ein 3D-Logo-Karussell
+- ein Hero ohne Foto und Film
+
+Danach wurde neu geprüft:
+
+- `npm run build`: 50/50 Unit-Tests bestanden.
+- `npm run test:a11y`: 98 bestanden, 2 gezielt übersprungen.
+- axe-core 4.14 über alle 123 URLs (dunkel/1440 und hell/390, reduzierte
+  Bewegung): **0 Verstöße**.
+
+Barrierefreiheit der neuen Teile:
+
+- **Kontrast:** Die neuen dunklen Textfarben (`--text-low` #a6adb7,
+  Akzentschrift #6cb8ff) halten 4,5:1 auch über der hellsten Orb-Stelle
+  (Electric Blue 30 % plus Cyan 12 %).
+- **Hero-Wort:** Das wechselnde Wort ist für Screenreader verborgen. Das
+  echte `<h1>` trägt den vollständigen Satz.
+- **Logo-Karussell:**
+  - Muster aus dem APG (ARIA Authoring Practices Guide); alle Logos
+    bleiben in der Struktur.
+  - Pfeile und Punkte als Knöpfe.
+  - Eigene Pause-Taste, Halt bei Hover und Fokus.
+  - Wischen hat die Pfeile als Alternative (2.5.7).
+- **Abschnitts-Markierungen rechts:** echte Links in einer benannten
+  Navigation.
+- **Bewegung:** Orbs, Verlauf, Einblendungen und Karussell stehen unter
+  reduzierter Bewegung, bei „Bewegung anhalten“ und bei Klar Access still.
+
 ## 4. Offene Punkte und nicht geprüfte Bereiche
 
 1. **Screenreader-Test:** Mit NVDA (Windows), VoiceOver (macOS und iOS)

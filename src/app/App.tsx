@@ -32,6 +32,8 @@ const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
+import OrbField from "./components/OrbField";
+import SectionTicks from "./components/SectionTicks";
 import SkipLink, { MainAnchor, RouteAnnouncer } from "./components/SkipLink";
 import { MotionConfig } from "motion/react";
 import { useMotionPaused } from "../lib/motionPref";
@@ -62,7 +64,7 @@ function SectionSkeleton() {
 
 function HomePage({ theme, toggleTheme }: ThemeProps) {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[var(--surface-0)] overflow-x-clip transition-colors duration-300">
+    <div className="min-h-screen overflow-x-clip">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <MainAnchor />
 
@@ -102,6 +104,7 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
           <HomeOutro company={<HomeCompany />} />
         </Suspense>
       </main>
+      <SectionTicks />
 
       <Footer />
     </div>
@@ -174,6 +177,7 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
     <MotionConfig reducedMotion={motionPaused ? "always" : "user"}>
       <SkipLink />
       <RouteAnnouncer />
+      <OrbField />
       <ScrollReset />
       <RouteMeta />
       <Routes>
@@ -196,7 +200,7 @@ export function SiteTree({ theme, toggleTheme }: ThemeProps) {
       </Suspense>
       {/* Room under the footer on phones, so the contact bar never covers
           the last links. */}
-      <div aria-hidden="true" className="md:hidden h-[84px] bg-[var(--surface-0)]" />
+      <div aria-hidden="true" className="md:hidden h-[84px]" />
     </MotionConfig>
   );
 }

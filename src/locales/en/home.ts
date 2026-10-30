@@ -41,6 +41,12 @@ export const home = {
   /** The homepage's opening, since the high-end redesign. The last title line
    *  carries the accent. */
   intro: {
+    /** The hero's visual headline (since 30 Oct 2026): "We build" + a rotating
+     *  word + the accent line. Every word is from the lead; the real <h1>
+     *  stays lines + accent, for search engines and screen readers. */
+    build: "We build",
+    rotate: ["custom software", "AI agents", "web platforms", "internal tools"],
+    scroll: "Scroll to explore",
     lines: ["Custom software and AI"],
     accent: "for Luxembourg businesses.",
     lead: "Web apps, portals and internal tools, and AI agents and assistants that work on your own data. Designed, built and run by one team in Luxembourg, usually starting with a workshop.",

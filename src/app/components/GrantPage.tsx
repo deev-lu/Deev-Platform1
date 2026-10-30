@@ -80,7 +80,7 @@ export default function GrantPage() {
     }) satisfies MotionProps;
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <header
         className="mx-auto"
@@ -134,7 +134,7 @@ export default function GrantPage() {
             <motion.div
               key={k}
               {...rise(i)}
-              className="border border-[var(--line)] bg-[var(--surface-1)] p-7"
+              className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-7"
               style={{ borderRadius: "var(--radius-1)" }}
             >
               <div
@@ -170,7 +170,7 @@ export default function GrantPage() {
               <motion.div
                 key={k}
                 {...rise(i)}
-                className="border border-[var(--line)] bg-[var(--surface-1)] p-7 flex flex-col"
+                className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-7 flex flex-col"
                 style={{ borderRadius: "var(--radius-1)" }}
               >
                 <Icon className="w-5 h-5 text-[var(--signal-text)] mb-5" strokeWidth={1.5} />
@@ -283,7 +283,7 @@ export default function GrantPage() {
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
       >
         <div
-          className="border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-12"
+          className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-12"
           style={{ borderRadius: "var(--radius-1)" }}
         >
           <h2
@@ -584,7 +584,7 @@ function GrantCalculator() {
   return (
     <Section eyebrow={c.eyebrow} title={c.title} lead={c.lead}>
       <div
-        className="border border-[var(--line)] bg-[var(--surface-1)] p-7 sm:p-10"
+        className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-7 sm:p-10"
         style={{ borderRadius: "var(--radius-1)" }}
       >
         <label className="block">

@@ -106,7 +106,7 @@ export default function WorkCase() {
     .map(([heading, body], i) => ({ heading, body, n: String(i + 1).padStart(2, "0") }));
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
 
       {/* ── Kopf: Name links, die Seite rechts ──────────────────
           Zweispaltig wie der Hero der Startseite. Vorher standen Titel und
@@ -479,7 +479,7 @@ function SitePreview({
 
   return (
     <div
-      className="group border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
+      className="card-glow group border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden"
       style={{ borderRadius: "var(--radius-1)" }}
     >
       <div className="flex items-center gap-3 px-4 h-11 border-b border-[var(--line)] bg-[var(--surface-2)]">

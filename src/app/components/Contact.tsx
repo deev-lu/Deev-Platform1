@@ -132,7 +132,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-[#06060a] transition-colors duration-300 pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
         {/* Header */}
         <motion.div
@@ -141,18 +141,18 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-12 md:mb-16 max-w-2xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--signal-dim)] border border-[var(--line-strong)] text-xs font-medium uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             {t.pages.contact.badge}
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             {t.pages.contact.title}
             <br className="hidden sm:block" />
-            <span className=" text-[var(--signal)]">
+            <span className="g-text">
               {" "}{t.pages.contact.titleAccent}
             </span>
           </h1>
-          <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p className="text-lg text-[var(--text-mid)] leading-relaxed">
             {t.pages.contact.lead}
           </p>
         </motion.div>
@@ -263,7 +263,7 @@ export default function Contact() {
                   <h2 ref={done} tabIndex={-1} className="text-2xl font-medium text-slate-900 dark:text-white mb-3 outline-none">
                     {t.pages.contact.success.title}
                   </h2>
-                  <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-8">
+                  <p className="text-[var(--text-mid)] max-w-sm mx-auto mb-8">
                     {t.pages.contact.success.body(form.name.trim().split(" ")[0] ?? "")}
                   </p>
                   <L

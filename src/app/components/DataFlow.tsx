@@ -419,7 +419,7 @@ export default function DataFlow() {
   // Telefon und reduzierte Bewegung: gestapelt, eine Buehne pro Schritt.
   if (isMobile || reduce) {
     return (
-      <section ref={ref} className="relative bg-[var(--surface-0)] border-y border-[var(--line)]">
+      <section ref={ref} className="relative border-y border-[var(--line)]">
         <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}>
           {heading(false)}
           <ol className="mt-12">
@@ -433,7 +433,7 @@ export default function DataFlow() {
   }
 
   return (
-    <section ref={ref} className="relative bg-[var(--surface-0)] border-y border-[var(--line)]" style={{ height: "340vh" }}>
+    <section ref={ref} className="relative border-y border-[var(--line)]" style={{ height: "340vh" }}>
       <div className="sticky top-0 h-screen overflow-hidden flex items-center pt-[68px]">
         <div
           className="relative w-full mx-auto grid grid-cols-12 gap-x-16 items-center"

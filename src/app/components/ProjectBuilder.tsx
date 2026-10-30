@@ -349,7 +349,7 @@ export default function ProjectBuilder() {
   return (
     <section
       id="project-builder"
-      className="relative overflow-hidden bg-[var(--surface-0)] border-y border-[var(--line)]"
+      className="relative overflow-hidden border-y border-[var(--line)]"
       style={{ paddingBlock: "var(--section-y)" }}
     >
       {/* One quiet texture, dark only. The studio radial, the cyan hairlines,
@@ -614,7 +614,7 @@ export default function ProjectBuilder() {
                   )}
                 </div>
                 <div className="text-right">
-                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5">Timeline</div>
+                  <div className="text-[10px] font-semibold text-[var(--text-mid)] uppercase tracking-wider mb-0.5">Timeline</div>
                   <div className="text-sm font-medium text-slate-700 dark:text-slate-200">{estimate.weeks} weeks</div>
                 </div>
               </motion.div>
@@ -673,7 +673,7 @@ export default function ProjectBuilder() {
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-3"
                   >
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
+                    <p className="text-sm font-semibold text-[var(--text-mid)] uppercase tracking-widest mb-6">
                       {t.builder.q.system}
                     </p>
                     {CORE_SYSTEMS.map((sys) => {
@@ -733,7 +733,7 @@ export default function ProjectBuilder() {
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-3"
                   >
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
+                    <p className="text-sm font-semibold text-[var(--text-mid)] uppercase tracking-widest mb-6">
                       {t.builder.q.scale}
                     </p>
                     {SCALE_LEVELS.map((lvl) => {
@@ -753,7 +753,7 @@ export default function ProjectBuilder() {
                                 {lvl.label}
                               </span>
                               <span
-                                className={`text-xs font-semibold px-2 py-0.5 rounded-[2px] ${ isSelected ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[var(--signal-text)]/10 dark:text-[var(--signal-text)]" : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400" }`}
+                                className={`text-xs font-semibold px-2 py-0.5 rounded-[2px] ${ isSelected ? "bg-[#2563F6]/10 text-[#2563F6] dark:bg-[var(--signal-text)]/10 dark:text-[var(--signal-text)]" : "bg-slate-100 dark:bg-white/10 text-[var(--text-mid)]" }`}
                               >
                                 {lvl.badge}
                               </span>
@@ -781,7 +781,7 @@ export default function ProjectBuilder() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                   >
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6">
+                    <p className="text-sm font-semibold text-[var(--text-mid)] uppercase tracking-widest mb-6">
                       {t.builder.q.features}
                     </p>
                     <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
@@ -812,7 +812,7 @@ export default function ProjectBuilder() {
                                   <Check className="w-4 h-4 text-[var(--signal-text)] flex-shrink-0" />
                                 )}
                               </div>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                              <p className="text-xs text-[var(--text-mid)] mt-0.5 leading-snug">
                                 {capText(cap.id).sublabel}
                               </p>
                               {price && (
@@ -841,7 +841,7 @@ export default function ProjectBuilder() {
                     <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-1">
                       {t.builder.estimate.title}
                     </h3>
-                    <p className="text-slate-500 dark:text-slate-400 mb-8 text-sm">
+                    <p className="text-[var(--text-mid)] mb-8 text-sm">
                       {t.builder.estimate.basedOnFull(
                         SCALE_LEVELS.find((s) => s.id === scale)?.label ?? "",
                         CORE_SYSTEMS.find((s) => s.id === system)?.label ?? "",
@@ -957,7 +957,7 @@ export default function ProjectBuilder() {
                             <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
                               {t.builder.grant.bundleBody}
                             </p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                            <p className="text-xs text-[var(--text-mid)]">
                               {t.builder.grant.bundleCta}
                             </p>
                           </div>
@@ -1046,7 +1046,7 @@ export default function ProjectBuilder() {
                     {/* Selected features breakdown */}
                     {capabilities.size > 0 && (
                       <div className="mb-8 p-5 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">
+                        <p className="text-xs font-semibold text-[var(--text-mid)] uppercase tracking-widest mb-3">
                           {t.builder.estimate.included}
                         </p>
                         <div className="flex flex-wrap gap-2">
@@ -1094,7 +1094,7 @@ export default function ProjectBuilder() {
                   <button
                     onClick={() => setStep(step - 1)}
                     disabled={step === 1}
-                    className={`flex items-center justify-center gap-2 font-semibold px-5 py-3 rounded-md transition-colors text-sm ${ step === 1 ? "opacity-0 pointer-events-none" : "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10" }`}
+                    className={`flex items-center justify-center gap-2 font-semibold px-5 py-3 rounded-md transition-colors text-sm ${ step === 1 ? "opacity-0 pointer-events-none" : "text-[var(--text-mid)] bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10" }`}
                   >
                     <ArrowLeft className="w-4 h-4" /> {t.builder.nav.back}
                   </button>
@@ -1145,7 +1145,7 @@ export default function ProjectBuilder() {
                     <h2 id="lead-dialog-title" className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                       {t.builder.leadForm.title}
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm">
+                    <p className="text-[var(--text-mid)] text-sm">
                       {t.builder.leadForm.body}
                     </p>
                   </div>
@@ -1313,7 +1313,7 @@ export default function ProjectBuilder() {
                     <button
                       type="button"
                       onClick={() => setShowLeadCapture(false)}
-                      className="w-full py-3 text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-200"
+                      className="w-full py-3 text-[var(--text-mid)] font-medium hover:text-slate-700 dark:hover:text-slate-200"
                     >
                       {t.builder.leadForm.cancel}
                     </button>
@@ -1327,7 +1327,7 @@ export default function ProjectBuilder() {
                   <h2 id="lead-dialog-title" className="text-2xl font-medium text-slate-900 dark:text-white mb-2">
                     {t.builder.done.title}
                   </h2>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">
+                  <p className="text-[var(--text-mid)] text-sm">
                     {t.builder.done.body(leadForm.email)}
                   </p>
                 </div>

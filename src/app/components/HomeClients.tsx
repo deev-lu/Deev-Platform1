@@ -1,90 +1,176 @@
-import { useState } from "react";
-import { Pause, Play } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { useInView } from "motion/react";
 import { useT } from "../../lib/useT";
 import { clients } from "./ClientLogos";
-import { useMotionPaused } from "../../lib/motionPref";
+import { useReduceMotion } from "../../lib/motionPref";
 
 /**
- * Die Kundenreihe direkt unter dem Hero, seit dem 23.10.2026 als Laufband.
+ * Die Kunden direkt unter dem Hero, seit dem 30.10.2026 als 3D-Karussell im
+ * Stil von nvision.lu: die mittlere Karte gross und vorn, die Nachbarn
+ * kleiner, nach hinten gedreht und blasser. Pfeile, Punkte und Wischen
+ * blaettern; von selbst laeuft es alle 3 Sekunden weiter, solange es im
+ * Bild ist.
  *
  * Nur echte Logos aus ClientLogos (dort ist geklaert, welche Datei welchen
- * Filter braucht). Nur echte Kunden; ein neuer Kunde kommt mit seiner
- * Logodatei dort hinein, nicht als Name hier.
+ * Filter braucht). Ein neuer Kunde kommt mit seiner Logodatei dort hinein.
  *
- * Bewegung: das Band laeuft auf jeder Bildschirmgroesse (CSS, `.m-ticker`-
- * Prinzip, pausiert beim Darueberfahren); seit dem 25.10.2026 auch auf dem
- * Telefon, auf Wunsch des Inhabers. Reduzierte Bewegung: steht und laesst
- * sich wischen.
+ * Barrierefreiheit: ein Karussell nach dem APG-Muster (aria-roledescription,
+ * Folien als benannte Gruppen), alle Logos bleiben fuer Screenreader in der
+ * Liste. Eigene Pause-Taste (WCAG 2.2.2); haelt auch bei Hover und
+ * Tastaturfokus an, bei "Bewegung anhalten", Klar Access und reduzierter
+ * Bewegung laeuft es gar nicht von selbst. Wischen hat die Pfeile als
+ * Alternative (2.5.7).
  */
 
 type Client = (typeof clients)[number];
-
-/** Tall marks (taller than wide) get more height so they read as large as the wide ones. */
 const tall = (c: Client) => c.h > c.w * 0.9;
-
-function Run({ hidden }: { hidden?: boolean }) {
-  return (
-    <ul className="flex items-center shrink-0 m-0 p-0" aria-hidden={hidden || undefined}>
-      {clients.map((c) => (
-        <li key={c.name} className="shrink-0 flex items-center justify-center h-16 px-8 md:px-11" title={c.name}>
-          <img
-            src={c.src}
-            alt={hidden ? "" : c.name}
-            width={c.w}
-            height={c.h}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-            className={`${tall(c) ? "h-12 md:h-14" : "h-8 md:h-10"} w-auto max-w-[130px] md:max-w-[150px] object-contain opacity-60 dark:opacity-70 ${c.filter}`}
-          />
-        </li>
-      ))}
-    </ul>
-  );
-}
+const STEP_MS = 3000;
 
 export default function HomeClients() {
   const t = useT();
-  // WCAG 2.2.2: anything that moves for more than five seconds needs a way to
-  // stop it. Hover pauses too, but a phone and a keyboard have no hover.
-  const [paused, setPaused] = useState(false);
-  // Under the site-wide pause the band is already still (rows, no motion),
-  // so its own button would do nothing.
-  const allStill = useMotionPaused();
+  const a = t.site.a11y;
+  const n = clients.length;
+  const [active, setActive] = useState(0);
+  const [userPaused, setUserPaused] = useState(false);
+  const [hold, setHold] = useState(false);
+  const reduce = useReduceMotion();
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount: 0.4 });
+  const auto = !reduce && !userPaused && !hold && inView;
+
+  const go = useCallback((d: number) => setActive((i) => (i + d + n) % n), [n]);
+
+  useEffect(() => {
+    if (!auto) return;
+    const id = window.setInterval(() => go(1), STEP_MS);
+    return () => window.clearInterval(id);
+  }, [auto, go]);
+
+  // Wischen: eine waagerechte Geste von mehr als 40px blaettert.
+  const start = useRef<number | null>(null);
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") return;
+    start.current = e.clientX;
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (start.current === null) return;
+    const dx = e.clientX - start.current;
+    start.current = null;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  };
+
+  /** Shortest signed distance from the active card, so the ring wraps. */
+  const offset = (i: number) => {
+    let o = i - active;
+    if (o > n / 2) o -= n;
+    if (o < -n / 2) o += n;
+    return o;
+  };
 
   return (
-    <section aria-label={t.home.clients.label} className="bg-[var(--surface-0)] border-b border-[var(--line)] py-8 md:py-10">
-      <div className="mx-auto flex items-center justify-between gap-4" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
-        <span
-          className="eyebrow-mono uppercase text-[var(--text-low)]"
-          style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+    <section
+      ref={ref}
+      aria-roledescription="carousel"
+      aria-label={t.home.clients.label}
+      data-autoplay={auto ? "true" : "false"}
+      className="relative overflow-hidden"
+      style={{ paddingBlock: "calc(var(--section-pad) * 0.75)" }}
+      onMouseEnter={() => setHold(true)}
+      onMouseLeave={() => setHold(false)}
+      onFocus={() => setHold(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHold(false);
+      }}
+    >
+      <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
+        <p
+          className="eyebrow-mono uppercase text-[var(--text-low)] text-center m-0"
+          style={{ fontSize: "var(--t-label)", letterSpacing: "0.18em" }}
         >
           {t.home.clients.label}
-        </span>
-        {!allStill && <button
-          type="button"
-          onClick={() => setPaused((p) => !p)}
-          aria-label={paused ? t.site.a11y.playLogos : t.site.a11y.pauseLogos}
-          title={paused ? t.site.a11y.playLogos : t.site.a11y.pauseLogos}
-          className="motion-reduce:hidden shrink-0 grid place-items-center w-8 h-8 rounded-full border border-[var(--line-strong)] text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-        >
-          {paused ? <Play className="w-3.5 h-3.5" strokeWidth={1.75} /> : <Pause className="w-3.5 h-3.5" strokeWidth={1.75} />}
-        </button>}
+        </p>
       </div>
 
-      {/* A marquee on every screen: two identical runs, the track moves by
-          one of them. Edges fade into the page. */}
       <div
-        className={`m-marquee ${paused ? "is-paused " : ""}relative mt-5 overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
-        style={{
-          WebkitMaskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
-          maskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
-        }}
+        className="relative mt-8 h-[150px] md:h-[190px] select-none touch-pan-y"
+        style={{ perspective: "1200px" }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => (start.current = null)}
       >
-        <div className="m-marquee-track flex w-max">
-          <Run />
-          <Run hidden />
+        <div aria-live={auto ? "off" : "polite"}>
+          {clients.map((c, i) => {
+            const o = offset(i);
+            const d = Math.abs(o);
+            const shown = d <= 3;
+            return (
+              <div
+                key={c.name}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={a.slideOf(i + 1, n)}
+                className="absolute left-1/2 top-1/2 grid place-items-center w-[190px] h-[112px] md:w-[260px] md:h-[150px] rounded-[var(--radius-2)] border border-[var(--line)] bg-[var(--surface-1)] transition-[transform,opacity,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{
+                  transform: `translate(-50%, -50%) translateX(${o * 62}%) translateZ(${-d * 90}px) rotateY(${o * -18}deg) scale(${1 - Math.min(d, 3) * 0.08})`,
+                  zIndex: 50 - d,
+                  // Far cards fade out but stay in the list for screen readers.
+                  opacity: shown ? 1 - d * 0.22 : 0,
+                  borderColor: o === 0 ? "var(--line-strong)" : undefined,
+                  boxShadow: o === 0 ? "0 30px 70px -36px rgba(37,99,246,0.75)" : undefined,
+                }}
+              >
+                <img
+                  src={c.src}
+                  alt={c.name}
+                  width={c.w}
+                  height={c.h}
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className={`${tall(c) ? "h-14 md:h-[72px]" : "h-9 md:h-12"} w-auto max-w-[70%] object-contain ${c.filter}`}
+                />
+              </div>
+            );
+          })}
         </div>
+      </div>
+
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <button type="button" onClick={() => go(-1)} aria-label={a.prevLogo} className="card-arrow hover:bg-[var(--surface-2)]">
+          <ArrowLeft className="w-4 h-4" strokeWidth={1.75} aria-hidden="true" />
+        </button>
+        <div className="hidden sm:flex items-center gap-0.5">
+          {clients.map((c, i) => (
+            <button
+              key={c.name}
+              type="button"
+              onClick={() => setActive(i)}
+              aria-label={a.showLogo(c.name)}
+              aria-current={i === active ? "true" : undefined}
+              className="group grid place-items-center w-6 h-6"
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-[3px] rounded-full transition-all duration-300 ${i === active ? "w-5 bg-[linear-gradient(90deg,#2563f6,#3ce7fc)]" : "w-2 bg-[var(--line-control)] group-hover:bg-[var(--text-low)]"}`}
+              />
+            </button>
+          ))}
+        </div>
+        <button type="button" onClick={() => go(1)} aria-label={a.nextLogo} className="card-arrow hover:bg-[var(--surface-2)]">
+          <ArrowRight className="w-4 h-4" strokeWidth={1.75} aria-hidden="true" />
+        </button>
+        {!reduce && (
+          <button
+            type="button"
+            onClick={() => setUserPaused((p) => !p)}
+            aria-label={userPaused ? a.playLogos : a.pauseLogos}
+            title={userPaused ? a.playLogos : a.pauseLogos}
+            className="card-arrow ml-2 hover:bg-[var(--surface-2)]"
+          >
+            {userPaused ? <Play className="w-3.5 h-3.5" strokeWidth={1.75} aria-hidden="true" /> : <Pause className="w-3.5 h-3.5" strokeWidth={1.75} aria-hidden="true" />}
+          </button>
+        )}
       </div>
     </section>
   );

@@ -61,7 +61,7 @@ export default function AiConcepts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.56, delay: Math.min(i, 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                className={`${CARD_BASE} border border-[var(--line)] bg-[var(--surface-1)] p-7
+                className={`card-glow ${CARD_BASE} border border-[var(--line)] bg-[var(--surface-1)] p-7
                             md:bg-transparent md:p-0 md:border-0 md:border-b
                             md:grid md:grid-cols-[auto_1fr] md:gap-x-10 md:py-8`}
               >
@@ -95,7 +95,7 @@ export default function AiConcepts() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.56, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 border border-[var(--line)] bg-[var(--surface-1)] p-9 sm:p-11"
+            className="card-glow mt-12 border border-[var(--line)] bg-[var(--surface-1)] p-9 sm:p-11"
           >
             <div
               className="eyebrow-mono uppercase text-[var(--text-low)] mb-6"

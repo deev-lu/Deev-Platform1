@@ -49,18 +49,18 @@ export default function DigitalMarketing() {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--signal-dim)] border border-[var(--line-strong)] text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-mid)] mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             Digital Growth
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-6 tracking-tight">
             Drive Real Results with{" "}
-            <span className=" text-[var(--signal)]">
+            <span className="g-text">
               Data-Driven Marketing
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-[var(--text-mid)] max-w-2xl mx-auto">
             We don't just run ads. We build high-performance marketing systems that
             scale your business profitably.
           </p>
@@ -135,7 +135,7 @@ export default function DigitalMarketing() {
             <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
               Ready to scale your growth?
             </h3>
-            <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-xl mx-auto text-lg">
+            <p className="text-[var(--text-mid)] mb-8 max-w-xl mx-auto text-lg">
               Let's audit your current marketing and show you exactly where we can move the needle.
             </p>
             <button

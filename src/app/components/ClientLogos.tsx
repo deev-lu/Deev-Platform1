@@ -96,7 +96,7 @@ export default function ClientLogos() {
       {/* Steht direkt unter dem Hero, also praktisch immer im ersten
           Bildausschnitt. Ein whileInView-Einblenden bedeutete: ohne JavaScript
           unsichtbar, mit JavaScript ein Aufblitzen ohne Gewinn. */}
-      <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-10">
+      <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-mid)] mb-10">
         {t.home.logos.label}
       </p>
 

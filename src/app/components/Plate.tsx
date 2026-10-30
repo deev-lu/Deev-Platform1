@@ -26,15 +26,16 @@ export default function Plate({ name, className = "" }: { name: PlateName; class
   );
 }
 
-/** Splits a headline after its first sentence: the claim in full white, the
- *  rest a step quieter. "Large programmes. Delivered in phases." In the dark
- *  theme the claim flows from near-white into light blue (`.m-flow-dark`). */
+/** Splits a headline after its first sentence: the claim in full ink, the
+ *  rest in the moving blue-to-cyan gradient (`.g-text`, design.css), as
+ *  nvision highlights the second half of its headings. "Large programmes.
+ *  Delivered in phases." */
 export function TwoTone({ text }: { text: string }) {
   const m = text.match(/^(.+?[.!?])\s+(.+)$/);
   if (!m) return <>{text}</>;
   return (
     <>
-      <span className="m-flow-dark">{m[1]}</span> <span className="text-[var(--text-mid)]">{m[2]}</span>
+      <span className="text-[var(--text-hi)]">{m[1]}</span> <span className="g-text">{m[2]}</span>
     </>
   );
 }

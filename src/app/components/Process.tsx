@@ -42,14 +42,14 @@ export default function Process() {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[2px] bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-mid)] mb-6">
             <span className="w-1 h-1 rounded-full bg-[#2563F6]" />
             How we work
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
             Our Process
           </h2>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+          <p className="text-lg text-[var(--text-mid)] max-w-xl mx-auto">
             A proven methodology that delivers results, every single time.
           </p>
         </motion.div>
@@ -87,7 +87,7 @@ export default function Process() {
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300">
                           {step.title}
                         </h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                        <p className="text-sm text-[var(--text-mid)] leading-relaxed">
                           {step.description}
                         </p>
                       </div>
@@ -125,7 +125,7 @@ export default function Process() {
                       <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-[#2563F6] dark:group-hover:text-[#3CE7FC] transition-colors duration-300">
                         {step.title}
                       </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                      <p className="text-sm text-[var(--text-mid)] leading-relaxed">
                         {step.description}
                       </p>
                     </div>

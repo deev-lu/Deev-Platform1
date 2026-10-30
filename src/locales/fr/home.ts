@@ -35,6 +35,12 @@ export const home: typeof En = {
   },
 
   intro: {
+    /** The hero's visual headline (since 30 Oct 2026): "Nous créons" + a rotating
+     *  word + the accent line. Every word is from the lead; the real <h1>
+     *  stays lines + accent, for search engines and screen readers. */
+    build: "Nous créons",
+    rotate: ["des logiciels sur mesure", "des agents IA", "des plateformes web", "des outils internes"],
+    scroll: "Faites défiler",
     lines: ["Logiciels sur mesure et IA"],
     accent: "pour les entreprises luxembourgeoises.",
     lead: "Applications web, portails et outils internes, ainsi que des agents et assistants IA qui travaillent sur vos propres données. Conçus, développés et exploités par une seule équipe au Luxembourg, le plus souvent à partir d’un atelier.",

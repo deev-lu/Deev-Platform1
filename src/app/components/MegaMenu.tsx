@@ -172,11 +172,12 @@ export default function MegaMenu({
                     animate={{ opacity: 1, y: 0 }}
                     exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
                     transition={{ duration: reduce ? 0 : 0.22, ease: [0.16, 1, 0.3, 1] }}
-                    className="fixed left-0 right-0 top-[68px] z-40 border-y border-[var(--line)] bg-[var(--surface-0)]"
+                    className="fixed left-0 right-0 top-[76px] z-40"
+                    style={{ paddingInline: "clamp(12px, 2.4vw, 40px)" }}
                   >
                     <div
-                      className="mx-auto"
-                      style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "44px" }}
+                      className="mx-auto rounded-[var(--radius-2)] border border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_40px_90px_-40px_rgba(0,0,0,0.7)]"
+                      style={{ maxWidth: "calc(var(--container) - 2 * clamp(12px, 2.4vw, 40px))", paddingInline: "clamp(24px, 3vw, 48px)", paddingBlock: "40px" }}
                     >
                       {trigger.id === "services" && <ServicesPanel onAnchor={onAnchor} />}
                       {trigger.id === "work" && <WorkPanel />}

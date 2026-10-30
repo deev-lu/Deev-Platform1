@@ -82,7 +82,7 @@ export default function AiFilm() {
   };
 
   return (
-    <section id="film" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)", scrollMarginTop: 40 }}>
+    <section id="film" style={{ paddingBlock: "var(--section-pad)", scrollMarginTop: 40 }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div className="flex flex-wrap items-end justify-between gap-x-20 gap-y-8 mb-14 lg:mb-16">
           <div className="min-w-0" style={{ flex: "1 1 520px" }}>

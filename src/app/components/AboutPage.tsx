@@ -59,7 +59,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       {/* ── Kopf ─────────────────────────────────────────────────────────── */}
       <header className="mx-auto" style={{ ...container, paddingTop: "var(--section-y)" }}>
         {eyebrow(a.eyebrow)}
@@ -89,7 +89,7 @@ export default function AboutPage() {
             <motion.li
               key={m.key}
               {...rise(i)}
-              className="list-none overflow-hidden border border-[var(--line)] bg-[var(--surface-1)]"
+              className="card-glow list-none overflow-hidden border border-[var(--line)] bg-[var(--surface-1)]"
               style={{ borderRadius: "var(--radius-2)" }}
             >
               <div className="relative aspect-[4/5] bg-[var(--surface-2)] flex items-end justify-center overflow-hidden">

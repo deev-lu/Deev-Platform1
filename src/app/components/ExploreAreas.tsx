@@ -27,7 +27,7 @@ export default function ExploreAreas() {
   const e = t.home.explore;
 
   return (
-    <section className="bg-[var(--surface-0)] border-t border-[var(--line)]" aria-labelledby="explore-title">
+    <section className="border-t border-[var(--line)]" aria-labelledby="explore-title">
       <div
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "clamp(40px, 5vw, 64px)" }}
@@ -48,7 +48,7 @@ export default function ExploreAreas() {
               <li key={key}>
                 <L
                   to={to}
-                  className="group relative flex h-full items-center gap-4 md:flex-col md:items-stretch md:gap-0 border border-[var(--line)] bg-[var(--surface-1)] px-4 py-5 md:p-7 hover:border-[var(--signal)] transition-colors duration-[var(--dur-2)]"
+                  className="card-glow group relative flex h-full items-center gap-4 md:flex-col md:items-stretch md:gap-0 border border-[var(--line)] bg-[var(--surface-1)] px-4 py-5 md:p-7 hover:border-[var(--signal)] transition-colors duration-[var(--dur-2)]"
                   style={{ borderRadius: "var(--radius-1)" }}
                 >
                   <span className="absolute left-0 top-0 h-px w-0 bg-[var(--signal)] transition-all duration-[var(--dur-3)] group-hover:w-full" aria-hidden="true" />

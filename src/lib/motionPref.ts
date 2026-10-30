@@ -5,8 +5,9 @@ import { useReducedMotion } from "motion/react";
  * "Pause motion": one switch for every moving thing on the site (WCAG 2.2
  * success criterion 2.2.2, Pause, Stop, Hide).
  *
- * The hero film, the client marquee and the looping demos all start by
- * themselves and run longer than five seconds, so a visitor needs a way to
+ * The drifting orbs, the hero's rotating word, the client carousel and the
+ * looping demos all start by themselves and run longer than five seconds,
+ * so a visitor needs a way to
  * stop them that does not depend on an operating-system setting or on the
  * accessibility menu having loaded. The site's own switch (MotionToggle, in
  * the hero and in the footer) sets the class `motion-paused` on <html>,

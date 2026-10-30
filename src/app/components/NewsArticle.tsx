@@ -32,7 +32,7 @@ export default function NewsArticle() {
   const next = nextArticle(article.slug);
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       <article
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}

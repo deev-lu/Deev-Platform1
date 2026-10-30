@@ -191,7 +191,7 @@ test.describe("forms", () => {
 });
 
 test.describe("motion (WCAG 2.2.2)", () => {
-  test("Pause motion stops the film and the logos, and is remembered", async ({ page }) => {
+  test("Pause motion stops the moving parts, and is remembered", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     await rejectCookies(page);
     const toggle = page.locator("footer").getByRole("button", { name: "Pause motion" });
@@ -199,8 +199,8 @@ test.describe("motion (WCAG 2.2.2)", () => {
     await toggle.click();
     await expect(page.locator("html")).toHaveClass(/motion-paused/);
     await expect(page.locator("footer").getByRole("button", { name: "Play motion" })).toBeVisible();
-    await expect(page.locator("iframe[src*='youtube']")).toHaveCount(0);
-    expect(await page.locator(".m-marquee-track").evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
+    // The client carousel stops advancing by itself.
+    await expect(page.locator("section[aria-roledescription='carousel']")).toHaveAttribute("data-autoplay", "false");
     await page.reload({ waitUntil: "networkidle" });
     await expect(page.locator("html")).toHaveClass(/motion-paused/);
   });

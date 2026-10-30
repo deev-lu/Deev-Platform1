@@ -1,125 +1,73 @@
+import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
 import { GOOGLE_REVIEWS } from "../../lib/reviews";
-import HeroVideo from "./HeroVideo";
+import { useReduceMotion } from "../../lib/motionPref";
 import MotionToggle from "./MotionToggle";
-import heroWide from "../../assets/photos/hero-adolphe-1920.webp";
-import heroNarrow from "../../assets/photos/hero-adolphe-900.webp";
 
 /**
- * Der Hero, seit dem 13.10.2026 heller und ruhiger.
+ * Der Hero, seit dem 30.10.2026 im Stil von nvision.lu in DEEV-Farben (der
+ * Wunsch des Inhabers): kein Foto, kein Film mehr, sondern der dunkle,
+ * von Orbs beleuchtete Grund (OrbField), eine sehr grosse Typold-Zeile und
+ * ein Wort, das wechselt und im Blau-Cyan-Verlauf laeuft.
  *
- * Das Bild: die Adolphe-Bruecke ueber dem gruenen Petrusstal, dahinter die
- * Spuerkees mit ihrem Turm, blauer Himmel - vom Inhaber geliefert. Kaum
- * gegradet; ein Verlauf von links haelt die Schrift lesbar.
+ * "Wir bauen / Individualsoftware / fuer Luxemburger Unternehmen." Die
+ * wechselnden Woerter stammen alle aus dem Lead, nichts Neues wird
+ * behauptet. Das echte <h1> bleibt der bisherige Satz und ist nur fuer
+ * Screenreader und Suchmaschinen da; die sichtbare Zeile ist dekorativ und
+ * aria-hidden, damit der Wechsel nichts ansagt.
  *
- * Der Titel ist kleiner als zuvor und laeuft farblich von fast Weiss ueber
- * Hellblau ins Electric Blue (`.m-flow`, motion.css); der Akzent endet im
- * tieferen Blau. Darunter zwei Pillen-Knoepfe; das Label darueber ist seit
- * dem 25.10.2026 weg (der Titel sagt es schon).
- *
- * Seit dem 25.10.2026 sagt der Hero konkret, was wir machen: der Titel nennt
- * Angebot und Kunden ("Individualsoftware und KI fuer Luxemburger
- * Unternehmen"), und wo vorher drei Fakten standen, steht das Angebot - vier
- * Leistungen, jede verlinkt, dazu die Foerderung. Ab 1024px als Karte rechts,
- * darunter als 2x2-Raster unter den Knoepfen.
- *
- * Auf dem Telefon randlos: das Bild geht bis an die Kanten, nur die unteren
- * Ecken sind rund. Der schmale Rand in Seitenfarbe sah dort wie ein Fehler
- * aus. Ab 768px eingelassen mit --radius-3.
- *
- * In beiden Themen dunkel (`dark`, data-surface), weil die Schrift auf einem
- * Foto steht. Groesstes Element der Seite, daher mit hoher Prioritaet; auf
- * dem Telefon die 900er-Fassung.
+ * Darunter links der Lead mit zwei Pillen-Knoepfen, rechts das Angebot als
+ * Glas-Karte (ab 1024px; darunter als 2x2-Raster), unten die
+ * Google-Bewertung und "Scrollen und entdecken". Das Wort steht still unter
+ * reduzierter Bewegung und bei "Bewegung anhalten" (oben rechts).
  */
 
 /** Where each entry of `home.intro.offers` leads, in the same order. */
 const HERO_OFFER_LINKS = ["/services/custom-software", "/services/ai-automation", "/workshops", "/services/websites", "/#cybersecurity"] as const;
+
+const ROTATE_MS = 2600;
 
 export default function Hero() {
   const t = useT();
   const h = t.home.intro;
 
   return (
-    <section className="bg-[var(--surface-0)] md:p-2 lg:p-3">
-    <div
-      data-surface="dark"
-      className="dark relative overflow-hidden bg-[var(--surface-0)] flex flex-col rounded-b-[28px] md:rounded-[28px]"
-      style={{ minHeight: "max(624px, min(calc(100svh - 24px), 940px))" }}
-    >
-      <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-        <img
-          src={heroWide}
-          srcSet={`${heroNarrow} 900w, ${heroWide} 1920w`}
-          sizes="100vw"
-          alt=""
-          width={1920}
-          height={1280}
-          {...({ fetchpriority: "high" } as Record<string, string>)}
-          decoding="async"
-          className="m-drift absolute inset-0 w-full h-full object-cover object-[60%_50%]"
-          style={{ filter: "saturate(0.92) contrast(1.02)" }}
-        />
-        {/* Darueber der Film von YouTube, 0:10 bis 1:10 in Schleife (HeroVideo). */}
-        <HeroVideo />
-        {/* Verlaeufe nur fuer die Lesbarkeit: links und unten, oben ein
-            Hauch fuer die Navigation. Rechts bleibt das Bild hell. */}
-        <div
-          className="absolute inset-0 hidden md:block"
-          style={{ background: "linear-gradient(90deg, rgba(6,10,26,0.9) 0%, rgba(6,10,26,0.66) 42%, rgba(6,10,26,0) 70%)" }}
-        />
-        {/* Auf dem Telefon steht der Text hoeher, ueber dem hellen Himmel:
-            dort reicht der Verlauf ueber die ganze Hoehe, dazu ein Schleier. */}
-        <div className="absolute inset-0 md:hidden" style={{ background: "rgba(6,10,26,0.32)" }} />
-        <div
-          className="absolute inset-x-0 bottom-0 h-full md:h-[30%]"
-          style={{ background: "linear-gradient(0deg, rgba(6,10,26,0.97) 0%, rgba(6,10,26,0.88) 55%, rgba(6,10,26,0) 100%)" }}
-        />
-        <div
-          className="absolute inset-x-0 top-0 h-32"
-          style={{ background: "linear-gradient(180deg, rgba(6,10,26,0.55), rgba(6,10,26,0))" }}
-        />
-      </div>
-
-      {/* Pause fuer Film und alle Bewegung (WCAG 2.2.2), oben rechts im Bild
-          unter der Navigation: unten liegen auf dem Telefon die Karten des
-          Hero und rechts die Ecke, die dem Klar-Access-Knopf gehoert. */}
-      <MotionToggle className="absolute z-10 right-4 top-[84px] md:right-6 md:top-[92px]" />
+    <section className="relative" aria-labelledby="hero-title">
+      {/* Pause fuer alle Bewegung (WCAG 2.2.2), oben rechts unter der
+          Navigation. */}
+      <MotionToggle className="absolute z-10 right-4 top-[84px] md:right-6 md:top-[96px]" />
 
       <div
-        className="relative mx-auto w-full flex-1 flex flex-col justify-end"
+        className="relative mx-auto w-full flex flex-col justify-end"
         style={{
           maxWidth: "var(--container)",
           paddingInline: "var(--gutter)",
-          paddingTop: "calc(68px + 64px)",
-          paddingBottom: "clamp(48px, 7vw, 88px)",
+          minHeight: "max(640px, min(100svh, 1000px))",
+          paddingTop: "calc(68px + clamp(48px, 8vh, 120px))",
+          paddingBottom: "clamp(40px, 6vh, 72px)",
         }}
       >
-        <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-10">
-          <div className="min-w-0" style={{ maxWidth: 760 }}>
+        <h1 id="hero-title" className="sr-only">
+          {h.lines.join(" ")} {h.accent}
+        </h1>
 
-            {/* Der Verlauf liegt auf dem ganzen Block, nicht pro Zeile: jede
-                Zeile laeuft von hell (links) nach blau (rechts). */}
-            <h1
-              className="m-flow w-fit font-medium mt-0 mb-0"
-              style={{ fontSize: "clamp(2.25rem, 1.3rem + 3vw, 4rem)", lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: "17ch" }}
-            >
-              {h.lines.join(" ")} <span className="m-flow-deep">{h.accent}</span>
-            </h1>
-
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] items-end gap-x-14 gap-y-10">
+          <div className="min-w-0">
+            <HeroTitle build={h.build} words={h.rotate} accent={h.accent} />
             <p
-              className="m-fade-up text-[var(--text)] mt-6 mb-0"
-              style={{ maxWidth: "50ch", fontSize: "var(--t-lead)", lineHeight: 1.5, animationDelay: "0.3s" }}
+              className="m-fade-up text-[var(--text)] mt-8 mb-0"
+              style={{ maxWidth: "56ch", fontSize: "var(--t-lead)", lineHeight: 1.55, animationDelay: "0.3s" }}
             >
               {h.lead}
             </p>
-            <div className="m-fade-up mt-9 flex flex-col sm:flex-row sm:items-center gap-3" style={{ animationDelay: "0.4s" }}>
+            <div className="m-fade-up mt-8 flex flex-col sm:flex-row sm:items-center gap-3" style={{ animationDelay: "0.4s" }}>
               <L
                 to="/contact?interest=call"
-                className="m-arrow inline-flex items-center justify-center gap-2.5 px-6 text-white font-semibold transition-[filter] duration-[var(--dur-1)] hover:brightness-110"
-                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)", background: "linear-gradient(100deg, #4c8dff, #2563f6)" }}
+                className="btn-grad m-arrow inline-flex items-center justify-center gap-2.5 px-7 text-white font-semibold rounded-full"
+                style={{ height: 54, fontSize: "var(--t-small)" }}
               >
                 {h.primary}
                 <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
@@ -130,10 +78,10 @@ export default function Hero() {
                   e.preventDefault();
                   scrollToId("film");
                 }}
-                className="inline-flex items-center justify-center gap-2.5 pl-2 pr-5 border border-white/15 bg-white/[0.06] hover:bg-white/[0.12] text-[var(--text-hi)] font-medium transition-colors duration-[var(--dur-1)]"
-                style={{ height: 52, fontSize: "var(--t-small)", borderRadius: "var(--radius-pill)" }}
+                className="btn-ghost inline-flex items-center justify-center gap-2.5 pl-2 pr-6 rounded-full font-medium"
+                style={{ height: 54, fontSize: "var(--t-small)" }}
               >
-                <span className="w-9 h-9 rounded-full bg-white/[0.14] flex items-center justify-center" aria-hidden="true">
+                <span className="w-10 h-10 rounded-full bg-[var(--signal-dim)] flex items-center justify-center" aria-hidden="true">
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M7 4.5v15l13-7.5z" />
                   </svg>
@@ -155,8 +103,8 @@ export default function Hero() {
                   <li key={o.title} className={`list-none ${h.offers.length % 2 && i === h.offers.length - 1 ? "col-span-2" : ""}`}>
                     <L
                       to={HERO_OFFER_LINKS[i]}
-                      className="flex h-full flex-col gap-1 p-3.5 border border-white/10 hover:border-white/25 transition-colors duration-[var(--dur-1)]"
-                      style={{ borderRadius: "var(--radius-1)", background: "rgba(11,14,28,0.6)" }}
+                      className="glass-pill flex h-full flex-col gap-1 p-3.5 hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
+                      style={{ borderRadius: "var(--radius-1)" }}
                     >
                       <span className="text-[var(--text-hi)] font-medium" style={{ fontSize: "0.875rem", lineHeight: 1.25 }}>
                         {o.title}
@@ -172,21 +120,20 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Ab 1024px: das Angebot als Karte rechts. Jede Zeile fuehrt zur
-              Leistungsseite; so steht schon im ersten Bild, was wir machen. */}
+          {/* Ab 1024px: das Angebot als Glas-Karte rechts. */}
           <nav
             aria-label={h.offersLabel}
-            className="hidden lg:flex m-fade-up flex-col w-[340px] p-6 border border-white/10"
-            style={{ borderRadius: "var(--radius-2)", background: "rgba(11,14,28,0.78)", animationDelay: "0.5s" }}
+            className="glass-pill hidden lg:flex m-fade-up flex-col w-[360px] p-6"
+            style={{ borderRadius: "var(--radius-2)", animationDelay: "0.5s" }}
           >
             <div className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
               {h.offersLabel}
             </div>
             <ul className="flex flex-col mt-3 m-0 p-0">
               {h.offers.map((o, i) => (
-                <li key={o.title} className="list-none border-b border-white/[0.08] last:border-b-0">
+                <li key={o.title} className="list-none border-b border-[var(--line)] last:border-b-0">
                   <L to={HERO_OFFER_LINKS[i]} className="group flex items-center gap-3 py-3">
-                    <span className="eyebrow-mono text-[#7faeff] shrink-0" style={{ fontSize: "var(--t-label)" }}>
+                    <span className="eyebrow-mono text-[var(--signal-text)] shrink-0" style={{ fontSize: "var(--t-label)" }}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="flex-1 min-w-0">
@@ -198,7 +145,7 @@ export default function Hero() {
                       </span>
                     </span>
                     <ArrowRight
-                      className="w-4 h-4 shrink-0 text-[var(--text-low)] group-hover:text-white group-hover:translate-x-0.5 transition-[color,transform] duration-[var(--dur-1)]"
+                      className="w-4 h-4 shrink-0 text-[var(--text-low)] group-hover:text-[var(--text-hi)] group-hover:translate-x-0.5 transition-[color,transform] duration-[var(--dur-1)]"
                       strokeWidth={1.5}
                     />
                   </L>
@@ -208,9 +155,57 @@ export default function Hero() {
             <FundingLine text={h.funding} />
           </nav>
         </div>
+
+        {/* "Scrollen und entdecken", wie bei nvision: eine Maus mit einem
+            Punkt, der nach unten laeuft (ab 768px). */}
+        <div className="hidden md:flex justify-center mt-12" aria-hidden="true">
+          <span className="scroll-cue">
+            <span className="eyebrow-mono uppercase" style={{ fontSize: "0.625rem", letterSpacing: "0.22em" }}>
+              {h.scroll}
+            </span>
+            <span className="scroll-cue__mouse">
+              <span className="scroll-cue__dot" />
+            </span>
+          </span>
+        </div>
       </div>
-    </div>
     </section>
+  );
+}
+
+/**
+ * Die sichtbare Titelzeile: "Wir bauen", das wechselnde Wort im Verlauf,
+ * die Akzentzeile. Dekorativ (aria-hidden); das <h1> traegt den Satz.
+ */
+function HeroTitle({ build, words, accent }: { build: string; words: readonly string[]; accent: string }) {
+  const reduce = useReduceMotion();
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (reduce || words.length < 2) {
+      setI(0);
+      return;
+    }
+    const id = window.setInterval(() => setI((n) => (n + 1) % words.length), ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [reduce, words.length]);
+  const prev = (i - 1 + words.length) % words.length;
+
+  return (
+    <p
+      aria-hidden="true"
+      className="display text-[var(--text-hi)] m-0"
+      style={{ fontSize: "clamp(2.6rem, 1rem + 4.6vw, 5.5rem)", lineHeight: 1.02, letterSpacing: "-0.04em" }}
+    >
+      <span className="m-fade-up block">{build}</span>
+      <span className="rotator" style={{ paddingBlock: "0.06em" }}>
+        {words.map((w, n) => (
+          <span key={w} className="g-text pb-[0.08em]" data-on={n === i} data-out={n === prev && !reduce}>
+            {w}
+          </span>
+        ))}
+      </span>
+      <span className="m-fade-up block" style={{ animationDelay: "0.15s" }}>{accent}</span>
+    </p>
   );
 }
 
@@ -229,7 +224,7 @@ function HeroReviews() {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="m-fade-up mt-6 inline-flex items-center gap-3 text-[var(--text)] hover:text-white transition-colors duration-[var(--dur-1)]"
+      className="m-fade-up mt-7 inline-flex items-center gap-3 text-[var(--text)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
       style={{ fontSize: "var(--t-small)", animationDelay: "0.45s" }}
     >
       <GoogleG />
@@ -258,7 +253,7 @@ function Stars({ rating }: { rating: number }) {
   );
   return (
     <span className="relative inline-flex" aria-hidden="true">
-      {row("rgba(255,255,255,0.22)")}
+      {row("var(--line-strong)")}
       <span className="absolute inset-0 overflow-hidden" style={{ width: `${pct}%` }}>
         {row("#fbbc04")}
       </span>
@@ -283,7 +278,7 @@ function FundingLine({ text }: { text: string }) {
   return (
     <L
       to="/sme-packages"
-      className="group mt-4 pt-4 border-t border-white/10 flex items-center gap-2 text-[var(--text)] hover:text-white transition-colors duration-[var(--dur-1)]"
+      className="group mt-4 pt-4 border-t border-[var(--line)] flex items-center gap-2 text-[var(--text)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
       style={{ fontSize: "0.8125rem", lineHeight: 1.4 }}
     >
       <span className="w-1.5 h-1.5 rounded-full bg-[#3ce7fc] shrink-0" aria-hidden="true" />

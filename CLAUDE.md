@@ -31,14 +31,30 @@ Vercel blocks deploys when the commit email doesn't match a GitHub account.
 ## Layout of the page (src/app/App.tsx)
 High-end positioning since October 2026: software and AI lead, websites are
 design "by invitation". No project budget figure is shown publicly.
-The homepage follows the brand book (DEEV-REDESIGN-BRIEF.md, tokens.css):
-dark, hairlines instead of cards, one accent (Electric Blue fills, Sky for
-accent type), real photography in full bleed or square corners, graded with
-`.m-grade`.
+**Design language since 30 Oct 2026: like nvision.lu, in DEEV's colours**
+(the owner's request; `src/styles/design.css`, which overrides the older
+brand-book bans in tokens.css on purpose): a charcoal ground (`--surface-0`
+#121319) lit by slowly drifting orbs of Electric Blue, deep navy, Sky and a
+little Cyan (`OrbField.tsx`, fixed behind every page — so page and section
+wrappers carry no opaque background); huge Typold headlines whose second
+sentence / highlight runs in a moving blue-to-cyan gradient (`.g-text`);
+gradient pill buttons with a glow (`.btn-grad`, also applied automatically
+to pills filled with `var(--signal)`), hairline pills that fill on hover
+(`.btn-ghost`); dark rounded cards that lift, glow and draw a blue-to-cyan
+bottom edge on hover (`.card-glow`, `.card-arrow`); headings and cards rise
+in on scroll and dim as they leave (scroll-driven CSS, `reveal`); floating
+glass-pill navigation. **Never purple or magenta** — that is nvision's
+colour and a competitor's. Text contrast is measured against the brightest
+orb glow, so keep orb alphas where they are (design.css, tokens.css).
 
-Navbar (with phone number and a Contact button) → Hero (full-bleed photo) →
-HomeClients (a marquee of real client logos only; the list and each logo's
-filter live in `clients` in ClientLogos.tsx — a new client comes with its file)
+Navbar (two floating glass pills: the mark + DEEV, which folds to the mark
+on scroll; navigation, language, theme, phone and the intro-call button) →
+Hero (no photo: the orbs, "We build / <rotating word> / for Luxembourg
+businesses." with the real <h1> sr-only, lead, buttons, offer card, "scroll
+to explore") → HomeClients (a 3D coverflow carousel of real client logos
+only, arrows, dots, swipe, auto-advance every 3s with its own pause; the list
+and each logo's filter live in `clients` in ClientLogos.tsx — a new client
+comes with its file)
 → HomeWorkshops (01, since 27 Oct 2026 the first section: workshops &
 consulting sold as a service of their own and the entry to most projects —
 an inset blue panel with the executive concept drawn as a document, the
@@ -63,22 +79,26 @@ shows the finished state). The film is a coded
 sequence, not a video file; its names and figures are invented and labelled.
 
 **Photographs in `src/assets/photos`.** From the owner: `hero-adolphe-*`
-(hero: the Adolphe bridge and the Spuerkeess tower), `adolphe-tram-*` (05, a
+(the hero until 30 Oct 2026, now unused: the Adolphe bridge and the
+Spuerkeess tower), `adolphe-tram-*` (05, a
 tram on the same bridge), `gelle-fra-*` (02, workshops), `philharmonie-*`
 (06, the company) and `kirchberg-aerial-*` (the earlier hero, rooftop
 lettering retouched out; kept, not used). They were sized and compressed at export
 (WebP); keep any replacement under ~250KB for the hero and ~150KB elsewhere.
 
-**Hero (since 13 Oct 2026):** a smaller title whose fill flows from
-near-white into Electric Blue (`.m-flow` / `.m-flow-deep` in motion.css — the
-owner asked for it, so the brief's "no gradient text" is lifted for the hero
-title and, in the dark theme only, the claim of two-tone section headings via
-`.m-flow-dark`). Full bleed on phones (only the bottom corners round), an
-inset rounded panel from 768px.
+**Hero (since 30 Oct 2026):** the visible title is decorative
+(aria-hidden): "We build", one of `home.intro.rotate` (words taken from the
+lead, never new claims) rolling every 2.6s in `.g-text`, then the accent
+line; it stands still under reduced motion and "Pause motion" (top right).
+The real <h1> is the old sentence, sr-only.
 
-**Card hover:** service (01) and portfolio (02) cards fill with a blue flow on
-hover (`.m-flowcard`), text and pills turn white, the button turns white with
-blue text.
+**Section ticks** (`SectionTicks.tsx`, homepage, from 1024px): one line per
+`main section[id]` that has an eyebrow, the current one long and in the
+gradient, its name on hover/focus; real links in a named nav.
+
+**Card hover:** service (02) and portfolio (04) cards fill with a blue flow on
+hover (`.m-flowcard`) and glow (`.card-glow`); other cards glow and draw the
+edge. Founders' cutouts stand in front of two blue/cyan rounded shapes.
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
@@ -220,30 +240,34 @@ Mobile load was a real problem and these fixed it:
 1. **No `backdrop-filter` below 768px.** It's the single biggest paint/scroll
    cost on iOS Safari. `fonts.css` force-disables it on mobile.
 2. **Decorative blur radii are capped to 50px on mobile.**
-3. **Continuous animations are disabled on mobile** via `useIsMobile()`.
-   One exception, the owner's decision on 25 Oct 2026: the client marquee
-   (`.m-marquee-track`) runs on phones too. It is a single CSS transform.
+3. **Continuous animations are disabled on mobile** via `useIsMobile()`
+   and the `min-width: 768px` guards in design.css (orbs, gradient shift,
+   scroll cue). The client carousel advances on phones too (an interval, not
+   a loop; it replaced the marquee the owner wanted moving on phones).
 4. **Images must be resized before committing.** Client logos were 200KB+ each
    until they were downscaled to display size.
-5. The hero photo ships a 900px WebP to phones (`srcSet`) and stays under
-   the hero film as its poster. The film (`HeroVideo.tsx`, YouTube
-   3j4eSVrLtmw, muted, 0:10 to 1:10 and then back to 0:10) plays on **every
-   screen size** since 24 Oct 2026 — the owner's decision, which lifts the old
-   desktop-only rule — and never under reduced motion. It autoplays for every
-   visitor without consent (owner, 23 Oct 2026), and the cookie policy
-   ("Embedded video", all three languages) says so. Change one, change both.
+5. The hero has had **no photo and no film since 30 Oct 2026** (the
+   nvision-style redesign); `HeroVideo.tsx` is gone and the cookie policy's
+   "Embedded video" no longer mentions an autoplaying film (only the
+   click-to-play videos in "In motion"). If a film ever comes back, the
+   policy has to say so again in all three languages. The orbs are
+   pre-blurred radial gradients moved by transforms (no filter, no canvas),
+   still below 768px.
 
 ## Theme
 Dark is the default since the redesign; light is available via the navbar
 toggle and the choice is stored in `localStorage` under `theme`. The theme is
 applied before paint by an inline script in `index.html` to avoid a flash.
 If you change the default, change it in **both** `index.html` and `App.tsx`.
-Light (reworked 29 Oct 2026): a cool paper ground (`--surface-0` #f6f7fb)
-under white cards, navy ink (`--text-hi` #0b1530) instead of black, and the
-two-tone claim flowing from navy into Electric Blue (`.m-flow-dark` in
-motion.css). Dark panels on a light page (`data-surface="dark"` plus
-`.dark`) keep the dark rules. The navbar reads the surface under it at
-y=34, skipping itself, so it turns light over a dark panel only.
+Dark (since 30 Oct 2026): charcoal #121319 with cards #1a1c24, text-low
+#a6adb7 and accent type #6cb8ff, both chosen to keep 4.5:1 over the brightest
+orb glow. Light (reworked 29 Oct 2026): a cool paper ground (`--surface-0`
+#f6f7fb) under white cards, navy ink (`--text-hi` #0b1530), paler orbs, and
+gradients running navy → Electric Blue → deep teal (`.g-text`). The page
+colour sits on <html>; <body> stays transparent, or it would paint over the
+orbs. Dark panels on a light page (`data-surface="dark"` plus `.dark`) keep
+the dark rules. The navbar reads the surface under it at y=34, skipping
+itself, so its pills turn dark over a dark panel only.
 
 ## Content that needs real assets (do not invent)
 - The founders appear as two portrait cards under "Leadership" in
