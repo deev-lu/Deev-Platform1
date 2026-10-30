@@ -131,12 +131,20 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     <>
       {/* Kein Einschweben mehr. Die Navigation ist das erste, was ein Besucher
           braucht, und sie stand im vorgerenderten HTML mit Deckkraft 0 - ohne
-          JavaScript also gar nicht. Ein halbsekuendiges Hereinrutschen bei
-          jedem Seitenaufruf war ohnehin Unruhe, kein Nutzen. */}
+          JavaScript also gar nicht.
+          Seit dem 30.10.2026 zwei schwebende Glas-Pillen (design.css,
+          .glass-pill): links das Zeichen mit dem Schriftzug, der beim
+          Scrollen einfaehrt, rechts Navigation, Sprache, Thema, Telefon und
+          der Hauptknopf als Verlaufs-Ende. Die Leiste selbst ist
+          durchsichtig; ueber dunklen Panels im hellen Thema werden die
+          Pillen dunkel (overDark). */}
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${ overDark ? "dark " : "" }${ scrolled ? overDark ? "bg-[#06060a]/90 md:bg-[#06060a]/75 border-b border-white/[0.09] " : "bg-white/90 md:bg-white/60 dark:bg-[#06060a]/90 md:dark:bg-[#06060a]/75 border-b border-white/50 dark:border-white/[0.09] " : "bg-transparent" }`}
+        className={`fixed top-0 left-0 right-0 z-40 pt-3 ${ overDark ? "dark" : "" }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
+        <div
+          className="mx-auto h-14 flex items-center justify-between gap-3"
+          style={{ maxWidth: "var(--container)", paddingInline: "clamp(12px, 2.4vw, 40px)" }}
+        >
 
           {/* The wordmark goes home from anywhere, and it is a real anchor.
               As a <button> it only scrolled: on /work, /legal or an article it
@@ -154,25 +162,34 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               setMenuOpen(false);
             }}
             aria-label={t.site.nav.home}
-            className="flex items-center gap-1.5 shrink-0 group -ml-1"
+            className="glass-pill group h-14 shrink-0 flex items-center rounded-full pl-3 pr-3 md:pl-3.5 transition-[padding] duration-[var(--dur-3)]"
+            style={{ paddingRight: scrolled ? 12 : 22 }}
           >
             <img
               src={logo}
               alt=""
               width={256}
               height={256}
-              className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-9 w-9 object-contain transition-transform duration-300 group-hover:rotate-[-8deg]"
             />
-            <span className="text-[1.3rem] font-brand tracking-[0.015em] leading-none text-[#0a0f2e] dark:text-white">
+            {/* Beim Scrollen faehrt der Schriftzug ein: aus der Pille wird
+                ein Kreis mit dem Zeichen (wie bei nvision die Logo-Karte). */}
+            <span
+              className="font-brand leading-none text-[#0a0f2e] dark:text-white overflow-hidden whitespace-nowrap transition-[max-width,opacity,margin] duration-[var(--dur-3)]"
+              style={{ fontSize: "1.25rem", letterSpacing: "0.015em", maxWidth: scrolled ? 0 : 80, opacity: scrolled ? 0 : 1, marginLeft: scrolled ? 0 : 8 }}
+            >
               DEEV
             </span>
           </L>
 
+          {/* Die rechte Pille: Navigation (MegaMenu), Sprache, Thema, Telefon,
+              Hauptknopf. */}
+          <div className="glass-pill h-14 flex items-center gap-1.5 md:gap-2 rounded-full pl-2 md:pl-3 pr-1.5 min-w-0">
           {/* Desktop navigation: three panels and a link. See MegaMenu. */}
           {!compact && <MegaMenu open={panel} setOpen={setPanel} onAnchor={scrollTo} />}
 
           {/* Right side: language, theme, CTA, burger */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 md:gap-2">
             <div className={compact ? "hidden" : "hidden sm:block"}>
               <LanguageSwitcher />
             </div>
@@ -182,8 +199,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 onClick={toggleTheme}
                 aria-label={theme === "dark" ? t.site.nav.toLight : t.site.nav.toDark}
                 title={theme === "dark" ? t.site.nav.toLight : t.site.nav.toDark}
-                className="w-9 h-9 flex items-center justify-center border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
-                style={{ borderRadius: "var(--radius-1)" }}
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
               >
                 {theme === "dark" ? (
                   <Sun className="w-4 h-4" strokeWidth={1.5} />
@@ -198,7 +214,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             <a
               href={`tel:+${WHATSAPP_NUMBER}`}
               aria-label={`${t.site.nav.call}: ${WHATSAPP_DISPLAY}`}
-              className="inline-flex items-center gap-2 h-9 px-2.5 xl:px-3.5 rounded-full border border-[var(--line-strong)] text-[var(--text-hi)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)] whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 h-10 min-w-10 px-2.5 xl:px-3.5 rounded-full border border-[var(--line-strong)] text-[var(--text-hi)] hover:bg-[var(--surface-2)] transition-colors duration-[var(--dur-1)] whitespace-nowrap"
               style={{ fontSize: "0.8125rem" }}
             >
               <Phone className="w-4 h-4" strokeWidth={1.5} />
@@ -211,8 +227,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 bereits als Textlink in der Navigation. */}
             <L
               to="/contact?interest=call"
-              className={`${compact ? "hidden" : "hidden sm:inline-flex"} items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px`}
-              style={{ background: "var(--signal)" }}
+              className={`btn-grad ${compact ? "hidden" : "hidden lg:inline-flex"} items-center gap-2 h-11 px-5 rounded-full whitespace-nowrap text-sm font-semibold text-white`}
             >
               {t.site.nav.cta}
             </L>
@@ -224,11 +239,12 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               onClick={() => setMenuOpen((v) => !v)}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className={`${compact ? "" : "md:hidden "}w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${ scrolled ? "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]" : "text-slate-700 hover:bg-slate-200/60 dark:text-white/80 dark:hover:bg-white/[0.08]" }`}
+              className={`${compact ? "" : "md:hidden "}btn-grad w-11 h-11 flex items-center justify-center rounded-full text-white`}
               aria-label={menuOpen ? t.site.nav.closeMenu : t.site.nav.openMenu}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
+          </div>
           </div>
         </div>
       </header>
@@ -243,7 +259,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             transition={{ duration: 0.2 }}
             id="mobile-menu"
             data-lenis-prevent
-            className={`fixed top-[68px] left-0 right-0 z-30 max-h-[calc(100dvh-68px)] overflow-y-auto overscroll-contain bg-white/97 dark:bg-[#08080c]/97 border-b border-slate-200 dark:border-white/[0.08] ${compact ? "" : "md:hidden"}`}
+            className={`fixed top-[76px] left-3 right-3 z-30 max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain rounded-[var(--radius-2)] bg-[var(--surface-1)] border border-[var(--line-strong)] ${compact ? "" : "md:hidden"}`}
           >
             <nav aria-label={t.site.nav.mainNav} className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
               {/* A hover panel is unusable on touch, so the same sections are
@@ -263,7 +279,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   onClick={() => setSectionsOpen((v) => !v)}
                   aria-expanded={sectionsOpen}
                   aria-label={t.site.mega.toggle(t.site.nav.services)}
-                  className="px-4 py-3.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="px-4 py-3.5 text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   <ChevronDown
                     className={`w-4 h-4 shrink-0 transition-transform duration-[var(--dur-1)] ${sectionsOpen ? "rotate-180" : ""}`}

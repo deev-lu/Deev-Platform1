@@ -30,7 +30,7 @@ export default function ServicePaths() {
   const p = t.home.paths;
 
   return (
-    <section id="services" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-y)" }}>
+    <section id="services" style={{ paddingBlock: "var(--section-y)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div className="flex items-center gap-4 mb-7">
           <span className="h-px w-10 bg-[var(--line-strong)]" />
@@ -68,7 +68,7 @@ export default function ServicePaths() {
               >
                 <L
                   to={to}
-                  className="group flex h-full flex-col border border-[var(--line)] bg-[var(--surface-1)] p-8 hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)]"
+                  className="card-glow group flex h-full flex-col border border-[var(--line)] bg-[var(--surface-1)] p-8 hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)]"
                   style={{ borderRadius: "var(--radius-1)" }}
                 >
                   <Icon className="w-5 h-5 text-[var(--signal-text)] mb-7" strokeWidth={1.5} />

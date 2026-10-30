@@ -35,6 +35,12 @@ export const home: typeof En = {
   },
 
   intro: {
+    /** The hero's visual headline (since 30 Oct 2026): "Wir bauen" + a rotating
+     *  word + the accent line. Every word is from the lead; the real <h1>
+     *  stays lines + accent, for search engines and screen readers. */
+    build: "Wir bauen",
+    rotate: ["Individualsoftware", "KI-Agenten", "Webplattformen", "interne Werkzeuge"],
+    scroll: "Scrollen und entdecken",
     lines: ["Individualsoftware und KI"],
     accent: "für Luxemburger Unternehmen.",
     lead: "Webanwendungen, Portale und interne Werkzeuge, dazu KI-Agenten und Assistenten, die mit Ihren eigenen Daten arbeiten. Entworfen, gebaut und betrieben von einem Team in Luxemburg, meist beginnend mit einem Workshop.",

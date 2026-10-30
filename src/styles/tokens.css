@@ -1,6 +1,8 @@
 /* ─────────────────────────────────────────────────────────────
-   DEEV design tokens — per DEEV-REDESIGN-BRIEF.md §4
-   Dark only. One accent. Hairlines, not shadows. No gradients.
+   DEEV design tokens — per DEEV-REDESIGN-BRIEF.md §4, revised 30 Oct
+   2026 for the nvision-style language (design.css). The bans below on
+   shadows, blur and gradients still hold for older markup; design.css
+   lifts them for its own classes only.
    ───────────────────────────────────────────────────────────── */
 
 /* Light is the default; .dark on <html> swaps the palette. Every value below
@@ -92,29 +94,29 @@
   /* Flächen aus dem Brand Book, Seite 7: Void Black als Grund, Surface als
      erste Stufe. Beide sind blaustichig, nicht neutralgrau; die Stufen 2 und 3
      setzen denselben Ton fort, damit die Erhebung aus einer Familie kommt. */
-  --surface-0: #06060a;
-  --surface-1: #101426;
-  --surface-2: #171c33;
-  --surface-3: #1e2440;
+  /* Since 30 Oct 2026 (the nvision-style redesign): a charcoal ground with
+     a breath of the brand navy in it, lit by the orbs in design.css, and
+     cards one step up. The old Void Black read as a hole under the glow. */
+  --surface-0: #121319;
+  --surface-1: #1a1c24;
+  --surface-2: #22252f;
+  --surface-3: #2a2e3a;
   --surface-inv: #f6f7f8;
-  /* Deep blue-slate: darker than the page's raised surfaces, clearly not
-     black, and carrying a hint of the brand blue rather than a neutral grey. */
-  --surface-product: #0b1020;
+  --surface-product: #161922;
 
   --line-faint: rgba(255, 255, 255, 0.06);
   --line: rgba(255, 255, 255, 0.10);
   --line-strong: rgba(255, 255, 255, 0.18);
   /* Control outlines, 3:1 or more on every dark surface (WCAG 1.4.11). */
-  --line-control: #737b8e;
+  --line-control: #7c8497;
 
-  --text-hi: #f2f4f6;
-  --text: #c6cbd1;
-  --text-mid: #8b929b;
-  /* Auf der alten, helleren Fläche trug #767d87 noch. Auf Void Black/Surface
-     fällt es auf 4,39:1 und reicht für Text nicht mehr. Gleicher Farbton, eine
-     Stufe heller. Seit dem 28.10.2026 #858c96: mindestens 4,7:1 auch auf den
-     getoenten Flaechen (#131f43, #171c33), WCAG 1.4.3. */
-  --text-low: #858c96;
+  /* Text, measured against the worst case: the charcoal under the
+     brightest orb glow (Electric Blue at 30% plus Cyan at 12%). text-low
+     keeps 4.5:1 there, so it holds anywhere on the page. */
+  --text-hi: #f4f6f8;
+  --text: #d0d4db;
+  --text-mid: #b4bac3;
+  --text-low: #a6adb7;
   --text-inv: #0a0b0d;
 
   /* Electric Blue und Sky, beide aus dem Brand Book, Seite 7.
@@ -126,11 +128,13 @@
      Deshalb füllt Electric Blue Flächen und Sky trägt Schrift. Beide Werte
      stehen im Brand Book; es kommt keine dritte Farbe hinzu. */
   --signal: #2563f6;
-  --signal-hi: #4397f8;
-  --signal-text: #4397f8;
-  --signal-dim: rgba(37, 99, 246, 0.14);
+  --signal-hi: #6cb8ff;
+  /* Accent type: a lighter Sky, so it keeps 4.5:1 over the orb glow too
+     (#4397f8 dropped to 3.9:1 there). */
+  --signal-text: #6cb8ff;
+  --signal-dim: rgba(37, 99, 246, 0.16);
 
-  --metal: #9aa3ad;
+  --metal: #a6adb7;
 
   --positive: #55d096;
   --warn: #e0a33c;

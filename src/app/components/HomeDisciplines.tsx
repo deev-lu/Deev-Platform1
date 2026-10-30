@@ -25,7 +25,7 @@ export default function HomeDisciplines() {
   ];
 
   return (
-    <section id="services" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)" }}>
+    <section id="services" style={{ paddingBlock: "var(--section-pad)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div
           className="flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]"
@@ -48,7 +48,7 @@ export default function HomeDisciplines() {
             <li key={c.key} className="min-w-0">
               <L
                 to={c.to}
-                className="m-flowcard group h-full flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[#7faeff]/60 focus-within:border-[#7faeff]/60 hover:-translate-y-1 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="card-glow m-flowcard group h-full flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[#7faeff]/60 focus-within:border-[#7faeff]/60 hover:-translate-y-1 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 style={{ borderRadius: 24 }}
               >
                 <div className="dark relative m-2.5 mb-0 bg-[#0B0E1C] overflow-hidden aspect-[4/3]" style={{ borderRadius: 16 }}>

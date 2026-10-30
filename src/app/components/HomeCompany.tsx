@@ -39,7 +39,7 @@ export default function HomeCompany() {
   ];
 
   return (
-    <section id="about" className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)" }}>
+    <section id="about" style={{ paddingBlock: "var(--section-pad)" }}>
       <div
         className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-14"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}
@@ -94,10 +94,23 @@ export default function HomeCompany() {
                 {FOUNDERS.map((f) => (
                   <li
                     key={f.key}
-                    className="overflow-hidden border border-[var(--line)] bg-[var(--surface-1)]"
+                    className="card-glow overflow-hidden border border-[var(--line)] bg-[var(--surface-1)]"
                     style={{ borderRadius: "var(--radius-2)" }}
                   >
                     <div className="relative aspect-square bg-[var(--surface-2)] flex items-end justify-center overflow-hidden">
+                      {/* Zwei abgerundete Verlaufs-Formen hinter dem
+                          Freisteller, wie bei nvision (dort violett, hier
+                          Electric Blue und Cyan). Dekorativ. */}
+                      <span
+                        aria-hidden="true"
+                        className="absolute w-[46%] h-[92%] rounded-full -rotate-[32deg] left-[22%] top-[2%] opacity-90"
+                        style={{ background: "linear-gradient(160deg, #2563f6, #1747c4)" }}
+                      />
+                      <span
+                        aria-hidden="true"
+                        className="absolute w-[28%] h-[52%] rounded-full -rotate-[32deg] left-[58%] top-[30%] opacity-80"
+                        style={{ background: "linear-gradient(160deg, #3ce7fc, #2563f6)" }}
+                      />
                       {near && (
                         <img
                           src={f.photo}
@@ -105,7 +118,7 @@ export default function HomeCompany() {
                           width={800}
                           height={800}
                           decoding="async"
-                          className="w-full h-full object-contain object-bottom"
+                          className="relative w-full h-full object-contain object-bottom"
                         />
                       )}
                     </div>

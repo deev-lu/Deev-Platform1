@@ -90,7 +90,12 @@ export default function Footer() {
   // Brand Book: tief, Haarlinienraster, Mono-Beschriftungen, die Wortmarke
   // gross und kaum sichtbar als Grafik.
   return (
-    <footer className="relative overflow-hidden bg-[var(--surface-0)] border-t border-[var(--line)]" style={{ fontSize: "var(--t-small)" }}>
+    <footer
+      className="relative isolate overflow-hidden border-t border-[var(--line)]"
+      style={{ fontSize: "var(--t-small)", background: "linear-gradient(180deg, transparent, color-mix(in srgb, var(--surface-1) 72%, transparent) 30%)" }}
+    >
+      {/* Ein Lichthof rechts unten, wie das Band am Ende von nvision. */}
+      <span aria-hidden="true" className="section-glow -z-10" style={{ width: "60vw", height: "60vw", right: "-18vw", bottom: "-30vw" }} />
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingTop: "clamp(56px, 7vw, 96px)" }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] border-t border-[var(--line)]">
           {/* Brand */}
@@ -205,8 +210,18 @@ export default function Footer() {
               werkzeuge melden sie sonst trotzdem. Fuer Screenreader ohnehin
               verborgen. */}
           <span
-            className="block font-brand text-[var(--text-hi)] whitespace-nowrap before:content-['DEEV']"
-            style={{ fontSize: "clamp(96px, 34vw, 500px)", lineHeight: 0.82, letterSpacing: "-0.04em", opacity: 0.05, marginLeft: "-0.04em" }}
+            className="block font-brand whitespace-nowrap before:content-['DEEV']"
+            style={{
+              fontSize: "clamp(96px, 34vw, 500px)",
+              lineHeight: 0.82,
+              letterSpacing: "-0.04em",
+              marginLeft: "-0.04em",
+              opacity: 0.14,
+              backgroundImage: "linear-gradient(100deg, #2563f6, #3ce7fc 60%, #2563f6)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
           />
         </div>
 

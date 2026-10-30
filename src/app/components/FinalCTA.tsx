@@ -12,7 +12,7 @@ export default function FinalCTA() {
   const t = useT();
 
   return (
-    <section className="relative bg-[var(--surface-0)] border-t border-[var(--line)]">
+    <section className="relative border-t border-[var(--line)]">
       <div
         className="mx-auto text-center"
         style={{

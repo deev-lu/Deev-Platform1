@@ -80,7 +80,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
   }, [service, locale]);
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       {/* Die KI-Seite hat ihren eigenen Kopf mit der operativen Schicht. */}
       {service === "ai" ? <AiHero /> : <header
         className="mx-auto"
@@ -122,7 +122,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
             {s.problems.map((problem) => (
               <li
                 key={problem}
-                className="border border-[var(--line)] bg-[var(--surface-1)] p-7 text-[var(--text-hi)]"
+                className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-7 text-[var(--text-hi)]"
                 style={{ borderRadius: "var(--radius-1)", fontSize: "var(--t-body)", lineHeight: 1.45 }}
               >
                 {problem}
@@ -156,7 +156,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
               <L
                 key={p.slug}
                 to={`/work/${p.slug}`}
-                className="group block border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)]"
+                className="card-glow group block border border-[var(--line)] bg-[var(--surface-1)] overflow-hidden hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-2)]"
                 style={{ borderRadius: "var(--radius-1)" }}
               >
                 <span className="block relative w-full" style={{ aspectRatio: "1000 / 583" }}>
@@ -198,7 +198,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBottom: "var(--section-y)" }}
       >
         <div
-          className="border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-12 flex flex-wrap items-center justify-between gap-6"
+          className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-12 flex flex-wrap items-center justify-between gap-6"
           style={{ borderRadius: "var(--radius-1)" }}
         >
           <h2

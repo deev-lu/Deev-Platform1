@@ -29,7 +29,7 @@ export default function InMotion() {
   return (
     <section
       id="in-motion"
-      className="bg-[var(--surface-0)] border-t border-[var(--line-faint)]"
+      className="border-t border-[var(--line-faint)]"
       style={{ paddingBlock: "var(--section-pad)" }}
     >
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>

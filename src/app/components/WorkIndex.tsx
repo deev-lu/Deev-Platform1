@@ -45,7 +45,7 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
   const grid = lead ? shown.slice(1) : shown;
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       <header
         className="mx-auto"
         style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "var(--section-y)" }}

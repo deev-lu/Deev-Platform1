@@ -27,7 +27,6 @@ export default function HomeSecurity() {
     <section
       id="cybersecurity"
       aria-labelledby="security-title"
-      className="bg-[var(--surface-0)]"
       style={{ paddingBlock: "var(--section-pad)" }}
     >
       <div
@@ -135,7 +134,7 @@ function PhishingExample() {
   const t = useT();
   const m = t.home.security.mock;
   return (
-    <div className="border border-[var(--line)] bg-[var(--surface-1)] p-5" style={{ borderRadius: "var(--radius-2)" }}>
+    <div className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-5" style={{ borderRadius: "var(--radius-2)" }}>
       <div className="flex items-center justify-between gap-3">
         <span className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
           {m.label}

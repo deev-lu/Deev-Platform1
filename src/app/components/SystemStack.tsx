@@ -69,7 +69,7 @@ export default function SystemStack() {
   );
 
   const shell = (children: React.ReactNode) => (
-    <section className="relative bg-[var(--surface-0)] border-y border-[var(--line)]">
+    <section className="relative border-y border-[var(--line)]">
       <NoiseOverlay opacity={0.035} />
       <div
         className="relative mx-auto"
@@ -104,7 +104,7 @@ export default function SystemStack() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative bg-[var(--surface-0)] border-y border-[var(--line)]"
+      className="relative border-y border-[var(--line)]"
       style={{ height: "190vh" }}
     >
       <div className="sticky top-0 h-screen overflow-hidden flex items-center">

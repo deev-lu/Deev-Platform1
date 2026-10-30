@@ -59,7 +59,7 @@ export default function WorkshopsPage() {
   const container = { maxWidth: "var(--container)", paddingInline: "var(--gutter)" } as const;
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       {/* ── Hero: dieselbe tiefblaue Flaeche wie auf der Startseite ───────── */}
       <section className="md:px-2 lg:px-3 md:pt-2">
         <div
@@ -141,7 +141,7 @@ export default function WorkshopsPage() {
             <motion.li
               key={o.title}
               {...rise(i)}
-              className="list-none border border-[var(--line)] bg-[var(--surface-1)] p-7"
+              className="card-glow list-none border border-[var(--line)] bg-[var(--surface-1)] p-7"
               style={{ borderRadius: "var(--radius-2)" }}
             >
               <span className="eyebrow-mono text-[var(--signal-text)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
@@ -190,7 +190,7 @@ export default function WorkshopsPage() {
       {/* ── Ergebnis und Beleg ───────────────────────────────────────────── */}
       <section className="mx-auto" style={{ ...container, paddingTop: "var(--section-y)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="border border-[var(--line)] bg-[var(--surface-1)] p-7 sm:p-9" style={{ borderRadius: "var(--radius-2)" }}>
+          <div className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-7 sm:p-9" style={{ borderRadius: "var(--radius-2)" }}>
             {label(p.deliverablesLabel, "03")}
             <h2 className="text-[var(--text-hi)] font-medium mt-6" style={{ fontSize: "var(--t-h3)", lineHeight: 1.15, letterSpacing: "-0.015em" }}>
               {p.deliverablesTitle}
@@ -317,7 +317,7 @@ function WorkshopRequest() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-10 border border-[var(--line)] bg-[var(--surface-1)] p-7 sm:p-10" style={{ borderRadius: "var(--radius-3)" }}>
+    <div className="card-glow grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-10 border border-[var(--line)] bg-[var(--surface-1)] p-7 sm:p-10" style={{ borderRadius: "var(--radius-3)" }}>
       <div className="lg:col-span-5">
         <div className="flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
           <span className="h-px w-10 bg-[var(--line-strong)]" />

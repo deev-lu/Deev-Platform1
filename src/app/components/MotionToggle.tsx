@@ -30,7 +30,7 @@ export default function MotionToggle({ variant = "icon", className = "" }: { var
       onClick={() => setMotionPaused(!paused)}
       aria-label={label}
       title={label}
-      className={`grid place-items-center w-10 h-10 rounded-full border border-white/25 bg-[rgba(6,10,26,0.55)] text-white hover:bg-[rgba(6,10,26,0.8)] transition-colors duration-[var(--dur-1)] ${className}`}
+      className={`glass-pill grid place-items-center w-11 h-11 rounded-full text-[var(--text-hi)] hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)] ${className}`}
     >
       <Icon className="w-4 h-4" strokeWidth={1.75} aria-hidden="true" />
     </button>

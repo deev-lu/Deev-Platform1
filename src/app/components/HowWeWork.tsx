@@ -107,7 +107,7 @@ function Sticky({ steps, eyebrow, cta }: Props) {
     <section
       id="how-we-work"
       ref={shell}
-      className="relative bg-[var(--surface-0)] border-t border-[var(--line-faint)]"
+      className="relative border-t border-[var(--line-faint)]"
       style={{ height: "240vh" }}
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
@@ -200,7 +200,7 @@ function Stacked({ steps, eyebrow, cta, timeline }: Props & { timeline: boolean 
   return (
     <section
       id="how-we-work"
-      className="bg-[var(--surface-0)] border-t border-[var(--line-faint)]"
+      className="border-t border-[var(--line-faint)]"
       style={{ paddingBlock: "var(--section-y)" }}
     >
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>

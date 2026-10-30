@@ -43,7 +43,7 @@ export default function ServicesIndex() {
   const [active, setActive] = useState<PathKey>("websites");
 
   return (
-    <main className="bg-[var(--surface-0)] min-h-screen pt-[68px]">
+    <main className="min-h-screen pt-[68px]">
       {/* ── 01 Hero. Kurz gehalten, damit der erste Weg noch im ersten
              Bildausschnitt beginnt. ───────────────────────────────────── */}
       <header

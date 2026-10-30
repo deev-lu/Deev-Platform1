@@ -18,7 +18,7 @@ export default function HomeFunding() {
   const g = t.grant;
 
   return (
-    <section aria-labelledby="funding-title" className="bg-[var(--surface-0)]" style={{ paddingBlock: "calc(var(--section-pad) * 0.5)" }}>
+    <section aria-labelledby="funding-title" style={{ paddingBlock: "calc(var(--section-pad) * 0.5)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div
           className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 items-center border-y border-[var(--line)] py-10"

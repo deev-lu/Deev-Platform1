@@ -22,7 +22,6 @@ export default function BudgetTeaser() {
 
   return (
     <section
-      className="bg-[var(--surface-0)]"
       style={{ paddingBlock: "var(--section-y)" }}
     >
       {/* Zweiter Ankername, gleiche Stelle. */}
@@ -41,7 +40,7 @@ export default function BudgetTeaser() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div
-            className="border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-10 flex flex-col"
+            className="card-glow border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-10 flex flex-col"
             style={{ borderRadius: "var(--radius-1)" }}
           >
             <h2

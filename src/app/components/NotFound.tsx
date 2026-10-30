@@ -15,7 +15,7 @@ export default function NotFound() {
 
   return (
     <main
-      className="min-h-[80vh] flex items-center bg-[var(--surface-0)]"
+      className="min-h-[80vh] flex items-center"
       style={{ paddingBlock: "var(--section-y)" }}
     >
       <div

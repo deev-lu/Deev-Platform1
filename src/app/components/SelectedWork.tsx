@@ -45,7 +45,7 @@ export default function SelectedWork() {
   const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-4", "lg:col-span-4", "lg:col-span-4"];
 
   return (
-    <section className="bg-[var(--surface-0)]" style={{ paddingBlock: "var(--section-pad)" }}>
+    <section style={{ paddingBlock: "var(--section-pad)" }}>
       <div className="mx-auto" style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-8 items-end">
           <div className="lg:col-span-7">
@@ -115,7 +115,7 @@ function Card({ project, large = false }: { project: Project; large?: boolean })
        ungueltiges HTML. Der Link zur Fallstudie deckt die ganze Karte ab (sein
        Text ist der Titel), der Link zur echten Website liegt darueber. */
     <article
-      className={`m-flowcard group relative flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[#7faeff]/60 focus-within:border-[#7faeff]/60 hover:-translate-y-1 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${large ? "h-[480px] sm:h-[560px]" : "h-[440px] sm:h-[480px]"}`}
+      className={`card-glow m-flowcard group relative flex flex-col overflow-hidden border border-[var(--line)] bg-[var(--surface-1)] hover:border-[#7faeff]/60 focus-within:border-[#7faeff]/60 hover:-translate-y-1 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${large ? "h-[480px] sm:h-[560px]" : "h-[440px] sm:h-[480px]"}`}
       style={{ borderRadius: 24 }}
     >
       {/* Punktraster als Buehne, wie auf den Signal-Lumen-Tafeln */}

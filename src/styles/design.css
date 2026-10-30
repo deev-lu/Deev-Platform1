@@ -1,0 +1,413 @@
+/* ─────────────────────────────────────────────────────────────
+   DEEV design language, since 30 Oct 2026 (the owner's request:
+   "like nvision.lu, in DEEV's colours").
+
+   A charcoal ground lit by slowly drifting orbs of Electric Blue, deep
+   navy and a little Cyan; huge Typold headlines whose highlight words
+   run in a moving blue-to-cyan gradient; gradient pill buttons that
+   glow; dark rounded cards that lift and light up on hover; content that
+   rises in as it scrolls into view and dims as it leaves.
+
+   Never purple or magenta (that is a competitor's colour). The tokens.css
+   bans on shadows, blur and gradients stay for everything else; the
+   classes here opt out of them on purpose, with !important.
+
+   Accessibility and performance rules hold (CLAUDE.md):
+   - every moving thing stops under prefers-reduced-motion, the site's
+     "Pause motion" (html.motion-paused) and Klar Access (data-ka-motion);
+   - loops do not run below 768px, and there is no backdrop-filter there;
+   - text keeps 4.5:1 over the brightest orb glow (measured in tokens.css).
+   ───────────────────────────────────────────────────────────── */
+
+/* ── The lit ground ─────────────────────────────────────────── */
+
+/* The page colour sits on <html>; <body> stays clear, or its box would
+   paint over the orb layer (z-index -1 draws above the root's background
+   but below in-flow boxes). */
+html {
+  background: var(--surface-0) !important;
+}
+body {
+  background: transparent !important;
+}
+
+/* OrbField.tsx: fixed behind the whole page. Each orb is a pre-blurred
+   radial gradient, so there is no filter to paint, only a transform to
+   composite. */
+.orbs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+.orbs__layer {
+  position: absolute;
+  inset: -20vh -10vw;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.orb--a { /* Electric Blue, the big one */
+  width: 62vmax; height: 62vmax; left: 38%; top: -8%;
+  background: radial-gradient(closest-side, rgba(37, 99, 246, 0.30), rgba(37, 99, 246, 0.12) 45%, rgba(37, 99, 246, 0) 100%);
+}
+.orb--b { /* deep navy-blue, low left */
+  width: 54vmax; height: 54vmax; left: -12%; top: 34%;
+  background: radial-gradient(closest-side, rgba(23, 71, 196, 0.42), rgba(23, 71, 196, 0.14) 50%, rgba(23, 71, 196, 0) 100%);
+}
+.orb--c { /* a touch of Cyan, the one point of light */
+  width: 26vmax; height: 26vmax; left: 62%; top: 46%;
+  background: radial-gradient(closest-side, rgba(60, 231, 252, 0.12), rgba(60, 231, 252, 0.04) 55%, rgba(60, 231, 252, 0) 100%);
+}
+.orb--d { /* small bright core, Sky */
+  width: 14vmax; height: 14vmax; left: 30%; top: 22%;
+  background: radial-gradient(closest-side, rgba(67, 151, 248, 0.26), rgba(67, 151, 248, 0) 100%);
+}
+/* A vignette keeps the edges calm and the text over them dark-grounded. */
+.orbs::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+}
+:where(:root:not(.dark)) .orb--a { background: radial-gradient(closest-side, rgba(37, 99, 246, 0.13), rgba(37, 99, 246, 0) 100%); }
+:where(:root:not(.dark)) .orb--b { background: radial-gradient(closest-side, rgba(60, 120, 246, 0.10), rgba(60, 120, 246, 0) 100%); }
+:where(:root:not(.dark)) .orb--c { background: radial-gradient(closest-side, rgba(60, 231, 252, 0.10), rgba(60, 231, 252, 0) 100%); }
+:where(:root:not(.dark)) .orb--d { background: radial-gradient(closest-side, rgba(37, 99, 246, 0.10), rgba(37, 99, 246, 0) 100%); }
+:where(:root:not(.dark)) .orbs::after { display: none; }
+
+@keyframes orb-a { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-14vw, 10vh, 0) scale(1.12); } 100% { transform: translate3d(6vw, 18vh, 0) scale(0.94); } }
+@keyframes orb-b { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(18vw, -12vh, 0) scale(0.9); } 100% { transform: translate3d(8vw, 6vh, 0) scale(1.1); } }
+@keyframes orb-c { 0% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(-22vw, -18vh, 0); } 100% { transform: translate3d(-8vw, 10vh, 0); } }
+@keyframes orb-d { 0% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(26vw, 20vh, 0); } 100% { transform: translate3d(10vw, -6vh, 0); } }
+/* The whole field drifts a little with the page, so each section sits in
+   different light (scroll-driven, no script). */
+@keyframes orbs-scroll { from { transform: translate3d(0, 0, 0) rotate(0deg); } to { transform: translate3d(0, -14vh, 0) rotate(28deg); } }
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .orb--a { animation: orb-a 38s var(--ease-inout) infinite alternate; }
+  .orb--b { animation: orb-b 46s var(--ease-inout) infinite alternate; }
+  .orb--c { animation: orb-c 31s var(--ease-inout) infinite alternate; }
+  .orb--d { animation: orb-d 27s var(--ease-inout) infinite alternate; }
+  @supports (animation-timeline: scroll()) {
+    .orbs__layer {
+      animation: orbs-scroll linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+/* ── Gradient words ─────────────────────────────────────────── */
+/* Highlight words in headlines: Electric Blue running into Cyan, and on
+   from 768px slowly moving. Large type only (3:1 floor); the darkest stop
+   still clears it over the brightest glow. */
+.g-text {
+  background-image: linear-gradient(100deg, #5b8cff 0%, #3ce7fc 45%, #6aa0ff 75%, #5b8cff 100%);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+:where(:root:not(.dark)) .g-text {
+  background-image: linear-gradient(100deg, #1d3fae 0%, #2563f6 45%, #0a6fb0 75%, #1d3fae 100%);
+}
+@keyframes g-shift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .g-text { animation: g-shift 7s linear infinite alternate; }
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+/* The main action: a pill whose blue moves under the cursor, with a glow.
+   White text keeps 5:1 or more on every stop. Older markup that fills a
+   pill with var(--signal) gets the same look without being rewritten. */
+.btn-grad,
+a.rounded-full.bg-\[var\(--signal\)\],
+button.rounded-full.bg-\[var\(--signal\)\],
+a[style*="background: var(--signal)"],
+button[style*="background: var(--signal)"] {
+  background-image: linear-gradient(100deg, #1747c4 0%, #2563f6 50%, #1d3fae 100%) !important;
+  background-size: 200% 100% !important;
+  background-position: 0% 50%;
+  color: #fff;
+  transition: background-position var(--dur-3) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out) !important;
+  box-shadow: 0 10px 32px -12px rgba(37, 99, 246, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+.btn-grad:hover,
+a.rounded-full.bg-\[var\(--signal\)\]:hover,
+button.rounded-full.bg-\[var\(--signal\)\]:hover,
+a[style*="background: var(--signal)"]:hover,
+button[style*="background: var(--signal)"]:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 14px 40px -10px rgba(37, 99, 246, 0.95), 0 0 0 1px rgba(60, 231, 252, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* The secondary action: a hairline pill that fills with the gradient on
+   hover, as the primary one does at rest. */
+.btn-ghost {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--line-strong);
+  color: var(--text-hi);
+  background: transparent;
+  overflow: hidden;
+  transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out) !important;
+}
+.btn-ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, #1747c4, #2563f6);
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+.btn-ghost:hover { border-color: transparent; color: #fff; box-shadow: 0 12px 34px -12px rgba(37, 99, 246, 0.8) !important; }
+.btn-ghost:hover::before { opacity: 1; }
+
+/* ── Glass ─────────────────────────────────────────────────── */
+/* The floating navigation pill and the hero's offer card. Blur from
+   768px only (performance rule 1); below, a solid tint does the work. */
+.glass-pill {
+  background: color-mix(in srgb, var(--surface-1) 86%, transparent) !important;
+  border: 1px solid var(--line) !important;
+}
+@media (min-width: 768px) {
+  .glass-pill {
+    background: color-mix(in srgb, var(--surface-1) 58%, transparent) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+    backdrop-filter: blur(18px) saturate(140%) !important;
+  }
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+/* Dark, rounded, quietly translucent over the orbs. On hover or keyboard
+   focus they lift, glow blue and draw a blue-to-cyan edge along the
+   bottom; their arrow fills. */
+.card-glow {
+  position: relative;
+  background: color-mix(in srgb, var(--surface-1) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-2);
+  transition: transform var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out), border-color var(--dur-2) var(--ease-out) !important;
+}
+.card-glow::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #2563f6, #3ce7fc);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-3) var(--ease-out);
+  pointer-events: none;
+}
+.card-glow:hover,
+.card-glow:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+  box-shadow: 0 30px 70px -34px rgba(37, 99, 246, 0.7) !important;
+}
+.card-glow:hover::after,
+.card-glow:focus-within::after {
+  transform: scaleX(1);
+}
+.card-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--text-hi);
+  transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+}
+.card-glow:hover .card-arrow,
+.card-glow:focus-within .card-arrow {
+  background: linear-gradient(135deg, #2563f6, #1747c4);
+  border-color: transparent;
+  color: #fff;
+  transform: translateX(2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-glow, .card-glow::after, .card-arrow { transition: none !important; }
+  .card-glow:hover, .card-glow:focus-within { transform: none; }
+}
+
+/* A glow behind a group of cards: a soft orb that belongs to the section. */
+.section-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(37, 99, 246, 0.22), rgba(37, 99, 246, 0) 100%);
+}
+:where(:root:not(.dark)) .section-glow {
+  background: radial-gradient(closest-side, rgba(37, 99, 246, 0.10), rgba(37, 99, 246, 0) 100%);
+}
+
+/* ── Section headings ──────────────────────────────────────── */
+/* A thin line runs on from the heading to the right edge of its row. */
+.head-rule {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(20px, 3vw, 48px);
+}
+.head-rule::after {
+  content: "";
+  flex: 1 1 auto;
+  min-width: 40px;
+  height: 1px;
+  margin-bottom: 0.45em;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+}
+
+/* ── Scroll reveal ─────────────────────────────────────────── */
+/* Content rises in as it enters and dims a little as it leaves under the
+   navigation. Scroll-driven, so no script and nothing to measure; where a
+   browser has no scroll timelines, everything is simply there. Never under
+   reduced motion or a pause. */
+@keyframes reveal {
+  0% { opacity: 0; translate: 0 36px; }
+  22% { opacity: 1; translate: none; }
+  84% { opacity: 1; }
+  100% { opacity: 0.25; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main h2:not(.no-reveal),
+    .reveal,
+    .card-glow {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+:is(html.motion-paused, html[data-ka-motion]) :is(main h2, .reveal, .card-glow) {
+  animation: none !important;
+  opacity: 1 !important;
+}
+:is(html.motion-paused, html[data-ka-motion]) :is(.orb, .orbs__layer, .g-text) {
+  animation: none !important;
+}
+
+/* ── "Scroll to explore" ───────────────────────────────────── */
+.scroll-cue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-low);
+}
+.scroll-cue__mouse {
+  width: 22px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line-control);
+  display: grid;
+  justify-items: center;
+  padding-top: 6px;
+}
+.scroll-cue__dot {
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #3ce7fc, #2563f6);
+}
+@keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(10px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .scroll-cue__dot { animation: cue 1.8s var(--ease-out) infinite; }
+}
+
+/* ── Rotating word (hero) ──────────────────────────────────── */
+/* Every word sits in the same grid cell, so the block is as tall as the
+   tallest and nothing below moves. The words roll: the new one rises in
+   from below the line while the old one leaves upwards, clipped to the
+   line, as on nvision. */
+.rotator {
+  display: grid;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.rotator > span {
+  grid-area: 1 / 1;
+  transform: translate3d(0, 105%, 0);
+  opacity: 0;
+  transition: transform 0.8s var(--ease-out), opacity 0.5s var(--ease-out);
+}
+.rotator > span[data-on="true"] {
+  transform: none;
+  opacity: 1;
+}
+.rotator > span[data-out="true"] {
+  transform: translate3d(0, -105%, 0);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotator > span { transition: none; }
+}
+
+/* ── Section ticks (homepage, from 1024px) ─────────────────── */
+@media (min-width: 1024px) {
+  .ticks { display: flex !important; }
+}
+.ticks {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  /* Only from 1024px: on smaller screens there is no gutter to sit in.
+     (Set here, not with utilities: this unlayered rule would beat them.) */
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.ticks a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  height: 24px;
+  min-width: 24px;
+  color: var(--text-hi);
+}
+.ticks a > span[aria-hidden] {
+  display: block;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line-control);
+  transition: width var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+}
+.ticks a[aria-current="true"] > span[aria-hidden] {
+  width: 34px;
+  background: linear-gradient(90deg, #2563f6, #3ce7fc);
+}
+.ticks a > span.ticks__label {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--surface-1) 85%, transparent);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  white-space: nowrap;
+}
+.ticks a:hover > span.ticks__label,
+.ticks a:focus-visible > span.ticks__label {
+  opacity: 1;
+  transform: none;
+}
