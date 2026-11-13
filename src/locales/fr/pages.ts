@@ -251,6 +251,41 @@ export const pages: typeof En = {
 
   /** /about: the team and how we work. Names and roles are facts; the
    *  principles repeat what the rest of the site already promises. */
+  hubPage: {
+    eyebrow: "Business Hub",
+    title: "Le CRM des agents immobiliers. Avec des agents IA qui font le travail de fond.",
+    lead: "Prospects, contacts, biens et relances au même endroit, et des agents IA qui qualifient vos prospects, les rapprochent de vos biens et rédigent les textes. Conçu par DEEV à Luxembourg.",
+    signUp: "Créer votre compte",
+    demo: "Découvrir la démo",
+    signIn: "Se connecter",
+    early: "Accès anticipé : rien n'est facturé, et rien ne le sera sans votre accord.",
+    crmTitle: "Tout ce avec quoi une agence travaille. Rien de superflu.",
+    crm: [
+      { title: "Pipeline", body: "Chaque prospect sur un tableau, de la première demande à l'acte signé. Déplacez-les par glisser-déposer ou depuis un menu ; chaque étape s'inscrit dans l'historique." },
+      { title: "Contacts", body: "Acheteurs, vendeurs, locataires, bailleurs et investisseurs, avec leur langue préférée et leur consentement marketing, daté." },
+      { title: "Biens", body: "Vos biens à vendre et à louer, avec les faits qui comptent et le texte d'annonce en anglais, français et allemand." },
+      { title: "Tâches et historique", body: "Appels, visites, e-mails et notes sur chaque prospect, et les relances du jour, pour que rien ne passe à la trappe." },
+    ],
+    aiTitle: "Des agents IA qui travaillent sur vos propres données.",
+    aiLead: "Chaque agent lit le CRM de votre agence, et rien d'autre. Ils rédigent ; vous vérifiez et décidez. Rien n'est envoyé ni publié sans vous.",
+    ai: [
+      { title: "Analyse du prospect", body: "Note un prospect, le résume, indique ce qui manque encore et la prochaine étape, et rédige la relance dans la langue du client." },
+      { title: "Rapprochement", body: "Classe vos biens disponibles pour un acheteur ou un locataire et explique pourquoi chacun convient, ou non." },
+      { title: "Rédacteur d'annonces", body: "Rédige les annonces en anglais, français et allemand à partir des faits saisis, sans inventer ce qui n'y est pas." },
+      { title: "Copilote", body: "Demandez simplement : qui appeler aujourd'hui, quels appartements conviennent à un client, ce qui est arrivé cette semaine. Il peut aussi créer des rappels et des notes." },
+    ],
+    trustTitle: "Vos données restent les vôtres.",
+    trust: [
+      "Les données de chaque agence sont séparées de celles des autres, au niveau de la base de données elle-même.",
+      "Hébergées dans l'UE. Les agents IA fonctionnent avec Claude, d'Anthropic.",
+      "Exportez tout ce qui concerne un contact, ou supprimez-le, en deux clics.",
+      "Interface en anglais, français et allemand.",
+    ],
+    ctaTitle: "Commencez avec votre propre pipeline.",
+    ctaLead: "Créez un compte et configurez votre agence en une minute, ou parcourez d'abord la démo. Pour une présentation avec votre équipe, parlons-en.",
+    talk: "Nous contacter",
+  },
+
   aboutPage: {
     eyebrow: "À propos",
     title: "Les personnes derrière DEEV. Et notre façon de travailler.",

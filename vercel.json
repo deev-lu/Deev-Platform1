@@ -53,5 +53,20 @@
       "destination": "/:locale/blog/:path*",
       "permanent": true
     }
-  ]
+  ],
+  "rewrites": [
+    {
+      "source": "/hub",
+      "destination": "/hub.html"
+    },
+    {
+      "source": "/hub/:path*",
+      "destination": "/hub.html"
+    }
+  ],
+  "functions": {
+    "api/hub/agent.ts": {
+      "maxDuration": 60
+    }
+  }
 }

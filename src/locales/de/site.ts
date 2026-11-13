@@ -53,6 +53,7 @@ export const site: typeof En = {
     company: "Unternehmen",
     legal: "Rechtliches",
     links: {
+      hub: "Business Hub",
       grant: "SME Packages",
       webApps: "Individualsoftware",
       aiAgents: "KI und Daten",

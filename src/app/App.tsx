@@ -17,6 +17,7 @@ const WorkIndex         = lazy(() => import("./components/WorkIndex"));
 const ServicesIndex     = lazy(() => import("./components/ServicesIndex"));
 const GrantPage         = lazy(() => import("./components/GrantPage"));
 const WorkshopsPage     = lazy(() => import("./components/WorkshopsPage"));
+const BusinessHubPage   = lazy(() => import("./components/BusinessHubPage"));
 const AboutPage         = lazy(() => import("./components/AboutPage"));
 const ServiceDetail     = lazy(() => import("./components/ServiceDetail"));
 const ProjectPage       = lazy(() => import("./components/ProjectPage"));
@@ -251,6 +252,9 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       {/* Workshops und Beratung: der Einstieg in die meisten Projekte, mit
           eigener Adresse fuer Anzeigen, Beitraege und die Suche. */}
       <Route path="workshops" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkshopsPage /></Suspense>)} />
+      {/* Business Hub: das CRM mit KI-Agenten fuer Immobilienmakler. Die App
+          selbst ist /hub (hub.html, eigenes Bundle, Rewrite in vercel.json). */}
+      <Route path="business-hub" element={chrome(<Suspense fallback={<SectionSkeleton />}><BusinessHubPage /></Suspense>)} />
       {/* Wer wir sind: das Team und wie wir arbeiten. */}
       <Route path="about" element={chrome(<Suspense fallback={<SectionSkeleton />}><AboutPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />

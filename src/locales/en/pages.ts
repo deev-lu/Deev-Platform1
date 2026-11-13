@@ -253,6 +253,42 @@ export const pages = {
 
   /** /about: the team and how we work. Names and roles are facts; the
    *  principles repeat what the rest of the site already promises. */
+  /** /business-hub: the public page of the Business Hub (since 13 Nov 2026). */
+  hubPage: {
+    eyebrow: "Business Hub",
+    title: "The CRM for real-estate agents. With AI agents that do the legwork.",
+    lead: "Leads, contacts, listings and follow-ups in one place, and AI agents that qualify your leads, match them with your listings and write the texts. Built by DEEV in Luxembourg.",
+    signUp: "Create your account",
+    demo: "Explore the demo",
+    signIn: "Sign in",
+    early: "Early access: there is no charge, and nothing will be charged without your agreement.",
+    crmTitle: "Everything an agency works with. Nothing it doesn't.",
+    crm: [
+      { title: "Pipeline", body: "Every lead on a board, from first enquiry to signed deal. Move them by drag or from a menu; every move lands on the lead's timeline." },
+      { title: "Contacts", body: "Buyers, sellers, tenants, landlords and investors, with their preferred language and their marketing consent, dated." },
+      { title: "Listings", body: "Your properties for sale and to let, with the facts that matter and the listing text in English, French and German." },
+      { title: "Tasks and timeline", body: "Calls, viewings, emails and notes on each lead, and the follow-ups due today, so nothing slips." },
+    ],
+    aiTitle: "AI agents that work on your own data.",
+    aiLead: "Each agent reads your agency's CRM, and only that. They draft; you check and decide. Nothing is sent or published without you.",
+    ai: [
+      { title: "Lead brief", body: "Scores a lead, sums it up, names what is still missing and the next step, and drafts the follow-up email in the client's language." },
+      { title: "Matching", body: "Ranks your available listings for a buyer or tenant and says why each one fits, or where it doesn't." },
+      { title: "Listing writer", body: "Writes listing texts in English, French and German from the facts you entered, without inventing what isn't there." },
+      { title: "Copilot", body: "Ask in plain words: who to call today, which apartments fit a client, what came in this week. It can also set reminders and notes." },
+    ],
+    trustTitle: "Your data stays yours.",
+    trust: [
+      "Each agency's data is kept apart from every other agency's, enforced in the database itself.",
+      "Stored in the EU. The AI agents run on Claude, by Anthropic.",
+      "Export everything about a contact, or delete it, in two clicks.",
+      "Interface in English, French and German.",
+    ],
+    ctaTitle: "Start with your own pipeline.",
+    ctaLead: "Create an account and set up your agency in a minute, or look around the demo first. For a walkthrough with your team, talk to us.",
+    talk: "Talk to us",
+  },
+
   aboutPage: {
     eyebrow: "About us",
     title: "The people behind DEEV. And how we work.",

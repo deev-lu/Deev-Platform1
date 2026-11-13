@@ -9,7 +9,12 @@ Live: **https://www.deev.lu** (Vercel). Single-page React app.
 - **react-router** — routes: `/`, `/services/*`, `/workshops`, `/about`, `/sme-packages`,
   `/project`, `/work`, `/work/:slug`, `/blog`, `/blog/:slug`, `/contact`,
   `/legal`, each also under `/fr` and `/de`
-- No backend. Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
+- Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
+- **Business Hub** (since 13 Nov 2026): a CRM with AI agents for real-estate
+  agents, sold as DEEV's own product. Its own app and bundle (`hub.html` →
+  `src/hub/`, served at `/hub`), Supabase for accounts and data (one project,
+  Row Level Security per agency), Claude agents in `api/hub/agent.ts`. The
+  public page is `/business-hub`. **Read HUB.md before touching it.**
 
 ## Commands
 ```bash
@@ -309,6 +314,22 @@ itself, so its pills turn dark over a dark panel only.
 
 ## Env vars (set in Vercel, not committed)
 - `RESEND_API_KEY` — server-side, used by `api/lead.ts` to email contact@deev.lu
+- `VITE_HUB_SUPABASE_URL`, `VITE_HUB_SUPABASE_ANON_KEY` — the Business Hub's
+  Supabase project (public values, build time)
+- `ANTHROPIC_API_KEY` — server-side, the Hub's AI agents (never `VITE_`)
+
+## Business Hub rules
+- Built from scratch; **never copy code from the MBM CRM** (another company's
+  product). It does not need to work like it.
+- Every database call from the browser and from `api/hub` runs as the signed-in
+  user under RLS. Never add a service-role key to the functions.
+- A schema change is a new file in `supabase/migrations/`, with checks added to
+  `supabase/tests/rls.test.sql` (`scripts/test-hub-db.sh`).
+- Agents use only CRM facts; prompts say so and the UI labels results as
+  drafts. Keep both.
+- No prices, trial lengths or legal claims about the Hub until the owner gives
+  them; the privacy policy does not cover the Hub yet (HUB.md, going live).
+- The demo's sample data is invented and announced on every screen.
 
 ## The blog (`/blog`)
 

@@ -30,6 +30,7 @@ const NAV = {
   company: [
     { key: "services", href: "/services" },
     { key: "grant", href: "/sme-packages" },
+    { key: "hub", href: "/business-hub" },
     { key: "portfolio", href: "/work" },
     { key: "about", href: "/about" },
     { key: "journal", href: "/blog" },

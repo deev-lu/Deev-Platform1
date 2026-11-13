@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Hub · DEEV</title>
+    <meta name="description" content="DEEV Business Hub: the CRM with AI agents for real-estate agents." />
+    <!-- The app is behind a sign-in: nothing here for a search engine. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#121319" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/typold-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-opsz.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      html { background: #f6f7fb; }
+      html.dark { background: #121319; }
+    </style>
+    <!-- The theme before paint, shared with the website (same storage key). -->
+    <script>
+      (function () {
+        try {
+          document.documentElement.classList.toggle("dark", localStorage.getItem("theme") !== "light");
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Business Hub needs JavaScript.</noscript>
+    <script type="module" src="/src/hub/main.tsx"></script>
+  </body>
+</html>

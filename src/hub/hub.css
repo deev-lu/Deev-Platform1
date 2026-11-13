@@ -1,0 +1,44 @@
+/* The Business Hub: the website's fonts, tokens and Tailwind, without the
+   marketing page's orbs, scroll reveals and motion (design.css, motion.css).
+   An app is read for hours; it stays still and quiet. */
+@import '../styles/fonts.css';
+@import '../styles/tailwind.css';
+@import '../styles/theme.css';
+@import '../styles/tokens.css';
+
+/* States the website does not need. Each keeps 4.5:1 for text on its own
+   tint and on the card surface, in both themes. */
+:root {
+  --danger: #b42318;
+  --danger-dim: rgba(180, 35, 24, 0.10);
+  --good-dim: rgba(31, 122, 77, 0.12);
+  --warn-dim: rgba(149, 89, 10, 0.12);
+}
+.dark {
+  --danger: #ff8f84;
+  --danger-dim: rgba(255, 143, 132, 0.14);
+  --good-dim: rgba(85, 208, 150, 0.14);
+  --warn-dim: rgba(224, 163, 60, 0.14);
+}
+
+html {
+  background: var(--surface-0);
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+body {
+  background: var(--surface-0);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+}
+/* In the base layer, so text-size utilities on a control still win. */
+@layer base {
+  select,
+  input,
+  textarea,
+  button {
+    font: inherit;
+  }
+}

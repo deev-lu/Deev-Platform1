@@ -60,6 +60,7 @@ export const site = {
     company: "Company",
     legal: "Legal",
     links: {
+      hub: "Business Hub",
       grant: "SME Packages",
       webApps: "Custom software",
       aiAgents: "AI and data",

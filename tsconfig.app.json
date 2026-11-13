@@ -25,6 +25,8 @@
     "src/app/components/*.tsx",
     "src/lib/*.ts",
     "src/lib/*.tsx",
-    "src/locales/**/*.ts"
+    "src/locales/**/*.ts",
+    "src/hub/**/*.ts",
+    "src/hub/**/*.tsx"
   ]
 }

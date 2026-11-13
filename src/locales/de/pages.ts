@@ -251,6 +251,41 @@ export const pages: typeof En = {
 
   /** /about: the team and how we work. Names and roles are facts; the
    *  principles repeat what the rest of the site already promises. */
+  hubPage: {
+    eyebrow: "Business Hub",
+    title: "Das CRM für Immobilienmakler. Mit KI-Agenten, die die Fleißarbeit machen.",
+    lead: "Leads, Kontakte, Objekte und Wiedervorlagen an einem Ort, dazu KI-Agenten, die Ihre Leads qualifizieren, passende Objekte finden und die Texte schreiben. Gebaut von DEEV in Luxemburg.",
+    signUp: "Konto anlegen",
+    demo: "Demo ansehen",
+    signIn: "Anmelden",
+    early: "Früher Zugang: Es fallen keine Kosten an, und nichts wird ohne Ihre Zustimmung berechnet.",
+    crmTitle: "Alles, womit eine Agentur arbeitet. Nichts darüber hinaus.",
+    crm: [
+      { title: "Pipeline", body: "Jeder Lead auf einem Board, von der ersten Anfrage bis zum unterschriebenen Vertrag. Verschieben per Ziehen oder Menü; jeder Schritt landet im Verlauf." },
+      { title: "Kontakte", body: "Käufer, Verkäufer, Mieter, Vermieter und Investoren, mit bevorzugter Sprache und datierter Marketing-Einwilligung." },
+      { title: "Objekte", body: "Ihre Objekte zum Kauf und zur Miete, mit den Fakten, die zählen, und dem Exposé-Text auf Englisch, Französisch und Deutsch." },
+      { title: "Aufgaben und Verlauf", body: "Anrufe, Besichtigungen, E-Mails und Notizen zu jedem Lead, dazu die heute fälligen Wiedervorlagen, damit nichts liegen bleibt." },
+    ],
+    aiTitle: "KI-Agenten, die mit Ihren eigenen Daten arbeiten.",
+    aiLead: "Jeder Agent liest das CRM Ihrer Agentur, und nur das. Sie entwerfen; Sie prüfen und entscheiden. Nichts wird ohne Sie gesendet oder veröffentlicht.",
+    ai: [
+      { title: "Lead-Analyse", body: "Bewertet einen Lead, fasst ihn zusammen, nennt, was noch fehlt, und den nächsten Schritt, und entwirft die Nachfass-Mail in der Sprache des Kunden." },
+      { title: "Matching", body: "Ordnet Ihre verfügbaren Objekte für einen Käufer oder Mieter und sagt, warum jedes passt, oder wo nicht." },
+      { title: "Exposé-Texter", body: "Schreibt Exposé-Texte auf Englisch, Französisch und Deutsch aus den erfassten Fakten, ohne zu erfinden, was nicht da ist." },
+      { title: "Copilot", body: "Fragen Sie einfach: wen heute anrufen, welche Wohnungen zu einem Kunden passen, was diese Woche reinkam. Er legt auch Erinnerungen und Notizen an." },
+    ],
+    trustTitle: "Ihre Daten bleiben Ihre.",
+    trust: [
+      "Die Daten jeder Agentur sind von allen anderen getrennt, durchgesetzt in der Datenbank selbst.",
+      "Gespeichert in der EU. Die KI-Agenten laufen mit Claude von Anthropic.",
+      "Alles zu einem Kontakt exportieren oder löschen, mit zwei Klicks.",
+      "Oberfläche auf Englisch, Französisch und Deutsch.",
+    ],
+    ctaTitle: "Starten Sie mit Ihrer eigenen Pipeline.",
+    ctaLead: "Legen Sie ein Konto an und richten Sie Ihre Agentur in einer Minute ein, oder sehen Sie sich zuerst die Demo an. Für eine Vorführung mit Ihrem Team sprechen Sie uns an.",
+    talk: "Mit uns sprechen",
+  },
+
   aboutPage: {
     eyebrow: "Über uns",
     title: "Die Menschen hinter DEEV. Und wie wir arbeiten.",
