@@ -47,11 +47,12 @@ export default function Contacts() {
               <caption className="sr-only">{t.contacts.title}</caption>
               <thead>
                 <tr className="text-[0.75rem] text-[var(--text-low)]">
-                  <th scope="col" className="font-medium pb-2 pr-4">{t.contacts.first}</th>
+                  <th scope="col" className="font-medium pb-2 pr-4">{t.contacts.name}</th>
+                  <th scope="col" className="font-medium pb-2 pr-4 hidden sm:table-cell">{t.contacts.company}</th>
                   <th scope="col" className="font-medium pb-2 pr-4">{t.contacts.kind}</th>
                   <th scope="col" className="font-medium pb-2 pr-4 hidden md:table-cell">{t.contacts.email}</th>
                   <th scope="col" className="font-medium pb-2 pr-4 hidden md:table-cell">{t.contacts.phone}</th>
-                  <th scope="col" className="font-medium pb-2 hidden sm:table-cell">{t.contacts.source}</th>
+                  <th scope="col" className="font-medium pb-2 hidden lg:table-cell">{t.contacts.source}</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,12 +64,16 @@ export default function Contacts() {
                       </Link>
                       <div className="text-[0.75rem] text-[var(--text-low)]">{f.date(c.created_at)}</div>
                     </td>
+                    <td className="py-3 pr-4 hidden sm:table-cell text-[var(--text)]">
+                      {c.company ?? "–"}
+                      {c.job_title && <div className="text-[0.75rem] text-[var(--text-low)]">{c.job_title}</div>}
+                    </td>
                     <td className="py-3 pr-4">
                       <Badge>{t.contacts.kinds[c.kind]}</Badge>
                     </td>
                     <td className="py-3 pr-4 hidden md:table-cell text-[var(--text)] break-all">{c.email ?? "–"}</td>
                     <td className="py-3 pr-4 hidden md:table-cell text-[var(--text)]">{c.phone ?? "–"}</td>
-                    <td className="py-3 hidden sm:table-cell text-[var(--text-mid)]">{c.source ?? "–"}</td>
+                    <td className="py-3 hidden lg:table-cell text-[var(--text-mid)]">{c.source ?? "–"}</td>
                   </tr>
                 ))}
               </tbody>

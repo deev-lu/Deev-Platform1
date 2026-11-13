@@ -1,9 +1,8 @@
 // The Business Hub's AI agents, all on Claude.
 //
-//   copilot     a conversation over the agency's own CRM, with tools (tools.ts)
-//   lead_brief  scores a lead, sums it up, names the next step, drafts a reply
-//   listing     writes listing texts in English, French and German from the facts
-//   matches     ranks the agency's listings for a lead and says why
+//   copilot     a conversation over the company's own CRM, with tools (tools.ts)
+//   deal_brief  scores a deal, sums it up, names the next step, drafts a follow-up
+//   proposal    drafts a proposal from the catalogue, priced from the catalogue only
 //   email       drafts an email to a contact for a stated purpose
 //
 // Facts come from the CRM only. Every prompt tells the model to leave out what
@@ -53,12 +52,12 @@ function refused(m: { stop_reason?: string | null }) {
   if (m.stop_reason === "refusal") throw new HttpError(422, "ai-declined");
 }
 
-const SYSTEM_BASE = `You work inside DEEV Business Hub, a CRM for real-estate agents, most of them in Luxembourg.
+const SYSTEM_BASE = `You work inside DEEV Business Hub, a CRM for small and medium-sized companies, most of them in Luxembourg.
 Rules:
-- Use only facts from the CRM data you are given or that your tools return. If something is not in the data, say it is not recorded; never estimate prices, invent features, names, dates or figures.
-- Amounts are in EUR, surfaces in m², unless the data says otherwise.
-- Be brief and practical: an agent reads you between two viewings.
-- Personal data stays inside this agency: do not repeat more of it than the task needs.`;
+- Use only facts from the CRM data you are given or that your tools return. If something is not in the data, say it is not recorded; never invent prices, names, dates, figures or promises.
+- Amounts are in EUR excluding VAT, unless the data says otherwise.
+- Be brief and practical: the person reads you between two meetings.
+- Personal data stays inside this company: do not repeat more of it than the task needs.`;
 
 // ── Copilot ─────────────────────────────────────────────────
 
@@ -82,7 +81,7 @@ export async function runCopilot(s: HubSession, ws: { id: string; name: string }
     role: t.role,
     content:
       i === turns.length - 1
-        ? `[Context: today is ${today}; agency "${ws.name}"; reply in ${LANG_NAME[input.data.lang]} unless I write in another language.]\n\n${t.content}`
+        ? `[Context: today is ${today}; company "${ws.name}"; reply in ${LANG_NAME[input.data.lang]} unless I write in another language.]\n\n${t.content}`
         : t.content,
   }));
 
@@ -93,7 +92,7 @@ export async function runCopilot(s: HubSession, ws: { id: string; name: string }
     output_config: { effort: "medium" },
     cache_control: { type: "ephemeral" },
     system: `${SYSTEM_BASE}
-You are the agency's copilot. Look things up with your tools before you answer; don't ask the person for data you can find yourself. When you mention a lead, contact or property, give its name or title. Create tasks or notes only when asked to, or after the person agrees. Format with short paragraphs or brief lists; no tables.`,
+You are the company's CRM copilot. Look things up with your tools before you answer; don't ask the person for data you can find yourself. When you mention a deal, contact or product, give its name. Create tasks or notes only when asked to, or after the person agrees. Format with short paragraphs or brief lists; no tables.`,
     tools: crmTools(s, ws.id, actions),
     messages,
     ...FALLBACK,
@@ -129,52 +128,48 @@ async function structured<T extends z.ZodType>(
   return { value: msg.parsed_output as z.infer<T>, usage: usageOf(msg), model: msg.model };
 }
 
-async function loadLead(s: HubSession, workspaceId: string, leadId: unknown) {
-  if (!isUuid(leadId)) throw new HttpError(400, "bad-input");
-  const { data: lead } = await s.db
-    .from("leads")
-    .select("*, stage:pipeline_stages(name, kind), contact:contacts(*), property:properties(id, title, price, city)")
+async function loadDeal(s: HubSession, workspaceId: string, dealId: unknown) {
+  if (!isUuid(dealId)) throw new HttpError(400, "bad-input");
+  const { data: deal } = await s.db
+    .from("deals")
+    .select("*, stage:pipeline_stages(name, kind), contact:contacts(*)")
     .eq("workspace_id", workspaceId)
-    .eq("id", leadId)
+    .eq("id", dealId)
     .maybeSingle();
-  if (!lead) throw new HttpError(404, "not-found");
+  if (!deal) throw new HttpError(404, "not-found");
   const [{ data: timeline }, { data: tasks }] = await Promise.all([
-    s.db.from("activities").select("kind, body, created_at").eq("lead_id", leadId).order("created_at", { ascending: false }).limit(30),
-    s.db.from("tasks").select("title, due_at, done").eq("lead_id", leadId).order("created_at", { ascending: false }).limit(20),
+    s.db.from("activities").select("kind, body, created_at").eq("deal_id", dealId).order("created_at", { ascending: false }).limit(30),
+    s.db.from("tasks").select("title, due_at, done").eq("deal_id", dealId).order("created_at", { ascending: false }).limit(20),
   ]);
-  return { lead: lead as any, timeline: timeline ?? [], tasks: tasks ?? [] };
+  return { deal: deal as any, timeline: timeline ?? [], tasks: tasks ?? [] };
 }
 
 /** The record as the model sees it: no internal ids it does not need. */
-function leadFacts(l: any, timeline: unknown[], tasks: unknown[]) {
-  const c = l.contact ?? {};
+function dealFacts(d: any, timeline: unknown[], tasks: unknown[]) {
+  const c = d.contact ?? {};
   return JSON.stringify(
     {
       contact: {
         name: [c.first_name, c.last_name].filter(Boolean).join(" "),
+        company: c.company,
+        job_title: c.job_title,
         kind: c.kind,
         language: c.language,
         source: c.source,
         has_email: Boolean(c.email),
         has_phone: Boolean(c.phone),
-        marketing_consent: c.marketing_consent,
         notes: c.notes,
       },
-      lead: {
-        intent: l.intent,
-        stage: l.stage?.name,
-        budget_min: l.budget_min,
-        budget_max: l.budget_max,
-        locations: l.locations,
-        property_kinds: l.property_kinds,
-        min_bedrooms: l.min_bedrooms,
-        min_surface_m2: l.min_surface_m2,
-        timeline: l.timeline,
-        source: l.source,
-        notes: l.notes,
-        linked_property: l.property ? { title: l.property.title, price: l.property.price, city: l.property.city } : null,
-        created_at: l.created_at,
-        last_activity_at: l.last_activity_at,
+      deal: {
+        title: d.title,
+        stage: d.stage?.name,
+        value_eur: d.value,
+        expected_close: d.expected_close,
+        needs: d.needs,
+        source: d.source,
+        notes: d.notes,
+        created_at: d.created_at,
+        last_activity_at: d.last_activity_at,
       },
       timeline,
       tasks,
@@ -185,35 +180,35 @@ function leadFacts(l: any, timeline: unknown[], tasks: unknown[]) {
   );
 }
 
-// Lead brief
+// Deal brief
 
-export const LeadBrief = z.object({
-  score: z.number().int().min(0).max(100).describe("How likely this lead is to transact soon, 0-100"),
+export const DealBrief = z.object({
+  score: z.number().int().min(0).max(100).describe("How likely this deal is to close soon, 0-100"),
   score_reason: z.string().describe("One sentence: why this score"),
-  summary: z.string().describe("Three to five sentences on who this is and what they want"),
-  missing_info: z.array(z.string()).describe("What the agent should still find out, most important first; empty if nothing"),
+  summary: z.string().describe("Three to five sentences on who this is, what they need and where it stands"),
+  missing_info: z.array(z.string()).describe("What the team should still find out, most important first; empty if nothing"),
   next_step: z.string().describe("The single most useful next action, concrete"),
   email: z.object({ subject: z.string(), body: z.string() }).describe("A follow-up email to the contact, ready to edit"),
 });
 
-export async function runLeadBrief(s: HubSession, ws: { id: string }, raw: any, lang: Lang): Promise<AgentResult> {
-  const { lead, timeline, tasks } = await loadLead(s, ws.id, raw?.lead_id);
-  const mailLang = LANG_NAME[lead.contact?.language] ?? LANG_NAME[lang];
+export async function runDealBrief(s: HubSession, ws: { id: string }, raw: any, lang: Lang): Promise<AgentResult> {
+  const { deal, timeline, tasks } = await loadDeal(s, ws.id, raw?.deal_id);
+  const mailLang = LANG_NAME[deal.contact?.language] ?? LANG_NAME[lang];
   const r = await structured(
-    LeadBrief,
-    `You qualify real-estate leads. Score on what is recorded: budget stated and realistic for the wanted area, clear criteria, timeline, recent two-way contact, financing mentioned. A lead with little data scores low and says what is missing. Write score_reason, summary, missing_info and next_step in ${LANG_NAME[lang]}. Write the email in ${mailLang}, polite and short, signed with a placeholder "[Your name]"; it must not promise anything the data does not support.`,
-    `Lead record:\n${leadFacts(lead, timeline, tasks)}`,
+    DealBrief,
+    `You qualify sales opportunities. Score on what is recorded: a clear need, a decision maker involved, a value and a timeline, recent two-way contact, budget or approval mentioned. A deal with little data scores low and says what is missing. Write score_reason, summary, missing_info and next_step in ${LANG_NAME[lang]}. Write the email in ${mailLang}, polite and short, signed with a placeholder "[Your name]"; it must not promise anything the data does not support.`,
+    `Deal record:\n${dealFacts(deal, timeline, tasks)}`,
     "medium",
   );
-  // Keep the score and summary on the lead, with their date, and say so on the timeline.
+  // Keep the score and summary on the deal, with their date, and say so on the timeline.
   await s.db
-    .from("leads")
+    .from("deals")
     .update({ score: r.value.score, ai_summary: r.value.summary, ai_updated_at: new Date().toISOString() })
-    .eq("id", lead.id)
+    .eq("id", deal.id)
     .eq("workspace_id", ws.id);
   await s.db.from("activities").insert({
     workspace_id: ws.id,
-    lead_id: lead.id,
+    deal_id: deal.id,
     kind: "ai",
     body: `${r.value.score}/100 · ${r.value.next_step}`,
     created_by: s.userId,
@@ -221,125 +216,99 @@ export async function runLeadBrief(s: HubSession, ws: { id: string }, raw: any, 
   return { data: r.value, usage: r.usage, model: r.model };
 }
 
-// Listing writer
+// Proposal
 
-export const ListingTexts = z.object({
-  headline: z.string().describe("A short listing headline in the first requested language"),
-  texts: z.object({
-    en: z.string().optional(),
-    fr: z.string().optional(),
-    de: z.string().optional(),
-  }),
-});
-
-export async function runListing(s: HubSession, ws: { id: string }, raw: any, lang: Lang): Promise<AgentResult> {
-  if (!isUuid(raw?.property_id)) throw new HttpError(400, "bad-input");
-  const langs = (Array.isArray(raw?.languages) ? raw.languages : ["en", "fr", "de"]).filter((l: string) =>
-    ["en", "fr", "de"].includes(l),
-  ) as Lang[];
-  if (!langs.length) throw new HttpError(400, "bad-input");
-  const tone = ["neutral", "warm", "premium"].includes(raw?.tone) ? raw.tone : "neutral";
-  const { data: p } = await s.db
-    .from("properties")
-    .select("title, kind, deal, status, price, surface_m2, rooms, bedrooms, bathrooms, postcode, city, country, energy_class, features, description")
-    .eq("workspace_id", ws.id)
-    .eq("id", raw.property_id)
-    .maybeSingle();
-  if (!p) throw new HttpError(404, "not-found");
-  const notes = typeof raw?.notes === "string" ? raw.notes.slice(0, 2000) : "";
-  const r = await structured(
-    ListingTexts,
-    `You write property listings for Luxembourg portals and agency websites. Write one text per requested language (${langs.map((l) => LANG_NAME[l]).join(", ")}), each a native text, not a translation: 120-200 words, ${tone} tone, short paragraphs, no emojis, no exclamation marks. Mention only facts given. Do not name the street or house number. Do not describe views, light, condition, neighbourhood or transport unless the facts or notes say so. Leave out the languages that were not requested. Headline in ${LANG_NAME[langs[0]]}.`,
-    `Facts:\n${JSON.stringify(p, null, 1)}\n\nAgent's notes (facts too, if any):\n${notes || "none"}`,
-    "low",
-  );
-  // Returned for review; the person saves it on the listing.
-  const texts = Object.fromEntries(langs.map((l) => [l, r.value.texts[l] ?? ""]));
-  return { data: { headline: r.value.headline, texts }, usage: r.usage, model: r.model };
+export interface CatalogItem {
+  id: string;
+  name: string;
+  description: string | null;
+  unit_price: number | null;
+  unit: string;
 }
 
-// Matching
+export const ProposalDraft = z.object({
+  subject: z.string().describe("Subject line of the proposal email"),
+  intro: z.string().describe("Opening paragraphs: the customer's need in their terms and how we meet it"),
+  lines: z
+    .array(
+      z.object({
+        catalog_id: z.string().describe("The id of a catalogue item; never anything else"),
+        quantity: z.number().positive().describe("How many units; 1 if the record does not say"),
+        why: z.string().describe("One short sentence: why this item, from the customer's need"),
+      }),
+    )
+    .describe("The catalogue items that answer the need; empty if none does"),
+  closing: z.string().describe("Next steps and a polite close, signed [Your name]"),
+  open_questions: z.array(z.string()).describe("What must be clarified with the customer before sending"),
+});
 
-export interface Candidate {
-  id: string;
-  title: string;
-  kind: string;
-  deal: string;
-  status: string;
-  price: number | null;
-  surface_m2: number | null;
-  bedrooms: number | null;
-  city: string | null;
-  postcode: string | null;
-  energy_class: string | null;
-  features: string[] | null;
+export interface ProposalLine {
+  catalog_id: string;
+  name: string;
+  unit: string;
+  quantity: number;
+  unit_price: number | null;
+  total: number | null;
+  why: string;
 }
 
 /**
- * The shortlist before the model sees anything: rules a person would apply,
- * so the model ranks real candidates and cannot propose a listing that is not
- * for sale, out of budget or of the wrong kind.
+ * The priced lines: names and prices come from the catalogue, never from the
+ * model. Unknown ids are dropped, quantities kept sensible, and the total is
+ * null as soon as one line has no price (it is shown as "to be priced").
  */
-export function prefilter(lead: any, props: Candidate[], max = 12): (Candidate & { rule_score: number })[] {
-  const deal = lead.intent === "rent" ? "rent" : lead.intent === "buy" || lead.intent === "invest" ? "sale" : null;
-  if (!deal) return [];
-  const locs: string[] = (lead.locations ?? []).map((l: string) => l.toLowerCase().trim()).filter(Boolean);
-  const kinds: string[] = lead.property_kinds ?? [];
-  const out: (Candidate & { rule_score: number })[] = [];
-  for (const p of props) {
-    if (p.status !== "available" || p.deal !== deal) continue;
-    if (kinds.length && !kinds.includes(p.kind)) continue;
-    const price = p.price == null ? null : Number(p.price);
-    if (price != null && lead.budget_max != null && price > Number(lead.budget_max) * 1.1) continue;
-    if (price != null && lead.budget_min != null && price < Number(lead.budget_min) * 0.7) continue;
-    if (lead.min_bedrooms != null && p.bedrooms != null && p.bedrooms < lead.min_bedrooms) continue;
-    if (lead.min_surface_m2 != null && p.surface_m2 != null && Number(p.surface_m2) < Number(lead.min_surface_m2) * 0.9) continue;
-
-    let score = 50;
-    const place = `${p.city ?? ""} ${p.postcode ?? ""}`.toLowerCase();
-    if (locs.length) score += locs.some((l) => place.includes(l)) ? 30 : -15;
-    if (price != null && lead.budget_max != null) score += price <= Number(lead.budget_max) ? 15 : 0;
-    if (price == null) score -= 10;
-    out.push({ ...p, rule_score: Math.max(0, Math.min(100, score)) });
+export function priceLines(
+  chosen: { catalog_id: string; quantity: number; why: string }[],
+  catalog: CatalogItem[],
+): { lines: ProposalLine[]; total: number | null } {
+  const byId = new Map(catalog.map((c) => [c.id, c]));
+  const lines: ProposalLine[] = [];
+  for (const c of chosen) {
+    const item = byId.get(c.catalog_id);
+    if (!item || lines.some((l) => l.catalog_id === item.id)) continue;
+    // Quarter steps (hours and days are often split), at least 0.25, at most 10,000;
+    // anything that is not a positive number counts as 1.
+    const q = Number(c.quantity);
+    const quantity = Number.isFinite(q) && q > 0 ? Math.min(10_000, Math.max(0.25, Math.round(q * 4) / 4)) : 1;
+    const unit_price = item.unit_price == null ? null : Number(item.unit_price);
+    lines.push({
+      catalog_id: item.id,
+      name: item.name,
+      unit: item.unit,
+      quantity,
+      unit_price,
+      total: unit_price == null ? null : Math.round(unit_price * quantity * 100) / 100,
+      why: c.why,
+    });
   }
-  return out.sort((a, b) => b.rule_score - a.rule_score).slice(0, max);
+  const total = lines.length && lines.every((l) => l.total != null) ? lines.reduce((sum, l) => sum + (l.total as number), 0) : null;
+  return { lines, total: total == null ? null : Math.round(total * 100) / 100 };
 }
 
-export const MatchList = z.object({
-  matches: z.array(
-    z.object({
-      property_id: z.string(),
-      fit: z.number().int().min(0).max(100),
-      reasons: z.array(z.string()).describe("Why it fits, from the data"),
-      concerns: z.array(z.string()).describe("What does not fit or is unknown"),
-    }),
-  ),
-});
-
-export async function runMatches(s: HubSession, ws: { id: string }, raw: any, lang: Lang): Promise<AgentResult> {
-  const { lead, timeline, tasks } = await loadLead(s, ws.id, raw?.lead_id);
-  const { data: props } = await s.db
-    .from("properties")
-    .select("id, title, kind, deal, status, price, surface_m2, bedrooms, city, postcode, energy_class, features")
+export async function runProposal(s: HubSession, ws: { id: string }, raw: any, lang: Lang): Promise<AgentResult> {
+  const { deal, timeline, tasks } = await loadDeal(s, ws.id, raw?.deal_id);
+  const { data: catalog } = await s.db
+    .from("catalog_items")
+    .select("id, name, description, unit_price, unit")
     .eq("workspace_id", ws.id)
-    .eq("status", "available")
-    .limit(500);
-  const shortlist = prefilter(lead, (props ?? []) as Candidate[]);
-  if (!shortlist.length) {
-    return { data: { matches: [], note: "no-candidates" }, usage: { input: 0, output: 0 }, model: "rules" };
-  }
+    .eq("active", true)
+    .order("name")
+    .limit(200);
+  const items = (catalog ?? []) as CatalogItem[];
+  const writeIn = LANG_NAME[raw?.language] ?? LANG_NAME[deal.contact?.language] ?? LANG_NAME[lang];
+  const extra = typeof raw?.notes === "string" ? raw.notes.slice(0, 2000) : "";
   const r = await structured(
-    MatchList,
-    `You match buyers and tenants with listings. Rank at most 5 of the candidates given, best first; leave out any that do not really fit. property_id must be one of the candidates' ids. Write reasons and concerns in ${LANG_NAME[lang]}, a few words each.`,
-    `Lead:\n${leadFacts(lead, timeline, tasks)}\n\nCandidates:\n${JSON.stringify(shortlist, null, 1)}`,
+    ProposalDraft,
+    `You draft commercial proposals for a small company. Choose only items from the catalogue given, by id; do not name or price anything else. Do not state prices in the text: the priced lines are added separately. If the catalogue has nothing that fits, return no lines and say so in open_questions. Write subject, intro, closing, the "why" lines and open_questions in ${writeIn}. No legal terms, discounts or deadlines unless the data states them.`,
+    `Deal:\n${dealFacts(deal, timeline, tasks)}\n\nCatalogue:\n${JSON.stringify(items, null, 1)}\n\nExtra instructions from the team:\n${extra || "none"}`,
     "medium",
   );
-  const known = new Map(shortlist.map((c) => [c.id, c]));
-  const matches = r.value.matches
-    .filter((m) => known.has(m.property_id))
-    .slice(0, 5)
-    .map((m) => ({ ...m, property: known.get(m.property_id) }));
-  return { data: { matches }, usage: r.usage, model: r.model };
+  const priced = priceLines(r.value.lines, items);
+  return {
+    data: { subject: r.value.subject, intro: r.value.intro, closing: r.value.closing, open_questions: r.value.open_questions, ...priced },
+    usage: r.usage,
+    model: r.model,
+  };
 }
 
 // Email
@@ -351,14 +320,14 @@ export async function runEmail(s: HubSession, ws: { id: string }, raw: any, lang
   if (!purpose) throw new HttpError(400, "bad-input");
   let facts = "";
   let contactLang: string | undefined;
-  if (raw?.lead_id) {
-    const { lead, timeline, tasks } = await loadLead(s, ws.id, raw.lead_id);
-    facts = leadFacts(lead, timeline.slice(0, 10), tasks);
-    contactLang = lead.contact?.language;
+  if (raw?.deal_id) {
+    const { deal, timeline, tasks } = await loadDeal(s, ws.id, raw.deal_id);
+    facts = dealFacts(deal, timeline.slice(0, 10), tasks);
+    contactLang = deal.contact?.language;
   } else if (isUuid(raw?.contact_id)) {
     const { data: c } = await s.db
       .from("contacts")
-      .select("first_name, last_name, kind, language, notes")
+      .select("first_name, last_name, company, job_title, kind, language, notes")
       .eq("workspace_id", ws.id)
       .eq("id", raw.contact_id)
       .maybeSingle();
@@ -371,7 +340,7 @@ export async function runEmail(s: HubSession, ws: { id: string }, raw: any, lang
   const writeIn = LANG_NAME[raw?.language] ?? LANG_NAME[contactLang ?? ""] ?? LANG_NAME[lang];
   const r = await structured(
     EmailDraft,
-    `You draft emails from a real-estate agent to a client. Write in ${writeIn}: polite, short, plain text, signed "[Your name]". Use only the facts given; leave a [bracketed placeholder] where a fact is needed but missing (a date, a price, an address).`,
+    `You draft business emails to a client or partner. Write in ${writeIn}: polite, short, plain text, signed "[Your name]". Use only the facts given; leave a [bracketed placeholder] where a fact is needed but missing (a date, a price, a name).`,
     `Purpose of the email: ${purpose}\n\nWhat the CRM knows:\n${facts}`,
     "low",
   );

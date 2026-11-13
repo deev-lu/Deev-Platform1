@@ -14,7 +14,7 @@ export interface AgentReply<T> {
 
 export async function callAgent<T>(
   token: string | null,
-  body: { agent: "copilot" | "lead_brief" | "listing" | "matches" | "email"; workspace_id: string; lang: HubLang } & Record<string, unknown>,
+  body: { agent: "copilot" | "deal_brief" | "proposal" | "email"; workspace_id: string; lang: HubLang } & Record<string, unknown>,
 ): Promise<AgentReply<T>> {
   if (!token) return { ok: false, error: "sign-in-required" };
   try {

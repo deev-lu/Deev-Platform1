@@ -3,15 +3,15 @@
 // Body: { agent, workspace_id, lang?, ...agent input } with the user's Supabase
 // access token as `Authorization: Bearer`. The order of checks is the point:
 // signed in → member of the workspace → calls left today → run → count it.
-// Nothing reaches Claude for a visitor, a stranger to the agency, or an
-// agency over its daily limit.
+// Nothing reaches Claude for a visitor, a stranger to the company, or a
+// company over its daily limit.
 
 import Anthropic from "@anthropic-ai/sdk";
 import { HttpError, callsLeft, recordRun, sessionFrom, workspaceFor } from "../_hub/db.js";
-import { runCopilot, runEmail, runLeadBrief, runListing, runMatches, type AgentResult, type Lang } from "../_hub/agents.js";
+import { runCopilot, runDealBrief, runEmail, runProposal, type AgentResult, type Lang } from "../_hub/agents.js";
 
 const MAX_BODY = 64_000;
-const AGENTS = ["copilot", "lead_brief", "listing", "matches", "email"] as const;
+const AGENTS = ["copilot", "deal_brief", "proposal", "email"] as const;
 type AgentName = (typeof AGENTS)[number];
 
 const json = (status: number, body: unknown) =>
@@ -48,30 +48,25 @@ export async function POST(req: Request): Promise<Response> {
       case "copilot":
         result = await runCopilot(session, ws, { messages: body.messages, lang });
         break;
-      case "lead_brief":
-        result = await runLeadBrief(session, ws, body, lang);
+      case "deal_brief":
+        result = await runDealBrief(session, ws, body, lang);
         break;
-      case "listing":
-        result = await runListing(session, ws, body, lang);
-        break;
-      case "matches":
-        result = await runMatches(session, ws, body, lang);
+      case "proposal":
+        result = await runProposal(session, ws, body, lang);
         break;
       case "email":
         result = await runEmail(session, ws, body, lang);
         break;
     }
-    if (result.model !== "rules") {
-      await recordRun(session, {
-        workspaceId: ws.id,
-        agent,
-        model: result.model,
-        input: result.usage.input,
-        output: result.usage.output,
-        ok: true,
-      });
-    }
-    return json(200, { ok: true, data: result.data, calls_left: Math.max(0, left - (result.model === "rules" ? 0 : 1)) });
+    await recordRun(session, {
+      workspaceId: ws.id,
+      agent,
+      model: result.model,
+      input: result.usage.input,
+      output: result.usage.output,
+      ok: true,
+    });
+    return json(200, { ok: true, data: result.data, calls_left: Math.max(0, left - 1) });
   } catch (err) {
     if (err instanceof HttpError) return json(err.status, { ok: false, error: err.code });
     // A failed call still counts against the day: retries cost real money.

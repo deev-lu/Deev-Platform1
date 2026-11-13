@@ -8,11 +8,10 @@ import Welcome from "./pages/Welcome";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Pipeline = lazy(() => import("./pages/Pipeline"));
-const LeadPage = lazy(() => import("./pages/Lead"));
+const DealPage = lazy(() => import("./pages/Deal"));
 const Contacts = lazy(() => import("./pages/Contacts"));
 const ContactPage = lazy(() => import("./pages/Contact"));
-const Properties = lazy(() => import("./pages/Properties"));
-const PropertyPage = lazy(() => import("./pages/Property"));
+const Catalog = lazy(() => import("./pages/Catalog"));
 const Tasks = lazy(() => import("./pages/Tasks"));
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Settings = lazy(() => import("./pages/Settings"));
@@ -25,9 +24,9 @@ function Title() {
     const key = (
       [
         ["/pipeline", t.nav.pipeline],
-        ["/leads", t.lead.title],
+        ["/deals", t.deal.title],
         ["/contacts", t.nav.contacts],
-        ["/properties", t.nav.properties],
+        ["/catalog", t.nav.catalog],
         ["/tasks", t.nav.tasks],
         ["/copilot", t.nav.copilot],
         ["/settings", t.nav.settings],
@@ -92,11 +91,10 @@ export default function HubApp() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/pipeline" element={<Pipeline />} />
-          <Route path="/leads/:id" element={<LeadPage />} />
+          <Route path="/deals/:id" element={<DealPage />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contacts/:id" element={<ContactPage />} />
-          <Route path="/properties" element={<Properties />} />
-          <Route path="/properties/:id" element={<PropertyPage />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/settings" element={<Settings />} />

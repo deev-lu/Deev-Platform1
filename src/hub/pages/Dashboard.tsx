@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useHub, useWs } from "../session";
 import { Badge, Button, Card, Empty, LoadError, Loading, PageHeader, fullName, useFmt, useLoad } from "../ui";
-import { LeadDialog } from "../forms";
+import { DealDialog } from "../forms";
 import { TaskList, scoreTone } from "../widgets";
 
 export default function Dashboard() {
@@ -13,34 +13,39 @@ export default function Dashboard() {
   const [adding, setAdding] = useState(false);
 
   const { data, error, loading, reload } = useLoad(async () => {
-    const [stages, leads, properties, tasks, usage, members] = await Promise.all([
+    const [stages, deals, tasks, usage, members] = await Promise.all([
       repo.stages(ws.id),
-      repo.leads(ws.id),
-      repo.properties(ws.id),
+      repo.deals(ws.id),
       repo.tasks(ws.id, { open: true }),
       repo.aiUsage(ws.id).catch(() => null),
       repo.members(ws.id).catch(() => []),
     ]);
-    return { stages, leads, properties, tasks, usage, members };
+    return { stages, deals, tasks, usage, members };
   }, [ws.id, repo]);
 
   if (loading && !data) return <Loading />;
   if (error || !data) return <LoadError retry={reload} />;
 
-  const openStages = new Set(data.stages.filter((s) => s.kind === "open").map((s) => s.id));
-  const open = data.leads.filter((l) => !l.stage_id || openStages.has(l.stage_id));
-  const weekAgo = Date.now() - 7 * 86_400_000;
+  const kindOf = (id: string | null) => data.stages.find((s) => s.id === id)?.kind ?? "open";
+  const open = data.deals.filter((d) => kindOf(d.stage_id) === "open");
+  const monthStart = new Date();
+  monthStart.setDate(1);
+  monthStart.setHours(0, 0, 0, 0);
+  // "Won this month" by the last change on the deal: the move to Won is the
+  // last thing that happens to most won deals.
+  const wonThisMonth = data.deals.filter((d) => kindOf(d.stage_id) === "won" && new Date(d.last_activity_at) >= monthStart);
   const endOfToday = new Date();
   endOfToday.setHours(23, 59, 59, 999);
   const due = data.tasks.filter((x) => x.due_at && new Date(x.due_at) <= endOfToday);
   const me = data.members.find((m) => m.user_id === user?.id);
   const stageName = (id: string | null) => data.stages.find((s) => s.id === id)?.name ?? "–";
+  const sum = (xs: { value: number | null }[]) => xs.reduce((n, d) => n + (Number(d.value) || 0), 0);
 
   const stats = [
-    [t.dash.openLeads, open.length],
-    [t.dash.newThisWeek, data.leads.filter((l) => new Date(l.created_at).getTime() >= weekAgo).length],
-    [t.dash.listings, data.properties.filter((p) => p.status === "available").length],
-    [t.dash.dueToday, due.length],
+    [t.dash.openDeals, String(open.length)],
+    [t.dash.pipelineValue, f.money(sum(open))],
+    [t.dash.won, f.money(sum(wonThisMonth))],
+    [t.dash.dueToday, String(due.length)],
   ] as const;
 
   return (
@@ -52,7 +57,7 @@ export default function Dashboard() {
           <>
             <Button onClick={() => navigate("/copilot")}>✦ {t.dash.askCopilot}</Button>
             <Button variant="primary" onClick={() => setAdding(true)}>
-              + {t.pipeline.newLead}
+              + {t.pipeline.newDeal}
             </Button>
           </>
         }
@@ -60,34 +65,35 @@ export default function Dashboard() {
 
       <dl className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 m-0 mb-6">
         {stats.map(([label, value]) => (
-          <div key={label} className="flex flex-col rounded-[var(--radius-2)] border border-[var(--line)] bg-[var(--surface-1)] p-4 sm:p-5">
+          <div key={label} className="flex flex-col rounded-[var(--radius-2)] border border-[var(--line)] bg-[var(--surface-1)] p-4 sm:p-5 min-w-0">
             <dt className="order-2 mt-1 text-[0.8125rem] text-[var(--text-mid)]">{label}</dt>
-            <dd className="m-0 font-brand text-[2rem] leading-none text-[var(--text-hi)] tabular-nums">{value}</dd>
+            <dd className="m-0 font-brand text-[clamp(1.375rem,1rem+1.2vw,2rem)] leading-none text-[var(--text-hi)] tabular-nums truncate">{value}</dd>
           </div>
         ))}
       </dl>
 
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-4 sm:gap-6">
         <Card title={t.dash.recent} actions={<Link to="/pipeline" className="text-[0.875rem] text-[var(--signal-text)] underline underline-offset-2">{t.nav.pipeline}</Link>}>
-          {data.leads.length ? (
+          {data.deals.length ? (
             <ul className="m-0 p-0 list-none divide-y divide-[var(--line)]">
-              {data.leads.slice(0, 8).map((l) => (
-                <li key={l.id} className="flex items-center gap-3 py-3">
+              {data.deals.slice(0, 8).map((d) => (
+                <li key={d.id} className="flex items-center gap-3 py-3">
                   <div className="flex-1 min-w-0">
-                    <Link to={`/leads/${l.id}`} className="font-medium text-[var(--text-hi)] underline-offset-2 hover:underline">
-                      {fullName(l.contact)}
+                    <Link to={`/deals/${d.id}`} className="font-medium text-[var(--text-hi)] underline-offset-2 hover:underline">
+                      {d.title}
                     </Link>
                     <p className="m-0 text-[0.8125rem] text-[var(--text-mid)] truncate">
-                      {t.lead.intents[l.intent]} · {l.budget_max ? f.money(l.budget_max) : "–"} · {l.locations.join(", ") || "–"}
+                      {fullName(d.contact)}
+                      {d.contact?.company ? ` · ${d.contact.company}` : ""} · {d.value != null ? f.money(d.value) : "–"}
                     </p>
                   </div>
-                  <Badge>{stageName(l.stage_id)}</Badge>
-                  {l.score != null && <Badge tone={scoreTone(l.score)}>{l.score}</Badge>}
+                  <Badge>{stageName(d.stage_id)}</Badge>
+                  {d.score != null && <Badge tone={scoreTone(d.score)}>{d.score}</Badge>}
                 </li>
               ))}
             </ul>
           ) : (
-            <Empty action={<Button variant="primary" onClick={() => setAdding(true)}>{t.dash.addFirst}</Button>}>{t.dash.noLeads}</Empty>
+            <Empty action={<Button variant="primary" onClick={() => setAdding(true)}>{t.dash.addFirst}</Button>}>{t.dash.noDeals}</Empty>
           )}
         </Card>
 
@@ -106,7 +112,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <LeadDialog open={adding} stages={data.stages} onClose={() => setAdding(false)} onSaved={(id) => navigate(`/leads/${id}`)} />
+      <DealDialog open={adding} stages={data.stages} onClose={() => setAdding(false)} onSaved={(id) => navigate(`/deals/${id}`)} />
     </>
   );
 }

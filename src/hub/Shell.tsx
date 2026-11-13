@@ -9,7 +9,7 @@ const NAV = [
   ["/", "dashboard", "◧"],
   ["/pipeline", "pipeline", "▥"],
   ["/contacts", "contacts", "◉"],
-  ["/properties", "properties", "⌂"],
+  ["/catalog", "catalog", "▤"],
   ["/tasks", "tasks", "✓"],
   ["/copilot", "copilot", "✦"],
   ["/settings", "settings", "⚙"],

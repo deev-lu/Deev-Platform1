@@ -1,15 +1,15 @@
 -- ============================================================
--- DEEV Business Hub: the CRM for real-estate agents
+-- DEEV Business Hub: the CRM with AI agents for SMEs
 --
--- One Supabase project, many agencies. Every row of business data belongs to
--- a workspace (an agency), and Row Level Security lets a signed-in user reach
+-- One Supabase project, many companies. Every row of business data belongs to
+-- a workspace (a company), and Row Level Security lets a signed-in user reach
 -- only the workspaces they are a member of. The browser talks to the database
 -- directly with the user's own session; the AI functions in api/hub use the
 -- same session, so the agents can never see more than the user can.
 --
--- Cross-references (a lead's contact, a task's property ...) are composite
+-- Cross-references (a deal's contact, a task's deal ...) are composite
 -- foreign keys on (id, workspace_id): a row can only point at rows of its own
--- agency, whatever a client sends.
+-- company, whatever a client sends.
 --
 -- Apply with the Supabase CLI (`supabase db push`) or paste into the SQL
 -- editor of a fresh project. Written for Postgres 15+ (Supabase runs 17).
@@ -20,11 +20,11 @@
 create table public.workspaces (
   id             uuid primary key default gen_random_uuid(),
   name           text not null check (char_length(btrim(name)) between 1 and 120),
-  -- What the agency is on. Early access while there is no billing; the
+  -- What the company is on. Early access while there is no billing; the
   -- values exist so a paid plan can be added without a migration of meaning.
   plan           text not null default 'early_access'
                  check (plan in ('early_access', 'active', 'paused')),
-  -- AI calls per day for the whole agency (api/hub counts them in ai_runs).
+  -- AI calls per day for the whole company (api/hub counts them in ai_runs).
   ai_daily_limit integer not null default 150 check (ai_daily_limit between 0 and 100000),
   locale         text not null default 'en' check (locale in ('en', 'fr', 'de')),
   created_by     uuid not null references auth.users (id) on delete restrict,
@@ -34,7 +34,7 @@ create table public.workspaces (
 create table public.members (
   workspace_id uuid not null references public.workspaces (id) on delete cascade,
   user_id      uuid not null references auth.users (id) on delete cascade,
-  role         text not null default 'agent' check (role in ('owner', 'admin', 'agent')),
+  role         text not null default 'member' check (role in ('owner', 'admin', 'member')),
   full_name    text check (char_length(full_name) <= 120),
   email        text,
   created_at   timestamptz not null default now(),
@@ -79,12 +79,14 @@ create table public.contacts (
   workspace_id      uuid not null references public.workspaces (id) on delete cascade,
   first_name        text not null check (char_length(btrim(first_name)) between 1 and 80),
   last_name         text check (char_length(last_name) <= 80),
+  company           text check (char_length(company) <= 120),
+  job_title         text check (char_length(job_title) <= 80),
   email             text check (char_length(email) <= 254),
   phone             text check (char_length(phone) <= 40),
   -- Preferred language for messages to this person.
   language          text check (language in ('en', 'fr', 'de', 'lb', 'pt', 'it', 'nl')),
-  kind              text not null default 'buyer'
-                    check (kind in ('buyer', 'seller', 'tenant', 'landlord', 'investor', 'other')),
+  kind              text not null default 'lead'
+                    check (kind in ('lead', 'customer', 'partner', 'supplier', 'other')),
   source            text check (char_length(source) <= 80),
   notes             text check (char_length(notes) <= 5000),
   -- GDPR: whether this person agreed to marketing messages, and when.
@@ -98,74 +100,52 @@ create table public.contacts (
 create index contacts_ws_idx on public.contacts (workspace_id, created_at desc);
 create index contacts_email_idx on public.contacts (workspace_id, lower(email));
 
-create table public.properties (
-  id               uuid primary key default gen_random_uuid(),
-  workspace_id     uuid not null references public.workspaces (id) on delete cascade,
-  reference        text check (char_length(reference) <= 40),
-  title            text not null check (char_length(btrim(title)) between 1 and 160),
-  kind             text not null default 'apartment'
-                   check (kind in ('apartment', 'house', 'land', 'commercial', 'office', 'parking', 'other')),
-  deal             text not null default 'sale' check (deal in ('sale', 'rent')),
-  status           text not null default 'available'
-                   check (status in ('draft', 'available', 'under_offer', 'sold', 'rented', 'withdrawn')),
-  price            numeric(14, 2) check (price >= 0),
-  surface_m2       numeric(10, 2) check (surface_m2 >= 0),
-  rooms            smallint check (rooms between 0 and 100),
-  bedrooms         smallint check (bedrooms between 0 and 50),
-  bathrooms        smallint check (bathrooms between 0 and 50),
-  address          text check (char_length(address) <= 200),
-  postcode         text check (char_length(postcode) <= 12),
-  city             text check (char_length(city) <= 80),
-  country          text not null default 'LU' check (char_length(country) = 2),
-  energy_class     text check (energy_class in ('A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')),
-  features         text[] not null default '{}',
-  -- Listing texts by language: {"en": "...", "fr": "...", "de": "..."}.
-  description      jsonb not null default '{}'::jsonb check (jsonb_typeof(description) = 'object'),
-  owner_contact_id uuid,
-  created_at       timestamptz not null default now(),
-  updated_at       timestamptz not null default now(),
-  unique (id, workspace_id),
-  foreign key (owner_contact_id, workspace_id)
-    references public.contacts (id, workspace_id) on delete set null (owner_contact_id)
+-- What the company sells: the proposal writer prices only from here.
+create table public.catalog_items (
+  id           uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces (id) on delete cascade,
+  name         text not null check (char_length(btrim(name)) between 1 and 160),
+  description  text check (char_length(description) <= 2000),
+  unit_price   numeric(14, 2) check (unit_price >= 0),
+  unit         text not null default 'item'
+               check (unit in ('item', 'hour', 'day', 'month', 'year', 'project')),
+  active       boolean not null default true,
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now(),
+  unique (id, workspace_id)
 );
-create index properties_ws_idx on public.properties (workspace_id, status, created_at desc);
+create index catalog_items_ws_idx on public.catalog_items (workspace_id, active, name);
 
-create table public.leads (
+create table public.deals (
   id               uuid primary key default gen_random_uuid(),
   workspace_id     uuid not null references public.workspaces (id) on delete cascade,
+  title            text not null check (char_length(btrim(title)) between 1 and 160),
   contact_id       uuid not null,
   stage_id         uuid,
-  intent           text not null default 'buy' check (intent in ('buy', 'rent', 'sell', 'let', 'invest')),
-  budget_min       numeric(14, 2) check (budget_min >= 0),
-  budget_max       numeric(14, 2) check (budget_max >= 0),
-  locations        text[] not null default '{}',
-  property_kinds   text[] not null default '{}',
-  min_bedrooms     smallint check (min_bedrooms between 0 and 50),
-  min_surface_m2   numeric(10, 2) check (min_surface_m2 >= 0),
-  timeline         text check (char_length(timeline) <= 80),
+  -- Expected value in EUR, excluding VAT.
+  value            numeric(14, 2) check (value >= 0),
+  expected_close   date,
+  -- What the customer needs, in their words: the proposal writer starts here.
+  needs            text check (char_length(needs) <= 5000),
   source           text check (char_length(source) <= 80),
   notes            text check (char_length(notes) <= 5000),
-  -- Written by the lead assistant (api/hub), shown with its date; a person
+  -- Written by the deal brief agent (api/hub), shown with its date; a person
   -- can overwrite either.
   score            smallint check (score between 0 and 100),
   ai_summary       text check (char_length(ai_summary) <= 4000),
   ai_updated_at    timestamptz,
-  property_id      uuid,
   assigned_to      uuid references auth.users (id) on delete set null,
   last_activity_at timestamptz not null default now(),
   created_at       timestamptz not null default now(),
   updated_at       timestamptz not null default now(),
   unique (id, workspace_id),
-  check (budget_min is null or budget_max is null or budget_min <= budget_max),
   foreign key (contact_id, workspace_id)
     references public.contacts (id, workspace_id) on delete cascade,
   foreign key (stage_id, workspace_id)
-    references public.pipeline_stages (id, workspace_id) on delete set null (stage_id),
-  foreign key (property_id, workspace_id)
-    references public.properties (id, workspace_id) on delete set null (property_id)
+    references public.pipeline_stages (id, workspace_id) on delete set null (stage_id)
 );
-create index leads_ws_stage_idx on public.leads (workspace_id, stage_id, last_activity_at desc);
-create index leads_contact_idx on public.leads (contact_id);
+create index deals_ws_stage_idx on public.deals (workspace_id, stage_id, last_activity_at desc);
+create index deals_contact_idx on public.deals (contact_id);
 
 create table public.tasks (
   id           uuid primary key default gen_random_uuid(),
@@ -174,51 +154,45 @@ create table public.tasks (
   due_at       timestamptz,
   done         boolean not null default false,
   done_at      timestamptz,
-  lead_id      uuid,
+  deal_id      uuid,
   contact_id   uuid,
-  property_id  uuid,
   assigned_to  uuid references auth.users (id) on delete set null,
   created_by   uuid references auth.users (id) on delete set null default auth.uid(),
   created_at   timestamptz not null default now(),
-  foreign key (lead_id, workspace_id)
-    references public.leads (id, workspace_id) on delete cascade,
+  foreign key (deal_id, workspace_id)
+    references public.deals (id, workspace_id) on delete cascade,
   foreign key (contact_id, workspace_id)
-    references public.contacts (id, workspace_id) on delete cascade,
-  foreign key (property_id, workspace_id)
-    references public.properties (id, workspace_id) on delete cascade
+    references public.contacts (id, workspace_id) on delete cascade
 );
 create index tasks_ws_due_idx on public.tasks (workspace_id, done, due_at);
 
--- The timeline: notes, calls, emails, viewings, and what an AI agent did.
+-- The timeline: notes, calls, emails, meetings, and what an AI agent did.
 create table public.activities (
   id           uuid primary key default gen_random_uuid(),
   workspace_id uuid not null references public.workspaces (id) on delete cascade,
   kind         text not null default 'note'
-               check (kind in ('note', 'call', 'email', 'meeting', 'viewing', 'ai', 'stage')),
+               check (kind in ('note', 'call', 'email', 'meeting', 'ai', 'stage')),
   body         text not null check (char_length(body) between 1 and 10000),
-  lead_id      uuid,
+  deal_id      uuid,
   contact_id   uuid,
-  property_id  uuid,
   created_by   uuid references auth.users (id) on delete set null default auth.uid(),
   created_at   timestamptz not null default now(),
-  foreign key (lead_id, workspace_id)
-    references public.leads (id, workspace_id) on delete cascade,
+  foreign key (deal_id, workspace_id)
+    references public.deals (id, workspace_id) on delete cascade,
   foreign key (contact_id, workspace_id)
-    references public.contacts (id, workspace_id) on delete cascade,
-  foreign key (property_id, workspace_id)
-    references public.properties (id, workspace_id) on delete cascade
+    references public.contacts (id, workspace_id) on delete cascade
 );
-create index activities_lead_idx on public.activities (lead_id, created_at desc);
+create index activities_deal_idx on public.activities (deal_id, created_at desc);
 create index activities_contact_idx on public.activities (contact_id, created_at desc);
 create index activities_ws_idx on public.activities (workspace_id, created_at desc);
 
--- One row per call to Claude, for the daily limit and for the agency to see
+-- One row per call to Claude, for the daily limit and for the company to see
 -- what the agents cost it. No prompt or reply text is kept here.
 create table public.ai_runs (
   id            uuid primary key default gen_random_uuid(),
   workspace_id  uuid not null references public.workspaces (id) on delete cascade,
   user_id       uuid not null references auth.users (id) on delete cascade default auth.uid(),
-  agent         text not null check (agent in ('copilot', 'lead_brief', 'listing', 'matches', 'email')),
+  agent         text not null check (agent in ('copilot', 'deal_brief', 'proposal', 'email')),
   model         text,
   input_tokens  integer not null default 0,
   output_tokens integer not null default 0,
@@ -238,22 +212,22 @@ end $$;
 
 create trigger contacts_touch before update on public.contacts
   for each row execute function public.touch_updated_at();
-create trigger properties_touch before update on public.properties
+create trigger catalog_items_touch before update on public.catalog_items
   for each row execute function public.touch_updated_at();
-create trigger leads_touch before update on public.leads
+create trigger deals_touch before update on public.deals
   for each row execute function public.touch_updated_at();
 
--- A new activity on a lead moves it up the "recently active" order.
-create function public.bump_lead_activity()
+-- A new activity on a deal moves it up the "recently active" order.
+create function public.bump_deal_activity()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
-  if new.lead_id is not null then
-    update public.leads set last_activity_at = new.created_at where id = new.lead_id;
+  if new.deal_id is not null then
+    update public.deals set last_activity_at = new.created_at where id = new.deal_id;
   end if;
   return new;
 end $$;
 create trigger activities_bump after insert on public.activities
-  for each row execute function public.bump_lead_activity();
+  for each row execute function public.bump_deal_activity();
 
 create function public.stamp_task_done()
 returns trigger language plpgsql as $$
@@ -271,8 +245,8 @@ alter table public.workspaces      enable row level security;
 alter table public.members         enable row level security;
 alter table public.pipeline_stages enable row level security;
 alter table public.contacts        enable row level security;
-alter table public.properties      enable row level security;
-alter table public.leads           enable row level security;
+alter table public.catalog_items   enable row level security;
+alter table public.deals           enable row level security;
 alter table public.tasks           enable row level security;
 alter table public.activities      enable row level security;
 alter table public.ai_runs         enable row level security;
@@ -337,18 +311,18 @@ create policy "admins update stages" on public.pipeline_stages
 create policy "admins delete stages" on public.pipeline_stages
   for delete to authenticated using (public.is_admin(workspace_id));
 
--- The CRM tables: every member of the agency works with all of them.
+-- The CRM tables: every member of the company works with all of them.
 do $$
 declare t text;
 begin
-  foreach t in array array['contacts', 'properties', 'leads', 'tasks', 'activities'] loop
+  foreach t in array array['contacts', 'catalog_items', 'deals', 'tasks', 'activities'] loop
     execute format(
       'create policy "members work with %1$s" on public.%1$I for all to authenticated
          using (public.is_member(workspace_id)) with check (public.is_member(workspace_id))', t);
   end loop;
 end $$;
 
--- AI runs: members read the agency's usage and record their own calls.
+-- AI runs: members read the company's usage and record their own calls.
 create policy "members read ai usage" on public.ai_runs
   for select to authenticated using (public.is_member(workspace_id));
 create policy "members record their ai calls" on public.ai_runs
@@ -356,7 +330,7 @@ create policy "members record their ai calls" on public.ai_runs
 
 -- ── Functions the app calls ─────────────────────────────────
 
--- Sign-up step two: the new agency, its owner, and a starting pipeline in the
+-- Sign-up step two: the new company, its owner, and a starting pipeline in the
 -- chosen language.
 create function public.create_workspace(ws_name text, ws_locale text default 'en', owner_name text default null)
 returns uuid
@@ -371,8 +345,8 @@ begin
   if uid is null then
     raise exception 'Sign in first' using errcode = '42501';
   end if;
-  -- One person, a handful of agencies: enough for a consultant who works for
-  -- two, low enough that a script cannot fill the database.
+  -- One person, a handful of companies: enough for someone who runs two,
+  -- low enough that a script cannot fill the database.
   if (select count(*) from public.members where user_id = uid) >= 5 then
     raise exception 'Workspace limit reached' using errcode = '54000';
   end if;
@@ -385,9 +359,9 @@ begin
   select ws, uid, 'owner', nullif(btrim(owner_name), ''), u.email from auth.users u where u.id = uid;
 
   names := case lang
-    when 'fr' then array['Nouveau', 'Contacté', 'Visite', 'Offre', 'Gagné', 'Perdu']
-    when 'de' then array['Neu', 'Kontaktiert', 'Besichtigung', 'Angebot', 'Gewonnen', 'Verloren']
-    else array['New', 'Contacted', 'Viewing', 'Offer', 'Won', 'Lost']
+    when 'fr' then array['Nouveau', 'Contacté', 'Proposition', 'Négociation', 'Gagné', 'Perdu']
+    when 'de' then array['Neu', 'Kontaktiert', 'Angebot', 'Verhandlung', 'Gewonnen', 'Verloren']
+    else array['New', 'Contacted', 'Proposal', 'Negotiation', 'Won', 'Lost']
   end;
   insert into public.pipeline_stages (workspace_id, name, position, kind)
   select ws, names[i], i,
@@ -398,7 +372,7 @@ begin
 end $$;
 
 -- Add a colleague who already has a Hub account, by email.
-create function public.add_member(ws uuid, member_email text, member_role text default 'agent')
+create function public.add_member(ws uuid, member_email text, member_role text default 'member')
 returns void
 language plpgsql security definer set search_path = public
 as $$
@@ -409,8 +383,8 @@ begin
   if not public.is_admin(ws) then
     raise exception 'Only an owner or admin can add members' using errcode = '42501';
   end if;
-  if member_role not in ('admin', 'agent') then
-    raise exception 'Role must be admin or agent' using errcode = '22023';
+  if member_role not in ('admin', 'member') then
+    raise exception 'Role must be admin or member' using errcode = '22023';
   end if;
   select id, email into target, target_email from auth.users where lower(email) = lower(btrim(member_email)) limit 1;
   if target is null then
@@ -421,7 +395,7 @@ begin
   on conflict (workspace_id, user_id) do nothing;
 end $$;
 
--- How many AI calls the agency has left today (UTC day).
+-- How many AI calls the company has left today (UTC day).
 create function public.ai_calls_left(ws uuid)
 returns integer
 language sql stable security definer set search_path = public

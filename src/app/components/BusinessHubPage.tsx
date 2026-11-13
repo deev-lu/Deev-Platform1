@@ -7,8 +7,8 @@ import shotLight from "../../assets/hub/hub-pipeline-light.webp";
 
 /**
  * /business-hub - die oeffentliche Seite des Business Hub (seit dem
- * 13.11.2026): das CRM mit KI-Agenten fuer Immobilienmakler, die erste
- * Zielgruppe. Die App selbst liegt unter /hub (hub.html, eigenes Bundle);
+ * 13.11.2026): das CRM mit KI-Agenten fuer KMU. Eine reine
+ * Immobilien-Ausgabe folgt spaeter mit einem Partner. Die App selbst liegt unter /hub (hub.html, eigenes Bundle);
  * deshalb fuehren die Knoepfe mit <a> dorthin, nicht ueber den Router der
  * Website.
  *

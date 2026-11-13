@@ -10,7 +10,7 @@ export default function Settings() {
   const admin = ws.role === "owner" || ws.role === "admin";
   const [name, setName] = useState(ws.name);
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState<"agent" | "admin">("agent");
+  const [role, setRole] = useState<"member" | "admin">("member");
   const [msg, setMsg] = useState<{ text: string; bad: boolean } | null>(null);
   const [teamMsg, setTeamMsg] = useState<{ text: string; bad: boolean } | null>(null);
 
@@ -119,7 +119,7 @@ export default function Settings() {
                                 setTeamMsg({ text: why(x), bad: true });
                               }
                             }}
-                            options={(["owner", "admin", "agent"] as const).map((r) => ({ value: r, label: t.settings.roles[r] }))}
+                            options={(["owner", "admin", "member"] as const).map((r) => ({ value: r, label: t.settings.roles[r] }))}
                           />
                         </div>
                         <Button
@@ -157,8 +157,8 @@ export default function Settings() {
                   <Select
                     label={t.settings.role}
                     value={role}
-                    onChange={(e) => setRole(e.target.value as "agent" | "admin")}
-                    options={(["agent", "admin"] as const).map((r) => ({ value: r, label: t.settings.roles[r] }))}
+                    onChange={(e) => setRole(e.target.value as "member" | "admin")}
+                    options={(["member", "admin"] as const).map((r) => ({ value: r, label: t.settings.roles[r] }))}
                   />
                 </div>
                 <Button type="submit" variant="primary" disabled={!email.trim()}>

@@ -10,8 +10,9 @@ Live: **https://www.deev.lu** (Vercel). Single-page React app.
   `/project`, `/work`, `/work/:slug`, `/blog`, `/blog/:slug`, `/contact`,
   `/legal`, each also under `/fr` and `/de`
 - Lead emails go through a Vercel Edge Function (`api/lead.ts`) → Resend.
-- **Business Hub** (since 13 Nov 2026): a CRM with AI agents for real-estate
-  agents, sold as DEEV's own product. Its own app and bundle (`hub.html` →
+- **Business Hub** (since 13 Nov 2026): a CRM with AI agents for SMEs, sold as
+  DEEV's own product (a real-estate edition comes later, separately, with a
+  partner). Its own app and bundle (`hub.html` →
   `src/hub/`, served at `/hub`), Supabase for accounts and data (one project,
   Row Level Security per agency), Claude agents in `api/hub/agent.ts`. The
   public page is `/business-hub`. **Read HUB.md before touching it.**
@@ -321,6 +322,10 @@ itself, so its pills turn dark over a dark panel only.
 ## Business Hub rules
 - Built from scratch; **never copy code from the MBM CRM** (another company's
   product). It does not need to work like it.
+- General for SMEs: no industry-specific fields (the real-estate edition is
+  its own system, later).
+- Proposals are priced from the catalogue only (`priceLines()`); never let a
+  model's figure reach a proposal.
 - Every database call from the browser and from `api/hub` runs as the signed-in
   user under RLS. Never add a service-role key to the functions.
 - A schema change is a new file in `supabase/migrations/`, with checks added to

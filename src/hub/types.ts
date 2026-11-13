@@ -2,7 +2,7 @@
 // database (supabase/migrations/20261113000000_business_hub.sql).
 
 export type HubLang = "en" | "fr" | "de";
-export type Role = "owner" | "admin" | "agent";
+export type Role = "owner" | "admin" | "member";
 
 export interface Workspace {
   id: string;
@@ -27,7 +27,7 @@ export interface Stage {
   kind: "open" | "won" | "lost";
 }
 
-export const CONTACT_KINDS = ["buyer", "seller", "tenant", "landlord", "investor", "other"] as const;
+export const CONTACT_KINDS = ["lead", "customer", "partner", "supplier", "other"] as const;
 export type ContactKind = (typeof CONTACT_KINDS)[number];
 export const CONTACT_LANGS = ["en", "fr", "de", "lb", "pt", "it", "nl"] as const;
 
@@ -35,6 +35,8 @@ export interface Contact {
   id: string;
   first_name: string;
   last_name: string | null;
+  company: string | null;
+  job_title: string | null;
   email: string | null;
   phone: string | null;
   language: string | null;
@@ -46,55 +48,34 @@ export interface Contact {
   created_at: string;
 }
 
-export const PROPERTY_KINDS = ["apartment", "house", "land", "commercial", "office", "parking", "other"] as const;
-export const PROPERTY_STATUSES = ["draft", "available", "under_offer", "sold", "rented", "withdrawn"] as const;
-export const ENERGY_CLASSES = ["A+", "A", "B", "C", "D", "E", "F", "G", "H", "I"] as const;
+export const UNITS = ["item", "hour", "day", "month", "year", "project"] as const;
 
-export interface Property {
+export interface CatalogItem {
   id: string;
-  reference: string | null;
-  title: string;
-  kind: (typeof PROPERTY_KINDS)[number];
-  deal: "sale" | "rent";
-  status: (typeof PROPERTY_STATUSES)[number];
-  price: number | null;
-  surface_m2: number | null;
-  rooms: number | null;
-  bedrooms: number | null;
-  bathrooms: number | null;
-  address: string | null;
-  postcode: string | null;
-  city: string | null;
-  country: string;
-  energy_class: string | null;
-  features: string[];
-  description: Partial<Record<HubLang, string>>;
+  name: string;
+  description: string | null;
+  unit_price: number | null;
+  unit: (typeof UNITS)[number];
+  active: boolean;
   created_at: string;
 }
 
-export const INTENTS = ["buy", "rent", "sell", "let", "invest"] as const;
-
-export interface Lead {
+export interface Deal {
   id: string;
+  title: string;
   contact_id: string;
   stage_id: string | null;
-  intent: (typeof INTENTS)[number];
-  budget_min: number | null;
-  budget_max: number | null;
-  locations: string[];
-  property_kinds: string[];
-  min_bedrooms: number | null;
-  min_surface_m2: number | null;
-  timeline: string | null;
+  value: number | null;
+  expected_close: string | null;
+  needs: string | null;
   source: string | null;
   notes: string | null;
   score: number | null;
   ai_summary: string | null;
   ai_updated_at: string | null;
-  property_id: string | null;
   last_activity_at: string;
   created_at: string;
-  contact?: Pick<Contact, "id" | "first_name" | "last_name" | "email" | "phone" | "language" | "kind">;
+  contact?: Pick<Contact, "id" | "first_name" | "last_name" | "company" | "email" | "phone" | "language" | "kind">;
 }
 
 export interface Task {
@@ -102,19 +83,17 @@ export interface Task {
   title: string;
   due_at: string | null;
   done: boolean;
-  lead_id: string | null;
+  deal_id: string | null;
   contact_id: string | null;
-  property_id: string | null;
   created_at: string;
 }
 
 export interface Activity {
   id: string;
-  kind: "note" | "call" | "email" | "meeting" | "viewing" | "ai" | "stage";
+  kind: "note" | "call" | "email" | "meeting" | "ai" | "stage";
   body: string;
-  lead_id: string | null;
+  deal_id: string | null;
   contact_id: string | null;
-  property_id: string | null;
   created_at: string;
 }
 
@@ -124,7 +103,7 @@ export interface AiUsage {
   today: number;
 }
 
-export type Links = { lead_id?: string | null; contact_id?: string | null; property_id?: string | null };
+export type Links = { deal_id?: string | null; contact_id?: string | null };
 
 /** Everything the screens need from storage. Two implementations: Supabase and the demo. */
 export interface Repo {
@@ -133,26 +112,25 @@ export interface Repo {
   createWorkspace(name: string, locale: HubLang, ownerName: string): Promise<string>;
   renameWorkspace(ws: string, name: string): Promise<void>;
   members(ws: string): Promise<Member[]>;
-  addMember(ws: string, email: string, role: "admin" | "agent"): Promise<void>;
+  addMember(ws: string, email: string, role: "admin" | "member"): Promise<void>;
   updateMemberRole(ws: string, userId: string, role: Role): Promise<void>;
   removeMember(ws: string, userId: string): Promise<void>;
 
   stages(ws: string): Promise<Stage[]>;
-  leads(ws: string): Promise<Lead[]>;
-  lead(ws: string, id: string): Promise<Lead | null>;
-  saveLead(ws: string, lead: Partial<Lead>): Promise<string>;
-  deleteLead(ws: string, id: string): Promise<void>;
+  deals(ws: string): Promise<Deal[]>;
+  deal(ws: string, id: string): Promise<Deal | null>;
+  saveDeal(ws: string, deal: Partial<Deal>): Promise<string>;
+  deleteDeal(ws: string, id: string): Promise<void>;
 
   contacts(ws: string, q?: string): Promise<Contact[]>;
   contact(ws: string, id: string): Promise<Contact | null>;
   saveContact(ws: string, c: Partial<Contact>): Promise<string>;
   deleteContact(ws: string, id: string): Promise<void>;
-  leadsOfContact(ws: string, contactId: string): Promise<Lead[]>;
+  dealsOfContact(ws: string, contactId: string): Promise<Deal[]>;
 
-  properties(ws: string): Promise<Property[]>;
-  property(ws: string, id: string): Promise<Property | null>;
-  saveProperty(ws: string, p: Partial<Property>): Promise<string>;
-  deleteProperty(ws: string, id: string): Promise<void>;
+  catalog(ws: string): Promise<CatalogItem[]>;
+  saveCatalogItem(ws: string, item: Partial<CatalogItem>): Promise<string>;
+  deleteCatalogItem(ws: string, id: string): Promise<void>;
 
   tasks(ws: string, opts?: { open?: boolean } & Links): Promise<Task[]>;
   saveTask(ws: string, t: Partial<Task>): Promise<string>;

@@ -36,21 +36,16 @@ export function TaskList({ tasks, onChange, showLinks = false }: { tasks: Task[]
               />
               <div className="flex-1 min-w-0">
                 <p className={`m-0 text-[0.9375rem] ${task.done ? "line-through text-[var(--text-low)]" : "text-[var(--text-hi)]"}`}>{task.title}</p>
-                {showLinks && (task.lead_id || task.property_id || task.contact_id) && (
+                {showLinks && (task.deal_id || task.contact_id) && (
                   <p className="m-0 mt-0.5 text-[0.75rem]">
-                    {task.lead_id && (
-                      <Link to={`/leads/${task.lead_id}`} className="text-[var(--signal-text)] underline underline-offset-2">
-                        {t.lead.title}
-                      </Link>
-                    )}
-                    {task.property_id && (
-                      <Link to={`/properties/${task.property_id}`} className="ml-2 text-[var(--signal-text)] underline underline-offset-2">
-                        {t.nav.properties}
+                    {task.deal_id && (
+                      <Link to={`/deals/${task.deal_id}`} className="text-[var(--signal-text)] underline underline-offset-2">
+                        {t.deal.title}
                       </Link>
                     )}
                     {task.contact_id && (
                       <Link to={`/contacts/${task.contact_id}`} className="ml-2 text-[var(--signal-text)] underline underline-offset-2">
-                        {t.lead.contact}
+                        {t.deal.contact}
                       </Link>
                     )}
                   </p>
@@ -95,17 +90,17 @@ export function Timeline({ items, links, onChange }: { items: Activity[]; links:
       <form onSubmit={submit} className="flex flex-col gap-3" noValidate>
         <div className="grid sm:grid-cols-[180px_1fr] gap-3">
           <Select
-            label={t.lead.log}
+            label={t.deal.log}
             value={kind}
             onChange={(e) => setKind(e.target.value as Activity["kind"])}
-            options={(["note", "call", "email", "meeting", "viewing"] as const).map((k) => ({ value: k, label: t.lead.logKinds[k] }))}
+            options={(["note", "call", "email", "meeting"] as const).map((k) => ({ value: k, label: t.deal.logKinds[k] }))}
           />
-          <TextArea label={t.lead.logPh} rows={2} maxLength={10000} value={body} onChange={(e) => setBody(e.target.value)} />
+          <TextArea label={t.deal.logPh} rows={2} maxLength={10000} value={body} onChange={(e) => setBody(e.target.value)} />
         </div>
         <div className="flex items-center justify-end gap-3">
           <Status message={err} tone="bad" />
           <Button type="submit" variant="primary" size="sm" disabled={busy || !body.trim()}>
-            {t.lead.addLog}
+            {t.deal.addLog}
           </Button>
         </div>
       </form>
@@ -113,7 +108,7 @@ export function Timeline({ items, links, onChange }: { items: Activity[]; links:
         <ol className="m-0 p-0 list-none flex flex-col gap-4">
           {items.map((a) => (
             <li key={a.id} className="grid grid-cols-[auto_1fr] gap-3">
-              <Badge tone={a.kind === "ai" ? "signal" : "neutral"}>{t.lead.logKinds[a.kind]}</Badge>
+              <Badge tone={a.kind === "ai" ? "signal" : "neutral"}>{t.deal.logKinds[a.kind]}</Badge>
               <div className="min-w-0">
                 <p className="m-0 text-[0.9375rem] text-[var(--text-hi)] whitespace-pre-wrap break-words">{a.body}</p>
                 <p className="m-0 mt-0.5 text-[0.75rem] text-[var(--text-low)]">
@@ -124,7 +119,7 @@ export function Timeline({ items, links, onChange }: { items: Activity[]; links:
           ))}
         </ol>
       ) : (
-        <Empty>{t.lead.noTimeline}</Empty>
+        <Empty>{t.deal.noTimeline}</Empty>
       )}
     </div>
   );

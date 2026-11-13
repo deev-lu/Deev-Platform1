@@ -1,56 +1,51 @@
 import { describe, expect, it } from "vitest";
-import { prefilter, type Candidate } from "../_hub/agents";
+import { priceLines, type CatalogItem } from "../_hub/agents";
 import { ilikeTerm } from "../_hub/tools";
 import { POST } from "../hub/agent";
 
-const prop = (over: Partial<Candidate>): Candidate => ({
-  id: crypto.randomUUID(),
-  title: "Apartment",
-  kind: "apartment",
-  deal: "sale",
-  status: "available",
-  price: 600000,
-  surface_m2: 80,
-  bedrooms: 2,
-  city: "Strassen",
-  postcode: "8010",
-  energy_class: "B",
-  features: [],
-  ...over,
-});
+const catalog: CatalogItem[] = [
+  { id: "a", name: "Consulting", description: null, unit_price: 120, unit: "hour" },
+  { id: "b", name: "Website", description: null, unit_price: 4800, unit: "project" },
+  { id: "c", name: "Custom work", description: null, unit_price: null, unit: "item" },
+];
 
-describe("prefilter (matching shortlist)", () => {
-  const lead = { intent: "buy", budget_min: 450000, budget_max: 650000, locations: ["Strassen"], property_kinds: ["apartment"], min_bedrooms: 2 };
-
-  it("keeps only available listings of the right deal, kind, budget and size", () => {
-    const keep = prop({ title: "keep" });
-    const list = [
-      keep,
-      prop({ title: "sold", status: "sold" }),
-      prop({ title: "rent", deal: "rent" }),
-      prop({ title: "house", kind: "house" }),
-      prop({ title: "too dear", price: 800000 }),
-      prop({ title: "too cheap", price: 200000 }),
-      prop({ title: "one bed", bedrooms: 1 }),
-    ];
-    expect(prefilter(lead, list).map((p) => p.title)).toEqual(["keep"]);
+describe("priceLines (proposal)", () => {
+  it("prices from the catalogue only and totals the lines", () => {
+    const r = priceLines(
+      [
+        { catalog_id: "a", quantity: 10, why: "workshop" },
+        { catalog_id: "b", quantity: 1, why: "relaunch" },
+      ],
+      catalog,
+    );
+    expect(r.lines.map((l) => [l.name, l.unit_price, l.total])).toEqual([
+      ["Consulting", 120, 1200],
+      ["Website", 4800, 4800],
+    ]);
+    expect(r.total).toBe(6000);
   });
 
-  it("allows 10% over budget and ranks the wanted town first", () => {
-    const elsewhere = prop({ title: "elsewhere", city: "Ettelbruck", postcode: "9010" });
-    const stretch = prop({ title: "stretch", price: 700000 });
-    const ranked = prefilter(lead, [elsewhere, stretch]).map((p) => p.title);
-    expect(ranked).toEqual(["stretch", "elsewhere"]);
+  it("drops ids that are not in the catalogue, and duplicates", () => {
+    const r = priceLines(
+      [
+        { catalog_id: "made-up", quantity: 1, why: "" },
+        { catalog_id: "a", quantity: 2, why: "" },
+        { catalog_id: "a", quantity: 5, why: "" },
+      ],
+      catalog,
+    );
+    expect(r.lines.map((l) => [l.catalog_id, l.quantity])).toEqual([["a", 2]]);
   });
 
-  it("has nothing to match for sellers and landlords", () => {
-    expect(prefilter({ ...lead, intent: "sell" }, [prop({})])).toEqual([]);
-    expect(prefilter({ ...lead, intent: "let" }, [prop({})])).toEqual([]);
+  it("leaves the total open when an item has no price", () => {
+    const r = priceLines([{ catalog_id: "a", quantity: 1, why: "" }, { catalog_id: "c", quantity: 1, why: "" }], catalog);
+    expect(r.lines[1].total).toBeNull();
+    expect(r.total).toBeNull();
   });
 
-  it("matches tenants against rentals", () => {
-    const rental = prop({ deal: "rent", price: 2200 });
-    expect(prefilter({ intent: "rent", budget_max: 2500 }, [rental, prop({})])).toHaveLength(1);
+  it("keeps quantities sensible", () => {
+    const r = priceLines([{ catalog_id: "a", quantity: 0.1, why: "" }, { catalog_id: "b", quantity: 1e9, why: "" }], catalog);
+    expect(r.lines.map((l) => l.quantity)).toEqual([0.25, 10000]);
   });
 });
 

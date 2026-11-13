@@ -1,5 +1,6 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import type { Activity, Contact, HubLang, Lead, Links, Member, Property, Repo, Role, Stage, Task, Workspace } from "./types";
+import type { Activity, CatalogItem, Contact, Deal, HubLang, Links, Member, Repo, Role, Stage, Task } from "./types";
+import type { Workspace } from "./types";
 
 /**
  * The Hub's own Supabase project (not the website's lead table). Set at build
@@ -38,8 +39,7 @@ function check<T>(r: { data: T; error: { message: string; code?: string } | null
   return r.data;
 }
 
-const LEAD_COLS =
-  "*, contact:contacts(id, first_name, last_name, email, phone, language, kind)";
+const DEAL_COLS = "*, contact:contacts(id, first_name, last_name, company, email, phone, language, kind)";
 
 /** Strip what the app adds for display before writing a row back. */
 function writable<T extends object>(row: T, drop: string[]): Record<string, unknown> {
@@ -98,24 +98,24 @@ export const supabaseRepo: Repo = {
   async stages(ws) {
     return check(await supabase().from("pipeline_stages").select("id, name, position, kind").eq("workspace_id", ws).order("position")) as Stage[];
   },
-  async leads(ws) {
-    return check(await supabase().from("leads").select(LEAD_COLS).eq("workspace_id", ws).order("last_activity_at", { ascending: false }).limit(1000)) as Lead[];
+  async deals(ws) {
+    return check(await supabase().from("deals").select(DEAL_COLS).eq("workspace_id", ws).order("last_activity_at", { ascending: false }).limit(1000)) as Deal[];
   },
-  async lead(ws, id) {
-    return check(await supabase().from("leads").select(LEAD_COLS).eq("workspace_id", ws).eq("id", id).maybeSingle()) as Lead | null;
+  async deal(ws, id) {
+    return check(await supabase().from("deals").select(DEAL_COLS).eq("workspace_id", ws).eq("id", id).maybeSingle()) as Deal | null;
   },
-  async saveLead(ws, lead) {
-    return upsert("leads", ws, writable(lead, ["contact", "created_at", "last_activity_at"]));
+  async saveDeal(ws, deal) {
+    return upsert("deals", ws, writable(deal, ["contact", "created_at", "last_activity_at"]));
   },
-  async deleteLead(ws, id) {
-    check(await supabase().from("leads").delete().eq("workspace_id", ws).eq("id", id));
+  async deleteDeal(ws, id) {
+    check(await supabase().from("deals").delete().eq("workspace_id", ws).eq("id", id));
   },
 
   async contacts(ws, q) {
     let query = supabase().from("contacts").select("*").eq("workspace_id", ws);
     if (q?.trim()) {
       const t = ilike(q);
-      query = query.or(`first_name.ilike.${t},last_name.ilike.${t},email.ilike.${t},phone.ilike.${t}`);
+      query = query.or(`first_name.ilike.${t},last_name.ilike.${t},company.ilike.${t},email.ilike.${t},phone.ilike.${t}`);
     }
     return check(await query.order("created_at", { ascending: false }).limit(500)) as Contact[];
   },
@@ -128,29 +128,25 @@ export const supabaseRepo: Repo = {
   async deleteContact(ws, id) {
     check(await supabase().from("contacts").delete().eq("workspace_id", ws).eq("id", id));
   },
-  async leadsOfContact(ws, contactId) {
-    return check(await supabase().from("leads").select(LEAD_COLS).eq("workspace_id", ws).eq("contact_id", contactId)) as Lead[];
+  async dealsOfContact(ws, contactId) {
+    return check(await supabase().from("deals").select(DEAL_COLS).eq("workspace_id", ws).eq("contact_id", contactId)) as Deal[];
   },
 
-  async properties(ws) {
-    return check(await supabase().from("properties").select("*").eq("workspace_id", ws).order("created_at", { ascending: false }).limit(1000)) as Property[];
+  async catalog(ws) {
+    return check(await supabase().from("catalog_items").select("*").eq("workspace_id", ws).order("active", { ascending: false }).order("name").limit(500)) as CatalogItem[];
   },
-  async property(ws, id) {
-    return check(await supabase().from("properties").select("*").eq("workspace_id", ws).eq("id", id).maybeSingle()) as Property | null;
+  async saveCatalogItem(ws, item) {
+    return upsert("catalog_items", ws, writable(item, ["created_at"]));
   },
-  async saveProperty(ws, p) {
-    return upsert("properties", ws, writable(p, ["created_at"]));
-  },
-  async deleteProperty(ws, id) {
-    check(await supabase().from("properties").delete().eq("workspace_id", ws).eq("id", id));
+  async deleteCatalogItem(ws, id) {
+    check(await supabase().from("catalog_items").delete().eq("workspace_id", ws).eq("id", id));
   },
 
   async tasks(ws, opts = {}) {
     let q = supabase().from("tasks").select("*").eq("workspace_id", ws);
     if (opts.open) q = q.eq("done", false);
-    if (opts.lead_id) q = q.eq("lead_id", opts.lead_id);
+    if (opts.deal_id) q = q.eq("deal_id", opts.deal_id);
     if (opts.contact_id) q = q.eq("contact_id", opts.contact_id);
-    if (opts.property_id) q = q.eq("property_id", opts.property_id);
     return check(await q.order("done").order("due_at", { ascending: true, nullsFirst: false }).limit(500)) as Task[];
   },
   async saveTask(ws, t) {
@@ -162,9 +158,8 @@ export const supabaseRepo: Repo = {
 
   async activities(ws, links: Links) {
     let q = supabase().from("activities").select("*").eq("workspace_id", ws);
-    if (links.lead_id) q = q.eq("lead_id", links.lead_id);
+    if (links.deal_id) q = q.eq("deal_id", links.deal_id);
     if (links.contact_id) q = q.eq("contact_id", links.contact_id);
-    if (links.property_id) q = q.eq("property_id", links.property_id);
     return check(await q.order("created_at", { ascending: false }).limit(100)) as Activity[];
   },
   async addActivity(ws, a) {

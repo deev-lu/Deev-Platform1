@@ -140,16 +140,16 @@
       "file": "business-hub.html",
       "meta": {
         "en": {
-          "title": "Business Hub: the CRM with AI agents for real-estate agents | DEEV",
-          "description": "Leads, contacts, listings and follow-ups in one place, with AI agents that qualify leads, match them with listings and write listing texts in English, French and German. By DEEV in Luxembourg."
+          "title": "Business Hub: the CRM with AI agents for SMEs | DEEV",
+          "description": "Contacts, deals, products and follow-ups in one place, with AI agents that qualify deals, draft proposals at your own prices and write your emails. By DEEV in Luxembourg."
         },
         "fr": {
-          "title": "Business Hub : le CRM avec agents IA pour les agents immobiliers | DEEV",
-          "description": "Prospects, contacts, biens et relances au même endroit, avec des agents IA qui qualifient les prospects, les rapprochent des biens et rédigent les annonces en anglais, français et allemand. Par DEEV à Luxembourg."
+          "title": "Business Hub : le CRM avec agents IA pour les PME | DEEV",
+          "description": "Contacts, affaires, produits et relances au même endroit, avec des agents IA qui qualifient les affaires, rédigent des propositions à vos propres prix et écrivent vos e-mails. Par DEEV à Luxembourg."
         },
         "de": {
-          "title": "Business Hub: das CRM mit KI-Agenten für Immobilienmakler | DEEV",
-          "description": "Leads, Kontakte, Objekte und Wiedervorlagen an einem Ort, mit KI-Agenten, die Leads qualifizieren, passende Objekte finden und Exposés auf Englisch, Französisch und Deutsch schreiben. Von DEEV in Luxemburg."
+          "title": "Business Hub: das CRM mit KI-Agenten für KMU | DEEV",
+          "description": "Kontakte, Deals, Produkte und Wiedervorlagen an einem Ort, mit KI-Agenten, die Deals qualifizieren, Angebote zu Ihren eigenen Preisen entwerfen und Ihre E-Mails schreiben. Von DEEV in Luxemburg."
         }
       }
     },
