@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Sun, Moon, Phone } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { scrollToId, scrollToIdWhenReady, scrollToTop } from "../../lib/smoothScroll";
-import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
+import { MORE_SERVICES } from "../../lib/serviceSections";
 import L from "./L";
 import { useT, useLocalePath } from "../../lib/useT";
 import { stripLocale } from "../../lib/i18n";
@@ -20,20 +20,9 @@ interface NavbarProps {}
  *  phone. "About" is a page of its own since 24 Oct 2026, so it sits here and
  *  is left out of the services accordion below. */
 const DRAWER_LINKS = [
-  { key: "workshops" as const, href: "/workshops" },
-  { key: "funding" as const,   href: "/sme-packages" },
-  { key: "work" as const,      href: "/work" },
   { key: "about" as const,     href: "/about" },
-  { key: "journal" as const,   href: "/blog" },
   { key: "contact" as const,   href: "/contact" },
 ];
-
-/** The same sections the Services panel holds, as an accordion on a phone.
- *  Read from the shared list so the phone and the desktop cannot disagree. */
-const DRAWER_SECTIONS = Object.values(SERVICE_GROUPS)
-  .flat()
-  .map((key) => ({ key, href: SERVICE_HREF[key] }))
-  .filter((l) => l.href !== "/about");
 
 interface NavbarProps {
   theme?: "light" | "dark";
@@ -226,7 +215,9 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 Leistungsseiten und den Footer erreichbar; "Kontakt" steht
                 bereits als Textlink in der Navigation. */}
             <L
-              to="/contact?interest=call"
+              to="/contact?interest=website"
+              data-cta="website_request"
+              data-cta-at="nav"
               className={`btn-grad ${compact ? "hidden" : "hidden lg:inline-flex"} items-center gap-2 h-11 px-5 rounded-full whitespace-nowrap text-sm font-semibold text-white`}
             >
               {t.site.nav.cta}
@@ -262,7 +253,15 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             className={`fixed top-[76px] left-3 right-3 z-30 max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain rounded-[var(--radius-2)] bg-[var(--surface-1)] border border-[var(--line-strong)] ${compact ? "" : "md:hidden"}`}
           >
             <nav aria-label={t.site.nav.mainNav} className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
-              {/* A hover panel is unusable on touch, so the same sections are
+              {/* Dieselbe Reihenfolge wie auf dem Desktop: Websites,
+                  Projekte, Weitere Leistungen (aufklappbar), Ueber uns. */}
+              <L to="/services/websites" onClick={() => setMenuOpen(false)} className="text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all">
+                {t.site.nav.websites}
+              </L>
+              <L to="/work" onClick={() => setMenuOpen(false)} className="text-left px-4 py-3.5 rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white transition-all">
+                {t.site.nav.projects}
+              </L>
+              {/* A hover panel is unusable on touch, so the same services are
                   an accordion here rather than a second dropdown. */}
               <div className="flex items-center rounded-md text-base font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all">
                 {/* The row is a link to the services page; only the chevron
@@ -272,13 +271,13 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   onClick={() => setMenuOpen(false)}
                   className="flex-1 px-4 py-3.5 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
-                  {t.site.nav.services}
+                  {t.site.nav.more}
                 </L>
                 <button
                   type="button"
                   onClick={() => setSectionsOpen((v) => !v)}
                   aria-expanded={sectionsOpen}
-                  aria-label={t.site.mega.toggle(t.site.nav.services)}
+                  aria-label={t.site.mega.toggle(t.site.nav.more)}
                   className="px-4 py-3.5 text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   <ChevronDown
@@ -290,15 +289,15 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
               {sectionsOpen && (
                 <ul className="mb-1 ml-4 pl-4 border-l border-[var(--line)] flex flex-col">
-                  {DRAWER_SECTIONS.map((item) => (
-                    <li key={item.key}>
+                  {[...MORE_SERVICES, ["grant", "/sme-packages"] as const, ["journal", "/blog"] as const].map(([key, href]) => (
+                    <li key={key}>
                       <L
-                        to={item.href}
+                        to={href}
                         onClick={() => setMenuOpen(false)}
                         className="block w-full text-left py-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                         style={{ fontSize: "var(--t-small)" }}
                       >
-                        {t.site.mega.items[item.key as keyof typeof t.site.mega.items].label}
+                        {key === "grant" ? t.site.footer.links.grant : key === "journal" ? t.site.nav.journal : t.web.more.items[key].title}
                       </L>
                     </li>
                   ))}
@@ -319,7 +318,9 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               ))}
 
               <L
-                to="/contact?interest=call"
+                to="/contact?interest=website"
+                data-cta="website_request"
+                data-cta-at="drawer"
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90 text-center"
                 style={{ background: "var(--signal)" }}

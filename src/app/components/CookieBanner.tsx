@@ -197,7 +197,10 @@ export default function CookieBanner() {
                 </L>
               </p>
 
-              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              {/* flex-wrap: bei 390px passten beide Knoepfe nicht neben den
+                  frei gehaltenen Platz fuer Klar Access, "Alle akzeptieren"
+                  lag halb unter dessen Knopf. Jetzt bricht die Reihe um. */}
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 shrink-0">
                 <button
                   type="button"
                   onClick={openPrefs}

@@ -60,7 +60,7 @@ export const home = {
       { title: "Custom software", sub: "Web apps, portals, internal systems" },
       { title: "AI and automation", sub: "Agents and assistants on your data" },
       { title: "Workshops and consulting", sub: "Where software and AI actually pay" },
-      { title: "Websites", sub: "By invitation" },
+      { title: "Websites", sub: "Company websites and online shops" },
       { title: "Cybersecurity & NIS2", sub: "Awareness training for teams and management" },
     ],
     funding: "Luxembourg SMEs: 70% of eligible costs back",
@@ -131,7 +131,7 @@ export const home = {
     eyebrow: "What we do",
     title: "Software and AI that run in production. Design where it counts.",
     core: "Core",
-    invitation: "By invitation",
+    invitation: "Websites and shops",
     software: {
       title: "Custom software",
       copy: "Platforms, portals and internal systems built around how your organisation actually works, and engineered to be maintained for years.",
@@ -146,7 +146,7 @@ export const home = {
     },
     design: {
       title: "Design",
-      copy: "Websites and digital identities for a limited number of clients, designed to the standard of the brand behind them.",
+      copy: "Company websites, relaunches and online shops, designed to the standard of the brand behind them.",
       list: ["Brand websites", "Digital identity", "Premium e-commerce"],
       cta: "Request a design commission",
     },

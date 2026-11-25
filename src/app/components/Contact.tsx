@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
 import { track } from "../../lib/analytics";
+import { getProject } from "../../lib/projects";
+import WebsiteRequestForm from "./WebsiteRequestForm";
 
 const CONTACT_EMAIL = "contact@deev.lu";
 
@@ -63,8 +65,21 @@ export default function Contact() {
   // the default cannot live in the module-level initial form.
   const interest = form.interest || INTERESTS[0];
 
-  const update = (key: keyof typeof form, value: string | boolean) =>
+  // The first input is a form start, never an enquiry (lib/analytics).
+  const started = useRef(false);
+  const update = (key: keyof typeof form, value: string | boolean) => {
+    if (!started.current && key !== "website") {
+      started.current = true;
+      track("form_start", { form: "contact" });
+    }
     setForm((f) => ({ ...f, [key]: value }));
+  };
+
+  // Website projects (?interest=website, since 25 Nov 2026) get their own
+  // short form: name, email, what the website should do. Whoever clicked
+  // "Request a website project" has already said what it is about.
+  // `ref` names the case study they came from.
+  const [web, setWeb] = useState<{ on: boolean; ref?: { slug: string; title: string } }>({ on: false });
 
   // Preselect from ?interest=. After mount, so the prerendered markup (which
   // has no query string) and the first client render agree.
@@ -73,6 +88,8 @@ export default function Contact() {
     const key = new URLSearchParams(search).get("interest");
     const i = INTEREST_KEYS.indexOf(key as InterestKey);
     if (i >= 0 && INTERESTS[i]) setForm((f) => (f.interest ? f : { ...f, interest: INTERESTS[i] }));
+    const p = getProject(new URLSearchParams(search).get("ref") ?? undefined);
+    setWeb({ on: key === "website", ref: p && key === "website" ? { slug: p.slug, title: p.title } : undefined });
   }, [search, INTERESTS]);
 
   const mailtoFallback = () => {
@@ -146,14 +163,14 @@ export default function Contact() {
             {t.pages.contact.badge}
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 dark:text-white mb-5 tracking-tight">
-            {t.pages.contact.title}
+            {web.on ? t.web.form.pageTitle : t.pages.contact.title}
             <br className="hidden sm:block" />
             <span className="g-text">
-              {" "}{t.pages.contact.titleAccent}
+              {" "}{web.on ? t.web.form.pageAccent : t.pages.contact.titleAccent}
             </span>
           </h1>
           <p className="text-lg text-[var(--text-mid)] leading-relaxed">
-            {t.pages.contact.lead}
+            {web.on ? t.web.form.pageLead : t.pages.contact.lead}
           </p>
         </motion.div>
 
@@ -255,7 +272,11 @@ export default function Contact() {
             <div className="relative rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.09] overflow-hidden dark:shadow-none">
               <div className="h-[2px] w-full bg-gradient-to-r from-[#2563F6] to-[var(--signal-text)]" />
 
-              {status === "success" ? (
+              {web.on ? (
+                <div className="p-7 md:p-9">
+                  <WebsiteRequestForm at="contact" reference={web.ref} />
+                </div>
+              ) : status === "success" ? (
                 <div role="status" className="p-10 md:p-14 text-center">
                   <div className="inline-flex w-16 h-16 rounded-lg bg-emerald-500/10 items-center justify-center mb-6">
                     <CheckCircle2 className="w-8 h-8 text-emerald-500" aria-hidden="true" />

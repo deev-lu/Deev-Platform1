@@ -31,6 +31,8 @@ const AiGovernance = lazy(() => import("./AiGovernance"));
 const RagDemo = lazy(() => import("./RagDemo"));
 const BillovioFeature = lazy(() => import("./BillovioFeature"));
 const MarketingServices = lazy(() => import("./MarketingServices"));
+// Der KI-Film stand bis zum 25.11.2026 auf der Startseite.
+const AiFilm = lazy(() => import("./AiFilm"));
 
 /** Welcher ausgelagerte Block auf welcher Seite landet. */
 const EXTRAS: Record<ServiceKey, ComponentType[]> = {
@@ -38,7 +40,7 @@ const EXTRAS: Record<ServiceKey, ComponentType[]> = {
   // Die Reihenfolge folgt der Schicht im Kopf von unten nach oben: erst
   // das Fundament, dann was darauf laeuft (RAG, Agenten, Analyse, Dokumente),
   // dann wie es kontrolliert wird, zuletzt wie ein Projekt geplant wird.
-  ai: [AiFoundation, RagDemo, AgentRun, DataFlow, DocumentToData, AiGovernance, AiConcepts],
+  ai: [AiFilm, AiFoundation, RagDemo, AgentRun, DataFlow, DocumentToData, AiGovernance, AiConcepts],
   software: [SystemStack, BillovioFeature],
   // Der Marketingblock stand auf /services zwischen drei anderen
   // Uebersichten. Hier ist er der Inhalt der Seite, nicht ein Abschnitt

@@ -41,7 +41,7 @@ export default function InMotion() {
                 className="eyebrow-mono uppercase text-[var(--text-low)]"
                 style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
               >
-                <span className="text-[var(--metal)]">05</span> / {m.eyebrow}
+                {m.eyebrow}
               </span>
             </div>
             <h2
