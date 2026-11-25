@@ -23,7 +23,7 @@ export const builder: typeof En = {
   },
 
   systems: {
-    website: { label: "Site vitrine", description: "Des sites haut de gamme, pensés pour convertir et gagner des clients." },
+    website: { label: "Site d’entreprise", description: "Des sites haut de gamme, pensés pour convertir et gagner des clients." },
     ecommerce: { label: "Boutique en ligne", description: "Des boutiques avec paiements et gestion des stocks fluides." },
     webapp: { label: "Application web", description: "SaaS, tableaux de bord, portails et logique métier complexe." },
     "ai-agent": { label: "IA et automatisations", description: "Agents IA sur mesure, chatbots et flux de travail intelligents." },
@@ -121,9 +121,30 @@ export const builder: typeof En = {
     packageAi: "SME AI Package",
   },
 
+  result: {
+    regular: "Prix normal du projet",
+    exVat: "HTVA · fourchette indicative, pas un devis",
+    grantTitle: "Aide PME possible",
+    grantDepends: "Uniquement si votre entreprise et votre projet sont éligibles. C'est l'analyse préalable qui le décide, pas ce calculateur.",
+    grantLabel: "Aide, si éligible",
+    netLabel: "Votre part, si éligible",
+    partial: (n: string) => `Ce n'est qu'à partir de ${n} € qu'un projet peut entrer dans le programme ; le bas de cette fourchette non.`,
+    next: "Étape suivante",
+    request: "Demander une offre personnelle pour cette configuration",
+    requestNote: "Votre sélection est jointe à la demande : inutile de décrire à nouveau votre projet.",
+    liveRegular: "Prix normal",
+    liveGrant: (a: string, b: string) => `Avec aide, si éligible : ${a} – ${b} €`,
+    timeline: "Délai",
+    weeks: "semaines",
+    features: (n: number) => `${n} fonctionnalité${n === 1 ? "" : "s"}`,
+    summary: "Votre configuration",
+    notes: "Autre chose à savoir ? (facultatif)",
+  },
+
   done: {
-    title: "Tout est prêt !",
-    body: (email: string) => `Nous enverrons votre estimation à ${email} sous 24 heures.`,
+    title: "Demande reçue.",
+    body: (email: string) => `Nous répondons personnellement, généralement sous un jour ouvré, à ${email}.`,
+    close: "Fermer",
   },
 
   nav: {
@@ -135,7 +156,7 @@ export const builder: typeof En = {
 
   leadForm: {
     cancel: "Annuler",
-    submit: "Afficher mon estimation",
+    submit: "Envoyer la demande",
     sending: "Envoi…",
     retry: "Réessayer",
     errors: {
@@ -145,8 +166,8 @@ export const builder: typeof En = {
       unconfigured: "Notre service de demande est momentanément injoignable. Écrivez à contact@deev.lu, nous vous répondrons.",
       failed: "La demande n'est pas partie. Rien n'est perdu : réessayez ou écrivez à contact@deev.lu.",
     },
-    title: "Une dernière étape",
-    body: "Quelques informations pour vous envoyer une estimation précise et un plan de projet. Plus vous en dites, mieux nous cadrons.",
+    title: "Offre personnelle",
+    body: "Nous reprenons votre configuration telle quelle. Ajoutez seulement ce que nous devrions savoir en plus.",
     name: "Votre nom",
     email: "E-mail professionnel",
     company: "Entreprise (facultatif)",

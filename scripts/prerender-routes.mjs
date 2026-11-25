@@ -30,6 +30,11 @@ const articles = JSON.parse(readFileSync(join(root, "src/lib/news.data.json"), "
 const LOCALES = Object.keys(meta.routes["/"].meta);
 const DEFAULT_LOCALE = "en";
 const OG_LOCALE = { en: "en_GB", fr: "fr_FR", de: "de_DE" };
+const OG_ALT = {
+  en: "DEEV: web design from Luxembourg, a client website in a browser frame",
+  fr: "DEEV : création de sites web au Luxembourg, un site client dans un navigateur",
+  de: "DEEV: Webdesign aus Luxemburg, eine Kundenwebsite im Browserfenster",
+};
 
 for (const [name, entry] of [
   ...Object.entries(meta.routes).map(([p, r]) => [`route ${p}`, r.meta]),
@@ -135,6 +140,10 @@ for (const locale of LOCALES) {
 
     const shot = page.project ? shotFor(page.project.slug) : undefined;
     const image = shot ? `${SITE}/assets/${shot}` : null;
+    // Every other page shares the social preview in its own language
+    // (public/og-image[-fr|-de].png, since 25 Nov 2026: a real client website
+    // and "web design from Luxembourg").
+    const ogImage = `${SITE}/og-image${locale === DEFAULT_LOCALE ? "" : `-${locale}`}.png`;
 
     const edits = [
       { label: "title",               re: /(<title>)([\s\S]*?)(<\/title>)/,               value: title },
@@ -154,7 +163,11 @@ for (const locale of LOCALES) {
             { label: "og:image:height", re: metaTag("property", "og:image:height"), value: "583" },
             { label: "og:image:alt",    re: metaTag("property", "og:image:alt"),    value: esc(`${page.project.title}, ${page.project.category[locale]}`) },
           ]
-        : []),
+        : [
+            { label: "og:image",        re: metaTag("property", "og:image"),        value: ogImage },
+            { label: "twitter:image",   re: metaTag("name", "twitter:image"),       value: ogImage },
+            { label: "og:image:alt",    re: metaTag("property", "og:image:alt"),    value: esc(OG_ALT[locale]) },
+          ]),
     ];
 
     let html = template;
@@ -393,7 +406,8 @@ console.log(`prerender: ${written} route documents verified and written`);
     "",
     "## Pages",
     "",
-    line("/", "Home: custom software, AI and data, workshops, selected work"),
+    line("/", "Home: web design from Luxembourg, company websites and online shops, three client projects, how a project runs, budget, contact"),
+    line("/services/cybersecurity", "Cybersecurity: awareness training and a first NIS2 check"),
     line("/services", "Services: everything Deev builds and runs"),
     line("/sme-packages", "SME Packages: how Luxembourg's 70% digital and AI funding works, what qualifies, and an eligibility check"),
     line("/about", "About: the team (Fabio Falchero, Sven Kettel, Noah Stelmes), how we work, company facts"),

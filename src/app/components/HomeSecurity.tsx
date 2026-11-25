@@ -19,9 +19,12 @@ import { useT } from "../../lib/useT";
  * Die Phishing-Mail ist erfunden und als Beispiel gekennzeichnet; die Domain
  * ist absichtlich eine Faelschung (eine Null statt eines o).
  */
-export default function HomeSecurity() {
+export default function HomeSecurity({ standalone = false }: { standalone?: boolean }) {
   const t = useT();
   const s = t.home.security;
+  // Seit dem 25.11.2026 eine eigene Seite (/services/cybersecurity): dort
+  // ist die Ueberschrift das <h1>, ohne Abschnittsnummer.
+  const Heading = standalone ? "h1" : "h2";
 
   return (
     <section
@@ -40,16 +43,17 @@ export default function HomeSecurity() {
           >
             <span className="h-px w-10 bg-[var(--line-strong)]" />
             <span>
-              <span className="text-[var(--metal)]">03</span> / {s.eyebrow}
+              {!standalone && <><span className="text-[var(--metal)]">03</span> / </>}
+              {s.eyebrow}
             </span>
           </div>
-          <h2
+          <Heading
             id="security-title"
             className="text-[var(--text-hi)] font-medium mt-8"
             style={{ fontSize: "var(--t-h1)", lineHeight: 1.02, letterSpacing: "-0.03em", maxWidth: "16ch" }}
           >
             <TwoTone text={s.title} />
-          </h2>
+          </Heading>
           <p className="text-[var(--text-mid)] mt-7 mb-0" style={{ fontSize: "var(--t-lead)", lineHeight: 1.45, maxWidth: "52ch" }}>
             {s.lead}
           </p>

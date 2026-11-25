@@ -224,11 +224,13 @@ export default function AboutPage() {
             </p>
           </div>
           <L
-            to="/contact?interest=call"
+            to="/contact?interest=website"
+            data-cta="website_request"
+            data-cta-at="about"
             className="group shrink-0 inline-flex items-center gap-2 h-[52px] px-6 rounded-full bg-[var(--signal)] text-white font-medium"
             style={{ fontSize: "var(--t-small)" }}
           >
-            {t.home.intro.primary}
+            {t.site.nav.cta}
             <ArrowRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" strokeWidth={1.5} />
           </L>
         </div>

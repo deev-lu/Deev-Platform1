@@ -97,11 +97,13 @@ export default function MobileActionBar() {
               <WhatsAppIcon className="w-6 h-6" />
             </a>
             <L
-              to="/contact?interest=call"
+              to="/contact?interest=website"
+              data-cta="website_request"
+              data-cta-at="phone_bar"
               className="flex-1 min-w-0 inline-flex items-center justify-center gap-2 h-12 px-4 rounded-full text-white font-semibold whitespace-nowrap"
               style={{ background: "var(--signal)", fontSize: "0.9375rem" }}
             >
-              {t.site.nav.cta}
+              {t.site.nav.ctaShort}
               {/* Der Pfeil weicht auf schmalen Telefonen dem deutschen Text. */}
               <ArrowRight className="hidden min-[400px]:block w-4 h-4 shrink-0" strokeWidth={1.75} />
             </L>

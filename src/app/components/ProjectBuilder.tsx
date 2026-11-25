@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "motion/react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
 import { useModal } from "../../lib/useModal";
 import { track } from "../../lib/analytics";
@@ -8,6 +8,7 @@ import NoiseOverlay from "./NoiseOverlay";
 import { scrollToTop } from "../../lib/smoothScroll";
 import { useT } from "../../lib/useT";
 import { mark } from "../../lib/i18nMark";
+import L from "./L";
 import type { Dict } from "../../locales";
 import {
   ArrowRight,
@@ -258,9 +259,28 @@ export default function ProjectBuilder() {
   // Nur der erste Griff zaehlt als Beginn; wer die Auswahl wechselt, faengt
   // nicht noch einmal an.
   const started = useRef(false);
+  /** Erste Eingabe in die Angebotsanfrage (form_start), einmal. */
+  const formStarted = useRef(false);
   /** Ein Schlüssel pro Anfrageinhalt, damit ein Retry nichts verdoppelt. */
   const leadRequestId = useRef<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+
+  // "Was kostet meine Website?" fuehrt nach /project?type=website: der Rechner
+  // beginnt dann mit vorausgewaehltem Website-Projekt beim Umfang (Schritt 2).
+  // Nach dem Einhaengen gelesen, damit das vorgerenderte HTML (ohne Query)
+  // und der erste Client-Render uebereinstimmen.
+  const { search } = useLocation();
+  useEffect(() => {
+    const type = new URLSearchParams(search).get("type");
+    const known = CORE_SYSTEM_IDS.find((c) => c.id === type && c.id !== "marketing");
+    if (!known) return;
+    setSystem(known.id);
+    setStep(2);
+    if (!started.current) {
+      started.current = true;
+      track("calculator_start", { system: known.id, via: "link" });
+    }
+  }, [search]);
 
   const toggleCapability = (id: Capability) => {
     const next = new Set(capabilities);
@@ -328,8 +348,11 @@ export default function ProjectBuilder() {
     // Wo bricht der Rechner ab? Jeder Schritt meldet, woher er kommt; die
     // Luecke zwischen zwei Schritten ist die Absprungstelle.
     if (step === 3) {
-      track("calculator_step", { from: 3, to: "lead_form", system: system ?? "none", scale: scale ?? "none" });
-      setShowLeadCapture(true);
+      // Seit dem 25.11.2026 kommt die Schaetzung ohne Kontaktdaten: das
+      // Ergebnis ist der vierte Schritt, die Angebotsanfrage steht darunter.
+      track("calculator_step", { from: 3, to: 4, system: system ?? "none", scale: scale ?? "none" });
+      track("calculator_complete", { system: system ?? "none", scale: scale ?? "none", features: capabilities.size });
+      setStep(4);
     } else {
       track("calculator_step", { from: step, to: step + 1, system: system ?? "none", scale: scale ?? "none" });
       setStep((s) => s + 1);
@@ -513,9 +536,9 @@ export default function ProjectBuilder() {
                           {CORE_SYSTEMS.find((s) => s.id === system)?.label}
                         </h3>
                         <div className="mt-3 flex items-center justify-center gap-4 text-sm font-medium text-[var(--text-low)]">
-                          <span>{capabilities.size} feature{capabilities.size === 1 ? "" : "s"}</span>
+                          <span>{t.builder.result.features(capabilities.size)}</span>
                           <span className="w-1 h-1 bg-[var(--line-strong)] rounded-full" />
-                          <span>~{BASE[system].weeks} weeks</span>
+                          <span>~{BASE[system].weeks} {t.builder.result.weeks}</span>
                         </div>
                       </div>
                     </motion.div>
@@ -530,37 +553,21 @@ export default function ProjectBuilder() {
                   animate={{ opacity: 1, y: 0 }}
                   className="relative z-10 border-t border-[var(--line)] bg-black/30 px-8 py-7"
                 >
-                  {estimate.hasGrant ? (
-                    <>
-                      <div className="text-[11px] font-medium uppercase tracking-widest text-emerald-400 mb-2 flex items-center gap-1.5">
-                        <BadgeEuro className="w-3.5 h-3.5" /> Your price after 70% grant
-                      </div>
-                      <div className="text-4xl xl:text-5xl leading-none font-medium text-[var(--text-hi)] tracking-tight tabular-nums">
-                        €<AnimatedNumber value={estimate.netMin} />
-                        <span className="text-[var(--text-low)] mx-2 font-light">–</span>
-                        €<AnimatedNumber value={estimate.netMax} />
-                      </div>
-                      <div className="mt-3 flex flex-wrap items-center gap-2.5">
-                        <span className="text-sm text-[var(--text-low)] line-through tabular-nums">
-                          €{estimate.min} – €{estimate.max}
-                        </span>
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[2px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-medium tabular-nums">
-                          <TrendingDown className="w-3 h-3" />
-                          save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")}–{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
-                        </span>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="text-[11px] font-medium uppercase tracking-widest text-[var(--signal-text)] mb-2">
-                        {t.builder.stage.yourBuild}
-                      </div>
-                      <div className="text-4xl xl:text-5xl leading-none font-medium text-[var(--text-hi)] tracking-tight tabular-nums">
-                        €<AnimatedNumber value={estimate.rawMin} />
-                        <span className="text-[var(--text-low)] mx-2 font-light">–</span>
-                        €<AnimatedNumber value={estimate.rawMax} />
-                      </div>
-                    </>
+                  {/* Zuerst der regulaere Preis, die Foerderung darunter als
+                      Moeglichkeit (seit dem 25.11.2026). */}
+                  <div className="text-[11px] font-medium uppercase tracking-widest text-[var(--signal-text)] mb-2">
+                    {t.builder.result.liveRegular}
+                  </div>
+                  <div className="text-4xl xl:text-5xl leading-none font-medium text-[var(--text-hi)] tracking-tight tabular-nums">
+                    €<AnimatedNumber value={estimate.rawMin} />
+                    <span className="text-[var(--text-low)] mx-2 font-light">–</span>
+                    €<AnimatedNumber value={estimate.rawMax} />
+                  </div>
+                  {estimate.hasGrant && (
+                    <div className="mt-3 flex items-center gap-1.5 text-sm text-[var(--positive)] tabular-nums">
+                      <BadgeEuro className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      {t.builder.result.liveGrant(estimate.netMin.toLocaleString("de-DE"), estimate.netMax.toLocaleString("de-DE"))}
+                    </div>
                   )}
 
                   {/* Spec row */}
@@ -568,13 +575,12 @@ export default function ProjectBuilder() {
                     <div className="flex items-center gap-2 text-[var(--text-mid)]">
                       <Clock className="w-4 h-4 text-[var(--signal-text)]" />
                       <span className="font-semibold">{estimate.weeks}</span>
-                      <span className="text-[var(--text-low)]">weeks</span>
+                      <span className="text-[var(--text-low)]">{t.builder.result.weeks}</span>
                     </div>
                     <span className="w-px h-4 bg-white/15" />
                     <div className="flex items-center gap-2 text-[var(--text-mid)]">
                       <Layers className="w-4 h-4 text-[var(--signal-text)]" />
-                      <span className="font-semibold">{capabilities.size}</span>
-                      <span className="text-[var(--text-low)]">feature{capabilities.size === 1 ? "" : "s"}</span>
+                      <span className="text-[var(--text-low)]">{t.builder.result.features(capabilities.size)}</span>
                     </div>
                   </div>
                 </motion.div>
@@ -592,30 +598,14 @@ export default function ProjectBuilder() {
                 className="lg:hidden mb-5 px-4 py-3.5 rounded-lg bg-white dark:bg-white/[0.05] border border-[var(--signal-text)]/30 flex items-center justify-between"
               >
                 <div>
-                  {estimate.hasGrant ? (
-                    <>
-                      <div className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-0.5 flex items-center gap-1">
-                        <BadgeEuro className="w-3 h-3" /> After 70% grant
-                      </div>
-                      <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
-                        €<AnimatedNumber value={estimate.netMin} /> – €<AnimatedNumber value={estimate.netMax} />
-                      </div>
-                      <div className="text-[10px] text-[var(--text-mid)] line-through tabular-nums">
-                        €{estimate.min} – €{estimate.max}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="text-[10px] font-medium text-[#2563F6] dark:text-[var(--signal-text)] uppercase tracking-widest mb-0.5">Your build</div>
-                      <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
-                        €<AnimatedNumber value={estimate.rawMin} /> – €<AnimatedNumber value={estimate.rawMax} />
-                      </div>
-                    </>
-                  )}
+                  <div className="text-[10px] font-medium text-[#2563F6] dark:text-[var(--signal-text)] uppercase tracking-widest mb-0.5">{t.builder.result.liveRegular}</div>
+                  <div className="text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
+                    €<AnimatedNumber value={estimate.rawMin} /> – €<AnimatedNumber value={estimate.rawMax} />
+                  </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-[10px] font-semibold text-[var(--text-mid)] uppercase tracking-wider mb-0.5">Timeline</div>
-                  <div className="text-sm font-medium text-slate-700 dark:text-slate-200">{estimate.weeks} weeks</div>
+                  <div className="text-[10px] font-semibold text-[var(--text-mid)] uppercase tracking-wider mb-0.5">{t.builder.result.timeline}</div>
+                  <div className="text-sm font-medium text-slate-700 dark:text-slate-200">{estimate.weeks} {t.builder.result.weeks}</div>
                 </div>
               </motion.div>
             )}
@@ -853,68 +843,18 @@ export default function ProjectBuilder() {
                     <div className="mb-8 rounded-lg bg-gradient-to-br from-[#11111f] to-[#0b0b16] border border-white/10 shadow-black/40 relative overflow-hidden">
 
                       <div className="relative z-10 p-7 sm:p-8">
-                        {estimate.hasGrant ? (
-                          <>
-                            {/* Header */}
-                            <div className="flex items-center justify-between mb-5">
-                              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                                {t.builder.estimate.yourInvestment}
-                              </span>
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[2px] bg-emerald-500/15 text-emerald-400 text-[11px] font-medium uppercase tracking-wider">
-                                {t.builder.estimate.grantApplied}
-                              </span>
-                            </div>
-
-                            {/* Waterfall */}
-                            <div className="space-y-2.5 mb-5">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-slate-400">Project total</span>
-                                <span className="text-base font-semibold text-slate-400 tabular-nums line-through decoration-slate-600">
-                                  €{estimate.min} – €{estimate.max}
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-between text-emerald-400">
-                                <span className="text-sm font-medium flex items-center gap-1.5">
-                                  <TrendingDown className="w-4 h-4" /> SME grant (−70%)
-                                </span>
-                                <span className="text-base font-semibold tabular-nums">
-                                  −€{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")} to −€{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Net, hero number */}
-                            <div className="border-t border-white/10 pt-6">
-                              <div className="text-xs font-medium text-emerald-400 uppercase tracking-widest mb-2.5">
-                                {t.builder.estimate.youPay}
-                              </div>
-                              <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white tracking-tight tabular-nums leading-none">
-                                €<AnimatedNumber value={estimate.netMin} />
-                                <span className="text-white/30 mx-2 font-light">–</span>
-                                €<AnimatedNumber value={estimate.netMax} />
-                              </div>
-                              <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-[2px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-medium">
-                                <Sparkles className="w-4 h-4" />
-                                You save €{(estimate.rawMin - estimate.netMin).toLocaleString("de-DE")} – €{(estimate.rawMax - estimate.netMax).toLocaleString("de-DE")}
-                              </div>
-                              <p className="text-white/40 text-xs mt-3.5">
-                                {t.builder.estimate.exVat}
-                              </p>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="text-xs font-semibold text-[var(--signal-text)] uppercase tracking-widest mb-2">
-                              {t.builder.estimate.plain}
-                            </div>
-                            <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white mb-2 tracking-tight tabular-nums leading-none">
-                              €<AnimatedNumber value={estimate.rawMin} />
-                              <span className="text-white/30 mx-2 font-light">–</span>
-                              €<AnimatedNumber value={estimate.rawMax} />
-                            </div>
-                            <p className="text-white/50 text-xs">{t.builder.estimate.exVatShort}</p>
-                          </>
-                        )}
+                        {/* Zuerst und gross: der regulaere Projektpreis. Eine
+                            moegliche Foerderung steht getrennt darunter und
+                            haengt von der Foerderfaehigkeit ab. */}
+                        <div className="text-xs font-semibold text-[var(--signal-text)] uppercase tracking-widest mb-2">
+                          {t.builder.result.regular}
+                        </div>
+                        <div className="text-4xl sm:text-5xl md:text-[3.4rem] font-extrabold text-white mb-2 tracking-tight tabular-nums leading-none">
+                          €<AnimatedNumber value={estimate.rawMin} />
+                          <span className="text-white/30 mx-2 font-light">–</span>
+                          €<AnimatedNumber value={estimate.rawMax} />
+                        </div>
+                        <p className="text-white/60 text-xs">{t.builder.result.exVat}</p>
 
                         {/* Meta row */}
                         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/10 mt-6 pt-5">
@@ -924,7 +864,7 @@ export default function ProjectBuilder() {
                           </div>
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">{t.builder.estimate.addons}</div>
-                            <div className="font-medium text-lg text-white">{t.builder.estimate.featureCount(capabilities.size)}</div>
+                            <div className="font-medium text-lg text-white">{t.builder.result.features(capabilities.size)}</div>
                           </div>
                           <div>
                             <div className="text-xs text-white/50 uppercase tracking-wider mb-1">{t.builder.estimate.quality}</div>
@@ -965,81 +905,62 @@ export default function ProjectBuilder() {
                       </motion.div>
                     )}
 
-                    {/* ── SME Grant callout (Digital / AI) ──────────────── */}
+                    {/* ── Moegliche Foerderung (Digital / AI), getrennt vom Preis ── */}
                     {(() => {
                       if (!system || system === "marketing") return null;
                       const grant = grantForRange(estimate.rawMin, estimate.rawMax);
                       if (grant.status === "below") return null;
                       const pkgName = getSmePackage(system, t);
-                      // Gedeckelt heißt: der Zuschuss steht bei 17.500 € still.
-                      const isPartial = grant.capped;
                       const isDigital = system !== "ai-agent";
+                      const eur = (n: number) => n.toLocaleString("de-DE");
                       return (
-                        <motion.div
+                        <motion.section
+                          aria-labelledby="grant-title"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 }}
-                          className="mb-8 p-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-400/60 dark:border-emerald-500/40 relative overflow-hidden"
+                          className="mb-8 p-6 rounded-lg border border-[var(--positive)]/40 bg-[var(--surface-1)]"
                         >
-                          {/* Background shimmer */}
-
-                          <div className="flex items-start gap-4 relative z-10">
-                            <div className="flex-shrink-0 w-11 h-11 rounded-md bg-emerald-500 flex items-center justify-center shadow-emerald-500/30">
-                              <BadgeEuro className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex flex-wrap items-center gap-2 mb-1">
-                                <span className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest">
-                                  {pkgName}
-                                </span>
-                                <span className="text-xs font-medium px-2 py-0.5 rounded-[2px] bg-emerald-500 text-white">
-                                  {t.builder.grant.government}
-                                </span>
-                              </div>
-                              <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">
-                                {mark(t.builder.grant.qualifiesFull(pkgName), "font-semibold")}{" "}
-                                {isPartial ? t.builder.grant.capped : t.builder.grant.uncapped}
-                              </p>
-
-                              {isDigital && (
-                                <p className="text-xs text-emerald-700/90 dark:text-emerald-300/80 mb-3 leading-relaxed">
-                                  {t.builder.grant.marketingBundle}
-                                </p>
-                              )}
-
-                              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">
-                                {t.builder.grant.weApply}
-                              </p>
-
-                              <div className="flex flex-wrap items-center gap-4">
-                                <a
-                                  href={`mailto:contact@deev.lu?subject=${encodeURIComponent(
-                                    `SME grant application, ${pkgName}`
-                                  )}&body=${encodeURIComponent(
-                                    `Hi Deev team,\n\nI'd like to apply for the ${pkgName} and start my project.\n\nProject: ${
-                                      CORE_SYSTEMS.find((s) => s.id === system)?.label ?? ""
-                                    }\nEstimated net (after 70% grant): €${grant.netMin.toLocaleString(
-                                      "de-DE"
-                                    )} – €${grant.netMax.toLocaleString("de-DE")}\n\n`
-                                  )}`}
-                                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-md font-medium text-sm text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 hover:-translate-y-0.5 "
-                                >
-                                  Apply for my 70% grant
-                                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                </a>
-                                <a
-                                  href="https://guichet.public.lu/en/entreprises/soutien-financement/aides-pme/cheques-numeriques.html"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
-                                >
-                                  {t.builder.grant.learnMore}
-                                  <ExternalLink className="w-3 h-3" />
-                                </a>
-                              </div>
-                            </div>
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <BadgeEuro className="w-5 h-5 text-[var(--positive)]" aria-hidden="true" />
+                            <h4 id="grant-title" className="m-0 text-base font-semibold text-[var(--text-hi)]">
+                              {t.builder.result.grantTitle}
+                            </h4>
+                            <span className="text-xs text-[var(--text-mid)]">· {pkgName}</span>
                           </div>
-                        </motion.div>
+                          <p className="text-sm text-[var(--text)] m-0 mb-4 leading-relaxed">{t.builder.result.grantDepends}</p>
+
+                          {grant.status === "eligible" ? (
+                            <dl className="m-0 grid gap-2 text-sm tabular-nums">
+                              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                                <dt className="text-[var(--text-mid)]">{t.builder.result.grantLabel}</dt>
+                                <dd className="m-0 text-[var(--positive)] font-semibold">
+                                  −€{eur(grant.grantMin)} – −€{eur(grant.grantMax)}
+                                </dd>
+                              </div>
+                              <div className="flex flex-wrap items-baseline justify-between gap-x-4 pt-2 border-t border-[var(--line)]">
+                                <dt className="text-[var(--text-mid)]">{t.builder.result.netLabel}</dt>
+                                <dd className="m-0 text-[var(--text-hi)] font-semibold text-base">
+                                  €{eur(grant.netMin)} – €{eur(grant.netMax)}
+                                </dd>
+                              </div>
+                            </dl>
+                          ) : (
+                            <p className="m-0 text-sm text-[var(--text)]">{t.builder.result.partial(eur(GRANT_MIN))}</p>
+                          )}
+
+                          <p className="text-xs text-[var(--text-mid)] mt-4 mb-0 leading-relaxed">
+                            {grant.capped ? t.builder.grant.capped : t.builder.grant.uncapped}{" "}
+                            {isDigital && t.builder.grant.marketingBundle}{" "}
+                            {t.builder.grant.weApply}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4">
+                            <L to="/sme-packages" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--positive)] hover:underline">
+                              {t.builder.grant.learnMore}
+                              <ArrowRight className="w-3 h-3" aria-hidden="true" />
+                            </L>
+                          </div>
+                        </motion.section>
                       );
                     })()}
 
@@ -1067,19 +988,32 @@ export default function ProjectBuilder() {
                       </div>
                     )}
 
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <a
-                        href="mailto:contact@deev.lu?subject=Start%20my%20project%20%E2%80%94%20Deev%20simulator&body=Hi%20Deev%20team%2C%0D%0A%0D%0AI%27ve%20configured%20my%20project%20in%20the%20simulator%20and%20I%27d%20like%20to%20start.%0D%0A"
-                        className="flex-1 py-4 text-white font-medium text-base transition-colors duration-[var(--dur-1)] hover:bg-[var(--signal-hi)] flex items-center justify-center gap-2" style={{ background: "var(--signal)", borderRadius: "var(--radius-2)" }}
-                      >
-                        {t.builder.estimate.start} <ArrowRight className="w-5 h-5" aria-hidden="true" />
-                      </a>
-                      <button
-                        onClick={reset}
-                        className="px-7 py-4 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-md font-medium text-base hover:bg-slate-300 dark:hover:bg-white/20 transition-colors"
-                      >
-                        {t.builder.estimate.reconfigure}
-                      </button>
+                    {/* Erst unter dem Ergebnis: der naechste Schritt. Die
+                        Konfiguration geht mit, niemand beschreibt sein
+                        Projekt zweimal. */}
+                    <div className="pt-6 border-t border-[var(--line)]">
+                      <div className="eyebrow-mono uppercase text-[var(--text-low)] mb-3" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+                        {t.builder.result.next}
+                      </div>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <button
+                          type="button"
+                          data-cta="quote_request"
+                          data-cta-at="calculator"
+                          onClick={() => setShowLeadCapture(true)}
+                          className="btn-grad flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-full text-white font-semibold text-base text-center"
+                        >
+                          {t.builder.result.request} <ArrowRight className="w-5 h-5 shrink-0" aria-hidden="true" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={reset}
+                          className="px-7 py-4 rounded-full border border-[var(--line-strong)] text-[var(--text-hi)] font-medium text-base hover:bg-[var(--surface-2)] transition-colors"
+                        >
+                          {t.builder.estimate.reconfigure}
+                        </button>
+                      </div>
+                      <p className="mt-3 mb-0 text-sm text-[var(--text-mid)]">{t.builder.result.requestNote}</p>
                     </div>
                   </motion.div>
                 )}
@@ -1124,7 +1058,7 @@ export default function ProjectBuilder() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 "
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 "
           >
             <motion.div
               ref={leadDialog}
@@ -1170,9 +1104,8 @@ export default function ProjectBuilder() {
                         SCALE_LEVELS.find((s) => s.id === scale)?.label ?? ", ";
                       const notes = [
                         leadForm.company && `Company: ${leadForm.company}`,
-                        leadForm.website && `Website: ${leadForm.website}`,
                         leadForm.timeline && `Timeline preference: ${leadForm.timeline}`,
-                        leadForm.goals && `Goals: ${leadForm.goals}`,
+                        leadForm.goals && `Notes: ${leadForm.goals}`,
                         featureLabels && `Features: ${featureLabels}`,
                         smeNote && `SME grant: ${smeNote}`,
                       ]
@@ -1184,7 +1117,7 @@ export default function ProjectBuilder() {
                         leadRequestId.current ??
                         (leadRequestId.current = newRequestId());
                       const result = await sendLead({
-                        subject: `New project from simulator, ${systemLabel} (${scaleLabel})`,
+                        subject: `Quote request from the calculator, ${systemLabel} (${scaleLabel})`,
                         from_name: leadForm.name || "Project simulator",
                         replyto: leadForm.email,
                         name: leadForm.name,
@@ -1213,13 +1146,26 @@ export default function ProjectBuilder() {
                       }
                       leadRequestId.current = null;
                       setLeadError(null);
-                      track("calculator_complete", { system: systemLabel, scale: scaleLabel });
-                      track("lead_accepted", { source: "calculator", system: systemLabel, scale: scaleLabel });
-                      setStep(4);
-                      setShowLeadCapture(false);
+                      // Nur die angenommene Uebermittlung zaehlt als Anfrage.
+                      track("lead_accepted", { source: "calculator", system: system ?? "none", scale: scale ?? "none" });
+                      setSubmitted(true);
+                    }}
+                    onChange={() => {
+                      if (!formStarted.current) {
+                        formStarted.current = true;
+                        track("form_start", { form: "calculator_quote", system: system ?? "none" });
+                      }
                     }}
                     className="space-y-4"
                   >
+                    {/* Was mitgeht, sichtbar: niemand muss es abschreiben. */}
+                    <div className="p-4 rounded-md bg-[var(--surface-2)] border border-[var(--line)] text-sm">
+                      <div className="text-xs font-semibold uppercase tracking-wider text-[var(--text-mid)] mb-1.5">{t.builder.result.summary}</div>
+                      <div className="text-[var(--text-hi)] font-medium">
+                        {CORE_SYSTEMS.find((c) => c.id === system)?.label} · {SCALE_LEVELS.find((l) => l.id === scale)?.label} · {t.builder.result.features(capabilities.size)}
+                      </div>
+                      <div className="text-[var(--text)] tabular-nums mt-0.5">€{estimate.min} – €{estimate.max} <span className="text-[var(--text-mid)]">({t.builder.estimate.exVatShort})</span></div>
+                    </div>
                     <p className="text-xs text-[var(--text-mid)] m-0">{t.site.a11y.requiredNote}</p>
                     <label className="block">
                       <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.name} <span className="text-[var(--signal-text)]" aria-hidden="true">*</span></span>
@@ -1243,7 +1189,7 @@ export default function ProjectBuilder() {
                         autoComplete="email"
                       />
                     </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                       <label className="block">
                         <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.company}</span>
                         <input
@@ -1254,16 +1200,7 @@ export default function ProjectBuilder() {
                           autoComplete="organization"
                         />
                       </label>
-                      <label className="block">
-                        <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.website}</span>
-                        <input
-                          type="text"
-                          value={leadForm.website}
-                          onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
-                          className="w-full px-5 py-4 rounded-md bg-slate-50 dark:bg-white/5 border border-[var(--line-control)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--signal-text)]"
-                          autoComplete="url"
-                        />
-                      </label>
+
                     </div>
                     <label className="block">
                       <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.timelinePlaceholder}</span>
@@ -1280,7 +1217,7 @@ export default function ProjectBuilder() {
                       </select>
                     </label>
                     <label className="block">
-                      <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.leadForm.goals}</span>
+                      <span className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.builder.result.notes}</span>
                       <textarea
                         value={leadForm.goals}
                         onChange={(e) => setLeadForm({ ...leadForm, goals: e.target.value })}
@@ -1330,6 +1267,13 @@ export default function ProjectBuilder() {
                   <p className="text-[var(--text-mid)] text-sm">
                     {t.builder.done.body(leadForm.email)}
                   </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowLeadCapture(false)}
+                    className="mt-6 px-6 py-3 rounded-full border border-[var(--line-strong)] text-[var(--text-hi)] font-medium text-sm hover:bg-[var(--surface-2)]"
+                  >
+                    {t.builder.done.close}
+                  </button>
                 </div>
               )}
             </motion.div>

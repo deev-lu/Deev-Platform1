@@ -12,7 +12,12 @@ export const site: typeof En = {
     workshops: "Ateliers",
     funding: "Aides PME",
     contact: "Contact",
-    cta: "Échange gratuit",
+    cta: "Demander un projet de site web",
+    /** The main button where space is short (phone contact bar). */
+    ctaShort: "Demander un devis",
+    websites: "Sites web",
+    projects: "Projets",
+    more: "Autres services",
     call: "Appelez-nous",
     openMenu: "Ouvrir le menu",
     closeMenu: "Fermer le menu",
@@ -46,7 +51,7 @@ export const site: typeof En = {
 
   footer: {
     blurb:
-      "Ingénierie logicielle et IA au Luxembourg. Nous construisons les systèmes sur lesquels repose votre entreprise, et nous en restons responsables après la mise en ligne.",
+      "Création de sites web au Luxembourg : sites d'entreprise multilingues et boutiques en ligne qui transforment vos visiteurs en clients. Et aussi logiciels sur mesure et IA, par la même équipe.",
     certified: "Label certifié",
     certifiedNote: "Conçu et développé au Luxembourg.",
     services: "Services",
@@ -57,7 +62,9 @@ export const site: typeof En = {
       grant: "SME Packages",
       webApps: "Logiciel sur mesure",
       aiAgents: "IA et données",
-      ecommerce: "Sites web, sur invitation",
+      ecommerce: "Sites web et boutiques en ligne",
+      security: "Cybersécurité et NIS2",
+      pricing: "Combien coûte mon site web ?",
       marketingSites: "Marketing",
       portfolio: "Réalisations",
       terms: "Informations légales",

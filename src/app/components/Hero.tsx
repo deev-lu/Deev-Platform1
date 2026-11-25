@@ -1,39 +1,37 @@
-import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import L from "./L";
 import { useT, useLocale } from "../../lib/useT";
 import { scrollToId } from "../../lib/smoothScroll";
 import { GOOGLE_REVIEWS } from "../../lib/reviews";
-import { useReduceMotion } from "../../lib/motionPref";
+import { getProject, sectorOf } from "../../lib/projects";
+import { mark } from "../../lib/i18nMark";
 import MotionToggle from "./MotionToggle";
-import HeroNetwork from "./HeroNetwork";
 
 /**
- * Der Hero, seit dem 30.10.2026 im Stil von nvision.lu in DEEV-Farben (der
- * Wunsch des Inhabers): kein Foto, kein Film mehr, sondern der dunkle,
- * von Orbs beleuchtete Grund (OrbField), eine sehr grosse Typold-Zeile und
- * ein Wort, das wechselt und im Blau-Cyan-Verlauf laeuft.
+ * Der Hero, seit dem 25.11.2026 mit einer einzigen Aufgabe: ein Luxemburger
+ * Unternehmer erkennt sofort, dass er bei DEEV eine Website in Auftrag geben
+ * kann, sieht ein echtes Beispiel und kann direkt anfragen.
  *
- * "Wir bauen / Individualsoftware / fuer Luxemburger Unternehmen." Die
- * wechselnden Woerter stammen alle aus dem Lead, nichts Neues wird
- * behauptet. Das echte <h1> bleibt der bisherige Satz und ist nur fuer
- * Screenreader und Suchmaschinen da; die sichtbare Zeile ist dekorativ und
- * aria-hidden, damit der Wechsel nichts ansagt.
+ * Links: kleine Zeile, feste Ueberschrift (das echte <h1>, nichts rotiert
+ * mehr), Unterzeile, der Hauptknopf "Website-Projekt anfragen", ein
+ * Textlink zur Projektauswahl (#projects) und darunter die Google-Bewertung.
+ * Rechts: ein echtes Kundenprojekt (Bureau Immobilier Feltes) gross im
+ * Browserrahmen; Bild und Name fuehren zur Fallstudie. Auf dem Telefon
+ * kommen Ueberschrift, Text und Knopf zuerst, das Bild danach.
  *
- * Darunter links der Lead mit zwei Pillen-Knoepfen, rechts das Angebot als
- * Glas-Karte (ab 1024px; darunter als 2x2-Raster), unten die
- * Google-Bewertung und "Scrollen und entdecken". Das Wort steht still unter
- * reduzierter Bewegung und bei "Bewegung anhalten" (oben rechts).
+ * Bewegung bleibt die vorhandene: Orbs (OrbField), die Zeile steigt aus der
+ * Maske (.line-mask), der Rest blendet ein (.m-fade-up), die Vorschau neigt
+ * sich zum Zeiger ([data-tilt]). "Bewegung anhalten" oben rechts.
  */
 
-/** Where each entry of `home.intro.offers` leads, in the same order. */
-const HERO_OFFER_LINKS = ["/services/custom-software", "/services/ai-automation", "/workshops", "/services/websites", "/#cybersecurity"] as const;
-
-const ROTATE_MS = 2600;
+/** The project shown in the hero. A real client, with its own case study. */
+export const HERO_PROJECT = "bureau-immobilier-feltes";
 
 export default function Hero() {
   const t = useT();
-  const h = t.home.intro;
+  const locale = useLocale();
+  const h = t.web.hero;
+  const project = getProject(HERO_PROJECT);
 
   return (
     <section className="relative" aria-labelledby="hero-title">
@@ -41,180 +39,127 @@ export default function Hero() {
           Navigation. */}
       <MotionToggle className="absolute z-10 right-4 top-[84px] md:right-6 md:top-[96px]" />
 
-      {/* Das Netz hinter der freien Ecke oben rechts (ab 1024px). */}
-      <HeroNetwork className="hidden lg:block right-[2%] top-[12%] w-[min(46vw,620px)] h-auto" />
-
       <div
-        className="relative mx-auto w-full flex flex-col justify-end"
+        className="relative mx-auto w-full flex flex-col justify-center lg:min-h-[min(100svh,960px)]"
         style={{
           maxWidth: "var(--container)",
           paddingInline: "var(--gutter)",
-          minHeight: "max(640px, min(100svh, 1000px))",
-          paddingTop: "calc(68px + clamp(48px, 8vh, 120px))",
-          paddingBottom: "clamp(40px, 6vh, 72px)",
+          paddingTop: "calc(68px + clamp(40px, 7vh, 104px))",
+          paddingBottom: "clamp(32px, 6vh, 72px)",
         }}
       >
-        <h1 id="hero-title" className="sr-only">
-          {h.lines.join(" ")} {h.accent}
-        </h1>
-
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] items-end gap-x-14 gap-y-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] items-center gap-x-14 gap-y-10">
           <div className="min-w-0">
-            <HeroTitle build={h.build} words={h.rotate} accent={h.accent} />
+            <div
+              className="m-fade-up flex items-center gap-4 eyebrow-mono uppercase text-[var(--text-low)]"
+              style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}
+            >
+              <span className="h-px w-10 bg-[var(--line-strong)]" aria-hidden="true" />
+              <span>{h.eyebrow}</span>
+            </div>
+            <h1
+              id="hero-title"
+              className="display text-[var(--text-hi)] mt-6 mb-0"
+              style={{ fontSize: "clamp(2.35rem, 1.1rem + 3.3vw, 4.4rem)", lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: "15ch" }}
+            >
+              <span className="line-mask">
+                <span>{mark(h.title, "g-text")}</span>
+              </span>
+            </h1>
             <p
-              className="m-fade-up text-[var(--text)] mt-8 mb-0"
-              style={{ maxWidth: "56ch", fontSize: "var(--t-lead)", lineHeight: 1.55, animationDelay: "0.3s" }}
+              className="m-fade-up text-[var(--text)] mt-6 mb-0"
+              style={{ maxWidth: "52ch", fontSize: "var(--t-lead)", lineHeight: 1.55, animationDelay: "0.2s" }}
             >
               {h.lead}
             </p>
-            <div className="m-fade-up mt-8 flex flex-col sm:flex-row sm:items-center gap-3" style={{ animationDelay: "0.4s" }}>
+            <div className="m-fade-up mt-8 flex flex-col sm:flex-row sm:items-center gap-x-7 gap-y-4" style={{ animationDelay: "0.3s" }}>
               <L
-                to="/contact?interest=call"
+                to="/contact?interest=website"
+                data-cta="website_request"
+                data-cta-at="hero"
                 className="btn-grad m-arrow inline-flex items-center justify-center gap-2.5 px-7 text-white font-semibold rounded-full"
-                style={{ height: 54, fontSize: "var(--t-small)" }}
+                style={{ height: 56, fontSize: "var(--t-body)" }}
               >
                 {h.primary}
                 <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
               </L>
               <a
-                href="#film"
+                href="#projects"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToId("film");
+                  scrollToId("projects");
                 }}
-                className="btn-ghost inline-flex items-center justify-center gap-2.5 pl-2 pr-6 rounded-full font-medium"
-                style={{ height: 54, fontSize: "var(--t-small)" }}
+                className="group inline-flex items-center justify-center sm:justify-start gap-2 font-medium text-[var(--text-hi)] underline underline-offset-[6px] decoration-[var(--line-strong)] hover:decoration-[var(--signal-text)] transition-colors duration-[var(--dur-1)]"
+                style={{ fontSize: "var(--t-body)" }}
               >
-                <span className="w-10 h-10 rounded-full bg-[var(--signal-dim)] flex items-center justify-center" aria-hidden="true">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 4.5v15l13-7.5z" />
-                  </svg>
-                </span>
-                {h.film}
+                {h.secondary}
+                <ArrowRight className="w-4 h-4 rotate-90 transition-transform duration-[var(--dur-1)] group-hover:translate-y-0.5" strokeWidth={1.5} aria-hidden="true" />
               </a>
             </div>
 
-            {/* Google-Bewertung, sobald die echten Zahlen in lib/reviews.ts stehen. */}
+            {/* Google-Bewertung, dezent, direkt beim Hauptknopf. */}
             <HeroReviews />
-
-            {/* Unter 1024px: das Angebot als 2x2-Raster, darunter die Foerderung. */}
-            <div className="lg:hidden m-fade-up mt-8" style={{ animationDelay: "0.5s" }}>
-              <div className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
-                {h.offersLabel}
-              </div>
-              <ul className="grid grid-cols-2 gap-2 mt-3 m-0 p-0">
-                {h.offers.map((o, i) => (
-                  <li key={o.title} className={`list-none ${h.offers.length % 2 && i === h.offers.length - 1 ? "col-span-2" : ""}`}>
-                    <L
-                      to={HERO_OFFER_LINKS[i]}
-                      className="glass-pill flex h-full flex-col gap-1 p-3.5 hover:border-[var(--line-strong)] transition-colors duration-[var(--dur-1)]"
-                      style={{ borderRadius: "var(--radius-1)" }}
-                    >
-                      <span className="text-[var(--text-hi)] font-medium" style={{ fontSize: "0.875rem", lineHeight: 1.25 }}>
-                        {o.title}
-                      </span>
-                      <span className="text-[var(--text-low)]" style={{ fontSize: "0.75rem", lineHeight: 1.35 }}>
-                        {o.sub}
-                      </span>
-                    </L>
-                  </li>
-                ))}
-              </ul>
-              <FundingLine text={h.funding} />
-            </div>
           </div>
 
-          {/* Ab 1024px: das Angebot als Glas-Karte rechts. */}
-          <nav
-            aria-label={h.offersLabel}
-            className="glass-pill hidden lg:flex m-fade-up flex-col w-[360px] p-6"
-            style={{ borderRadius: "var(--radius-2)", animationDelay: "0.5s" }}
-          >
-            <div className="eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "0.625rem", letterSpacing: "0.16em" }}>
-              {h.offersLabel}
-            </div>
-            <ul className="flex flex-col mt-3 m-0 p-0">
-              {h.offers.map((o, i) => (
-                <li key={o.title} className="list-none border-b border-[var(--line)] last:border-b-0">
-                  <L to={HERO_OFFER_LINKS[i]} className="group flex items-center gap-3 py-3">
-                    <span className="eyebrow-mono text-[var(--signal-text)] shrink-0" style={{ fontSize: "var(--t-label)" }}>
-                      {String(i + 1).padStart(2, "0")}
+          {project?.image && (
+            <figure className="m-fade-up m-0 min-w-0" style={{ animationDelay: "0.35s" }}>
+              <L
+                to={`/work/${project.slug}`}
+                className="group block"
+              >
+                <div
+                  data-tilt
+                  className="card-glow overflow-hidden border border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_40px_90px_-40px_rgba(0,0,0,0.6)] transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1.5"
+                  style={{ borderRadius: "var(--radius-2)" }}
+                >
+                  <div className="flex items-center gap-1.5 h-9 px-3.5 border-b border-[var(--line)]" aria-hidden="true">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[var(--line-strong)]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[var(--line-strong)]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[var(--line-strong)]" />
+                    <span className="mx-auto px-3 h-5 inline-flex items-center rounded-full bg-[var(--surface-2)] eyebrow-mono text-[var(--text-low)]" style={{ fontSize: "0.6875rem", letterSpacing: "0.06em" }}>
+                      {domainOf(project.link)}
                     </span>
-                    <span className="flex-1 min-w-0">
-                      <span className="block text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
-                        {o.title}
-                      </span>
-                      <span className="block text-[var(--text-low)]" style={{ fontSize: "0.75rem", lineHeight: 1.4 }}>
-                        {o.sub}
-                      </span>
+                  </div>
+                  <img
+                    src={project.image}
+                    alt={`${project.title}, ${sectorOf(project, locale)}`}
+                    width={1000}
+                    height={583}
+                    loading="eager"
+                    decoding="async"
+                    className="block w-full h-auto"
+                  />
+                </div>
+                <figcaption className="mt-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-x-4 gap-y-2">
+                  <span className="min-w-0">
+                    <span className="block eyebrow-mono uppercase text-[var(--text-low)]" style={{ fontSize: "var(--t-label)", letterSpacing: "0.16em" }}>
+                      {h.previewLabel} · {sectorOf(project, locale)}
                     </span>
-                    <ArrowRight
-                      className="w-4 h-4 shrink-0 text-[var(--text-low)] group-hover:text-[var(--text-hi)] group-hover:translate-x-0.5 transition-[color,transform] duration-[var(--dur-1)]"
-                      strokeWidth={1.5}
-                    />
-                  </L>
-                </li>
-              ))}
-            </ul>
-            <FundingLine text={h.funding} />
-          </nav>
-        </div>
-
-        {/* "Scrollen und entdecken", wie bei nvision: eine Maus mit einem
-            Punkt, der nach unten laeuft (ab 768px). */}
-        <div className="hidden md:flex justify-center mt-12" aria-hidden="true">
-          <span className="scroll-cue">
-            <span className="eyebrow-mono uppercase" style={{ fontSize: "0.625rem", letterSpacing: "0.22em" }}>
-              {h.scroll}
-            </span>
-            <span className="scroll-cue__mouse">
-              <span className="scroll-cue__dot" />
-            </span>
-          </span>
+                    <span className="block mt-1.5 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-body)" }}>
+                      {project.title}
+                    </span>
+                  </span>
+                  <span className="shrink-0 inline-flex items-center gap-1.5 text-[var(--signal-text)] font-medium" style={{ fontSize: "var(--t-small)" }}>
+                    {h.previewCta}
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.5} />
+                  </span>
+                </figcaption>
+              </L>
+            </figure>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-/**
- * Die sichtbare Titelzeile: "Wir bauen", das wechselnde Wort im Verlauf,
- * die Akzentzeile. Dekorativ (aria-hidden); das <h1> traegt den Satz.
- */
-function HeroTitle({ build, words, accent }: { build: string; words: readonly string[]; accent: string }) {
-  const reduce = useReduceMotion();
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (reduce || words.length < 2) {
-      setI(0);
-      return;
-    }
-    const id = window.setInterval(() => setI((n) => (n + 1) % words.length), ROTATE_MS);
-    return () => window.clearInterval(id);
-  }, [reduce, words.length]);
-  const prev = (i - 1 + words.length) % words.length;
-
-  return (
-    <p
-      aria-hidden="true"
-      className="display text-[var(--text-hi)] m-0"
-      style={{ fontSize: "clamp(2.6rem, 1rem + 4.6vw, 5.5rem)", lineHeight: 1.02, letterSpacing: "-0.04em" }}
-    >
-      <span className="line-mask">
-        <span>{build}</span>
-      </span>
-      <span className="rotator" style={{ paddingBlock: "0.06em" }}>
-        {words.map((w, n) => (
-          <span key={w} className="g-text pb-[0.08em]" data-on={n === i} data-out={n === prev && !reduce}>
-            {w}
-          </span>
-        ))}
-      </span>
-      <span className="line-mask">
-        <span style={{ animationDelay: "0.18s" }}>{accent}</span>
-      </span>
-    </p>
-  );
+export function domainOf(link?: string) {
+  if (!link) return null;
+  try {
+    return new URL(link).hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -232,7 +177,7 @@ function HeroReviews() {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="m-fade-up mt-7 inline-flex items-center gap-3 text-[var(--text)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+      className="m-fade-up mt-6 inline-flex items-center gap-3 text-[var(--text)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
       style={{ fontSize: "var(--t-small)", animationDelay: "0.45s" }}
     >
       <GoogleG />
@@ -278,20 +223,5 @@ function GoogleG() {
       <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
       <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.3-.4-3.5z" />
     </svg>
-  );
-}
-
-/** Die Foerderung als eine Zeile, verlinkt auf /sme-packages. */
-function FundingLine({ text }: { text: string }) {
-  return (
-    <L
-      to="/sme-packages"
-      className="group mt-4 pt-4 border-t border-[var(--line)] flex items-center gap-2 text-[var(--text)] hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-      style={{ fontSize: "0.8125rem", lineHeight: 1.4 }}
-    >
-      <span className="w-1.5 h-1.5 rounded-full bg-[#3ce7fc] shrink-0" aria-hidden="true" />
-      <span className="flex-1">{text}</span>
-      <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5" strokeWidth={1.5} />
-    </L>
   );
 }

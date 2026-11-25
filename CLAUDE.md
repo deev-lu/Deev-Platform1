@@ -35,8 +35,12 @@ tarball upload is reliable. Deploys alias to www.deev.lu automatically.
 Vercel blocks deploys when the commit email doesn't match a GitHub account.
 
 ## Layout of the page (src/app/App.tsx)
-High-end positioning since October 2026: software and AI lead, websites are
-design "by invitation". No project budget figure is shown publicly.
+**Website projects first since 25 Nov 2026** (the owner's brief: they are
+DEEV's main revenue, and a visitor must see that in five seconds). Software,
+AI, workshops, marketing and cybersecurity are "More services", each on its
+own page. Never write "by invitation" / "auf Einladung" / "sur invitation"
+(or "for a limited number of clients") about websites again. No project
+budget figure is shown publicly beyond the calculator's ranges.
 **Design language since 30 Oct 2026: like nvision.lu, in DEEV's colours**
 (the owner's request; `src/styles/design.css`, which overrides the older
 brand-book bans in tokens.css on purpose): a charcoal ground (`--surface-0`
@@ -54,28 +58,33 @@ colour and a competitor's. Text contrast is measured against the brightest
 orb glow, so keep orb alphas where they are (design.css, tokens.css).
 
 Navbar (two floating glass pills: the mark + DEEV, which folds to the mark
-on scroll; navigation, language, theme, phone and the intro-call button) →
-Hero (no photo: the orbs, "We build / <rotating word> / for Luxembourg
-businesses." with the real <h1> sr-only, lead, buttons, offer card, "scroll
-to explore") → HomeClients (a 3D coverflow carousel of real client logos
-only, arrows, dots, swipe, auto-advance every 3s with its own pause; the list
-and each logo's filter live in `clients` in ClientLogos.tsx — a new client
-comes with its file)
-→ HomeWorkshops (01, since 27 Oct 2026 the first section: workshops &
-consulting sold as a service of their own and the entry to most projects —
-an inset blue panel with the executive concept drawn as a document, the
-three formats on hairlines and the property-management concept as 7 / 7 / 30;
-every claim repeats the AI page) → HomeDisciplines (02, three cards with
-plates) → HomeSecurity (03, #cybersecurity: awareness training for teams and
-management and a first NIS2 check, led by Noah Stelmes; NIS2 is cited by
-article from Directive (EU) 2022/2555 only — no Luxembourg dates, deadlines
-or authorities, the sources disagreed when it was written) → HomeFunding (an
-unnumbered band with the three SME Package figures, linking to /sme-packages)
-→ AiFilm ("AI at work") → SelectedWork (04, a bento of five projects: each
-screenshot in a browser frame with its domain) → InMotion (05) → HomeOutro:
-engagements (06, a photo and the flow plate; carries the #pricing /
-#project-builder campaign anchors) · HomeCompany (07, #about) · closing
-invitation (08) → Footer
+on scroll; Websites · Projects (panel) · More services (panel) · About,
+language, theme, phone and the main button "Request a website project") →
+Hero (`Hero.tsx`: eyebrow "Web design from Luxembourg", a fixed <h1> "A
+website that turns visitors into customers.", lead, the main button, a text
+link to #projects, the Google rating; on the right a large real client
+project, Bureau Immobilier Feltes (`HERO_PROJECT`), in a browser frame,
+linking to its case study; on phones text and button come first) →
+`HomeWebsite.tsx`: HomeProjects (01, #projects and the old #portfolio:
+Feltes, F.I.T., Vino Amore — `HOME_PROJECTS` — large screenshots, one
+benefit sentence each from `web.projects.items`, link to the case study)
+→ HomeClients (the logo coverflow; the list and each logo's filter live in
+`clients` in ClientLogos.tsx) → HomeProcess (02, four steps: first call,
+design, build and review on a test address, launch) → HomeBudget (03,
+#pricing / #project-builder: "What will my website cost?" to
+`/project?type=website`, the SME grant separately) → HomeContact (04, #about:
+Sven and Fabio, phone, the short website request form) → HomeMore (05, the
+five other services; old anchors #cybersecurity, #film, #services land here)
+→ Footer. Copy for all of it lives in `src/locales/*/web.ts`.
+
+What left the homepage on 25 Nov 2026 and where it went: the AI film →
+/services/ai-automation (first block); HomeSecurity → its own route
+`/services/cybersecurity` (`standalone`, an <h1>); InMotion → bottom of
+/work; workshops → /workshops; the funding figures → /sme-packages. The old
+components (HomeWorkshops, HomeDisciplines, HomeFunding, SelectedWork,
+HomeOutro, BudgetTeaser, HeroNetwork) are no longer rendered anywhere.
+**The process wording (02) must be confirmed by the owner**: it repeats what
+the site already promised, but no written DEEV website process existed.
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
 renumbering the ones after it, or the sequence reads 01, 10, 02.
@@ -91,12 +100,6 @@ tram on the same bridge), `gelle-fra-*` (02, workshops), `philharmonie-*`
 (06, the company) and `kirchberg-aerial-*` (the earlier hero, rooftop
 lettering retouched out; kept, not used). They were sized and compressed at export
 (WebP); keep any replacement under ~250KB for the hero and ~150KB elsewhere.
-
-**Hero (since 30 Oct 2026):** the visible title is decorative
-(aria-hidden): "We build", one of `home.intro.rotate` (words taken from the
-lead, never new claims) rolling every 2.6s in `.g-text`, then the accent
-line; it stands still under reduced motion and "Pause motion" (top right).
-The real <h1> is the old sentence, sr-only.
 
 **Section ticks** (`SectionTicks.tsx`, homepage, from 1024px): one line per
 `main section[id]` that has an eyebrow, the current one long and in the
@@ -115,18 +118,39 @@ a band of light crosses it on hover; a 2px reading-progress line along the
 top (`.scroll-progress` in OrbField, scroll-driven); from 768px section
 headings sharpen from a slight blur as they rise and the eyebrow rule draws
 in; the hero's "We build" and accent lines rise out of a mask once on load;
-`HeroNetwork.tsx` (from 1024px) draws nodes and links behind the hero with
+`HeroNetwork.tsx` (no longer rendered since 25 Nov 2026) drew nodes and links behind the hero with
 packets of light running along them; the workshop proof figures and the
 funding figures count up (`CountUp`, never from zero).
 
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
 ## Leads (since 24 Oct 2026, "a lead machine")
-- **One main button everywhere: the free intro call** (`nav.cta`, hero), to
-  `/contact?interest=call`. Every other contact button opens the form on its
-  own option: `?interest=workshop|ai|software|funding|website|marketing|security`
+- **One main button everywhere since 25 Nov 2026: "Request a website
+  project"** (`nav.cta`, hero, phone bar as `nav.ctaShort`, about page,
+  every website case study as "Request a similar website project"), to
+  `/contact?interest=website` (`&ref=<slug>` from a case study: the project
+  name goes into the enquiry). That opens `WebsiteRequestForm.tsx` instead of
+  the general form: name, email, "What should your new website do?", call
+  back (shows the phone field), company and current site behind a
+  disclosure, the one-working-day note right at the button. The homepage
+  contact section uses the same form. Every other contact button opens the
+  general form on its own option: `?interest=workshop|ai|software|funding|website|marketing|security`
   (`INTEREST_KEYS` in Contact.tsx maps a key to `pages.contact.interests` by
   position — keep the arrays in the same order in all three languages).
+- **The price calculator** (`/project`, ProjectBuilder.tsx) keeps its promise
+  since 25 Nov 2026: the full indicative range appears without any contact
+  details. The regular project price comes first; a possible SME grant is a
+  separate block, labelled as depending on eligibility. Only below the result:
+  "Request a personal quote for this configuration", a modal that sends the
+  configuration along. `?type=website` (from "What will my website cost?")
+  preselects the website and opens on the scope step. Pricing logic unchanged.
+- **Analytics events** (consent only, `lib/analytics.ts`): `cta_click` (any
+  element with `data-cta`, `data-cta-at` says where), `form_start` (first
+  input), `lead_accepted` (only after `/api/lead` accepted it — the one event
+  that counts as an enquiry; mark it as the key event in GA4), `lead_error`.
+  Never names, addresses or free text (the `safe()` filter enforces it).
+- `tests/e2e/journeys.e2e.ts` walks both journeys (hero → reference → request;
+  calculator → estimate → quote) with `/api/lead` mocked in the browser.
 - **`/workshops`** (WorkshopsPage.tsx) is the landing page for the workshop
   offer, with its own request form. Only claims the homepage, the AI page and
   the workshop article already make; no price or duration until the owner
@@ -204,7 +228,7 @@ that is the owner's call.
   the button. The phone drawer is a disclosure (`aria-expanded`, Escape).
   Pages in menus are links, not buttons.
 - **Modals** use `lib/useModal.ts` (focus in, Tab trapped, Escape, focus
-  back): the cookie preferences and the calculator's lead form. New modals
+  back): the cookie preferences and the calculator's quote request. New modals
   use it too, with role="dialog", aria-modal and a label.
 - **Forms:** a visible `<label>` for every field (placeholders are examples,
   never the label), `autoComplete`, "* required" explained above the form

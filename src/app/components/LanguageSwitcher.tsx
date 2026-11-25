@@ -15,7 +15,9 @@ import { useT } from "../../lib/useT";
 export default function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const t = useT();
   const navigate = useNavigate();
-  const { pathname, hash } = useLocation();
+  // The query stays: /contact?interest=website&ref=... must open the same
+  // form in the other language.
+  const { pathname, search, hash } = useLocation();
   const current = localeFromPath(pathname);
   const path = stripLocale(pathname);
 
@@ -46,7 +48,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
     setOpen(false);
-    navigate(withLocale(path, locale) + hash);
+    navigate(withLocale(path, locale) + search + hash);
   };
 
   // On a phone the menu is already a list, so the languages are a plain row
@@ -57,7 +59,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         {LOCALES.map((l) => (
           <a
             key={l}
-            href={withLocale(path, l)}
+            href={withLocale(path, l) + search}
             onClick={(e) => go(e, l)}
             aria-current={l === current ? "true" : undefined}
             lang={l}
@@ -103,7 +105,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
           {LOCALES.map((l) => (
             <li key={l}>
               <a
-                href={withLocale(path, l)}
+                href={withLocale(path, l) + search}
                 onClick={(e) => go(e, l)}
                 lang={l}
                 aria-current={l === current ? "true" : undefined}

@@ -5,7 +5,7 @@ import { ArrowRight, ArrowUpRight, BadgeEuro, ChevronDown } from "lucide-react";
 import L from "./L";
 import { MENU_FEATURED, PROJECTS, sectorOf } from "../../lib/projects";
 import { WORK_CATEGORIES, categoryPath, inCategory } from "../../lib/workCategories";
-import { SERVICE_GROUPS, SERVICE_HREF } from "../../lib/serviceSections";
+import { MORE_SERVICES } from "../../lib/serviceSections";
 import { ARTICLES, formatDate } from "../../lib/news";
 import { useT, useLocale, useLocalePath } from "../../lib/useT";
 import { useReduceMotion } from "../../lib/motionPref";
@@ -61,11 +61,27 @@ export default function MegaMenu({
 
   // Each trigger is a destination first and a panel second: the panel is a
   // shortcut into the page, never the only way to reach it.
+  // Seit dem 25.11.2026 knapp: Websites, Projekte, Weitere Leistungen,
+  // Ueber uns (dazu der Hauptknopf in Navbar). Blog, Kontakt, Workshops und
+  // Foerderung stehen im Footer und im Panel "Weitere Leistungen".
   const TRIGGERS: { id: PanelId; label: string; to: string }[] = [
-    { id: "services", label: t.site.nav.services, to: "/services" },
-    { id: "work", label: t.site.nav.work, to: "/work" },
-    { id: "journal", label: t.site.nav.journal, to: "/blog" },
+    { id: "work", label: t.site.nav.projects, to: "/work" },
+    { id: "services", label: t.site.nav.more, to: "/services" },
   ];
+  const plainLink = (key: "websites" | "about", to: string) => (
+    <L
+      key={key}
+      to={to}
+      className="group relative px-3 py-2 text-sm font-medium whitespace-nowrap text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
+      onMouseEnter={hoverClose}
+    >
+      {t.site.nav[key]}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left scale-x-0 bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-x-100"
+      />
+    </L>
+  );
 
   // A route change means the visitor got where they were going.
   useEffect(() => setOpen(null), [pathname, setOpen]);
@@ -111,6 +127,7 @@ export default function MegaMenu({
       onMouseEnter={() => window.clearTimeout(timer.current)}
     >
       <nav aria-label={t.site.nav.mainNav} className="flex items-center gap-1">
+        {plainLink("websites", "/services/websites")}
         {TRIGGERS.map((trigger) => {
           const on = open === trigger.id;
           return (
@@ -127,7 +144,7 @@ export default function MegaMenu({
                   finds a real href where there used to be a bare button. */}
               <L
                 to={trigger.to}
-                className={`relative pl-3 pr-1 py-2 text-sm font-medium transition-colors duration-[var(--dur-1)] ${
+                className={`relative pl-3 pr-1 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-[var(--dur-1)] ${
                   on
                     ? "text-slate-900 dark:text-[var(--text-hi)]"
                     : "text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)]"
@@ -179,7 +196,7 @@ export default function MegaMenu({
                       className="mx-auto rounded-[var(--radius-2)] border border-[var(--line-strong)] bg-[var(--surface-1)] shadow-[0_40px_90px_-40px_rgba(0,0,0,0.7)]"
                       style={{ maxWidth: "calc(var(--container) - 2 * clamp(12px, 2.4vw, 40px))", paddingInline: "clamp(24px, 3vw, 48px)", paddingBlock: "40px" }}
                     >
-                      {trigger.id === "services" && <ServicesPanel onAnchor={onAnchor} />}
+                      {trigger.id === "services" && <MorePanel />}
                       {trigger.id === "work" && <WorkPanel />}
                       {trigger.id === "journal" && <JournalPanel />}
                     </div>
@@ -190,36 +207,7 @@ export default function MegaMenu({
           );
         })}
 
-        {/* Workshops und Foerderung: die zwei Wege, ueber die die meisten
-            Projekte beginnen. Erst ab 1280px, weil die deutsche Zeile bei
-            1024px umbricht. Darunter fuehren das Telefonmenue, die
-            Startseite und der Footer zu beiden Seiten. */}
-        {([["workshops", "/workshops"], ["funding", "/sme-packages"]] as const).map(([key, to]) => (
-          <L
-            key={key}
-            to={to}
-            className="group relative hidden xl:block px-3 py-2 text-sm font-medium whitespace-nowrap text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-            onMouseEnter={hoverClose}
-          >
-            {t.site.nav[key]}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left scale-x-0 bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-x-100"
-            />
-          </L>
-        ))}
-
-        <L
-          to="/contact"
-          className="group relative px-3 py-2 text-sm font-medium text-slate-600 dark:text-[var(--text-mid)] hover:text-slate-900 dark:hover:text-[var(--text-hi)] transition-colors duration-[var(--dur-1)]"
-          onMouseEnter={hoverClose}
-        >
-          {t.site.nav.contact}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute left-3 right-3 bottom-1 h-px origin-left scale-x-0 bg-current transition-transform duration-[240ms] ease-[cubic-bezier(0.16,1,0.30,1)] group-hover:scale-x-100"
-          />
-        </L>
+        {plainLink("about", "/about")}
       </nav>
 
     </div>
@@ -237,63 +225,49 @@ function ColumnHeading({ children }: { children: ReactNode }) {
   );
 }
 
-function ServicesPanel({ onAnchor }: { onAnchor: (href: string) => void }) {
+function MorePanel() {
   const t = useT();
-  const localePath = useLocalePath();
+  const m = t.web.more;
 
   return (
     <div className="grid grid-cols-12 gap-x-10 gap-y-10">
-      {(Object.keys(SERVICE_GROUPS) as (keyof typeof SERVICE_GROUPS)[]).map((col) => (
-        <div key={col} className="col-span-3">
-          <ColumnHeading>{t.site.mega.columns[col]}</ColumnHeading>
-          <ul className="flex flex-col gap-1">
-            {SERVICE_GROUPS[col].map((id) => {
-              const item = t.site.mega.items[id];
-              return (
-                <li key={id}>
-                  {/* Routen sind Links, Anker sind Aktionen. Seit der Rechner
-                      unter /project liegt, ist "pricing" das eine und nicht
-                      mehr das andere. */}
-                  {SERVICE_HREF[id].startsWith("/") ? (
-                  <L
-                    to={SERVICE_HREF[id]}
-                    className="group block w-full text-left py-2.5 px-3 -mx-3 rounded-[var(--radius-1)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
-                  >
-                    <span className="flex items-center gap-2 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
-                      {item.label}
-                      <ArrowRight
-                        className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--dur-1)] text-[var(--signal-text)]"
-                        strokeWidth={1.5}
-                      />
-                    </span>
-                    <span className="block text-[var(--text-low)] mt-1" style={{ fontSize: "var(--t-label)", lineHeight: 1.5 }}>
-                      {item.desc}
-                    </span>
-                  </L>
-                  ) : (
-                  <button
-                    type="button"
-                    onClick={() => onAnchor(SERVICE_HREF[id])}
-                    className="group block w-full text-left py-2.5 px-3 -mx-3 rounded-[var(--radius-1)] hover:bg-[var(--surface-1)] transition-colors duration-[var(--dur-1)]"
-                  >
-                    <span className="flex items-center gap-2 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
-                      {item.label}
-                      <ArrowRight
-                        className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--dur-1)] text-[var(--signal-text)]"
-                        strokeWidth={1.5}
-                      />
-                    </span>
-                    <span className="block text-[var(--text-low)] mt-1" style={{ fontSize: "var(--t-label)", lineHeight: 1.5 }}>
-                      {item.desc}
-                    </span>
-                  </button>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+      <div className="col-span-9">
+        <ColumnHeading>{t.site.nav.more}</ColumnHeading>
+        <ul className="grid grid-cols-3 gap-x-8 gap-y-2">
+          {MORE_SERVICES.map(([key, to]) => (
+            <li key={key}>
+              <L
+                to={to}
+                className="group block w-full text-left py-2.5 px-3 -mx-3 rounded-[var(--radius-1)] hover:bg-[var(--surface-2)] transition-colors duration-[var(--dur-1)]"
+              >
+                <span className="flex items-center gap-2 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-small)" }}>
+                  {m.items[key].title}
+                  <ArrowRight
+                    className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--dur-1)] text-[var(--signal-text)]"
+                    strokeWidth={1.5}
+                  />
+                </span>
+                <span className="block text-[var(--text-low)] mt-1" style={{ fontSize: "var(--t-label)", lineHeight: 1.5 }}>
+                  {m.items[key].line}
+                </span>
+              </L>
+            </li>
+          ))}
+        </ul>
+        {/* Was nicht mehr in der Leiste steht, bleibt einen Klick entfernt. */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8 pt-5 border-t border-[var(--line)]" style={{ fontSize: "var(--t-small)" }}>
+          {([
+            [t.site.footer.links.grant, "/sme-packages"],
+            [t.site.footer.links.hub, "/business-hub"],
+            [t.site.nav.journal, "/blog"],
+            [t.site.nav.contact, "/contact"],
+          ] as const).map(([label, to]) => (
+            <L key={to} to={to} className="text-[var(--text-mid)] hover:text-[var(--text-hi)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--line-strong)]">
+              {label}
+            </L>
+          ))}
         </div>
-      ))}
+      </div>
 
       {/* The one thing most visitors are actually here to find out. */}
       <div className="col-span-3">

@@ -20,12 +20,15 @@ import { whatsappHref } from "../../lib/whatsapp";
 // Leistungsseiten gewandert. Ein Anker ins Leere scrollt nirgendwohin und
 // sieht für den Besucher aus wie ein kaputter Link - er ist es auch.
 const NAV = {
+  // Websites zuerst (seit dem 25.11.2026 das Hauptgeschaeft), dann die
+  // weiteren Leistungen in der Reihenfolge der Startseite.
   services: [
+    { key: "ecommerce", href: "/services/websites" },
     { key: "webApps", href: "/services/custom-software" },
     { key: "aiAgents", href: "/services/ai-automation" },
     { key: "workshops", href: "/workshops" },
-    { key: "ecommerce", href: "/services/websites" },
     { key: "marketingSites", href: "/services/marketing" },
+    { key: "security", href: "/services/cybersecurity" },
   ],
   company: [
     { key: "services", href: "/services" },
@@ -34,7 +37,7 @@ const NAV = {
     { key: "portfolio", href: "/work" },
     { key: "about", href: "/about" },
     { key: "journal", href: "/blog" },
-    { key: "pricing", href: "/project" },
+    { key: "pricing", href: "/project?type=website" },
     { key: "contact", href: "/contact" },
   ],
   legal: [

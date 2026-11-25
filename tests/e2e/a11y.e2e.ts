@@ -14,16 +14,20 @@ const PAGES = [
   "/",
   "/workshops",
   "/contact",
+  "/contact?interest=website&ref=vino-amore",
   "/about",
   "/services",
   "/services/ai-automation",
   "/services/custom-software",
   "/services/websites",
   "/services/marketing",
+  "/services/cybersecurity",
   "/sme-packages",
   "/project",
+  "/project?type=website",
   "/work",
   "/work/billovio",
+  "/work/vino-amore",
   "/blog",
   "/blog/custom-rag-explained",
   "/legal",
@@ -91,11 +95,11 @@ test.describe("keyboard", () => {
     test.skip(info.project.name !== "desktop", "the panels exist from 768px up");
     await page.goto("/", { waitUntil: "networkidle" });
     await rejectCookies(page);
-    const link = page.getByRole("link", { name: "Services", exact: true }).first();
+    const link = page.getByRole("link", { name: "More services", exact: true }).first();
     await link.focus();
     // Focus alone must not open anything (WCAG 3.2.1).
     await expect(page.locator("#mega-services")).toHaveCount(0);
-    const toggle = page.getByRole("button", { name: "Open the Services menu" });
+    const toggle = page.getByRole("button", { name: "Open the More services menu" });
     await toggle.focus();
     await page.keyboard.press("Enter");
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
@@ -115,7 +119,7 @@ test.describe("keyboard", () => {
     await burger.click();
     const close = page.getByRole("button", { name: "Close menu" });
     await expect(close).toHaveAttribute("aria-expanded", "true");
-    await expect(page.locator("#mobile-menu").getByRole("link", { name: "Workshops" })).toBeVisible();
+    await expect(page.locator("#mobile-menu").getByRole("link", { name: "Websites" })).toBeVisible();
     await close.focus();
     await page.keyboard.press("Escape");
     await expect(page.locator("#mobile-menu")).toHaveCount(0);
@@ -139,7 +143,7 @@ test.describe("keyboard", () => {
     await expect(opener).toBeFocused();
   });
 
-  test("calculator lead form is a modal dialog with labelled fields", async ({ page }) => {
+  test("calculator: the estimate needs no contact details; the quote request is a modal", async ({ page }) => {
     await page.goto("/project", { waitUntil: "networkidle" });
     await rejectCookies(page);
     const options = page.locator("button[aria-pressed]");
@@ -148,22 +152,26 @@ test.describe("keyboard", () => {
     await page.getByRole("button", { name: /^Continue/ }).click();
     await page.locator("button[aria-pressed]").first().click();
     await page.getByRole("button", { name: /^Continue/ }).click();
-    const calculate = page.getByRole("button", { name: /^Calculate Estimate/ });
-    await calculate.click();
-    const dialog = page.getByRole("dialog", { name: "One last step" });
+    await page.getByRole("button", { name: /^Calculate Estimate/ }).click();
+    // The full range, regular price first, without a dialog in the way.
+    await expect(page.getByText("Regular project price")).toBeVisible();
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    const request = page.getByRole("button", { name: "Request a personal quote for this configuration" });
+    await request.click();
+    const dialog = page.getByRole("dialog", { name: "Personal quote" });
     await expect(dialog).toBeVisible();
     await expect.poll(() => dialog.evaluate((d) => d.contains(document.activeElement))).toBe(true);
-    for (const label of ["Your name", "Work email", "Company (optional)", "Current website (optional)", "When do you want to start?"]) {
+    for (const label of ["Your name", "Work email", "Company (optional)", "When do you want to start?"]) {
       await expect(dialog.getByLabel(label, { exact: false }).first()).toBeVisible();
     }
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);
-    await expect(calculate).toBeFocused();
+    await expect(request).toBeFocused();
   });
 });
 
 test.describe("forms", () => {
-  for (const path of ["/contact", "/workshops"]) {
+  for (const path of ["/contact", "/contact?interest=website", "/workshops", "/"]) {
     test(`${path}: every field has a visible label`, async ({ page }) => {
       await page.goto(path, { waitUntil: "networkidle" });
       await settle(page);
