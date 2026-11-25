@@ -54,7 +54,7 @@ export const home: typeof En = {
       { title: "Individualsoftware", sub: "Webanwendungen, Portale, interne Systeme" },
       { title: "KI und Automatisierung", sub: "Agenten und Assistenten für Ihre Daten" },
       { title: "Workshops und Beratung", sub: "Wo sich Software und KI wirklich rechnen" },
-      { title: "Websites", sub: "Auf Einladung" },
+      { title: "Websites", sub: "Firmenwebsites und Onlineshops" },
       { title: "Cybersecurity & NIS2", sub: "Awareness-Schulung für Teams und Leitung" },
     ],
     funding: "Luxemburger KMU: 70 % der förderfähigen Kosten zurück",
@@ -123,7 +123,7 @@ export const home: typeof En = {
     eyebrow: "Was wir tun",
     title: "Software und KI, die in Produktion laufen. Design, wo es zählt.",
     core: "Kern",
-    invitation: "Auf Einladung",
+    invitation: "Websites und Shops",
     software: {
       title: "Individuelle Software",
       copy: "Plattformen, Portale und interne Systeme, gebaut um die Art, wie Ihre Organisation wirklich arbeitet, und so entwickelt, dass sie über Jahre gepflegt werden können.",
@@ -138,7 +138,7 @@ export const home: typeof En = {
     },
     design: {
       title: "Design",
-      copy: "Websites und digitale Auftritte für eine begrenzte Zahl von Kunden, gestaltet auf dem Niveau der Marke dahinter.",
+      copy: "Firmenwebsites, Relaunches und Onlineshops, gestaltet auf dem Niveau der Marke dahinter.",
       list: ["Markenwebsites", "Digitale Identität", "Premium-E-Commerce"],
       cta: "Designauftrag anfragen",
     },

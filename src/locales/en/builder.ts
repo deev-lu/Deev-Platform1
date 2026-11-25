@@ -23,7 +23,7 @@ export const builder = {
   },
 
   systems: {
-    website: { label: "Marketing Website", description: "High-end, conversion-focused sites that win clients." },
+    website: { label: "Company website", description: "High-end, conversion-focused sites that win clients." },
     ecommerce: { label: "E-Commerce Store", description: "Online stores with seamless payments & inventory." },
     webapp: { label: "Web Application", description: "SaaS, dashboards, portals & complex product logic." },
     "ai-agent": { label: "AI & Automations", description: "Custom AI agents, chatbots & smart workflows." },
@@ -121,9 +121,32 @@ export const builder = {
     packageAi: "SME AI Package",
   },
 
+  /** The result step, since 25 Nov 2026: the regular price first, a possible
+   *  grant separately, and the quote request only after the result. */
+  result: {
+    regular: "Regular project price",
+    exVat: "Excl. VAT · an indicative range, not a quote",
+    grantTitle: "Possible SME grant",
+    grantDepends: "Only if your company and your project are eligible. That is decided in the pre-analysis, not by this calculator.",
+    grantLabel: "Grant, if eligible",
+    netLabel: "Your share, if eligible",
+    partial: (n: string) => `Only a project from €${n} can fall within the programme; the lower end of this range would not.`,
+    next: "Next step",
+    request: "Request a personal quote for this configuration",
+    requestNote: "Your selection goes with the request, so you do not have to describe your project again.",
+    liveRegular: "Regular price",
+    liveGrant: (a: string, b: string) => `With grant, if eligible: €${a} – €${b}`,
+    timeline: "Timeline",
+    weeks: "weeks",
+    features: (n: number) => `${n} feature${n === 1 ? "" : "s"}`,
+    summary: "Your configuration",
+    notes: "Anything else we should know? (optional)",
+  },
+
   done: {
-    title: "You're all set!",
-    body: (email: string) => `We'll send your estimate to ${email} within 24 hours.`,
+    title: "Request received.",
+    body: (email: string) => `We reply personally, usually within one working day, to ${email}.`,
+    close: "Close",
   },
 
   nav: {
@@ -135,7 +158,7 @@ export const builder = {
 
   leadForm: {
     cancel: "Cancel",
-    submit: "Reveal my estimate",
+    submit: "Send quote request",
     sending: "Sending…",
     retry: "Try again",
     errors: {
@@ -145,8 +168,8 @@ export const builder = {
       unconfigured: "Our enquiry service is not reachable right now. Please email contact@deev.lu and we will reply.",
       failed: "The enquiry did not go through. Nothing was lost; try again, or email contact@deev.lu.",
     },
-    title: "One last step",
-    body: "A few details so we can send an accurate estimate and project blueprint, the more you share, the better we scope it.",
+    title: "Personal quote",
+    body: "We take your configuration as it is. Add only what we should know besides.",
     name: "Your name",
     email: "Work email",
     company: "Company (optional)",

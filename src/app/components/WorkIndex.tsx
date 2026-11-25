@@ -1,4 +1,8 @@
-import { useMemo } from "react";
+import { Suspense, lazy, useMemo } from "react";
+
+// Die Videos der Arbeit, bis zum 25.11.2026 auf der Startseite. Erst beim
+// Abspielen wird etwas von YouTube geladen (LiteYouTube).
+const InMotion = lazy(() => import("./InMotion"));
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import L from "./L";
@@ -124,6 +128,11 @@ export default function WorkIndex({ categorySlug = "" }: { categorySlug?: string
         </div>
 
       </div>
+      {!categorySlug && (
+        <Suspense fallback={null}>
+          <InMotion />
+        </Suspense>
+      )}
     </main>
   );
 }

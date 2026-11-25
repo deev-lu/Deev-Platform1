@@ -41,3 +41,16 @@ export const SERVICE_HREF: Record<string, string> = {
   "why-deev": "/services#why-deev",
   about: "/about",
 };
+
+/**
+ * "Weitere Leistungen" (seit dem 25.11.2026): alles ausser Websites, in
+ * dieser Reihenfolge, fuer das Navigationspanel, das Telefonmenue und den
+ * Abschnitt 05 der Startseite. Die Woerter stehen in `web.more.items`.
+ */
+export const MORE_SERVICES = [
+  ["software", "/services/custom-software"],
+  ["ai", "/services/ai-automation"],
+  ["workshops", "/workshops"],
+  ["marketing", "/services/marketing"],
+  ["security", "/services/cybersecurity"],
+] as const;

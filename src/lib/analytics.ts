@@ -204,6 +204,11 @@ function watchContactClicks(): () => void {
   // Ohne echtes DOM (Server, Tests mit nachgebautem document) nichts tun.
   if (typeof document === "undefined" || typeof document.addEventListener !== "function") return () => {};
   const onClick = (e: MouseEvent) => {
+    // Haupt-Knoepfe tragen data-cta (z. B. "website_request") und
+    // data-cta-at (hero, nav, drawer, case_study ...). Ein Listener statt
+    // eines onClick an jedem Knopf, damit keiner vergessen wird.
+    const cta = (e.target as Element | null)?.closest?.("[data-cta]") as HTMLElement | null;
+    if (cta) track("cta_click", { cta: cta.dataset.cta ?? "", at: cta.dataset.ctaAt ?? "", page: location.pathname });
     const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
     if (!a) return;
     const href = a.getAttribute("href") ?? "";
@@ -238,7 +243,13 @@ export type TrackEvent =
   | "calculator_complete"
   | "lead_accepted"
   | "lead_error"
-  | "contact_click";
+  | "contact_click"
+  /** A click on a main call to action, e.g. "Request a website project"
+   *  (`data-cta` on the link; `data-cta-at` says where it sits). */
+  | "cta_click"
+  /** The first input into a form. Not an enquiry: only `lead_accepted`,
+   *  sent after the server took the submission, counts as one. */
+  | "form_start";
 
 type Param = string | number | boolean;
 

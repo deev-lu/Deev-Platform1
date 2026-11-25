@@ -19,7 +19,12 @@ export const site = {
     workshops: "Workshops",
     funding: "SME funding",
     contact: "Contact",
-    cta: "Free intro call",
+    cta: "Request a website project",
+    /** The main button where space is short (phone contact bar). */
+    ctaShort: "Request project",
+    websites: "Websites",
+    projects: "Projects",
+    more: "More services",
     call: "Call us",
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -53,7 +58,7 @@ export const site = {
 
   footer: {
     blurb:
-      "Software and AI engineering from Luxembourg. We build the systems your business runs on, and stay accountable after launch.",
+      "Web design from Luxembourg: multilingual company websites and online shops that turn visitors into customers. Plus custom software and AI, from the same team.",
     certified: "Certified label",
     certifiedNote: "Proudly designed & engineered in Luxembourg.",
     services: "Services",
@@ -63,7 +68,9 @@ export const site = {
       grant: "SME Packages",
       webApps: "Custom software",
       aiAgents: "AI and data",
-      ecommerce: "Websites, by invitation",
+      ecommerce: "Websites and online shops",
+      security: "Cybersecurity and NIS2",
+      pricing: "What will my website cost?",
       marketingSites: "Marketing",
       portfolio: "Portfolio",
       terms: "Legal Information",

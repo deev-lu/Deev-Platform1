@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import L from "./L";
 import {
   ArrowLeft,
+  ArrowRight,
   ArrowUpRight,
   Building2,
   Calendar,
@@ -385,6 +386,32 @@ export default function WorkCase() {
         )}
       </section>
 
+      {/* ── Anfrage (seit dem 25.11.2026) ─────────────────────────
+          Am Ende jeder Website-Fallstudie: wer bis hier liest, will so etwas
+          haben. Der Name des Projekts geht mit in die Anfrage (?ref=). */}
+      {isWebsiteCase(project) && (
+        <section className="border-t border-[var(--line)]">
+          <div
+            className="mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+            style={{ maxWidth: "var(--container)", paddingInline: "var(--gutter)", paddingBlock: "clamp(48px, 6vw, 80px)" }}
+          >
+            <p className="m-0 text-[var(--text-hi)] font-medium" style={{ fontSize: "var(--t-h3)", lineHeight: 1.2, maxWidth: "26ch" }}>
+              {t.web.hero.title.replace(/\[\[|\]\]/g, "")}
+            </p>
+            <L
+              to={`/contact?interest=website&ref=${project.slug}`}
+              data-cta="website_request"
+              data-cta-at="case_study"
+              className="btn-grad m-arrow shrink-0 inline-flex items-center justify-center gap-2.5 px-7 text-white font-semibold rounded-full"
+              style={{ height: 56, fontSize: "var(--t-body)" }}
+            >
+              {t.web.form.similar}
+              <ArrowRight className="w-4 h-4" strokeWidth={1.75} aria-hidden="true" />
+            </L>
+          </div>
+        </section>
+      )}
+
       {/* ── Next project ────────────────────────────────────────── */}
       <section className="border-t border-[var(--line)]">
         <L
@@ -418,6 +445,11 @@ export default function WorkCase() {
       </section>
     </main>
   );
+}
+
+/** A client website or online shop (not our own product, not a pure app). */
+function isWebsiteCase(p: Project) {
+  return !p.ownProduct && (p.services ?? []).some((s) => s === "website" || s === "ecommerce");
 }
 
 /**

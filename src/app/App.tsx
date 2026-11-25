@@ -20,15 +20,13 @@ const WorkshopsPage     = lazy(() => import("./components/WorkshopsPage"));
 const AboutPage         = lazy(() => import("./components/AboutPage"));
 const ServiceDetail     = lazy(() => import("./components/ServiceDetail"));
 const ProjectPage       = lazy(() => import("./components/ProjectPage"));
-const SelectedWork      = lazy(() => import("./components/SelectedWork"));
-const AiFilm            = lazy(() => import("./components/AiFilm"));
-const HomeDisciplines   = lazy(() => import("./components/HomeDisciplines"));
-const HomeOutro         = lazy(() => import("./components/HomeOutro"));
 const HomeClients       = lazy(() => import("./components/HomeClients"));
-const HomeWorkshops     = lazy(() => import("./components/HomeWorkshops"));
-const HomeFunding       = lazy(() => import("./components/HomeFunding"));
+const HomeProjects      = lazy(() => import("./components/HomeWebsite").then((m) => ({ default: m.HomeProjects })));
+const HomeProcess       = lazy(() => import("./components/HomeWebsite").then((m) => ({ default: m.HomeProcess })));
+const HomeBudget        = lazy(() => import("./components/HomeWebsite").then((m) => ({ default: m.HomeBudget })));
+const HomeContact       = lazy(() => import("./components/HomeWebsite").then((m) => ({ default: m.HomeContact })));
+const HomeMore          = lazy(() => import("./components/HomeWebsite").then((m) => ({ default: m.HomeMore })));
 const HomeSecurity      = lazy(() => import("./components/HomeSecurity"));
-const HomeCompany       = lazy(() => import("./components/HomeCompany"));
 import { initAnalytics } from "../lib/analytics";
 import { initSmoothScroll } from "../lib/smoothScroll";
 import ScrollReset from "./components/ScrollReset";
@@ -41,7 +39,6 @@ import { loadKlarAccess } from "../lib/klarAccess";
 import { initPointerFx } from "../lib/pointerFx";
 
 // Below-the-fold — lazy loaded for faster initial paint
-const InMotion          = lazy(() => import("./components/InMotion"));
 const NewsIndex         = lazy(() => import("./components/NewsIndex"));
 const NewsArticle       = lazy(() => import("./components/NewsArticle"));
 const Legal             = lazy(() => import("./components/Legal"));
@@ -69,40 +66,23 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <MainAnchor />
 
-      {/* Nach dem Brand Book (Oktober 2026): dunkel, Haarlinien, ein Akzent,
-          echte Fotografie. Grosse Momente: der Hero, der
-          Workshop-Abschnitt, die Einladung am Schluss; alles andere ruhig.
-          Die Reihenfolge: was wir bauen (Hero), wer uns vertraut (Kunden),
-          was wir tun (01), wie es aussieht, wenn es laeuft (Film), was schon
-          laeuft (02, 03 - das Portfolio unveraendert), wie ein Projekt
-          ablaeuft (04), wer wir sind (05, das Unternehmen), die Einladung (06).
-
-          Die Fotos sind Unsplash-Platzhalter bis zum eigenen Shooting.
-          Budgetrechner, Foerderbanner und Blog-Teaser bleiben von der
-          Startseite genommen; /project, /sme-packages und /blog bleiben
-          erreichbar. */}
+      {/* Seit dem 25.11.2026 eine Startseite fuer Website-Projekte, das
+          wichtigste Geschaeft: der Hero mit einem echten Kundenprojekt und
+          der Anfrage, drei Kundenprojekte (01) mit den Logos darunter, der
+          Ablauf (02), die Budgetorientierung (03), der persoenliche Kontakt
+          mit Sven und Fabio samt kurzer Anfrage (04), die weiteren
+          Leistungen als Wegweiser (05). KI-Film, Workshops, Cybersecurity,
+          Foerderzahlen und Videos haben ihre eigenen Seiten. */}
       <main>
         <Hero />
 
         <Suspense fallback={<SectionSkeleton />}>
+          <HomeProjects />
           <HomeClients />
-
-          {/* 01 Workshops und Beratung (seit dem 27.10.2026 zuerst), 02 was
-              wir bauen, 03 Cybersecurity und NIS2, dann die Foerderung. */}
-          <HomeWorkshops />
-          <HomeDisciplines />
-          <HomeSecurity />
-          {/* Ohne Nummer: ein Weg zur Foerderseite, kein eigener Abschnitt. */}
-          <HomeFunding />
-
-          <AiFilm />
-
-          {/* 03 und 04 - das Portfolio */}
-          <div id="portfolio"><SelectedWork /></div>
-          <InMotion />
-
-          {/* 05 Wie Projekte laufen, 06 das Unternehmen, 07 Einladung */}
-          <HomeOutro company={<HomeCompany />} />
+          <HomeProcess />
+          <HomeBudget />
+          <HomeContact />
+          <HomeMore />
         </Suspense>
       </main>
       <SectionTicks />
@@ -251,6 +231,9 @@ function sitePages(theme: "light" | "dark", toggleTheme: () => void) {
       {/* Workshops und Beratung: der Einstieg in die meisten Projekte, mit
           eigener Adresse fuer Anzeigen, Beitraege und die Suche. */}
       <Route path="workshops" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkshopsPage /></Suspense>)} />
+      {/* Cybersecurity und NIS2: stand bis zum 25.11.2026 nur auf der
+          Startseite (#cybersecurity) und hat jetzt eine eigene Adresse. */}
+      <Route path="services/cybersecurity" element={chrome(<main className="pt-[68px]"><Suspense fallback={<SectionSkeleton />}><HomeSecurity standalone /></Suspense></main>)} />
       {/* Wer wir sind: das Team und wie wir arbeiten. */}
       <Route path="about" element={chrome(<Suspense fallback={<SectionSkeleton />}><AboutPage /></Suspense>)} />
       <Route path="work" element={chrome(<Suspense fallback={<SectionSkeleton />}><WorkIndex /></Suspense>)} />

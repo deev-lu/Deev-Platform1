@@ -54,7 +54,7 @@ export const home: typeof En = {
       { title: "Logiciel sur mesure", sub: "Applications web, portails, systèmes internes" },
       { title: "IA et automatisation", sub: "Agents et assistants sur vos données" },
       { title: "Ateliers et conseil", sub: "Là où le logiciel et l’IA rapportent vraiment" },
-      { title: "Sites web", sub: "Sur invitation" },
+      { title: "Sites web", sub: "Sites d'entreprise et boutiques en ligne" },
       { title: "Cybersécurité & NIS2", sub: "Sensibilisation des équipes et de la direction" },
     ],
     funding: "PME luxembourgeoises : 70 % des coûts éligibles remboursés",
@@ -123,7 +123,7 @@ export const home: typeof En = {
     eyebrow: "Ce que nous faisons",
     title: "Du logiciel et de l’IA qui tournent en production. Le design là où il compte.",
     core: "Cœur",
-    invitation: "Sur invitation",
+    invitation: "Sites web et boutiques",
     software: {
       title: "Logiciels sur mesure",
       copy: "Plateformes, portails et systèmes internes construits autour de la façon dont votre organisation fonctionne vraiment, et conçus pour être maintenus pendant des années.",
@@ -138,7 +138,7 @@ export const home: typeof En = {
     },
     design: {
       title: "Design",
-      copy: "Sites web et identités numériques pour un nombre limité de clients, conçus à la hauteur de la marque qu’ils représentent.",
+      copy: "Sites d'entreprise, refontes et boutiques en ligne, conçus à la hauteur de la marque qu’ils représentent.",
       list: ["Sites de marque", "Identité numérique", "E-commerce premium"],
       cta: "Demander un projet de design",
     },

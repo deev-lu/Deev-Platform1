@@ -12,7 +12,12 @@ export const site: typeof En = {
     workshops: "Workshops",
     funding: "KMU-Förderung",
     contact: "Kontakt",
-    cta: "Kostenloses Erstgespräch",
+    cta: "Website-Projekt anfragen",
+    /** The main button where space is short (phone contact bar). */
+    ctaShort: "Projekt anfragen",
+    websites: "Websites",
+    projects: "Projekte",
+    more: "Weitere Leistungen",
     call: "Anrufen",
     openMenu: "Menü öffnen",
     closeMenu: "Menü schließen",
@@ -46,7 +51,7 @@ export const site: typeof En = {
 
   footer: {
     blurb:
-      "Software- und KI-Entwicklung aus Luxemburg. Wir bauen die Systeme, auf denen Ihr Unternehmen läuft, und bleiben nach dem Start verantwortlich.",
+      "Webdesign aus Luxemburg: mehrsprachige Firmenwebsites und Onlineshops, die aus Besuchern Kunden machen. Dazu Individualsoftware und KI, vom selben Team.",
     certified: "Zertifiziertes Label",
     certifiedNote: "In Luxemburg entworfen und entwickelt.",
     services: "Leistungen",
@@ -56,7 +61,9 @@ export const site: typeof En = {
       grant: "SME Packages",
       webApps: "Individualsoftware",
       aiAgents: "KI und Daten",
-      ecommerce: "Websites, auf Einladung",
+      ecommerce: "Websites und Onlineshops",
+      security: "Cybersecurity und NIS2",
+      pricing: "Was kostet meine Website?",
       marketingSites: "Marketing",
       portfolio: "Referenzen",
       terms: "Rechtliche Hinweise",
