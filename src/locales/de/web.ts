@@ -69,8 +69,8 @@ export const web: typeof En = {
 
   more: {
     eyebrow: "Weitere Leistungen",
-    title: "Mehr als Websites.",
-    lead: "Software, KI, Workshops, Marketing und Cybersecurity. Jede Leistung hat ihre eigene Seite.",
+    title: "Nicht nur Websites.",
+    lead: "Neben Websites und Onlineshops entwickeln wir Individualsoftware und KI-Lösungen, begleiten Sie in Workshops, kümmern uns um Marketing und schulen Ihr Team zu Cybersecurity.",
     items: {
       software: { title: "Individualsoftware", line: "Webanwendungen, Portale, interne Systeme" },
       ai: { title: "KI-Lösungen", line: "Agenten und Assistenten für Ihre Daten" },

@@ -79,8 +79,8 @@ export const web = {
 
   more: {
     eyebrow: "More services",
-    title: "Beyond websites.",
-    lead: "Software, AI, workshops, marketing and cybersecurity. Each has its own page.",
+    title: "Not only websites.",
+    lead: "Besides websites and online shops, we build custom software and AI solutions, run workshops, take care of marketing and train your team in cybersecurity.",
     items: {
       software: { title: "Custom software", line: "Web apps, portals and internal systems" },
       ai: { title: "AI solutions", line: "Agents and assistants that work on your data" },

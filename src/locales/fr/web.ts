@@ -69,8 +69,8 @@ export const web: typeof En = {
 
   more: {
     eyebrow: "Autres services",
-    title: "Au-delà des sites web.",
-    lead: "Logiciels, IA, ateliers, marketing et cybersécurité. Chaque service a sa propre page.",
+    title: "Pas seulement des sites web.",
+    lead: "En plus des sites web et des boutiques en ligne, nous développons des logiciels sur mesure et des solutions IA, animons des ateliers, gérons votre marketing et formons votre équipe à la cybersécurité.",
     items: {
       software: { title: "Logiciels sur mesure", line: "Applications web, portails, systèmes internes" },
       ai: { title: "Solutions IA", line: "Agents et assistants sur vos données" },

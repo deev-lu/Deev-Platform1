@@ -12,9 +12,9 @@ import { MORE_SERVICES } from "../../lib/serviceSections";
 
 /**
  * Die Startseite seit dem 25.11.2026, nach dem Hero: drei Kundenprojekte
- * (01), der Ablauf (02), die Budgetorientierung (03), der persoenliche
- * Kontakt mit Sven und Fabio samt kurzer Anfrage (04), dann knapp die
- * weiteren Leistungen (05). Website-Projekte sind das Hauptgeschaeft; alles
+ * (01), seit dem 26.11.2026 gleich danach die weiteren Leistungen (02), der
+ * Ablauf (03), die Budgetorientierung (04), der persoenliche Kontakt mit
+ * Sven und Fabio samt kurzer Anfrage (05). Website-Projekte sind das Hauptgeschaeft; alles
  * andere hat eine eigene Seite und steht hier nur als Wegweiser.
  *
  * Die nummerierten Augenbrauen folgen dieser Reihenfolge (SectionTicks liest
@@ -167,7 +167,7 @@ export function HomeProcess() {
   return (
     <section id="process" aria-labelledby="process-title" style={{ paddingBlock: "var(--section-pad)" }}>
       <div className="mx-auto" style={wrap}>
-        <Eyebrow n="02">{p.eyebrow}</Eyebrow>
+        <Eyebrow n="03">{p.eyebrow}</Eyebrow>
         <h2 id="process-title" className="text-[var(--text-hi)] font-medium mt-6 mb-0" style={{ ...h2Style, maxWidth: "24ch" }}>
           <TwoTone text={p.title} />
         </h2>
@@ -209,7 +209,7 @@ export function HomeBudget() {
     <section id="pricing" aria-labelledby="budget-title" style={{ paddingBlock: "var(--section-pad)" }}>
       <span id="project-builder" aria-hidden="true" />
       <div className="mx-auto" style={wrap}>
-        <Eyebrow n="03">{b.eyebrow}</Eyebrow>
+        <Eyebrow n="04">{b.eyebrow}</Eyebrow>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-8">
           <div className="lg:col-span-7 card-glow border border-[var(--line)] bg-[var(--surface-1)] p-8 sm:p-10 flex flex-col" style={{ borderRadius: "var(--radius-2)" }}>
             <h2 id="budget-title" className="text-[var(--text-hi)] font-medium m-0" style={{ ...h2Style, maxWidth: "18ch" }}>
@@ -255,11 +255,11 @@ export function HomeContact() {
   const t = useT();
   const c = t.web.contact;
   return (
-    <section id="talk" aria-labelledby="talk-title" style={{ paddingBlock: "var(--section-pad)" }}>
+    <section id="talk" aria-labelledby="talk-title" style={{ paddingBlock: "var(--section-pad) calc(var(--section-pad) * 1.25)" }}>
       <span id="about" aria-hidden="true" />
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-14 gap-y-10 items-start" style={wrap}>
         <div className="lg:col-span-5">
-          <Eyebrow n="04">{c.eyebrow}</Eyebrow>
+          <Eyebrow n="05">{c.eyebrow}</Eyebrow>
           <h2 id="talk-title" className="text-[var(--text-hi)] font-medium mt-6 mb-0" style={{ ...h2Style, maxWidth: "16ch" }}>
             {c.title}
           </h2>
@@ -332,19 +332,19 @@ export function HomeMore() {
   const t = useT();
   const m = t.web.more;
   return (
-    <section id="more" aria-labelledby="more-title" style={{ paddingBlock: "var(--section-pad) calc(var(--section-pad) * 1.25)" }}>
+    <section id="more" aria-labelledby="more-title" style={{ paddingBlock: "var(--section-pad)" }}>
       {/* Alte Anker (#cybersecurity, #film, #services) aus Links von
           aussen landen hier, beim Wegweiser auf die eigenen Seiten. */}
       <span id="cybersecurity" aria-hidden="true" />
       <span id="film" aria-hidden="true" />
       <span id="services" aria-hidden="true" />
       <div className="mx-auto" style={wrap}>
-        <Eyebrow n="05">{m.eyebrow}</Eyebrow>
+        <Eyebrow n="02">{m.eyebrow}</Eyebrow>
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mt-6">
-          <h2 id="more-title" className="text-[var(--text-hi)] font-medium m-0" style={{ fontSize: "var(--t-h3)", lineHeight: 1.15 }}>
+          <h2 id="more-title" className="text-[var(--text-hi)] font-medium m-0" style={{ ...h2Style, maxWidth: "16ch" }}>
             {m.title}
           </h2>
-          <p className="text-[var(--text-mid)] m-0" style={{ fontSize: "var(--t-small)", maxWidth: "52ch" }}>
+          <p className="text-[var(--text-mid)] m-0" style={{ fontSize: "var(--t-body)", lineHeight: 1.6, maxWidth: "56ch" }}>
             {m.lead}
           </p>
         </div>

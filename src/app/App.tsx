@@ -79,10 +79,12 @@ function HomePage({ theme, toggleTheme }: ThemeProps) {
         <Suspense fallback={<SectionSkeleton />}>
           <HomeProjects />
           <HomeClients />
+          {/* Seit dem 26.11.2026 direkt nach den Referenzen: Websites zuerst,
+              aber sofort sichtbar, dass DEEV mehr anbietet. */}
+          <HomeMore />
           <HomeProcess />
           <HomeBudget />
           <HomeContact />
-          <HomeMore />
         </Suspense>
       </main>
       <SectionTicks />
