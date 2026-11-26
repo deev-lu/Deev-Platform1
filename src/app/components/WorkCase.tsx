@@ -400,7 +400,7 @@ export default function WorkCase() {
             </p>
             <L
               to={`/contact?interest=website&ref=${project.slug}`}
-              data-cta="website_request"
+              data-cta="project_request"
               data-cta-at="case_study"
               className="btn-grad m-arrow shrink-0 inline-flex items-center justify-center gap-2.5 px-7 text-white font-semibold rounded-full"
               style={{ height: 56, fontSize: "var(--t-body)" }}

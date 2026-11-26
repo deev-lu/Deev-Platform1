@@ -225,7 +225,7 @@ export default function AboutPage() {
           </div>
           <L
             to="/contact?interest=website"
-            data-cta="website_request"
+            data-cta="project_request"
             data-cta-at="about"
             className="group shrink-0 inline-flex items-center gap-2 h-[52px] px-6 rounded-full bg-[var(--signal)] text-white font-medium"
             style={{ fontSize: "var(--t-small)" }}

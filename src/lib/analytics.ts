@@ -204,7 +204,7 @@ function watchContactClicks(): () => void {
   // Ohne echtes DOM (Server, Tests mit nachgebautem document) nichts tun.
   if (typeof document === "undefined" || typeof document.addEventListener !== "function") return () => {};
   const onClick = (e: MouseEvent) => {
-    // Haupt-Knoepfe tragen data-cta (z. B. "website_request") und
+    // Haupt-Knoepfe tragen data-cta (z. B. "project_request") und
     // data-cta-at (hero, nav, drawer, case_study ...). Ein Listener statt
     // eines onClick an jedem Knopf, damit keiner vergessen wird.
     const cta = (e.target as Element | null)?.closest?.("[data-cta]") as HTMLElement | null;

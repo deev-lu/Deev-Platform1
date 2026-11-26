@@ -12,9 +12,9 @@ export const site: typeof En = {
     workshops: "Ateliers",
     funding: "Aides PME",
     contact: "Contact",
-    cta: "Demander un projet de site web",
+    cta: "Demander un projet",
     /** The main button where space is short (phone contact bar). */
-    ctaShort: "Demander un devis",
+    ctaShort: "Demander un projet",
     websites: "Sites web",
     projects: "Projets",
     more: "Autres services",

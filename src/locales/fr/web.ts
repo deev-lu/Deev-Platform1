@@ -6,7 +6,7 @@ export const web: typeof En = {
     title: "Un site web qui transforme vos visiteurs [[en clients.]]",
     lead:
       "Nous concevons des sites web d'entreprise multilingues et des boutiques en ligne. Vos clients trouvent vite ce qu'ils cherchent et peuvent demander, réserver ou acheter directement.",
-    primary: "Demander un projet de site web",
+    primary: "Demander un projet",
     secondary: "Voir nos projets",
     previewLabel: "Projet client",
     previewCta: "Voir l'étude de cas",
@@ -64,7 +64,7 @@ export const web: typeof En = {
     lead:
       "Pas de commerciaux : les deux fondateurs lisent votre demande eux-mêmes, et celui qui conçoit votre site web le réalise aussi.",
     call: "Vous préférez appeler ?",
-    formTitle: "Votre projet de site web",
+    formTitle: "Votre projet",
   },
 
   more: {
@@ -81,9 +81,9 @@ export const web: typeof En = {
   },
 
   form: {
-    pageTitle: "Parlez-nous de votre",
-    pageAccent: "nouveau site web.",
-    pageLead: "Décrivez en quelques mots ce que votre nouveau site web doit faire. Cela suffit pour une première réponse.",
+    pageTitle: "Parlez-nous de",
+    pageAccent: "votre projet.",
+    pageLead: "Décrivez en quelques mots ce que vous avez en tête. Cela suffit pour une première réponse.",
     need: "Que doit faire votre nouveau site web ?",
     needPlaceholder: "Nous voulons renouveler notre site actuel et recevoir plus de demandes de rendez-vous.",
     callback: "Merci de me rappeler",
@@ -91,10 +91,10 @@ export const web: typeof En = {
     more: "Ajouter l'entreprise et le site actuel (facultatif)",
     company: "Entreprise",
     currentSite: "Site web actuel",
-    submit: "Demander un projet de site web",
+    submit: "Demander un projet",
     reply: "Nous répondons personnellement, généralement sous un jour ouvré.",
     reference: "Votre demande concerne",
     configuration: "Votre configuration est jointe",
-    similar: "Demander un projet de site web similaire",
+    similar: "Demander un projet similaire",
   },
 };

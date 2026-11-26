@@ -216,7 +216,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 bereits als Textlink in der Navigation. */}
             <L
               to="/contact?interest=website"
-              data-cta="website_request"
+              data-cta="project_request"
               data-cta-at="nav"
               className={`btn-grad ${compact ? "hidden" : "hidden lg:inline-flex"} items-center gap-2 h-11 px-5 rounded-full whitespace-nowrap text-sm font-semibold text-white`}
             >
@@ -319,7 +319,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
               <L
                 to="/contact?interest=website"
-                data-cta="website_request"
+                data-cta="project_request"
                 data-cta-at="drawer"
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 w-full py-3.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90 text-center"

@@ -4,6 +4,7 @@ import L from "./L";
 import { useT } from "../../lib/useT";
 import { newRequestId, sendLead } from "../../lib/leadEmail";
 import { track } from "../../lib/analytics";
+import { INTEREST_KEYS, type InterestKey } from "../../lib/interests";
 
 const CONTACT_EMAIL = "contact@deev.lu";
 
@@ -25,6 +26,11 @@ const CONTACT_EMAIL = "contact@deev.lu";
  * ersten Eingabe, `lead_accepted` nach angenommener Uebermittlung,
  * `lead_error` mit dem Grund. Nie Name, Adresse oder Freitext.
  *
+ * Seit dem 26.11.2026 (Wunsch des Inhabers) laesst sich trotzdem jede
+ * andere Leistung waehlen: "Wobei koennen wir helfen?" steht auf "Neue
+ * Website", wenn nichts anderes uebergeben wird. Bei einer anderen Wahl
+ * heisst das Textfeld wieder "Nachricht".
+ *
  * `reference` ist das Referenzprojekt, von dessen Fallstudie jemand kommt
  * (/contact?interest=website&ref=<slug>); es geht als eigene Zeile mit.
  */
@@ -32,7 +38,10 @@ export default function WebsiteRequestForm({
   at,
   reference,
   heading,
+  interest: initialInterest = "website",
 }: {
+  /** The option preselected in "How can we help?". */
+  interest?: InterestKey;
   /** Where the form sits, for the measurement: "contact" or "home". */
   at: "contact" | "home";
   reference?: { slug: string; title: string };
@@ -43,7 +52,10 @@ export default function WebsiteRequestForm({
   const f = t.web.form;
   const c = t.pages.contact.form;
   const uid = useId();
-  const [form, setForm] = useState({ name: "", email: "", need: "", phone: "", company: "", site: "", callback: false, website: "" });
+  const [form, setForm] = useState({ name: "", email: "", need: "", phone: "", company: "", site: "", callback: false, website: "", interest: initialInterest as string });
+  const interests = t.pages.contact.interests;
+  const isWebsite = form.interest === "website";
+  const interestLabel = interests[INTEREST_KEYS.indexOf(form.interest as InterestKey)] ?? interests[0];
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const started = useRef(false);
   const requestId = useRef<string | null>(null);
@@ -56,13 +68,13 @@ export default function WebsiteRequestForm({
   const update = (key: keyof typeof form, value: string | boolean) => {
     if (!started.current && key !== "website") {
       started.current = true;
-      track("form_start", { form: "website_request", at, ...(reference ? { ref: reference.slug } : {}) });
+      track("form_start", { form: "project_request", at, ...(reference ? { ref: reference.slug } : {}) });
     }
     setForm((s) => ({ ...s, [key]: value }));
   };
 
   const mailtoFallback = () => {
-    const subject = encodeURIComponent(`Website project${reference ? `, ${reference.title}` : ""}`);
+    const subject = encodeURIComponent(`${interestLabel}${reference ? `, ${reference.title}` : ""}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "n/a"}\n${reference ? `Reference: ${reference.title}\n` : ""}\n${form.need}`,
     );
@@ -81,15 +93,15 @@ export default function WebsiteRequestForm({
     const id = requestId.current ?? (requestId.current = newRequestId());
     const result = await sendLead(
       {
-        subject: `New website project${reference ? `, like ${reference.title}` : ""}${form.callback ? " (call back)" : ""}`,
-        from_name: form.name || "Website request",
+        subject: `New project enquiry, ${interestLabel}${reference ? `, like ${reference.title}` : ""}${form.callback ? " (call back)" : ""}`,
+        from_name: form.name || "Project request",
         replyto: form.email,
         name: form.name,
         email: form.email,
         phone: form.phone || "n/a",
         company: form.company || "n/a",
         current_website: form.site || "n/a",
-        interest: "Website project",
+        interest: interestLabel,
         ...(reference ? { reference_project: reference.title } : {}),
         ...(form.callback ? { call_back: "Yes, please call back" } : {}),
         message: form.need || "n/a",
@@ -98,10 +110,10 @@ export default function WebsiteRequestForm({
     );
     if (result.ok) {
       requestId.current = null;
-      track("lead_accepted", { source: "website_form", at, ...(reference ? { ref: reference.slug } : {}) });
+      track("lead_accepted", { source: "project_form", interest: form.interest, at, ...(reference ? { ref: reference.slug } : {}) });
       setStatus("success");
     } else {
-      track("lead_error", { source: "website_form", at, reason: result.status });
+      track("lead_error", { source: "project_form", interest: form.interest, at, reason: result.status });
       setStatus("error");
     }
   };
@@ -147,14 +159,24 @@ export default function WebsiteRequestForm({
         </Field>
       </div>
 
-      <Field id={id("need")} label={f.need} required={!form.callback}>
+      <Field id={id("interest")} label={c.interest}>
+        <select id={id("interest")} value={form.interest} onChange={(e) => update("interest", e.target.value)} className={inputCls}>
+          {INTEREST_KEYS.map((k, i) => (
+            <option key={k} value={k}>
+              {interests[i]}
+            </option>
+          ))}
+        </select>
+      </Field>
+
+      <Field id={id("need")} label={isWebsite ? f.need : c.message} required={!form.callback}>
         <textarea
           id={id("need")}
           required={!form.callback}
           rows={4}
           value={form.need}
           onChange={(e) => update("need", e.target.value)}
-          placeholder={f.needPlaceholder}
+          placeholder={isWebsite ? f.needPlaceholder : c.messagePlaceholder}
           className={`${inputCls} resize-y min-h-[112px]`}
         />
       </Field>

@@ -12,7 +12,7 @@ export const site: typeof En = {
     workshops: "Workshops",
     funding: "KMU-Förderung",
     contact: "Kontakt",
-    cta: "Website-Projekt anfragen",
+    cta: "Projekt anfragen",
     /** The main button where space is short (phone contact bar). */
     ctaShort: "Projekt anfragen",
     websites: "Websites",
