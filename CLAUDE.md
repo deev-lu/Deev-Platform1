@@ -63,12 +63,14 @@ linking to its case study; on phones text and button come first) →
 Feltes, F.I.T., Vino Amore — `HOME_PROJECTS` — large screenshots, one
 benefit sentence each from `web.projects.items`, link to the case study)
 → HomeClients (the logo coverflow; the list and each logo's filter live in
-`clients` in ClientLogos.tsx) → HomeProcess (02, four steps: first call,
-design, build and review on a test address, launch) → HomeBudget (03,
-#pricing / #project-builder: "What will my website cost?" to
-`/project?type=website`, the SME grant separately) → HomeContact (04, #about:
-Sven and Fabio, phone, the short website request form) → HomeMore (05, the
-five other services; old anchors #cybersecurity, #film, #services land here)
+`clients` in ClientLogos.tsx) → HomeMore (02, since 26 Nov 2026 right
+after the references, the owner's wish: "we also offer other things" —
+the five other services; old anchors #cybersecurity, #film, #services land
+here) → HomeProcess (03, four steps: first call, design, build and review on
+a test address, launch) → HomeBudget (04, #pricing / #project-builder: "What
+will my website cost?" to `/project?type=website`, the SME grant
+separately) → HomeContact (05, #about: Sven and Fabio, phone, the short
+website request form)
 → Footer. Copy for all of it lives in `src/locales/*/web.ts`.
 
 What left the homepage on 25 Nov 2026 and where it went: the AI film →
@@ -77,7 +79,7 @@ What left the homepage on 25 Nov 2026 and where it went: the AI film →
 /work; workshops → /workshops; the funding figures → /sme-packages. The old
 components (HomeWorkshops, HomeDisciplines, HomeFunding, SelectedWork,
 HomeOutro, BudgetTeaser, HeroNetwork) are no longer rendered anywhere.
-**The process wording (02) must be confirmed by the owner**: it repeats what
+**The process wording (03) must be confirmed by the owner**: it repeats what
 the site already promised, but no written DEEV website process existed.
 
 The numbered `NN /` eyebrows follow that order. Moving a section means
