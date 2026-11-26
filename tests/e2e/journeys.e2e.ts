@@ -4,7 +4,7 @@ import { test, expect, type Page, type Route } from "@playwright/test";
  * Die zwei Wege zur Anfrage (seit dem 25.11.2026), von Anfang bis Ende:
  *
  *   1. Erster Bildschirm -> Referenz (Feltes) -> "Aehnliches
- *      Website-Projekt anfragen" -> Formular mit Referenz -> Absenden.
+ *      Projekt anfragen" -> Formular mit Referenz -> Absenden.
  *   2. "Was kostet meine Website?" -> Rechner mit vorausgewaehlter Website
  *      -> Schaetzung ohne Kontaktdaten -> Angebotsanfrage mit Konfiguration.
  *
@@ -44,16 +44,17 @@ test("first screen -> reference -> website request", async ({ page }) => {
 
   // The first screen says what DEEV sells and offers the request.
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Eine Website, die aus Besuchern");
-  await expect(page.getByRole("link", { name: /Website-Projekt anfragen/ }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /Projekt anfragen/ }).first()).toBeVisible();
 
   await page.locator("figure a[href$='/de/work/bureau-immobilier-feltes']").first().click();
   await expect(page).toHaveURL(/\/de\/work\/bureau-immobilier-feltes$/);
 
-  await page.getByRole("link", { name: "Ähnliches Website-Projekt anfragen" }).click();
+  await page.getByRole("link", { name: "Ähnliches Projekt anfragen" }).click();
   await expect(page).toHaveURL(/interest=website&ref=bureau-immobilier-feltes/);
   await expect(page.getByText("Ihre Anfrage bezieht sich auf")).toBeVisible();
-  // No general list of services to choose from again.
-  await expect(page.locator("main select")).toHaveCount(0);
+  // The service choice is there, already on "Neue Website"; other services
+  // can still be picked.
+  await expect(page.getByLabel("Wobei können wir helfen?")).toHaveValue("website");
 
   await page.getByLabel("Name").fill("Test Person");
   await page.getByLabel("Geschäftliche E-Mail").fill("test@example.com");
@@ -62,7 +63,7 @@ test("first screen -> reference -> website request", async ({ page }) => {
   await page.getByLabel("Bitte rufen Sie mich zurück").check();
   await page.getByLabel("Telefonnummer").fill("+352 000 000");
 
-  const submit = page.getByRole("button", { name: "Website-Projekt anfragen" });
+  const submit = page.getByRole("button", { name: "Projekt anfragen" });
   await submit.click();
   // First answer fails: an error, no success, the inputs stay.
   await expect(page.getByRole("alert")).toBeVisible();
@@ -74,7 +75,7 @@ test("first screen -> reference -> website request", async ({ page }) => {
   expect(sent).toHaveLength(2);
   expect(sent[1].request_id).toBe(sent[0].request_id);
   expect(sent[1].reference_project).toBe("Bureau Immobilier Feltes");
-  expect(sent[1].interest).toBe("Website project");
+  expect(sent[1].interest).toBe("Neue Website");
   expect(sent[1].call_back).toBeTruthy();
 });
 

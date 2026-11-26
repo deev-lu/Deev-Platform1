@@ -71,9 +71,12 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
 
   // Belege aus dem echten Portfolio, nicht aus einer gepflegten Extraliste:
   // so kann eine Leistungsseite keine Referenz zeigen, die es nicht gibt.
-  const related = PROJECTS.filter(
-    (p) => p.image && p.scope?.some((sc) => MATCHES[service].includes(sc)),
-  ).slice(0, 3);
+  // Auf der Website-Seite seit dem 26.11.2026 alle Kundenwebsites und
+  // Onlineshops (Wunsch des Inhabers), auf den anderen drei passende.
+  const related =
+    service === "websites"
+      ? PROJECTS.filter((p) => p.image && !p.ownProduct && p.services?.some((s) => s === "website" || s === "ecommerce"))
+      : PROJECTS.filter((p) => p.image && p.scope?.some((sc) => MATCHES[service].includes(sc))).slice(0, 3);
 
   // Welcher der drei Wege wird tatsächlich geöffnet? Ohne diese Zahl ist die
   // Aufteilung in drei Seiten eine Behauptung über das Interesse der Besucher.
@@ -153,7 +156,7 @@ export default function ServiceDetail({ service }: { service: ServiceKey }) {
           >
             {t.pages.servicePages.workLabel}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className={`grid grid-cols-1 gap-5 ${related.length > 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-3"}`}>
             {related.map((p) => (
               <L
                 key={p.slug}

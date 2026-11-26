@@ -6,7 +6,7 @@ export const web: typeof En = {
     title: "Eine Website, die aus Besuchern [[Kunden macht.]]",
     lead:
       "Wir gestalten mehrsprachige Firmenwebsites und Onlineshops. Damit Ihre Kunden schnell finden, was sie suchen, und direkt anfragen, buchen oder kaufen können.",
-    primary: "Website-Projekt anfragen",
+    primary: "Projekt anfragen",
     secondary: "Projekte ansehen",
     previewLabel: "Kundenprojekt",
     previewCta: "Fallstudie ansehen",
@@ -64,7 +64,7 @@ export const web: typeof En = {
     lead:
       "Keine Vertriebsschicht: Ihre Anfrage lesen die beiden Gründer selbst, und wer Ihre Website plant, baut sie auch.",
     call: "Lieber anrufen?",
-    formTitle: "Ihr Website-Projekt",
+    formTitle: "Ihr Projekt",
   },
 
   more: {
@@ -81,9 +81,9 @@ export const web: typeof En = {
   },
 
   form: {
-    pageTitle: "Erzählen Sie uns von Ihrer",
-    pageAccent: "neuen Website.",
-    pageLead: "Beschreiben Sie in ein paar Worten, was Ihre neue Website können soll. Das genügt für eine erste Antwort.",
+    pageTitle: "Erzählen Sie uns von",
+    pageAccent: "Ihrem Projekt.",
+    pageLead: "Beschreiben Sie in ein paar Worten, was Sie vorhaben. Das genügt für eine erste Antwort.",
     need: "Was soll Ihre neue Website können?",
     needPlaceholder: "Wir möchten unsere bestehende Website erneuern und mehr Terminanfragen erhalten.",
     callback: "Bitte rufen Sie mich zurück",
@@ -91,10 +91,10 @@ export const web: typeof En = {
     more: "Unternehmen und aktuelle Website angeben (optional)",
     company: "Unternehmen",
     currentSite: "Aktuelle Website",
-    submit: "Website-Projekt anfragen",
+    submit: "Projekt anfragen",
     reply: "Wir antworten persönlich, meist innerhalb eines Werktags.",
     reference: "Ihre Anfrage bezieht sich auf",
     configuration: "Ihre Konfiguration wird mitgeschickt",
-    similar: "Ähnliches Website-Projekt anfragen",
+    similar: "Ähnliches Projekt anfragen",
   },
 };

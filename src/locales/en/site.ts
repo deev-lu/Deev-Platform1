@@ -19,7 +19,7 @@ export const site = {
     workshops: "Workshops",
     funding: "SME funding",
     contact: "Contact",
-    cta: "Request a website project",
+    cta: "Request a project",
     /** The main button where space is short (phone contact bar). */
     ctaShort: "Request project",
     websites: "Websites",

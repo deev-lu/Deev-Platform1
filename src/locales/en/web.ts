@@ -15,7 +15,7 @@ export const web = {
     title: "A website that turns visitors [[into customers.]]",
     lead:
       "We design multilingual company websites and online shops, so your customers quickly find what they are looking for and can enquire, book or buy right away.",
-    primary: "Request a website project",
+    primary: "Request a project",
     secondary: "See our projects",
     previewLabel: "Client project",
     previewCta: "Read the case study",
@@ -74,7 +74,7 @@ export const web = {
     lead:
       "No sales layer: the two founders read your enquiry themselves, and whoever plans your website also builds it.",
     call: "Rather call?",
-    formTitle: "Your website project",
+    formTitle: "Your project",
   },
 
   more: {
@@ -92,9 +92,9 @@ export const web = {
 
   /** The website request form: /contact?interest=website and the homepage. */
   form: {
-    pageTitle: "Tell us about your",
-    pageAccent: "new website.",
-    pageLead: "Tell us in a few words what your new website should do. That is enough for a first answer.",
+    pageTitle: "Tell us about",
+    pageAccent: "your project.",
+    pageLead: "Tell us in a few words what you have in mind. That is enough for a first answer.",
     need: "What should your new website do?",
     needPlaceholder: "We want to renew our current website and get more appointment requests.",
     callback: "Please call me back",
@@ -102,10 +102,10 @@ export const web = {
     more: "Add company and current website (optional)",
     company: "Company",
     currentSite: "Current website",
-    submit: "Request website project",
+    submit: "Request a project",
     reply: "We reply personally, usually within one working day.",
     reference: "Your enquiry refers to",
     configuration: "Your configuration is attached",
-    similar: "Request a similar website project",
+    similar: "Request a similar project",
   },
 };

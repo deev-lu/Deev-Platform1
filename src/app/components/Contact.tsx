@@ -20,19 +20,14 @@ import { newRequestId, sendLead, type LeadStatus } from "../../lib/leadEmail";
 import { track } from "../../lib/analytics";
 import { getProject } from "../../lib/projects";
 import WebsiteRequestForm from "./WebsiteRequestForm";
+import { INTEREST_KEYS, type InterestKey } from "../../lib/interests";
 
 const CONTACT_EMAIL = "contact@deev.lu";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-/**
- * The interest options in the order of `pages.contact.interests` (the same
- * in every language). A button elsewhere links to `/contact?interest=<key>`
- * and the form opens on the matching option: "Book a workshop" lands on
- * "Workshop / consulting", not on "General enquiry".
- */
-export const INTEREST_KEYS = ["general", "call", "workshop", "ai", "software", "funding", "website", "marketing", "security", "other"] as const;
-export type InterestKey = (typeof INTEREST_KEYS)[number];
+// The interest keys live in lib/interests.ts (the project form uses them too).
+export { INTEREST_KEYS, type InterestKey } from "../../lib/interests";
 
 const initialForm = {
   name: "",
@@ -274,7 +269,7 @@ export default function Contact() {
 
               {web.on ? (
                 <div className="p-7 md:p-9">
-                  <WebsiteRequestForm at="contact" reference={web.ref} />
+                  <WebsiteRequestForm at="contact" reference={web.ref} interest="website" />
                 </div>
               ) : status === "success" ? (
                 <div role="status" className="p-10 md:p-14 text-center">

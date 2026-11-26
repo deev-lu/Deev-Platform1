@@ -75,7 +75,7 @@ export default function Hero() {
             <div className="m-fade-up mt-8 flex flex-col sm:flex-row sm:items-center gap-x-7 gap-y-4" style={{ animationDelay: "0.3s" }}>
               <L
                 to="/contact?interest=website"
-                data-cta="website_request"
+                data-cta="project_request"
                 data-cta-at="hero"
                 className="btn-grad m-arrow inline-flex items-center justify-center gap-2.5 px-7 text-white font-semibold rounded-full"
                 style={{ height: 56, fontSize: "var(--t-body)" }}

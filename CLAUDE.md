@@ -53,7 +53,7 @@ orb glow, so keep orb alphas where they are (design.css, tokens.css).
 
 Navbar (two floating glass pills: the mark + DEEV, which folds to the mark
 on scroll; Websites · Projects (panel) · More services (panel) · About,
-language, theme, phone and the main button "Request a website project") →
+language, theme, phone and the main button "Request a project") →
 Hero (`Hero.tsx`: eyebrow "Web design from Luxembourg", a fixed <h1> "A
 website that turns visitors into customers.", lead, the main button, a text
 link to #projects, the Google rating; on the right a large real client
@@ -70,12 +70,14 @@ here) → HomeProcess (03, four steps: first call, design, build and review on
 a test address, launch) → HomeBudget (04, #pricing / #project-builder: "What
 will my website cost?" to `/project?type=website`, the SME grant
 separately) → HomeContact (05, #about: Sven and Fabio, phone, the short
-website request form)
+project request form)
 → Footer. Copy for all of it lives in `src/locales/*/web.ts`.
 
 What left the homepage on 25 Nov 2026 and where it went: the AI film →
 /services/ai-automation (first block); HomeSecurity → its own route
-`/services/cybersecurity` (`standalone`, an <h1>); InMotion → bottom of
+`/services/cybersecurity` (`standalone`, an <h1>); /services/websites lists
+every client website and shop (since 26 Nov 2026), the other service pages
+three matching projects; InMotion → bottom of
 /work; workshops → /workshops; the funding figures → /sme-packages. The old
 components (HomeWorkshops, HomeDisciplines, HomeFunding, SelectedWork,
 HomeOutro, BudgetTeaser, HeroNetwork) are no longer rendered anywhere.
@@ -121,15 +123,18 @@ funding figures count up (`CountUp`, never from zero).
 Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
 
 ## Leads (since 24 Oct 2026, "a lead machine")
-- **One main button everywhere since 25 Nov 2026: "Request a website
-  project"** (`nav.cta`, hero, phone bar as `nav.ctaShort`, about page,
-  every website case study as "Request a similar website project"), to
-  `/contact?interest=website` (`&ref=<slug>` from a case study: the project
-  name goes into the enquiry). That opens `WebsiteRequestForm.tsx` instead of
-  the general form: name, email, "What should your new website do?", call
-  back (shows the phone field), company and current site behind a
-  disclosure, the one-working-day note right at the button. The homepage
-  contact section uses the same form. Every other contact button opens the
+- **One main button everywhere: "Request a project"** (since 26 Nov 2026;
+  "Request a website project" before) (`nav.cta`, hero, phone bar as
+  `nav.ctaShort`, about page, every website case study as "Request a
+  similar project"), to `/contact?interest=website` (`&ref=<slug>` from a
+  case study: the project name goes into the enquiry). That opens
+  `WebsiteRequestForm.tsx`: name, email, "How can we help?" (every service,
+  preselected on "New website" — the owner wants the other services
+  selectable), "What should your new website do?" (or "Message" for any
+  other choice), call back (shows the phone field), company and current
+  site behind a disclosure, the one-working-day note right at the button.
+  The homepage contact section uses the same form. Every other contact
+  button opens the
   general form on its own option: `?interest=workshop|ai|software|funding|website|marketing|security`
   (`INTEREST_KEYS` in Contact.tsx maps a key to `pages.contact.interests` by
   position — keep the arrays in the same order in all three languages).
@@ -141,7 +146,7 @@ Everything below the fold is `React.lazy` + `Suspense` for first-paint speed.
   configuration along. `?type=website` (from "What will my website cost?")
   preselects the website and opens on the scope step. Pricing logic unchanged.
 - **Analytics events** (consent only, `lib/analytics.ts`): `cta_click` (any
-  element with `data-cta`, `data-cta-at` says where), `form_start` (first
+  element with `data-cta`, e.g. `project_request`; `data-cta-at` says where), `form_start` (first
   input), `lead_accepted` (only after `/api/lead` accepted it — the one event
   that counts as an enquiry; mark it as the key event in GA4), `lead_error`.
   Never names, addresses or free text (the `safe()` filter enforces it).
